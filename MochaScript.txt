@@ -1,0 +1,53 @@
+// => Comment line, not available on a command line.
+
+"Provider" "Database name" "Database password" => Database info to connect.
+
+Begin => Indicates that script functions have started.
+Final => Indicates that script functions have end, the codes that follow are not considered.
+delete => Deletes the specified variable, if any.
+
+if "Arguments" "Mark" "Arguments".
+if EXISTSTABLE:MyTable == True
+{
+DELETETABLE:MyTable
+}
+
+Variable types;
+String: Text.
+Char: Character.
+Decimal: 128-Bit decimal number.
+Long: 64-Bit integer.
+Integer: 32-Bit integer.
+Short: 16-Bit integer.
+Double: 64-Bit decimal number.
+Float: 32-Bit decimal number.
+Boolean: True-False.
+nil: null, empty, undefined.
+
+Basic Sample;
+----------------------
+//Author: Mertcan DAVULCU
+
+//Connect.
+Provider .\bin\Sources\MyDB.mochadb 1230
+
+//Start script commands.
+Begin
+
+String PiNumber = "3.14"
+Boolean ExistsState = EXISTSSECTOR:PINumber
+
+if ExistsState == True
+{
+    if GETSECTORDATA:PINumber == PiNumber
+    {
+        DELETESECTOR:PINumber
+    }
+}
+else
+{
+    ADDSECTOR:PINumber:3.14:MySector.
+}
+
+//End script commands.
+Final

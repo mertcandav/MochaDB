@@ -1,0 +1,2 @@
+You can work with LINQ Queries in the source code.
+All LINQ queries are supported for your custom filtering and other operations.
