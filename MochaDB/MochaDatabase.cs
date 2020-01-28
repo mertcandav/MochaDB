@@ -44,6 +44,7 @@ namespace MochaDB {
             if(!IsMochaDB(path))
                 throw new Exception("The file shown is not a MochaDB database file!");
 
+            DBPath = path;
             ExistsAutoCreate();
 
             Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
@@ -55,7 +56,6 @@ namespace MochaDB {
 
             FileInfo fInfo = new FileInfo(path);
 
-            DBPath = path;
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
             Query = new MochaQuery(this);
@@ -70,6 +70,7 @@ namespace MochaDB {
             if(!IsMochaDB(path))
                 throw new Exception("The file shown is not a MochaDB database file!");
 
+            DBPath = path;
             ExistsAutoCreate();
 
             Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
@@ -81,7 +82,6 @@ namespace MochaDB {
 
             FileInfo fInfo = new FileInfo(path);
 
-            DBPath = path;
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
             Query = new MochaQuery(this);
