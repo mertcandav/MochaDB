@@ -111,8 +111,16 @@ namespace MochaDB {
         /// Create new MochaDB database.
         /// </summary>
         /// <param name="path">The file path to be created. (Including name, excluding extension)</param>
-        public static void CreateMochaDB(string path) {
-            File.WriteAllText(path + ".mochadb",Mocha_ACE.Encrypt(EmptyContent));
+        /// <param name="password">Password of database.</param>
+        public static void CreateMochaDB(string path,string password) {
+            if(string.IsNullOrEmpty(password))
+                File.WriteAllText(path + ".mochadb",Mocha_ACE.Encrypt(EmptyContent));
+            else {
+                string content = EmptyContent;
+                int dex = content.IndexOf("</Password>");
+                content = content.Insert(dex,password);
+                File.WriteAllText(path + ".mochadb",Mocha_ACE.Encrypt(content));
+            }
         }
 
         /// <summary>
