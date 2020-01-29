@@ -1,12 +1,41 @@
 # MochaDB
+---
 File based NoSQL database system.
 
-It is designed as a fast and high data storage solution based on files.<br>
+It is designed as a fast and high data storage solution based on files.
 It stores the data with XML infrastructure. It does not support SQL.
 
-<br><br>
+<br>
 
-# Use
+## Featured features.
+- Open source and free for everyone
+- Serverless
+- File based
+- Fast
+- Lightweight
+- Small
+- Secure
+- Full compatible with .NET Core, .NET Standard and NET Framework
+- Script build and debug with MochaScript
+- MochaQ for simple and fast querys
+- Supports LINQ querys
+- Encrypted database file
+- Use indexes for fast searching
+- MochaDB Studio for databases management with graphical user interface
+- Single DLL
+- Fast XML infrastructure
+
+<br>
+
+## Usage areas
+- Desktop applications
+- Web sites/applications
+- Servers
+- Libraries
+
+<br>
+
+## Use
 
 You cannot work with SQL queries, but with MochaQ you can do basic operations with custom commands and work with LINQ queries.
 
@@ -21,6 +50,34 @@ public IEnumerable<MochaTable> GetMatchTables(string key) {
   
   return result;
 }
+
+```
+
+<br><br>
+
+# MochaQ
+MochaQ offers quick basic queries. With MochaQuery, you can process and run queries.
+
+<br>
+
+### Use
+
+```c#
+
+MochaDatabase db = new MochaDatabase("path");
+string value = (string)db.Query.Run("GETSECTORDATA:PiNumber");
+
+if(value!="3.14")
+    db.Query.Run("SETSECTORDATA:PiNumber:3.14");
+
+//Or
+
+MochaDatabase db = new MochaDatabase("path");
+MochaQuery query = new MochaQuery(db);
+string value = (string)query.Run("GETSECTORDATA:PiNumber");
+
+if(value!="3.14")
+    query.Run("SETSECTORDATA:PiNumber:3.14");
 
 ```
 
@@ -107,3 +164,7 @@ public void Debug(string path) {
 }
 
 ```
+<br>
+
+# License
+<a href="https://opensource.org/licenses/MIT">MIT License<a/>
