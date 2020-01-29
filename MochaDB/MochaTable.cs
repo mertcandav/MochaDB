@@ -102,9 +102,10 @@ namespace MochaDB {
             if(column == null)
                 return;
 
-            if(!ExistColumn(column.Name))
+            if(!ExistColumn(column.Name)) {
                 columns.Add(column);
-            else
+                SetRowsByDatas();
+            } else
                 throw new Exception("There is no such table or there is already a table with this name!");
         }
 
@@ -128,13 +129,16 @@ namespace MochaDB {
                     this.columns.RemoveAt(index);
                     break;
                 }
+            SetRowsByDatas();
         }
 
         /// <summary>
         /// Remove all columns.
         /// </summary>
-        public void ClearColumns() =>
+        public void ClearColumns() {
             columns.Clear();
+            SetRowsByDatas();
+        }
 
         /// <summary>
         /// Returns whether there is a column with the specified name.

@@ -470,17 +470,17 @@ namespace MochaDB {
         /// </summary>
         /// <param name="table">MochaTable object to add.</param>
         public void AddTable(MochaTable table) {
-            if(ExistsElement(table.Name))
+            if(ExistsTable(table.Name))
                 throw new Exception("There is already a table with this name!");
 
             XElement Xtable = new XElement(table.Name);
 
-            for(int ColumnIndex = 0; ColumnIndex < table.ColumnCount; ColumnIndex++) {
-                XElement column = new XElement(table.Columns[ColumnIndex].Name);
-                column.Add(new XAttribute("DataType",table.Columns[ColumnIndex].DataType));
-                column.Add(new XAttribute("Description",table.Columns[ColumnIndex].Description));
-                for(int DataIndex = 0; DataIndex < table.Columns[ColumnIndex].Datas.Count; DataIndex++)
-                    column.Add(new XElement("Data",table.Columns[ColumnIndex].Datas[DataIndex].Data));
+            for(int columnIndex = 0; columnIndex < table.ColumnCount; columnIndex++) {
+                XElement column = new XElement(table.Columns[columnIndex].Name);
+                column.Add(new XAttribute("DataType",table.Columns[columnIndex].DataType));
+                column.Add(new XAttribute("Description",table.Columns[columnIndex].Description));
+                for(int DataIndex = 0; DataIndex < table.Columns[columnIndex].Datas.Count; DataIndex++)
+                    column.Add(new XElement("Data",table.Columns[columnIndex].Datas[DataIndex].Data));
                 Xtable.Add(column);
             }
 
