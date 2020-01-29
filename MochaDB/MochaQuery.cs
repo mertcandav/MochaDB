@@ -76,8 +76,8 @@ namespace MochaDB {
 
             try {
                 string[] Parts = MochaQ.Split(' ');
-                Parts[0]=Parts[0].Trim().ToUpper();
-                Parts[2]=Parts[2].Trim().ToUpper();
+                Parts[0]=Parts[0].Trim().ToUpperInvariant();
+                Parts[2]=Parts[2].Trim().ToUpperInvariant();
 
                 if(Parts[0] == "SELECT") {
 
@@ -142,7 +142,7 @@ namespace MochaDB {
                 return;
 
             string[] QueryPaths = MochaQ.Split(':');
-            QueryPaths[0]=QueryPaths[0].Trim().ToUpper();
+            QueryPaths[0]=QueryPaths[0].Trim().ToUpperInvariant();
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "RESETMOCHA") {
@@ -306,7 +306,7 @@ namespace MochaDB {
                 return null;
 
             string[] QueryPaths = MochaQ.Split(':');
-            QueryPaths[0]=QueryPaths[0].Trim().ToUpper();
+            QueryPaths[0]=QueryPaths[0].Trim().ToUpperInvariant();
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "GETTABLES") {
