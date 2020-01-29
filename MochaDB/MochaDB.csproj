@@ -9,6 +9,7 @@
     <Description>File based NoSQL database system.</Description>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
+    <Authors>Mertcan Davulcu</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
