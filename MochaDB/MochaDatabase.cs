@@ -253,7 +253,10 @@ namespace MochaDB {
         /// Save MochaDB database.
         /// </summary>
         public void Save() {
-            sourceStream.Write(Encoding.UTF8.GetBytes(Mocha_ACE.Encrypt(Doc.ToString())));
+            sourceStream.Dispose();
+            File.WriteAllText(DBPath,Mocha_ACE.Encrypt(Doc.ToString()));
+            sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
+
             OnChangeContent(this,new EventArgs());
         }
 
@@ -365,7 +368,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector to remove.</param>
         public void RemoveSector(string name) {
-            if(!ExistsElement("Sectors/" + name))
+            if(!ExistsSector(name))
                 return;
 
             Doc.Root.Element("Sectors").Element(name).Remove();
@@ -378,6 +381,8 @@ namespace MochaDB {
         /// <param name="name">Name of sector to rename.</param>
         /// <param name="newName">New name of sector.</param>
         public void RenameSector(string name,string newName) {
+            if(!ExistsSector(name))
+                throw new Exception("Sector not found in this name!");
             if(ExistsSector(newName))
                 throw new Exception("There is already a sector with this name!");
 
@@ -390,7 +395,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorData(string name) {
-            if(!ExistsElement("Sectors/" + name))
+            if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
             return Doc.Root.Element("Sectors").Element(name).Value;
@@ -402,7 +407,7 @@ namespace MochaDB {
         /// <param name="name">Name of sector.</param>
         /// <param name="data">Data to set.</param>
         public void SetSectorData(string name,string data) {
-            if(!ExistsElement("Sectors/" + name))
+            if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
             Doc.Root.Element("Sectors").Element(name).Value = data;
@@ -414,7 +419,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorDescription(string name) {
-            if(!ExistsElement("Sectors/" + name))
+            if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
             return Doc.Root.Element("Sectors").Element(name).Attribute("Description").Value;
@@ -426,7 +431,7 @@ namespace MochaDB {
         /// <param name="name">Name of sector.</param>
         /// <param name="description">Description to set.</param>
         public void SetSectorDescription(string name,string description) {
-            if(!ExistsElement("Sectors/" + name))
+            if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
             Doc.Root.Element("Sectors").Element(name).Attribute("Description").Value = description;
@@ -510,6 +515,8 @@ namespace MochaDB {
         /// <param name="name">Name of table to rename.</param>
         /// <param name="newName">New name of table.</param>
         public void RenameTable(string name,string newName) {
+            if(!ExistsTable(name))
+                throw new Exception("Table not found in this name!");
             if(ExistsTable(newName))
                 throw new Exception("There is already a table with this name!");
 
@@ -524,6 +531,9 @@ namespace MochaDB {
         public MochaTable GetTable(string name) {
             if(IsBannedSyntax(name))
                 return null;
+
+            if(!ExistsTable(name))
+                throw new Exception("Table not found in this name!");
 
             MochaTable Table = new MochaTable(name);
 
@@ -575,6 +585,8 @@ namespace MochaDB {
         /// <param name="tableName">Name of column.</param>
         /// <param name="column">MochaColumn object to add.</param>
         public void AddColumn(string tableName,MochaColumn column) {
+            if(!ExistsTable(tableName))
+                throw new Exception("Table not found in this name!");
             if(ExistsElement(tableName + '/' + column.Name))
                 throw new Exception("There is no such table or there is already a table with this name!");
 
@@ -624,6 +636,8 @@ namespace MochaDB {
         /// <param name="name">Name of column to rename.</param>
         /// <param name="newName">New name of column.</param>
         public void RenameColumn(string tableName,string name,string newName) {
+            if(!ExistsElement(tableName + '/' + name))
+                throw new Exception("There is no such table or column!");
             if(ExistsColumn(tableName,newName))
                 throw new Exception("There is already a column with this name!");
 
