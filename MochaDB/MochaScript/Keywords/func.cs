@@ -124,8 +124,8 @@ namespace MochaDB.MochaScript.Keywords {
         /// <summary>
         /// All functions as array.
         /// </summary>
-        public MochaScriptFunction[] Functions =>
-            functions.ToArray();
+        public IList<MochaScriptFunction> Functions =>
+            functions;
 
         /// <summary>
         /// Get function count.
