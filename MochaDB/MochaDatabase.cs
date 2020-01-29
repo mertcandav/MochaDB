@@ -253,7 +253,7 @@ namespace MochaDB {
         /// Save MochaDB database.
         /// </summary>
         public void Save() {
-            File.WriteAllText(DBPath,Mocha_ACE.Encrypt(Doc.ToString()),Encoding.UTF8);
+            sourceStream.Write(Encoding.UTF8.GetBytes(Mocha_ACE.Encrypt(Doc.ToString())));
             OnChangeContent(this,new EventArgs());
         }
 
