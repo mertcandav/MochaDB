@@ -10,23 +10,19 @@ namespace MochaDB {
     /// </summary>
     [Serializable]
     public class MochaQuery {
-        #region Constructors
+        #region Fields
 
-        /// <summary>
-        /// Create new MochaQuery.
-        /// </summary>
-        public MochaQuery() {
-            MochaQ = "RETURNQUERY";
-        }
+        private MochaDatabase db;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Create new MochaQuery.
         /// </summary>
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         public MochaQuery(MochaDatabase db) {
-            if(db == null)
-                throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
-
             DB = db;
             MochaQ = "RETURNQUERY";
         }
@@ -470,12 +466,24 @@ namespace MochaDB {
 
         #endregion
 
-        #region Get/Set
+        #region Properties
 
         /// <summary>
         /// MochaDatabse object that provides management of the targeted MochaDB database.
         /// </summary>
-        public MochaDatabase DB { get; set; }
+        public MochaDatabase DB {
+            get =>
+                db;
+            set {
+                if(value == db)
+                    return;
+
+                if(db == null)
+                    throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
+
+                db = value;
+            }
+        }
 
         /// <summary>
         /// Active MochaQ query.
