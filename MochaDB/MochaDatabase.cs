@@ -309,6 +309,15 @@ namespace MochaDB {
             };
 
         /// <summary>
+        /// Return xml schema of database.
+        /// </summary>
+        public string GetXML() {
+            XDocument doc = XDocument.Parse(Doc.ToString());
+            doc.Root.Element("Root").Remove();
+            return doc.ToString();
+        }
+
+        /// <summary>
         /// Dispose.
         /// </summary>
         public void Dispose() {
