@@ -12,6 +12,8 @@ Reset the database: RESETMOCHA
 Reset the all tables: RESETTABLES
 Reset the table: RESETTABLE:TableName
 Create new MochaDB in directory: CREATEMOCHA:FullPath
+Set password of database: SETPASSWORD:Passoword
+Set description of database: SETDESCRIPTION:Description
 Delete the table: DELETETABLE:TableName
 Delete the sector: DELETESECTOR:SectorName
 Delete the column: DELETECOLUMN:TableName:ColumnName
@@ -34,6 +36,8 @@ Update data in column by index: UPDATEDATA:TableName:ColumnName:DataIndex:NewDat
 Returnable commands.
 {
 
+Return password of database: GETPASSWORD
+Return description of database: GETDESCRIPTION
 Return all tables in database: GETTABLES
 Return all datas in database: GETDATAS
 Return table count in database: TABLECOUNT

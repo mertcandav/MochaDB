@@ -76,6 +76,8 @@ namespace MochaDB {
 
             try {
                 string[] Parts = MochaQ.Split(' ');
+                Parts[0]=Parts[0].Trim().ToUpper();
+                Parts[2]=Parts[2].Trim().ToUpper();
 
                 if(Parts[0] == "SELECT") {
 
@@ -140,6 +142,7 @@ namespace MochaDB {
                 return;
 
             string[] QueryPaths = MochaQ.Split(':');
+            QueryPaths[0]=QueryPaths[0].Trim().ToUpper();
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "RESETMOCHA") {
@@ -167,6 +170,12 @@ namespace MochaDB {
                     return;
                 } else if(QueryPaths[0] == "DELETESECTOR") {
                     DB.RemoveSector(QueryPaths[1]);
+                    return;
+                } else if(QueryPaths[0] == "SETPASSWORD") {
+                    DB.SetPassword(QueryPaths[1]);
+                    return;
+                } else if(QueryPaths[0] == "SETDESCRIPTION") {
+                    DB.SetDescription(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "RESETTABLE") {
                     foreach(XElement Table in DB.Doc.Root.Elements())
@@ -297,12 +306,16 @@ namespace MochaDB {
                 return null;
 
             string[] QueryPaths = MochaQ.Split(':');
+            QueryPaths[0]=QueryPaths[0].Trim().ToUpper();
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "GETTABLES") {
                     return DB.GetTables();
-                }
-                if(QueryPaths[0] == "GETDATAS") {
+                } else if(QueryPaths[0] == "GETPASSWORD") {
+                    return DB.GetPassword();
+                } else if(QueryPaths[0] == "GETDESCRIPTION") {
+                    return DB.GetDescription();
+                } else if(QueryPaths[0] == "GETDATAS") {
                     List<MochaData> Datas = new List<MochaData>();
                     foreach(XElement Table in DB.Doc.Root.Elements())
                         Datas.AddRange(GETDATAS(Table.Name.LocalName));
