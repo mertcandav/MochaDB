@@ -1028,7 +1028,7 @@ namespace MochaDB {
         /// <summary>
         /// The most basic content of the database.
         /// </summary>
-        internal static string EmptyContent => "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+        internal static string EmptyContent => "<?MochaDB?>\n" +
                         "<Mocha>\n" +
                         "  <Root>\n" +
                         "    <Password DataType=\"String\" Description=\"Password of database.\"></Password>\n" +
