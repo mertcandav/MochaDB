@@ -180,6 +180,19 @@ namespace MochaDB {
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// This happens after content changed.
+        /// </summary>
+        public event EventHandler<EventArgs> ChangeContent;
+        private void OnChangeContent(object sender,EventArgs e) {
+            //Invoke.
+            ChangeContent?.Invoke(sender,e);
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -233,6 +246,7 @@ namespace MochaDB {
         /// </summary>
         public void Save() {
             File.WriteAllText(DBPath,Mocha_ACE.Encrypt(Doc.ToString()),Encoding.UTF8);
+            OnChangeContent(this,new EventArgs());
         }
 
         /// <summary>
