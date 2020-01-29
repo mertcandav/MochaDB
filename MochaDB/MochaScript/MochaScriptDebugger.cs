@@ -111,6 +111,9 @@ namespace MochaDB.MochaScript {
         /// Debug code and run.
         /// </summary>
         public void DebugRun() {
+            MochaScript = File.ReadAllText(ScriptPath);
+            MochaScriptArray = File.ReadAllLines(ScriptPath);
+
             OnStartDebug(new EventArgs());
 
             //Use MochaDatabase object if success provider.
@@ -673,8 +676,6 @@ namespace MochaDB.MochaScript {
                     throw new Exception("The file shown is not a MochaScript file!");
 
                 scriptPath = value;
-                MochaScript = File.ReadAllText(value);
-                MochaScriptArray = File.ReadAllLines(value);
             }
         }
 
