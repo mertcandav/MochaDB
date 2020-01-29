@@ -21,7 +21,8 @@ Delete the row: DELETEROW:TableName:RowIndex
 Create new MochaDB in directory: CREATEMOCHA:DirectoryPath:Name
 Rename the table: RENAMETABLE:TableName:NewName
 Rename the column: RENAMECOLUMN:TableName:ColumnName:NewName
-Rename the table: CREATETABLE:Name
+Rename the sector: RENAMESECTOR:SectorName:NewName
+Create new table: CREATETABLE:Name
 Set the sector data: SETSECTORDATA:SectorName:NewData
 Set the sector description: SETSECTORDESCRIPTION:SectorName:NewDescription
 Add new sector: ADDSECTOR:Name:Data:Description

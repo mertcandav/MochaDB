@@ -209,8 +209,10 @@ namespace MochaDB {
                     DB.RemoveRow(QueryPaths[1],int.Parse(QueryPaths[2]));
                     return;
                 } else if(QueryPaths[0] == "RENAMETABLE") {
-                    DB.Doc.Root.Element(QueryPaths[1]).Name = QueryPaths[2];
-                    DB.Save();
+                    DB.RenameTable(QueryPaths[1],QueryPaths[2]);
+                    return;
+                } else if(QueryPaths[0] == "RENAMESECTOR") {
+                    DB.RenameSector(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "CREATECOLUMN") {
                     DB.CreateColumn(QueryPaths[1],QueryPaths[2]);
@@ -230,8 +232,7 @@ namespace MochaDB {
                     throw new Exception("Parameter not found!");
 
                 if(QueryPaths[0] == "RENAMECOLUMN") {
-                    DB.Doc.Root.Element(QueryPaths[1]).Element(QueryPaths[2]).Name = QueryPaths[3];
-                    DB.Save();
+                    DB.RenameColumn(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "SETCOLUMNDESCRIPTION") {
                     DB.SetColumnDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
