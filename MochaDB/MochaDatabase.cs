@@ -33,7 +33,13 @@ namespace MochaDB {
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
     [Serializable]
-    public sealed class MochaDatabase {
+    public sealed class MochaDatabase:IDisposable {
+        #region Fields
+
+        FileStream sourceStream;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -59,6 +65,7 @@ namespace MochaDB {
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
             Query = new MochaQuery(this);
+            sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
         }
 
         /// <summary>
@@ -85,6 +92,7 @@ namespace MochaDB {
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
             Query = new MochaQuery(this);
+            sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
         }
 
         #endregion
@@ -299,6 +307,13 @@ namespace MochaDB {
                 "Sectors" => true,
                 _ => false
             };
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        public void Dispose() {
+            sourceStream.Dispose();
+        }
 
         #endregion
 
@@ -1011,7 +1026,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Get/Set
+        #region Properties
 
         /// <summary>
         /// MochaQuery object.
