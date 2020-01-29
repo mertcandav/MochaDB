@@ -15,13 +15,13 @@ It stores the data with XML infrastructure. It does not support SQL.
 - Lightweight
 - Small
 - Secure
-- Full compatible with .NET Core, .NET Standard and NET Framework
+- Full compatible with .NET Core, .NET Standard and .NET Framework
 - Script build and debug with MochaScript
 - MochaQ for simple and fast querys
 - Supports LINQ querys
 - Encrypted database file
 - Use indexes for fast searching
-- MochaDB Studio for databases management with graphical user interface
+- <a href="https://github.com/MertcanDavulcu/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
 - Single DLL
 - Fast XML infrastructure
 
