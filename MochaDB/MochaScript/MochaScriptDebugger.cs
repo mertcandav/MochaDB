@@ -43,7 +43,6 @@ namespace MochaDB.MochaScript {
         public MochaScriptDebugger(string path) {
             ScriptPath = path;
 
-            //Load.
             db = null;
             functions = new MochaScriptFunctionCollection(this);
             compilerEvents = new MochaScriptFunctionCollection(this);
@@ -117,12 +116,13 @@ namespace MochaDB.MochaScript {
             //Use MochaDatabase object if success provider.
             db = null;
 
+            int dex=0;
             //Find Provider and Debugger.
             for(int Index = 0; Index < MochaScriptArray.Length; Index++) {
                 try {
                     string line = MochaScriptArray[Index].Trim();
 
-                    if(line[0..8] == "Provider") {
+                    if(line.StartsWith("Provider ")) {
                         string[] Parts = line.Split(' ');
                         if(Parts.Length == 3)
                             db = new MochaDatabase(Parts[1],Parts[2]);
@@ -131,12 +131,12 @@ namespace MochaDB.MochaScript {
 
                         break;
                     }
-                } catch { }
+                } catch { dex = Index; break; }
             }
 
             //Check Provider.
             if(db == null || !db.IsConnected)
-                throw new Exception("Provider could not be processed!");
+                throw new Exception(dex+1+"|| Provider could not be processed!");
 
             //Find Begin and Final tag index.
             beginIndex = Keyword_Begin.GetIndex(MochaScriptArray);
@@ -144,11 +144,11 @@ namespace MochaDB.MochaScript {
 
             //Check indexes.
             if(beginIndex == -1)
-                throw new Exception("Begin keyword not found!");
+                throw new Exception("-1|| Begin keyword not found!");
             else if(finalIndex == -1)
-                throw new Exception("Final keyword not found!");
+                throw new Exception("-1|| Final keyword not found!");
             else if(beginIndex > finalIndex)
-                throw new Exception("Start keyword cannot come after Last keyword!");
+                throw new Exception(beginIndex+"|| Start keyword cannot come after Last keyword!");
 
             //Functions.
             functions.Clear();
@@ -156,9 +156,9 @@ namespace MochaDB.MochaScript {
 
             //Check Main function.
             if(functions[0].Name != "Main")
-                throw new Exception("First function is not Main function.");
+                throw new Exception(functions[0].Index+"|| First function is not Main function.");
             else if(!functions.Contains("Main"))
-                throw new Exception("Not defined Main function.");
+                throw new Exception("-1|| Not defined Main function.");
 
             //Compiler Events.
             compilerEvents.Clear();
@@ -189,7 +189,7 @@ namespace MochaDB.MochaScript {
                         index = Process_if(index);
                         continue;
                     } else if(line.StartsWith("echo ")) {
-                        OnEcho(new MochaScriptEchoEventArgs(GetArgumentValue("Undefined",line[5..^0])));
+                        OnEcho(new MochaScriptEchoEventArgs(GetArgumentValue("Undefined",line[5..^0],index)));
                         continue;
                     } else if(line.StartsWith("delete ")) {
                         string[] parts = line.Split(' ');
@@ -197,7 +197,7 @@ namespace MochaDB.MochaScript {
                             variables.Remove(parts[1]);
                             continue;
                         } else {
-                            throw new Exception("Line: " + (index + 1) + "\n----\nThe entry was not in the correct format!!");
+                            throw new Exception(index + 1 + "|| The entry was not in the correct format!");
                         }
                     } else if(line[^2] == '(' && line[^1] == ')') {
                         functions.Invoke(line[0..^2]);
@@ -212,7 +212,7 @@ namespace MochaDB.MochaScript {
                         try {
                             db.Query.GetRun(line);
                         } catch(Exception Excep) {
-                            throw new Exception("Line: " + (index + 1) + "\n----\n" + Excep.Message+"\n" + line);
+                            throw new Exception(index + 1 + "|| " + Excep.Message);
                         }
                     }
                 }
@@ -235,25 +235,25 @@ namespace MochaDB.MochaScript {
                     string[] elifArg = MochaScriptArray[index].Trim().Split(' ');
 
                     if(elifArg.Length != 4)
-                        throw new Exception("Line: " + (index + 1) + "\n----\nThe if comparison was wrong! There are too many or missing parameters!");
+                        throw new Exception(index + 1 + "|| The if comparison was wrong! There are too many or missing parameters!");
 
                     //Get compare mark.
                     MochaScriptComparisonMark elifMark = GetCompareMark(elifArg[2]);
 
                     if(elifMark == MochaScriptComparisonMark.Undefined)
-                        throw new Exception("The comparison parameter is not recognized!");
+                        throw new Exception(index + 1 + "|| The comparison parameter is not recognized!");
 
                     //Get Value Arguments.
-                    object ElifArg1 = GetArgumentValue("Undefined",elifArg[1]);
-                    object ElifArg2 = GetArgumentValue("Undefined",elifArg[3]);
+                    object ElifArg1 = GetArgumentValue("Undefined",elifArg[1],index);
+                    object ElifArg2 = GetArgumentValue("Undefined",elifArg[3],index);
 
                     //Check arguments.
                     if(ElifArg1 == null || ElifArg2 == null)
-                        throw new Exception("Line: " + (index + 1) + "\n----\nOne of his arguments could not be processed!");
+                        throw new Exception(index + 1 + "|| One of his arguments could not be processed!");
 
                     closeIndex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
 
-                    if(!ok && CompareArguments(elifMark,ElifArg1,ElifArg2)) {
+                    if(!ok && CompareArguments(elifMark,ElifArg1,ElifArg2,index)) {
                         ok = true;
                         ProcessRange(index + 2,closeIndex);
                         index = closeIndex;
@@ -267,7 +267,7 @@ namespace MochaDB.MochaScript {
                     string[] ElifArg = MochaScriptArray[index].Trim().Split(' ');
 
                     if(ElifArg.Length != 4)
-                        throw new Exception("Line: " + (index + 1) + "\n----\nThe if comparison was wrong! There are too many or missing parameters!");
+                        throw new Exception(index + 1 + "|| The if comparison was wrong! There are too many or missing parameters!");
 
                     //Get compare mark.
                     MochaScriptComparisonMark ElifMark = GetCompareMark(ElifArg[2]);
@@ -276,16 +276,16 @@ namespace MochaDB.MochaScript {
                         throw new Exception("The comparison parameter is not recognized!");
 
                     //Get Value Arguments.
-                    object ElifArg1 = GetArgumentValue("Undefined",ElifArg[1]);
-                    object ElifArg2 = GetArgumentValue("Undefined",ElifArg[3]);
+                    object ElifArg1 = GetArgumentValue("Undefined",ElifArg[1],index);
+                    object ElifArg2 = GetArgumentValue("Undefined",ElifArg[3],index);
 
                     //Check arguments.
                     if(ElifArg1 == null || ElifArg2 == null)
-                        throw new Exception("Line: " + (index + 1) + "\n----\nOne of his arguments could not be processed!");
+                        throw new Exception(index + 1 + "|| One of his arguments could not be processed!");
 
                     closeIndex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
 
-                    if(!ok && CompareArguments(ElifMark,ElifArg1,ElifArg2)) {
+                    if(!ok && CompareArguments(ElifMark,ElifArg1,ElifArg2,index)) {
                         ok = true;
                         ProcessRange(index + 2,closeIndex);
                         index = closeIndex;
@@ -308,7 +308,7 @@ namespace MochaDB.MochaScript {
                 }
             }
 
-            throw new Exception("Line: " + (startIndex + 1) + "\n----\nCould not process if-elif-else structures.");
+            throw new Exception(startIndex + 1 + "|| Could not process if-elif-else structures.");
         }
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace MochaDB.MochaScript {
             if(parts.Length == 3) {
                 if(variables.ContainsKey(parts[0])) {
                     variables.Remove(parts[0]);
-                    variables.Add(parts[0],GetArgumentValue("Undefined",parts[2]));
+                    variables.Add(parts[0],GetArgumentValue("Undefined",parts[2],index));
                     return true;
                 }
                 return false;
@@ -333,7 +333,7 @@ namespace MochaDB.MochaScript {
                 return false;
 
             if(IsBannedSyntax(parts[1]))
-                throw new Exception("Line: " + (index + 1) + "\n----\nThis variable name cannot be used!");
+                throw new Exception(index + 1 + "|| This variable name cannot be used!");
 
             if(parts[3] == "nil") {
                 variables.Add(parts[1],null);
@@ -341,7 +341,7 @@ namespace MochaDB.MochaScript {
             }
 
             if(variables.ContainsKey(parts[3])) {
-                variables.Add(parts[1],GetArgumentValue("Variable",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Variable",parts[3],index));
                 return true;
             }
 
@@ -352,31 +352,31 @@ namespace MochaDB.MochaScript {
             } catch { }
 
             if(line.StartsWith("String ")) {
-                variables.Add(parts[1],GetArgumentValue("String",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("String",parts[3],index));
                 return true;
             } else if(line.StartsWith("Char ")) {
-                variables.Add(parts[1],GetArgumentValue("Char",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Char",parts[3],index));
                 return true;
             } else if(line.StartsWith("Decimal ")) {
-                variables.Add(parts[1],GetArgumentValue("Decimal",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Decimal",parts[3],index));
                 return true;
             } else if(line.StartsWith("Long ")) {
-                variables.Add(parts[1],GetArgumentValue("Long",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Long",parts[3],index));
                 return true;
             } else if(line.StartsWith("Integer ")) {
-                variables.Add(parts[1],GetArgumentValue("Integer",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Integer",parts[3],index));
                 return true;
             } else if(line.StartsWith("Short ")) {
-                variables.Add(parts[1],GetArgumentValue("Short",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Short",parts[3],index));
                 return true;
             } else if(line.StartsWith("Double ")) {
-                variables.Add(parts[1],GetArgumentValue("Double",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Double",parts[3],index));
                 return true;
             } else if(line.StartsWith("Float ")) {
-                variables.Add(parts[1],GetArgumentValue("Float",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Float",parts[3],index));
                 return true;
             } else if(line.StartsWith("Boolean ")) {
-                variables.Add(parts[1],GetArgumentValue("Boolean",parts[3]));
+                variables.Add(parts[1],GetArgumentValue("Boolean",parts[3],index));
                 return true;
             }
 
@@ -398,10 +398,11 @@ namespace MochaDB.MochaScript {
         /// <param name="mark">Compare mark.</param>
         /// <param name="arg1">Argument 1.</param>
         /// <param name="arg2">Argument 2.</param>
-        internal bool CompareArguments(MochaScriptComparisonMark mark,object arg1,object arg2) {
+        /// <param name="dex">Index of line.</param>
+        internal bool CompareArguments(MochaScriptComparisonMark mark,object arg1,object arg2,int dex) {
             try {
                 if(mark == MochaScriptComparisonMark.Undefined) {
-                    throw new Exception("ComparisonMark failed, no such ComparisonMark!");
+                    throw new Exception(dex + 1 + "|| ComparisonMark failed, no such ComparisonMark!");
                 } else if(mark == MochaScriptComparisonMark.Equal) {
                     return arg1.Equals(arg2);
                 } else if(mark == MochaScriptComparisonMark.NotEqual) {
@@ -423,7 +424,8 @@ namespace MochaDB.MochaScript {
         /// </summary>
         /// <param name="type">Variable data type.</param>
         /// <param name="arg">Argument.</param>
-        internal object GetArgumentValue(string type,string arg) {
+        /// <param name="dex">Index of line.</param>
+        internal object GetArgumentValue(string type,string arg,int dex) {
             if(arg == "nil")
                 return null;
 
@@ -470,11 +472,11 @@ namespace MochaDB.MochaScript {
                     else if(double.TryParse(arg,out DoubleOut))
                         return DoubleOut;
                     else
-                        throw new Exception("Error in value conversion!");
+                        throw new Exception(dex + 1 + "|| Error in value conversion!");
                 } else if(variables.TryGetValue(arg,out Out)) {
                     return Out;
                 } else {
-                    throw new Exception("Error in value conversion!");
+                    throw new Exception(dex + 1 + "|| Error in value conversion!");
                 }
             } else {
                 if(type == "String") {
@@ -523,7 +525,7 @@ namespace MochaDB.MochaScript {
                     }
                     return false;
                 } else {
-                    throw new Exception("Error in value conversion!");
+                    throw new Exception(dex + 1 + "|| Error in value conversion!");
                 }
             }
         }
@@ -569,16 +571,16 @@ namespace MochaDB.MochaScript {
                     name = parts[1][0..^2];
 
                     if(parts.Length != 2 || MochaScriptArray[index + 1].Trim() != "{")
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
                     else if(parts[1][^2] != '(' || parts[1][^1] != ')')
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
 
                     if(functions.Contains(name))
-                        throw new Exception("Not added function. Debugger already in defined this name.");
+                        throw new Exception(index + 1 + "|| Not added function. Debugger already in defined this name.");
 
                     dex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
                     if(dex == -1)
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
 
                     func = new MochaScriptFunction(name);
                     func.Source = MochaScriptArray[(index + 2)..dex];
@@ -614,19 +616,19 @@ namespace MochaDB.MochaScript {
                     name = parts[1][0..^2];
 
                     if(parts.Length != 2 || MochaScriptArray[index + 1].Trim() != "{")
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
                     else if(parts[1][^2] != '(' || parts[1][^1] != ')')
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
 
                     if(!compilerEventsRegex.IsMatch(name))
-                        throw new Exception("Not added compiler event. Not exists compiler event this name.");
+                        throw new Exception(index + 1 + "|| Not added compiler event. Not exists compiler event this name.");
 
                     if(compilerEvents.Contains(name))
-                        throw new Exception("Not added compiler event. Debugger already in defined this name.");
+                        throw new Exception(index + 1 + "|| Not added compiler event. Debugger already in defined this name.");
 
                     dex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
                     if(dex == -1)
-                        throw new Exception("Any function is not processed!");
+                        throw new Exception(index + 1 + "|| Any function is not processed!");
 
                     _event = new MochaScriptFunction(name);
                     _event.Source = MochaScriptArray[(index + 2)..dex];
