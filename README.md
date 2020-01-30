@@ -23,6 +23,8 @@ It stores the data with XML infrastructure. It does not support SQL.
 - Use indexes for fast searching
 - <a href="https://github.com/MertcanDavulcu/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
 - Single DLL
+- Single database file
+- Portable
 - Fast XML infrastructure
 
 <br>
@@ -30,6 +32,7 @@ It stores the data with XML infrastructure. It does not support SQL.
 ## Usage areas
 - Desktop applications
 - Web sites/applications
+- Mobile applications
 - Servers
 - Libraries
 
