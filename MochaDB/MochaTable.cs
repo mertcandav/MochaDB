@@ -39,6 +39,18 @@ namespace MochaDB {
 
         #endregion
 
+        #region Content Events
+
+        private void Column_Changed(object sender,EventArgs e) {
+            SetRowsByDatas();
+        }
+
+        private void Row_Changed(object sender,EventArgs e) {
+            SetDatasByRows();
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -102,7 +114,8 @@ namespace MochaDB {
             if(column == null)
                 return;
 
-            if(!ExistColumn(column.Name)) {
+            if(!ExistsColumn(column.Name)) {
+                column.Changed+=Column_Changed;
                 columns.Add(column);
                 SetRowsByDatas();
             } else
@@ -123,10 +136,10 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of column to remove.</param>
         public void RemoveColumn(string name) {
-            IList<MochaColumn> columns = Columns;
             for(int index = 0; index < columns.Count; index++)
                 if(columns[index].Name == name) {
-                    this.columns.RemoveAt(index);
+                    columns[index].Changed-=Column_Changed;
+                    columns.RemoveAt(index);
                     break;
                 }
             SetRowsByDatas();
@@ -136,7 +149,11 @@ namespace MochaDB {
         /// Remove all columns.
         /// </summary>
         public void ClearColumns() {
-            columns.Clear();
+            for(int index = 0; index < columns.Count; index++) {
+                columns[index].Changed-=Column_Changed;
+                columns.RemoveAt(index);
+            }
+
             SetRowsByDatas();
         }
 
@@ -144,7 +161,7 @@ namespace MochaDB {
         /// Returns whether there is a column with the specified name.
         /// </summary>
         /// <param name="name">Name of column to check.</param>
-        public bool ExistColumn(string name) {
+        public bool ExistsColumn(string name) {
             IList<MochaColumn> columns = Columns;
             for(int index = 0; index < columns.Count; index++)
                 if(columns[index].Name == name)
@@ -171,6 +188,7 @@ namespace MochaDB {
             if(row == null)
                 return;
 
+            row.Changed+=Row_Changed;
             rows.Add(row);
             SetDatasByRows();
         }
@@ -180,9 +198,10 @@ namespace MochaDB {
         /// </summary>
         /// <param name="Data">Index of row to remove.</param>
         public void RemoveRow(int index) {
-            if(!ExistRow(index))
+            if(!ExistsRow(index))
                 return;
 
+            rows[index].Changed-=Row_Changed;
             rows.RemoveAt(index);
             SetDatasByRows();
         }
@@ -191,7 +210,11 @@ namespace MochaDB {
         /// Remove all rows.
         /// </summary>
         public void ClearRows() {
-            rows.Clear();
+            for(int index = 0; index < rows.Count; index++) {
+                rows[index].Changed-=Row_Changed;
+                rows.RemoveAt(index);
+            }
+
             SetDatasByRows();
         }
 
@@ -199,7 +222,7 @@ namespace MochaDB {
         /// Returns whether there is a row with the specified index.
         /// </summary>
         /// <param name="index">Index of row.</param>
-        public bool ExistRow(int index) {
+        public bool ExistsRow(int index) {
             if(rows.Count >= index)
                 return true;
             else

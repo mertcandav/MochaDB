@@ -41,19 +41,12 @@ namespace MochaDB {
 
         #endregion
 
-        #region Methods
+        #region Events
 
         /// <summary>
-        /// It adapts all transported data to data type.
+        /// This happends after data changed.
         /// </summary>
-        public void AdapteDatasValue() {
-            if(DataType == MochaDataType.AutoInt) {
-                for(int index = 0; index < Datas.Count; index++) {
-                    Datas[index].DataType = MochaDataType.Int32;
-                    Datas[index].Data = index;
-                }
-            }
-        }
+        internal event EventHandler<EventArgs> Changed;
 
         #endregion
 
@@ -64,9 +57,13 @@ namespace MochaDB {
         /// </summary>
         /// <param name="data">MochaData to add.</param>
         public void AddData(MochaData data) {
-            if(data.DataType == DataType)
+            if(DataType==MochaDataType.AutoInt)
+                throw new Exception("Data cannot be added directly to a column with AutoInt!");
+
+            if(data.DataType == DataType) {
                 datas.Add(data);
-            else
+                Changed?.Invoke(this,new EventArgs());
+            } else
                 throw new Exception("This data's datatype not compatible column datatype.");
         }
 
@@ -76,7 +73,7 @@ namespace MochaDB {
         /// <param name="data">Data to add.</param>
         public void AddData(object data) {
             if(MochaData.IsType(DataType,data))
-                datas.Add(new MochaData(DataType,data));
+                AddData(new MochaData(DataType,data));
             else
                 throw new Exception("This data's datatype not compatible column datatype.");
         }
@@ -89,6 +86,7 @@ namespace MochaDB {
             for(int index = 0; index < datas.Count; index++) {
                 AddData(datas[index]);
             }
+            Changed?.Invoke(this,new EventArgs());
         }
 
         /// <summary>
@@ -96,10 +94,10 @@ namespace MochaDB {
         /// </summary>
         /// <param name="data">Data to remove.</param>
         public void RemoveData(object data) {
-            IList<MochaData> datas = Datas;
             for(int index = 0; index < datas.Count; index++)
                 if(datas[index].Data == data) {
-                    this.datas.RemoveAt(index);
+                    datas.RemoveAt(index);
+                    Changed?.Invoke(this,new EventArgs());
                     break;
                 }
         }
@@ -109,22 +107,23 @@ namespace MochaDB {
         /// </summary>
         /// <param name="data">Sample data.</param>
         public void RemoveAllData(object data) {
-            /*MochaData[] datas = Datas;
-            for(int index = 0; index < datas.Length; index++)
-                if(datas[index].Data == data)
-                    this.datas.RemoveAt(index);*/
-
+            int count = datas.Count;
             datas = (
                 from currentdata in datas
                 where currentdata.Data != data
                 select currentdata).ToList();
+
+            if(datas.Count != count)
+                Changed?.Invoke(this,new EventArgs());
         }
 
         /// <summary>
         /// Remove all datas.
         /// </summary>
-        public void ClearDatas() =>
+        public void ClearDatas() {
             datas.Clear();
+            Changed?.Invoke(this,new EventArgs());
+        }
 
         #endregion
 
@@ -164,7 +163,6 @@ namespace MochaDB {
                 dataType = value;
 
                 if(value == MochaDataType.AutoInt) {
-                    AdapteDatasValue();
                     return;
                 }
 

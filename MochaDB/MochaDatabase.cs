@@ -474,17 +474,12 @@ namespace MochaDB {
                 throw new Exception("There is already a table with this name!");
 
             XElement Xtable = new XElement(table.Name);
+            Doc.Root.Add(Xtable);
 
             for(int columnIndex = 0; columnIndex < table.ColumnCount; columnIndex++) {
-                XElement column = new XElement(table.Columns[columnIndex].Name);
-                column.Add(new XAttribute("DataType",table.Columns[columnIndex].DataType));
-                column.Add(new XAttribute("Description",table.Columns[columnIndex].Description));
-                for(int DataIndex = 0; DataIndex < table.Columns[columnIndex].Datas.Count; DataIndex++)
-                    column.Add(new XElement("Data",table.Columns[columnIndex].Datas[DataIndex].Data));
-                Xtable.Add(column);
+                AddColumn(table.Name,table.Columns[columnIndex]);
             }
-
-            Doc.Root.Add(Xtable);
+            
             Save();
         }
 
@@ -594,14 +589,18 @@ namespace MochaDB {
             Xcolumn.Add(new XAttribute("DataType",column.DataType));
             Xcolumn.Add(new XAttribute("Description",column.Description));
 
-            int RowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+                int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+            if(column.DataType==MochaDataType.AutoInt) {
+                for(int index = 1; index <= rowCount; index++)
+                    Xcolumn.Add(new XElement(index.ToString()));
+            } else {
+                for(int index = 1; index <= column.DataCount; index++)
+                    Xcolumn.Add(new XElement((string)column.Datas[index].Data));
 
-            if(column.Datas.Count == 0 || column.Datas.Count < RowCount) {
-                for(int Index = column.Datas.Count; Index <= RowCount; Index++)
-                    column.AddData(new MochaData(column.DataType,MochaData.TryGetData(column.DataType,"")));
+                for(int index = column.DataCount-1;index < rowCount; index++) {
+                    Xcolumn.Add(new XElement((string)MochaData.TryGetData(MochaDataType.Byte,"WrongData")));
+                }
             }
-
-            column.AdapteDatasValue();
 
             Doc.Root.Element(tableName).Add(Xcolumn);
             Save();
@@ -860,7 +859,7 @@ namespace MochaDB {
                     MochaData.TryGetData(columns[dataIndex].DataType,""));
             }
 
-            row.Datas = datas;
+            row.AddDataRange(datas);
 
             return row;
         }

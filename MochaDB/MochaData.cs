@@ -198,6 +198,9 @@ namespace MochaDB {
         public object Data {
             get => data;
             set {
+                if(DataType==MochaDataType.AutoInt)
+                    throw new Exception("Value data cannot be edited because it is AutoInt!");
+
                 if(!IsType(DataType,value))
                     throw new Exception("The submitted data is not compatible with the targeted data!");
 
@@ -215,7 +218,11 @@ namespace MochaDB {
                     return;
 
                 dataType = value;
-                Data = TryGetData(DataType,Data);
+
+                if(value==MochaDataType.AutoInt)
+                    Data=null;
+                else
+                    Data = TryGetData(DataType,Data);
             }
         }
 
