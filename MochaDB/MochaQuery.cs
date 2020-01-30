@@ -9,7 +9,7 @@ namespace MochaDB {
     /// It offers query usage and management with MochaQ.
     /// </summary>
     [Serializable]
-    public class MochaQuery {
+    public sealed class MochaQuery {
         #region Fields
 
         private MochaDatabase db;
@@ -17,6 +17,17 @@ namespace MochaDB {
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Create new MochaQuery.
+        /// </summary>
+        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+        /// <param name="embedded">Is embedded query.</param>
+        internal MochaQuery(MochaDatabase db,bool embedded) {
+            IsDatabaseEmbeddedQuery=embedded;
+            DB = db;
+            MochaQ = "RETURNQUERY";
+        }
 
         /// <summary>
         /// Create new MochaQuery.
@@ -469,6 +480,11 @@ namespace MochaDB {
         #region Properties
 
         /// <summary>
+        /// Is embedded query.
+        /// </summary>
+        public bool IsDatabaseEmbeddedQuery { get; private set; }
+
+        /// <summary>
         /// MochaDatabse object that provides management of the targeted MochaDB database.
         /// </summary>
         public MochaDatabase DB {
@@ -478,8 +494,10 @@ namespace MochaDB {
                 if(value == db)
                     return;
 
-                if(db == null)
-                    throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
+                if(!IsDatabaseEmbeddedQuery) {
+                    if(db == null)
+                        throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
+                }
 
                 db = value;
             }

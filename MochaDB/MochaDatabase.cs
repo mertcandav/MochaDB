@@ -64,7 +64,7 @@ namespace MochaDB {
 
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
-            Query = new MochaQuery(this);
+            Query = new MochaQuery(this,true);
             sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
         }
 
@@ -91,7 +91,7 @@ namespace MochaDB {
 
             Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
 
-            Query = new MochaQuery(this);
+            Query = new MochaQuery(this,true);
             sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
         }
 

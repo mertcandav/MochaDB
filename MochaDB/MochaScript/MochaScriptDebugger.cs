@@ -8,7 +8,7 @@ namespace MochaDB.MochaScript {
     /// <summary>
     /// Process, debug and run MochaScript codes.
     /// </summary>
-    public sealed class MochaScriptDebugger {
+    public sealed class MochaScriptDebugger:IDisposable {
         #region Fields
 
         //Regexes.
@@ -29,6 +29,7 @@ namespace MochaDB.MochaScript {
         private int beginIndex;
         private int finalIndex;
 
+        private FileStream scriptStream;
         private string scriptPath;
 
         #endregion
@@ -111,9 +112,6 @@ namespace MochaDB.MochaScript {
         /// Debug code and run.
         /// </summary>
         public void DebugRun() {
-            MochaScript = File.ReadAllText(ScriptPath);
-            MochaScriptArray = File.ReadAllLines(ScriptPath);
-
             OnStartDebug(new EventArgs());
 
             //Use MochaDatabase object if success provider.
@@ -643,6 +641,13 @@ namespace MochaDB.MochaScript {
             return _compilerEvents;
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        public void Dispose() {
+            scriptStream.Dispose();
+        }
+
         #endregion
 
         #region Properties
@@ -672,9 +677,19 @@ namespace MochaDB.MochaScript {
 
                 FileInfo fInfo = new FileInfo(value);
 
+                if(!fInfo.Exists)
+                    throw new Exception("There is no such MochaScript file!");
                 if(fInfo.Extension != ".mochascript")
                     throw new Exception("The file shown is not a MochaScript file!");
 
+                if(scriptStream!=null)
+                    scriptStream.Dispose();
+
+                MochaScript = File.ReadAllText(value);
+                MochaScriptArray = File.ReadAllLines(value);
+                
+                scriptStream=File.OpenRead(value);
+                
                 scriptPath = value;
             }
         }
