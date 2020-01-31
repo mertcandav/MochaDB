@@ -272,7 +272,11 @@ namespace MochaDB {
         /// MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
         /// </summary>
         public void Reset() {
+            sourceStream.Dispose();
             File.WriteAllText(DBPath,Mocha_ACE.Encrypt(EmptyContent));
+            sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
+
+            OnChangeContent(this,new EventArgs());
         }
 
         /// <summary>
@@ -391,7 +395,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return data of sector.
+        /// Return data of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorData(string name) {
@@ -520,7 +524,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get table by name.
+        /// Return table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
         public MochaTable GetTable(string name) {
@@ -548,7 +552,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get tables in database.
+        /// Return tables in database.
         /// </summary>
         public IList<MochaTable> GetTables() {
             List<MochaTable> tables = new List<MochaTable>();
@@ -935,7 +939,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Update data.
+        /// Update data by index.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
@@ -1002,6 +1006,27 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Return data index. If there are two of the same data, it returns the index of the one you found first!
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">Data to find index.</param>
+        public int GetDataIndex(string tableName,string columnName,object data) {
+            int dex = 0;
+            string stringData = data.ToString();
+
+            IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
+            foreach(XElement currentData in dataRange) {
+                if(currentData.Value == stringData)
+                    return dex;
+
+                dex++;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
         /// Return data by index.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
@@ -1024,27 +1049,6 @@ namespace MochaDB {
             }
 
             throw new Exception("This index is larger than the maximum number of data in the table!");
-        }
-
-        /// <summary>
-        /// Return data index. If there are two of the same data, it returns the index of the one you found first!
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="columnName">Name of column.</param>
-        /// <param name="data">Data to find index.</param>
-        public int GetDataIndex(string tableName,string columnName,object data) {
-            int dex = 0;
-            string stringData = data.ToString();
-
-            IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
-            foreach(XElement currentData in dataRange) {
-                if(currentData.Value == stringData)
-                    return dex;
-
-                dex++;
-            }
-
-            return -1;
         }
 
         /// <summary>

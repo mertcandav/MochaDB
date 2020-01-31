@@ -8,7 +8,7 @@ namespace MochaDB {
     public class MochaRow {
         #region Fields
 
-        private List<MochaData> datas;
+        internal List<MochaData> datas;
 
         #endregion
 
@@ -85,14 +85,14 @@ namespace MochaDB {
         /// <summary>
         /// All datas.
         /// </summary>
-        public IReadOnlyList<MochaData> Datas =>
-            datas;
+        public MochaData[] Datas =>
+            datas.ToArray();
 
         /// <summary>
         /// Count of data.
         /// </summary>
         public int DataCount =>
-            Datas.Count;
+            datas.Count;
 
         #endregion
     }

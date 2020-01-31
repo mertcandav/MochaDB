@@ -142,8 +142,8 @@ namespace MochaDB {
         /// <summary>
         /// All datas.
         /// </summary>
-        public IReadOnlyList<MochaData> Datas =>
-            datas;
+        public MochaData[] Datas =>
+            datas.ToArray();
 
         /// <summary>
         /// Count of data.

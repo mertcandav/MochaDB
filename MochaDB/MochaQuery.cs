@@ -79,6 +79,10 @@ namespace MochaDB {
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
         public object Dynamic() {
+            //Check BREAKQUERY.
+            if(MochaQ.Contains("BREAKQUERY"))
+                return null;
+
             object ReturnObject = null;
 
             try {

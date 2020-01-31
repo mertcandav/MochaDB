@@ -58,6 +58,7 @@ namespace MochaDB {
         /// </summary>
         internal void SetDatasByRows() {
             for(int columnIndex = 0; columnIndex < ColumnCount; columnIndex++) {
+                columns[columnIndex].Changed-=Column_Changed;
                 columns[columnIndex].ClearDatas();
             }
 
@@ -65,15 +66,31 @@ namespace MochaDB {
                 return;
 
             for(int rowIndex = 0; rowIndex < RowCount; rowIndex++) {
+                if(rows[rowIndex].DataCount!=ColumnCount)
+                    throw new Exception("The number of data must be equal to the number of columns!");
+
                 for(int columnIndex = 0; columnIndex < ColumnCount; columnIndex++) {
                     if(columns[columnIndex].DataType!=MochaDataType.AutoInt)
                         columns[columnIndex].AddData(rows[rowIndex].Datas[columnIndex]);
-                    else
-                        columns[columnIndex].datas.Add(new MochaData() {
-                            data=1 + (int)columns[columnIndex].Datas[^1].Data,
-                            dataType=MochaDataType.AutoInt
-                        });
+                    else {
+                        if(columns[columnIndex].DataCount>0) {
+                            MochaData data = new MochaData() {
+                                data=1 + (int)columns[columnIndex].Datas[^1].Data,
+                                dataType=MochaDataType.AutoInt
+                            };
+                            columns[columnIndex].datas.Add(data);
+                            rows[rowIndex].datas[columnIndex]= data;
+                        } else {
+                            MochaData data = new MochaData() { data=1,dataType=MochaDataType.AutoInt };
+                            columns[columnIndex].datas.Add(data);
+                            rows[rowIndex].datas[columnIndex] = data;
+                        }
+                    }
                 }
+            }
+
+            for(int columnIndex = 0; columnIndex < ColumnCount; columnIndex++) {
+                columns[columnIndex].Changed+=Column_Changed;
             }
         }
 
@@ -106,6 +123,14 @@ namespace MochaDB {
             SetRowsByDatas();
             rows.Sort((X,Y) => X.Datas[index].ToString().CompareTo(Y.Datas[index].ToString()));
             SetDatasByRows();
+        }
+
+        /// <summary>
+        /// Sort columns by name.
+        /// </summary>
+        public void ShortColumns() {
+            columns.Sort((X,Y) => X.Name.CompareTo(Y.Name));
+            SetRowsByDatas();
         }
 
         #endregion
@@ -174,13 +199,6 @@ namespace MochaDB {
             return false;
         }
 
-        /// <summary>
-        /// Sort columns by name.
-        /// </summary>
-        public void ShortColumns() {
-            columns.Sort((X,Y) => X.Name.CompareTo(Y.Name));
-        }
-
         #endregion
 
         #region Row
@@ -193,8 +211,11 @@ namespace MochaDB {
             if(row == null)
                 return;
 
-            row.Changed+=Row_Changed;
+            if(row.DataCount != ColumnCount)
+                throw new Exception("The number of data must be equal to the number of columns!");
+
             rows.Add(row);
+            row.Changed+=Row_Changed;
             SetDatasByRows();
         }
 
@@ -246,8 +267,8 @@ namespace MochaDB {
         /// <summary>
         /// All columns.
         /// </summary>
-        public IReadOnlyList<MochaColumn> Columns =>
-            columns;
+        public MochaColumn[] Columns =>
+            columns.ToArray();
 
         /// <summary>
         /// Count of column.
@@ -258,8 +279,8 @@ namespace MochaDB {
         /// <summary>
         /// All rows.
         /// </summary>
-        public IReadOnlyList<MochaRow> Rows =>
-            rows;
+        public MochaRow[] Rows =>
+            rows.ToArray();
 
         /// <summary>
         /// Count of row.
