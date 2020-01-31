@@ -1,5 +1,4 @@
 # MochaDB
----
 File based NoSQL database system.
 
 It is designed as a fast and high data storage solution based on files.
@@ -45,8 +44,8 @@ You cannot work with SQL queries, but with MochaQ you can do basic operations wi
 ```c#
 
 public IEnumerable<MochaTable> GetMatchTables(string key) {
-  IList<MochaTable> tables = DB.GetTables();
-  IEnumerable<MochaTable> result =
+  var tables = DB.GetTables();
+  var result =
     from table in datas
     where table==key
     select table;
@@ -68,7 +67,7 @@ MochaQ offers quick basic queries. With MochaQuery, you can process and run quer
 ```c#
 
 MochaDatabase db = new MochaDatabase("path");
-string value = (string)db.Query.Run("GETSECTORDATA:PiNumber");
+string value = (string)db.Query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
     db.Query.Run("SETSECTORDATA:PiNumber:3.14");
@@ -77,7 +76,7 @@ if(value!="3.14")
 
 MochaDatabase db = new MochaDatabase("path");
 MochaQuery query = new MochaQuery(db);
-string value = (string)query.Run("GETSECTORDATA:PiNumber");
+string value = (string)query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
     query.Run("SETSECTORDATA:PiNumber:3.14");
@@ -169,5 +168,7 @@ public void Debug(string path) {
 ```
 <br>
 
-# License
-<a href="https://opensource.org/licenses/MIT">MIT License<a/>
+---
+
+- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki">Wiki</a>
+- <a href="https://opensource.org/licenses/MIT">License<a/>
