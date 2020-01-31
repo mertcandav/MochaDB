@@ -85,7 +85,7 @@ namespace MochaDB {
         /// <summary>
         /// All datas.
         /// </summary>
-        public IList<MochaData> Datas =>
+        public IReadOnlyList<MochaData> Datas =>
             datas;
 
         /// <summary>

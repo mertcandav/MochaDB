@@ -7,12 +7,19 @@ namespace MochaDB {
     public class MochaData {
         #region Fields
 
-        private object data;
-        private MochaDataType dataType;
+        internal object data;
+        internal MochaDataType dataType;
 
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Create new MochaData.
+        /// </summary>
+        internal MochaData() {
+
+        }
 
         /// <summary>
         /// Create new MochaData.

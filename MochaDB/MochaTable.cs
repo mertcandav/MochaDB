@@ -66,7 +66,13 @@ namespace MochaDB {
 
             for(int rowIndex = 0; rowIndex < RowCount; rowIndex++) {
                 for(int columnIndex = 0; columnIndex < ColumnCount; columnIndex++) {
-                    columns[columnIndex].AddData(rows[rowIndex].Datas[columnIndex]);
+                    if(columns[columnIndex].DataType!=MochaDataType.AutoInt)
+                        columns[columnIndex].AddData(rows[rowIndex].Datas[columnIndex]);
+                    else
+                        columns[columnIndex].datas.Add(new MochaData() {
+                            data=1 + (int)columns[columnIndex].Datas[^1].Data,
+                            dataType=MochaDataType.AutoInt
+                        });
                 }
             }
         }
@@ -162,7 +168,6 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of column to check.</param>
         public bool ExistsColumn(string name) {
-            IList<MochaColumn> columns = Columns;
             for(int index = 0; index < columns.Count; index++)
                 if(columns[index].Name == name)
                     return true;
@@ -241,7 +246,7 @@ namespace MochaDB {
         /// <summary>
         /// All columns.
         /// </summary>
-        public IList<MochaColumn> Columns =>
+        public IReadOnlyList<MochaColumn> Columns =>
             columns;
 
         /// <summary>
@@ -253,7 +258,7 @@ namespace MochaDB {
         /// <summary>
         /// All rows.
         /// </summary>
-        public IList<MochaRow> Rows =>
+        public IReadOnlyList<MochaRow> Rows =>
             rows;
 
         /// <summary>

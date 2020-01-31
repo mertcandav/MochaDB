@@ -9,7 +9,7 @@ namespace MochaDB {
     public class MochaColumn {
         #region Fields
 
-        private List<MochaData> datas;
+        internal List<MochaData> datas;
         private MochaDataType dataType;
 
         #endregion
@@ -142,7 +142,7 @@ namespace MochaDB {
         /// <summary>
         /// All datas.
         /// </summary>
-        public IList<MochaData> Datas =>
+        public IReadOnlyList<MochaData> Datas =>
             datas;
 
         /// <summary>
