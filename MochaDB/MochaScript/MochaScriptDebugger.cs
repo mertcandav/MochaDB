@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using MochaDB.MochaScript.Keywords;
+using System.Linq;
 
 namespace MochaDB.MochaScript {
     /// <summary>
@@ -330,35 +331,38 @@ namespace MochaDB.MochaScript {
         /// <param name="index">Index of line.</param>
         /// <returns>True if variable is defined successfully but false if not.</returns>
         internal bool TryVariable(int index) {
-            string line = MochaScriptArray[index].Trim();
-            IList<string> parts = line.Split('=');
-            IList<string> varParts = parts[0].Split(' ');
+            string line = MochaScriptArray[index].TrimStart().TrimEnd();
+            IEnumerable<string> parts = line.Split('=');
+            IEnumerable<string> varParts = parts.ElementAt(0).Split(' ');
 
-            for(int partsIndex = 0; partsIndex < parts.Count; partsIndex++) {
-                parts[partsIndex] = parts[partsIndex].TrimStart().TrimEnd();
-            }
-            for(int varPartsIndex = 0; varPartsIndex < varParts.Count; varPartsIndex++) {
-                varParts[varPartsIndex] = varParts[varPartsIndex].TrimStart().TrimEnd();
-            }
+            parts = 
+                from value in parts
+                where !string.IsNullOrWhiteSpace(value)
+                select value.TrimStart().TrimEnd();
+            varParts =
+                from value in varParts
+                where !string.IsNullOrWhiteSpace(value)
+                select value.TrimStart().TrimEnd();
 
-            if(parts.Count==1 && varParts.Count == 2) {
-                if(IsBannedSyntax(varParts[1]))
+
+            if(parts.Count()==1 && varParts.Count() == 2) {
+                if(IsBannedSyntax(varParts.ElementAt(1)))
                     throw Throw(index + 1,"|| This variable name cannot be used!");
 
-                if(!variableTypesRegex.IsMatch(varParts[0]))
+                if(!variableTypesRegex.IsMatch(varParts.ElementAt(0)))
                     return false;
 
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],null));
-
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),null));
+                return true;
             }
 
-            if(parts.Count != 2)
+            if(parts.Count() != 2)
                 return false;
 
-            if(varParts.Count == 1) {
-                int dex = variables.IndexOf(varParts[0]);
+            if(varParts.Count() == 1) {
+                int dex = variables.IndexOf(varParts.ElementAt(0));
                 if(dex != -1) {
-                    object value = GetArgumentValue(variables[dex].ValueType,parts[1],index);
+                    object value = GetArgumentValue(variables[dex].ValueType,parts.ElementAt(1),index);
                     variables.Add(new MochaScriptVariable(variables[dex].Name,
                         variables[dex].ValueType,value));
                     variables.Remove(dex);
@@ -367,51 +371,62 @@ namespace MochaDB.MochaScript {
                 return false;
             }
 
-            if(IsBannedSyntax(varParts[1]))
+            if(IsBannedSyntax(varParts.ElementAt(1)))
                 throw Throw(index + 1,"|| This variable name cannot be used!");
 
-            if(parts[1] == "nil") {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],null));
+            if(parts.ElementAt(1) == "nil") {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),null));
                 return true;
             }
 
-            if(variables.Contains(varParts[1])) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Variable",parts[1],index)));
+            if(variables.Contains(varParts.ElementAt(1))) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Variable",parts.ElementAt(1),index)));
                 return true;
             }
 
             //Check Query.
             try {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],db.Query.GetRun(parts[1])));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    db.Query.GetRun(parts.ElementAt(1))));
                 return true;
             } catch { }
 
             if(line.StartsWith("String ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("String",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("String",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Char ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Char",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Char",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Decimal ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Decimal",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Decimal",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Long ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Long",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Long",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Integer ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Integer",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Integer",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Short ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Short",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Short",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Double ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Double",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Double",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Float ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Float",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Float",parts.ElementAt(1),index)));
                 return true;
             } else if(line.StartsWith("Boolean ")) {
-                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Boolean",parts[1],index)));
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("Boolean",parts.ElementAt(1),index)));
                 return true;
             }
 
@@ -473,11 +488,6 @@ namespace MochaDB.MochaScript {
                 throw Throw(index + 1,"|| There is no such variable!");
             }
 
-            //Check Query.
-            try {
-                return db.Query.GetRun(arg);
-            } catch { }
-
             if(type == "Undefined") {
                 if(arg[0] == '"' && arg[^1] == '"') {
                     return arg[1..^1];
@@ -510,6 +520,11 @@ namespace MochaDB.MochaScript {
                     int dex = variables.IndexOf(arg);
                     if(dex != -1)
                         return variables[dex].Value;
+
+                    //Check Query.
+                    try {
+                        return db.Query.GetRun(arg);
+                    } catch { }
 
                     throw Throw(index + 1,"|| Error in value conversion!");
                 }
