@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Xml.Linq;
 using MochaDB.Encryptors;
 
@@ -51,7 +52,6 @@ namespace MochaDB {
                 throw new Exception("The file shown is not a MochaDB database file!");
 
             DBPath = path;
-            ExistsAutoCreate();
 
             Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
 
@@ -78,7 +78,6 @@ namespace MochaDB {
                 throw new Exception("The file shown is not a MochaDB database file!");
 
             DBPath = path;
-            ExistsAutoCreate();
 
             Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
 
@@ -261,14 +260,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// MochaDB checks the existence of the database file and if not creates a new file.
-        /// </summary>
-        public void ExistsAutoCreate() {
-            if(!File.Exists(DBPath))
-                Reset();
-        }
-
-        /// <summary>
         /// MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
         /// </summary>
         public void Reset() {
@@ -302,7 +293,7 @@ namespace MochaDB {
             Doc.Root.Element("Root").Element("Description").Value = Description;
             Save();
         }
-
+        
         /// <summary>
         /// Returns whether the syntax is prohibited.
         /// </summary>
@@ -445,11 +436,13 @@ namespace MochaDB {
         /// <summary>
         /// Return sectors in database.
         /// </summary>
-        public IList<MochaSector> GetSectors() {
+        public List<MochaSector> GetSectors() {
             List<MochaSector> sectors = new List<MochaSector>();
 
             MochaSector sector;
-            foreach(XElement xSector in Doc.Root.Element("Sectors").Elements()) {
+            IEnumerable<XElement> sectorRange = Doc.Root.Element("Sectors").Elements();
+            for(int index = 0; index < sectorRange.Count(); index++) {
+                XElement xSector = sectorRange.ElementAt(index);
                 sector =
                     new MochaSector(xSector.Name.LocalName,xSector.Value,xSector.Attribute("Description").Value);
                 sectors.Add(sector);
@@ -534,36 +527,35 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
-            MochaTable Table = new MochaTable(name);
+            MochaTable table = new MochaTable(name);
 
-            foreach(XElement Column in Doc.Root.Element(name).Elements()) {
-                MochaColumn column = new MochaColumn(Column.Name.LocalName,
-                    Enum.Parse<MochaDataType>(Column.Attribute("DataType").Value));
-                column.Description = Column.Attribute("Description").Value;
-                foreach(XElement Data in Column.Elements())
-                    column.AddData(new MochaData(column.DataType,Data.Value));
-                Table.AddColumn(column);
+            IEnumerable<XElement> columnRange = Doc.Root.Element(name).Elements();
+            for(int index = 0; index < columnRange.Count(); index++) {
+                table.AddColumn(GetColumn(name,columnRange.ElementAt(index).Name.LocalName));
             }
 
-            foreach(MochaRow Row in GetRows(name))
-                Table.AddRow(Row);
+            List<MochaRow> rows = GetRows(name);
+            for(int index = 0; index < rows.Count; index++) {
+                table.AddRow(rows[index]);
+            }
 
-            return Table;
+            return table;
         }
 
         /// <summary>
         /// Return tables in database.
         /// </summary>
-        public IList<MochaTable> GetTables() {
+        public List<MochaTable> GetTables() {
             List<MochaTable> tables = new List<MochaTable>();
 
             IEnumerable<XElement> tableRange = Doc.Root.Elements();
-            foreach(XElement table in tableRange) {
-                if(IsBannedSyntax(table.Name.LocalName))
+            for(int index = 0; index <tableRange.Count(); index++) {
+                if(IsBannedSyntax(tableRange.ElementAt(index).Name.LocalName))
                     continue;
 
-                tables.Add(GetTable(table.Name.LocalName));
+                tables.Add(GetTable(tableRange.ElementAt(index).Name.LocalName));
             }
+
             return tables;
         }
 
@@ -697,12 +689,11 @@ namespace MochaDB {
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
             column.Description = GetColumnDescription(tableName,name);
 
-            int dex = 0;
             IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(name).Elements();
-            foreach(XElement data in dataRange) {
-                column.AddData(GetData(tableName,name,dex));
-                dex++;
+            for(int index = 0; index < dataRange.Count(); index++) {
+                column.AddData(GetData(tableName,name,index));
             }
+
             return column;
         }
 
@@ -710,15 +701,15 @@ namespace MochaDB {
         /// Return columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public IList<MochaColumn> GetColumns(string tableName) {
+        public List<MochaColumn> GetColumns(string tableName) {
             List<MochaColumn> columns = new List<MochaColumn>();
 
             if(IsBannedSyntax(tableName))
-                return new MochaColumn[0];
+                return columns;
 
             IEnumerable<XElement> columnsRange = Doc.Root.Element(tableName).Elements();
-            foreach(XElement column in columnsRange) {
-                columns.Add(GetColumn(tableName,column.Name.LocalName));
+            for(int index = 0; index < columnsRange.Count(); index++) {
+                columns.Add(GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName));
             }
 
             return columns;
@@ -751,17 +742,16 @@ namespace MochaDB {
 
             IEnumerable<XElement> dataRange = column.Elements();
             if(dataType == MochaDataType.AutoInt) {
-                int index = -1;
-                foreach(XElement data in dataRange) {
-                    index++;
-                    data.Value = index.ToString();
+                for(int index = 0; index <dataRange.Count(); index++) {
+                    dataRange.ElementAt(index).Value = index.ToString();
                 }
+
                 return;
             }
 
-            foreach(XElement data in dataRange) {
-                if(!MochaData.IsType(dataType,data.Value))
-                    data.Value = MochaData.TryGetData(dataType,data.Value).ToString();
+            for(int index = 0; index < dataRange.Count(); index++) {
+                if(!MochaData.IsType(dataType,dataRange.ElementAt(index).Value))
+                    dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
             }
 
             Save();
@@ -799,13 +789,14 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="row">MochaRow object to add.</param>
         public void AddRow(string tableName,MochaRow row) {
-            int dex = -1;
             IEnumerable<XElement> columnRange = Doc.Root.Element(tableName).Elements();
-            foreach(XElement xColumn in columnRange) {
-                dex++;
-                AddData(tableName,xColumn.Name.LocalName,row.Datas[dex]);
+
+            if(columnRange.Count() != row.DataCount)
+                throw new Exception("The data count of the row is not equal to the number of columns!");
+
+            for(int index = 0; index <columnRange.Count(); index++) {
+                AddData(tableName,columnRange.ElementAt(index).Name.LocalName,row.Datas[index]);
             }
-            Save();
         }
 
         /// <summary>
@@ -814,19 +805,15 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="index">Index of row to remove.</param>
         public void RemoveRow(string tableName,int index) {
-            int dex = 0;
-
             IEnumerable<XElement> columnRange = Doc.Root.Element(tableName).Elements();
-            foreach(XElement xColumn in columnRange) {
-                IEnumerable<XElement> dataRange = xColumn.Elements();
-                foreach(XElement xData in dataRange) {
-                    if(dex == index) {
-                        xData.Remove();
+            for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+                IEnumerable<XElement> dataRange = columnRange.ElementAt(columnIndex).Elements();
+                for(int dataIndex = 0; dataIndex < dataRange.Count(); dataIndex++) {
+                    if(dataIndex == index) {
+                        dataRange.ElementAt(dataIndex).Remove();
                         break;
                     }
-                    dex++;
                 }
-                dex = 0;
             }
 
             Save();
@@ -872,14 +859,13 @@ namespace MochaDB {
         /// Return rows from table.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public IList<MochaRow> GetRows(string tableName) {
+        public List<MochaRow> GetRows(string tableName) {
+            List<MochaRow> rows = new List<MochaRow>();
             if(IsBannedSyntax(tableName))
-                return new MochaRow[0];
+                return rows;
 
             try {
                 XElement firstColumn = (XElement)Doc.Root.Element(tableName).FirstNode;
-
-                List<MochaRow> rows = new List<MochaRow>();
 
                 int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
                 for(int index = 0; index < dataCount; index++) {
@@ -888,7 +874,7 @@ namespace MochaDB {
 
                 return rows;
             } catch {
-                return new MochaRow[0];
+                return rows;
             }
         }
 
@@ -949,31 +935,25 @@ namespace MochaDB {
             if(!ExistsElement(tableName + '/' + columnName))
                 throw new Exception("There is no such table or column!");
 
-            int dex = 0;
-            if(data == null)
-                data = "";
-
+            data = data == null ? "" : data;
             XElement xColumn = Doc.Root.Element(tableName).Element(columnName);
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(dataType == MochaDataType.AutoInt) {
-                return;
+                throw new Exception("The data type of this column is AutoInt, so data update cannot be done!");
             } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.ToString())) {
                 if(ExistsData(tableName,columnName,data.ToString()))
                     throw new Exception("Any value can be added to a unique column only once!");
+            } else if(!MochaData.IsType(dataType,data)) {
+                throw new Exception("The submitted data is not compatible with the targeted data!");
             }
 
             IEnumerable<XElement> dataRange = xColumn.Elements();
-            foreach(XElement xData in dataRange) {
-                if(dex == index) {
-                    if(MochaData.IsType(dataType,data)) {
-                        xData.SetValue(data);
-                        break;
-                    } else
-                        throw new Exception("The submitted data is not compatible with the targeted data!");
-                }
-                dex++;
-            }
+            if(dataRange.Count() - 1 < index)
+                throw new Exception("This index is larger than the maximum number of data in the table!");
+
+            dataRange.ElementAt(index).Value=data.ToString();
+
             Save();
         }
 
@@ -984,15 +964,16 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">MochaData object to check.</param>
         public bool ExistsData(string tableName,string columnName,MochaData data) {
-            if(ExistsElement(tableName + '/' + columnName)) {
-                string stringData = data.Data.ToString();
-                IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
-                foreach(XElement xData in dataRange)
-                    if(xData.Value == stringData)
-                        return true;
-                return false;
-            } else
-                return false;
+            if(!ExistsElement(tableName + '/' + columnName))
+                throw new Exception("There is no such table or column!");
+
+            string stringData = data.Data.ToString();
+            IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
+            for(int index = 0; index < dataRange.Count(); index++) {
+                if(dataRange.ElementAt(index).Value == stringData)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -1012,15 +993,12 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to find index.</param>
         public int GetDataIndex(string tableName,string columnName,object data) {
-            int dex = 0;
             string stringData = data.ToString();
 
             IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
-            foreach(XElement currentData in dataRange) {
-                if(currentData.Value == stringData)
-                    return dex;
-
-                dex++;
+            for(int index = 0; index < dataRange.Count(); index++) {
+                if(dataRange.ElementAt(index).Value == stringData)
+                    return index;
             }
 
             return -1;
@@ -1036,19 +1014,13 @@ namespace MochaDB {
             if(!ExistsElement(tableName + '/' + columnName))
                 throw new Exception("There is no such table or column!");
 
-            int dex = 0;
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
 
             IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
-            foreach(XElement xData in dataRange) {
-                if(dex == index) {
-                    return new MochaData(dataType,MochaData.GetDataFromString(dataType,xData.Value));
-                }
+            if(dataRange.Count() - 1 < index)
+                throw new Exception("This index is larger than the maximum number of data in the table!");
 
-                dex++;
-            }
-
-            throw new Exception("This index is larger than the maximum number of data in the table!");
+            return new MochaData() { dataType = dataType, data = dataRange.ElementAt(index).Value };
         }
 
         /// <summary>
@@ -1056,17 +1028,15 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        public IList<MochaData> GetDatas(string tableName,string columnName) {
-            if(IsBannedSyntax(tableName))
-                return new MochaData[0];
-
+        public List<MochaData> GetDatas(string tableName,string columnName) {
             List<MochaData> datas = new List<MochaData>();
+            if(IsBannedSyntax(tableName))
+                return datas;
+
 
             IEnumerable<XElement> dataRange = Doc.Root.Element(tableName).Element(columnName).Elements();
-            int dex = 0;
-            foreach(XElement xData in dataRange) {
-                datas.Add(GetData(tableName,columnName,dex));
-                dex++;
+            for(int index = 0; index < dataRange.Count(); index++) {
+                datas.Add(GetData(tableName,columnName,index));
             }
             return datas;
         }
@@ -1079,15 +1049,8 @@ namespace MochaDB {
         public int GetDataCount(string tableName,string columnName) {
             if(IsBannedSyntax(tableName))
                 return -1;
-            int count = 0;
 
-            XElement column = Doc.Root.Element(tableName).Element(columnName);
-
-            IEnumerable<XElement> dataRange = column.Elements();
-            foreach(XElement xData in dataRange)
-                count++;
-
-            return count;
+            return Doc.Root.Element(tableName).Element(columnName).Elements().Count();
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using MochaDB.Encryptors;
 
@@ -160,10 +161,13 @@ namespace MochaDB {
                     DB.Reset();
                     return;
                 } else if(QueryPaths[0] == "RESETTABLES") {
-                    foreach(XElement Table in DB.Doc.Root.Elements())
-                        if(!DB.IsBannedSyntax(Table.Name.LocalName))
-                            foreach(XElement Column in Table.Elements())
-                                Column.RemoveAll();
+                    IEnumerable<XElement> tableRange = DB.Doc.Root.Elements();
+                    for(int index = 0; index < tableRange.Count(); index++) {
+                        if(DB.IsBannedSyntax(tableRange.ElementAt(index).Name.LocalName))
+                            continue;
+
+                        tableRange.ElementAt(index).Elements().Remove();
+                    }
 
                     DB.Save();
                     return;
@@ -189,11 +193,7 @@ namespace MochaDB {
                     DB.SetDescription(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "RESETTABLE") {
-                    foreach(XElement Table in DB.Doc.Root.Elements())
-                        if(!DB.IsBannedSyntax(Table.Name.LocalName) && QueryPaths[1] == Table.Name)
-                            foreach(XElement Column in Table.Elements())
-                                Column.RemoveAll();
-
+                    DB.Doc.Root.Elements(QueryPaths[1]).Elements().Remove();
                     DB.Save();
                     return;
                 } else if(QueryPaths[0] == "CREATEMOCHA") {
@@ -328,16 +328,14 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "GETDESCRIPTION") {
                     return DB.GetDescription();
                 } else if(QueryPaths[0] == "GETDATAS") {
-                    List<MochaData> Datas = new List<MochaData>();
-                    foreach(XElement Table in DB.Doc.Root.Elements())
-                        Datas.AddRange(GETDATAS(Table.Name.LocalName));
-                    return Datas.ToArray();
+                    List<MochaData> datas = new List<MochaData>();
+                    IEnumerable<XElement> tableRange = DB.Doc.Root.Elements();
+                    for(int index = 0; index < tableRange.Count(); index++)
+                        datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName));
+
+                    return datas;
                 } else if(QueryPaths[0] == "TABLECOUNT") {
-                    int Count = 0;
-                    foreach(XElement Table in DB.Doc.Root.Elements())
-                        if(!DB.IsBannedSyntax(Table.Name.LocalName))
-                            Count++;
-                    return Count;
+                    return DB.Doc.Root.Elements().Count();
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
@@ -363,13 +361,11 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "ROWCOUNT") {
                     if(!DB.IsBannedSyntax(QueryPaths[1]))
                         return -1;
-
-                    int Count = 0;
                     try {
-                        foreach(XElement Row in DB.Doc.Root.Elements(QueryPaths[1]).Elements(GETFIRSTCOLUMN_NAME(QueryPaths[1])).Elements())
-                            Count++;
-                    } catch { }
-                    return Count;
+                        return DB.Doc.Root.Elements(QueryPaths[1]).Elements(GETFIRSTCOLUMN_NAME(QueryPaths[1])).Elements().Count();
+                    } catch(Exception excep) {
+                        throw excep;
+                    }
                 } else if(QueryPaths[0] == "DATACOUNT") {
                     if(DB.IsBannedSyntax(QueryPaths[1]) || !DB.ExistsTable(QueryPaths[1]))
                         return -1;
@@ -388,20 +384,9 @@ namespace MochaDB {
                     throw new Exception("Parameter not found!");
 
                 if(QueryPaths[0] == "GETCOLUMN") {
-                    MochaColumn RColumn = null;
-
                     if(!DB.IsBannedSyntax(QueryPaths[1]))
-                        return RColumn;
-
-                    foreach(XElement Column in DB.Doc.Root.Element(QueryPaths[1]).Elements())
-                        if(Column.Name == QueryPaths[2]) {
-                            RColumn = new MochaColumn(Column.Name.LocalName,
-                                Enum.Parse<MochaDataType>(Column.Attribute("DataType").Value));
-                            foreach(XElement Data in Column.Elements())
-                                RColumn.AddData(new MochaData(RColumn.DataType,Data.Value));
-                            return RColumn;
-                        }
-                    return RColumn;
+                        return null;
+                    return DB.GetColumn(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "DATACOUNT") {
                     return DB.GetDataCount(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "EXISTSCOLUMN") {
@@ -440,11 +425,8 @@ namespace MochaDB {
             if(DB.IsBannedSyntax(name))
                 return -1;
 
-            int count = 0;
             IEnumerable<XElement> columnElements = DB.Doc.Root.Elements(name).Elements();
-            foreach(XElement column in columnElements)
-                count++;
-            return count;
+            return columnElements.Count();
         }
 
         /// <summary>
@@ -454,9 +436,10 @@ namespace MochaDB {
         private IList<MochaData> GETDATAS(string name) {
             List<MochaData> datas = new List<MochaData>();
 
-            IEnumerable<XElement> columnElements = DB.Doc.Root.Elements(name).Elements();
-            foreach(XElement column in columnElements)
-                datas.AddRange(DB.GetDatas(name,column.Name.LocalName));
+            IEnumerable<XElement> columnRange = DB.Doc.Root.Elements(name).Elements();
+            for(int index = 0; index < columnRange.Count(); index++) {
+                datas.AddRange(DB.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
+            }
 
             return datas;
         }
@@ -471,12 +454,6 @@ namespace MochaDB {
             } catch {
                 return null;
             }
-
-            /*
-            IEnumerable<XElement> columnElements = MochaDB.Doc.Root.Elements(name).Elements();
-            foreach(XElement column in columnElements)
-                return column.Name.LocalName;
-            return "";*/
         }
 
         #endregion
