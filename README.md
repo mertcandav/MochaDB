@@ -44,10 +44,11 @@ You cannot work with SQL queries, but with MochaQ you can do basic operations wi
 ```c#
 
 public IEnumerable<MochaTable> GetMatchTables(string key) {
+  Regex rgx = new Regex(key);
   var tables = DB.GetTables();
   var result =
     from table in datas
-    where table==key
+    where rgx.IsMatch(table)
     select table;
   
   return result;
