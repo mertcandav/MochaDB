@@ -6,7 +6,7 @@ namespace MochaDB.MochaScript.Keywords {
     /// Collectioner for MochaScript Functions.
     /// </summary>
     [Serializable]
-    public sealed class MochaScriptFunctionCollection {
+    internal sealed class MochaScriptFunctionCollection {
         #region Fields
 
         private List<MochaScriptFunction> functions;
@@ -47,9 +47,9 @@ namespace MochaDB.MochaScript.Keywords {
         /// <summary>
         /// Add function.
         /// </summary>
-        /// <param name="Function">To be added function.</param>
-        public void Add(MochaScriptFunction Function) =>
-            functions.Add(Function);
+        /// <param name="function">To be added function.</param>
+        public void Add(MochaScriptFunction function) =>
+            functions.Add(function);
 
         /// <summary>
         /// Add functions from collection.
@@ -59,7 +59,7 @@ namespace MochaDB.MochaScript.Keywords {
             this.functions.AddRange(functions);
 
         /// <summary>
-        /// Get index from name. Return index if defined name but return -1 if not defined name.
+        /// Return index from name. Return index if defined name but return -1 if not defined name.
         /// </summary>
         /// <param name="name">Name of function.</param>
         public int IndexOf(string name) {
@@ -77,13 +77,7 @@ namespace MochaDB.MochaScript.Keywords {
         /// </summary>
         /// <param name="name">Name of function.</param>
         public bool Contains(string name) {
-            for(int index = 0; index < Count; index++) {
-                if(this[index].Name == name) {
-                    return true;
-                }
-            }
-
-            return false;
+            return IndexOf(name) == -1 ? false : true;
         }
 
         /// <summary>
@@ -125,7 +119,7 @@ namespace MochaDB.MochaScript.Keywords {
         /// All functions as array.
         /// </summary>
         public IList<MochaScriptFunction> Functions =>
-            functions;
+            functions.ToArray();
 
         /// <summary>
         /// Get function count.
@@ -140,7 +134,7 @@ namespace MochaDB.MochaScript.Keywords {
     /// This is the function delegate object for MochaScript.
     /// </summary>
     [Serializable]
-    public struct MochaScriptFunction {
+    internal struct MochaScriptFunction {
         #region Constructors
 
         /// <summary>
@@ -154,7 +148,7 @@ namespace MochaDB.MochaScript.Keywords {
         }
 
         /// <summary>
-        /// Create new MOchaScriptFunction.
+        /// Create new MochaScriptFunction.
         /// </summary>
         /// <param name="name">Name of function.</param>
         /// <param name="content">MochaScript codes in fuction as lines.</param>

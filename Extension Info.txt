@@ -1,2 +1,0 @@
-MochaDB databases: *.mochadb
-MochaScript files: *.mochascript

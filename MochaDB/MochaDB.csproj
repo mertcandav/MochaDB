@@ -17,6 +17,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile></DocumentationFile>
+    <NoWarn>1701;1702;CS0252</NoWarn>
   </PropertyGroup>
 
 </Project>

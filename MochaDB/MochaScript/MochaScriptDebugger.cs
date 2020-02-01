@@ -19,13 +19,15 @@ namespace MochaDB.MochaScript {
 \bMochaDatabase\b|\bMochaDatabase\[*\]\b|\bMochaColumn\b|\bMochaColumn\[*\]\b|\bMochaScriptDebugger\b|\bMochaScriptDebugger\[*\]\b|\bMochaDataType\b|
 \bMochaDataType\[*\]\b|\bMochaScriptCompareMark\b|\bMochaScriptCompareMark\[*\]\b|\bdelete\b");
         internal Regex numberRegex = new Regex(@"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
+        internal Regex variableTypesRegex = new Regex(@"\bString\b|\bChar\b|\bLong\b|\bInteger\b|\bShort\b|
+\bDecimal\b|\bDouble\b|\bFloat\b|\bBoolean\b");
 
         //-----
 
         private MochaDatabase db;
         private MochaScriptFunctionCollection functions;
         private MochaScriptFunctionCollection compilerEvents;
-        private Dictionary<string,object> variables;
+        private MochaScriptVariableCollection variables;
         private int beginIndex;
         private int finalIndex;
 
@@ -46,7 +48,7 @@ namespace MochaDB.MochaScript {
             db = null;
             functions = new MochaScriptFunctionCollection(this);
             compilerEvents = new MochaScriptFunctionCollection(this);
-            variables = new Dictionary<string,object>();
+            variables = new MochaScriptVariableCollection();
         }
 
         #endregion
@@ -112,7 +114,7 @@ namespace MochaDB.MochaScript {
         /// </summary>
         /// <param name="line">Line.</param>
         /// <param name="message">Error message.</param>
-        public Exception Throw(int line,string message) {
+        private Exception Throw(int line,string message) {
             if(db!=null)
                 db.Dispose();
 
@@ -329,65 +331,87 @@ namespace MochaDB.MochaScript {
         /// <returns>True if variable is defined successfully but false if not.</returns>
         internal bool TryVariable(int index) {
             string line = MochaScriptArray[index].Trim();
-            string[] parts = line.Split(' ');
+            IList<string> parts = line.Split('=');
+            IList<string> varParts = parts[0].Split(' ');
 
-            if(parts.Length == 3) {
-                if(variables.ContainsKey(parts[0])) {
-                    variables.Remove(parts[0]);
-                    variables.Add(parts[0],GetArgumentValue("Undefined",parts[2],index));
+            for(int partsIndex = 0; partsIndex < parts.Count; partsIndex++) {
+                parts[partsIndex] = parts[partsIndex].TrimStart().TrimEnd();
+            }
+            for(int varPartsIndex = 0; varPartsIndex < varParts.Count; varPartsIndex++) {
+                varParts[varPartsIndex] = varParts[varPartsIndex].TrimStart().TrimEnd();
+            }
+
+            if(parts.Count==1 && varParts.Count == 2) {
+                if(IsBannedSyntax(varParts[1]))
+                    throw Throw(index + 1,"|| This variable name cannot be used!");
+
+                if(!variableTypesRegex.IsMatch(varParts[0]))
+                    return false;
+
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],null));
+
+            }
+
+            if(parts.Count != 2)
+                return false;
+
+            if(varParts.Count == 1) {
+                int dex = variables.IndexOf(varParts[0]);
+                if(dex != -1) {
+                    object value = GetArgumentValue(variables[dex].ValueType,parts[1],index);
+                    variables.Add(new MochaScriptVariable(variables[dex].Name,
+                        variables[dex].ValueType,value));
+                    variables.Remove(dex);
                     return true;
                 }
                 return false;
             }
 
-            if(parts.Length != 4)
-                return false;
+            if(IsBannedSyntax(varParts[1]))
+                throw Throw(index + 1,"|| This variable name cannot be used!");
 
-            if(IsBannedSyntax(parts[1]))
-                throw Throw(index + 1, "|| This variable name cannot be used!");
-
-            if(parts[3] == "nil") {
-                variables.Add(parts[1],null);
+            if(parts[1] == "nil") {
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],null));
                 return true;
             }
 
-            if(variables.ContainsKey(parts[3])) {
-                variables.Add(parts[1],GetArgumentValue("Variable",parts[3],index));
+            if(variables.Contains(varParts[1])) {
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Variable",parts[1],index)));
                 return true;
             }
 
             //Check Query.
             try {
-                variables.Add(parts[1],db.Query.GetRun(parts[3]));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],db.Query.GetRun(parts[1])));
                 return true;
             } catch { }
 
             if(line.StartsWith("String ")) {
-                variables.Add(parts[1],GetArgumentValue("String",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("String",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Char ")) {
-                variables.Add(parts[1],GetArgumentValue("Char",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Char",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Decimal ")) {
-                variables.Add(parts[1],GetArgumentValue("Decimal",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Decimal",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Long ")) {
-                variables.Add(parts[1],GetArgumentValue("Long",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Long",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Integer ")) {
-                variables.Add(parts[1],GetArgumentValue("Integer",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Integer",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Short ")) {
-                variables.Add(parts[1],GetArgumentValue("Short",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Short",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Double ")) {
-                variables.Add(parts[1],GetArgumentValue("Double",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Double",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Float ")) {
-                variables.Add(parts[1],GetArgumentValue("Float",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Float",parts[1],index)));
                 return true;
             } else if(line.StartsWith("Boolean ")) {
-                variables.Add(parts[1],GetArgumentValue("Boolean",parts[3],index));
+                variables.Add(new MochaScriptVariable(varParts[1],varParts[0],GetArgumentValue("Boolean",parts[1],index)));
                 return true;
             }
 
@@ -435,18 +459,18 @@ namespace MochaDB.MochaScript {
         /// </summary>
         /// <param name="type">Variable data type.</param>
         /// <param name="arg">Argument.</param>
-        /// <param name="dex">Index of line.</param>
-        internal object GetArgumentValue(string type,string arg,int dex) {
+        /// <param name="index">Index of line.</param>
+        internal object GetArgumentValue(string type,string arg,int index) {
             if(arg == "nil")
                 return null;
 
             //Check variable.
             if(type == "Variable") {
-                object Out;
-                if(variables.TryGetValue(arg,out Out)) {
-                    return Out;
+                int dex = variables.IndexOf(arg);
+                if(dex != -1) {
+                    return variables[dex].Value;
                 }
-                return null;
+                throw Throw(index + 1,"|| There is no such variable!");
             }
 
             //Check Query.
@@ -455,8 +479,6 @@ namespace MochaDB.MochaScript {
             } catch { }
 
             if(type == "Undefined") {
-                object Out;
-
                 if(arg[0] == '"' && arg[^1] == '"') {
                     return arg[1..^1];
                 } else if(arg[0] == '\'' && arg[^1] == '\'' && arg[1..^1].Length == 1) {
@@ -483,11 +505,13 @@ namespace MochaDB.MochaScript {
                     else if(double.TryParse(arg,out DoubleOut))
                         return DoubleOut;
                     else
-                        throw Throw(dex + 1,"|| Error in value conversion!");
-                } else if(variables.TryGetValue(arg,out Out)) {
-                    return Out;
-                } else {
-                    throw Throw(dex + 1,"|| Error in value conversion!");
+                        throw Throw(index + 1,"|| Error in value conversion!");
+                }  else {
+                    int dex = variables.IndexOf(arg);
+                    if(dex != -1)
+                        return variables[dex].Value;
+
+                    throw Throw(index + 1,"|| Error in value conversion!");
                 }
             } else {
                 if(type == "String") {
@@ -536,7 +560,7 @@ namespace MochaDB.MochaScript {
                     }
                     return false;
                 } else {
-                    throw Throw(dex + 1,"|| Error in value conversion!");
+                    throw Throw(index + 1,"|| Error in value conversion!");
                 }
             }
         }
@@ -621,7 +645,7 @@ namespace MochaDB.MochaScript {
             for(int index = beginIndex + 1; index < finalIndex; index++) {
                 line = MochaScriptArray[index].Trim();
 
-                if(line.StartsWith("compilerevents ")) {
+                if(line.StartsWith("compilerevent ")) {
 
                     parts = line.Split(' ');
                     name = parts[1][0..^2];
