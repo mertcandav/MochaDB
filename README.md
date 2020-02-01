@@ -145,7 +145,7 @@ func SetPINumber()
 
 // ******* COMPILER EVENTS *******
 
-compiler_event OnFunctionInvoked()
+compilerevent OnFunctionInvoked()
 {
     echo "Function called!"
 }
