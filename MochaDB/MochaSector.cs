@@ -2,7 +2,7 @@
     /// <summary>
     /// This is sector object for MochaDB.
     /// </summary>
-    public class MochaSector {
+    public sealed class MochaSector {
         #region Constructors
 
         /// <summary>

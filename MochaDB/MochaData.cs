@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// This is data object for MochaDB.
     /// </summary>
-    public class MochaData {
+    public sealed class MochaData {
         #region Fields
 
         internal object data;
