@@ -171,5 +171,5 @@ public void Debug(string path) {
 
 ---
 
-- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki">Wiki</a>
+- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki">Documentation</a>
 - <a href="https://opensource.org/licenses/MIT">License<a/>
