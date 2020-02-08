@@ -173,13 +173,13 @@ namespace MochaDB {
                 if(string.IsNullOrEmpty(QueryPaths[1]))
                     throw new Exception("Parameter not found!");
 
-                if(QueryPaths[0] == "DELETETABLE") {
+                if(QueryPaths[0] == "REMOVETABLE") {
                     DB.RemoveTable(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "CREATETABLE") {
                     DB.CreateTable(QueryPaths[1]);
                     return;
-                } else if(QueryPaths[0] == "DELETESECTOR") {
+                } else if(QueryPaths[0] == "REMOVESECTOR") {
                     DB.RemoveSector(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "SETPASSWORD") {
@@ -206,7 +206,7 @@ namespace MochaDB {
                 if(string.IsNullOrEmpty(QueryPaths[2]))
                     throw new Exception("Parameter not found!");
 
-                if(QueryPaths[0] == "DELETECOLUMN") {
+                if(QueryPaths[0] == "REMOVECOLUMN") {
                     DB.RemoveColumn(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "SETSECTORDATA") {
@@ -215,7 +215,7 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "SETSECTORDESCRIPTION") {
                     DB.SetSectorDescription(QueryPaths[1],QueryPaths[2]);
                     return;
-                } else if(QueryPaths[0] == "DELETEROW") {
+                } else if(QueryPaths[0] == "REMOVEROW") {
                     DB.RemoveRow(QueryPaths[1],int.Parse(QueryPaths[2]));
                     return;
                 } else if(QueryPaths[0] == "RENAMETABLE") {
