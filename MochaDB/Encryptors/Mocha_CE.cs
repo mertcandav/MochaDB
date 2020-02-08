@@ -2,7 +2,7 @@
     /// <summary>
     /// Basic char encryptor.
     /// </summary>
-    internal class Mocha_CE {
+    internal sealed class Mocha_CE {
         /// <summary>
         /// Encrypt.
         /// </summary>

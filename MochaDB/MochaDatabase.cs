@@ -53,7 +53,7 @@ namespace MochaDB {
 
             DBPath = path;
 
-            Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
+            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
@@ -79,7 +79,7 @@ namespace MochaDB {
 
             DBPath = path;
 
-            Doc = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
+            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
@@ -132,7 +132,7 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path + ".mochadb",Mocha_ACE.Encrypt(content));
+            File.WriteAllText(path + ".mochadb",AES256.Encrypt(content));
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace MochaDB {
                 throw new Exception("The file shown is not a MochaDB database file!");
 
             try {
-                XDocument Document = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(path)));
+                XDocument Document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
                 if(Document.Root.Name.LocalName != "Mocha")
                     return false;
                 else if(!ExistsElement(path,"Root/Password"))
@@ -172,7 +172,7 @@ namespace MochaDB {
             string[] elementsName = elementPath.Split('/');
 
             try {
-                XDocument document = XDocument.Parse(Mocha_ACE.Decrypt(File.ReadAllText(path)));
+                XDocument document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
                 XElement element = document.Root.Element(elementsName[0]);
 
                 if(element.Name.LocalName != elementsName[0])
@@ -257,7 +257,7 @@ namespace MochaDB {
         /// </summary>
         public void Save() {
             sourceStream.Dispose();
-            File.WriteAllText(DBPath,Mocha_ACE.Encrypt(Doc.ToString()));
+            File.WriteAllText(DBPath,AES256.Encrypt(Doc.ToString()));
             sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
 
             OnChangeContent(this,new EventArgs());
@@ -268,7 +268,7 @@ namespace MochaDB {
         /// </summary>
         public void Reset() {
             sourceStream.Dispose();
-            File.WriteAllText(DBPath,Mocha_ACE.Encrypt(EmptyContent));
+            File.WriteAllText(DBPath,AES256.Encrypt(EmptyContent));
             sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
 
             OnChangeContent(this,new EventArgs());
