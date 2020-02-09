@@ -179,8 +179,14 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "CREATETABLE") {
                     DB.CreateTable(QueryPaths[1]);
                     return;
+                } else if(QueryPaths[0] == "CREATESTACK") {
+                    DB.AddStack(new MochaStack(QueryPaths[1]));
+                    return;
                 } else if(QueryPaths[0] == "REMOVESECTOR") {
                     DB.RemoveSector(QueryPaths[1]);
+                    return;
+                } else if(QueryPaths[0] == "REMOVESTACK") {
+                    DB.RemoveStack(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "SETPASSWORD") {
                     DB.SetPassword(QueryPaths[1]);
@@ -221,8 +227,14 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "RENAMETABLE") {
                     DB.RenameTable(QueryPaths[1],QueryPaths[2]);
                     return;
+                } else if(QueryPaths[0] == "REMOVESTACKITEM") {
+                    DB.RemoveStackItem(QueryPaths[1],QueryPaths[2]);
+                    return;
                 } else if(QueryPaths[0] == "RENAMESECTOR") {
                     DB.RenameSector(QueryPaths[1],QueryPaths[2]);
+                    return;
+                } else if(QueryPaths[0] == "RENAMESTACK") {
+                    DB.RenameStack(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "CREATECOLUMN") {
                     DB.CreateColumn(QueryPaths[1],QueryPaths[2]);
@@ -245,6 +257,18 @@ namespace MochaDB {
                     return;
                 } else if(QueryPaths[0] == "SETCOLUMNDESCRIPTION") {
                     DB.SetColumnDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    return;
+                } else if(QueryPaths[0] == "CREATESTACKITEM") {
+                    DB.AddStackItem(QueryPaths[1],QueryPaths[3],new MochaStackItem(QueryPaths[2]));
+                    return;
+                } else if(QueryPaths[0] == "RENAMESTACKITEM") {
+                    DB.RenameStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    return;
+                } else if(QueryPaths[0] == "SETVALUESTACKITEM") {
+                    DB.SetValueStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    return;
+                } else if(QueryPaths[0] == "SETDESCRIPTIONSTACKITEM") {
+                    DB.SetDescriptionStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "UPDATEFIRSTDATA") {
                     DB.UpdateData(QueryPaths[1],QueryPaths[2],0,QueryPaths[3]);
@@ -344,6 +368,8 @@ namespace MochaDB {
                     return DB.GetTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETCOLUMNS") {
                     return DB.GetColumns(QueryPaths[1]);
+                } else if(QueryPaths[0] == "GETSECTOR") {
+                    return DB.GetSector(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETFIRSTCOLUMN_NAME") {
                     return GETFIRSTCOLUMN_NAME(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETROWS") {
@@ -370,6 +396,8 @@ namespace MochaDB {
                     return DB.ExistsTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "EXISTSSECTOR") {
                     return DB.ExistsSector(QueryPaths[1]);
+                } else if(QueryPaths[0] == "EXISTSSTACK") {
+                    return DB.ExistsStack(QueryPaths[1]);
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 3) {
@@ -384,6 +412,12 @@ namespace MochaDB {
                     return DB.GetDataCount(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "EXISTSCOLUMN") {
                     return DB.ExistsColumn(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "EXISTSSTACKITEM") {
+                    return DB.ExistsStackItem(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "GETVALUESTACKITEM") {
+                    return DB.GetValueStackItem(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "GETDESCRIPTIONSTACKITEM") {
+                    return DB.GetDescriptionStackItem(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETDATAS") {
                     return DB.GetDatas(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETCOLUMNDESCRIPTION") {

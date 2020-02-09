@@ -51,9 +51,9 @@ namespace MochaDB {
             if(!IsMochaDB(path))
                 throw new Exception("The file shown is not a MochaDB database file!");
 
-            DBPath = path;
+            Path = path;
 
-            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
+            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Path,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
@@ -77,9 +77,9 @@ namespace MochaDB {
             if(!IsMochaDB(path))
                 throw new Exception("The file shown is not a MochaDB database file!");
 
-            DBPath = path;
+            Path = path;
 
-            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(DBPath,Encoding.UTF8)));
+            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Path,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
@@ -92,6 +92,19 @@ namespace MochaDB {
 
             Query = new MochaQuery(this,true);
             sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// This happens after content changed.
+        /// </summary>
+        public event EventHandler<EventArgs> ChangeContent;
+        private void OnChangeContent(object sender,EventArgs e) {
+            //Invoke.
+            ChangeContent?.Invoke(sender,e);
         }
 
         #endregion
@@ -153,6 +166,8 @@ namespace MochaDB {
                     return false;
                 else if(!ExistsElement(path,"Sectors"))
                     return false;
+                else if(!ExistsElement(path,"Stacks"))
+                    return false;
                 else if(!ExistsElement(path,"Tables"))
                     return false;
                 else
@@ -189,20 +204,32 @@ namespace MochaDB {
 
         #endregion
 
-        #region Events
+        #region Methods
+
+        #region Internal
 
         /// <summary>
-        /// This happens after content changed.
+        /// Return element by path.
         /// </summary>
-        public event EventHandler<EventArgs> ChangeContent;
-        private void OnChangeContent(object sender,EventArgs e) {
-            //Invoke.
-            ChangeContent?.Invoke(sender,e);
+        /// <param name="path">Path of element.</param>
+        public XElement GetElement(string path) {
+            string[] elementsName = path.Split('/');
+
+            XElement element = Doc.Root.Element(elementsName[0]);
+
+            if(element==null)
+                return null;
+
+            for(int i = 1; i < elementsName.Length; i++) {
+                element = element.Element(elementsName[i]);
+                if(element == null)
+                    return null;
+            }
+
+            return element;
         }
 
         #endregion
-
-        #region Methods
 
         /// <summary>
         /// Checks the suitability and robustness of the MochaDB database.
@@ -217,6 +244,8 @@ namespace MochaDB {
                     return false;
                 else if(!ExistsElement("Sectors"))
                     return false;
+                else if(!ExistsElement("Stacks"))
+                    return false;
                 else if(!ExistsElement("Tables"))
                     return false;
                 else
@@ -225,25 +254,23 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Checks for the presence of the element. Example path: MyTable/MyColumn
+        /// Checks for the presence of the element.
         /// </summary>
-        /// <param name="elementPath">Path of element.</param>
-        public bool ExistsElement(string elementPath) {
-            string[] elementsName = elementPath.Split('/');
+        /// <param name="path">Path of element.</param>
+        public bool ExistsElement(string path) {
+            string[] elementsName = path.Split('/');
 
-            try {
-                XElement element = Doc.Root.Element(elementsName[0]);
+            XElement element = Doc.Root.Element(elementsName[0]);
 
-                if(element.Name.LocalName != elementsName[0])
+            if(element == null)
+                return false;
+
+            for(int i = 1; i < elementsName.Length; i++) {
+                element = element.Element(elementsName[i]);
+                if(element == null)
                     return false;
-
-                for(int i = 1; i < elementsName.Length; i++) {
-                    element = element.Element(elementsName[i]);
-                    if(element.Name.LocalName != elementsName[i])
-                        return false;
-                }
-                return true;
-            } catch(NullReferenceException) { return false; }
+            }
+            return true;
         }
 
         /// <summary>
@@ -257,8 +284,8 @@ namespace MochaDB {
         /// </summary>
         public void Save() {
             sourceStream.Dispose();
-            File.WriteAllText(DBPath,AES256.Encrypt(Doc.ToString()));
-            sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
+            File.WriteAllText(Path,AES256.Encrypt(Doc.ToString()));
+            sourceStream = File.Open(Path,FileMode.Open,FileAccess.ReadWrite);
 
             OnChangeContent(this,new EventArgs());
         }
@@ -268,8 +295,8 @@ namespace MochaDB {
         /// </summary>
         public void Reset() {
             sourceStream.Dispose();
-            File.WriteAllText(DBPath,AES256.Encrypt(EmptyContent));
-            sourceStream = File.Open(DBPath,FileMode.Open,FileAccess.ReadWrite);
+            File.WriteAllText(Path,AES256.Encrypt(EmptyContent));
+            sourceStream = File.Open(Path,FileMode.Open,FileAccess.ReadWrite);
 
             OnChangeContent(this,new EventArgs());
         }
@@ -323,7 +350,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="sector">MochaSector object to add.</param>
         public void AddSector(MochaSector sector) {
-            if(ExistsElement("Sectors/" + sector.Name))
+            if(ExistsSector(sector.Name))
                 throw new Exception("There is already a sector with this name!");
 
             XElement xSector = new XElement(sector.Name,sector.Data);
@@ -370,6 +397,10 @@ namespace MochaDB {
         public void RenameSector(string name,string newName) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
+
+            if(name == newName)
+                return;
+
             if(ExistsSector(newName))
                 throw new Exception("There is already a sector with this name!");
 
@@ -397,7 +428,11 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
-            Doc.Root.Element("Sectors").Element(name).Value = data;
+            XElement xSector = Doc.Root.Element("Sectors").Element(name);
+            if(xSector.Value==data)
+                return;
+
+            xSector.Value=data;
             Save();
         }
 
@@ -421,8 +456,29 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
-            Doc.Root.Element("Sectors").Element(name).Attribute("Description").Value = description;
+            XAttribute xDescription = Doc.Root.Element("Sectors").Element(name).Attribute("Description");
+            if(xDescription.Value==description)
+                return;
+
+            xDescription.Value=description;
+
             Save();
+        }
+
+        /// <summary>
+        /// Return sector by name.
+        /// </summary>
+        /// <param name="name">Name of sector.</param>
+        public MochaSector GetSector(string name) {
+            if(!ExistsSector(name))
+                throw new Exception("Sector not found in this name!");
+
+            XElement xSector = Doc.Root.Element("Sectors").Element(name);
+            MochaSector sector = new MochaSector(xSector.Name.LocalName);
+            sector.Data=xSector.Value;
+            sector.Description =xSector.Attribute("Description").Value;
+
+            return sector;
         }
 
         /// <summary>
@@ -431,14 +487,9 @@ namespace MochaDB {
         public List<MochaSector> GetSectors() {
             List<MochaSector> sectors = new List<MochaSector>();
 
-            MochaSector sector;
             IEnumerable<XElement> sectorRange = Doc.Root.Element("Sectors").Elements();
-            for(int index = 0; index < sectorRange.Count(); index++) {
-                XElement xSector = sectorRange.ElementAt(index);
-                sector =
-                    new MochaSector(xSector.Name.LocalName,xSector.Value,xSector.Attribute("Description").Value);
-                sectors.Add(sector);
-            }
+            for(int index = 0; index < sectorRange.Count(); index++)
+                sectors.Add(GetSector(sectorRange.ElementAt(index).Name.LocalName));
 
             return sectors;
         }
@@ -449,6 +500,294 @@ namespace MochaDB {
         /// <param name="name">Name of sector to check.</param>
         public bool ExistsSector(string name) =>
             ExistsElement("Sectors/" + name);
+
+        #endregion
+
+        #region Stacks
+
+        #region Internal
+
+        /// <summary>
+        /// Return MochaStackItem from XElement.
+        /// </summary>
+        /// <param name="element">Element.</param>
+        internal MochaStackItem GetMochaStackItemOBJ(XElement element) {
+            MochaStackItem item = new MochaStackItem(element.Name.LocalName);
+            item.Description=element.Attribute("Description").Value;
+            item.Value=element.Value;
+
+            IEnumerable<XElement> elementRange = element.Elements();
+            if(elementRange.Count() >0)
+                for(int index = 0; index < elementRange.Count(); index++)
+                    item.Items.Add(GetMochaStackItemOBJ(elementRange.ElementAt(index)));
+
+            return item;
+        }
+
+        /// <summary>
+        /// Return XElement from MochaStackItem.
+        /// </summary>
+        /// <param name="item">MochaStackItem object.</param>
+        internal XElement GetMochaStackItemXML(MochaStackItem item) {
+            XElement element = new XElement(item.Name,item.Value);
+            element.Add(new XAttribute("Description",item.Description));
+
+            if(item.Items.Count >=0)
+                for(int index = 0; index < item.Items.Count; index++) {
+                    element.Add(GetMochaStackItemXML(item.Items[index]));
+                }
+
+            return element;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Add stack.
+        /// </summary>
+        /// <param name="stack">MohcaStack object to add.</param>
+        public void AddStack(MochaStack stack) {
+            if(ExistsStack(stack.Name))
+                throw new Exception("There is already a stack with this name!");
+
+            XElement xStack = new XElement(stack.Name);
+            xStack.Add(new XAttribute("Description",stack.Description));
+
+            if(stack.Items.Count > 0)
+                for(int index = 0; index < stack.Items.Count; index++) {
+                    xStack.Add(GetMochaStackItemXML(stack.Items[index]));
+                }
+
+            Doc.Root.Element("Stacks").Add(xStack);
+
+            Save();
+        }
+
+        /// <summary>
+        /// Remove stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack to remove.</param>
+        public void RemoveStack(string name) {
+            if(!ExistsStack(name))
+                return;
+
+            Doc.Root.Element("Stacks").Element(name).Remove();
+            Save();
+        }
+
+        /// <summary>
+        /// Add stack item.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="item">MochaStackItem object to add.</param>
+        public void AddStackItem(string name,string path,MochaStackItem item) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path!="*" ? GetElement("Stacks/"+name +"/"+path) : Doc.Root.Element("Stacks").Element(name);
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            element.Add(GetMochaStackItemXML(item));
+            Save();
+        }
+
+        /// <summary>
+        /// Remove item of stack.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Name path of stack item to remove.</param>
+        public void RemoveStackItem(string name,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+            if(path=="*")
+                Doc.Root.Element("Stacks").Element(name).RemoveAll();
+            else {
+                XElement element = GetElement("Stacks/"+name+"/"+path);
+                if(element==null)
+                    return;
+
+                element.Remove();
+            }
+
+            Save();
+        }
+
+        /// <summary>
+        /// Set value of stack item.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="value">Value to set.</param>
+        /// <param name="path">Name path of stack item to set value.</param>
+        public void SetValueStackItem(string name,string value,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name).Element(path);
+
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            if(element.Value == value)
+                return;
+
+            element.Value=value;
+            Save();
+        }
+
+        /// <summary>
+        /// Return value of stack item.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Name path of stack item to get value.</param>
+        public string GetValueStackItem(string name,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name).Element(path);
+
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            return element.Value;
+        }
+
+        /// <summary>
+        /// Set description of stack item.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="description">Description to set.</param>
+        /// <param name="path">Name path of stack item to set description.</param>
+        public void SetDescriptionStackItem(string name,string description,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name).Element(path);
+
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            if(element.Attribute("Description").Value == description)
+                return;
+
+            element.Attribute("Description").Value=description;
+            Save();
+        }
+
+        /// <summary>
+        /// Return description of stack item.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Name path of stack item to get description.</param>
+        public string GetDescriptionStackItem(string name,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name).Element(path);
+
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            return element.Attribute("Description").Value;
+        }
+
+        /// <summary>
+        /// Rename stack.
+        /// </summary>
+        /// <param name="name">Name of stack to rename.</param>
+        /// <param name="newName">New name of stack.</param>
+        public void RenameStack(string name,string newName) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+            if(ExistsStack(newName))
+                throw new Exception("There is already a stack with this name!");
+
+            Doc.Root.Element("Stacks").Element(name).Name=newName;
+            Save();
+        }
+
+        /// <summary>
+        /// Rename stack item.
+        /// </summary>
+        /// <param name="name">Name of stack to rename.</param>
+        /// <param name="newName">New name of stack.</param>
+        public void RenameStackItem(string name,string newName,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name).Element(path);
+
+            if(element==null)
+                throw new Exception("The road is wrong, there is no such way!");
+
+            if(element.Name.LocalName == newName)
+                return;
+
+            if(path.Contains('/') && ExistsStackItem(name,path[0..path.IndexOf("/")] + "/"+newName))
+                throw new Exception("There is already a stack item with this name!");
+
+            element.Name=newName;
+            Save();
+        }
+
+        /// <summary>
+        /// Return stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        public MochaStack GetStack(string name) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement xStack = Doc.Root.Element("Stacks").Element(name);
+            MochaStack stack = new MochaStack(xStack.Name.LocalName);
+            stack.Description=xStack.Attribute("Description").Value;
+
+            IEnumerable<XElement> elementRange = xStack.Elements();
+            if(elementRange.Count() > 0)
+                for(int index = 0; index < elementRange.Count(); index++) {
+                    stack.Items.Add(GetMochaStackItemOBJ(elementRange.ElementAt(index)));
+                }
+
+            return stack;
+        }
+
+        /// <summary>
+        /// Get all stacks in database.
+        /// </summary>
+        /// <returns></returns>
+        public List<MochaStack> GetStacks() {
+            List<MochaStack> stacks = new List<MochaStack>();
+
+            IEnumerable<XElement> stackRange = Doc.Root.Element("Stacks").Elements();
+
+            if(stackRange.Count() > 0)
+                for(int index = 0; index < stackRange.Count(); index++) {
+                    stacks.Add(GetStack(stackRange.ElementAt(index).Name.LocalName));
+                }
+
+            return stacks;
+        }
+
+        /// <summary>
+        /// Returns whether there is a stack with the specified name.
+        /// </summary>
+        /// <param name="name">Name of stack to check.</param>
+        public bool ExistsStack(string name) =>
+            ExistsElement("Stacks/"+name);
+
+        /// <summary>
+        /// Returns whether there is a stack item with the specified name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Name path of item to check.</param>
+        public bool ExistsStackItem(string name,string path) =>
+            ExistsElement("Stacks/"+name+"/"+path);
 
         #endregion
 
@@ -501,6 +840,10 @@ namespace MochaDB {
         public void RenameTable(string name,string newName) {
             if(!ExistsTable(name))
                 throw new Exception("Table not found in this name!");
+
+            if(name == newName)
+                return;
+
             if(ExistsTable(newName))
                 throw new Exception("There is already a table with this name!");
 
@@ -623,6 +966,10 @@ namespace MochaDB {
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
+
+            if(name == newName)
+                return;
+
             if(ExistsColumn(tableName,newName))
                 throw new Exception("There is already a column with this name!");
 
@@ -656,7 +1003,11 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
-            Doc.Root.Element("Tables").Element(tableName).Element(name).Attribute("Description").Value = description;
+            XAttribute xDescription = Doc.Root.Element("Tables").Element(tableName).Element(name).Attribute("Description");
+            if(xDescription.Value==description)
+                return;
+
+            xDescription.Value = description;
             Save();
         }
 
@@ -734,10 +1085,13 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
-            XElement column = Doc.Root.Element("Tables").Element(tableName).Element(name);
-            column.Attribute("DataType").Value = dataType.ToString();
+            XElement xColumn = Doc.Root.Element("Tables").Element(tableName).Element(name);
+            if(xColumn.Attribute("DataType").Value==dataType.ToString())
+                return;
 
-            IEnumerable<XElement> dataRange = column.Elements();
+            xColumn.Attribute("DataType").Value = dataType.ToString();
+
+            IEnumerable<XElement> dataRange = xColumn.Elements();
             if(dataType == MochaDataType.AutoInt) {
                 for(int index = 0; index <dataRange.Count(); index++) {
                     dataRange.ElementAt(index).Value = index.ToString();
@@ -959,7 +1313,11 @@ namespace MochaDB {
             if(dataRange.Count() - 1 < index)
                 throw new Exception("This index is larger than the maximum number of data in the table!");
 
-            dataRange.ElementAt(index).Value=data.ToString();
+            XElement dataElement = dataRange.ElementAt(index);
+            if(dataElement.Value==data.ToString())
+                return;
+
+            dataElement.Value=data.ToString();
 
             Save();
         }
@@ -1085,18 +1443,12 @@ namespace MochaDB {
         /// <summary>
         /// Directory path of database.
         /// </summary>
-        public string DBPath { get; private set; }
+        public string Path { get; private set; }
 
         /// <summary>
         /// Name of database.
         /// </summary>
         public string Name { get; private set; }
-
-        /// <summary>
-        /// Accessibility to the database.
-        /// </summary>
-        public bool IsConnected =>
-            File.Exists(DBPath);
 
         /// <summary>
         /// XML Document.
@@ -1106,15 +1458,17 @@ namespace MochaDB {
         /// <summary>
         /// The most basic content of the database.
         /// </summary>
-        internal static string EmptyContent => "<?MochaDB version=\"" + Version + "\"?>\n" +
-                        "<Mocha>\n" +
-                        "  <Root>\n" +
+        internal static string EmptyContent => "<?MochaDB Version=\"" + Version + "\"?>\n" +
+                        "<Mocha Description=\"Root element of database.\">>\n" +
+                        "  <Root Description=\"Base of root.\">>\n" +
                         "    <Password DataType=\"String\" Description=\"Password of database.\"></Password>\n" +
                         "    <Description DataType=\"String\" Description=\"Description of database.\"></Description>" +
                         "  </Root>\n" +
-                        "  <Sectors>\n" +
+                        "  <Sectors Description=\"Base of sectors.\">>\n" +
                         "  </Sectors>\n" +
-                        "  <Tables>\n" +
+                        "  <Stacks Description=\"Base of stacks.\">>\n" +
+                        "  </Stacks>\n" +
+                        "  <Tables Description=\"Base of tables.\">\n" +
                         "  </Tables>\n" +
                         "</Mocha>";
 
@@ -1122,7 +1476,7 @@ namespace MochaDB {
         /// Version of MochaDB.
         /// </summary>
         internal static string Version =>
-            "1.0.0";
+            "2.0.0";
 
         #endregion
     }

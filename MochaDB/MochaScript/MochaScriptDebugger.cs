@@ -150,7 +150,7 @@ namespace MochaDB.MochaScript {
             }
 
             //Check Provider.
-            if(db == null || !db.IsConnected)
+            if(db == null)
                 Throw(dex+1,"|| Provider could not be processed!");
 
             //Find Begin and Final tag index.
