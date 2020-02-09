@@ -230,6 +230,9 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "SETSECTORDESCRIPTION") {
                     DB.SetSectorDescription(QueryPaths[1],QueryPaths[2]);
                     return;
+                } else if(QueryPaths[0] == "SETTABLEDESCRIPTION") {
+                    DB.SetTableDescription(QueryPaths[1],QueryPaths[2]);
+                    return;
                 } else if(QueryPaths[0] == "REMOVEROW") {
                     DB.RemoveRow(QueryPaths[1],int.Parse(QueryPaths[2]));
                     return;
@@ -389,6 +392,8 @@ namespace MochaDB {
                     return DB.GetSectorData(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETSECTORDESCRIPTION") {
                     return DB.GetSectorDescription(QueryPaths[1]);
+                } else if(QueryPaths[0] == "GETTABLEDESCRIPTION") {
+                    return DB.GetTableDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "COLUMNCOUNT") {
                     return COLUMNCOUNT(QueryPaths[1]);
                 } else if(QueryPaths[0] == "ROWCOUNT") {

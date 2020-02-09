@@ -825,8 +825,9 @@ namespace MochaDB {
             if(ExistsTable(table.Name))
                 throw new Exception("There is already a table with this name!");
 
-            XElement Xtable = new XElement(table.Name);
-            Doc.Root.Element("Tables").Add(Xtable);
+            XElement xTable = new XElement(table.Name);
+            xTable.Add(new XAttribute("Description",table.Description));
+            Doc.Root.Element("Tables").Add(xTable);
 
             for(int columnIndex = 0; columnIndex < table.ColumnCount; columnIndex++) {
                 AddColumn(table.Name,table.Columns[columnIndex]);
@@ -876,6 +877,35 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Get description of table by name.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        public string GetTableDescription(string name) {
+            if(!ExistsTable(name))
+                throw new Exception("Table not found in this name!");
+
+            return Doc.Root.Element("Tables").Element(name).Attribute("Description").Value;
+        }
+
+        /// <summary>
+        /// Set description of table by name.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        /// <param name="description">Description to set.</param>
+        public void SetTableDescription(string name,string description) {
+            if(!ExistsTable(name))
+                throw new Exception("Table not found in this name!");
+
+            XAttribute xDescription = Doc.Root.Element("Tables").Element(name).Attribute("Description");
+            if(xDescription.Value==description)
+                return;
+
+            xDescription.Value=description;
+
+            Save();
+        }
+
+        /// <summary>
         /// Return table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
@@ -883,17 +913,12 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
+            XElement xTable = Doc.Root.Element("Tables").Element(name);
             MochaTable table = new MochaTable(name);
+            table.Description=xTable.Attribute("Description").Value;
 
-            IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(name).Elements();
-            for(int index = 0; index < columnRange.Count(); index++) {
-                table.AddColumn(GetColumn(name,columnRange.ElementAt(index).Name.LocalName));
-            }
-
-            List<MochaRow> rows = GetRows(name);
-            for(int index = 0; index < rows.Count; index++) {
-                table.AddRow(rows[index]);
-            }
+            table.columns.AddRange(GetColumns(name));
+            table.rows.AddRange(GetRows(name));
 
             return table;
         }

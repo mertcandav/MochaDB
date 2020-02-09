@@ -8,8 +8,8 @@ namespace MochaDB {
     public sealed class MochaTable {
         #region Fields
 
-        private List<MochaColumn> columns;
-        private List<MochaRow> rows;
+        internal List<MochaColumn> columns;
+        internal List<MochaRow> rows;
 
         #endregion
 
@@ -21,6 +21,7 @@ namespace MochaDB {
         /// <param name="name">Name of table.</param>
         public MochaTable(string name) {
             Name = name;
+            Description = string.Empty;
             columns = new List<MochaColumn>();
             rows = new List<MochaRow>();
         }
@@ -29,12 +30,10 @@ namespace MochaDB {
         /// Create new MochaTable.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        /// <param name="columns">Columns of table.</param>
-        /// <param name="rows">Rows of table.</param>
-        public MochaTable(string name,IEnumerable<MochaColumn> columns,IEnumerable<MochaRow> rows)
-            : this(name) {
-            this.columns.AddRange(columns);
-            this.rows.AddRange(rows);
+        /// <param name="description">Description of table.</param>
+        public MochaTable(string name,string description) :
+            this(name) {
+            Description=description;
         }
 
         #endregion
@@ -263,6 +262,11 @@ namespace MochaDB {
         /// Name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Description.
+        /// </summary>
+        public string Description { get; set; }
 
         /// <summary>
         /// All columns.
