@@ -167,6 +167,15 @@ namespace MochaDB {
 
                     DB.Save();
                     return;
+                } else if(QueryPaths[0] == "CLEARSECTORS") {
+                    DB.ClearSectors();
+                    return;
+                } else if(QueryPaths[0] == "CLEARSTACKS") {
+                    DB.ClearStacks();
+                    return;
+                } else if(QueryPaths[0] == "CLEARTABLES") {
+                    DB.ClearTables();
+                    return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {

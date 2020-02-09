@@ -346,6 +346,14 @@ namespace MochaDB {
         #region Sector
 
         /// <summary>
+        /// Remove all sectors.
+        /// </summary>
+        public void ClearSectors() {
+            Doc.Root.Element("Sectors").RemoveNodes();
+            Save();
+        }
+
+        /// <summary>
         /// Add sector.
         /// </summary>
         /// <param name="sector">MochaSector object to add.</param>
@@ -541,6 +549,14 @@ namespace MochaDB {
         }
 
         #endregion
+
+        /// <summary>
+        /// Remove all stacks.
+        /// </summary>
+        public void ClearStacks() {
+            Doc.Root.Element("Stacks").RemoveNodes();
+            Save();
+        }
 
         /// <summary>
         /// Add stack.
@@ -792,6 +808,14 @@ namespace MochaDB {
         #endregion
 
         #region Table
+
+        /// <summary>
+        /// Remove all tables.
+        /// </summary>
+        public void ClearTables() {
+            Doc.Root.Element("Tables").RemoveNodes();
+            Save();
+        }
 
         /// <summary>
         /// Add table.
