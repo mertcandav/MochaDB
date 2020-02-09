@@ -19,6 +19,16 @@ namespace MochaDB {
             Description=string.Empty;
         }
 
+        /// <summary>
+        /// Create new MochaStack.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="description">Description of stack.</param>
+        public MochaStack(string name,string description) :
+            this(name) {
+            Description=description;
+        }
+
         #endregion
 
         #region Properties
@@ -62,6 +72,27 @@ namespace MochaDB {
             Name=name;
             Description=string.Empty;
             Value=string.Empty;
+        }
+
+        /// <summary>
+        /// Create new MochaStackItem.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        /// <param name="description">Description of item.</param>
+        public MochaStackItem(string name,string description) :
+            this(name) {
+            Description =description;
+        }
+
+        /// <summary>
+        /// Create new MochaStackItem.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        /// <param name="description">Description of item.</param>
+        /// <param name="value">Value of item.</param>
+        public MochaStackItem(string name,string description,string value) :
+            this(name,description) {
+            Value=value;
         }
 
         #endregion
