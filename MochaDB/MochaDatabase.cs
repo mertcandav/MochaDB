@@ -1128,11 +1128,8 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public bool ExistsColumn(string tableName,string name) {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            return ExistsElement("Tables/"+tableName + "/" + name);
-        }
+        public bool ExistsColumn(string tableName,string name) =>
+            ExistsElement("Tables/"+tableName + "/" + name);
 
         /// <summary>
         /// Get column from table by name
