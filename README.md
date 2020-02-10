@@ -42,7 +42,6 @@ It stores the data with XML infrastructure. It does not support SQL.
 You cannot work with SQL queries, but with MochaQ you can do basic operations with custom commands and work with LINQ queries.
 
 ```c#
-
 public IEnumerable<MochaTable> GetMatchTables(string key) {
   Regex rgx = new Regex(key);
   var tables = DB.GetTables();
@@ -53,7 +52,6 @@ public IEnumerable<MochaTable> GetMatchTables(string key) {
   
   return result;
 }
-
 ```
 
 <br><br>
@@ -66,8 +64,8 @@ MochaQ offers quick basic queries. With MochaQuery, you can process and run quer
 ## Use
 
 ```c#
-
-MochaDatabase db = new MochaDatabase("path");
+MochaDatabase db = new MochaDatabase("connection string");
+db.Connect();
 string value = (string)db.Query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
@@ -75,13 +73,13 @@ if(value!="3.14")
 
 //Or
 
-MochaDatabase db = new MochaDatabase("path");
+MochaDatabase db = new MochaDatabase("connection string");
+db.Connect();
 MochaQuery query = new MochaQuery(db);
 string value = (string)query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
     query.Run("SETSECTORDATA:PiNumber:3.14");
-
 ```
 
 <br><br>
@@ -98,7 +96,6 @@ It allows you to work with its own functions and MochaQ commands.
 ## Use
 
 ```
-
 //Author: Mertcan DAVULCU
 
 //Connect.
@@ -152,7 +149,6 @@ compilerevent OnFunctionInvoked()
 
 //End script commands.
 Final
-
 ```
 
 <br>
@@ -160,12 +156,10 @@ Final
 ## Debugging
 
 ```c#
-
 public void Debug(string path) {
     MochaScriptDebugger debugger = new MochaScriptDebugger(path);
     debugger.DebugRun();
 }
-
 ```
 <br>
 
