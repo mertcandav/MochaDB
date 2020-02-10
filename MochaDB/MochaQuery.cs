@@ -24,7 +24,7 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="embedded">Is embedded query.</param>
         internal MochaQuery(MochaDatabase db,bool embedded) {
-            IsDatabaseEmbeddedQuery=embedded;
+            IsDatabaseEmbedded=embedded;
             DB = db;
             MochaQ = "RETURNQUERY";
         }
@@ -79,6 +79,9 @@ namespace MochaDB {
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
         public object Dynamic() {
+            if(DB.State!=MochaConnectionState.Connected)
+                throw new Exception("Connection is not open!");
+
             //Check BREAKQUERY.
             if(MochaQ.Contains("BREAKQUERY"))
                 return null;
@@ -144,6 +147,9 @@ namespace MochaDB {
         /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
         /// </summary>
         public void Run() {
+            if(DB.State!=MochaConnectionState.Connected)
+                throw new Exception("Connection is not open!");
+
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
                 throw new Exception("This MochaQ query is empty, invalid!");
@@ -179,9 +185,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "REMOVETABLE") {
                     DB.RemoveTable(QueryPaths[1]);
                     return;
@@ -216,11 +219,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 3) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[2]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "REMOVECOLUMN") {
                     DB.RemoveColumn(QueryPaths[1],QueryPaths[2]);
                     return;
@@ -257,13 +255,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 4) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[2]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[3]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "RENAMECOLUMN") {
                     DB.RenameColumn(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
@@ -295,15 +286,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 5) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[2]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[3]))
-                    throw new Exception("Parameter not found!");
-                if(string.IsNullOrEmpty(QueryPaths[4]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "UPDATEDATA") {
                     DB.UpdateData(QueryPaths[1],QueryPaths[2],int.Parse(QueryPaths[3]),QueryPaths[4]);
                     return;
@@ -343,6 +325,9 @@ namespace MochaDB {
         /// Runs the active MochaQ query. Returns the incoming value.
         /// </summary>
         public object GetRun() {
+            if(DB.State!=MochaConnectionState.Connected)
+                throw new Exception("Connection is not open!");
+
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
                 throw new Exception("This MochaQ query is empty, invalid!");
@@ -510,7 +495,7 @@ namespace MochaDB {
         /// <summary>
         /// Is embedded query.
         /// </summary>
-        public bool IsDatabaseEmbeddedQuery { get; private set; }
+        public bool IsDatabaseEmbedded { get; private set; }
 
         /// <summary>
         /// MochaDatabse object that provides management of the targeted MochaDB database.
@@ -522,7 +507,7 @@ namespace MochaDB {
                 if(value == db)
                     return;
 
-                if(!IsDatabaseEmbeddedQuery) {
+                if(!IsDatabaseEmbedded) {
                     if(db == null)
                         throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
                 }

@@ -44,59 +44,55 @@ namespace MochaDB {
         #region Constructors
 
         /// <summary>
-        /// Creates a new MochaDatabase. If there is no MochaDB database file on the path, it will be created automatically.
+        /// Create new MochaDatabase.
         /// </summary>
-        /// <param name="path">Directory path of MochaDB database.</param>
-        public MochaDatabase(string path) {
-            if(!IsMochaDB(path))
-                throw new Exception("The file shown is not a MochaDB database file!");
-
-            Path = path;
-
-            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Path,Encoding.UTF8)));
-
-            if(!CheckMochaDB())
-                throw new Exception("The MochaDB database is corrupt!");
-            if(!string.IsNullOrEmpty(GetPassword()))
-                throw new Exception("The MochaDB database is password protected!");
-
-            FileInfo fInfo = new FileInfo(path);
-
-            Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-
-            Query = new MochaQuery(this,true);
-            sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
+        /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
+        public MochaDatabase(string connectionString) {
+            Provider= new MochaProvider(connectionString);
+            Provider.EnableReadonly();
+            State=MochaConnectionState.Disconnected;
         }
 
         /// <summary>
-        /// Creates a new MochaDatabase. If there is no MochaDB database file on the path, it will be created automatically.
+        /// Create new MochaDatabase.
         /// </summary>
         /// <param name="path">Directory path of MochaDB database.</param>
         /// <param name="password">Password of MochaDB database.</param>
         public MochaDatabase(string path,string password) {
-            if(!IsMochaDB(path))
-                throw new Exception("The file shown is not a MochaDB database file!");
+            Provider=new MochaProvider("path="+path+";password="+password);
+            Provider.EnableReadonly();
+            State=MochaConnectionState.Disconnected;
+        }
 
-            Path = path;
-
-            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Path,Encoding.UTF8)));
-
-            if(!CheckMochaDB())
-                throw new Exception("The MochaDB database is corrupt!");
-            if(GetPassword() != password)
-                throw new Exception("MochaDB database password does not match the password specified!");
-
-            FileInfo fInfo = new FileInfo(path);
-
-            Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-
-            Query = new MochaQuery(this,true);
-            sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
+        /// <summary>
+        /// Create new MochaDatabase.
+        /// </summary>
+        /// <param name="provider">Provider for connect database.</param>
+        public MochaDatabase(MochaProvider provider) {
+            provider.EnableReadonly();
+            Provider=provider;
+            State=MochaConnectionState.Disconnected;
         }
 
         #endregion
 
         #region Events
+
+        #region Internal
+
+        /// <summary>
+        /// This happens before connection check.
+        /// </summary>
+        internal event EventHandler<EventArgs> ConnectionCheckRequired;
+        private void OnConnectionCheckRequired(object sender,EventArgs e) {
+            //Invoke.
+            ConnectionCheckRequired?.Invoke(sender,e);
+
+            if(State!=MochaConnectionState.Connected)
+                throw new Exception("Connection is not open!");
+        }
+
+        #endregion
 
         /// <summary>
         /// This happens after content changed.
@@ -206,35 +202,65 @@ namespace MochaDB {
 
         #region Methods
 
-        #region Internal
+        /// <summary>
+        /// Connect to database.
+        /// </summary>
+        public void Connect() {
+            if(State==MochaConnectionState.Connected)
+                return;
+
+            State=MochaConnectionState.Connected;
+
+            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
+
+            if(!CheckMochaDB())
+                throw new Exception("The MochaDB database is corrupt!");
+            if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
+                throw new Exception("The MochaDB database is password protected!");
+            else if(Provider.Password != GetPassword())
+                throw new Exception("MochaDB database password does not match the password specified!");
+
+            FileInfo fInfo = new FileInfo(Provider.Path);
+
+            Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
+
+            sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
+            Query = new MochaQuery(this,true);
+        }
 
         /// <summary>
-        /// Return element by path.
+        /// Disconnect from database.
         /// </summary>
-        /// <param name="path">Path of element.</param>
-        public XElement GetElement(string path) {
-            string[] elementsName = path.Split('/');
+        public void Disconnect() {
+            if(State==MochaConnectionState.Disconnected)
+                return;
 
-            XElement element = Doc.Root.Element(elementsName[0]);
+            State=MochaConnectionState.Disconnected;
 
-            if(element==null)
-                return null;
+            sourceStream.Dispose();
+            Doc=null;
+        }
 
-            for(int i = 1; i < elementsName.Length; i++) {
-                element = element.Element(elementsName[i]);
-                if(element == null)
-                    return null;
-            }
-
-            return element;
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        public void Dispose() {
+            Query=null;
+            Disconnect();
         }
 
         #endregion
 
+        #region Database
+
+        #region Internal
+
         /// <summary>
         /// Checks the suitability and robustness of the MochaDB database.
         /// </summary>
-        public bool CheckMochaDB() {
+        internal bool CheckMochaDB() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             try {
                 if(Doc.Root.Name.LocalName != "Mocha")
                     return false;
@@ -254,49 +280,74 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Checks for the presence of the element.
+        /// Return element by path.
         /// </summary>
         /// <param name="path">Path of element.</param>
-        public bool ExistsElement(string path) {
+        internal XElement GetElement(string path) {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             string[] elementsName = path.Split('/');
 
             XElement element = Doc.Root.Element(elementsName[0]);
 
-            if(element == null)
-                return false;
+            if(element==null)
+                return null;
 
             for(int i = 1; i < elementsName.Length; i++) {
                 element = element.Element(elementsName[i]);
                 if(element == null)
-                    return false;
+                    return null;
             }
-            return true;
+
+            return element;
         }
 
         /// <summary>
-        /// Returns the password of the MochaDB database.
+        /// Checks for the presence of the element.
         /// </summary>
-        public string GetPassword() =>
-            Doc.Root.Element("Root").Element("Password").Value;
+        /// <param name="path">Path of element.</param>
+        internal bool ExistsElement(string path) =>
+            GetElement(path) != null;
 
         /// <summary>
         /// Save MochaDB database.
         /// </summary>
-        public void Save() {
-            sourceStream.Dispose();
-            File.WriteAllText(Path,AES256.Encrypt(Doc.ToString()));
-            sourceStream = File.Open(Path,FileMode.Open,FileAccess.ReadWrite);
+        internal void Save() {
+            string content = AES256.Encrypt(Doc.ToString());
+            string password = GetPassword();
+            Disconnect();
+            File.WriteAllText(Provider.Path,content);
+            Provider.Readonly=false;
+            Provider.ConnectionString="path="+Provider.Path+";password="+password;
+            Provider.EnableReadonly();
+            Connect();
 
             OnChangeContent(this,new EventArgs());
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Returns the password of the MochaDB database.
+        /// </summary>
+        public string GetPassword() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            return Doc.Root.Element("Root").Element("Password").Value;
         }
 
         /// <summary>
         /// MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
         /// </summary>
         public void Reset() {
-            sourceStream.Dispose();
-            File.WriteAllText(Path,AES256.Encrypt(EmptyContent));
-            sourceStream = File.Open(Path,FileMode.Open,FileAccess.ReadWrite);
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            Disconnect();
+            File.WriteAllText(Provider.Path,AES256.Encrypt(EmptyContent));
+            Provider.Readonly=false;
+            Provider.ConnectionString="path="+Provider.Path;
+            Provider.EnableReadonly();
+            Connect();
 
             OnChangeContent(this,new EventArgs());
         }
@@ -306,6 +357,8 @@ namespace MochaDB {
         /// </summary>
         /// <param name="password">Password to set.</param>
         public void SetPassword(string password) {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             Doc.Root.Element("Root").Element("Password").Value = password;
             Save();
         }
@@ -313,14 +366,19 @@ namespace MochaDB {
         /// <summary>
         /// Returns the description of the database.
         /// </summary>
-        public string GetDescription() =>
-            Doc.Root.Element("Root").Element("Description").Value;
+        public string GetDescription() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            return Doc.Root.Element("Root").Element("Description").Value;
+        }
 
         /// <summary>
         /// Sets the description of the database.
         /// </summary>
         /// <param name="Description">Description to set.</param>
         public void SetDescription(string Description) {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             Doc.Root.Element("Root").Element("Description").Value = Description;
             Save();
         }
@@ -329,16 +387,11 @@ namespace MochaDB {
         /// Return xml schema of database.
         /// </summary>
         public string GetXML() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             XDocument doc = XDocument.Parse(Doc.ToString());
             doc.Root.Element("Root").Remove();
             return doc.ToString();
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        public void Dispose() {
-            sourceStream.Dispose();
         }
 
         #endregion
@@ -349,6 +402,8 @@ namespace MochaDB {
         /// Remove all sectors.
         /// </summary>
         public void ClearSectors() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             Doc.Root.Element("Sectors").RemoveNodes();
             Save();
         }
@@ -372,18 +427,16 @@ namespace MochaDB {
         /// Add sector.
         /// </summary>
         /// <param name="name">Name of sector to add.</param>
-        public void AddSector(string name) {
+        public void AddSector(string name) =>
             AddSector(new MochaSector(name));
-        }
 
         /// <summary>
         /// Add sector.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         /// <param name="data">Data of sector.</param>
-        public void AddSector(string name,string data) {
+        public void AddSector(string name,string data) =>
             AddSector(new MochaSector(name,data));
-        }
 
         /// <summary>
         /// Remove sector by name.
@@ -493,6 +546,8 @@ namespace MochaDB {
         /// Return sectors in database.
         /// </summary>
         public List<MochaSector> GetSectors() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             List<MochaSector> sectors = new List<MochaSector>();
 
             IEnumerable<XElement> sectorRange = Doc.Root.Element("Sectors").Elements();
@@ -554,6 +609,8 @@ namespace MochaDB {
         /// Remove all stacks.
         /// </summary>
         public void ClearStacks() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             Doc.Root.Element("Stacks").RemoveNodes();
             Save();
         }
@@ -778,6 +835,8 @@ namespace MochaDB {
         /// </summary>
         /// <returns></returns>
         public List<MochaStack> GetStacks() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             List<MochaStack> stacks = new List<MochaStack>();
 
             IEnumerable<XElement> stackRange = Doc.Root.Element("Stacks").Elements();
@@ -813,6 +872,8 @@ namespace MochaDB {
         /// Remove all tables.
         /// </summary>
         public void ClearTables() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             Doc.Root.Element("Tables").RemoveNodes();
             Save();
         }
@@ -927,6 +988,8 @@ namespace MochaDB {
         /// Return tables in database.
         /// </summary>
         public List<MochaTable> GetTables() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             List<MochaTable> tables = new List<MochaTable>();
 
             IEnumerable<XElement> tableRange = Doc.Root.Element("Tables").Elements();
@@ -1065,8 +1128,11 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public bool ExistsColumn(string tableName,string name) =>
-            ExistsElement("Tables/"+tableName + "/" + name);
+        public bool ExistsColumn(string tableName,string name) {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            return ExistsElement("Tables/"+tableName + "/" + name);
+        }
 
         /// <summary>
         /// Get column from table by name
@@ -1484,20 +1550,7 @@ namespace MochaDB {
 
         #region Properties
 
-        /// <summary>
-        /// MochaQuery object.
-        /// </summary>
-        public MochaQuery Query { get; private set; }
-
-        /// <summary>
-        /// Directory path of database.
-        /// </summary>
-        public string Path { get; private set; }
-
-        /// <summary>
-        /// Name of database.
-        /// </summary>
-        public string Name { get; private set; }
+        #region Internal
 
         /// <summary>
         /// XML Document.
@@ -1526,6 +1579,28 @@ namespace MochaDB {
         /// </summary>
         internal static string Version =>
             "2.0.0";
+
+        #endregion
+
+        /// <summary>
+        /// Connection provider.
+        /// </summary>
+        public MochaProvider Provider { get; private set; }
+
+        /// <summary>
+        /// MochaQuery object.
+        /// </summary>
+        public MochaQuery Query { get; private set; }
+
+        /// <summary>
+        /// State of connection.
+        /// </summary>
+        public MochaConnectionState State { get; private set; }
+
+        /// <summary>
+        /// Name of database.
+        /// </summary>
+        public string Name { get; private set; }
 
         #endregion
     }

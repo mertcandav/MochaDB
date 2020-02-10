@@ -182,8 +182,13 @@ namespace MochaDB.MochaScript {
             //Variables.
             variables.Clear();
 
+            //Connect to database.
+            db.Connect();
+
             //Process Commands.
             functions.Invoke("Main");
+
+            db.Dispose();
 
             OnSuccessFinishDebug(new EventArgs());
         }
@@ -697,7 +702,8 @@ namespace MochaDB.MochaScript {
         /// Dispose.
         /// </summary>
         public void Dispose() {
-            scriptStream.Dispose();
+            if(scriptStream!=null)
+                scriptStream.Dispose();
         }
 
         #endregion
@@ -723,9 +729,6 @@ namespace MochaDB.MochaScript {
             set {
                 if(string.IsNullOrEmpty(value))
                     throw new Exception("ScriptPath is can not null!");
-
-                if(value == scriptPath)
-                    return;
 
                 FileInfo fInfo = new FileInfo(value);
 
