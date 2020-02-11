@@ -40,7 +40,7 @@ namespace MochaDB {
             if(string.IsNullOrWhiteSpace(connectionString))
                 throw new Exception("Connection string is can not empty or white space!");
 
-            Regex rgx = new Regex(name+".?=.+",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+            Regex rgx = new Regex(name+".?=.?",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
             IEnumerable<string> result =
                 from rvalue in
@@ -59,9 +59,10 @@ namespace MochaDB {
             string sresult = result.ElementAt(0);
             string attributeValue = sresult[(sresult.IndexOf('=')+1)..^0];
             MochaProviderAttribute attribute = new MochaProviderAttribute();
+            attribute.Value= attributeValue==null ? "" :
+                string.Equals(attribute.Name,"password",StringComparison.InvariantCultureIgnoreCase) ?
+                attributeValue : attributeValue.TrimStart().TrimEnd();
             attribute.Name=name.TrimStart().TrimEnd();
-            attribute.Value= !string.Equals(attribute.Name,"password",StringComparison.InvariantCultureIgnoreCase) ?
-                attributeValue.TrimStart().TrimEnd() : attributeValue;
             return attribute;
         }
 
@@ -88,6 +89,13 @@ namespace MochaDB {
         public void EnableReadonly() {
             Readonly=true;
         }
+
+        /// <summary>
+        /// Return attribute by name.
+        /// </summary>
+        /// <param name="name">Name of attribute.</param>
+        public MochaProviderAttribute GetAttribute(string name) =>
+            GetAttribute(name,ConnectionString);
 
         #endregion
 
@@ -148,7 +156,12 @@ namespace MochaDB {
     public sealed class MochaProviderAttribute {
         #region Fields
 
-        private string name;
+        internal static Regex booleanAttributesRegex = new Regex(@"
+AutoConnect",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+        private string
+            name,
+            value;
 
         #endregion
 
@@ -159,7 +172,7 @@ namespace MochaDB {
         /// </summary>
         internal MochaProviderAttribute() {
             name=string.Empty;
-            Value=string.Empty;
+            value=string.Empty;
         }
 
         /// <summary>
@@ -168,8 +181,29 @@ namespace MochaDB {
         /// <param name="name">Name of attribute.</param>
         /// <param name="value">Value of attribute.</param>
         public MochaProviderAttribute(string name,string value) {
+            this.value=value;
             Name=name;
-            Value=value;
+        }
+
+        #endregion
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Check value by name.
+        /// </summary>
+        internal void CheckValue() {
+            if(string.IsNullOrWhiteSpace(value)) {
+                if(Name.Equals("Path",StringComparison.InvariantCultureIgnoreCase))
+                    throw new Exception("File path cannot be empty!");
+                if(booleanAttributesRegex.IsMatch(Name))
+                    value="False";
+            } else {
+                if(booleanAttributesRegex.IsMatch(Name) && (
+                    !value.Equals(bool.TrueString,StringComparison.InvariantCultureIgnoreCase) ||
+                    !value.Equals(bool.FalseString,StringComparison.InvariantCultureIgnoreCase)))
+                    value="False";
+            }
         }
 
         #endregion
@@ -190,13 +224,21 @@ namespace MochaDB {
                     return;
 
                 name=value;
+                CheckValue();
             }
         }
 
         /// <summary>
         /// Value.
         /// </summary>
-        public string Value { get; set; }
+        public string Value {
+            get =>
+                value;
+            set {
+                this.value=value;
+                CheckValue();
+            }
+        }
 
         #endregion
     }

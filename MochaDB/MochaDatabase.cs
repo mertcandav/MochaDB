@@ -47,22 +47,16 @@ namespace MochaDB {
         /// Create new MochaDatabase.
         /// </summary>
         /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
-        public MochaDatabase(string connectionString) {
-            Provider= new MochaProvider(connectionString);
-            Provider.EnableReadonly();
-            State=MochaConnectionState.Disconnected;
-        }
+        public MochaDatabase(string connectionString) :
+            this(new MochaProvider(connectionString)) { }
 
         /// <summary>
         /// Create new MochaDatabase.
         /// </summary>
         /// <param name="path">Directory path of MochaDB database.</param>
         /// <param name="password">Password of MochaDB database.</param>
-        public MochaDatabase(string path,string password) {
-            Provider=new MochaProvider("path="+path+";password="+password);
-            Provider.EnableReadonly();
-            State=MochaConnectionState.Disconnected;
-        }
+        public MochaDatabase(string path,string password) :
+            this(new MochaProvider("path="+path+";password="+password)) { }
 
         /// <summary>
         /// Create new MochaDatabase.
@@ -72,6 +66,11 @@ namespace MochaDB {
             provider.EnableReadonly();
             Provider=provider;
             State=MochaConnectionState.Disconnected;
+
+            MochaProviderAttribute autoConnect = Provider.GetAttribute("AutoConnect");
+            if(autoConnect!=null && autoConnect.Value.Equals("True",StringComparison.InvariantCultureIgnoreCase)) {
+                Connect();
+            }
         }
 
         #endregion
