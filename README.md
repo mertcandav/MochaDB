@@ -19,6 +19,7 @@ It stores the data with XML infrastructure. It does not support SQL.
 - MochaQ for simple and fast querys
 - Supports LINQ querys
 - Encrypted database file
+- Object oriented management support
 - Use indexes for fast searching
 - <a href="https://github.com/MertcanDavulcu/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
 - Single DLL
