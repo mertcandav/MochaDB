@@ -33,7 +33,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of attribute.</param>
         /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
-        internal static MochaProviderAttribute GetAttribute(string name,string connectionString) {
+        public static MochaProviderAttribute GetAttribute(string name,string connectionString) {
             if(string.IsNullOrWhiteSpace(name))
                 throw new Exception("Attribute name is can not empty or white space!");
 
@@ -63,6 +63,19 @@ namespace MochaDB {
             attribute.Value= !string.Equals(attribute.Name,"password",StringComparison.InvariantCultureIgnoreCase) ?
                 attributeValue.TrimStart().TrimEnd() : attributeValue;
             return attribute;
+        }
+
+        /// <summary>
+        /// Return connection string by attributes.
+        /// </summary>
+        /// <param name="attributes">Attribtutes of connection string.</param>
+        public static string GetConnectionString(IEnumerable<MochaProviderAttribute> attributes) {
+            string cstring = string.Empty;
+            for(int index = 0; index < attributes.Count(); index++) {
+                MochaProviderAttribute attribtue = attributes.ElementAt(index);
+                cstring+=attribtue.Name+"="+attribtue.Value+";";
+            }
+            return cstring;
         }
 
         #endregion
@@ -170,7 +183,7 @@ namespace MochaDB {
             get =>
                 name;
             set {
-                if(string.IsNullOrWhiteSpace(name))
+                if(string.IsNullOrWhiteSpace(value))
                     throw new Exception("Attribute name is can not empty or white space!");
 
                 if(value==name)

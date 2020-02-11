@@ -239,13 +239,13 @@ namespace MochaDB {
 
             sourceStream.Dispose();
             Doc=null;
+            Query=null;
         }
 
         /// <summary>
         /// Dispose.
         /// </summary>
         public void Dispose() {
-            Query=null;
             Disconnect();
         }
 

@@ -24,9 +24,9 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="embedded">Is embedded query.</param>
         internal MochaQuery(MochaDatabase db,bool embedded) {
-            IsDatabaseEmbedded=embedded;
-            DB = db;
+            this.db = db;
             MochaQ = "RETURNQUERY";
+            IsDatabaseEmbedded=embedded;
         }
 
         /// <summary>
@@ -496,7 +496,7 @@ namespace MochaDB {
                 db;
             set {
                 if(IsDatabaseEmbedded)
-                    throw new Exception("This is embedded in database, can Not set database!");
+                    throw new Exception("This is embedded in database, can not set database!");
 
                 if(db == null)
                     throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
