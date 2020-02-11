@@ -133,13 +133,19 @@ namespace MochaDB {
     /// Attributes for MochaProviders.
     /// </summary>
     public sealed class MochaProviderAttribute {
+        #region Fields
+
+        private string name;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
         /// Create new MochaProviderAttribute.
         /// </summary>
         internal MochaProviderAttribute() {
-            Name=string.Empty;
+            name=string.Empty;
             Value=string.Empty;
         }
 
@@ -149,9 +155,6 @@ namespace MochaDB {
         /// <param name="name">Name of attribute.</param>
         /// <param name="value">Value of attribute.</param>
         public MochaProviderAttribute(string name,string value) {
-            if(string.IsNullOrWhiteSpace(name))
-                throw new Exception("Attribute name is can not empty or white space!");
-
             Name=name;
             Value=value;
         }
@@ -163,7 +166,19 @@ namespace MochaDB {
         /// <summary>
         /// Name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name {
+            get =>
+                name;
+            set {
+                if(string.IsNullOrWhiteSpace(name))
+                    throw new Exception("Attribute name is can not empty or white space!");
+
+                if(value==name)
+                    return;
+
+                name=value;
+            }
+        }
 
         /// <summary>
         /// Value.
