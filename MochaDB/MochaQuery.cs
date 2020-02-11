@@ -67,9 +67,6 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public object Dynamic(MochaDatabase db,string mochaQ) {
-            if(db == null)
-                throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
-
             DB = db;
             MochaQ = mochaQ;
             return Dynamic();
@@ -135,9 +132,6 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public void Run(MochaDatabase db,string mochaQ) {
-            if(db == null)
-                throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
-
             DB = db;
             MochaQ = mochaQ;
             Run();
@@ -313,9 +307,6 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public object GetRun(MochaDatabase db,string mochaQ) {
-            if(db == null)
-                throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
-
             DB = db;
             MochaQ = mochaQ;
             return GetRun();
@@ -504,13 +495,15 @@ namespace MochaDB {
             get =>
                 db;
             set {
+                if(IsDatabaseEmbedded)
+                    throw new Exception("This is embedded in database, can Not set database!");
+
+                if(db == null)
+                    throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
+
                 if(value == db)
                     return;
 
-                if(!IsDatabaseEmbedded) {
-                    if(db == null)
-                        throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
-                }
 
                 db = value;
             }
