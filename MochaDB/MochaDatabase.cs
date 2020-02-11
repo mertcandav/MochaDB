@@ -337,22 +337,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
-        /// </summary>
-        public void Reset() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            Disconnect();
-            File.WriteAllText(Provider.Path,AES256.Encrypt(EmptyContent));
-            Provider.Readonly=false;
-            Provider.ConnectionString="path="+Provider.Path;
-            Provider.EnableReadonly();
-            Connect();
-
-            OnChangeContent(this,new EventArgs());
-        }
-
-        /// <summary>
         /// Sets the MochaDB Database password.
         /// </summary>
         /// <param name="password">Password to set.</param>
@@ -381,6 +365,22 @@ namespace MochaDB {
 
             Doc.Root.Element("Root").Element("Description").Value = Description;
             Save();
+        }
+
+        /// <summary>
+        /// MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
+        /// </summary>
+        public void Reset() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            Disconnect();
+            File.WriteAllText(Provider.Path,AES256.Encrypt(EmptyContent));
+            Provider.Readonly=false;
+            Provider.ConnectionString="path="+Provider.Path;
+            Provider.EnableReadonly();
+            Connect();
+
+            OnChangeContent(this,new EventArgs());
         }
 
         /// <summary>

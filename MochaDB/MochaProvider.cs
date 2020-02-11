@@ -57,9 +57,11 @@ namespace MochaDB {
                 throw new Exception("An attribute can only be specified once!");
 
             string sresult = result.ElementAt(0);
+            string attributeValue = sresult[(sresult.IndexOf('=')+1)..^0];
             MochaProviderAttribute attribute = new MochaProviderAttribute();
             attribute.Name=name.TrimStart().TrimEnd();
-            attribute.Value=sresult[(sresult.IndexOf('=')+1)..^0].TrimStart().TrimEnd();
+            attribute.Value= !string.Equals(attribute.Name,"password",StringComparison.InvariantCultureIgnoreCase) ?
+                attributeValue.TrimStart().TrimEnd() : attributeValue;
             return attribute;
         }
 
