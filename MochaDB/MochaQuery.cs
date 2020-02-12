@@ -258,6 +258,10 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "SETCOLUMNDATATYPE") {
                     DB.SetColumnDataType(QueryPaths[1],QueryPaths[2],MochaData.GetDataTypeFromName(QueryPaths[3]));
                     return;
+                } else if(QueryPaths[0] == "ADDDATA") {
+                    DB.AddData(QueryPaths[1],QueryPaths[2],MochaData.GetDataFromString(DB.GetColumnDataType(QueryPaths[1],QueryPaths[2])
+                        ,QueryPaths[3]));
+                    return;
                 } else if(QueryPaths[0] == "CREATESTACKITEM") {
                     DB.AddStackItem(QueryPaths[1],QueryPaths[3],new MochaStackItem(QueryPaths[2]));
                     return;

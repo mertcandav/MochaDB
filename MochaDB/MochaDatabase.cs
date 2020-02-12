@@ -1031,10 +1031,10 @@ namespace MochaDB {
                     Xcolumn.Add(new XElement(index.ToString()));
             } else {
                 for(int index = 1; index <= column.DataCount; index++)
-                    Xcolumn.Add(new XElement((string)column.Datas[index].Data));
+                    Xcolumn.Add(new XElement(column.Datas[index].Data.ToString()));
 
-                for(int index = column.DataCount-1;index < rowCount; index++) {
-                    Xcolumn.Add(new XElement((string)MochaData.TryGetData(MochaDataType.Byte,"WrongData")));
+                for(int index = column.DataCount;index < rowCount; index++) {
+                    Xcolumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"").ToString()));
                 }
             }
 
@@ -1298,26 +1298,23 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
 
+            if(index < 0)
+                throw new Exception("Index can not lower than 0!");
+
             IList<MochaColumn> columns = GetColumns(tableName);
 
             if(columns.Count == 0)
-                return new MochaRow();
+                return null;
+
+            int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+            if(rowCount-1 < index)
+                throw new Exception("Index cat not bigger than row count!");
 
             MochaRow row = new MochaRow();
             MochaData[] datas = new MochaData[columns.Count];
 
             for(int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
                 datas[columnIndex] = columns[columnIndex].Datas[index];
-            }
-
-            //
-
-            for(int dataIndex = 0; dataIndex < datas.Length; dataIndex++) {
-                if(datas[dataIndex] != null)
-                    continue;
-
-                datas[dataIndex] = new MochaData(columns[dataIndex].DataType,
-                    MochaData.TryGetData(columns[dataIndex].DataType,""));
             }
 
             row.AddDataRange(datas);
@@ -1334,19 +1331,17 @@ namespace MochaDB {
                 throw new Exception("Table not found in this name!");
 
             List<MochaRow> rows = new List<MochaRow>();
+            XElement firstColumn = (XElement)Doc.Root.Element("Tables").Element(tableName).FirstNode;
 
-            try {
-                XElement firstColumn = (XElement)Doc.Root.Element("Tables").Element(tableName).FirstNode;
-
-                int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
-                for(int index = 0; index < dataCount; index++) {
-                    rows.Add(GetRow(tableName,index));
-                }
-
+            if(firstColumn==null)
                 return rows;
-            } catch {
-                return rows;
+
+            int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
+            for(int index = 0; index < dataCount; index++) {
+                rows.Add(GetRow(tableName,index));
             }
+
+            return rows;
         }
 
         #endregion
@@ -1380,7 +1375,19 @@ namespace MochaDB {
             if(!MochaData.IsType(dataType,data.Data))
                 throw new Exception("The submitted data is not compatible with the targeted data!");
 
+            IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
+            for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+                XElement element = columnRange.ElementAt(columnIndex);
+
+                if(element.Name.LocalName==columnName)
+                    continue;
+
+                element.Add(
+                    new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),"").ToString()));
+            }
             Doc.Root.Element("Tables").Element(tableName).Element(columnName).Add(xData);
+
+
             Save();
         }
 
@@ -1498,6 +1505,9 @@ namespace MochaDB {
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
+
+            if(index < 0)
+                throw new Exception("Index can not lower than 0!");
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
 
