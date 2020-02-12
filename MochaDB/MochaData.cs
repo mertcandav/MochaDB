@@ -39,7 +39,7 @@ namespace MochaDB {
         #region Static Methods
 
         /// <summary>
-        /// Get the data equality to the data type.
+        /// Return the data equality to the data type.
         /// </summary>
         /// <param name="dataType">Base datatype.</param>
         /// <param name="data">Data to check.</param>
@@ -69,10 +69,42 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get Type object from DataType targeting data.
+        /// Return MochaDataType by name.
+        /// </summary>
+        /// <param name="name">Name of MochaDataType.</param>
+        public static MochaDataType GetDataTypeFromName(string name="") {
+            name=name.TrimStart().TrimEnd().ToLowerInvariant();
+            if(name=="byte")
+                return MochaDataType.Byte;
+            else if(name=="char")
+                return MochaDataType.Char;
+            else if(name=="decimal")
+                return MochaDataType.Decimal;
+            else if(name=="double")
+                return MochaDataType.Double;
+            else if(name=="flaot")
+                return MochaDataType.Float;
+            else if(name=="int16")
+                return MochaDataType.Int16;
+            else if(name=="int32")
+                return MochaDataType.Int32;
+            else if(name=="int64")
+                return MochaDataType.Int64;
+            else if(name=="unique")
+                return MochaDataType.Unique;
+            else if(name=="autoint")
+                return MochaDataType.AutoInt;
+            else if(name=="string")
+                return MochaDataType.String;
+            else
+                throw new Exception("There is no MochaDataType by this name!");
+        }
+
+        /// <summary>
+        /// Return Type object from DataType targeting data.
         /// </summary>
         /// <param name="dataType">Targeted data type.</param>
-        public static Type GetTypeFromMochaData(MochaDataType dataType) {
+        public static Type GetTypeFromDataType(MochaDataType dataType) {
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return typeof(string);
             if(dataType == MochaDataType.Byte)
@@ -94,10 +126,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get MochaDataType from Type object.
+        /// Return MochaDataType from Type object.
         /// </summary>
         /// <param name="type">Type object.</param>
-        public static MochaDataType GetMochaDataFromType(Type type) {
+        public static MochaDataType GetDataTypeFromType(Type type) {
             if(type == typeof(string))
                 return MochaDataType.String;
             if(type == typeof(byte))
@@ -118,6 +150,34 @@ namespace MochaDB {
                 return MochaDataType.Int64;
             else
                 throw new Exception("There is no MochaDB data type of this type!");
+        }
+
+        /// <summary>
+        /// Return the object value according to the data type from the string value.
+        /// </summary>
+        /// <param name="dataType">Targetting data type.</param>
+        /// <param name="data">String data.</param>
+        public static object GetDataFromString(MochaDataType dataType,string data) {
+            if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
+                return data;
+            else if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
+                return int.Parse(data);
+            else if(dataType == MochaDataType.Byte)
+                return byte.Parse(data);
+            else if(dataType == MochaDataType.Char)
+                return char.Parse(data);
+            else if(dataType == MochaDataType.Decimal)
+                return decimal.Parse(data);
+            else if(dataType == MochaDataType.Double)
+                return double.Parse(data);
+            else if(dataType == MochaDataType.Float)
+                return float.Parse(data);
+            else if(dataType == MochaDataType.Int16)
+                return short.Parse(data);
+            else if(dataType == MochaDataType.Int64)
+                return long.Parse(data);
+            else// if(dataType == MochaDataType.Byte)
+                return byte.Parse(data);
         }
 
         /// <summary>
@@ -154,34 +214,6 @@ namespace MochaDB {
                 return int.Parse(data.ToString());
             else//if (DataType == MochaDataType.Int64)
                 return long.Parse(data.ToString());
-        }
-
-        /// <summary>
-        /// Return the object value according to the data type from the string value.
-        /// </summary>
-        /// <param name="dataType">Targetting data type.</param>
-        /// <param name="data">String data.</param>
-        public static object GetDataFromString(MochaDataType dataType,string data) {
-            if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
-                return data;
-            else if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
-                return int.Parse(data);
-            else if(dataType == MochaDataType.Byte)
-                return byte.Parse(data);
-            else if(dataType == MochaDataType.Char)
-                return char.Parse(data);
-            else if(dataType == MochaDataType.Decimal)
-                return decimal.Parse(data);
-            else if(dataType == MochaDataType.Double)
-                return double.Parse(data);
-            else if(dataType == MochaDataType.Float)
-                return float.Parse(data);
-            else if(dataType == MochaDataType.Int16)
-                return short.Parse(data);
-            else if(dataType == MochaDataType.Int64)
-                return long.Parse(data);
-            else// if(dataType == MochaDataType.Byte)
-                return byte.Parse(data);
         }
 
         #endregion

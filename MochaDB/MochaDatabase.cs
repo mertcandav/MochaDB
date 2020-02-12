@@ -34,7 +34,7 @@ namespace MochaDB {
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
     [Serializable]
-    public sealed class MochaDatabase:IDisposable {
+    public sealed partial class MochaDatabase:IDisposable {
         #region Fields
 
         FileStream sourceStream;
@@ -1025,7 +1025,7 @@ namespace MochaDB {
             Xcolumn.Add(new XAttribute("DataType",column.DataType));
             Xcolumn.Add(new XAttribute("Description",column.Description));
 
-                int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+            int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
                     Xcolumn.Add(new XElement(index.ToString()));
@@ -1365,13 +1365,13 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
-            XElement Xdata = new XElement("Data",data.Data);
+            XElement xData = new XElement("Data",data.Data);
 
-            XElement column = Doc.Root.Element("Tables").Element(tableName).Element(columnName);
+            XElement xColumn = Doc.Root.Element("Tables").Element(tableName).Element(columnName);
 
-            MochaDataType dataType = Enum.Parse<MochaDataType>(column.Attribute("DataType").Value);
+            MochaDataType dataType = Enum.Parse<MochaDataType>(xColumn.Attribute("DataType").Value);
             if(dataType == MochaDataType.AutoInt) {
-                Xdata.Value = (1 + GetColumnAutoIntState(tableName,columnName)).ToString();
+                xData.Value = (1 + GetColumnAutoIntState(tableName,columnName)).ToString();
             } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.Data.ToString())) {
                 if(ExistsData(tableName,columnName,data))
                     throw new Exception("Any value can be added to a unique column only once!");
@@ -1380,7 +1380,7 @@ namespace MochaDB {
             if(!MochaData.IsType(dataType,data.Data))
                 throw new Exception("The submitted data is not compatible with the targeted data!");
 
-            Doc.Root.Element("Tables").Element(tableName).Element(columnName).Add(Xdata);
+            Doc.Root.Element("Tables").Element(tableName).Element(columnName).Add(xData);
             Save();
         }
 
