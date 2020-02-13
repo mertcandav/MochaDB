@@ -497,7 +497,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get description of sector by name.
+        /// Return description of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorDescription(string name) {
@@ -565,7 +565,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Stacks
+        #region Stack
 
         #region Internal
 
@@ -657,7 +657,8 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path!="*" ? GetElement("Stacks/"+name +"/"+path) : Doc.Root.Element("Stacks").Element(name);
+            XElement element = !string.IsNullOrWhiteSpace(path) ? GetElement("Stacks/"+name +"/"+path) :
+                Doc.Root.Element("Stacks").Element(name);
             if(element==null)
                 throw new Exception("The road is wrong, there is no such way!");
 
@@ -673,7 +674,8 @@ namespace MochaDB {
         public void RemoveStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
-            if(path=="*")
+
+            if(path==string.Empty)
                 Doc.Root.Element("Stacks").Element(name).RemoveAll();
             else {
                 XElement element = GetElement("Stacks/"+name+"/"+path);
@@ -687,12 +689,41 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Return description of stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        public string GetStackDescription(string name) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            return Doc.Root.Element("Stacks").Element(name).Attribute("Description").Value;
+        }
+
+        /// <summary>
+        /// Set description of stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="description">Description to set.</param>
+        public void SetStackDescription(string name,string description) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XAttribute xDescription = Doc.Root.Element("Stacks").Element(name).Attribute("Description");
+            if(xDescription.Value==description)
+                return;
+
+            xDescription.Value=description;
+
+            Save();
+        }
+
+        /// <summary>
         /// Set value of stack item.
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="value">Value to set.</param>
         /// <param name="path">Name path of stack item to set value.</param>
-        public void SetValueStackItem(string name,string value,string path) {
+        public void SetStackItemValue(string name,string value,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -714,7 +745,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get value.</param>
-        public string GetValueStackItem(string name,string path) {
+        public string GetStackItemValue(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -733,7 +764,7 @@ namespace MochaDB {
         /// <param name="name">Name of stack.</param>
         /// <param name="description">Description to set.</param>
         /// <param name="path">Name path of stack item to set description.</param>
-        public void SetDescriptionStackItem(string name,string description,string path) {
+        public void SetStackItemDescription(string name,string description,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -755,7 +786,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
-        public string GetDescriptionStackItem(string name,string path) {
+        public string GetStackItemDescription(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 

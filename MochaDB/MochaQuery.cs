@@ -222,6 +222,9 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "SETSECTORDESCRIPTION") {
                     DB.SetSectorDescription(QueryPaths[1],QueryPaths[2]);
                     return;
+                } else if(QueryPaths[0] == "SETSTACKDESCRIPTION") {
+                    DB.SetStackDescription(QueryPaths[1],QueryPaths[2]);
+                    return;
                 } else if(QueryPaths[0] == "SETTABLEDESCRIPTION") {
                     DB.SetTableDescription(QueryPaths[1],QueryPaths[2]);
                     return;
@@ -268,11 +271,11 @@ namespace MochaDB {
                 } else if(QueryPaths[0] == "RENAMESTACKITEM") {
                     DB.RenameStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
-                } else if(QueryPaths[0] == "SETVALUESTACKITEM") {
-                    DB.SetValueStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                } else if(QueryPaths[0] == "SETSTACKITEMVALUE") {
+                    DB.SetStackItemValue(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
-                } else if(QueryPaths[0] == "SETDESCRIPTIONSTACKITEM") {
-                    DB.SetDescriptionStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                } else if(QueryPaths[0] == "SETSTACKITEMDESCRIPTION") {
+                    DB.SetStackItemDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "UPDATEFIRSTDATA") {
                     DB.UpdateData(QueryPaths[1],QueryPaths[2],0,QueryPaths[3]);
@@ -377,6 +380,8 @@ namespace MochaDB {
                     return DB.GetSectorDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETTABLEDESCRIPTION") {
                     return DB.GetTableDescription(QueryPaths[1]);
+                } else if(QueryPaths[0] == "GETSTACKDESCRIPTION") {
+                    return DB.GetStackDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "COLUMNCOUNT") {
                     return COLUMNCOUNT(QueryPaths[1]);
                 } else if(QueryPaths[0] == "ROWCOUNT") {
@@ -411,10 +416,10 @@ namespace MochaDB {
                     return DB.ExistsColumn(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "EXISTSSTACKITEM") {
                     return DB.ExistsStackItem(QueryPaths[1],QueryPaths[2]);
-                } else if(QueryPaths[0] == "GETVALUESTACKITEM") {
-                    return DB.GetValueStackItem(QueryPaths[1],QueryPaths[2]);
-                } else if(QueryPaths[0] == "GETDESCRIPTIONSTACKITEM") {
-                    return DB.GetDescriptionStackItem(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "GETSTACKITEMVALUE") {
+                    return DB.GetStackItemValue(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "GETSTACKITEMDESCRIPTION") {
+                    return DB.GetStackItemDescription(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETDATAS") {
                     return DB.GetDatas(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETCOLUMNDESCRIPTION") {
