@@ -20,4 +20,8 @@
     <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
+  </ItemGroup>
+
 </Project>

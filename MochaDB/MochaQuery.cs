@@ -359,9 +359,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "GETTABLE") {
                     return DB.GetTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETCOLUMNS") {
@@ -403,11 +400,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 3) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-                else if(string.IsNullOrEmpty(QueryPaths[2]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "GETCOLUMN") {
                     return DB.GetColumn(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "DATACOUNT") {
@@ -427,13 +419,6 @@ namespace MochaDB {
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 4) {
-                if(string.IsNullOrEmpty(QueryPaths[1]))
-                    throw new Exception("Parameter not found!");
-                else if(string.IsNullOrEmpty(QueryPaths[2]))
-                    throw new Exception("Parameter not found!");
-                else if(string.IsNullOrEmpty(QueryPaths[3]))
-                    throw new Exception("Parameter not found!");
-
                 if(QueryPaths[0] == "EXISTSDATA") {
                     return DB.ExistsData(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                 } else

@@ -28,17 +28,6 @@ namespace MochaDB {
             Description = string.Empty;
         }
 
-        /// <summary>
-        /// Create new MochaColumn.
-        /// </summary>
-        /// <param name="dataType">Data type.</param>
-        /// <param name="name">Name.</param>
-        /// <param name="datas">Datas.</param>
-        public MochaColumn(string name,MochaDataType dataType,MochaData[] datas)
-            : this(name,dataType) {
-            this.datas.AddRange(datas);
-        }
-
         #endregion
 
         #region Events

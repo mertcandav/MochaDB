@@ -1177,7 +1177,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> dataRange = Doc.Root.Element("Tables").Element(tableName).Element(name).Elements();
             for(int index = 0; index < dataRange.Count(); index++) {
-                column.AddData(GetData(tableName,name,index));
+                column.datas.Add(GetData(tableName,name,index));
             }
 
             return column;
@@ -1236,9 +1236,17 @@ namespace MochaDB {
             IEnumerable<XElement> dataRange = xColumn.Elements();
             if(dataType == MochaDataType.AutoInt) {
                 for(int index = 0; index <dataRange.Count(); index++) {
-                    dataRange.ElementAt(index).Value = index.ToString();
+                    dataRange.ElementAt(index).Value = (index + 1).ToString();
                 }
 
+                Save();
+                return;
+            } else if(dataType == MochaDataType.Unique) {
+                for(int index = 0; index <dataRange.Count(); index++) {
+                    dataRange.ElementAt(index).Value = string.Empty;
+                }
+
+                Save();
                 return;
             }
 
@@ -1413,11 +1421,18 @@ namespace MochaDB {
                 if(element.Name.LocalName==columnName)
                     continue;
 
-                element.Add(
-                    new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),"").ToString()));
-            }
-            Doc.Root.Element("Tables").Element(tableName).Element(columnName).Add(xData);
+                MochaDataType _dataType = Enum.Parse<MochaDataType>(element.Attribute("DataType").Value);
+                if(_dataType == MochaDataType.AutoInt) {
+                    element.Add(
+                        new XElement("Data",1 + GetColumnAutoIntState(tableName,element.Name.LocalName),string.Empty));
+                    continue;
+                }
 
+                element.Add(
+                    new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
+            }
+
+            Doc.Root.Element("Tables").Element(tableName).Element(columnName).Add(xData);
 
             Save();
         }
