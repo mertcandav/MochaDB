@@ -21,13 +21,13 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
+using MochaDB.Encryptors;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
-using MochaDB.Encryptors;
 
 namespace MochaDB {
     /// <summary>
@@ -199,7 +199,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Methods
+        #region Connection
 
         /// <summary>
         /// Connect to database.
@@ -381,6 +381,10 @@ namespace MochaDB {
 
             OnChangeContent(this,new EventArgs());
         }
+
+        #endregion
+
+        #region Xml
 
         /// <summary>
         /// Return xml schema of database.
@@ -920,10 +924,10 @@ namespace MochaDB {
             xTable.Add(new XAttribute("Description",table.Description));
             Doc.Root.Element("Tables").Add(xTable);
 
-            for(int columnIndex = 0; columnIndex < table.ColumnCount; columnIndex++) {
+            for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
                 AddColumn(table.Name,table.Columns[columnIndex]);
             }
-            
+
             Save();
         }
 
@@ -1008,8 +1012,8 @@ namespace MochaDB {
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
 
-            table.columns.AddRange(GetColumns(name));
-            table.rows.AddRange(GetRows(name));
+            table.Columns.collection.AddRange(GetColumns(name));
+            table.Rows.collection.AddRange(GetRows(name));
 
             return table;
         }
@@ -1061,10 +1065,10 @@ namespace MochaDB {
                 for(int index = 1; index <= rowCount; index++)
                     Xcolumn.Add(new XElement(index.ToString()));
             } else {
-                for(int index = 1; index <= column.DataCount; index++)
+                for(int index = 1; index <= column.Datas.Count; index++)
                     Xcolumn.Add(new XElement(column.Datas[index].Data.ToString()));
 
-                for(int index = column.DataCount;index < rowCount; index++) {
+                for(int index = column.Datas.Count; index < rowCount; index++) {
                     Xcolumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"").ToString()));
                 }
             }
@@ -1177,7 +1181,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> dataRange = Doc.Root.Element("Tables").Element(tableName).Element(name).Elements();
             for(int index = 0; index < dataRange.Count(); index++) {
-                column.datas.Add(GetData(tableName,name,index));
+                column.Datas.Add(GetData(tableName,name,index));
             }
 
             return column;
@@ -1297,7 +1301,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
 
-            if(columnRange.Count() != row.DataCount)
+            if(columnRange.Count() != row.Datas.Count)
                 throw new Exception("The data count of the row is not equal to the number of columns!");
 
             for(int index = 0; index <columnRange.Count(); index++) {
@@ -1356,7 +1360,7 @@ namespace MochaDB {
                 datas[columnIndex] = columns[columnIndex].Datas[index];
             }
 
-            row.AddDataRange(datas);
+            row.Datas.AddRange(datas);
 
             return row;
         }
@@ -1561,7 +1565,7 @@ namespace MochaDB {
             if(dataRange.Count() - 1 < index)
                 throw new Exception("This index is larger than the maximum number of data in the table!");
 
-            return new MochaData() { dataType = dataType, data = dataRange.ElementAt(index).Value };
+            return new MochaData() { dataType = dataType,data = dataRange.ElementAt(index).Value };
         }
 
         /// <summary>

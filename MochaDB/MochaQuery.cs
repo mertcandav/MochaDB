@@ -100,7 +100,7 @@ namespace MochaDB {
                         MochaTable Table = new MochaTable(TableName);
 
                         for(int Index = 0; Index < SelectedColumns.Length; Index++) {
-                            Table.AddColumn(DB.GetColumn(TableName,SelectedColumns[Index]));
+                            Table.Columns.Add(DB.GetColumn(TableName,SelectedColumns[Index]));
                         }
 
                         return Table;
