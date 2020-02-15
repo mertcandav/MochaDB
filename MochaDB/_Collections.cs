@@ -308,7 +308,7 @@ namespace MochaDB {
         public MochaData this[int index] {
             get =>
                 collection[index];
-            internal set {
+            set {
                 collection[index] = value;
                 OnChanged(this,new EventArgs());
             }

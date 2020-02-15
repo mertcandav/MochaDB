@@ -104,7 +104,38 @@ namespace MochaDB {
 
         #endregion
 
-        #region Static Methods
+        #region Static Database
+
+        #region Internal
+
+        /// <summary>
+        /// Checks for the presence of the element. Example path: MyTable/MyColumn
+        /// </summary>
+        /// <param name="path">The MochaDB database file path to check.</param>
+        /// <param name="elementPath">Path of element.</param>
+        internal static bool ExistsElement(string path,string elementPath) {
+            if(!IsMochaDB(path))
+                throw new Exception("The file shown is not a MochaDB database file!");
+
+            string[] elementsName = elementPath.Split('/');
+
+            try {
+                XDocument document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
+                XElement element = document.Root.Element(elementsName[0]);
+
+                if(element.Name.LocalName != elementsName[0])
+                    return false;
+
+                for(int i = 1; i < elementsName.Length; i++) {
+                    element = element.Element(elementsName[i]);
+                    if(element.Name.LocalName != elementsName[i])
+                        return false;
+                }
+                return true;
+            } catch(NullReferenceException) { return false; }
+        }
+
+        #endregion
 
         /// <summary>
         /// Returns true if the file in the path is Mocha DB and false otherwise.
@@ -170,31 +201,19 @@ namespace MochaDB {
             } catch { return false; }
         }
 
+        #endregion
+
+        #region Xml
+
         /// <summary>
-        /// Checks for the presence of the element. Example path: MyTable/MyColumn
+        /// Return xml schema of database.
         /// </summary>
-        /// <param name="path">The MochaDB database file path to check.</param>
-        /// <param name="elementPath">Path of element.</param>
-        public static bool ExistsElement(string path,string elementPath) {
-            if(!IsMochaDB(path))
-                throw new Exception("The file shown is not a MochaDB database file!");
+        public string GetXML() {
+            OnConnectionCheckRequired(this,new EventArgs());
 
-            string[] elementsName = elementPath.Split('/');
-
-            try {
-                XDocument document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
-                XElement element = document.Root.Element(elementsName[0]);
-
-                if(element.Name.LocalName != elementsName[0])
-                    return false;
-
-                for(int i = 1; i < elementsName.Length; i++) {
-                    element = element.Element(elementsName[i]);
-                    if(element.Name.LocalName != elementsName[i])
-                        return false;
-                }
-                return true;
-            } catch(NullReferenceException) { return false; }
+            XDocument doc = XDocument.Parse(Doc.ToString());
+            doc.Root.Element("Root").Remove();
+            return doc.ToString();
         }
 
         #endregion
@@ -380,21 +399,6 @@ namespace MochaDB {
             Connect();
 
             OnChangeContent(this,new EventArgs());
-        }
-
-        #endregion
-
-        #region Xml
-
-        /// <summary>
-        /// Return xml schema of database.
-        /// </summary>
-        public string GetXML() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            XDocument doc = XDocument.Parse(Doc.ToString());
-            doc.Root.Element("Root").Remove();
-            return doc.ToString();
         }
 
         #endregion
