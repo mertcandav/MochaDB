@@ -414,6 +414,8 @@ namespace MochaDB {
                     return DB.GetStackItemDescription(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETDATAS") {
                     return DB.GetDatas(QueryPaths[1],QueryPaths[2]);
+                } else if(QueryPaths[0] == "GETSTACKITEM") {
+                    return DB.GetStackItem(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETCOLUMNDESCRIPTION") {
                     return DB.GetColumnDescription(QueryPaths[1],QueryPaths[2]);
                 } else

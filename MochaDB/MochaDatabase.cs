@@ -34,7 +34,7 @@ namespace MochaDB {
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
     [Serializable]
-    public partial class MochaDatabase:IMochaDatabase {
+    public class MochaDatabase:IMochaDatabase {
         #region Fields
 
         private static string
@@ -216,7 +216,7 @@ namespace MochaDB {
         /// </summary>
         public string GetXML() {
             OnConnectionCheckRequired(this,new EventArgs());
-
+;
             XDocument doc = XDocument.Parse(Doc.ToString());
             doc.Root.Element("Root").Remove();
             return doc.ToString();
@@ -283,8 +283,6 @@ namespace MochaDB {
         /// Checks the suitability and robustness of the MochaDB database.
         /// </summary>
         internal bool CheckMochaDB() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
             try {
                 if(Doc.Root.Name.LocalName != "Mocha")
                     return false;
@@ -308,8 +306,6 @@ namespace MochaDB {
         /// </summary>
         /// <param name="path">Path of element.</param>
         internal XElement GetElement(string path) {
-            OnConnectionCheckRequired(this,new EventArgs());
-
             string[] elementsName = path.Split('/');
 
             XElement element = Doc.Root.Element(elementsName[0]);
@@ -894,6 +890,9 @@ namespace MochaDB {
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
         public MochaStackItem GetStackItem(string name,string path) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
             XElement xStackItem = GetElement("Stacks/" + name + "/" + path);
 
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
@@ -1318,7 +1317,7 @@ namespace MochaDB {
                 throw new Exception("Table not found in this name!");
 
             IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
-
+            
             if(columnRange.Count() != row.Datas.Count)
                 throw new Exception("The data count of the row is not equal to the number of columns!");
 
