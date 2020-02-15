@@ -7,7 +7,7 @@ namespace MochaDB {
     /// <summary>
     /// Provider for MochaDB connections.
     /// </summary>
-    public sealed class MochaProvider {
+    public sealed class MochaProvider:IMochaProvider {
         #region Fields
 
         private string connectionString;
@@ -26,7 +26,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Static Methods
+        #region Static
         
         /// <summary>
         /// Return attribute by name.
@@ -153,7 +153,7 @@ namespace MochaDB {
     /// <summary>
     /// Attributes for MochaProviders.
     /// </summary>
-    public sealed class MochaProviderAttribute {
+    public sealed class MochaProviderAttribute:IMochaProviderAttribute {
         #region Fields
 
         internal static Regex booleanAttributesRegex = new Regex(@"

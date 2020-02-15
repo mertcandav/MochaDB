@@ -2,315 +2,363 @@
     /// <summary>
     /// Char encryptor.
     /// </summary>
-    internal sealed class Mocha_ACE {
+    internal class Mocha_ACE:IMochaEncryptor {
+        #region Constructors
+
+        /// <summary>
+        /// Create new Mocha_ACE.
+        /// </summary>
+        public Mocha_ACE() {
+            Data=string.Empty;
+        }
+
+        /// <summary>
+        /// Create new Mocha_ACE;
+        /// </summary>
+        /// <param name="data">Data to set data.</param>
+        public Mocha_ACE(string data) {
+            Data=data;
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Encrypt.
         /// </summary>
-        public static string Encrypt(string Text) {
-            Text = Text.TrimStart().TrimEnd();
-            string EncryptText = "";
+        /// <param name="data">Data to set data.</param>
+        public string Encrypt(string data) {
+            Data=data;
+            return Encrypt();
+        }
 
-            for(int i = 0; i < Text.Length; i++)
-                EncryptText += TranslateCharToCode(Text[i]);
+        /// <summary>
+        /// Encrypt.
+        /// </summary>
+        public string Encrypt() {
+            string encryptText = "";
 
-            return EncryptText;
+            for(int i = 0; i < Data.Length; i++)
+                encryptText += TranslateCharToCode(Data[i]);
+
+            return encryptText;
         }
 
         /// <summary>
         /// Decrypt.
         /// </summary>
-        public static string Decrypt(string Text) {
-            Text = Text.TrimStart().TrimEnd();
-            string DecryptText = "";
+        /// <param name="data">Data to set data.</param>
+        public string Decrypt(string data) {
+            Data=data;
+            return Decrypt();
+        }
 
-            for(int i = 0; i < Text.Length; i++)
-                DecryptText += TranslateCodeToChar(Text[i]);
+        /// <summary>
+        /// Decrypt.
+        /// </summary>
+        public string Decrypt() {
+            string decryptText = "";
 
-            return DecryptText;
+            for(int i = 0; i < Data.Length; i++)
+                decryptText += TranslateCodeToChar(Data[i]);
+
+            return decryptText;
         }
 
         /// <summary>
         /// Converts the character to its encrypted counterpart.
         /// </summary>
-        public static char TranslateCharToCode(char Char) {
+        public char TranslateCharToCode(char data) {
             #region Numbers.
 
-            if(Char == '1') return 'A';
-            else if(Char == '2') return '*';
-            else if(Char == '3') return 'ª';
-            else if(Char == '4') return 'S';
-            else if(Char == '5') return '.';
-            else if(Char == '6') return '=';
-            else if(Char == '7') return '§';
-            else if(Char == '8') return '1';
-            else if(Char == '9') return '%';
-            else if(Char == '0') return 'b';
+            if(data == '1') return 'A';
+            else if(data == '2') return '*';
+            else if(data == '3') return 'ª';
+            else if(data == '4') return 'S';
+            else if(data == '5') return '.';
+            else if(data == '6') return '=';
+            else if(data == '7') return '§';
+            else if(data == '8') return '1';
+            else if(data == '9') return '%';
+            else if(data == '0') return 'b';
 
             #endregion
 
             #region Lowercase Chars.
 
-            else if(Char == 'a') return ':';
-            else if(Char == 'b') return '&';
-            else if(Char == 'c') return '$';
-            else if(Char == 'ç') return '~';
-            else if(Char == 'd') return '3';
-            else if(Char == 'e') return '_';
-            else if(Char == 'f') return '0';
-            else if(Char == 'g') return 'Y';
-            else if(Char == 'ğ') return 'a';
-            else if(Char == 'h') return 'd';
-            else if(Char == 'ı') return '/';
-            else if(Char == 'i') return 'g';
-            else if(Char == 'j') return 'ö';
-            else if(Char == 'k') return 'V';
-            else if(Char == 'l') return 'x';
-            else if(Char == 'm') return '#';
-            else if(Char == 'n') return ';';
-            else if(Char == 'o') return '2';
-            else if(Char == 'ö') return 'w';
-            else if(Char == 'p') return '{';
-            else if(Char == 'q') return 'z';
-            else if(Char == 'r') return '!';
-            else if(Char == 's') return 'f';
-            else if(Char == 'ş') return 's';
-            else if(Char == 't') return '?';
-            else if(Char == 'u') return 'ü';
-            else if(Char == 'ü') return 'o';
-            else if(Char == 'v') return 'y';
-            else if(Char == 'x') return 'h';
-            else if(Char == 'w') return 'Ş';
-            else if(Char == 'y') return 'j';
-            else if(Char == 'z') return ',';
+            else if(data == 'a') return ':';
+            else if(data == 'b') return '&';
+            else if(data == 'c') return '$';
+            else if(data == 'ç') return '~';
+            else if(data == 'd') return '3';
+            else if(data == 'e') return '_';
+            else if(data == 'f') return '0';
+            else if(data == 'g') return 'Y';
+            else if(data == 'ğ') return 'a';
+            else if(data == 'h') return 'd';
+            else if(data == 'ı') return '/';
+            else if(data == 'i') return 'g';
+            else if(data == 'j') return 'ö';
+            else if(data == 'k') return 'V';
+            else if(data == 'l') return 'x';
+            else if(data == 'm') return '#';
+            else if(data == 'n') return ';';
+            else if(data == 'o') return '2';
+            else if(data == 'ö') return 'w';
+            else if(data == 'p') return '{';
+            else if(data == 'q') return 'z';
+            else if(data == 'r') return '!';
+            else if(data == 's') return 'f';
+            else if(data == 'ş') return 's';
+            else if(data == 't') return '?';
+            else if(data == 'u') return 'ü';
+            else if(data == 'ü') return 'o';
+            else if(data == 'v') return 'y';
+            else if(data == 'x') return 'h';
+            else if(data == 'w') return 'Ş';
+            else if(data == 'y') return 'j';
+            else if(data == 'z') return ',';
 
             #endregion
 
             #region Uppercase Chars.
 
-            else if(Char == 'A') return '£';
-            else if(Char == 'B') return 'p';
-            else if(Char == 'C') return 'u';
-            else if(Char == 'Ç') return '9';
-            else if(Char == 'D') return 'é';
-            else if(Char == 'E') return 'ß';
-            else if(Char == 'F') return 'G';
-            else if(Char == 'G') return 'y';
-            else if(Char == 'Ğ') return 'F';
-            else if(Char == 'H') return 'D';
-            else if(Char == 'I') return '>';
-            else if(Char == 'İ') return '4';
-            else if(Char == 'J') return 'c';
-            else if(Char == 'K') return 'ş';
-            else if(Char == 'L') return 'B';
-            else if(Char == 'M') return 'v';
-            else if(Char == 'N') return 't';
-            else if(Char == 'O') return '[';
-            else if(Char == 'Ö') return 'ğ';
-            else if(Char == 'P') return '¥';
-            else if(Char == 'Q') return '<';
-            else if(Char == 'R') return 'k';
-            else if(Char == 'S') return '^';
-            else if(Char == 'Ş') return 'e';
-            else if(Char == 'T') return ']';
-            else if(Char == 'U') return '}';
-            else if(Char == 'Ü') return 'ş';
-            else if(Char == 'V') return '₺';
-            else if(Char == 'X') return 'r';
-            else if(Char == 'W') return '6';
-            else if(Char == 'Y') return '+';
-            else if(Char == 'Z') return 'ç';
+            else if(data == 'A') return '£';
+            else if(data == 'B') return 'p';
+            else if(data == 'C') return 'u';
+            else if(data == 'Ç') return '9';
+            else if(data == 'D') return 'é';
+            else if(data == 'E') return 'ß';
+            else if(data == 'F') return 'G';
+            else if(data == 'G') return 'y';
+            else if(data == 'Ğ') return 'F';
+            else if(data == 'H') return 'D';
+            else if(data == 'I') return '>';
+            else if(data == 'İ') return '4';
+            else if(data == 'J') return 'c';
+            else if(data == 'K') return 'ş';
+            else if(data == 'L') return 'B';
+            else if(data == 'M') return 'v';
+            else if(data == 'N') return 't';
+            else if(data == 'O') return '[';
+            else if(data == 'Ö') return 'ğ';
+            else if(data == 'P') return '¥';
+            else if(data == 'Q') return '<';
+            else if(data == 'R') return 'k';
+            else if(data == 'S') return '^';
+            else if(data == 'Ş') return 'e';
+            else if(data == 'T') return ']';
+            else if(data == 'U') return '}';
+            else if(data == 'Ü') return 'ş';
+            else if(data == 'V') return '₺';
+            else if(data == 'X') return 'r';
+            else if(data == 'W') return '6';
+            else if(data == 'Y') return '+';
+            else if(data == 'Z') return 'ç';
 
             #endregion
 
             #region Special Chars.
 
-            else if(Char == '<') return 'l';
-            else if(Char == '>') return 'C';
-            else if(Char == '@') return 'Ğ';
-            else if(Char == ':') return '5';
-            else if(Char == '¸') return '\\';
-            else if(Char == '*') return 'J';
-            else if(Char == '\\') return 'M';
-            else if(Char == '/') return '¡';
-            else if(Char == '-') return '(';
-            else if(Char == '_') return 'n';
-            else if(Char == '=') return '·';
-            else if(Char == ']') return 'E';
-            else if(Char == '[') return 'L';
-            else if(Char == '{') return 'ı';
-            else if(Char == '}') return 'O';
-            else if(Char == '$') return 'P';
-            else if(Char == '+') return 'Q';
-            else if(Char == '!') return 'K';
-            else if(Char == '\"') return 'R';
-            else if(Char == '.') return 'T';
-            else if(Char == 'ß') return 'S';
-            else if(Char == '₺') return 'Ö';
-            else if(Char == '?') return 'm';
-            else if(Char == ',') return '7';
-            else if(Char == ')') return '-';
-            else if(Char == '(') return 'I';
-            else if(Char == '&') return 'N';
-            else if(Char == '%') return ')';
-            else if(Char == '#') return 'Ç';
-            else if(Char == '~') return 'İ';
-            else if(Char == '^') return '@';
-            else if(Char == '£') return 'i';
-            else if(Char == 'é') return '8';
-            else if(Char == '¥') return 'g';
-            else if(Char == '|') return 'q';
-            else if(Char == 'æ') return 'U';
-            else if(Char == '`') return 'X';
-            else if(Char == '¢') return 'W';
-            else if(Char == '¶') return 'Z';
-            else if(Char == '¯') return 'Y';
-            else if(Char == '´') return 'Ü';
+            else if(data == '<') return 'l';
+            else if(data == '>') return 'C';
+            else if(data == '@') return 'Ğ';
+            else if(data == ':') return '5';
+            else if(data == '¸') return '\\';
+            else if(data == '*') return 'J';
+            else if(data == '\\') return 'M';
+            else if(data == '/') return '¡';
+            else if(data == '-') return '(';
+            else if(data == '_') return 'n';
+            else if(data == '=') return '·';
+            else if(data == ']') return 'E';
+            else if(data == '[') return 'L';
+            else if(data == '{') return 'ı';
+            else if(data == '}') return 'O';
+            else if(data == '$') return 'P';
+            else if(data == '+') return 'Q';
+            else if(data == '!') return 'K';
+            else if(data == '\"') return 'R';
+            else if(data == '.') return 'T';
+            else if(data == 'ß') return 'S';
+            else if(data == '₺') return 'Ö';
+            else if(data == '?') return 'm';
+            else if(data == ',') return '7';
+            else if(data == ')') return '-';
+            else if(data == '(') return 'I';
+            else if(data == '&') return 'N';
+            else if(data == '%') return ')';
+            else if(data == '#') return 'Ç';
+            else if(data == '~') return 'İ';
+            else if(data == '^') return '@';
+            else if(data == '£') return 'i';
+            else if(data == 'é') return '8';
+            else if(data == '¥') return 'g';
+            else if(data == '|') return 'q';
+            else if(data == 'æ') return 'U';
+            else if(data == '`') return 'X';
+            else if(data == '¢') return 'W';
+            else if(data == '¶') return 'Z';
+            else if(data == '¯') return 'Y';
+            else if(data == '´') return 'Ü';
 
             #endregion
 
-            return Char;
+            return data;
         }
 
         /// <summary>
         /// Converts encryption to its real value.
         /// </summary>
-        public static char TranslateCodeToChar(char Char) {
+        public char TranslateCodeToChar(char data) {
             #region Numbers.
 
-            if(Char == 'A') return '1';
-            else if(Char == '*') return '2';
-            else if(Char == 'ª') return '3';
-            else if(Char == 'S') return '4';
-            else if(Char == '.') return '5';
-            else if(Char == '=') return '6';
-            else if(Char == '§') return '7';
-            else if(Char == '1') return '8';
-            else if(Char == '%') return '9';
-            else if(Char == 'b') return '0';
+            if(data == 'A') return '1';
+            else if(data == '*') return '2';
+            else if(data == 'ª') return '3';
+            else if(data == 'S') return '4';
+            else if(data == '.') return '5';
+            else if(data == '=') return '6';
+            else if(data == '§') return '7';
+            else if(data == '1') return '8';
+            else if(data == '%') return '9';
+            else if(data == 'b') return '0';
 
             #endregion
 
             #region Lowercase Chars.
 
-            else if(Char == ':') return 'a';
-            else if(Char == '&') return 'b';
-            else if(Char == '$') return 'c';
-            else if(Char == '~') return 'ç';
-            else if(Char == '3') return 'd';
-            else if(Char == '_') return 'e';
-            else if(Char == '0') return 'f';
-            else if(Char == 'Y') return 'g';
-            else if(Char == 'a') return 'ğ';
-            else if(Char == 'd') return 'h';
-            else if(Char == '/') return 'ı';
-            else if(Char == 'g') return 'i';
-            else if(Char == 'ö') return 'j';
-            else if(Char == 'V') return 'k';
-            else if(Char == 'x') return 'l';
-            else if(Char == '#') return 'm';
-            else if(Char == ';') return 'n';
-            else if(Char == '2') return 'o';
-            else if(Char == 'w') return 'ö';
-            else if(Char == '{') return 'p';
-            else if(Char == 'z') return 'q';
-            else if(Char == '!') return 'r';
-            else if(Char == 'f') return 's';
-            else if(Char == 's') return 'ş';
-            else if(Char == '?') return 't';
-            else if(Char == 'ü') return 'u';
-            else if(Char == 'o') return 'ü';
-            else if(Char == 'y') return 'v';
-            else if(Char == 'h') return 'x';
-            else if(Char == 'Ş') return 'w';
-            else if(Char == 'j') return 'y';
-            else if(Char == ',') return 'z';
+            else if(data == ':') return 'a';
+            else if(data == '&') return 'b';
+            else if(data == '$') return 'c';
+            else if(data == '~') return 'ç';
+            else if(data == '3') return 'd';
+            else if(data == '_') return 'e';
+            else if(data == '0') return 'f';
+            else if(data == 'Y') return 'g';
+            else if(data == 'a') return 'ğ';
+            else if(data == 'd') return 'h';
+            else if(data == '/') return 'ı';
+            else if(data == 'g') return 'i';
+            else if(data == 'ö') return 'j';
+            else if(data == 'V') return 'k';
+            else if(data == 'x') return 'l';
+            else if(data == '#') return 'm';
+            else if(data == ';') return 'n';
+            else if(data == '2') return 'o';
+            else if(data == 'w') return 'ö';
+            else if(data == '{') return 'p';
+            else if(data == 'z') return 'q';
+            else if(data == '!') return 'r';
+            else if(data == 'f') return 's';
+            else if(data == 's') return 'ş';
+            else if(data == '?') return 't';
+            else if(data == 'ü') return 'u';
+            else if(data == 'o') return 'ü';
+            else if(data == 'y') return 'v';
+            else if(data == 'h') return 'x';
+            else if(data == 'Ş') return 'w';
+            else if(data == 'j') return 'y';
+            else if(data == ',') return 'z';
 
             #endregion
 
             #region Uppercase Chars.
 
-            else if(Char == '£') return 'A';
-            else if(Char == 'p') return 'B';
-            else if(Char == 'u') return 'C';
-            else if(Char == '9') return 'Ç';
-            else if(Char == 'é') return 'D';
-            else if(Char == 'ß') return 'E';
-            else if(Char == 'G') return 'F';
-            else if(Char == 'y') return 'G';
-            else if(Char == 'F') return 'Ğ';
-            else if(Char == 'D') return 'H';
-            else if(Char == '>') return 'I';
-            else if(Char == '4') return 'İ';
-            else if(Char == 'c') return 'J';
-            else if(Char == 'ş') return 'K';
-            else if(Char == 'B') return 'L';
-            else if(Char == 'v') return 'M';
-            else if(Char == 't') return 'N';
-            else if(Char == '[') return 'O';
-            else if(Char == 'ğ') return 'Ö';
-            else if(Char == '¥') return 'P';
-            else if(Char == '<') return 'Q';
-            else if(Char == 'k') return 'R';
-            else if(Char == '^') return 'S';
-            else if(Char == 'e') return 'Ş';
-            else if(Char == ']') return 'T';
-            else if(Char == '}') return 'U';
-            else if(Char == 'ş') return 'Ü';
-            else if(Char == '₺') return 'V';
-            else if(Char == 'r') return 'X';
-            else if(Char == '6') return 'W';
-            else if(Char == '+') return 'Y';
-            else if(Char == 'ç') return 'Z';
+            else if(data == '£') return 'A';
+            else if(data == 'p') return 'B';
+            else if(data == 'u') return 'C';
+            else if(data == '9') return 'Ç';
+            else if(data == 'é') return 'D';
+            else if(data == 'ß') return 'E';
+            else if(data == 'G') return 'F';
+            else if(data == 'y') return 'G';
+            else if(data == 'F') return 'Ğ';
+            else if(data == 'D') return 'H';
+            else if(data == '>') return 'I';
+            else if(data == '4') return 'İ';
+            else if(data == 'c') return 'J';
+            else if(data == 'ş') return 'K';
+            else if(data == 'B') return 'L';
+            else if(data == 'v') return 'M';
+            else if(data == 't') return 'N';
+            else if(data == '[') return 'O';
+            else if(data == 'ğ') return 'Ö';
+            else if(data == '¥') return 'P';
+            else if(data == '<') return 'Q';
+            else if(data == 'k') return 'R';
+            else if(data == '^') return 'S';
+            else if(data == 'e') return 'Ş';
+            else if(data == ']') return 'T';
+            else if(data == '}') return 'U';
+            else if(data == 'ş') return 'Ü';
+            else if(data == '₺') return 'V';
+            else if(data == 'r') return 'X';
+            else if(data == '6') return 'W';
+            else if(data == '+') return 'Y';
+            else if(data == 'ç') return 'Z';
 
             #endregion
 
             #region Special Chars.
 
-            else if(Char == 'l') return '<';
-            else if(Char == 'C') return '>';
-            else if(Char == 'Ğ') return '@';
-            else if(Char == '5') return ':';
-            else if(Char == '\\') return '¸';
-            else if(Char == 'J') return '*';
-            else if(Char == 'M') return '\\';
-            else if(Char == '¡') return '/';
-            else if(Char == '(') return '-';
-            else if(Char == 'n') return '_';
-            else if(Char == '·') return '=';
-            else if(Char == 'E') return ']';
-            else if(Char == 'L') return '[';
-            else if(Char == 'ı') return '}';
-            else if(Char == 'O') return '}';
-            else if(Char == 'P') return '$';
-            else if(Char == 'Q') return '+';
-            else if(Char == 'K') return '!';
-            else if(Char == 'R') return '\"';
-            else if(Char == 'T') return '.';
-            else if(Char == 'S') return 'ß';
-            else if(Char == 'Ö') return '₺';
-            else if(Char == 'm') return '?';
-            else if(Char == '7') return ',';
-            else if(Char == '-') return ')';
-            else if(Char == 'I') return '(';
-            else if(Char == 'N') return '&';
-            else if(Char == ')') return '%';
-            else if(Char == 'Ç') return '#';
-            else if(Char == 'İ') return '~';
-            else if(Char == '@') return '^';
-            else if(Char == 'i') return '£';
-            else if(Char == '8') return 'é';
-            else if(Char == 'g') return '¥';
-            else if(Char == 'q') return '|';
-            else if(Char == 'U') return 'æ';
-            else if(Char == 'X') return '`';
-            else if(Char == 'W') return '¢';
-            else if(Char == 'Z') return '¶';
-            else if(Char == 'Y') return '¯';
-            else if(Char == 'Ü') return '´';
+            else if(data == 'l') return '<';
+            else if(data == 'C') return '>';
+            else if(data == 'Ğ') return '@';
+            else if(data == '5') return ':';
+            else if(data == '\\') return '¸';
+            else if(data == 'J') return '*';
+            else if(data == 'M') return '\\';
+            else if(data == '¡') return '/';
+            else if(data == '(') return '-';
+            else if(data == 'n') return '_';
+            else if(data == '·') return '=';
+            else if(data == 'E') return ']';
+            else if(data == 'L') return '[';
+            else if(data == 'ı') return '}';
+            else if(data == 'O') return '}';
+            else if(data == 'P') return '$';
+            else if(data == 'Q') return '+';
+            else if(data == 'K') return '!';
+            else if(data == 'R') return '\"';
+            else if(data == 'T') return '.';
+            else if(data == 'S') return 'ß';
+            else if(data == 'Ö') return '₺';
+            else if(data == 'm') return '?';
+            else if(data == '7') return ',';
+            else if(data == '-') return ')';
+            else if(data == 'I') return '(';
+            else if(data == 'N') return '&';
+            else if(data == ')') return '%';
+            else if(data == 'Ç') return '#';
+            else if(data == 'İ') return '~';
+            else if(data == '@') return '^';
+            else if(data == 'i') return '£';
+            else if(data == '8') return 'é';
+            else if(data == 'g') return '¥';
+            else if(data == 'q') return '|';
+            else if(data == 'U') return 'æ';
+            else if(data == 'X') return '`';
+            else if(data == 'W') return '¢';
+            else if(data == 'Z') return '¶';
+            else if(data == 'Y') return '¯';
+            else if(data == 'Ü') return '´';
 
             #endregion
 
-            return Char;
+            return data;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Data of use the cryptography processes.
+        /// </summary>
+        public string Data { get; set; }
+
+        #endregion
     }
 }

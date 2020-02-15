@@ -9,7 +9,7 @@ namespace MochaDB {
     /// It offers query usage and management with MochaQ.
     /// </summary>
     [Serializable]
-    public sealed class MochaQuery {
+    public class MochaQuery {
         #region Fields
 
         private MochaDatabase db;
@@ -447,7 +447,7 @@ namespace MochaDB {
         /// Return all datas of table.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        private IList<MochaData> GETDATAS(string name) {
+        private List<MochaData> GETDATAS(string name) {
             if(!DB.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 

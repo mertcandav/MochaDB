@@ -5,7 +5,7 @@ namespace MochaDB {
     /// This is stack object for MochaDB.
     /// </summary>
     [Serializable]
-    public sealed class MochaStack {
+    public class MochaStack:IMochaStack {
         #region Constructors
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace MochaDB {
     /// <summary>
     /// Item for stacks.
     /// </summary>
-    public sealed class MochaStackItem {
+    public class MochaStackItem:IMochaStackItem {
         #region Fields
 
         private string name;

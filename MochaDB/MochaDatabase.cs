@@ -34,10 +34,15 @@ namespace MochaDB {
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
     [Serializable]
-    public sealed partial class MochaDatabase:IDisposable {
+    public partial class MochaDatabase:IMochaDatabase {
         #region Fields
 
-        FileStream sourceStream;
+        private static string
+            Iv = "MochaDB#$#3{2533",
+            Key = "MochaDBM6YxoFsLXu33FpJdjX0R89xGF";
+
+        private FileStream sourceStream;
+        private AES256 aes256;
 
         #endregion
 
@@ -65,6 +70,7 @@ namespace MochaDB {
         public MochaDatabase(MochaProvider provider) {
             provider.EnableReadonly();
             Provider=provider;
+            aes256=new AES256(Iv,Key);
             State=MochaConnectionState.Disconnected;
 
             MochaProviderAttribute autoConnect = Provider.GetAttribute("AutoConnect");
@@ -120,7 +126,7 @@ namespace MochaDB {
             string[] elementsName = elementPath.Split('/');
 
             try {
-                XDocument document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
+                XDocument document = XDocument.Parse(new AES256(Iv,Key).Decrypt(File.ReadAllText(path)));
                 XElement element = document.Root.Element(elementsName[0]);
 
                 if(element.Name.LocalName != elementsName[0])
@@ -171,7 +177,7 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path + ".mochadb",AES256.Encrypt(content));
+            File.WriteAllText(path + ".mochadb",new AES256(Iv,Key).Encrypt(content));
         }
 
         /// <summary>
@@ -183,7 +189,7 @@ namespace MochaDB {
                 throw new Exception("The file shown is not a MochaDB database file!");
 
             try {
-                XDocument Document = XDocument.Parse(AES256.Decrypt(File.ReadAllText(path)));
+                XDocument Document = XDocument.Parse(new AES256(Iv,Key).Decrypt(File.ReadAllText(path)));
                 if(Document.Root.Name.LocalName != "Mocha")
                     return false;
                 else if(!ExistsElement(path,"Root/Password"))
@@ -229,7 +235,7 @@ namespace MochaDB {
 
             State=MochaConnectionState.Connected;
 
-            Doc = XDocument.Parse(AES256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
+            Doc = XDocument.Parse(aes256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
@@ -331,7 +337,7 @@ namespace MochaDB {
         /// Save MochaDB database.
         /// </summary>
         internal void Save() {
-            string content = AES256.Encrypt(Doc.ToString());
+            string content = aes256.Encrypt(Doc.ToString());
             string password = GetPassword();
             Disconnect();
             File.WriteAllText(Provider.Path,content);
@@ -392,7 +398,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             Disconnect();
-            File.WriteAllText(Provider.Path,AES256.Encrypt(EmptyContent));
+            File.WriteAllText(Provider.Path,aes256.Encrypt(EmptyContent));
             Provider.Readonly=false;
             Provider.ConnectionString="path="+Provider.Path;
             Provider.EnableReadonly();
@@ -1162,14 +1168,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Returns whether there is a column with the specified name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="name">Name of column.</param>
-        public bool ExistsColumn(string tableName,string name) =>
-            ExistsElement("Tables/"+tableName + "/" + name);
-
-        /// <summary>
         /// Get column from table by name
         /// </summary>
         /// <param name="tableName">Name of table.</param>
@@ -1208,6 +1206,14 @@ namespace MochaDB {
 
             return columns;
         }
+
+        /// <summary>
+        /// Returns whether there is a column with the specified name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="name">Name of column.</param>
+        public bool ExistsColumn(string tableName,string name) =>
+            ExistsElement("Tables/"+tableName + "/" + name);
 
         /// <summary>
         /// Return column datatype by name.

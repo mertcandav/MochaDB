@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// This is table object for MochaDB.
     /// </summary>
-    public sealed class MochaTable {
+    public class MochaTable:IMochaTable {
         #region Constructors
 
         /// <summary>

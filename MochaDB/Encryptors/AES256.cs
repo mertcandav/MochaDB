@@ -7,26 +7,59 @@ namespace MochaDB.Encryptors {
     /// <summary>
     /// AES 256-Bit ecryptor.
     /// </summary>
-    internal sealed class AES256 {
-        private static string IV = "MochaDB#$#3{2533";
-        private static string KEY = "MochaDBM6YxoFsLXu33FpJdjX0R89xGF";
+    internal class AES256:IMochaEncryptor {
+        #region Constructors
 
         /// <summary>
-        /// Encrypt value with AES256.
+        /// Create new AES256.
         /// </summary>
-        /// <param name="data">Data to encrypt.</param>
-        public static string Encrypt(string data) {
+        /// <param name="iv">Iv.</param>
+        /// <param name="key">Key.</param>
+        public AES256(string iv,string key) {
+            Iv=iv;
+            Key=key;
+            Data=string.Empty;
+        }
+
+        /// <summary>
+        /// Create new AES256.
+        /// </summary>
+        /// <param name="iv">Iv.</param>
+        /// <param name="key">Key.</param>
+        /// <param name="data">Data to set data.</param>
+        public AES256(string iv,string key,string data) :
+            this(iv,key) {
+            Data=data;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Encrypt.
+        /// </summary>
+        /// <param name="data">Data to set data.</param>
+        public string Encrypt(string data) {
+            Data=data;
+            return Encrypt();
+        }
+
+        /// <summary>
+        /// Encrypt.
+        /// </summary>
+        public string Encrypt() {
             byte[] buffer;
 
             Aes aes = Aes.Create();
-            aes.IV = Encoding.UTF8.GetBytes(IV);
-            aes.Key = Encoding.UTF8.GetBytes(KEY);
+            aes.IV = Encoding.UTF8.GetBytes(Iv);
+            aes.Key = Encoding.UTF8.GetBytes(Key);
 
             ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key,aes.IV);
             using(MemoryStream ms = new MemoryStream()) {
                 using(CryptoStream cs = new CryptoStream(ms,encryptor,CryptoStreamMode.Write)) {
                     using(StreamWriter sw = new StreamWriter(cs)) {
-                        sw.Write(data);
+                        sw.Write(Data);
                     }
                 }
                 buffer = ms.ToArray();
@@ -37,16 +70,24 @@ namespace MochaDB.Encryptors {
         }
 
         /// <summary>
-        /// Decrypt value with AES256.
+        /// Decrypt.
         /// </summary>
-        /// <param name="data">Data to decrypt.</param>
-        public static string Decrypt(string data) {
-            byte[] buffer = Convert.FromBase64String(data);
+        /// <param name="data">Data to set data.</param>
+        public string Decrypt(string data) {
+            Data=data;
+            return Decrypt();
+        }
+
+        /// <summary>
+        /// Decrypt.
+        /// </summary>
+        public string Decrypt() {
+            byte[] buffer = Convert.FromBase64String(Data);
             string result;
 
             Aes aes = Aes.Create();
-            aes.IV = Encoding.UTF8.GetBytes(IV);
-            aes.Key = Encoding.UTF8.GetBytes(KEY);
+            aes.IV = Encoding.UTF8.GetBytes(Iv);
+            aes.Key = Encoding.UTF8.GetBytes(Key);
 
             ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key,aes.IV);
             using(MemoryStream ms = new MemoryStream(buffer)) {
@@ -60,5 +101,26 @@ namespace MochaDB.Encryptors {
             decryptor.Dispose();
             return result;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Initialization vector.
+        /// </summary>
+        public string Iv { get; set; }
+
+        /// <summary>
+        /// Sector key.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Data of use the cryptography processes.
+        /// </summary>
+        public string Data { get; set; }
+
+        #endregion
     }
 }

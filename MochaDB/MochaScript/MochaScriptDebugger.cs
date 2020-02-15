@@ -9,7 +9,7 @@ namespace MochaDB.MochaScript {
     /// <summary>
     /// Process, debug and run MochaScript codes.
     /// </summary>
-    public sealed class MochaScriptDebugger:IDisposable {
+    public sealed class MochaScriptDebugger:IMochaScriptDebugger {
         #region Fields
 
         //Regexes.
@@ -110,6 +110,8 @@ namespace MochaDB.MochaScript {
 
         #region Methods
 
+        #region Private
+
         /// <summary>
         /// Throw exception.
         /// </summary>
@@ -122,76 +124,9 @@ namespace MochaDB.MochaScript {
             return new Exception(line + message);
         }
 
-        /// <summary>
-        /// Debug code and run.
-        /// </summary>
-        public void DebugRun() {
-            OnStartDebug(new EventArgs());
+        #endregion
 
-            //Use MochaDatabase object if success provider.
-            db = null;
-
-            int dex=0;
-            //Find Provider and Debugger.
-            for(int Index = 0; Index < MochaScriptArray.Length; Index++) {
-                try {
-                    string line = MochaScriptArray[Index].Trim();
-
-                    if(line.StartsWith("Provider ")) {
-                        string[] Parts = line.Split(' ');
-                        if(Parts.Length == 3)
-                            db = new MochaDatabase(Parts[1],Parts[2]);
-                        else if(Parts.Length == 2)
-                            db = new MochaDatabase("path=" + Parts[1]);
-
-                        break;
-                    }
-                } catch { dex = Index; break; }
-            }
-
-            //Check Provider.
-            if(db == null)
-                Throw(dex+1,"|| Provider could not be processed!");
-
-            //Find Begin and Final tag index.
-            beginIndex = Keyword_Begin.GetIndex(MochaScriptArray);
-            finalIndex = Keyword_Final.GetIndex(MochaScriptArray);
-
-            //Check indexes.
-            if(beginIndex == -1)
-                Throw(-1,"|| Begin keyword not found!");
-            else if(finalIndex == -1)
-                Throw(-1,"|| Final keyword not found!");
-            else if(beginIndex > finalIndex)
-                Throw(beginIndex,"|| Start keyword cannot come after Last keyword!");
-
-            //Functions.
-            functions.Clear();
-            functions.AddRange(GetFunctions());
-
-            //Check Main function.
-            if(functions[0].Name != "Main")
-                Throw(functions[0].Index,"|| First function is not Main function.");
-            else if(!functions.Contains("Main"))
-                Throw(-1,"|| Not defined Main function.");
-
-            //Compiler Events.
-            compilerEvents.Clear();
-            compilerEvents.AddRange(GetCompilerEvents());
-
-            //Variables.
-            variables.Clear();
-
-            //Connect to database.
-            db.Connect();
-
-            //Process Commands.
-            functions.Invoke("Main");
-
-            db.Dispose();
-
-            OnSuccessFinishDebug(new EventArgs());
-        }
+        #region Internal
 
         /// <summary>
         /// Process range.
@@ -340,7 +275,7 @@ namespace MochaDB.MochaScript {
             IEnumerable<string> parts = line.Split('=');
             IEnumerable<string> varParts = parts.ElementAt(0).Split(' ');
 
-            parts = 
+            parts =
                 from value in parts
                 where !string.IsNullOrWhiteSpace(value)
                 select value.TrimStart().TrimEnd();
@@ -457,7 +392,7 @@ namespace MochaDB.MochaScript {
         internal bool CompareArguments(MochaScriptComparisonMark mark,object arg1,object arg2,int dex) {
             try {
                 if(mark == MochaScriptComparisonMark.Undefined) {
-                    throw Throw(dex + 1, "|| ComparisonMark failed, no such ComparisonMark!");
+                    throw Throw(dex + 1,"|| ComparisonMark failed, no such ComparisonMark!");
                 } else if(mark == MochaScriptComparisonMark.Equal) {
                     return arg1.Equals(arg2);
                 } else if(mark == MochaScriptComparisonMark.NotEqual) {
@@ -521,7 +456,7 @@ namespace MochaDB.MochaScript {
                         return DoubleOut;
                     else
                         throw Throw(index + 1,"|| Error in value conversion!");
-                }  else {
+                } else {
                     int dex = variables.IndexOf(arg);
                     if(dex != -1)
                         return variables[dex].Value;
@@ -698,6 +633,79 @@ namespace MochaDB.MochaScript {
             return _compilerEvents;
         }
 
+        #endregion
+
+        /// <summary>
+        /// Debug code and run.
+        /// </summary>
+        public void DebugRun() {
+            OnStartDebug(new EventArgs());
+
+            //Use MochaDatabase object if success provider.
+            db = null;
+
+            int dex=0;
+            //Find Provider and Debugger.
+            for(int Index = 0; Index < MochaScriptArray.Length; Index++) {
+                try {
+                    string line = MochaScriptArray[Index].Trim();
+
+                    if(line.StartsWith("Provider ")) {
+                        string[] Parts = line.Split(' ');
+                        if(Parts.Length == 3)
+                            db = new MochaDatabase(Parts[1],Parts[2]);
+                        else if(Parts.Length == 2)
+                            db = new MochaDatabase("path=" + Parts[1]);
+
+                        break;
+                    }
+                } catch { dex = Index; break; }
+            }
+
+            //Check Provider.
+            if(db == null)
+                Throw(dex+1,"|| Provider could not be processed!");
+
+            //Find Begin and Final tag index.
+            beginIndex = Keyword_Begin.GetIndex(MochaScriptArray);
+            finalIndex = Keyword_Final.GetIndex(MochaScriptArray);
+
+            //Check indexes.
+            if(beginIndex == -1)
+                Throw(-1,"|| Begin keyword not found!");
+            else if(finalIndex == -1)
+                Throw(-1,"|| Final keyword not found!");
+            else if(beginIndex > finalIndex)
+                Throw(beginIndex,"|| Start keyword cannot come after Last keyword!");
+
+            //Functions.
+            functions.Clear();
+            functions.AddRange(GetFunctions());
+
+            //Check Main function.
+            if(functions[0].Name != "Main")
+                Throw(functions[0].Index,"|| First function is not Main function.");
+            else if(!functions.Contains("Main"))
+                Throw(-1,"|| Not defined Main function.");
+
+            //Compiler Events.
+            compilerEvents.Clear();
+            compilerEvents.AddRange(GetCompilerEvents());
+
+            //Variables.
+            variables.Clear();
+
+            //Connect to database.
+            db.Connect();
+
+            //Process Commands.
+            functions.Invoke("Main");
+
+            db.Dispose();
+
+            OnSuccessFinishDebug(new EventArgs());
+        }
+        
         /// <summary>
         /// Dispose.
         /// </summary>
@@ -705,7 +713,7 @@ namespace MochaDB.MochaScript {
             if(scriptStream!=null)
                 scriptStream.Dispose();
         }
-
+        
         #endregion
 
         #region Properties

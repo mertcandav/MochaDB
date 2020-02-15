@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// This is data object for MochaDB.
     /// </summary>
-    public sealed class MochaData {
+    public class MochaData:IMochaData {
         #region Fields
 
         internal object data;
@@ -36,7 +36,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Static Methods
+        #region Static
 
         /// <summary>
         /// Return the data equality to the data type.
