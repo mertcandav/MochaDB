@@ -157,8 +157,14 @@ namespace MochaDB {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaStackItem this[int index] =>
-            collection[index];
+        public MochaStackItem this[int index] {
+            get =>
+                collection[index];
+            set {
+                collection[index]=value;
+                OnChanged(this,new EventArgs());
+            }
+        }
 
         /// <summary>
         /// Return item by name.
@@ -168,6 +174,10 @@ namespace MochaDB {
             get {
                 int dex = IndexOf(name);
                 return dex!=-1 ? this[dex] : throw new Exception("There is no item by this name!");
+            }
+            set {
+                int dex = IndexOf(name);
+                this[dex] = dex!=-1 ? value : throw new Exception("There is no item by this name!");
             }
         }
 
