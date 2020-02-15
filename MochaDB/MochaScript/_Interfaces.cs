@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MochaDB.MochaScript {
     /// <summary>
@@ -18,6 +19,24 @@ namespace MochaDB.MochaScript {
         #region Methods
 
         public void DebugRun();
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Interface for MochaScript code processor classes.
+    /// </summary>
+    public interface IMochaScriptCodeProcessor {
+        #region Methods
+
+        public bool CheckBrackets(int startIndex,char openBracket,char closeBracket);
+        public int GetCloseBracketIndex(int startIndex,char openBracket,char closeBracket);
+
+        #endregion
+
+        #region Properties
+
+        public IEnumerable<string> Source { get; set; }
 
         #endregion
     }

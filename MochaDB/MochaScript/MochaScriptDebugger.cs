@@ -29,6 +29,7 @@ namespace MochaDB.MochaScript {
         private MochaScriptFunctionCollection functions;
         private MochaScriptFunctionCollection compilerEvents;
         private MochaScriptVariableCollection variables;
+        private MochaScriptCodeProcessor codeProcessor;
         private int beginIndex;
         private int finalIndex;
 
@@ -50,6 +51,7 @@ namespace MochaDB.MochaScript {
             functions = new MochaScriptFunctionCollection(this);
             compilerEvents = new MochaScriptFunctionCollection(this);
             variables = new MochaScriptVariableCollection();
+            codeProcessor=new MochaScriptCodeProcessor();
         }
 
         #endregion
@@ -206,7 +208,7 @@ namespace MochaDB.MochaScript {
                     if(ElifArg1 == null || ElifArg2 == null)
                         throw Throw(index + 1,"|| One of his arguments could not be processed!");
 
-                    closeIndex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
+                    closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
 
                     if(!ok && CompareArguments(elifMark,ElifArg1,ElifArg2,index)) {
                         ok = true;
@@ -238,7 +240,7 @@ namespace MochaDB.MochaScript {
                     if(ElifArg1 == null || ElifArg2 == null)
                         throw Throw(index + 1,"|| One of his arguments could not be processed!");
 
-                    closeIndex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
+                    closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
 
                     if(!ok && CompareArguments(ElifMark,ElifArg1,ElifArg2,index)) {
                         ok = true;
@@ -250,7 +252,7 @@ namespace MochaDB.MochaScript {
                         continue;
                     }
                 } else if(line == "else") {
-                    closeIndex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
+                    closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
 
                     if(!ok) {
                         ProcessRange(index + 2,closeIndex);
@@ -568,7 +570,7 @@ namespace MochaDB.MochaScript {
                     if(functions.Contains(name))
                         throw Throw(index + 1,"|| Not added function. Debugger already in defined this name.");
 
-                    dex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
+                    dex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
                     if(dex == -1)
                         throw Throw(index + 1,"|| Any function is not processed!");
 
@@ -616,7 +618,7 @@ namespace MochaDB.MochaScript {
                     if(compilerEvents.Contains(name))
                         throw Throw(index + 1,"|| Not added compiler event. Debugger already in defined this name.");
 
-                    dex = MochaScriptCodeProcessor.GetCloseBracketIndex(MochaScriptArray,index + 2,'{','}');
+                    dex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
                     if(dex == -1)
                         throw Throw(index + 1,"|| Any function is not processed!");
 
@@ -750,6 +752,7 @@ namespace MochaDB.MochaScript {
 
                 MochaScript = File.ReadAllText(value);
                 MochaScriptArray = File.ReadAllLines(value);
+                codeProcessor.Source=MochaScriptArray;
                 
                 scriptStream=File.OpenRead(value);
                 

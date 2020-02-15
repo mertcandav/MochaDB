@@ -1,17 +1,40 @@
-﻿namespace MochaDB.MochaScript {
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace MochaDB.MochaScript {
     /// <summary>
     /// MochaScript code processor.
     /// </summary>
-    internal sealed class MochaScriptCodeProcessor {
+    public class MochaScriptCodeProcessor:IMochaScriptCodeProcessor {
+        #region Constructors
+
+        /// <summary>
+        /// Create new MochaScriptCodeProcessor.
+        /// </summary>
+        public MochaScriptCodeProcessor() {
+            Source=null;
+        }
+
+        /// <summary>
+        /// Create new MochaScriptCodeProcessor.
+        /// </summary>
+        /// <param name="source">MochaScript code as lines.</param>
+        public MochaScriptCodeProcessor(IEnumerable<string> source) {
+            Source=source;
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Check brackets.
         /// </summary>
-        /// <param name="source">MochaScript codes as lines.</param>
         /// <param name="startIndex">Index to start finding.</param>
         /// <param name="openBracket">Open bracket char.</param>
         /// <param name="closeBracket">Close bracket char.</param>
-        internal static bool CheckBrackets(string[] source,int startIndex,char openBracket,char closeBracket) {
-            if(GetCloseBracketIndex(source,startIndex,openBracket,closeBracket) != -1)
+        public bool CheckBrackets(int startIndex,char openBracket,char closeBracket) {
+            if(GetCloseBracketIndex(startIndex,openBracket,closeBracket) != -1)
                 return true;
             else
                 return false;
@@ -20,17 +43,16 @@
         /// <summary>
         /// Find and get close bracket index.
         /// </summary>
-        /// <param name="source">MochaScript codes as lines.</param>
         /// <param name="startIndex">Index to start finding.</param>
         /// <param name="openBracket">Open bracket char.</param>
         /// <param name="closeBracket">Close bracket char.</param>
-        internal static int GetCloseBracketIndex(string[] source,int startIndex,char openBracket,char closeBracket) {
+        public int GetCloseBracketIndex(int startIndex,char openBracket,char closeBracket) {
             int openCount = 0;
             string openBracketString = openBracket.ToString();
             string closeBracketString = closeBracket.ToString();
 
-            for(int index = startIndex; index < source.Length; index++) {
-                string lineJayScriptArray = source[index].Trim();
+            for(int index = startIndex; index < Source.Count(); index++) {
+                string lineJayScriptArray = Source.ElementAt(index).Trim();
 
                 if(lineJayScriptArray == openBracketString)
                     openCount++;
@@ -41,5 +63,16 @@
             }
             return -1;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// MochaScript code as lines.
+        /// </summary>
+        public IEnumerable<string> Source { get; set; }
+
+        #endregion
     }
 }
