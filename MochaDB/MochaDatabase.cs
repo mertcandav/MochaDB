@@ -581,43 +581,6 @@ namespace MochaDB {
 
         #region Stack
 
-        #region Internal
-
-        /// <summary>
-        /// Return MochaStackItem from XElement.
-        /// </summary>
-        /// <param name="element">Element.</param>
-        internal MochaStackItem GetMochaStackItemOBJ(XElement element) {
-            MochaStackItem item = new MochaStackItem(element.Name.LocalName);
-            item.Description=element.Attribute("Description").Value;
-            item.Value=element.Value;
-
-            IEnumerable<XElement> elementRange = element.Elements();
-            if(elementRange.Count() >0)
-                for(int index = 0; index < elementRange.Count(); index++)
-                    item.Items.Add(GetMochaStackItemOBJ(elementRange.ElementAt(index)));
-
-            return item;
-        }
-
-        /// <summary>
-        /// Return XElement from MochaStackItem.
-        /// </summary>
-        /// <param name="item">MochaStackItem object.</param>
-        internal XElement GetMochaStackItemXML(MochaStackItem item) {
-            XElement element = new XElement(item.Name,item.Value);
-            element.Add(new XAttribute("Description",item.Description));
-
-            if(item.Items.Count >=0)
-                for(int index = 0; index < item.Items.Count; index++) {
-                    element.Add(GetMochaStackItemXML(item.Items[index]));
-                }
-
-            return element;
-        }
-
-        #endregion
-
         /// <summary>
         /// Remove all stacks.
         /// </summary>
@@ -662,6 +625,121 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Return description of stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        public string GetStackDescription(string name) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            return Doc.Root.Element("Stacks").Element(name).Attribute("Description").Value;
+        }
+
+        /// <summary>
+        /// Set description of stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="description">Description to set.</param>
+        public void SetStackDescription(string name,string description) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XAttribute xDescription = Doc.Root.Element("Stacks").Element(name).Attribute("Description");
+            if(xDescription.Value==description)
+                return;
+
+            xDescription.Value=description;
+
+            Save();
+        }
+
+        /// <summary>
+        /// Rename stack.
+        /// </summary>
+        /// <param name="name">Name of stack to rename.</param>
+        /// <param name="newName">New name of stack.</param>
+        public void RenameStack(string name,string newName) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+            if(ExistsStack(newName))
+                throw new Exception("There is already a stack with this name!");
+
+            Doc.Root.Element("Stacks").Element(name).Name=newName;
+            Save();
+        }
+
+        /// <summary>
+        /// Return stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        public MochaStack GetStack(string name) {
+            if(!ExistsStack(name))
+                throw new Exception("Stack not found in this name!");
+
+            XElement xStack = Doc.Root.Element("Stacks").Element(name);
+            MochaStack stack = new MochaStack(xStack.Name.LocalName);
+            stack.Description=xStack.Attribute("Description").Value;
+
+            IEnumerable<XElement> elementRange = xStack.Elements();
+            if(elementRange.Count() > 0)
+                for(int index = 0; index < elementRange.Count(); index++) {
+                    stack.Items.Add(GetStackItem(name,elementRange.ElementAt(index).Name.LocalName));
+                }
+
+            return stack;
+        }
+
+        /// <summary>
+        /// Get all stacks in database.
+        /// </summary>
+        /// <returns></returns>
+        public List<MochaStack> GetStacks() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            List<MochaStack> stacks = new List<MochaStack>();
+
+            IEnumerable<XElement> stackRange = Doc.Root.Element("Stacks").Elements();
+
+            if(stackRange.Count() > 0)
+                for(int index = 0; index < stackRange.Count(); index++) {
+                    stacks.Add(GetStack(stackRange.ElementAt(index).Name.LocalName));
+                }
+
+            return stacks;
+        }
+
+        /// <summary>
+        /// Returns whether there is a stack with the specified name.
+        /// </summary>
+        /// <param name="name">Name of stack to check.</param>
+        public bool ExistsStack(string name) =>
+            ExistsElement("Stacks/"+name);
+
+        #endregion
+
+        #region StackItem
+
+        #region Internal
+
+        /// <summary>
+        /// Return XElement from MochaStackItem.
+        /// </summary>
+        /// <param name="item">MochaStackItem object.</param>
+        internal XElement GetMochaStackItemXML(MochaStackItem item) {
+            XElement element = new XElement(item.Name,item.Value);
+            element.Add(new XAttribute("Description",item.Description));
+
+            if(item.Items.Count >=0)
+                for(int index = 0; index < item.Items.Count; index++) {
+                    element.Add(GetMochaStackItemXML(item.Items[index]));
+                }
+
+            return element;
+        }
+
+        #endregion
+
+        /// <summary>
         /// Add stack item.
         /// </summary>
         /// <param name="name">Name of stack.</param>
@@ -698,35 +776,6 @@ namespace MochaDB {
 
                 element.Remove();
             }
-
-            Save();
-        }
-
-        /// <summary>
-        /// Return description of stack by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        public string GetStackDescription(string name) {
-            if(!ExistsStack(name))
-                throw new Exception("Stack not found in this name!");
-
-            return Doc.Root.Element("Stacks").Element(name).Attribute("Description").Value;
-        }
-
-        /// <summary>
-        /// Set description of stack by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="description">Description to set.</param>
-        public void SetStackDescription(string name,string description) {
-            if(!ExistsStack(name))
-                throw new Exception("Stack not found in this name!");
-
-            XAttribute xDescription = Doc.Root.Element("Stacks").Element(name).Attribute("Description");
-            if(xDescription.Value==description)
-                return;
-
-            xDescription.Value=description;
 
             Save();
         }
@@ -814,25 +863,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Rename stack.
-        /// </summary>
-        /// <param name="name">Name of stack to rename.</param>
-        /// <param name="newName">New name of stack.</param>
-        public void RenameStack(string name,string newName) {
-            if(!ExistsStack(name))
-                throw new Exception("Stack not found in this name!");
-            if(ExistsStack(newName))
-                throw new Exception("There is already a stack with this name!");
-
-            Doc.Root.Element("Stacks").Element(name).Name=newName;
-            Save();
-        }
-
-        /// <summary>
         /// Rename stack item.
         /// </summary>
-        /// <param name="name">Name of stack to rename.</param>
-        /// <param name="newName">New name of stack.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="newName">New name of stack item.</param>
+        /// <param name="path">Name path of stack item to get description.</param>
         public void RenameStackItem(string name,string newName,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
@@ -854,56 +889,29 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return stack by name.
+        /// Return StackItem.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        public MochaStack GetStack(string name) {
-            if(!ExistsStack(name))
-                throw new Exception("Stack not found in this name!");
+        /// <param name="path">Name path of stack item to get description.</param>
+        public MochaStackItem GetStackItem(string name,string path) {
+            XElement xStackItem = GetElement("Stacks/" + name + "/" + path);
 
-            XElement xStack = Doc.Root.Element("Stacks").Element(name);
-            MochaStack stack = new MochaStack(xStack.Name.LocalName);
-            stack.Description=xStack.Attribute("Description").Value;
+            MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
+            item.Description=xStackItem.Attribute("Description").Value;
+            item.Value=xStackItem.Value;
 
-            IEnumerable<XElement> elementRange = xStack.Elements();
-            if(elementRange.Count() > 0)
-                for(int index = 0; index < elementRange.Count(); index++) {
-                    stack.Items.Add(GetMochaStackItemOBJ(elementRange.ElementAt(index)));
-                }
+            IEnumerable<XElement> elementRange = xStackItem.Elements();
+            if(elementRange.Count() >0)
+                for(int index = 0; index < elementRange.Count(); index++)
+                    item.Items.Add(GetStackItem(name,path += "/" + elementRange.ElementAt(index).Name.LocalName));
 
-            return stack;
+            return item;
         }
-
-        /// <summary>
-        /// Get all stacks in database.
-        /// </summary>
-        /// <returns></returns>
-        public List<MochaStack> GetStacks() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            List<MochaStack> stacks = new List<MochaStack>();
-
-            IEnumerable<XElement> stackRange = Doc.Root.Element("Stacks").Elements();
-
-            if(stackRange.Count() > 0)
-                for(int index = 0; index < stackRange.Count(); index++) {
-                    stacks.Add(GetStack(stackRange.ElementAt(index).Name.LocalName));
-                }
-
-            return stacks;
-        }
-
-        /// <summary>
-        /// Returns whether there is a stack with the specified name.
-        /// </summary>
-        /// <param name="name">Name of stack to check.</param>
-        public bool ExistsStack(string name) =>
-            ExistsElement("Stacks/"+name);
 
         /// <summary>
         /// Returns whether there is a stack item with the specified name.
         /// </summary>
-        /// <param name="name">Name of stack.</param>
+        /// <param name="name">Name of stack item.</param>
         /// <param name="path">Name path of item to check.</param>
         public bool ExistsStackItem(string name,string path) =>
             ExistsElement("Stacks/"+name+"/"+path);
@@ -1183,7 +1191,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> dataRange = Doc.Root.Element("Tables").Element(tableName).Element(name).Elements();
             for(int index = 0; index < dataRange.Count(); index++) {
-                column.Datas.Add(GetData(tableName,name,index));
+                column.Datas.collection.Add(GetData(tableName,name,index));
             }
 
             return column;
