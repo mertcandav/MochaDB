@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MochaDB.Collections;
+using System.Collections.Generic;
 
 namespace MochaDB {
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace MochaDB.Encryptors {
+﻿namespace MochaDB.Cryptography {
     /// <summary>
     /// Basic char encryptor.
     /// </summary>

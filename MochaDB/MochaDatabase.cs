@@ -21,7 +21,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-using MochaDB.Encryptors;
+using MochaDB.Connection;
+using MochaDB.Cryptography;
+using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -216,7 +218,7 @@ namespace MochaDB {
         /// </summary>
         public string GetXML() {
             OnConnectionCheckRequired(this,new EventArgs());
-;
+
             XDocument doc = XDocument.Parse(Doc.ToString());
             doc.Root.Element("Root").Remove();
             return doc.ToString();
@@ -554,7 +556,7 @@ namespace MochaDB {
         /// <summary>
         /// Return sectors in database.
         /// </summary>
-        public List<MochaSector> GetSectors() {
+        public MochaCollectionResult<MochaSector> GetSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             List<MochaSector> sectors = new List<MochaSector>();
@@ -563,7 +565,7 @@ namespace MochaDB {
             for(int index = 0; index < sectorRange.Count(); index++)
                 sectors.Add(GetSector(sectorRange.ElementAt(index).Name.LocalName));
 
-            return sectors;
+            return new MochaCollectionResult<MochaSector>(sectors);
         }
 
         /// <summary>
@@ -689,7 +691,7 @@ namespace MochaDB {
         /// Get all stacks in database.
         /// </summary>
         /// <returns></returns>
-        public List<MochaStack> GetStacks() {
+        public MochaCollectionResult<MochaStack> GetStacks() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             List<MochaStack> stacks = new List<MochaStack>();
@@ -701,7 +703,7 @@ namespace MochaDB {
                     stacks.Add(GetStack(stackRange.ElementAt(index).Name.LocalName));
                 }
 
-            return stacks;
+            return new MochaCollectionResult<MochaStack>(stacks);
         }
 
         /// <summary>
@@ -1029,8 +1031,8 @@ namespace MochaDB {
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
 
-            table.Columns.collection.AddRange(GetColumns(name));
-            table.Rows.collection.AddRange(GetRows(name));
+            table.Columns.collection.AddRange(GetColumns(name).collection);
+            table.Rows.collection.AddRange(GetRows(name).collection);
 
             return table;
         }
@@ -1038,7 +1040,7 @@ namespace MochaDB {
         /// <summary>
         /// Return tables in database.
         /// </summary>
-        public List<MochaTable> GetTables() {
+        public MochaCollectionResult<MochaTable> GetTables() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             List<MochaTable> tables = new List<MochaTable>();
@@ -1048,7 +1050,7 @@ namespace MochaDB {
                 tables.Add(GetTable(tableRange.ElementAt(index).Name.LocalName));
             }
 
-            return tables;
+            return new MochaCollectionResult<MochaTable>(tables);
         }
 
         /// <summary>
@@ -1200,7 +1202,7 @@ namespace MochaDB {
         /// Return columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public List<MochaColumn> GetColumns(string tableName) {
+        public MochaCollectionResult<MochaColumn> GetColumns(string tableName) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
 
@@ -1211,7 +1213,7 @@ namespace MochaDB {
                 columns.Add(GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName));
             }
 
-            return columns;
+            return new MochaCollectionResult<MochaColumn>(columns);
         }
 
         /// <summary>
@@ -1361,7 +1363,7 @@ namespace MochaDB {
             if(index < 0)
                 throw new Exception("Index can not lower than 0!");
 
-            IList<MochaColumn> columns = GetColumns(tableName);
+            MochaCollectionResult<MochaColumn> columns = GetColumns(tableName);
 
             if(columns.Count == 0)
                 return null;
@@ -1386,7 +1388,7 @@ namespace MochaDB {
         /// Return rows from table.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public List<MochaRow> GetRows(string tableName) {
+        public MochaCollectionResult<MochaRow> GetRows(string tableName) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
 
@@ -1394,14 +1396,14 @@ namespace MochaDB {
             XElement firstColumn = (XElement)Doc.Root.Element("Tables").Element(tableName).FirstNode;
 
             if(firstColumn==null)
-                return rows;
+                return new MochaCollectionResult<MochaRow>(rows);
 
             int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
             for(int index = 0; index < dataCount; index++) {
                 rows.Add(GetRow(tableName,index));
             }
 
-            return rows;
+            return new MochaCollectionResult<MochaRow>(rows);
         }
 
         #endregion
@@ -1590,7 +1592,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        public List<MochaData> GetDatas(string tableName,string columnName) {
+        public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
@@ -1602,7 +1604,7 @@ namespace MochaDB {
             for(int index = 0; index < dataRange.Count(); index++) {
                 datas.Add(GetData(tableName,columnName,index));
             }
-            return datas;
+            return new MochaCollectionResult<MochaData>(datas);
         }
 
         /// <summary>

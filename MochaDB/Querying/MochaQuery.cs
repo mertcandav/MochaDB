@@ -1,15 +1,16 @@
-﻿using System;
+﻿using MochaDB.Connection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace MochaDB {
+namespace MochaDB.Querying {
     /// <summary>
     /// It offers query usage and management with MochaQ.
     /// </summary>
     [Serializable]
-    public class MochaQuery {
+    public class MochaQuery:IMochaQuery {
         #region Fields
 
         private MochaDatabase db;
@@ -34,7 +35,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         public MochaQuery(MochaDatabase db) {
-            DB = db;
+            Database = db;
             MochaQ = "RETURNQUERY";
         }
 
@@ -67,7 +68,7 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public object Dynamic(MochaDatabase db,string mochaQ) {
-            DB = db;
+            Database = db;
             MochaQ = mochaQ;
             return Dynamic();
         }
@@ -76,7 +77,7 @@ namespace MochaDB {
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
         public object Dynamic() {
-            if(DB.State!=MochaConnectionState.Connected)
+            if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
             //Check BREAKQUERY.
@@ -100,7 +101,7 @@ namespace MochaDB {
                         MochaTable Table = new MochaTable(TableName);
 
                         for(int Index = 0; Index < SelectedColumns.Length; Index++) {
-                            Table.Columns.Add(DB.GetColumn(TableName,SelectedColumns[Index]));
+                            Table.Columns.Add(Database.GetColumn(TableName,SelectedColumns[Index]));
                         }
 
                         return Table;
@@ -132,7 +133,7 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public void Run(MochaDatabase db,string mochaQ) {
-            DB = db;
+            Database = db;
             MochaQ = mochaQ;
             Run();
         }
@@ -141,7 +142,7 @@ namespace MochaDB {
         /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
         /// </summary>
         public void Run() {
-            if(DB.State!=MochaConnectionState.Connected)
+            if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
             //Check null.
@@ -157,55 +158,55 @@ namespace MochaDB {
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "RESETMOCHA") {
-                    DB.Reset();
+                    Database.Reset();
                     return;
                 } else if(QueryPaths[0] == "RESETTABLES") {
-                    IEnumerable<XElement> tableRange = DB.Doc.Root.Element("Tables").Elements();
+                    IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
                     for(int index = 0; index < tableRange.Count(); index++) {
                         tableRange.ElementAt(index).Elements().Remove();
                     }
 
-                    DB.Save();
+                    Database.Save();
                     return;
                 } else if(QueryPaths[0] == "CLEARSECTORS") {
-                    DB.ClearSectors();
+                    Database.ClearSectors();
                     return;
                 } else if(QueryPaths[0] == "CLEARSTACKS") {
-                    DB.ClearStacks();
+                    Database.ClearStacks();
                     return;
                 } else if(QueryPaths[0] == "CLEARTABLES") {
-                    DB.ClearTables();
+                    Database.ClearTables();
                     return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
                 if(QueryPaths[0] == "REMOVETABLE") {
-                    DB.RemoveTable(QueryPaths[1]);
+                    Database.RemoveTable(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "CREATETABLE") {
-                    DB.CreateTable(QueryPaths[1]);
+                    Database.CreateTable(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "CREATESTACK") {
-                    DB.AddStack(new MochaStack(QueryPaths[1]));
+                    Database.AddStack(new MochaStack(QueryPaths[1]));
                     return;
                 } else if(QueryPaths[0] == "REMOVESECTOR") {
-                    DB.RemoveSector(QueryPaths[1]);
+                    Database.RemoveSector(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "REMOVESTACK") {
-                    DB.RemoveStack(QueryPaths[1]);
+                    Database.RemoveStack(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "SETPASSWORD") {
-                    DB.SetPassword(QueryPaths[1]);
+                    Database.SetPassword(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "SETDESCRIPTION") {
-                    DB.SetDescription(QueryPaths[1]);
+                    Database.SetDescription(QueryPaths[1]);
                     return;
                 } else if(QueryPaths[0] == "RESETTABLE") {
-                    if(!DB.ExistsTable(QueryPaths[1]))
+                    if(!Database.ExistsTable(QueryPaths[1]))
                         throw new Exception("Table not found in this name!");
 
-                    DB.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements().Remove();
-                    DB.Save();
+                    Database.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements().Remove();
+                    Database.Save();
                     return;
                 } else if(QueryPaths[0] == "CREATEMOCHA") {
                     MochaDatabase.CreateMochaDB(Path.Combine(QueryPaths[1]) + ".bjay",string.Empty,string.Empty);
@@ -214,37 +215,37 @@ namespace MochaDB {
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 3) {
                 if(QueryPaths[0] == "REMOVECOLUMN") {
-                    DB.RemoveColumn(QueryPaths[1],QueryPaths[2]);
+                    Database.RemoveColumn(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "SETSECTORDATA") {
-                    DB.SetSectorData(QueryPaths[1],QueryPaths[2]);
+                    Database.SetSectorData(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "SETSECTORDESCRIPTION") {
-                    DB.SetSectorDescription(QueryPaths[1],QueryPaths[2]);
+                    Database.SetSectorDescription(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "SETSTACKDESCRIPTION") {
-                    DB.SetStackDescription(QueryPaths[1],QueryPaths[2]);
+                    Database.SetStackDescription(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "SETTABLEDESCRIPTION") {
-                    DB.SetTableDescription(QueryPaths[1],QueryPaths[2]);
+                    Database.SetTableDescription(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "REMOVEROW") {
-                    DB.RemoveRow(QueryPaths[1],int.Parse(QueryPaths[2]));
+                    Database.RemoveRow(QueryPaths[1],int.Parse(QueryPaths[2]));
                     return;
                 } else if(QueryPaths[0] == "RENAMETABLE") {
-                    DB.RenameTable(QueryPaths[1],QueryPaths[2]);
+                    Database.RenameTable(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "REMOVESTACKITEM") {
-                    DB.RemoveStackItem(QueryPaths[1],QueryPaths[2]);
+                    Database.RemoveStackItem(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "RENAMESECTOR") {
-                    DB.RenameSector(QueryPaths[1],QueryPaths[2]);
+                    Database.RenameSector(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "RENAMESTACK") {
-                    DB.RenameStack(QueryPaths[1],QueryPaths[2]);
+                    Database.RenameStack(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "CREATECOLUMN") {
-                    DB.CreateColumn(QueryPaths[1],QueryPaths[2]);
+                    Database.CreateColumn(QueryPaths[1],QueryPaths[2]);
                     return;
                 } else if(QueryPaths[0] == "CREATEMOCHA") {
                     MochaDatabase.CreateMochaDB(Path.Combine(QueryPaths[1] + QueryPaths[2]) + ".bjay",string.Empty,string.Empty);
@@ -253,45 +254,45 @@ namespace MochaDB {
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 4) {
                 if(QueryPaths[0] == "RENAMECOLUMN") {
-                    DB.RenameColumn(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    Database.RenameColumn(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "SETCOLUMNDESCRIPTION") {
-                    DB.SetColumnDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    Database.SetColumnDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "SETCOLUMNDATATYPE") {
-                    DB.SetColumnDataType(QueryPaths[1],QueryPaths[2],MochaData.GetDataTypeFromName(QueryPaths[3]));
+                    Database.SetColumnDataType(QueryPaths[1],QueryPaths[2],MochaData.GetDataTypeFromName(QueryPaths[3]));
                     return;
                 } else if(QueryPaths[0] == "ADDDATA") {
-                    DB.AddData(QueryPaths[1],QueryPaths[2],MochaData.GetDataFromString(DB.GetColumnDataType(QueryPaths[1],QueryPaths[2])
+                    Database.AddData(QueryPaths[1],QueryPaths[2],MochaData.GetDataFromString(Database.GetColumnDataType(QueryPaths[1],QueryPaths[2])
                         ,QueryPaths[3]));
                     return;
                 } else if(QueryPaths[0] == "CREATESTACKITEM") {
-                    DB.AddStackItem(QueryPaths[1],QueryPaths[3],new MochaStackItem(QueryPaths[2]));
+                    Database.AddStackItem(QueryPaths[1],QueryPaths[3],new MochaStackItem(QueryPaths[2]));
                     return;
                 } else if(QueryPaths[0] == "RENAMESTACKITEM") {
-                    DB.RenameStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    Database.RenameStackItem(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "SETSTACKITEMVALUE") {
-                    DB.SetStackItemValue(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    Database.SetStackItemValue(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "SETSTACKITEMDESCRIPTION") {
-                    DB.SetStackItemDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    Database.SetStackItemDescription(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "UPDATEFIRSTDATA") {
-                    DB.UpdateData(QueryPaths[1],QueryPaths[2],0,QueryPaths[3]);
+                    Database.UpdateData(QueryPaths[1],QueryPaths[2],0,QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "UPDATELASTDATA") {
-                    DB.UpdateData(QueryPaths[1],QueryPaths[2],DB.GetDataCount(QueryPaths[1],QueryPaths[2]) - 1,QueryPaths[3]);
+                    Database.UpdateData(QueryPaths[1],QueryPaths[2],Database.GetDataCount(QueryPaths[1],QueryPaths[2]) - 1,QueryPaths[3]);
                     return;
                 } else if(QueryPaths[0] == "ADDSECTOR") {
                     MochaSector Sector = new MochaSector(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
-                    DB.AddSector(Sector);
+                    Database.AddSector(Sector);
                     return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 5) {
                 if(QueryPaths[0] == "UPDATEDATA") {
-                    DB.UpdateData(QueryPaths[1],QueryPaths[2],int.Parse(QueryPaths[3]),QueryPaths[4]);
+                    Database.UpdateData(QueryPaths[1],QueryPaths[2],int.Parse(QueryPaths[3]),QueryPaths[4]);
                     return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
@@ -317,7 +318,7 @@ namespace MochaDB {
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public object GetRun(MochaDatabase db,string mochaQ) {
-            DB = db;
+            Database = db;
             MochaQ = mochaQ;
             return GetRun();
         }
@@ -326,7 +327,7 @@ namespace MochaDB {
         /// Runs the active MochaQ query. Returns the incoming value.
         /// </summary>
         public object GetRun() {
-            if(DB.State!=MochaConnectionState.Connected)
+            if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
             //Check null.
@@ -342,87 +343,87 @@ namespace MochaDB {
 
             if(QueryPaths.Length == 1) {
                 if(QueryPaths[0] == "GETTABLES") {
-                    return DB.GetTables();
+                    return Database.GetTables();
                 } else if(QueryPaths[0] == "GETPASSWORD") {
-                    return DB.GetPassword();
+                    return Database.GetPassword();
                 } else if(QueryPaths[0] == "GETDESCRIPTION") {
-                    return DB.GetDescription();
+                    return Database.GetDescription();
                 } else if(QueryPaths[0] == "GETDATAS") {
                     List<MochaData> datas = new List<MochaData>();
-                    IEnumerable<XElement> tableRange = DB.Doc.Root.Element("Tables").Elements();
+                    IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
                     for(int index = 0; index < tableRange.Count(); index++) {
                         datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName));
                     }
-                    return datas;
+                    return new MochaCollectionResult<MochaData>(datas);
                 } else if(QueryPaths[0] == "TABLECOUNT") {
-                    return DB.Doc.Root.Elements().Count();
+                    return Database.Doc.Root.Elements().Count();
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
                 if(QueryPaths[0] == "GETTABLE") {
-                    return DB.GetTable(QueryPaths[1]);
+                    return Database.GetTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETCOLUMNS") {
-                    return DB.GetColumns(QueryPaths[1]);
+                    return Database.GetColumns(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETSECTOR") {
-                    return DB.GetSector(QueryPaths[1]);
+                    return Database.GetSector(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETFIRSTCOLUMN_NAME") {
                     return GETFIRSTCOLUMN_NAME(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETROWS") {
-                    return DB.GetRows(QueryPaths[1]);
+                    return Database.GetRows(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETDATAS") {
                     return GETDATAS(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETSECTORDATA") {
-                    return DB.GetSectorData(QueryPaths[1]);
+                    return Database.GetSectorData(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETSECTORDESCRIPTION") {
-                    return DB.GetSectorDescription(QueryPaths[1]);
+                    return Database.GetSectorDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETTABLEDESCRIPTION") {
-                    return DB.GetTableDescription(QueryPaths[1]);
+                    return Database.GetTableDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETSTACKDESCRIPTION") {
-                    return DB.GetStackDescription(QueryPaths[1]);
+                    return Database.GetStackDescription(QueryPaths[1]);
                 } else if(QueryPaths[0] == "COLUMNCOUNT") {
                     return COLUMNCOUNT(QueryPaths[1]);
                 } else if(QueryPaths[0] == "ROWCOUNT") {
                     try {
-                        return DB.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements(
+                        return Database.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements(
                             GETFIRSTCOLUMN_NAME(QueryPaths[1])).Elements().Count();
                     } catch(Exception excep) {
                         throw excep;
                     }
                 } else if(QueryPaths[0] == "DATACOUNT") {
-                    return DB.GetDataCount(QueryPaths[1],GETFIRSTCOLUMN_NAME(QueryPaths[1]))
+                    return Database.GetDataCount(QueryPaths[1],GETFIRSTCOLUMN_NAME(QueryPaths[1]))
                         * COLUMNCOUNT(QueryPaths[1]);
                 } else if(QueryPaths[0] == "EXISTSTABLE") {
-                    return DB.ExistsTable(QueryPaths[1]);
+                    return Database.ExistsTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "EXISTSSECTOR") {
-                    return DB.ExistsSector(QueryPaths[1]);
+                    return Database.ExistsSector(QueryPaths[1]);
                 } else if(QueryPaths[0] == "EXISTSSTACK") {
-                    return DB.ExistsStack(QueryPaths[1]);
+                    return Database.ExistsStack(QueryPaths[1]);
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 3) {
                 if(QueryPaths[0] == "GETCOLUMN") {
-                    return DB.GetColumn(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetColumn(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "DATACOUNT") {
-                    return DB.GetDataCount(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetDataCount(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "EXISTSCOLUMN") {
-                    return DB.ExistsColumn(QueryPaths[1],QueryPaths[2]);
+                    return Database.ExistsColumn(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "EXISTSSTACKITEM") {
-                    return DB.ExistsStackItem(QueryPaths[1],QueryPaths[2]);
+                    return Database.ExistsStackItem(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETSTACKITEMVALUE") {
-                    return DB.GetStackItemValue(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetStackItemValue(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETSTACKITEMDESCRIPTION") {
-                    return DB.GetStackItemDescription(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetStackItemDescription(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETDATAS") {
-                    return DB.GetDatas(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetDatas(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETSTACKITEM") {
-                    return DB.GetStackItem(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetStackItem(QueryPaths[1],QueryPaths[2]);
                 } else if(QueryPaths[0] == "GETCOLUMNDESCRIPTION") {
-                    return DB.GetColumnDescription(QueryPaths[1],QueryPaths[2]);
+                    return Database.GetColumnDescription(QueryPaths[1],QueryPaths[2]);
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 4) {
                 if(QueryPaths[0] == "EXISTSDATA") {
-                    return DB.ExistsData(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
+                    return Database.ExistsData(QueryPaths[1],QueryPaths[2],QueryPaths[3]);
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else
@@ -438,10 +439,10 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of table.</param>
         private int COLUMNCOUNT(string name) {
-            if(!DB.ExistsTable(name))
+            if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
-            IEnumerable<XElement> columnElements = DB.Doc.Root.Element("Tables").Elements(name).Elements();
+            IEnumerable<XElement> columnElements = Database.Doc.Root.Element("Tables").Elements(name).Elements();
             return columnElements.Count();
         }
 
@@ -450,14 +451,14 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of table.</param>
         private List<MochaData> GETDATAS(string name) {
-            if(!DB.ExistsTable(name))
+            if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
             List<MochaData> datas = new List<MochaData>();
 
-            IEnumerable<XElement> columnRange = DB.Doc.Root.Element("Tables").Elements(name).Elements();
+            IEnumerable<XElement> columnRange = Database.Doc.Root.Element("Tables").Elements(name).Elements();
             for(int index = 0; index < columnRange.Count(); index++) {
-                datas.AddRange(DB.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
+                datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName).collection);
             }
 
             return datas;
@@ -468,11 +469,11 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of table.</param>
         private string GETFIRSTCOLUMN_NAME(string name) {
-            if(!DB.ExistsTable(name))
+            if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
             try {
-                return ((XElement)DB.Doc.Root.Element("Tables").Element(name).FirstNode).Name.LocalName;
+                return ((XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode).Name.LocalName;
             } catch {
                 return null;
             }
@@ -490,7 +491,7 @@ namespace MochaDB {
         /// <summary>
         /// MochaDatabse object that provides management of the targeted MochaDB database.
         /// </summary>
-        public MochaDatabase DB {
+        public MochaDatabase Database {
             get =>
                 db;
             set {

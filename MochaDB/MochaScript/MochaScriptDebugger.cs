@@ -762,4 +762,17 @@ namespace MochaDB.MochaScript {
 
         #endregion
     }
+
+    /// <summary>
+    /// Comparison mark for MochaScript.
+    /// </summary>
+    public enum MochaScriptComparisonMark {
+        Equal,
+        NotEqual,
+        Bigger,
+        Smaller,
+        EqualBigger,
+        EqualSmaller,
+        Undefined
+    }
 }

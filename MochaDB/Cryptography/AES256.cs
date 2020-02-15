@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MochaDB.Encryptors {
+namespace MochaDB.Cryptography {
     /// <summary>
     /// AES 256-Bit ecryptor.
     /// </summary>
