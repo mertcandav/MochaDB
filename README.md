@@ -46,8 +46,8 @@ public IEnumerable<MochaTable> GetMatchTables(string key) {
   Regex rgx = new Regex(key);
   var tables = DB.GetTables();
   var result =
-    from table in datas
-    where rgx.IsMatch(table)
+    from table in tables
+    where rgx.IsMatch(table.Name)
     select table;
   
   return result;
@@ -66,7 +66,7 @@ MochaQ offers quick basic queries. With MochaQuery, you can process and run quer
 ```c#
 MochaDatabase db = new MochaDatabase("connection string");
 db.Connect();
-string value = (string)db.Query.GetRun("GETSECTORDATA:PiNumber");
+string value = (MochaResult<string>)db.Query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
     db.Query.Run("SETSECTORDATA:PiNumber:3.14");
@@ -76,7 +76,7 @@ if(value!="3.14")
 MochaDatabase db = new MochaDatabase("connection string");
 db.Connect();
 MochaQuery query = new MochaQuery(db);
-string value = (string)query.GetRun("GETSECTORDATA:PiNumber");
+string value = (MochaResult<string>)query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
     query.Run("SETSECTORDATA:PiNumber:3.14");
