@@ -45,13 +45,13 @@ namespace MochaDB.MochaScript {
         /// </summary>
         /// <param name="path">Path of MochaScript file.</param>
         public MochaScriptDebugger(string path) {
+            codeProcessor=new MochaScriptCodeProcessor();
             ScriptPath = path;
 
             db = null;
             functions = new MochaScriptFunctionCollection(this);
             compilerEvents = new MochaScriptFunctionCollection(this);
             variables = new MochaScriptVariableCollection();
-            codeProcessor=new MochaScriptCodeProcessor();
         }
 
         #endregion
