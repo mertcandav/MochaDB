@@ -10,11 +10,5 @@
         public IMochaResult GetRun();
 
         #endregion
-
-        #region Properties
-
-        public string MochaQ { get; set; }
-
-        #endregion
     }
 }

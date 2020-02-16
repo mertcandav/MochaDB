@@ -29,7 +29,7 @@ namespace MochaDB {
         public MochaData(MochaDataType dataType,object data) {
             if(!IsType(dataType,data))
                 throw new Exception("The submitted data is not compatible with the targeted data!");
-            
+
             DataType = dataType;
             Data = data;
         }
@@ -46,7 +46,7 @@ namespace MochaDB {
         public static bool IsType(MochaDataType dataType,object data) {
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return true;
-            
+
             if(data == null)
                 return false;
 
@@ -72,7 +72,7 @@ namespace MochaDB {
         /// Return MochaDataType by name.
         /// </summary>
         /// <param name="name">Name of MochaDataType.</param>
-        public static MochaDataType GetDataTypeFromName(string name="") {
+        public static MochaDataType GetDataTypeFromName(string name = "") {
             name=name.TrimStart().TrimEnd().ToLowerInvariant();
             if(name=="byte")
                 return MochaDataType.Byte;

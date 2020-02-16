@@ -1,9 +1,9 @@
-using System;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
 using MochaDB.MochaScript.Keywords;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MochaDB.MochaScript {
     /// <summary>
@@ -646,7 +646,7 @@ namespace MochaDB.MochaScript {
             //Use MochaDatabase object if success provider.
             db = null;
 
-            int dex=0;
+            int dex = 0;
             //Find Provider and Debugger.
             for(int Index = 0; Index < MochaScriptArray.Length; Index++) {
                 try {
@@ -707,7 +707,7 @@ namespace MochaDB.MochaScript {
 
             OnSuccessFinishDebug(new EventArgs());
         }
-        
+
         /// <summary>
         /// Dispose.
         /// </summary>
@@ -715,7 +715,7 @@ namespace MochaDB.MochaScript {
             if(scriptStream!=null)
                 scriptStream.Dispose();
         }
-        
+
         #endregion
 
         #region Properties
@@ -753,9 +753,9 @@ namespace MochaDB.MochaScript {
                 MochaScript = File.ReadAllText(value);
                 MochaScriptArray = File.ReadAllLines(value);
                 codeProcessor.Source=MochaScriptArray;
-                
+
                 scriptStream=File.OpenRead(value);
-                
+
                 scriptPath = value;
             }
         }

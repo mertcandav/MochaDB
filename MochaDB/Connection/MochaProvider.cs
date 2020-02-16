@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MochaDB.Connection {
     /// <summary>
@@ -27,7 +27,7 @@ namespace MochaDB.Connection {
         #endregion
 
         #region Static
-        
+
         /// <summary>
         /// Return attribute by name.
         /// </summary>

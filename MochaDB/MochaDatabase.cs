@@ -487,7 +487,7 @@ namespace MochaDB {
         public MochaResult<string> GetSectorData(string name) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
-            
+
             return Doc.Root.Element("Sectors").Element(name).Value;
         }
 
@@ -1319,7 +1319,7 @@ namespace MochaDB {
                 throw new Exception("Table not found in this name!");
 
             IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
-            
+
             if(columnRange.Count() != row.Datas.Count)
                 throw new Exception("The data count of the row is not equal to the number of columns!");
 

@@ -92,7 +92,7 @@ namespace MochaDB.MochaScript.Keywords {
         /// </summary>
         /// <param name="name">Name of variable.</param>
         public bool Contains(string name) {
-            return IndexOf(name) == -1 ? false : true; 
+            return IndexOf(name) == -1 ? false : true;
         }
 
         #endregion
