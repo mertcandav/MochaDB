@@ -554,7 +554,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return sectors in database.
+        /// Return all sectors in database.
         /// </summary>
         public MochaCollectionResult<MochaSector> GetSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
@@ -567,6 +567,13 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaSector>(sectors);
         }
+
+        /// <summary>
+        /// Return all sectors in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaSector> GetSectors(Func<MochaSector,bool> query) =>
+            new MochaCollectionResult<MochaSector>(GetSectors().collection.Where(query));
 
         /// <summary>
         /// Returns whether there is a sector with the specified name.
@@ -688,7 +695,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get all stacks in database.
+        /// Return all stacks in database.
         /// </summary>
         /// <returns></returns>
         public MochaCollectionResult<MochaStack> GetStacks() {
@@ -705,6 +712,13 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaStack>(stacks);
         }
+
+        /// <summary>
+        /// Return all stacks in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaStack> GetStacks(Func<MochaStack,bool> query) =>
+            new MochaCollectionResult<MochaStack>(GetStacks().collection.Where(query));
 
         /// <summary>
         /// Returns whether there is a stack with the specified name.
@@ -1038,7 +1052,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return tables in database.
+        /// Return all tables in database.
         /// </summary>
         public MochaCollectionResult<MochaTable> GetTables() {
             OnConnectionCheckRequired(this,new EventArgs());
@@ -1052,6 +1066,13 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaTable>(tables);
         }
+
+        /// <summary>
+        /// Return all tables in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaTable> GetTables(Func<MochaTable,bool> query) =>
+            new MochaCollectionResult<MochaTable>(GetTables().collection.Where(query));
 
         /// <summary>
         /// Returns whether there is a table with the specified name.
@@ -1199,7 +1220,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return columns in table by name.
+        /// Return all columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaCollectionResult<MochaColumn> GetColumns(string tableName) {
@@ -1215,6 +1236,14 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaColumn>(columns);
         }
+
+        /// <summary>
+        /// Return all columns in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaColumn> GetColumns(string tableName,Func<MochaColumn,bool> query) =>
+            new MochaCollectionResult<MochaColumn>(GetColumns(tableName).collection.Where(query));
 
         /// <summary>
         /// Returns whether there is a column with the specified name.
@@ -1385,7 +1414,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return rows from table.
+        /// Return all rows in table.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaCollectionResult<MochaRow> GetRows(string tableName) {
@@ -1405,6 +1434,14 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaRow>(rows);
         }
+
+        /// <summary>
+        /// Return all rows in table.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaRow> GetRows(string tableName,Func<MochaRow,bool> query) =>
+            new MochaCollectionResult<MochaRow>(GetRows(tableName).collection.Where(query));
 
         #endregion
 
@@ -1588,7 +1625,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return datas in column from table by name.
+        /// Return all datas in column in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
@@ -1606,6 +1643,15 @@ namespace MochaDB {
             }
             return new MochaCollectionResult<MochaData>(datas);
         }
+
+        /// <summary>
+        /// Return all datas in column in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
+            new MochaCollectionResult<MochaData>(GetDatas(tableName,columnName).collection.Where(query));
 
         /// <summary>
         /// Get data count of table's column.
