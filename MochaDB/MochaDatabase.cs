@@ -1695,12 +1695,6 @@ namespace MochaDB {
                         "  </Tables>\n" +
                         "</Mocha>";
 
-        /// <summary>
-        /// Version of MochaDB.
-        /// </summary>
-        internal static string Version =>
-            "2.0.0";
-
         #endregion
 
         /// <summary>
@@ -1722,6 +1716,12 @@ namespace MochaDB {
         /// Name of database.
         /// </summary>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Version of MochaDB.
+        /// </summary>
+        public static string Version =>
+            "2.0.0";
 
         #endregion
     }
