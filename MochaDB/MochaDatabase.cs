@@ -1376,7 +1376,7 @@ namespace MochaDB {
             MochaData[] datas = new MochaData[columns.Count];
 
             for(int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
-                datas[columnIndex] = columns[columnIndex].Datas[index];
+                datas[columnIndex] = columns[columnIndex].Value.Datas[index];
             }
 
             row.Datas.AddRange(datas);
