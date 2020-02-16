@@ -5,7 +5,7 @@ namespace MochaDB.Querying {
     /// <summary>
     /// Base for MochaDB collection results.
     /// </summary>
-    /// <typeparam name="T">Type of results.</typeparam>
+    /// <typeparam name="T">Type of result value.</typeparam>
     public class MochaCollectionResult<T>:IMochaCollectionResult<T> {
         #region Fields
 
@@ -34,6 +34,18 @@ namespace MochaDB.Querying {
             this[index];
 
         /// <summary>
+        /// Create and return static array from collection.
+        /// </summary>
+        public T[] ToArray() =>
+            collection.ToArray();
+
+        /// <summary>
+        /// Create and return List<T> from collection.
+        /// </summary>
+        public List<T> ToList() =>
+            collection.ToList();
+
+        /// <summary>
         /// Return max index of item count.
         /// </summary>
         public int MaxIndex() =>
@@ -55,6 +67,12 @@ namespace MochaDB.Querying {
         /// </summary>
         public int Count =>
             collection.Count();
+
+        /// <summary>
+        /// This is collection result.
+        /// </summary>
+        public bool IsCollectionResult =>
+            false;
 
         #endregion
     }

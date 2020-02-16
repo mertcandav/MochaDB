@@ -216,7 +216,7 @@ namespace MochaDB {
         /// <summary>
         /// Return xml schema of database.
         /// </summary>
-        public string GetXML() {
+        public MochaResult<string> GetXML() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             XDocument doc = XDocument.Parse(Doc.ToString());
@@ -352,7 +352,7 @@ namespace MochaDB {
         /// <summary>
         /// Returns the password of the MochaDB database.
         /// </summary>
-        public string GetPassword() {
+        public MochaResult<string> GetPassword() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             return Doc.Root.Element("Root").Element("Password").Value;
@@ -372,7 +372,7 @@ namespace MochaDB {
         /// <summary>
         /// Returns the description of the database.
         /// </summary>
-        public string GetDescription() {
+        public MochaResult<string> GetDescription() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             return Doc.Root.Element("Root").Element("Description").Value;
@@ -484,10 +484,10 @@ namespace MochaDB {
         /// Return data of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public string GetSectorData(string name) {
+        public MochaResult<string> GetSectorData(string name) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
-
+            
             return Doc.Root.Element("Sectors").Element(name).Value;
         }
 
@@ -512,7 +512,7 @@ namespace MochaDB {
         /// Return description of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public string GetSectorDescription(string name) {
+        public MochaResult<string> GetSectorDescription(string name) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
@@ -541,7 +541,7 @@ namespace MochaDB {
         /// Return sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public MochaSector GetSector(string name) {
+        public MochaResult<MochaSector> GetSector(string name) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
@@ -572,7 +572,7 @@ namespace MochaDB {
         /// Returns whether there is a sector with the specified name.
         /// </summary>
         /// <param name="name">Name of sector to check.</param>
-        public bool ExistsSector(string name) =>
+        public MochaResult<bool> ExistsSector(string name) =>
             ExistsElement("Sectors/" + name);
 
         #endregion
@@ -626,7 +626,7 @@ namespace MochaDB {
         /// Return description of stack by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        public string GetStackDescription(string name) {
+        public MochaResult<string> GetStackDescription(string name) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -670,7 +670,7 @@ namespace MochaDB {
         /// Return stack by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        public MochaStack GetStack(string name) {
+        public MochaResult<MochaStack> GetStack(string name) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -710,7 +710,7 @@ namespace MochaDB {
         /// Returns whether there is a stack with the specified name.
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
-        public bool ExistsStack(string name) =>
+        public MochaResult<bool> ExistsStack(string name) =>
             ExistsElement("Stacks/"+name);
 
         #endregion
@@ -806,7 +806,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get value.</param>
-        public string GetStackItemValue(string name,string path) {
+        public MochaResult<string> GetStackItemValue(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -847,7 +847,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
-        public string GetStackItemDescription(string name,string path) {
+        public MochaResult<string> GetStackItemDescription(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -891,7 +891,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
-        public MochaStackItem GetStackItem(string name,string path) {
+        public MochaResult<MochaStackItem> GetStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
@@ -914,7 +914,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack item.</param>
         /// <param name="path">Name path of item to check.</param>
-        public bool ExistsStackItem(string name,string path) =>
+        public MochaResult<bool> ExistsStackItem(string name,string path) =>
             ExistsElement("Stacks/"+name+"/"+path);
 
         #endregion
@@ -991,10 +991,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get description of table by name.
+        /// Return description of table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public string GetTableDescription(string name) {
+        public MochaResult<string> GetTableDescription(string name) {
             if(!ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
@@ -1023,7 +1023,7 @@ namespace MochaDB {
         /// Return table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public MochaTable GetTable(string name) {
+        public MochaResult<MochaTable> GetTable(string name) {
             if(!ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
@@ -1057,7 +1057,7 @@ namespace MochaDB {
         /// Returns whether there is a table with the specified name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public bool ExistsTable(string name) =>
+        public MochaResult<bool> ExistsTable(string name) =>
             ExistsElement("Tables/" + name);
 
         #endregion
@@ -1079,7 +1079,7 @@ namespace MochaDB {
             Xcolumn.Add(new XAttribute("DataType",column.DataType));
             Xcolumn.Add(new XAttribute("Description",column.Description));
 
-            int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+            int rowCount = (MochaResult<int>)Query.GetRun("ROWCOUNT:" + tableName);
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
                     Xcolumn.Add(new XElement(index.ToString()));
@@ -1147,7 +1147,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public string GetColumnDescription(string tableName,string name) {
+        public MochaResult<string> GetColumnDescription(string tableName,string name) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
@@ -1181,7 +1181,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaColumn GetColumn(string tableName,string name) {
+        public MochaResult<MochaColumn> GetColumn(string tableName,string name) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
@@ -1221,7 +1221,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public bool ExistsColumn(string tableName,string name) =>
+        public MochaResult<bool> ExistsColumn(string tableName,string name) =>
             ExistsElement("Tables/"+tableName + "/" + name);
 
         /// <summary>
@@ -1229,7 +1229,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaDataType GetColumnDataType(string tableName,string name) {
+        public MochaResult<MochaDataType> GetColumnDataType(string tableName,string name) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
@@ -1286,7 +1286,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public int GetColumnAutoIntState(string tableName,string name) {
+        public MochaResult<int> GetColumnAutoIntState(string tableName,string name) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
@@ -1356,7 +1356,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="index">Index of row.</param>
-        public MochaRow GetRow(string tableName,int index) {
+        public MochaResult<MochaRow> GetRow(string tableName,int index) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
 
@@ -1368,7 +1368,7 @@ namespace MochaDB {
             if(columns.Count == 0)
                 return null;
 
-            int rowCount = (int)Query.GetRun("ROWCOUNT:" + tableName);
+            int rowCount = (MochaResult<int>)Query.GetRun("ROWCOUNT:" + tableName);
             if(rowCount-1 < index)
                 throw new Exception("Index cat not bigger than row count!");
 
@@ -1515,7 +1515,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">MochaData object to check.</param>
-        public bool ExistsData(string tableName,string columnName,MochaData data) {
+        public MochaResult<bool> ExistsData(string tableName,string columnName,MochaData data) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
@@ -1536,7 +1536,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to check.</param>
-        public bool ExistsData(string tableName,string columnName,object data) {
+        public MochaResult<bool> ExistsData(string tableName,string columnName,object data) {
             return ExistsData(tableName,columnName,new MochaData() { data = data });
         }
 
@@ -1546,7 +1546,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to find index.</param>
-        public int GetDataIndex(string tableName,string columnName,object data) {
+        public MochaResult<int> GetDataIndex(string tableName,string columnName,object data) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
@@ -1569,7 +1569,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="index">Index of data.</param>
-        public MochaData GetData(string tableName,string columnName,int index) {
+        public MochaResult<MochaData> GetData(string tableName,string columnName,int index) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
@@ -1612,7 +1612,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        public int GetDataCount(string tableName,string columnName) {
+        public MochaResult<int> GetDataCount(string tableName,string columnName) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))

@@ -57,7 +57,7 @@ namespace MochaDB.Querying {
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public object Dynamic(string mochaQ) {
+        public IMochaResult Dynamic(string mochaQ) {
             MochaQ = mochaQ;
             return Dynamic();
         }
@@ -67,7 +67,7 @@ namespace MochaDB.Querying {
         /// </summary>
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public object Dynamic(MochaDatabase db,string mochaQ) {
+        public IMochaResult Dynamic(MochaDatabase db,string mochaQ) {
             Database = db;
             MochaQ = mochaQ;
             return Dynamic();
@@ -76,7 +76,7 @@ namespace MochaDB.Querying {
         /// <summary>
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
-        public object Dynamic() {
+        public IMochaResult Dynamic() {
             if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
@@ -84,34 +84,32 @@ namespace MochaDB.Querying {
             if(MochaQ.Contains("BREAKQUERY"))
                 return null;
 
-            object ReturnObject = null;
-
             try {
-                string[] Parts = MochaQ.Split(' ');
-                Parts[0]=Parts[0].Trim().ToUpperInvariant();
-                Parts[2]=Parts[2].Trim().ToUpperInvariant();
+                string[] parts = MochaQ.Split(' ');
+                parts[0]=parts[0].Trim().ToUpperInvariant();
+                parts[2]=parts[2].Trim().ToUpperInvariant();
 
-                if(Parts[0] == "SELECT") {
+                if(parts[0] == "SELECT") {
 
-                    string[] SelectedColumns = Parts[1].Split(',');
+                    string[] selectedColumns = parts[1].Split(',');
 
-                    if(Parts[2] == "FROM") {
-                        string TableName = Parts[3];
+                    if(parts[2] == "FROM") {
+                        string tableName = parts[3];
 
-                        MochaTable Table = new MochaTable(TableName);
+                        MochaTable table = new MochaTable(tableName);
 
-                        for(int Index = 0; Index < SelectedColumns.Length; Index++) {
-                            Table.Columns.Add(Database.GetColumn(TableName,SelectedColumns[Index]));
+                        for(int index = 0; index < selectedColumns.Length; index++) {
+                            table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
                         }
 
-                        return Table;
+                        return new MochaResult<MochaTable>(table);
 
                     } else
                         throw new Exception("Table not specified!");
                 } else
                     throw new Exception("The first syntax is wrong, there is no such function.");
 
-            } catch { return ReturnObject; }
+            } catch { return null; }
         }
 
         #endregion
@@ -307,7 +305,7 @@ namespace MochaDB.Querying {
         /// Runs the active MochaQ query. Returns the incoming value.
         /// </summary>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public object GetRun(string mochaQ) {
+        public IMochaResult GetRun(string mochaQ) {
             MochaQ = mochaQ;
             return GetRun();
         }
@@ -317,7 +315,7 @@ namespace MochaDB.Querying {
         /// </summary>
         /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public object GetRun(MochaDatabase db,string mochaQ) {
+        public IMochaResult GetRun(MochaDatabase db,string mochaQ) {
             Database = db;
             MochaQ = mochaQ;
             return GetRun();
@@ -326,7 +324,7 @@ namespace MochaDB.Querying {
         /// <summary>
         /// Runs the active MochaQ query. Returns the incoming value.
         /// </summary>
-        public object GetRun() {
+        public IMochaResult GetRun() {
             if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
@@ -352,11 +350,11 @@ namespace MochaDB.Querying {
                     List<MochaData> datas = new List<MochaData>();
                     IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
                     for(int index = 0; index < tableRange.Count(); index++) {
-                        datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName));
+                        datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName).collection);
                     }
                     return new MochaCollectionResult<MochaData>(datas);
                 } else if(QueryPaths[0] == "TABLECOUNT") {
-                    return Database.Doc.Root.Elements().Count();
+                    return new MochaResult<int>(Database.Doc.Root.Elements().Count());
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(QueryPaths.Length == 2) {
@@ -367,7 +365,7 @@ namespace MochaDB.Querying {
                 } else if(QueryPaths[0] == "GETSECTOR") {
                     return Database.GetSector(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETFIRSTCOLUMN_NAME") {
-                    return GETFIRSTCOLUMN_NAME(QueryPaths[1]);
+                    return new MochaResult<string>(GETFIRSTCOLUMN_NAME(QueryPaths[1]));
                 } else if(QueryPaths[0] == "GETROWS") {
                     return Database.GetRows(QueryPaths[1]);
                 } else if(QueryPaths[0] == "GETDATAS") {
@@ -384,14 +382,14 @@ namespace MochaDB.Querying {
                     return COLUMNCOUNT(QueryPaths[1]);
                 } else if(QueryPaths[0] == "ROWCOUNT") {
                     try {
-                        return Database.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements(
-                            GETFIRSTCOLUMN_NAME(QueryPaths[1])).Elements().Count();
+                        return new MochaResult<int>(Database.Doc.Root.Element("Tables").Elements(QueryPaths[1]).Elements(
+                            GETFIRSTCOLUMN_NAME(QueryPaths[1]).Value).Elements().Count());
                     } catch(Exception excep) {
                         throw excep;
                     }
                 } else if(QueryPaths[0] == "DATACOUNT") {
-                    return Database.GetDataCount(QueryPaths[1],GETFIRSTCOLUMN_NAME(QueryPaths[1]))
-                        * COLUMNCOUNT(QueryPaths[1]);
+                    return new MochaResult<int>(Database.GetDataCount(QueryPaths[1],GETFIRSTCOLUMN_NAME(QueryPaths[1]))
+                        * COLUMNCOUNT(QueryPaths[1]));
                 } else if(QueryPaths[0] == "EXISTSTABLE") {
                     return Database.ExistsTable(QueryPaths[1]);
                 } else if(QueryPaths[0] == "EXISTSSECTOR") {
@@ -438,7 +436,7 @@ namespace MochaDB.Querying {
         /// Return column count of table.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        private int COLUMNCOUNT(string name) {
+        private MochaResult<int> COLUMNCOUNT(string name) {
             if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
@@ -450,7 +448,7 @@ namespace MochaDB.Querying {
         /// Return all datas of table.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        private List<MochaData> GETDATAS(string name) {
+        private MochaCollectionResult<MochaData> GETDATAS(string name) {
             if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
@@ -461,22 +459,19 @@ namespace MochaDB.Querying {
                 datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName).collection);
             }
 
-            return datas;
+            return new MochaCollectionResult<MochaData>(datas);
         }
 
         /// <summary>
         /// Return first column name of table.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        private string GETFIRSTCOLUMN_NAME(string name) {
+        private MochaResult<string> GETFIRSTCOLUMN_NAME(string name) {
             if(!Database.ExistsTable(name))
                 throw new Exception("Table not found in this name!");
 
-            try {
-                return ((XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode).Name.LocalName;
-            } catch {
-                return null;
-            }
+            XElement firstColumn = (XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode;
+            return firstColumn == null ? null : firstColumn.Name.LocalName;
         }
 
         #endregion

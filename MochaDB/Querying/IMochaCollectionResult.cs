@@ -2,7 +2,7 @@
     /// <summary>
     /// Interface for MochaDB collection results.
     /// </summary>
-    public interface IMochaCollectionResult<T> {
+    public interface IMochaCollectionResult<T>:IMochaResult {
         #region Methods
 
         public int MaxIndex();
