@@ -18,7 +18,8 @@ namespace MochaDB.MochaScript {
 \bTrue\b|\bFloat\b|\bFloat\[*\]\b|\bif\b|\belse\b|\bFalse\b|\bShort\b|\bShort\[*\]\b|\bLong\b|\bLong\[*\]\b|\bDecimal\b|\bDecimal\[*\]\b|\bMochaData\b|\bMochaData\[*\]\b|
 \bMochaTable\b|\bMochaTable\[*\]\b|\bMochaSector\b|\bMochaSector\[*\]\b|\bMochaRow\b|\bMochaRow\[*\]\b|\bChar\b|\bChar\[*\]\b|\bMochaQuery\b|\bMochaQuery\[*\]\b|
 \bMochaDatabase\b|\bMochaDatabase\[*\]\b|\bMochaColumn\b|\bMochaColumn\[*\]\b|\bMochaScriptDebugger\b|\bMochaScriptDebugger\[*\]\b|\bMochaDataType\b|
-\bMochaDataType\[*\]\b|\bMochaScriptCompareMark\b|\bMochaScriptCompareMark\[*\]\b|\bdelete\b");
+\bMochaDataType\[*\]\b|\bMochaScriptCompareMark\b|\bMochaScriptCompareMark\[*\]\b|\bdelete\b|\bSByte\b|\bSByte\[*\]\b|\bUShort\b|\bUShort\[*\]\b|\bULong\b|\bULong\[*\]\b|
+\bUInteger\b|\bUInteger\[*\]\b");
         internal Regex numberRegex = new Regex(@"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
         internal Regex variableTypesRegex = new Regex(@"\bString\b|\bChar\b|\bLong\b|\bInteger\b|\bShort\b|
 \bDecimal\b|\bDouble\b|\bFloat\b|\bBoolean\b");
@@ -370,6 +371,22 @@ namespace MochaDB.MochaScript {
                 variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
                     GetArgumentValue("Boolean",parts.ElementAt(1),index)));
                 return true;
+            } else if(line.StartsWith("UShort ")) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("UShort",parts.ElementAt(1),index)));
+                return true;
+            } else if(line.StartsWith("UInteger ")) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("UInteger",parts.ElementAt(1),index)));
+                return true;
+            } else if(line.StartsWith("ULong ")) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("ULong",parts.ElementAt(1),index)));
+                return true;
+            } else if(line.StartsWith("SByte ")) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("SByte",parts.ElementAt(1),index)));
+                return true;
             }
 
             return false;
@@ -400,13 +417,13 @@ namespace MochaDB.MochaScript {
                 } else if(mark == MochaScriptComparisonMark.NotEqual) {
                     return !arg1.Equals(arg2);
                 } else if(mark == MochaScriptComparisonMark.EqualBigger) {
-                    return ((int)arg1) >= ((int)arg2);
+                    return ((long)arg1) >= ((long)arg2);
                 } else if(mark == MochaScriptComparisonMark.EqualSmaller) {
-                    return ((int)arg1) <= ((int)arg2);
+                    return ((long)arg1) <= ((long)arg2);
                 } else if(mark == MochaScriptComparisonMark.Bigger) {
-                    return ((int)arg1) > ((int)arg2);
+                    return ((long)arg1) > ((long)arg2);
                 } else {
-                    return ((int)arg1) < ((int)arg2);
+                    return ((long)arg1) < ((long)arg2);
                 }
             } catch { return false; }
         }
@@ -438,24 +455,36 @@ namespace MochaDB.MochaScript {
                 } else if(arg == bool.TrueString || arg == bool.FalseString) {
                     return bool.Parse(arg);
                 } else if(numberRegex.IsMatch(arg)) {
-                    double DoubleOut;
-                    float FloatOut;
-                    decimal DecimalOut;
-                    long LongOut;
-                    int IntOut;
-                    short ShortOut;
-                    if(short.TryParse(arg,out ShortOut))
-                        return ShortOut;
-                    else if(int.TryParse(arg,out IntOut))
-                        return IntOut;
-                    else if(long.TryParse(arg,out LongOut))
-                        return LongOut;
-                    else if(decimal.TryParse(arg,out DecimalOut))
-                        return DecimalOut;
-                    else if(float.TryParse(arg,out FloatOut))
-                        return FloatOut;
-                    else if(double.TryParse(arg,out DoubleOut))
-                        return DoubleOut;
+                    double doubleOut;
+                    float floatOut;
+                    decimal decimalOut;
+                    long longOut;
+                    int intOut;
+                    short shortOut;
+                    ushort uShortOut;
+                    uint uIntOut;
+                    ulong uLongOut;
+                    sbyte sByteOut;
+                    if(short.TryParse(arg,out shortOut))
+                        return shortOut;
+                    if(int.TryParse(arg,out intOut))
+                        return intOut;
+                    if(long.TryParse(arg,out longOut))
+                        return longOut;
+                    if(decimal.TryParse(arg,out decimalOut))
+                        return decimalOut;
+                    if(float.TryParse(arg,out floatOut))
+                        return floatOut;
+                    if(double.TryParse(arg,out doubleOut))
+                        return doubleOut;
+                    if(ushort.TryParse(arg,out uShortOut))
+                        return uShortOut;
+                    if(uint.TryParse(arg,out uIntOut))
+                        return uIntOut;
+                    if(ulong.TryParse(arg,out uLongOut))
+                        return uLongOut;
+                    if(sbyte.TryParse(arg,out sByteOut))
+                        return sByteOut;
                     else
                         throw Throw(index + 1,"|| Error in value conversion!");
                 } else {
@@ -499,6 +528,26 @@ namespace MochaDB.MochaScript {
                 } else if(type == "Short") {
                     if(numberRegex.IsMatch(arg)) {
                         return short.Parse(arg);
+                    }
+                    return 0;
+                } else if(type == "UShort") {
+                    if(numberRegex.IsMatch(arg)) {
+                        return ushort.Parse(arg);
+                    }
+                    return 0;
+                } else if(type == "ULong") {
+                    if(numberRegex.IsMatch(arg)) {
+                        return ulong.Parse(arg);
+                    }
+                    return 0;
+                } else if(type == "UInteger") {
+                    if(numberRegex.IsMatch(arg)) {
+                        return uint.Parse(arg);
+                    }
+                    return 0;
+                } else if(type == "SByte") {
+                    if(numberRegex.IsMatch(arg)) {
+                        return sbyte.Parse(arg);
                     }
                     return 0;
                 } else if(type == "Double") {
