@@ -44,31 +44,10 @@ namespace MochaDB {
             if(data == null)
                 return false;
 
-            if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
+            try {
+                object testdata = GetDataFromString(dataType,data.ToString());
                 return true;
-
-            if(dataType == MochaDataType.Byte)
-                return byte.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Char)
-                return char.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Decimal)
-                return decimal.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Double)
-                return double.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Float)
-                return float.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Int16)
-                return short.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Int32 || dataType == MochaDataType.AutoInt)
-                return int.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Int64)
-                return long.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.Boolean)
-                return bool.TryParse(data.ToString(),out _);
-            if(dataType == MochaDataType.SByte)
-                return sbyte.TryParse(data.ToString(),out _);
-            //if(dataType == MochaDataType.UInt16)
-            return ushort.TryParse(data.ToString(),out _);
+            } catch { return false; }
         }
 
         /// <summary>
@@ -179,8 +158,11 @@ namespace MochaDB {
         /// <param name="dataType">Targetting data type.</param>
         /// <param name="data">String data.</param>
         public static object GetDataFromString(MochaDataType dataType,string data) {
+            if(data == null)
+                throw new Exception("Data is can not null!");
+
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
-                return data;
+                return data.ToString();
             if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
                 return int.Parse(data);
             if(dataType == MochaDataType.Byte)
