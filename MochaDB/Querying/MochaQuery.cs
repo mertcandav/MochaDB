@@ -426,11 +426,15 @@ namespace MochaDB.Querying {
                     return Database.GetStackItem(queryPaths[1],queryPaths[2]);
                 } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
                     return Database.GetColumnDescription(queryPaths[1],queryPaths[2]);
+                } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
+                    return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "EXISTSDATA") {
                     return Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]);
+                } else if(queryPaths[0] == "GETDATA") {
+                    return Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]));
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else

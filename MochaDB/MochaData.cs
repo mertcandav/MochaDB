@@ -27,9 +27,6 @@ namespace MochaDB {
         /// <param name="dataType">Data type of data.</param>
         /// <param name="data">Data value.</param>
         public MochaData(MochaDataType dataType,object data) {
-            if(!IsType(dataType,data))
-                throw new Exception("The submitted data is not compatible with the targeted data!");
-
             DataType = dataType;
             Data = data;
         }
@@ -44,11 +41,11 @@ namespace MochaDB {
         /// <param name="dataType">Base datatype.</param>
         /// <param name="data">Data to check.</param>
         public static bool IsType(MochaDataType dataType,object data) {
-            if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
-                return true;
-
             if(data == null)
                 return false;
+
+            if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
+                return true;
 
             if(dataType == MochaDataType.Byte)
                 return byte.TryParse(data.ToString(),out _);
@@ -64,8 +61,10 @@ namespace MochaDB {
                 return short.TryParse(data.ToString(),out _);
             if(dataType == MochaDataType.Int32 || dataType == MochaDataType.AutoInt)
                 return int.TryParse(data.ToString(),out _);
-            else//if (DataType == MochaDataType.Int64)
+            if(dataType == MochaDataType.Int64)
                 return long.TryParse(data.ToString(),out _);
+            //if(dataType == MochaDataType.Boolean)
+            return bool.TryParse(data.ToString(),out _);
         }
 
         /// <summary>
@@ -76,28 +75,30 @@ namespace MochaDB {
             name=name.TrimStart().TrimEnd().ToLowerInvariant();
             if(name=="byte")
                 return MochaDataType.Byte;
-            else if(name=="char")
+            if(name=="char")
                 return MochaDataType.Char;
-            else if(name=="decimal")
+            if(name=="decimal")
                 return MochaDataType.Decimal;
-            else if(name=="double")
+            if(name=="double")
                 return MochaDataType.Double;
-            else if(name=="flaot")
+            if(name=="flaot")
                 return MochaDataType.Float;
-            else if(name=="int16")
+            if(name=="int16")
                 return MochaDataType.Int16;
-            else if(name=="int32")
+            if(name=="int32")
                 return MochaDataType.Int32;
-            else if(name=="int64")
+            if(name=="int64")
                 return MochaDataType.Int64;
-            else if(name=="unique")
+            if(name=="unique")
                 return MochaDataType.Unique;
-            else if(name=="autoint")
+            if(name=="autoint")
                 return MochaDataType.AutoInt;
-            else if(name=="string")
+            if(name=="string")
                 return MochaDataType.String;
-            else
-                throw new Exception("There is no MochaDataType by this name!");
+            if(name=="boolean")
+                return MochaDataType.Boolean;
+
+            throw new Exception("There is no MochaDataType by this name!");
         }
 
         /// <summary>
@@ -121,8 +122,10 @@ namespace MochaDB {
                 return typeof(short);
             if(dataType == MochaDataType.Int32 || dataType == MochaDataType.AutoInt)
                 return typeof(int);
-            else//if (DataType == MochaDataType.Int64)
+            if(dataType == MochaDataType.Int64)
                 return typeof(long);
+            //if(dataType == MochaDataType.Boolean)
+            return typeof(bool);
         }
 
         /// <summary>
@@ -148,8 +151,10 @@ namespace MochaDB {
                 return MochaDataType.Int32;
             if(type == typeof(long))
                 return MochaDataType.Int64;
-            else
-                throw new Exception("There is no MochaDB data type of this type!");
+            if(type == typeof(bool))
+                return MochaDataType.Boolean;
+
+            throw new Exception("There is no MochaDB data type of this type!");
         }
 
         /// <summary>
@@ -160,24 +165,26 @@ namespace MochaDB {
         public static object GetDataFromString(MochaDataType dataType,string data) {
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return data;
-            else if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
+            if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
                 return int.Parse(data);
-            else if(dataType == MochaDataType.Byte)
+            if(dataType == MochaDataType.Byte)
                 return byte.Parse(data);
-            else if(dataType == MochaDataType.Char)
+            if(dataType == MochaDataType.Char)
                 return char.Parse(data);
-            else if(dataType == MochaDataType.Decimal)
+            if(dataType == MochaDataType.Decimal)
                 return decimal.Parse(data);
-            else if(dataType == MochaDataType.Double)
+            if(dataType == MochaDataType.Double)
                 return double.Parse(data);
-            else if(dataType == MochaDataType.Float)
+            if(dataType == MochaDataType.Float)
                 return float.Parse(data);
-            else if(dataType == MochaDataType.Int16)
+            if(dataType == MochaDataType.Int16)
                 return short.Parse(data);
-            else if(dataType == MochaDataType.Int64)
+            if(dataType == MochaDataType.Int64)
                 return long.Parse(data);
-            else// if(dataType == MochaDataType.Byte)
+            if(dataType == MochaDataType.Byte)
                 return byte.Parse(data);
+            //if(dataType == MochaDataType.Boolean)
+            return bool.Parse(data);
         }
 
         /// <summary>
@@ -189,6 +196,8 @@ namespace MochaDB {
             if(!IsType(dataType,data)) {
                 if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                     return "";
+                else if(dataType == MochaDataType.Boolean)
+                    return false;
                 else
                     return 0;
             }
@@ -198,6 +207,7 @@ namespace MochaDB {
                     data = string.Empty;
                 return data.ToString();
             }
+
             if(dataType == MochaDataType.Byte)
                 return byte.Parse(data.ToString());
             if(dataType == MochaDataType.Char)
@@ -212,8 +222,10 @@ namespace MochaDB {
                 return short.Parse(data.ToString());
             if(dataType == MochaDataType.Int32 || dataType == MochaDataType.AutoInt)
                 return int.Parse(data.ToString());
-            else//if (DataType == MochaDataType.Int64)
+            if(dataType == MochaDataType.Int64)
                 return long.Parse(data.ToString());
+            //if(dataType == MochaDataType.Boolean)
+            return bool.Parse(data.ToString());
         }
 
         #endregion
@@ -243,7 +255,7 @@ namespace MochaDB {
                 if(!IsType(DataType,value))
                     throw new Exception("The submitted data is not compatible with the targeted data!");
 
-                data = TryGetData(DataType,value);
+                data = value;
             }
         }
 
@@ -258,10 +270,7 @@ namespace MochaDB {
 
                 dataType = value;
 
-                if(value==MochaDataType.AutoInt)
-                    Data=null;
-                else
-                    Data = TryGetData(DataType,Data);
+                Data = TryGetData(DataType,Data);
             }
         }
 
@@ -280,6 +289,7 @@ namespace MochaDB {
         Float,
         Decimal,
         Byte,
+        Boolean,
         Char,
         AutoInt,
         Unique
