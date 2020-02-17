@@ -1,10 +1,14 @@
-[![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
-
 # MochaDB
+
+[![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
+<br>
+
 File based NoSQL database system.
 
 It is designed as a fast and high data storage solution based on files.
 It stores the data with XML infrastructure. It does not support SQL.
+
+---
 
 <br>
 
