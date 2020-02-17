@@ -56,40 +56,11 @@ namespace MochaDB {
         /// <param name="name">Name of MochaDataType.</param>
         public static MochaDataType GetDataTypeFromName(string name = "") {
             name=name.TrimStart().TrimEnd().ToLowerInvariant();
-            if(name=="byte")
-                return MochaDataType.Byte;
-            if(name=="char")
-                return MochaDataType.Char;
-            if(name=="decimal")
-                return MochaDataType.Decimal;
-            if(name=="double")
-                return MochaDataType.Double;
-            if(name=="flaot")
-                return MochaDataType.Float;
-            if(name=="int16")
-                return MochaDataType.Int16;
-            if(name=="int32")
-                return MochaDataType.Int32;
-            if(name=="int64")
-                return MochaDataType.Int64;
-            if(name=="unique")
-                return MochaDataType.Unique;
-            if(name=="autoint")
-                return MochaDataType.AutoInt;
-            if(name=="string")
-                return MochaDataType.String;
-            if(name=="boolean")
-                return MochaDataType.Boolean;
-            if(name=="sbyte")
-                return MochaDataType.SByte;
-            if(name=="uint16")
-                return MochaDataType.UInt16;
-            if(name=="uint32")
-                return MochaDataType.UInt32;
-            if(name=="uint64")
-                return MochaDataType.UInt64;
+            MochaDataType dataType;
+            if(Enum.TryParse(name,true,out dataType))
+                return dataType;
 
-            throw new Exception("There is no MochaDataType by this name!");
+            throw new Exception("There is no MochaDB data type by this name!");
         }
 
         /// <summary>
