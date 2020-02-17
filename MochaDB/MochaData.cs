@@ -65,8 +65,10 @@ namespace MochaDB {
                 return long.TryParse(data.ToString(),out _);
             if(dataType == MochaDataType.Boolean)
                 return bool.TryParse(data.ToString(),out _);
-            //if(dataType == MochaDataType.SByte)
-            return sbyte.TryParse(data.ToString(),out _);
+            if(dataType == MochaDataType.SByte)
+                return sbyte.TryParse(data.ToString(),out _);
+            //if(dataType == MochaDataType.UInt16)
+            return ushort.TryParse(data.ToString(),out _);
         }
 
         /// <summary>
@@ -101,6 +103,8 @@ namespace MochaDB {
                 return MochaDataType.Boolean;
             if(name=="sbyte")
                 return MochaDataType.SByte;
+            if(name=="ushort")
+                return MochaDataType.UInt16;
 
             throw new Exception("There is no MochaDataType by this name!");
         }
@@ -130,8 +134,10 @@ namespace MochaDB {
                 return typeof(long);
             if(dataType == MochaDataType.Boolean)
                 return typeof(bool);
-            //if(dataType == MochaDataType.SByte)
-            return typeof(sbyte);
+            if(dataType == MochaDataType.SByte)
+                return typeof(sbyte);
+            //if(dataType == MochaDataType.UInt16)
+            return typeof(ushort);
         }
 
         /// <summary>
@@ -161,6 +167,8 @@ namespace MochaDB {
                 return MochaDataType.Boolean;
             if(type == typeof(sbyte))
                 return MochaDataType.SByte;
+            if(type == typeof(ushort))
+                return MochaDataType.UInt16;
 
             throw new Exception("There is no MochaDB data type of this type!");
         }
@@ -193,8 +201,10 @@ namespace MochaDB {
                 return byte.Parse(data);
             if(dataType == MochaDataType.Boolean)
                 return bool.Parse(data);
-            //if(dataType == MochaDataType.SByte)
-            return sbyte.Parse(data);
+            if(dataType == MochaDataType.SByte)
+                return sbyte.Parse(data);
+            //if(dataType == MochaDataType.UInt16)
+            return ushort.Parse(data);
         }
 
         /// <summary>
@@ -278,6 +288,7 @@ namespace MochaDB {
         Int16,
         Int32,
         Int64,
+        UInt16,
         Double,
         Float,
         Decimal,
