@@ -63,8 +63,10 @@ namespace MochaDB {
                 return int.TryParse(data.ToString(),out _);
             if(dataType == MochaDataType.Int64)
                 return long.TryParse(data.ToString(),out _);
-            //if(dataType == MochaDataType.Boolean)
-            return bool.TryParse(data.ToString(),out _);
+            if(dataType == MochaDataType.Boolean)
+                return bool.TryParse(data.ToString(),out _);
+            //if(dataType == MochaDataType.SByte)
+                return sbyte.TryParse(data.ToString(),out _);
         }
 
         /// <summary>
@@ -97,6 +99,8 @@ namespace MochaDB {
                 return MochaDataType.String;
             if(name=="boolean")
                 return MochaDataType.Boolean;
+            if(name=="sbyte")
+                return MochaDataType.SByte;
 
             throw new Exception("There is no MochaDataType by this name!");
         }
@@ -124,8 +128,10 @@ namespace MochaDB {
                 return typeof(int);
             if(dataType == MochaDataType.Int64)
                 return typeof(long);
-            //if(dataType == MochaDataType.Boolean)
-            return typeof(bool);
+            if(dataType == MochaDataType.Boolean)
+                return typeof(bool);
+            //if(dataType == MochaDataType.SByte)
+                return typeof(bool);
         }
 
         /// <summary>
@@ -153,6 +159,8 @@ namespace MochaDB {
                 return MochaDataType.Int64;
             if(type == typeof(bool))
                 return MochaDataType.Boolean;
+            if(type == typeof(sbyte))
+                return MochaDataType.SByte;
 
             throw new Exception("There is no MochaDB data type of this type!");
         }
@@ -183,8 +191,10 @@ namespace MochaDB {
                 return long.Parse(data);
             if(dataType == MochaDataType.Byte)
                 return byte.Parse(data);
-            //if(dataType == MochaDataType.Boolean)
-            return bool.Parse(data);
+            if(dataType == MochaDataType.Boolean)
+                return bool.Parse(data);
+            //if(dataType == MochaDataType.SByte)
+            return sbyte.Parse(data);
         }
 
         /// <summary>
@@ -224,8 +234,10 @@ namespace MochaDB {
                 return int.Parse(data.ToString());
             if(dataType == MochaDataType.Int64)
                 return long.Parse(data.ToString());
-            //if(dataType == MochaDataType.Boolean)
-            return bool.Parse(data.ToString());
+            if(dataType == MochaDataType.Boolean)
+                return bool.Parse(data.ToString());
+            //if(dataType == MochaDataType.SByte)
+                return sbyte.Parse(data.ToString());
         }
 
         #endregion
@@ -289,6 +301,7 @@ namespace MochaDB {
         Float,
         Decimal,
         Byte,
+        SByte,
         Boolean,
         Char,
         AutoInt,
