@@ -1,16 +1,8 @@
-# MochaDB
+# MochaDB - File based NoSQL database system
 
 [![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
-<br>
-
-File based NoSQL database system.
-
-It is designed as a fast and high data storage solution based on files.
-It stores the data with XML infrastructure. It does not support SQL.
 
 ---
-
-<br>
 
 ## Featured features.
 - Open source and free for everyone
@@ -20,6 +12,7 @@ It stores the data with XML infrastructure. It does not support SQL.
 - Lightweight
 - Small
 - Secure
+- Embedded
 - Full compatible with .NET Core, .NET Standard and .NET Framework
 - Script build and debug with MochaScript
 - MochaQ for simple and fast querys
