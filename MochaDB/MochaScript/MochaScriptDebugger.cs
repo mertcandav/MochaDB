@@ -1,4 +1,5 @@
 using MochaDB.MochaScript.Keywords;
+using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -184,11 +185,11 @@ namespace MochaDB.MochaScript {
         internal int Process_if(int startIndex) {
             bool ok = false;
             int closeIndex;
-
+            
             for(int index = startIndex; index < MochaScriptArray.Length; index++) {
                 string line = MochaScriptArray[index].Trim();
 
-                if(line.StartsWith("if ")) {
+                if(index == startIndex && line.StartsWith("if ")) {
                     //Check argument.
                     string[] elifArg = MochaScriptArray[index].Trim().Split(' ');
 
@@ -331,7 +332,7 @@ namespace MochaDB.MochaScript {
             //Check Query.
             try {
                 variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
-                    db.Query.GetRun(parts.ElementAt(1))));
+                    GetArgumentValue("Undefined",db.Query.GetRun(parts.ElementAt(1)).ToString(),index)));
                 return true;
             } catch { }
 
@@ -412,18 +413,26 @@ namespace MochaDB.MochaScript {
             try {
                 if(mark == MochaScriptComparisonMark.Undefined) {
                     throw Throw(dex + 1,"|| ComparisonMark failed, no such ComparisonMark!");
-                } else if(mark == MochaScriptComparisonMark.Equal) {
+                }
+                if(mark == MochaScriptComparisonMark.Equal) {
                     return arg1.Equals(arg2);
-                } else if(mark == MochaScriptComparisonMark.NotEqual) {
+                }
+                if(mark == MochaScriptComparisonMark.NotEqual) {
                     return !arg1.Equals(arg2);
-                } else if(mark == MochaScriptComparisonMark.EqualBigger) {
-                    return ((long)arg1) >= ((long)arg2);
-                } else if(mark == MochaScriptComparisonMark.EqualSmaller) {
-                    return ((long)arg1) <= ((long)arg2);
-                } else if(mark == MochaScriptComparisonMark.Bigger) {
-                    return ((long)arg1) > ((long)arg2);
+                }
+
+                var a1 = new MochaResult<decimal>((decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg1.ToString()));
+                var a2 = new MochaResult<decimal>((decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg2.ToString()));
+                if(mark == MochaScriptComparisonMark.EqualBigger) {
+                    return a1 >= a2;
+                }
+                if(mark == MochaScriptComparisonMark.EqualSmaller) {
+                    return a1 <= a2;
+                }
+                if(mark == MochaScriptComparisonMark.Bigger) {
+                    return a1 > a2;
                 } else {
-                    return ((long)arg1) < ((long)arg2);
+                    return a1 < a2;
                 }
             } catch { return false; }
         }
@@ -494,7 +503,7 @@ namespace MochaDB.MochaScript {
 
                     //Check Query.
                     try {
-                        return db.Query.GetRun(arg);
+                        return db.Query.GetRun(arg).ToString();
                     } catch { }
 
                     throw Throw(index + 1,"|| Error in value conversion!");
