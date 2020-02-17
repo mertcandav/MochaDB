@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
+
 # MochaDB
 File based NoSQL database system.
 
