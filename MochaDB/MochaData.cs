@@ -227,7 +227,7 @@ namespace MochaDB {
                 if(!IsType(DataType,value))
                     throw new Exception("The submitted data is not compatible with the targeted data!");
 
-                data = value;
+                data = GetDataFromString(DataType,value.ToString());
             }
         }
 

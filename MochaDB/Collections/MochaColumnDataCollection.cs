@@ -57,6 +57,9 @@ namespace MochaDB.Collections {
         public void Add(MochaData item) {
             if(DataType==MochaDataType.AutoInt)
                 throw new Exception("Data cannot be added directly to a column with AutoInt!");
+            if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
+                if(ContainsData(item.Data))
+                    throw new Exception("Any value can be added to a unique column only once!");
 
             if(item.DataType == DataType) {
                 collection.Add(item);
@@ -132,6 +135,18 @@ namespace MochaDB.Collections {
         /// <param name="item">Item to exists check.</param>
         public bool Contains(MochaData item) {
             return collection.Contains(item);
+        }
+
+        /// <summary>
+        /// Return true if data is contained but return false if not exists.
+        /// </summary>
+        /// <param name="data">Data to check.</param>
+        public bool ContainsData(object data) {
+            for(int index = 0; index < Count; index++)
+                if(data ==this[index])
+                    return true;
+
+            return false;
         }
 
         /// <summary>
