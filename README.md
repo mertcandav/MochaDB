@@ -1,4 +1,6 @@
-# MochaDB - File based NoSQL database system
+# MochaDB
+
+.NET embedded high performance NoSQL database system
 
 [![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
 
@@ -8,7 +10,7 @@
 - Open source and free for everyone
 - Serverless
 - File based
-- Fast
+- High performance
 - Lightweight
 - Small
 - Secure
@@ -23,7 +25,6 @@
 - Single DLL
 - Single database file
 - Portable
-- Fast XML infrastructure
 
 <br>
 
