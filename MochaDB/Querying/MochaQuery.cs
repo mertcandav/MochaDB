@@ -149,6 +149,9 @@ namespace MochaDB.Querying {
             if(Database.State!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
 
+            if(Database.Provider.Readonly)
+                throw new Exception("This connection is can read only, cannot task of write!");
+
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
                 throw new Exception("This MochaQ query is empty, invalid!");

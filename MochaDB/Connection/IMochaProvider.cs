@@ -5,7 +5,7 @@
     public interface IMochaProvider {
         #region Methods
 
-        public void EnableReadonly();
+        public void EnableConstant();
         public MochaProviderAttribute GetAttribute(string name);
 
         #endregion
@@ -16,6 +16,7 @@
         public string Path { get; }
         public string Password { get; }
         public bool Readonly { get; }
+        public bool Constant { get; }
 
         #endregion
     }

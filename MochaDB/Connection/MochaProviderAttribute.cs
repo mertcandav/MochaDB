@@ -9,7 +9,7 @@ namespace MochaDB.Connection {
         #region Fields
 
         internal static Regex booleanAttributesRegex = new Regex(@"
-AutoConnect",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         private string
             name,
@@ -51,9 +51,7 @@ AutoConnect",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                 if(booleanAttributesRegex.IsMatch(Name))
                     value="False";
             } else {
-                if(booleanAttributesRegex.IsMatch(Name) && (
-                    !value.Equals(bool.TrueString,StringComparison.InvariantCultureIgnoreCase) ||
-                    !value.Equals(bool.FalseString,StringComparison.InvariantCultureIgnoreCase)))
+                if(booleanAttributesRegex.IsMatch(Name) && !bool.TryParse(value,out _))
                     value="False";
             }
         }

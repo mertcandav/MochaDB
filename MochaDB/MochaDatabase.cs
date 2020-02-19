@@ -70,13 +70,12 @@ namespace MochaDB {
         /// </summary>
         /// <param name="provider">Provider for connect database.</param>
         public MochaDatabase(MochaProvider provider) {
-            provider.EnableReadonly();
+            provider.EnableConstant();
             Provider=provider;
             aes256=new AES256(Iv,Key);
             State=MochaConnectionState.Disconnected;
 
-            MochaProviderAttribute autoConnect = Provider.GetAttribute("AutoConnect");
-            if(autoConnect!=null && autoConnect.Value.Equals("True",StringComparison.InvariantCultureIgnoreCase)) {
+            if(GetBoolAttributeState("AutoConnect")) {
                 Connect();
             }
         }
@@ -108,6 +107,83 @@ namespace MochaDB {
         private void OnChangeContent(object sender,EventArgs e) {
             //Invoke.
             ChangeContent?.Invoke(sender,e);
+        }
+
+        #endregion
+
+        #region Provider
+
+        /// <summary>
+        /// Return boolean provider attribute value by name.
+        /// </summary>
+        /// <param name="name">Name of attribute.</param>
+        internal bool GetBoolAttributeState(string name) {
+            MochaProviderAttribute attribute = Provider.GetAttribute(name);
+            if(attribute!=null && attribute.Value.Equals("True",StringComparison.InvariantCultureIgnoreCase))
+                return true;
+            return false;
+        }
+
+        #endregion
+
+        #region Connection
+
+        /// <summary>
+        /// Connect to database.
+        /// </summary>
+        public void Connect() {
+            if(State==MochaConnectionState.Connected)
+                return;
+
+            State=MochaConnectionState.Connected;
+
+            if(!File.Exists(Provider.Path)) {
+                if(GetBoolAttributeState("AutoCreate"))
+                    CreateMochaDB(Provider.Path[0..^8],"","");
+                else
+                    throw new Exception("There is no Mocha DB database file in the specified path!");
+            } else {
+                if(!IsMochaDB(Provider.Path))
+                    throw new Exception("The file shown is not a MochaDB database file!");
+            }
+
+            Doc = XDocument.Parse(aes256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
+            
+            if(!CheckMochaDB())
+                throw new Exception("The MochaDB database is corrupt!");
+            if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
+                throw new Exception("The MochaDB database is password protected!");
+            else if(Provider.Password != GetPassword())
+                throw new Exception("MochaDB database password does not match the password specified!");
+
+            FileInfo fInfo = new FileInfo(Provider.Path);
+
+            Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
+
+            sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
+            Query = new MochaQuery(this,true);
+        }
+
+        /// <summary>
+        /// Disconnect from database.
+        /// </summary>
+        public void Disconnect() {
+            if(State==MochaConnectionState.Disconnected)
+                return;
+
+            State=MochaConnectionState.Disconnected;
+
+            sourceStream.Dispose();
+            Doc=null;
+            Query=null;
+        }
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        public void Dispose() {
+            Disconnect();
+            Provider=null;
         }
 
         #endregion
@@ -211,72 +287,6 @@ namespace MochaDB {
 
         #endregion
 
-        #region Xml
-
-        /// <summary>
-        /// Return xml schema of database.
-        /// </summary>
-        public MochaResult<string> GetXML() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            XDocument doc = XDocument.Parse(Doc.ToString());
-            doc.Root.Element("Root").Remove();
-            return doc.ToString();
-        }
-
-        #endregion
-
-        #region Connection
-
-        /// <summary>
-        /// Connect to database.
-        /// </summary>
-        public void Connect() {
-            if(State==MochaConnectionState.Connected)
-                return;
-
-            State=MochaConnectionState.Connected;
-
-            Doc = XDocument.Parse(aes256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
-
-            if(!CheckMochaDB())
-                throw new Exception("The MochaDB database is corrupt!");
-            if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
-                throw new Exception("The MochaDB database is password protected!");
-            else if(Provider.Password != GetPassword())
-                throw new Exception("MochaDB database password does not match the password specified!");
-
-            FileInfo fInfo = new FileInfo(Provider.Path);
-
-            Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-
-            sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
-            Query = new MochaQuery(this,true);
-        }
-
-        /// <summary>
-        /// Disconnect from database.
-        /// </summary>
-        public void Disconnect() {
-            if(State==MochaConnectionState.Disconnected)
-                return;
-
-            State=MochaConnectionState.Disconnected;
-
-            sourceStream.Dispose();
-            Doc=null;
-            Query=null;
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        public void Dispose() {
-            Disconnect();
-        }
-
-        #endregion
-
         #region Database
 
         #region Internal
@@ -337,13 +347,16 @@ namespace MochaDB {
         /// Save MochaDB database.
         /// </summary>
         internal void Save() {
+            if(Provider.Readonly)
+                throw new Exception("This connection is can read only, cannot task of write!");
+
             string content = aes256.Encrypt(Doc.ToString());
             string password = GetPassword();
             Disconnect();
             File.WriteAllText(Provider.Path,content);
-            Provider.Readonly=false;
+            Provider.Constant=false;
             Provider.ConnectionString="path="+Provider.Path+";password="+password;
-            Provider.EnableReadonly();
+            Provider.EnableConstant();
             Connect();
 
             OnChangeContent(this,new EventArgs());
@@ -1661,6 +1674,21 @@ namespace MochaDB {
                 throw new Exception("Column not found in this name!");
 
             return Doc.Root.Element("Tables").Element(tableName).Element(columnName).Elements().Count();
+        }
+
+        #endregion
+
+        #region Xml
+
+        /// <summary>
+        /// Return xml schema of database.
+        /// </summary>
+        public MochaResult<string> GetXML() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            XDocument doc = XDocument.Parse(Doc.ToString());
+            doc.Root.Element("Root").Remove();
+            return doc.ToString();
         }
 
         #endregion

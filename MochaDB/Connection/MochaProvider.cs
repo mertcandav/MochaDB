@@ -59,7 +59,7 @@ namespace MochaDB.Connection {
             string sresult = result.ElementAt(0);
             string attributeValue = sresult[(sresult.IndexOf('=')+1)..^0];
             MochaProviderAttribute attribute = new MochaProviderAttribute();
-            attribute.Value= attributeValue==null ? "" :
+            attribute.Value= attributeValue==null ? string.Empty :
                 string.Equals(attribute.Name,"password",StringComparison.InvariantCultureIgnoreCase) ?
                 attributeValue : attributeValue.TrimStart().TrimEnd();
             attribute.Name=name.TrimStart().TrimEnd();
@@ -84,10 +84,10 @@ namespace MochaDB.Connection {
         #region Methods
 
         /// <summary>
-        /// Enable readonly property of provider. It cannot be undone!
+        /// Enable constant property of provider. It cannot be undone!
         /// </summary>
-        public void EnableReadonly() {
-            Readonly=true;
+        public void EnableConstant() {
+            Constant=true;
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace MochaDB.Connection {
             get =>
                 connectionString;
             set {
-                if(Readonly)
-                    throw new Exception("This provider can only be read!");
+                if(Constant)
+                    throw new Exception("This provider is constant, can only be read!");
 
                 if(string.IsNullOrWhiteSpace(value))
                     throw new Exception("Connection string is can not empty or white space!");
@@ -117,16 +117,17 @@ namespace MochaDB.Connection {
                 if(value==connectionString)
                     return;
 
-                MochaProviderAttribute
-                    pathAttribute = GetAttribute("Path",value),
-                    passwordAttribute = GetAttribute("Password",value);
+                MochaProviderAttribute pathAttribute = GetAttribute("Path",value);
 
                 Path=pathAttribute !=null ? pathAttribute.Value : throw new Exception("'Path' attribute is not defined!");
 
-                if(!MochaDatabase.IsMochaDB(Path))
-                    throw new Exception("The file shown is not a MochaDB database file!");
+                MochaProviderAttribute
+                    passwordAttribute = GetAttribute("Password",value),
+                    readonlyAttribute = GetAttribute("Readonly",value);
 
+                //Defaults.
                 Password=passwordAttribute!=null ? passwordAttribute.Value : string.Empty;
+                Readonly=readonlyAttribute!=null ? bool.Parse(readonlyAttribute.Value) : false;
 
                 connectionString=value;
             }
@@ -143,9 +144,14 @@ namespace MochaDB.Connection {
         public string Password { get; internal set; }
 
         /// <summary>
-        /// Is readonly.
+        /// Readonly state of connection.
         /// </summary>
         public bool Readonly { get; internal set; }
+
+        /// <summary>
+        /// Is readonly provider.
+        /// </summary>
+        public bool Constant { get; internal set; }
 
         #endregion
     }
