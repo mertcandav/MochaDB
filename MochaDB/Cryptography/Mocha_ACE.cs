@@ -2,7 +2,7 @@
     /// <summary>
     /// Char encryptor.
     /// </summary>
-    internal class Mocha_ACE:IMochaEncryptor {
+    public class Mocha_ACE:IMochaEncryptor {
         #region Constructors
 
         /// <summary>

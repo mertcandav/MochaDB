@@ -308,6 +308,8 @@ namespace MochaDB {
         /// </summary>
         /// <param name="path">Path of element.</param>
         internal XElement GetElement(string path) {
+            OnConnectionCheckRequired(this,new EventArgs());
+
             string[] elementsName = path.Split('/');
 
             XElement element = Doc.Root.Element(elementsName[0]);
@@ -395,14 +397,8 @@ namespace MochaDB {
         public void Reset() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            Disconnect();
-            File.WriteAllText(Provider.Path,aes256.Encrypt(EmptyContent));
-            Provider.Readonly=false;
-            Provider.ConnectionString="path="+Provider.Path;
-            Provider.EnableReadonly();
-            Connect();
-
-            OnChangeContent(this,new EventArgs());
+            Doc = XDocument.Parse(EmptyContent);
+            Save();
         }
 
         #endregion

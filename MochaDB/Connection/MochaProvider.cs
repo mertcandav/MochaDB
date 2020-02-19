@@ -84,7 +84,7 @@ namespace MochaDB.Connection {
         #region Methods
 
         /// <summary>
-        /// Enable readonly property. It cannot be undone!
+        /// Enable readonly property of provider. It cannot be undone!
         /// </summary>
         public void EnableReadonly() {
             Readonly=true;

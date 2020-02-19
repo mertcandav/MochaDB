@@ -126,7 +126,7 @@ namespace MochaDB.Querying {
         /// This is collection result.
         /// </summary>
         public bool IsCollectionResult =>
-            false;
+            true;
 
         #endregion
     }

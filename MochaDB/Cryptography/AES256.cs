@@ -5,9 +5,9 @@ using System.Text;
 
 namespace MochaDB.Cryptography {
     /// <summary>
-    /// AES 256-Bit ecryptor.
+    /// AES 256-Bit encryptor.
     /// </summary>
-    internal class AES256:IMochaEncryptor {
+    public class AES256:IMochaEncryptor {
         #region Constructors
 
         /// <summary>

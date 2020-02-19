@@ -1,6 +1,6 @@
 ﻿namespace MochaDB.Cryptography {
     /// <summary>
-    /// Interface for MochaDB ecnryptors.
+    /// Interface for MochaDB encryptors.
     /// </summary>
     public interface IMochaEncryptor {
         #region Methods
