@@ -94,8 +94,10 @@ namespace MochaDB {
                 return typeof(ushort);
             if(dataType == MochaDataType.UInt32)
                 return typeof(uint);
-            //if(dataType == MochaDataType.UInt64)
-            return typeof(ulong);
+            if(dataType == MochaDataType.UInt64)
+                return typeof(ulong);
+            //if(dataType == MochaDataType.DateTime)
+            return typeof(DateTime);
         }
 
         /// <summary>
@@ -131,6 +133,8 @@ namespace MochaDB {
                 return MochaDataType.UInt32;
             if(type == typeof(ulong))
                 return MochaDataType.UInt64;
+            if(type == typeof(DateTime))
+                return MochaDataType.DateTime;
 
             throw new Exception("There is no MochaDB data type of this type!");
         }
@@ -172,8 +176,10 @@ namespace MochaDB {
                 return ushort.Parse(data);
             if(dataType == MochaDataType.UInt32)
                 return uint.Parse(data);
-            //if(dataType == MochaDataType.UInt64)
-            return ulong.Parse(data);
+            if(dataType == MochaDataType.UInt64)
+                return ulong.Parse(data);
+            //if(dataType == MochaDataType.DateTime)
+            return DateTime.Parse(data);
         }
 
         /// <summary>
@@ -264,6 +270,7 @@ namespace MochaDB {
         Float,
         Decimal,
         Byte,
+        DateTime,
         SByte,
         Boolean,
         Char,
