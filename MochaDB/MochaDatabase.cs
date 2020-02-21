@@ -148,7 +148,7 @@ namespace MochaDB {
             }
 
             Doc = XDocument.Parse(aes256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
-            
+
             if(!CheckMochaDB())
                 throw new Exception("The MochaDB database is corrupt!");
             if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
@@ -1683,12 +1683,18 @@ namespace MochaDB {
         /// <summary>
         /// Return xml schema of database.
         /// </summary>
-        public MochaResult<string> GetXML() {
+        public MochaResult<string> GetXML() =>
+            GetXMLDocument().ToString();
+
+        /// <summary>
+        /// Return XDocument of database.
+        /// </summary>
+        public MochaResult<XDocument> GetXMLDocument() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             XDocument doc = XDocument.Parse(Doc.ToString());
             doc.Root.Element("Root").Remove();
-            return doc.ToString();
+            return doc;
         }
 
         #endregion
