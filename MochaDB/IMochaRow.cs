@@ -7,7 +7,7 @@ namespace MochaDB {
     public interface IMochaRow {
         #region Properties
 
-        public MochaDataCollection Datas { get; }
+        MochaDataCollection Datas { get; }
 
         #endregion
     }

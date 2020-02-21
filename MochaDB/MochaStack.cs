@@ -5,7 +5,6 @@ namespace MochaDB {
     /// <summary>
     /// This is stack object for MochaDB.
     /// </summary>
-    [Serializable]
     public class MochaStack:IMochaStack {
         #region Constructors
 

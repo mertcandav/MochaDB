@@ -46,7 +46,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
         /// </summary>
         internal void CheckValue() {
             if(string.IsNullOrWhiteSpace(value)) {
-                if(Name.Equals("Path",StringComparison.InvariantCultureIgnoreCase))
+                if(Name.Equals("Path"))
                     throw new Exception("File path cannot be empty!");
                 if(booleanAttributesRegex.IsMatch(Name))
                     value="False";

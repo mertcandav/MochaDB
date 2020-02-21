@@ -5,8 +5,8 @@
     public interface IMochaProviderAttribute {
         #region Properties
 
-        public string Name { get; set; }
-        public string Value { get; set; }
+        string Name { get; set; }
+        string Value { get; set; }
 
         #endregion
     }

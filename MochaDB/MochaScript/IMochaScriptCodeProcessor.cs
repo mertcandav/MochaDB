@@ -7,14 +7,14 @@ namespace MochaDB.MochaScript {
     public interface IMochaScriptCodeProcessor {
         #region Methods
 
-        public bool CheckBrackets(int startIndex,char openBracket,char closeBracket);
-        public int GetCloseBracketIndex(int startIndex,char openBracket,char closeBracket);
+        bool CheckBrackets(int startIndex,char openBracket,char closeBracket);
+        int GetCloseBracketIndex(int startIndex,char openBracket,char closeBracket);
 
         #endregion
 
         #region Properties
 
-        public IEnumerable<string> Source { get; set; }
+        IEnumerable<string> Source { get; set; }
 
         #endregion
     }

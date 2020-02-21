@@ -71,7 +71,7 @@ namespace MochaDB {
                     else {
                         if(Columns[columnIndex].Datas.Count>0) {
                             MochaData data = new MochaData() {
-                                data=1 + (int)Columns[columnIndex].Datas[^1].Data,
+                                data=1 + (int)Columns[columnIndex].Datas[Columns[columnIndex].Datas.MaxIndex()].Data,
                                 dataType=MochaDataType.AutoInt
                             };
                             Columns[columnIndex].Datas.Add(data);

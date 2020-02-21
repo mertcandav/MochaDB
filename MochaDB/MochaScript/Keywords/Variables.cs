@@ -5,7 +5,6 @@ namespace MochaDB.MochaScript.Keywords {
     /// <summary>
     /// Collectioner for MochaScript variables.
     /// </summary>
-    [Serializable]
     internal sealed class MochaScriptVariableCollection {
         #region Fields
 
@@ -124,7 +123,6 @@ namespace MochaDB.MochaScript.Keywords {
     /// <summary>
     /// This is the variable delegate object for MochaScript.
     /// </summary>
-    [Serializable]
     internal struct MochaScriptVariable {
         #region Constructors
 

@@ -9,7 +9,6 @@ namespace MochaDB.Querying {
     /// <summary>
     /// It offers query usage and management with MochaQ.
     /// </summary>
-    [Serializable]
     public class MochaQuery:IMochaQuery {
         #region Fields
 

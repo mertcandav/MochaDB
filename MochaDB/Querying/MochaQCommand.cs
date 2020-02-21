@@ -55,12 +55,12 @@ namespace MochaDB.Querying {
         public bool IsGetRunQuery() {
             string command = Command.ToUpperInvariant();
             if(
-                command.StartsWith("GET",StringComparison.InvariantCultureIgnoreCase) ||
-                command.StartsWith("TABLECOUNT",StringComparison.InvariantCulture) ||
-                command.StartsWith("COLUMNCOUNT",StringComparison.InvariantCulture) ||
-                command.StartsWith("ROWCOUNT",StringComparison.InvariantCulture) ||
-                command.StartsWith("DATACOUNT",StringComparison.InvariantCulture) ||
-                command.StartsWith("EXISTS",StringComparison.InvariantCulture))
+                command.StartsWith("GET") ||
+                command.StartsWith("TABLECOUNT") ||
+                command.StartsWith("COLUMNCOUNT") ||
+                command.StartsWith("ROWCOUNT") ||
+                command.StartsWith("DATACOUNT") ||
+                command.StartsWith("EXISTS"))
                 return true;
             else
                 return false;
@@ -72,15 +72,15 @@ namespace MochaDB.Querying {
         public bool IsRunQuery() {
             string command = Command.ToUpperInvariant();
             if(
-                command.StartsWith("RESET",StringComparison.InvariantCultureIgnoreCase) ||
-                command.StartsWith("SET",StringComparison.InvariantCulture) ||
-                command.StartsWith("ADD",StringComparison.InvariantCulture) ||
-                command.StartsWith("CREATE",StringComparison.InvariantCulture) ||
-                command.StartsWith("CLEAR",StringComparison.InvariantCulture) ||
-                command.StartsWith("REMOVE",StringComparison.InvariantCulture) ||
-                command.StartsWith("RENAME",StringComparison.InvariantCulture) ||
-                command.StartsWith("UPDATE",StringComparison.InvariantCulture) ||
-                command.StartsWith("EXISTS",StringComparison.InvariantCulture))
+                command.StartsWith("RESET") ||
+                command.StartsWith("SET") ||
+                command.StartsWith("ADD") ||
+                command.StartsWith("CREATE") ||
+                command.StartsWith("CLEAR") ||
+                command.StartsWith("REMOVE") ||
+                command.StartsWith("RENAME") ||
+                command.StartsWith("UPDATE") ||
+                command.StartsWith("EXISTS"))
                 return true;
             else
                 return false;

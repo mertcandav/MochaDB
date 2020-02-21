@@ -5,7 +5,6 @@ namespace MochaDB.MochaScript.Keywords {
     /// <summary>
     /// Collectioner for MochaScript Functions.
     /// </summary>
-    [Serializable]
     internal sealed class MochaScriptFunctionCollection {
         #region Fields
 
@@ -133,7 +132,6 @@ namespace MochaDB.MochaScript.Keywords {
     /// <summary>
     /// This is the function delegate object for MochaScript.
     /// </summary>
-    [Serializable]
     internal struct MochaScriptFunction {
         #region Constructors
 

@@ -7,17 +7,17 @@ namespace MochaDB {
     public interface IMochaTable {
         #region Methods
 
-        public void ShortDatas(int index);
-        public void ShortColumns();
+        void ShortDatas(int index);
+        void ShortColumns();
 
         #endregion
 
         #region Properties
 
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public MochaColumnCollection Columns { get; }
-        public MochaRowCollection Rows { get; }
+        string Name { get; set; }
+        string Description { get; set; }
+        MochaColumnCollection Columns { get; }
+        MochaRowCollection Rows { get; }
 
         #endregion
     }

@@ -5,15 +5,15 @@
     public interface IMochaQCommand {
         #region Methods
 
-        public bool IsDynamicQuery();
-        public bool IsGetRunQuery();
-        public bool IsRunQuery();
+        bool IsDynamicQuery();
+        bool IsGetRunQuery();
+        bool IsRunQuery();
 
         #endregion
 
         #region Properties
 
-        public string Command { get; set; }
+        string Command { get; set; }
 
         #endregion
     }

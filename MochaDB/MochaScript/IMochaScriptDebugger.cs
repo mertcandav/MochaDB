@@ -7,17 +7,17 @@ namespace MochaDB.MochaScript {
     public interface IMochaScriptDebugger:IDisposable {
         #region Events
 
-        public event EventHandler<EventArgs> StartDebug;
-        public event EventHandler<EventArgs> SuccessFinishDebug;
-        public event EventHandler<MochaScriptEchoEventArgs> Echo;
-        public event EventHandler<EventArgs> FunctionInvoking;
-        public event EventHandler<EventArgs> FunctionInvoked;
+        event EventHandler<EventArgs> StartDebug;
+        event EventHandler<EventArgs> SuccessFinishDebug;
+        event EventHandler<MochaScriptEchoEventArgs> Echo;
+        event EventHandler<EventArgs> FunctionInvoking;
+        event EventHandler<EventArgs> FunctionInvoked;
 
         #endregion
 
         #region Methods
 
-        public void DebugRun();
+        void DebugRun();
 
         #endregion
     }

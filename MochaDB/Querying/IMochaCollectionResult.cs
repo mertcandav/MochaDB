@@ -5,14 +5,14 @@
     public interface IMochaCollectionResult<T>:IMochaQueryableCollection<T>, IMochaResult {
         #region Methods
 
-        public int MaxIndex();
+        int MaxIndex();
 
         #endregion
 
         #region Properties
 
-        public MochaResult<T> this[int index] { get; }
-        public int Count { get; }
+        MochaResult<T> this[int index] { get; }
+        int Count { get; }
 
         #endregion
     }

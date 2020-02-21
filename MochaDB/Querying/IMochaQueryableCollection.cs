@@ -10,13 +10,13 @@ namespace MochaDB.Querying {
     public interface IMochaQueryableCollection<T> {
         #region Methods
 
-        public IEnumerable<T> Select(Func<T,T> query);
-        public IEnumerable<T> Select(Func<T,int,T> query);
-        public IEnumerable<T> Where(Func<T,bool> query);
-        public IEnumerable<T> Where(Func<T,int,bool> query);
-        public IEnumerable<T> OrderByDescending(Func<T,T> query);
-        public IEnumerable<T> OrderBy(Func<T,T> query);
-        public IEnumerable<IGrouping<T,T>> GroupBy(Func<T,T> query);
+        IEnumerable<T> Select(Func<T,T> query);
+        IEnumerable<T> Select(Func<T,int,T> query);
+        IEnumerable<T> Where(Func<T,bool> query);
+        IEnumerable<T> Where(Func<T,int,bool> query);
+        IEnumerable<T> OrderByDescending(Func<T,T> query);
+        IEnumerable<T> OrderBy(Func<T,T> query);
+        IEnumerable<IGrouping<T,T>> GroupBy(Func<T,T> query);
 
         #endregion
     }

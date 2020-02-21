@@ -35,7 +35,6 @@ namespace MochaDB {
     /// <summary>
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
-    [Serializable]
     public class MochaDatabase:IMochaDatabase {
         #region Fields
 
@@ -119,7 +118,7 @@ namespace MochaDB {
         /// <param name="name">Name of attribute.</param>
         internal bool GetBoolAttributeState(string name) {
             MochaProviderAttribute attribute = Provider.GetAttribute(name);
-            if(attribute!=null && attribute.Value.Equals("True",StringComparison.InvariantCultureIgnoreCase))
+            if(attribute!=null && attribute.Value.Equals("True"))
                 return true;
             return false;
         }
@@ -139,7 +138,7 @@ namespace MochaDB {
 
             if(!File.Exists(Provider.Path)) {
                 if(GetBoolAttributeState("AutoCreate"))
-                    CreateMochaDB(Provider.Path[0..^8],"","");
+                    CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
                 else
                     throw new Exception("There is no Mocha DB database file in the specified path!");
             } else {
@@ -902,7 +901,7 @@ namespace MochaDB {
             if(element.Name.LocalName == newName)
                 return;
 
-            if(path.Contains('/') && ExistsStackItem(name,path[0..path.IndexOf("/")] + "/"+newName))
+            if(path.Contains('/') && ExistsStackItem(name,path.Substring(0,path.IndexOf("/")) + "/"+newName))
                 throw new Exception("There is already a stack item with this name!");
 
             element.Name=newName;
@@ -1273,7 +1272,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
-            return Enum.Parse<MochaDataType>(Doc.Root.Element("Tables").Element(tableName).Element(name).Attribute("DataType").Value);
+            return (MochaDataType)Enum.Parse(typeof(MochaDataType),Doc.Root.Element("Tables").Element(tableName).Element(name).Attribute("DataType").Value);
         }
 
         /// <summary>
@@ -1472,7 +1471,7 @@ namespace MochaDB {
 
             XElement xColumn = Doc.Root.Element("Tables").Element(tableName).Element(columnName);
 
-            MochaDataType dataType = Enum.Parse<MochaDataType>(xColumn.Attribute("DataType").Value);
+            MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(dataType == MochaDataType.AutoInt) {
                 xData.Value = (1 + GetColumnAutoIntState(tableName,columnName)).ToString();
             } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.Data.ToString())) {
@@ -1490,7 +1489,7 @@ namespace MochaDB {
                 if(element.Name.LocalName==columnName)
                     continue;
 
-                MochaDataType _dataType = Enum.Parse<MochaDataType>(element.Attribute("DataType").Value);
+                MochaDataType _dataType = GetColumnDataType(tableName,element.Name.LocalName);
                 if(_dataType == MochaDataType.AutoInt) {
                     element.Add(
                         new XElement("Data",1 + GetColumnAutoIntState(tableName,element.Name.LocalName),string.Empty));

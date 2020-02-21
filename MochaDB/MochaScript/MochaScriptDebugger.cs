@@ -148,7 +148,7 @@ namespace MochaDB.MochaScript {
                         index = Process_if(index);
                         continue;
                     } else if(line.StartsWith("echo ")) {
-                        OnEcho(new MochaScriptEchoEventArgs(GetArgumentValue("Undefined",line[5..^0],index)));
+                        OnEcho(new MochaScriptEchoEventArgs(GetArgumentValue("Undefined",line.Substring(5),index)));
                         continue;
                     } else if(line.StartsWith("delete ")) {
                         string[] parts = line.Split(' ');
@@ -158,8 +158,8 @@ namespace MochaDB.MochaScript {
                         } else {
                             Throw(index + 1,"|| The entry was not in the correct format!");
                         }
-                    } else if(line[^2] == '(' && line[^1] == ')') {
-                        functions.Invoke(line[0..^2]);
+                    } else if(line.EndsWith("()")) {
+                        functions.Invoke(line.Substring(0,line.Length-2));
                         continue;
                     } else if(TryVariable(index)) {
                         continue;
@@ -185,7 +185,7 @@ namespace MochaDB.MochaScript {
         internal int Process_if(int startIndex) {
             bool ok = false;
             int closeIndex;
-            
+
             for(int index = startIndex; index < MochaScriptArray.Length; index++) {
                 string line = MochaScriptArray[index].Trim();
 
@@ -457,10 +457,10 @@ namespace MochaDB.MochaScript {
             }
 
             if(type == "Undefined") {
-                if(arg[0] == '"' && arg[^1] == '"') {
-                    return arg[1..^1];
-                } else if(arg[0] == '\'' && arg[^1] == '\'' && arg[1..^1].Length == 1) {
-                    return char.Parse(arg[1..^1]);
+                if(arg.StartsWith("\"") && arg.EndsWith("\"")) {
+                    return arg.Substring(1,arg.Length-2);
+                } else if(arg.StartsWith("'") && arg.EndsWith("'") && arg.Substring(1,arg.Length-2).Length == 1) {
+                    return char.Parse(arg.Substring(1,arg.Length-2));
                 } else if(arg == bool.TrueString || arg == bool.FalseString) {
                     return bool.Parse(arg);
                 } else if(numberRegex.IsMatch(arg)) {
@@ -510,13 +510,13 @@ namespace MochaDB.MochaScript {
                 }
             } else {
                 if(type == "String") {
-                    if(arg[0] == '"' && arg[^1] == '"') {
-                        return arg[1..^1];
+                    if(arg.StartsWith("\"") && arg.EndsWith("\"")) {
+                        return arg.Substring(1,arg.Length-2);
                     }
                     return string.Empty;
                 } else if(type == "Char") {
-                    if(arg[0] == '\'' && arg[^1] == '\'' && arg[1..^1].Length == 1) {
-                        return char.Parse(arg[1..^1]);
+                    if(arg.StartsWith("'") && arg.EndsWith("'") && arg.Substring(1,arg.Length-2).Length == 1) {
+                        return char.Parse(arg.Substring(1,arg.Length-2));
                     }
                     return new char();
                 } else if(type == "Decimal") {
@@ -618,11 +618,11 @@ namespace MochaDB.MochaScript {
 
                 if(line.StartsWith("func ")) {
                     parts = line.Split(' ');
-                    name = parts[1][0..^2];
+                    name = parts[1].Substring(0,parts[1].Length-2);
 
                     if(parts.Length != 2 || MochaScriptArray[index + 1].Trim() != "{")
                         throw Throw(index + 1,"|| Any function is not processed!");
-                    else if(parts[1][^2] != '(' || parts[1][^1] != ')')
+                    else if(!parts[1].EndsWith("()"))
                         throw Throw(index + 1,"|| Any function is not processed!");
 
                     if(functions.Contains(name))
@@ -633,7 +633,7 @@ namespace MochaDB.MochaScript {
                         throw Throw(index + 1,"|| Any function is not processed!");
 
                     func = new MochaScriptFunction(name);
-                    func.Source = MochaScriptArray[(index + 2)..dex];
+                    func.Source= MochaScriptArray.Skip(index +2).Take(dex-1).ToArray();
                     func.Index = index;
                     _functions.Add(func);
 
@@ -663,11 +663,11 @@ namespace MochaDB.MochaScript {
                 if(line.StartsWith("compilerevent ")) {
 
                     parts = line.Split(' ');
-                    name = parts[1][0..^2];
+                    name = parts[1].Substring(0,parts[1].Length-2);
 
                     if(parts.Length != 2 || MochaScriptArray[index + 1].Trim() != "{")
                         throw Throw(index + 1,"|| Any function is not processed!");
-                    else if(parts[1][^2] != '(' || parts[1][^1] != ')')
+                    else if(!parts[1].EndsWith("()"))
                         throw Throw(index + 1,"|| Any function is not processed!");
 
                     if(!compilerEventsRegex.IsMatch(name))
@@ -681,7 +681,8 @@ namespace MochaDB.MochaScript {
                         throw Throw(index + 1,"|| Any function is not processed!");
 
                     _event = new MochaScriptFunction(name);
-                    _event.Source = MochaScriptArray[(index + 2)..dex];
+                    Array.Copy(MochaScriptArray,index +2,_event.Source,0,dex);
+                    _event.Source= MochaScriptArray.Skip(index +2).Take(dex-1).ToArray();
                     _event.Index = index;
                     _compilerEvents.Add(_event);
 

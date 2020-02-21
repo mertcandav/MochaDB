@@ -5,7 +5,7 @@
     public interface IMochaResult {
         #region Properties
 
-        public bool IsCollectionResult { get; }
+        bool IsCollectionResult { get; }
 
         #endregion
     }

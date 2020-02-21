@@ -7,9 +7,9 @@ namespace MochaDB {
     public interface IMochaStack {
         #region Properties
 
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public MochaStackItemCollection Items { get; }
+        string Name { get; set; }
+        string Description { get; set; }
+        MochaStackItemCollection Items { get; }
 
         #endregion
     }

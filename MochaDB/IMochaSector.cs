@@ -5,9 +5,9 @@
     public interface IMochaSector {
         #region Properties
 
-        public string Name { get; set; }
-        public string Data { get; set; }
-        public string Description { get; set; }
+        string Name { get; set; }
+        string Data { get; set; }
+        string Description { get; set; }
 
         #endregion
     }

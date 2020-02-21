@@ -5,18 +5,18 @@
     public interface IMochaProvider {
         #region Methods
 
-        public void EnableConstant();
-        public MochaProviderAttribute GetAttribute(string name);
+        void EnableConstant();
+        MochaProviderAttribute GetAttribute(string name);
 
         #endregion
 
         #region Properties
 
-        public string ConnectionString { get; set; }
-        public string Path { get; }
-        public string Password { get; }
-        public bool Readonly { get; }
-        public bool Constant { get; }
+        string ConnectionString { get; set; }
+        string Path { get; }
+        string Password { get; }
+        bool Readonly { get; }
+        bool Constant { get; }
 
         #endregion
     }

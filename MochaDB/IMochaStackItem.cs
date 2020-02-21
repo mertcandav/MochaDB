@@ -8,16 +8,16 @@ namespace MochaDB {
     public interface IMochaStackItem {
         #region Events
 
-        public event EventHandler<EventArgs> NameChanged;
+        event EventHandler<EventArgs> NameChanged;
 
         #endregion
 
         #region Properties
 
-        public string Name { get; set; }
-        public string Value { get; set; }
-        public string Description { get; set; }
-        public MochaStackItemCollection Items { get; }
+        string Name { get; set; }
+        string Value { get; set; }
+        string Description { get; set; }
+        MochaStackItemCollection Items { get; }
 
         #endregion
     }

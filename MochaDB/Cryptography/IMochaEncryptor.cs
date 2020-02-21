@@ -5,16 +5,16 @@
     public interface IMochaEncryptor {
         #region Methods
 
-        public string Encrypt();
-        public string Encrypt(string data);
-        public string Decrypt();
-        public string Decrypt(string data);
+        string Encrypt();
+        string Encrypt(string data);
+        string Decrypt();
+        string Decrypt(string data);
 
         #endregion
 
         #region Properties
 
-        public string Data { get; set; }
+        string Data { get; set; }
 
         #endregion
     }

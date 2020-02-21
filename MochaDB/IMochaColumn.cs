@@ -7,10 +7,10 @@ namespace MochaDB {
     public interface IMochaColumn {
         #region Properties
 
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public MochaColumnDataCollection Datas { get; }
-        public MochaDataType DataType { get; set; }
+        string Name { get; set; }
+        string Description { get; set; }
+        MochaColumnDataCollection Datas { get; }
+        MochaDataType DataType { get; set; }
 
         #endregion
     }

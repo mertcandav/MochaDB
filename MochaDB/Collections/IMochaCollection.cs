@@ -9,27 +9,27 @@ namespace MochaDB.Collections {
     public interface IMochaCollection<T> {
         #region Events
 
-        public event EventHandler<EventArgs> Changed;
+        event EventHandler<EventArgs> Changed;
 
         #endregion
 
         #region Methods
 
-        public void Clear();
-        public void Add(T item);
-        public void AddRange(IEnumerable<T> items);
-        public void Remove(T item);
-        public void RemoveAt(int index);
-        public int IndexOf(T item);
-        public bool Contains(T item);
-        public int MaxIndex();
+        void Clear();
+        void Add(T item);
+        void AddRange(IEnumerable<T> items);
+        void Remove(T item);
+        void RemoveAt(int index);
+        int IndexOf(T item);
+        bool Contains(T item);
+        int MaxIndex();
 
         #endregion
 
         #region Properties
 
-        public int Count { get; }
-        public T this[int index] { get; }
+        int Count { get; }
+        T this[int index] { get; }
 
         #endregion
     }

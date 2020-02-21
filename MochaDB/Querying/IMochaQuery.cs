@@ -5,9 +5,9 @@
     public interface IMochaQuery {
         #region Methods
 
-        public IMochaResult Dynamic();
-        public void Run();
-        public IMochaResult GetRun();
+        IMochaResult Dynamic();
+        void Run();
+        IMochaResult GetRun();
 
         #endregion
     }
