@@ -23,6 +23,12 @@ namespace MochaDB.Collections {
         int IndexOf(T item);
         bool Contains(T item);
         int MaxIndex();
+        bool IsEmptyCollection();
+        T ElementAt(int index);
+        T[] ToArray();
+        List<T> ToList();
+        T GetFirst();
+        T GetLast();
 
         #endregion
 

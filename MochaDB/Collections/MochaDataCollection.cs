@@ -120,6 +120,43 @@ namespace MochaDB.Collections {
         public int MaxIndex() =>
             collection.Count-1;
 
+        /// <summary>
+        /// Return true if is empty collection but return false if not.
+        /// </summary>
+        public bool IsEmptyCollection() =>
+            collection.Count == 0 ? true : false;
+
+        /// <summary>
+        /// Return first element in collection.
+        /// </summary>
+        public MochaData GetFirst() =>
+            IsEmptyCollection() ? null : this[0];
+
+        /// <summary>
+        /// Return last element in collection.
+        /// </summary>
+        public MochaData GetLast() =>
+            IsEmptyCollection() ? null : this[MaxIndex()];
+
+        /// <summary>
+        /// Return element by index.
+        /// </summary>
+        /// <param name="index">Index of element.</param>
+        public MochaData ElementAt(int index) =>
+            collection.ElementAt(index);
+
+        /// <summary>
+        /// Create and return static array from collection.
+        /// </summary>
+        public MochaData[] ToArray() =>
+            collection.ToArray();
+
+        /// <summary>
+        /// Create and return List<T> from collection.
+        /// </summary>
+        public List<MochaData> ToList() =>
+            collection.ToList();
+
         #endregion
 
         #region Properties
@@ -130,7 +167,7 @@ namespace MochaDB.Collections {
         /// <param name="index">Index of item.</param>
         public MochaData this[int index] {
             get =>
-                collection[index];
+                ElementAt(index);
             set {
                 collection[index] = value;
                 OnChanged(this,new EventArgs());

@@ -81,11 +81,11 @@ namespace MochaDB.Querying {
         #endregion
 
         /// <summary>
-        /// Return item by index.
+        /// Return item by element.
         /// </summary>
-        /// <param name="index">Index of item.</param>
-        public MochaResult<T> ElementAt(int index) =>
-            this[index];
+        /// <param name="index">Index of element.</param>
+        public T ElementAt(int index) =>
+            collection.ElementAt(index);
 
         /// <summary>
         /// Create and return static array from collection.
@@ -105,6 +105,12 @@ namespace MochaDB.Querying {
         public int MaxIndex() =>
             Count-1;
 
+        /// <summary>
+        /// Return true if is empty collection but return false if not.
+        /// </summary>
+        public bool IsEmptyCollection() =>
+            collection.Count() == 0 ? true : false;
+
         #endregion
 
         #region Properties
@@ -113,8 +119,8 @@ namespace MochaDB.Querying {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaResult<T> this[int index] =>
-            collection.ElementAt(index);
+        public T this[int index] =>
+            ElementAt(index);
 
         /// <summary>
         /// Count of items.
