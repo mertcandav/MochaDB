@@ -165,5 +165,6 @@ public void Debug(string path) {
 
 ## And More
 
+- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki/Warnings">Warnings</a>
 - <a href="https://github.com/MertcanDavulcu/MochaDB/wiki">Documentation</a>
 - <a href="https://opensource.org/licenses/MIT">License<a/>
