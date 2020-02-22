@@ -20,7 +20,7 @@ namespace MochaDB.MochaScript {
 \bMochaTable\b|\bMochaTable\[*\]\b|\bMochaSector\b|\bMochaSector\[*\]\b|\bMochaRow\b|\bMochaRow\[*\]\b|\bChar\b|\bChar\[*\]\b|\bMochaQuery\b|\bMochaQuery\[*\]\b|
 \bMochaDatabase\b|\bMochaDatabase\[*\]\b|\bMochaColumn\b|\bMochaColumn\[*\]\b|\bMochaScriptDebugger\b|\bMochaScriptDebugger\[*\]\b|\bMochaDataType\b|
 \bMochaDataType\[*\]\b|\bMochaScriptCompareMark\b|\bMochaScriptCompareMark\[*\]\b|\bdelete\b|\bSByte\b|\bSByte\[*\]\b|\bUShort\b|\bUShort\[*\]\b|\bULong\b|\bULong\[*\]\b|
-\bUInteger\b|\bUInteger\[*\]\b");
+\bUInteger\b|\bUInteger\[*\]\b|\bDateTime\b|DateTime\[*\]\b");
         internal Regex numberRegex = new Regex(@"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
         internal Regex variableTypesRegex = new Regex(@"\bString\b|\bChar\b|\bLong\b|\bInteger\b|\bShort\b|
 \bDecimal\b|\bDouble\b|\bFloat\b|\bBoolean\b");
@@ -388,6 +388,10 @@ namespace MochaDB.MochaScript {
                 variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
                     GetArgumentValue("SByte",parts.ElementAt(1),index)));
                 return true;
+            } else if(line.StartsWith("DateTime ")) {
+                variables.Add(new MochaScriptVariable(varParts.ElementAt(1),varParts.ElementAt(0),
+                    GetArgumentValue("DateTime",parts.ElementAt(1),index)));
+                return true;
             }
 
             return false;
@@ -474,6 +478,7 @@ namespace MochaDB.MochaScript {
                     uint uIntOut;
                     ulong uLongOut;
                     sbyte sByteOut;
+                    DateTime dateTimeOut;
                     if(short.TryParse(arg,out shortOut))
                         return shortOut;
                     if(int.TryParse(arg,out intOut))
@@ -494,6 +499,8 @@ namespace MochaDB.MochaScript {
                         return uLongOut;
                     if(sbyte.TryParse(arg,out sByteOut))
                         return sByteOut;
+                    if(DateTime.TryParse(arg,out dateTimeOut))
+                        return dateTimeOut;
                     else
                         throw Throw(index + 1,"|| Error in value conversion!");
                 } else {
@@ -574,6 +581,12 @@ namespace MochaDB.MochaScript {
                         return bool.Parse(arg);
                     }
                     return false;
+                } else if(type == "DateTime") {
+                    DateTime _out;
+                    if(DateTime.TryParse(arg,out _out)) {
+                        return _out;
+                    }
+                    return DateTime.Now;
                 } else {
                     throw Throw(index + 1,"|| Error in value conversion!");
                 }
