@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MochaDB.Querying {
+﻿namespace MochaDB.Querying {
     /// <summary>
     /// Base for MochaQ querys.
     /// </summary>

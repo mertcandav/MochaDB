@@ -14,16 +14,22 @@ namespace MochaDB.MochaScript {
         #region Fields
 
         //Regexes.
-        internal Regex compilerEventsRegex = new Regex(@"\bOnStartDebug\b|\bOnSuccessFinishDebug\b|\bOnFunctionInvoking\b|\bOnFunctionInvoked\b|\bOnEcho\b");
-        internal Regex bannedSyntaxesRegex = new Regex(@"\bString\b|\bString\[*\]\b|\bBoolean\b|\bBoolean\[*\]\b|\bInteger\b|\bInteger\[*\]\b|\bDouble\b|\bouble\[*\]\b|\bnil\b|
-\bTrue\b|\bFloat\b|\bFloat\[*\]\b|\bif\b|\belse\b|\bFalse\b|\bShort\b|\bShort\[*\]\b|\bLong\b|\bLong\[*\]\b|\bDecimal\b|\bDecimal\[*\]\b|\bMochaData\b|\bMochaData\[*\]\b|
-\bMochaTable\b|\bMochaTable\[*\]\b|\bMochaSector\b|\bMochaSector\[*\]\b|\bMochaRow\b|\bMochaRow\[*\]\b|\bChar\b|\bChar\[*\]\b|\bMochaQuery\b|\bMochaQuery\[*\]\b|
-\bMochaDatabase\b|\bMochaDatabase\[*\]\b|\bMochaColumn\b|\bMochaColumn\[*\]\b|\bMochaScriptDebugger\b|\bMochaScriptDebugger\[*\]\b|\bMochaDataType\b|
-\bMochaDataType\[*\]\b|\bMochaScriptCompareMark\b|\bMochaScriptCompareMark\[*\]\b|\bdelete\b|\bSByte\b|\bSByte\[*\]\b|\bUShort\b|\bUShort\[*\]\b|\bULong\b|\bULong\[*\]\b|
-\bUInteger\b|\bUInteger\[*\]\b|\bDateTime\b|DateTime\[*\]\b");
-        internal Regex numberRegex = new Regex(@"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
-        internal Regex variableTypesRegex = new Regex(@"\bString\b|\bChar\b|\bLong\b|\bInteger\b|\bShort\b|
-\bDecimal\b|\bDouble\b|\bFloat\b|\bBoolean\b");
+        internal Regex compilerEventsRegex = new Regex(
+@"\b(OnStartDebug|OnSuccessFinishDebug|OnFunctionInvoking|OnFunctionInvoked|OnEcho)\b");
+
+        internal Regex bannedSyntaxesRegex = new Regex(
+@"\b(String|String\[*\]|Boolean|Boolean\[*\]|Integer|Integer\[*\]|Double|ouble\[*\]|nil|
+True|Float|Float\[*\]|if|else|False|Short|Short\[*\]|Long|Long\[*\]|Decimal|Decimal\[*\]|MochaData|MochaData\[*\]|
+MochaTable|MochaTable\[*\]|MochaSector|MochaSector\[*\]|MochaRow|MochaRow\[*\]|Char|Char\[*\]|MochaQuery|MochaQuery\[*\]|
+MochaDatabase|MochaDatabase\[*\]|MochaColumn|MochaColumn\[*\]|MochaScriptDebugger|MochaScriptDebugger\[*\]|MochaDataType|
+MochaDataType\[*\]|MochaScriptCompareMark|MochaScriptCompareMark\[*\]|delete|SByte|SByte\[*\]|UShort|UShort\[*\]|ULong|ULong\[*\]|
+UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
+
+        internal Regex numberRegex = new Regex(
+@"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
+
+        internal Regex variableTypesRegex = new Regex(
+@"\b(String|Char|Long|Integer|Short|Decimal|Double|Float|Boolean|Byte|SByte|UInteger|ULong|UShort|DateTime)\b");
 
         //-----
 
