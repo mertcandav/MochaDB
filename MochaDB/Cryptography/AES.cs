@@ -5,29 +5,29 @@ using System.Text;
 
 namespace MochaDB.Cryptography {
     /// <summary>
-    /// AES 256-Bit encryptor.
+    /// AES encryptor.
     /// </summary>
-    public class AES256:IMochaEncryptor {
+    public class AES:IMochaEncryptor {
         #region Constructors
 
         /// <summary>
-        /// Create new AES256.
+        /// Create new AES.
         /// </summary>
         /// <param name="iv">Iv.</param>
         /// <param name="key">Key.</param>
-        public AES256(string iv,string key) {
+        public AES(string iv,string key) {
             Iv=iv;
             Key=key;
             Data=string.Empty;
         }
 
         /// <summary>
-        /// Create new AES256.
+        /// Create new AES.
         /// </summary>
         /// <param name="iv">Iv.</param>
         /// <param name="key">Key.</param>
         /// <param name="data">Data to set data.</param>
-        public AES256(string iv,string key,string data) :
+        public AES(string iv,string key,string data) :
             this(iv,key) {
             Data=data;
         }

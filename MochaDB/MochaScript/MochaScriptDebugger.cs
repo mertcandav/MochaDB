@@ -177,7 +177,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         try {
                             db.Query.GetRun(line);
                         } catch(Exception Excep) {
-                            Throw(index + 1,"|| " + Excep.Message);
+                            Throw(index + 1,$"|| {Excep.Message}");
                         }
                     }
                 }
@@ -735,7 +735,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         if(Parts.Length == 3)
                             db = new MochaDatabase(Parts[1],Parts[2]);
                         else if(Parts.Length == 2)
-                            db = new MochaDatabase("path=" + Parts[1]);
+                            db = new MochaDatabase($"path={Parts[1]}");
 
                         break;
                     }

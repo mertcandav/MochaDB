@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MochaDB", "MochaDB\MochaDB.csproj", "{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MochaDB", "MochaDB\MochaDB.csproj", "{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

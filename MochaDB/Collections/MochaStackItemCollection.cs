@@ -35,13 +35,24 @@ namespace MochaDB.Collections {
             Changed?.Invoke(this,new EventArgs());
         }
 
+        /// <summary>
+        /// This happens after NameChanged event of any item in collection.
+        /// </summary>
+        public event EventHandler<EventArgs> StackItemNameChanged;
+        private void OnStackItemNameChanged(object sender,EventArgs e) {
+            //Invoke.
+            StackItemNameChanged?.Invoke(sender,e);
+        }
+
         #endregion
 
         #region Item Events
 
-        private void StackItem_NameChanged(object sender,EventArgs e) {
+        private void Item_NameChanged(object sender,EventArgs e) {
             if(Contains((sender as MochaStackItem).Name))
-                throw new Exception("An item with this name already exists!");
+                throw new Exception("There is already a stack item with this name!");
+
+            OnStackItemNameChanged(sender,e);
         }
 
         #endregion
@@ -62,9 +73,9 @@ namespace MochaDB.Collections {
         /// <param name="item">Item to add.</param>
         public void Add(MochaStackItem item) {
             if(Contains(item.Name))
-                throw new Exception("An item with this name already exists!");
+                throw new Exception("There is already a stack item with this name!");
 
-            item.NameChanged+=StackItem_NameChanged;
+            item.NameChanged+=Item_NameChanged;
             collection.Add(item);
             OnChanged(this,new EventArgs());
         }
@@ -102,7 +113,7 @@ namespace MochaDB.Collections {
         /// </summary>
         /// <param name="index">Index of item to remove.</param>
         public void RemoveAt(int index) {
-            collection[index].NameChanged-=StackItem_NameChanged;
+            collection[index].NameChanged-=Item_NameChanged;
             collection.RemoveAt(index);
             OnChanged(this,new EventArgs());
         }
@@ -219,7 +230,7 @@ namespace MochaDB.Collections {
         }
 
         /// <summary>
-        /// Count of item.
+        /// Count of items.
         /// </summary>
         public int Count =>
             collection.Count;

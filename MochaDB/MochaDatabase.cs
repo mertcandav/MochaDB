@@ -23,6 +23,7 @@
 
 using MochaDB.Connection;
 using MochaDB.Cryptography;
+using MochaDB.FileSystem;
 using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace MochaDB {
             Key = "MochaDBM6YxoFsLXu33FpJdjX0R89xGF";
 
         private FileStream sourceStream;
-        private AES256 aes256;
+        private AES aes256;
 
         #endregion
 
@@ -62,7 +63,7 @@ namespace MochaDB {
         /// <param name="path">Directory path of MochaDB database.</param>
         /// <param name="password">Password of MochaDB database.</param>
         public MochaDatabase(string path,string password) :
-            this(new MochaProvider("path="+path+";password="+password)) { }
+            this(new MochaProvider($"path={path};password={password}")) { }
 
         /// <summary>
         /// Create new MochaDatabase.
@@ -71,7 +72,7 @@ namespace MochaDB {
         public MochaDatabase(MochaProvider provider) {
             provider.EnableConstant();
             Provider=provider;
-            aes256=new AES256(Iv,Key);
+            aes256=new AES(Iv,Key);
             State=MochaConnectionState.Disconnected;
 
             if(GetBoolAttributeState("AutoConnect")) {
@@ -89,7 +90,7 @@ namespace MochaDB {
         /// This happens before connection check.
         /// </summary>
         internal event EventHandler<EventArgs> ConnectionCheckRequired;
-        private void OnConnectionCheckRequired(object sender,EventArgs e) {
+        internal void OnConnectionCheckRequired(object sender,EventArgs e) {
             //Invoke.
             ConnectionCheckRequired?.Invoke(sender,e);
 
@@ -161,6 +162,7 @@ namespace MochaDB {
 
             sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
             Query = new MochaQuery(this,true);
+            FileSystem = new MochaFileSystem(this,true);
         }
 
         /// <summary>
@@ -175,6 +177,7 @@ namespace MochaDB {
             sourceStream.Dispose();
             Doc=null;
             Query=null;
+            FileSystem=null;
         }
 
         /// <summary>
@@ -203,7 +206,7 @@ namespace MochaDB {
             string[] elementsName = elementPath.Split('/');
 
             try {
-                XDocument document = XDocument.Parse(new AES256(Iv,Key).Decrypt(File.ReadAllText(path)));
+                XDocument document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
                 XElement element = document.Root.Element(elementsName[0]);
 
                 if(element.Name.LocalName != elementsName[0])
@@ -254,7 +257,7 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path + ".mochadb",new AES256(Iv,Key).Encrypt(content));
+            File.WriteAllText(path + ".mochadb",new AES(Iv,Key).Encrypt(content));
         }
 
         /// <summary>
@@ -266,7 +269,7 @@ namespace MochaDB {
                 throw new Exception("The file shown is not a MochaDB database file!");
 
             try {
-                XDocument Document = XDocument.Parse(new AES256(Iv,Key).Decrypt(File.ReadAllText(path)));
+                XDocument Document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
                 if(Document.Root.Name.LocalName != "MochaDB")
                     return false;
                 else if(!ExistsElement(path,"Root/Password"))
@@ -278,6 +281,8 @@ namespace MochaDB {
                 else if(!ExistsElement(path,"Stacks"))
                     return false;
                 else if(!ExistsElement(path,"Tables"))
+                    return false;
+                else if(!ExistsElement(path,"FileSystem"))
                     return false;
                 else
                     return true;
@@ -306,6 +311,8 @@ namespace MochaDB {
                 else if(!ExistsElement("Stacks"))
                     return false;
                 else if(!ExistsElement("Tables"))
+                    return false;
+                else if(!ExistsElement("FileSystem"))
                     return false;
                 else
                     return true;
@@ -354,7 +361,7 @@ namespace MochaDB {
             Disconnect();
             File.WriteAllText(Provider.Path,content);
             Provider.Constant=false;
-            Provider.ConnectionString="path="+Provider.Path+";password="+password;
+            Provider.ConnectionString=$"path={Provider.Path};password={password}";
             Provider.EnableConstant();
             Connect();
 
@@ -600,7 +607,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector to check.</param>
         public MochaResult<bool> ExistsSector(string name) =>
-            ExistsElement("Sectors/" + name);
+            ExistsElement($"Sectors/{name}");
 
         #endregion
 
@@ -745,7 +752,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
         public MochaResult<bool> ExistsStack(string name) =>
-            ExistsElement("Stacks/"+name);
+            ExistsElement($"Stacks/{name}");
 
         #endregion
 
@@ -781,7 +788,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = !string.IsNullOrWhiteSpace(path) ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = !string.IsNullOrWhiteSpace(path) ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name);
             if(element==null)
                 throw new Exception("The road is wrong, there is no such way!");
@@ -802,7 +809,7 @@ namespace MochaDB {
             if(path==string.Empty)
                 Doc.Root.Element("Stacks").Element(name).RemoveAll();
             else {
-                XElement element = GetElement("Stacks/"+name+"/"+path);
+                XElement element = GetElement($"Stacks/{name}/{path}");
                 if(element==null)
                     return;
 
@@ -822,7 +829,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = path.Contains('/') ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name).Element(path);
 
             if(element==null)
@@ -844,7 +851,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = path.Contains('/') ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name).Element(path);
 
             if(element==null)
@@ -863,7 +870,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = path.Contains('/') ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name).Element(path);
 
             if(element==null)
@@ -885,7 +892,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = path.Contains('/') ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name).Element(path);
 
             if(element==null)
@@ -904,7 +911,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement element = path.Contains('/') ? GetElement("Stacks/"+name +"/"+path) :
+            XElement element = path.Contains('/') ? GetElement($"Stacks/{name}/{path}") :
                 Doc.Root.Element("Stacks").Element(name).Element(path);
 
             if(element==null)
@@ -913,7 +920,7 @@ namespace MochaDB {
             if(element.Name.LocalName == newName)
                 return;
 
-            if(path.Contains('/') && ExistsStackItem(name,path.Substring(0,path.IndexOf("/")) + "/"+newName))
+            if(path.Contains('/') && ExistsStackItem(name,$"{path.Substring(0,path.IndexOf("/"))}/{newName}"))
                 throw new Exception("There is already a stack item with this name!");
 
             element.Name=newName;
@@ -929,7 +936,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
 
-            XElement xStackItem = GetElement("Stacks/" + name + "/" + path);
+            XElement xStackItem = GetElement($"Stacks/{name}/{path}");
 
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
             item.Description=xStackItem.Attribute("Description").Value;
@@ -938,7 +945,7 @@ namespace MochaDB {
             IEnumerable<XElement> elementRange = xStackItem.Elements();
             if(elementRange.Count() >0)
                 for(int index = 0; index < elementRange.Count(); index++)
-                    item.Items.Add(GetStackItem(name,path += "/" + elementRange.ElementAt(index).Name.LocalName));
+                    item.Items.Add(GetStackItem(name,path += $"/{elementRange.ElementAt(index).Name.LocalName}"));
 
             return item;
         }
@@ -949,7 +956,7 @@ namespace MochaDB {
         /// <param name="name">Name of stack item.</param>
         /// <param name="path">Name path of item to check.</param>
         public MochaResult<bool> ExistsStackItem(string name,string path) =>
-            ExistsElement("Stacks/"+name+"/"+path);
+            ExistsElement($"Stacks/{name}/{path}");
 
         #endregion
 
@@ -1099,7 +1106,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of table.</param>
         public MochaResult<bool> ExistsTable(string name) =>
-            ExistsElement("Tables/" + name);
+            ExistsElement($"Tables/{name}");
 
         #endregion
 
@@ -1120,7 +1127,7 @@ namespace MochaDB {
             Xcolumn.Add(new XAttribute("DataType",column.DataType));
             Xcolumn.Add(new XAttribute("Description",column.Description));
 
-            int rowCount = (MochaResult<int>)Query.GetRun("ROWCOUNT:" + tableName);
+            int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
                     Xcolumn.Add(new XElement(index.ToString()));
@@ -1271,7 +1278,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public MochaResult<bool> ExistsColumn(string tableName,string name) =>
-            ExistsElement("Tables/"+tableName + "/" + name);
+            ExistsElement($"Tables/{tableName}/{name}");
 
         /// <summary>
         /// Return column datatype by name.
@@ -1417,7 +1424,7 @@ namespace MochaDB {
             if(columns.Count == 0)
                 return null;
 
-            int rowCount = (MochaResult<int>)Query.GetRun("ROWCOUNT:" + tableName);
+            int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(rowCount-1 < index)
                 throw new Exception("Index cat not bigger than row count!");
 
@@ -1722,7 +1729,7 @@ namespace MochaDB {
         /// <summary>
         /// The most basic content of the database.
         /// </summary>
-        internal static string EmptyContent => 
+        internal static string EmptyContent =>
 $@"<?MochaDB Version=\""{Version}""?>
 <MochaDB Description=""Root element of database."">>
     <Root Description=""Root of database."">>
@@ -1735,6 +1742,9 @@ $@"<?MochaDB Version=\""{Version}""?>
     </Stacks>
     <Tables Description=""Base of tables."">
     </Tables>
+    <FileSystem Description=""FileSystem of database."">
+        <C Type=""Disk"" Name=""Default"" Description=""Default disk.""></C>
+    </FileSystem>
 </MochaDB>";
 
         #endregion
@@ -1745,9 +1755,14 @@ $@"<?MochaDB Version=\""{Version}""?>
         public MochaProvider Provider { get; private set; }
 
         /// <summary>
-        /// MochaQuery object.
+        /// Mapped MochaQuery.
         /// </summary>
         public MochaQuery Query { get; private set; }
+
+        /// <summary>
+        /// Mapped MochaFileSystem.
+        /// </summary>
+        public MochaFileSystem FileSystem { get; private set; }
 
         /// <summary>
         /// State of connection.
@@ -1763,7 +1778,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            "2.0.0";
+            "3.0.0";
 
         #endregion
     }

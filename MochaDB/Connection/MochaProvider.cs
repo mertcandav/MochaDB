@@ -74,7 +74,7 @@ namespace MochaDB.Connection {
             string cstring = string.Empty;
             for(int index = 0; index < attributes.Count(); index++) {
                 MochaProviderAttribute attribtue = attributes.ElementAt(index);
-                cstring+=attribtue.Name+"="+attribtue.Value+";";
+                cstring+=$"{attribtue.Name}={attribtue.Value};";
             }
             return cstring;
         }

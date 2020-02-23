@@ -6,12 +6,12 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
-    <Description>File based NoSQL database system.</Description>
+    <Description>.NET embedded high performance NoSQL database system.</Description>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

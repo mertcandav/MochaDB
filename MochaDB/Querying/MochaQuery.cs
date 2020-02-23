@@ -1,5 +1,4 @@
-﻿using MochaDB.Connection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace MochaDB.Querying {
     public class MochaQuery:IMochaQuery {
         #region Fields
 
-        private MochaDatabase db;
+        private MochaDatabase database;
 
         #endregion
 
@@ -21,30 +20,31 @@ namespace MochaDB.Querying {
         /// <summary>
         /// Create new MochaQuery.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-        /// <param name="embedded">Is embedded query.</param>
-        internal MochaQuery(MochaDatabase db,bool embedded) {
-            this.db = db;
-            MochaQ = "RETURNQUERY";
+        /// <param name="database">MochaDatabase object to use querying.</param>
+        /// <param name="embedded">Is embedded query in database.</param>
+        internal MochaQuery(MochaDatabase database,bool embedded) {
+            this.database = database;
+            MochaQ = "BREAKQUERY";
             IsDatabaseEmbedded=embedded;
         }
 
         /// <summary>
         /// Create new MochaQuery.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-        public MochaQuery(MochaDatabase db) {
-            Database = db;
-            MochaQ = "RETURNQUERY";
+        /// <param name="database">MochaDatabase object to use querying.</param>
+        public MochaQuery(MochaDatabase database) {
+            IsDatabaseEmbedded=false;
+            Database = database;
+            MochaQ = "BREAKQUERY";
         }
 
         /// <summary>
         /// Create new MochaQuery.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MOchaDB database.</param>
+        /// <param name="database">MochaDatabase object to use querying.</param>
         /// <param name="mochaQ">MochaQuery to use.</param>
-        public MochaQuery(MochaDatabase db,string mochaQ)
-            : this(db) {
+        public MochaQuery(MochaDatabase database,string mochaQ)
+            : this(database) {
             MochaQ = mochaQ;
         }
 
@@ -64,10 +64,10 @@ namespace MochaDB.Querying {
         /// <summary>
         /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+        /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public IMochaResult Dynamic(MochaDatabase db,string mochaQ) {
-            Database = db;
+        public IMochaResult Dynamic(MochaDatabase database,string mochaQ) {
+            Database = database;
             MochaQ = mochaQ;
             return Dynamic();
         }
@@ -79,8 +79,7 @@ namespace MochaDB.Querying {
             if(!MochaQ.IsDynamicQuery())
                 throw new Exception(@"This MochaQ command is not ""Dynamic"" type command.");
 
-            if(Database.State!=MochaConnectionState.Connected)
-                throw new Exception("Connection is not open!");
+            Database.OnConnectionCheckRequired(this,new EventArgs());
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
@@ -130,10 +129,10 @@ namespace MochaDB.Querying {
         /// <summary>
         /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+        /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public void Run(MochaDatabase db,string mochaQ) {
-            Database = db;
+        public void Run(MochaDatabase database,string mochaQ) {
+            Database = database;
             MochaQ = mochaQ;
             Run();
         }
@@ -145,8 +144,7 @@ namespace MochaDB.Querying {
             if(!MochaQ.IsRunQuery())
                 throw new Exception(@"This MochaQ command is not ""Run"" type command.");
 
-            if(Database.State!=MochaConnectionState.Connected)
-                throw new Exception("Connection is not open!");
+            Database.OnConnectionCheckRequired(this,new EventArgs());
 
             if(Database.Provider.Readonly)
                 throw new Exception("This connection is can read only, cannot task of write!");
@@ -161,6 +159,35 @@ namespace MochaDB.Querying {
 
             string[] queryPaths = MochaQ.Command.Split(':');
             queryPaths[0]=queryPaths[0].ToUpperInvariant();
+
+            //File system.
+            if(queryPaths[0].StartsWith("FILESYSTEM_")) {
+                if(queryPaths.Length==1) {
+                    if(queryPaths[0] == "FILESYSTEM_CLEARDISKS") {
+                        Database.FileSystem.ClearDisks();
+                        return;
+                    } else
+                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                } else if(queryPaths.Length==2) {
+                    if(queryPaths[0]=="FILESYSTEM_REMOVEDISK") {
+                        Database.FileSystem.RemoveDisk(queryPaths[1]);
+                        return;
+                    } else if(queryPaths[0] == "FILESYSTEM_REMOVEDIRECTORY") {
+                        Database.FileSystem.RemoveDirectory(queryPaths[1]);
+                        return;
+                    } else if(queryPaths[0] == "FILESYSTEM_REMOVEFILE") {
+                        Database.FileSystem.RemoveFile(queryPaths[1]);
+                        return;
+                    } else
+                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                } else if(queryPaths.Length==3) {
+                    if(queryPaths[0]=="FILESYSTEM_UPLOADFILE") {
+                        Database.FileSystem.UploadFile(queryPaths[1],queryPaths[2]);
+                    } else
+                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                } else
+                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+            }
 
             if(queryPaths.Length == 1) {
                 if(queryPaths[0] == "RESETMOCHA") {
@@ -324,10 +351,10 @@ namespace MochaDB.Querying {
         /// <summary>
         /// Runs the active MochaQ query. Returns the incoming value.
         /// </summary>
-        /// <param name="db">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+        /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        public IMochaResult GetRun(MochaDatabase db,string mochaQ) {
-            Database = db;
+        public IMochaResult GetRun(MochaDatabase database,string mochaQ) {
+            Database = database;
             MochaQ = mochaQ;
             return GetRun();
         }
@@ -339,8 +366,7 @@ namespace MochaDB.Querying {
             if(!MochaQ.IsGetRunQuery())
                 throw new Exception(@"This MochaQ command is not ""GetRun"" type command.");
 
-            if(Database.State!=MochaConnectionState.Connected)
-                throw new Exception("Connection is not open!");
+            Database.OnConnectionCheckRequired(this,new EventArgs());
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
@@ -352,6 +378,21 @@ namespace MochaDB.Querying {
 
             string[] queryPaths = MochaQ.Command.Split(':');
             queryPaths[0]=queryPaths[0].ToUpperInvariant();
+
+            //File system.
+            if(queryPaths[0].StartsWith("FILESYSTEM_")) {
+                if(queryPaths.Length==2) {
+                    if(queryPaths[0]=="FILESYSTEM_EXISTSDISK") {
+                        return Database.FileSystem.ExistsDisk(queryPaths[1]);
+                    } else if(queryPaths[0] == "FILESYSTEM_EXISTSDIRECTORY") {
+                        return Database.FileSystem.ExistsDirectory(queryPaths[1]);
+                    } else if(queryPaths[0] == "FILESYSTEM_EXISTSFILE") {
+                        return Database.FileSystem.ExistsFile(queryPaths[1]);
+                    } else
+                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                } else
+                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+            }
 
             if(queryPaths.Length == 1) {
                 if(queryPaths[0] == "GETTABLES") {
@@ -497,28 +538,27 @@ namespace MochaDB.Querying {
         #region Properties
 
         /// <summary>
-        /// Is embedded query.
+        /// Is embedded query in database.
         /// </summary>
         public bool IsDatabaseEmbedded { get; private set; }
 
         /// <summary>
-        /// MochaDatabse object that provides management of the targeted MochaDB database.
+        /// MochaDatabase object to use querying.
         /// </summary>
         public MochaDatabase Database {
             get =>
-                db;
+                database;
             set {
                 if(IsDatabaseEmbedded)
                     throw new Exception("This is embedded in database, can not set database!");
 
-                if(db == null)
-                    throw new Exception("This MochaDatabase is not affiliated with a MochaDB!");
+                if(database == null)
+                    throw new Exception("This MochaDatabase is not affiliated with a database!");
 
-                if(value == db)
+                if(value == database)
                     return;
 
-
-                db = value;
+                database = value;
             }
         }
 

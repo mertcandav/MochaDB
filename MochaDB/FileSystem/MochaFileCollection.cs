@@ -1,25 +1,26 @@
-﻿using System;
+﻿using MochaDB.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MochaDB.Collections {
+namespace MochaDB.FileSystem {
     /// <summary>
-    /// MochaColumn collector.
+    /// MochaDb file system file collector.
     /// </summary>
-    public sealed class MochaColumnCollection:IMochaCollection<MochaColumn> {
+    public class MochaFileCollection:IMochaCollection<MochaFile> {
         #region Fields
 
-        internal List<MochaColumn> collection;
+        internal List<MochaFile> collection;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Create new MochaColumnCollection.
+        /// Create new MochaFileCollection.
         /// </summary>
-        public MochaColumnCollection() {
-            collection =new List<MochaColumn>();
+        public MochaFileCollection() {
+            collection =new List<MochaFile>();
         }
 
         #endregion
@@ -36,23 +37,39 @@ namespace MochaDB.Collections {
         }
 
         /// <summary>
-        /// This happens after Changed event of any item in collection.
+        /// This happens after NameChanged event of any item in collection.
         /// </summary>
-        public event EventHandler<EventArgs> ColumnChanged;
-        private void OnColumnChanged(object sender,EventArgs e) {
+        public event EventHandler<EventArgs> FileNameChanged;
+        private void OnFileNameChanged(object sender,EventArgs e) {
             //Invoke.
-            ColumnChanged?.Invoke(sender,e);
+            FileNameChanged?.Invoke(sender,e);
+        }
+
+        /// <summary>
+        /// This happens after NameChanged event of any item in collection.
+        /// </summary>
+        public event EventHandler<EventArgs> FileExtensionChanged;
+        private void OnFileExtensionChanged(object sender,EventArgs e) {
+            //Invoke.
+            FileExtensionChanged?.Invoke(sender,e);
         }
 
         #endregion
 
         #region Item Events
 
-        private void Item_Changed(object sender,EventArgs e) {
-            if(Contains((sender as MochaColumn).Name))
-                throw new Exception("There is already a column with this name!");
+        private void Item_NameChanged(object sender,EventArgs e) {
+            if(Contains((sender as MochaFile).FullName))
+                throw new Exception("There is already a file with this name and extension!");
 
-            OnColumnChanged(sender,e);
+            OnFileNameChanged(sender,e);
+        }
+
+        private void Item_ExtensionChanged(object sender,EventArgs e) {
+            if(Contains((sender as MochaFile).FullName))
+                throw new Exception("There is already a file with this name and extension!");
+
+            OnFileExtensionChanged(sender,e);
         }
 
         #endregion
@@ -71,13 +88,14 @@ namespace MochaDB.Collections {
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(MochaColumn item) {
+        public void Add(MochaFile item) {
             if(item == null)
                 return;
-            if(Contains(item.Name))
-                throw new Exception("There is already a column with this name!");
+            if(Contains(item.FullName))
+                throw new Exception("There is already a file with this name and extension!");
 
-            item.Datas.Changed+=Item_Changed;
+            item.NameChanged+=Item_NameChanged;
+            item.ExtensionChanged+=Item_ExtensionChanged;
             collection.Add(item);
         }
 
@@ -85,7 +103,7 @@ namespace MochaDB.Collections {
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaColumn> items) {
+        public void AddRange(IEnumerable<MochaFile> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -94,18 +112,19 @@ namespace MochaDB.Collections {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public void Remove(MochaColumn item) {
+        public void Remove(MochaFile item) {
             Remove(item.Name);
         }
 
         /// <summary>
         /// Remove item by name.
         /// </summary>
-        /// <param name="name">Name of item to remove.</param>
-        public void Remove(string name) {
+        /// <param name="fullName">FullName of item to remove.</param>
+        public void Remove(string fullName) {
             for(int index = 0; index < Count; index++)
-                if(collection[index].Name == name) {
-                    collection[index].Datas.Changed-=Item_Changed;
+                if(collection[index].Name == fullName) {
+                    collection[index].NameChanged-=Item_NameChanged;
+                    collection[index].ExtensionChanged-=Item_ExtensionChanged;
                     collection.RemoveAt(index);
                     break;
                 }
@@ -125,17 +144,17 @@ namespace MochaDB.Collections {
         /// Return index if index is find but return -1 if index is not find.
         /// </summary>
         /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaColumn item) {
+        public int IndexOf(MochaFile item) {
             return collection.IndexOf(item);
         }
 
         /// <summary>
         /// Return index if index is find but return -1 if index is not find.
         /// </summary>
-        /// <param name="name">Name of item to find index.</param>
-        public int IndexOf(string name) {
+        /// <param name="fullName">FullName of item to find index.</param>
+        public int IndexOf(string fullName) {
             for(int index = 0; index < Count; index++)
-                if(this[index].Name==name)
+                if(this[index].FullName==fullName)
                     return index;
             return -1;
         }
@@ -144,16 +163,16 @@ namespace MochaDB.Collections {
         /// Return true if item is exists but return false if item not exists.
         /// </summary>
         /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaColumn item) {
+        public bool Contains(MochaFile item) {
             return Contains(item.Name);
         }
 
         /// <summary>
         /// Return true if item is exists but return false if item not exists.
         /// </summary>
-        /// <param name="name">Name of item to exists check.</param>
-        public bool Contains(string name) {
-            return IndexOf(name) != -1;
+        /// <param name="fullName">FullName of item to exists check.</param>
+        public bool Contains(string fullName) {
+            return IndexOf(fullName) != -1;
         }
 
         /// <summary>
@@ -171,32 +190,32 @@ namespace MochaDB.Collections {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public MochaColumn GetFirst() =>
+        public MochaFile GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public MochaColumn GetLast() =>
+        public MochaFile GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         /// <summary>
         /// Return element by index.
         /// </summary>
         /// <param name="index">Index of element.</param>
-        public MochaColumn ElementAt(int index) =>
+        public MochaFile ElementAt(int index) =>
             collection.ElementAt(index);
 
         /// <summary>
         /// Create and return static array from collection.
         /// </summary>
-        public MochaColumn[] ToArray() =>
+        public MochaFile[] ToArray() =>
             collection.ToArray();
 
         /// <summary>
         /// Create and return List<T> from collection.
         /// </summary>
-        public List<MochaColumn> ToList() =>
+        public List<MochaFile> ToList() =>
             collection.ToList();
 
         #endregion
@@ -207,14 +226,14 @@ namespace MochaDB.Collections {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaColumn this[int index] =>
+        public MochaFile this[int index] =>
             ElementAt(index);
 
         /// <summary>
         /// Return item by name.
         /// </summary>
-        /// <param name="name">Name of column.</param>
-        public MochaColumn this[string name] {
+        /// <param name="name">Name of item.</param>
+        public MochaFile this[string name] {
             get {
                 int dex = IndexOf(name);
                 if(dex!=-1)
@@ -224,7 +243,7 @@ namespace MochaDB.Collections {
         }
 
         /// <summary>
-        /// Count of data.
+        /// Count of items.
         /// </summary>
         public int Count =>
             collection.Count;
