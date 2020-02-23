@@ -15,6 +15,7 @@
 - Small
 - Secure
 - Embedded
+- Embed files into the database with FileSystem
 - Full compatible with .NET Core, .NET Standard and .NET Framework
 - Script build and debug with MochaScript
 - MochaQ for simple and fast querys
