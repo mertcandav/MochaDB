@@ -183,6 +183,9 @@ namespace MochaDB.Querying {
                 } else if(queryPaths[0] == "CLEARTABLES") {
                     Database.ClearTables();
                     return;
+                } else if(queryPaths[0] == "CLEARALL") {
+                    Database.ClearAll();
+                    return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 2) {

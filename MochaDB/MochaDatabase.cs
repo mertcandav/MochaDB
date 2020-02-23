@@ -267,7 +267,7 @@ namespace MochaDB {
 
             try {
                 XDocument Document = XDocument.Parse(new AES256(Iv,Key).Decrypt(File.ReadAllText(path)));
-                if(Document.Root.Name.LocalName != "Mocha")
+                if(Document.Root.Name.LocalName != "MochaDB")
                     return false;
                 else if(!ExistsElement(path,"Root/Password"))
                     return false;
@@ -295,7 +295,7 @@ namespace MochaDB {
         /// </summary>
         internal bool CheckMochaDB() {
             try {
-                if(Doc.Root.Name.LocalName != "Mocha")
+                if(Doc.Root.Name.LocalName != "MochaDB")
                     return false;
                 else if(!ExistsElement("Root/Password"))
                     return false;
@@ -400,6 +400,18 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             Doc.Root.Element("Root").Element("Description").Value = Description;
+            Save();
+        }
+
+        /// <summary>
+        /// Remove all sectors, stacks, tables and others.
+        /// </summary>
+        public void ClearAll() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            Doc.Root.Element("Sectors").RemoveNodes();
+            Doc.Root.Element("Stacks").RemoveNodes();
+            Doc.Root.Element("Tables").RemoveNodes();
             Save();
         }
 
@@ -1710,19 +1722,20 @@ namespace MochaDB {
         /// <summary>
         /// The most basic content of the database.
         /// </summary>
-        internal static string EmptyContent => "<?MochaDB Version=\"" + Version + "\"?>\n" +
-                        "<Mocha Description=\"Root element of database.\">>\n" +
-                        "  <Root Description=\"Base of root.\">>\n" +
-                        "    <Password DataType=\"String\" Description=\"Password of database.\"></Password>\n" +
-                        "    <Description DataType=\"String\" Description=\"Description of database.\"></Description>" +
-                        "  </Root>\n" +
-                        "  <Sectors Description=\"Base of sectors.\">>\n" +
-                        "  </Sectors>\n" +
-                        "  <Stacks Description=\"Base of stacks.\">>\n" +
-                        "  </Stacks>\n" +
-                        "  <Tables Description=\"Base of tables.\">\n" +
-                        "  </Tables>\n" +
-                        "</Mocha>";
+        internal static string EmptyContent => 
+$@"<?MochaDB Version=\""{Version}""?>
+<MochaDB Description=""Root element of database."">>
+    <Root Description=""Root of database."">>
+        <Password DataType=""String"" Description=""Password of database.""></Password>
+        <Description DataType=""String"" Description=""Description of database.""></Description>
+    </Root>
+    <Sectors Description=""Base of sectors."">>
+    </Sectors>
+    <Stacks Description=""Base of stacks."">>
+    </Stacks>
+    <Tables Description=""Base of tables."">
+    </Tables>
+</MochaDB>";
 
         #endregion
 
