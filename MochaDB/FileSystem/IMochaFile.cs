@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -15,6 +16,7 @@ namespace MochaDB.FileSystem {
         #region Methods
 
         void From(string path);
+        MemoryStream ToStream();
 
         #endregion
 

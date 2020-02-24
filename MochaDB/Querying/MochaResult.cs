@@ -3,7 +3,7 @@
     /// Base for MochaDB value results.
     /// </summary>
     /// <typeparam name="T">Type of result value.</typeparam>
-    public struct MochaResult<T>:IMochaResult {
+    public struct MochaResult<T>:IMochaResult<T> {
         #region Constructors
 
         /// <summary>
@@ -26,11 +26,35 @@
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// Returns value as object.
+        /// </summary>
+        public object GetObject() =>
+            Value;
+
+        /// <summary>
+        /// Return 
+        /// </summary>
+        public string GetString() =>
+            Value.ToString();
+
+        /// <summary>
+        /// Return hash code of value.
+        /// </summary>
+        public int GetHash() =>
+            Value.GetHashCode();
+
+        #endregion
+
         #region Override
 
-        public override string ToString() {
-            return Value.ToString();
-        }
+        /// <summary>
+        /// Returns the value converted to string.
+        /// </summary>
+        public override string ToString() =>
+            GetString();
 
         #endregion
 

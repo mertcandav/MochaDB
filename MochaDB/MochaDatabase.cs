@@ -185,6 +185,7 @@ namespace MochaDB {
         /// </summary>
         public void Dispose() {
             Disconnect();
+            aes256=null;
             Provider=null;
         }
 

@@ -92,7 +92,6 @@ namespace MochaDB.FileSystem {
         /// <summary>
         /// Returns bytes converted to MemoryStream.
         /// </summary>
-        /// <returns></returns>
         public MemoryStream ToStream() =>
             new MemoryStream(Bytes);
 
