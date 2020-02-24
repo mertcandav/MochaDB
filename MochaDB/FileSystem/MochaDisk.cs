@@ -24,6 +24,7 @@ namespace MochaDB.FileSystem {
             Directories=new MochaDirectoryCollection();
             Root=root;
             Name=name;
+            Description=string.Empty;
         }
 
         #endregion

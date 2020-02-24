@@ -143,6 +143,7 @@ namespace MochaDB.FileSystem {
             get =>
                 extension;
             set {
+                value = value[0] != '.' ? $".{value}" : value;
                 if(value==extension)
                     return;
 

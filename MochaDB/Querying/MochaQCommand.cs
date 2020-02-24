@@ -58,7 +58,8 @@
                 command.StartsWith("COLUMNCOUNT") ||
                 command.StartsWith("ROWCOUNT") ||
                 command.StartsWith("DATACOUNT") ||
-                command.StartsWith("EXISTS"))
+                command.StartsWith("EXISTS") ||
+                command.StartsWith("FILESYSTEM_EXISTS"))
                 return true;
             else
                 return false;
@@ -81,7 +82,8 @@
                 command.StartsWith("EXISTS") ||
                 command.StartsWith("FILESYSTEM_CLEAR") ||
                 command.StartsWith("FILESYSTEM_REMOVE") ||
-                command.StartsWith("FILESYSTEM_UPLOAD"))
+                command.StartsWith("FILESYSTEM_UPLOAD") ||
+                command.StartsWith("FILESYSTEM_CREATE"))
                 return true;
             else
                 return false;
