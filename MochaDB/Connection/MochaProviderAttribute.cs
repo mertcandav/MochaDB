@@ -11,7 +11,7 @@ namespace MochaDB.Connection {
         internal static Regex booleanAttributesRegex = new Regex(@"
 AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-        private string
+        internal string
             name,
             value;
 
@@ -51,7 +51,8 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
                 if(booleanAttributesRegex.IsMatch(Name))
                     value="False";
             } else {
-                if(booleanAttributesRegex.IsMatch(Name) && !bool.TryParse(value,out _))
+                if(booleanAttributesRegex.IsMatch(Name) && (!value.Equals("true",StringComparison.OrdinalIgnoreCase) ||
+                    !value.Equals("false",StringComparison.OrdinalIgnoreCase)))
                     value="False";
             }
         }

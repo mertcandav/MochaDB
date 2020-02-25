@@ -59,10 +59,10 @@ namespace MochaDB.Connection {
             string sresult = result.ElementAt(0);
             string attributeValue = sresult.Substring(sresult.IndexOf('=')+1);
             MochaProviderAttribute attribute = new MochaProviderAttribute();
+            attribute.name=name.TrimStart().TrimEnd();
             attribute.Value= attributeValue==null ? string.Empty :
                 string.Equals(attribute.Name,"password") ?
                 attributeValue : attributeValue.TrimStart().TrimEnd();
-            attribute.Name=name.TrimStart().TrimEnd();
             return attribute;
         }
 

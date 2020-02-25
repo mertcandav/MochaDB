@@ -119,7 +119,7 @@ namespace MochaDB {
         /// <param name="name">Name of attribute.</param>
         internal bool GetBoolAttributeState(string name) {
             MochaProviderAttribute attribute = Provider.GetAttribute(name);
-            if(attribute!=null && attribute.Value.Equals("True"))
+            if(attribute!=null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase))
                 return true;
             return false;
         }
