@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MochaDB.Connection {
+namespace MochaDB.Dynamic {
     /// <summary>
-    /// Attributes for MochaProviders.
+    /// Attribute for MochaDB.
     /// </summary>
-    public sealed class MochaProviderAttribute:IMochaProviderAttribute {
+    public class MochaAttribute:IMochaAttribute {
         #region Fields
 
-        internal static Regex booleanAttributesRegex = new Regex(@"
-AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private Regex bannedNamesRegex = new Regex(
+@"^(Description)\b");
 
-        internal string
+        private string
             name,
             value;
 
@@ -20,21 +20,22 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
         #region Constructors
 
         /// <summary>
-        /// Create new MochaProviderAttribute.
+        /// Create new MochaAttribute.
         /// </summary>
-        internal MochaProviderAttribute() {
-            name=string.Empty;
-            value=string.Empty;
+        /// <param name="name">Name of attribute.</param>
+        public MochaAttribute(string name) {
+            Name=name;
+            Value=string.Empty;
         }
 
         /// <summary>
-        /// Create new MochaProviderAttribute.
+        /// Create new MochaAttribute.
         /// </summary>
         /// <param name="name">Name of attribute.</param>
         /// <param name="value">Value of attribute.</param>
-        public MochaProviderAttribute(string name,string value) {
-            this.value=value;
-            Name=name;
+        public MochaAttribute(string name,string value) :
+            this(name) {
+            Value=value;
         }
 
         #endregion
@@ -61,36 +62,6 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
 
         #endregion
 
-        #region Methods
-
-        #region Internal
-
-        /// <summary>
-        /// Check value by name.
-        /// </summary>
-        internal void CheckValue() {
-            if(string.IsNullOrWhiteSpace(value)) {
-                if(Name.Equals("Path"))
-                    throw new Exception("File path cannot be empty!");
-                if(booleanAttributesRegex.IsMatch(Name))
-                    value="False";
-            } else {
-                if(booleanAttributesRegex.IsMatch(Name) && (!value.Equals("true",StringComparison.OrdinalIgnoreCase) ||
-                    !value.Equals("false",StringComparison.OrdinalIgnoreCase)))
-                    value="False";
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Returns string as in provider.
-        /// </summary>
-        public string GetProviderString() =>
-            $"{Name}={Value};";
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -100,15 +71,17 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
             get =>
                 name;
             set {
+                value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new Exception("Attribute name is can not empty or white space!");
+                    throw new Exception("Name is cannot null!");
+                else if(bannedNamesRegex.IsMatch(value))
+                    throw new Exception($@"Name is cannot ""{value}""");
 
                 if(value==name)
                     return;
 
                 name=value;
                 OnNameChanged(this,new EventArgs());
-                CheckValue();
             }
         }
 
@@ -119,9 +92,11 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
             get =>
                 value;
             set {
+                if(this.value==value)
+                    return;
+
                 this.value=value;
                 OnValueChanged(this,new EventArgs());
-                CheckValue();
             }
         }
 

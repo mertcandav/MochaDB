@@ -48,6 +48,7 @@ namespace MochaDB.FileSystem {
             get =>
                 name;
             set {
+                value=value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
                     throw new Exception("Name is cannot null or whitespace!");
 

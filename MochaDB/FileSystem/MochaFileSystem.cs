@@ -46,7 +46,7 @@ namespace MochaDB.FileSystem {
         public void ClearDisks() {
             Database.OnConnectionCheckRequired(this,new EventArgs());
             Database.Doc.Root.Element("FileSystem").RemoveNodes();
-            
+
             Database.Save();
         }
 

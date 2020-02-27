@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MochaDB.Collections {
+namespace MochaDB {
     /// <summary>
-    /// MochaColumn collector.
+    /// MochaStackItem collector.
     /// </summary>
-    public sealed class MochaColumnCollection:IMochaCollection<MochaColumn> {
+    public sealed class MochaStackItemCollection:IMochaCollection<MochaStackItem> {
         #region Fields
 
-        internal List<MochaColumn> collection;
+        private List<MochaStackItem> collection;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Create new MochaColumnCollection.
+        /// Create new MochaStackItemCollection.
         /// </summary>
-        public MochaColumnCollection() {
-            collection =new List<MochaColumn>();
+        public MochaStackItemCollection() {
+            collection= new List<MochaStackItem>();
         }
 
         #endregion
@@ -36,23 +36,23 @@ namespace MochaDB.Collections {
         }
 
         /// <summary>
-        /// This happens after Changed event of any item in collection.
+        /// This happens after NameChanged event of any item in collection.
         /// </summary>
-        public event EventHandler<EventArgs> ColumnChanged;
-        private void OnColumnChanged(object sender,EventArgs e) {
+        public event EventHandler<EventArgs> StackItemNameChanged;
+        private void OnStackItemNameChanged(object sender,EventArgs e) {
             //Invoke.
-            ColumnChanged?.Invoke(sender,e);
+            StackItemNameChanged?.Invoke(sender,e);
         }
 
         #endregion
 
         #region Item Events
 
-        private void Item_Changed(object sender,EventArgs e) {
-            if(Contains((sender as MochaColumn).Name))
-                throw new Exception("There is already a column with this name!");
+        private void Item_NameChanged(object sender,EventArgs e) {
+            if(Contains((sender as MochaStackItem).Name))
+                throw new Exception("There is already a stack item with this name!");
 
-            OnColumnChanged(sender,e);
+            OnStackItemNameChanged(sender,e);
         }
 
         #endregion
@@ -71,21 +71,20 @@ namespace MochaDB.Collections {
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(MochaColumn item) {
-            if(item == null)
-                return;
+        public void Add(MochaStackItem item) {
             if(Contains(item.Name))
-                throw new Exception("There is already a column with this name!");
+                throw new Exception("There is already a stack item with this name!");
 
-            item.Datas.Changed+=Item_Changed;
+            item.NameChanged+=Item_NameChanged;
             collection.Add(item);
+            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaColumn> items) {
+        public void AddRange(IEnumerable<MochaStackItem> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -94,7 +93,7 @@ namespace MochaDB.Collections {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public void Remove(MochaColumn item) {
+        public void Remove(MochaStackItem item) {
             Remove(item.Name);
         }
 
@@ -103,13 +102,9 @@ namespace MochaDB.Collections {
         /// </summary>
         /// <param name="name">Name of item to remove.</param>
         public void Remove(string name) {
-            for(int index = 0; index < Count; index++)
-                if(collection[index].Name == name) {
-                    collection[index].Datas.Changed-=Item_Changed;
-                    collection.RemoveAt(index);
-                    break;
-                }
-            OnChanged(this,new EventArgs());
+            int dex = IndexOf(name);
+            if(dex!=-1)
+                RemoveAt(dex);
         }
 
         /// <summary>
@@ -117,7 +112,8 @@ namespace MochaDB.Collections {
         /// </summary>
         /// <param name="index">Index of item to remove.</param>
         public void RemoveAt(int index) {
-            Remove(collection[index].Name);
+            collection[index].NameChanged-=Item_NameChanged;
+            collection.RemoveAt(index);
             OnChanged(this,new EventArgs());
         }
 
@@ -125,8 +121,16 @@ namespace MochaDB.Collections {
         /// Return index if index is find but return -1 if index is not find.
         /// </summary>
         /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaColumn item) {
-            return collection.IndexOf(item);
+        public int IndexOf(MochaStackItem item) {
+            return IndexOf(item.Name);
+        }
+
+        /// <summary>
+        /// Return true if item is exists but return false if item not exists.
+        /// </summary>
+        /// <param name="item">Item to exists check.</param>
+        public bool Contains(MochaStackItem item) {
+            return Contains(item.Name);
         }
 
         /// <summary>
@@ -134,27 +138,20 @@ namespace MochaDB.Collections {
         /// </summary>
         /// <param name="name">Name of item to find index.</param>
         public int IndexOf(string name) {
-            for(int index = 0; index < Count; index++)
-                if(this[index].Name==name)
+            for(int index = 0; index < Count; index++) {
+                if(this[index].Name== name)
                     return index;
+            }
+
             return -1;
         }
 
         /// <summary>
         /// Return true if item is exists but return false if item not exists.
         /// </summary>
-        /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaColumn item) {
-            return Contains(item.Name);
-        }
-
-        /// <summary>
-        /// Return true if item is exists but return false if item not exists.
-        /// </summary>
         /// <param name="name">Name of item to exists check.</param>
-        public bool Contains(string name) {
-            return IndexOf(name) != -1;
-        }
+        public bool Contains(string name) =>
+            IndexOf(name)!=-1 ? true : false;
 
         /// <summary>
         /// Return max index of item count.
@@ -171,32 +168,32 @@ namespace MochaDB.Collections {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public MochaColumn GetFirst() =>
+        public MochaStackItem GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public MochaColumn GetLast() =>
+        public MochaStackItem GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         /// <summary>
         /// Return element by index.
         /// </summary>
         /// <param name="index">Index of element.</param>
-        public MochaColumn ElementAt(int index) =>
+        public MochaStackItem ElementAt(int index) =>
             collection.ElementAt(index);
 
         /// <summary>
         /// Create and return static array from collection.
         /// </summary>
-        public MochaColumn[] ToArray() =>
+        public MochaStackItem[] ToArray() =>
             collection.ToArray();
 
         /// <summary>
         /// Create and return List<T> from collection.
         /// </summary>
-        public List<MochaColumn> ToList() =>
+        public List<MochaStackItem> ToList() =>
             collection.ToList();
 
         #endregion
@@ -207,24 +204,32 @@ namespace MochaDB.Collections {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaColumn this[int index] =>
-            ElementAt(index);
-
-        /// <summary>
-        /// Return item by name.
-        /// </summary>
-        /// <param name="name">Name of column.</param>
-        public MochaColumn this[string name] {
-            get {
-                int dex = IndexOf(name);
-                if(dex!=-1)
-                    return ElementAt(dex);
-                return null;
+        public MochaStackItem this[int index] {
+            get =>
+                ElementAt(index);
+            set {
+                collection[index]=value;
+                OnChanged(this,new EventArgs());
             }
         }
 
         /// <summary>
-        /// Count of data.
+        /// Return item by name.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        public MochaStackItem this[string name] {
+            get {
+                int dex = IndexOf(name);
+                return dex!=-1 ? this[dex] : throw new Exception("There is no item by this name!");
+            }
+            set {
+                int dex = IndexOf(name);
+                this[dex] = dex!=-1 ? value : throw new Exception("There is no item by this name!");
+            }
+        }
+
+        /// <summary>
+        /// Count of items.
         /// </summary>
         public int Count =>
             collection.Count;

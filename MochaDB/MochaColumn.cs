@@ -1,4 +1,4 @@
-﻿using MochaDB.Collections;
+﻿using System;
 using System.Collections.Generic;
 
 namespace MochaDB {
@@ -9,6 +9,7 @@ namespace MochaDB {
         #region Fields
 
         private MochaDataType dataType;
+        private string name;
 
         #endregion
 
@@ -38,12 +39,39 @@ namespace MochaDB {
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// This happens after name changed;
+        /// </summary>
+        public event EventHandler<EventArgs> NameChanged;
+        private void OnNameChanged(object sender,EventArgs e) {
+            //Invoke.
+            NameChanged?.Invoke(sender,e);
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
         /// Name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name {
+            get =>
+                name;
+            set {
+                value=value.Trim();
+                if(string.IsNullOrWhiteSpace(value))
+                    throw new Exception("Name is cannot null or whitespace!");
+
+                if(value==name)
+                    return;
+
+                name=value;
+                OnNameChanged(this,new EventArgs());
+            }
+        }
 
         /// <summary>
         /// Description.

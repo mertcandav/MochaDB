@@ -1,5 +1,4 @@
-﻿using MochaDB.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -126,9 +125,9 @@ namespace MochaDB.FileSystem {
                     collection[index].NameChanged-=Item_NameChanged;
                     collection[index].ExtensionChanged-=Item_ExtensionChanged;
                     collection.RemoveAt(index);
+                    OnChanged(this,new EventArgs());
                     break;
                 }
-            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
@@ -137,7 +136,6 @@ namespace MochaDB.FileSystem {
         /// <param name="index">Index of item to remove.</param>
         public void RemoveAt(int index) {
             Remove(collection[index].Name);
-            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
@@ -145,7 +143,7 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="item">Item to find index.</param>
         public int IndexOf(MochaFile item) {
-            return collection.IndexOf(item);
+            return IndexOf(item.Name);
         }
 
         /// <summary>

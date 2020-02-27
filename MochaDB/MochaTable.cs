@@ -1,11 +1,16 @@
-﻿using MochaDB.Collections;
-using System;
+﻿using System;
 
 namespace MochaDB {
     /// <summary>
     /// This is table object for MochaDB.
     /// </summary>
     public class MochaTable:IMochaTable {
+        #region Fields
+
+        private string name;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -29,6 +34,19 @@ namespace MochaDB {
         public MochaTable(string name,string description) :
             this(name) {
             Description=description;
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// This happens after name changed;
+        /// </summary>
+        public event EventHandler<EventArgs> NameChanged;
+        private void OnNameChanged(object sender,EventArgs e) {
+            //Invoke.
+            NameChanged?.Invoke(sender,e);
         }
 
         #endregion
@@ -119,7 +137,7 @@ namespace MochaDB {
         /// <param name="index">Index of column.</param>
         public void ShortDatas(int index) {
             SetRowsByDatas();
-            Rows.collection.Sort((X,Y) => X.Datas[index].ToString().CompareTo(Y.Datas[index].ToString()));
+            Rows.collection.Sort((x,y) => x.Datas[index].ToString().CompareTo(y.Datas[index].ToString()));
             SetDatasByRows();
         }
 
@@ -138,7 +156,21 @@ namespace MochaDB {
         /// <summary>
         /// Name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name {
+            get =>
+                name;
+            set {
+                value=value.Trim();
+                if(string.IsNullOrWhiteSpace(value))
+                    throw new Exception("Name is cannot null or whitespace!");
+
+                if(value==name)
+                    return;
+
+                name=value;
+                OnNameChanged(this,new EventArgs());
+            }
+        }
 
         /// <summary>
         /// Description.

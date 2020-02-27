@@ -1,5 +1,4 @@
-﻿using MochaDB.Collections;
-using System;
+﻿using System;
 
 namespace MochaDB {
     /// <summary>
@@ -70,6 +69,9 @@ namespace MochaDB {
             get =>
                 name;
             set {
+                value=value.TrimStart().TrimEnd();
+                if(string.IsNullOrEmpty(value))
+                    throw new Exception("Name is cannot null!");
                 if(value==name)
                     return;
 

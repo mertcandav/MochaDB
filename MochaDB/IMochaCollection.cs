@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MochaDB.Collections {
+namespace MochaDB {
     /// <summary>
     /// Collection interface for MochaDB.
     /// </summary>

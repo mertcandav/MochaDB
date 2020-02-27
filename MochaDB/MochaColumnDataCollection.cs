@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MochaDB.Collections {
+namespace MochaDB {
     /// <summary>
-    /// MochaData collector.
+    /// MochaData collector for MochaColumns.
     /// </summary>
-    public sealed class MochaDataCollection:IMochaCollection<MochaData> {
+    public sealed class MochaColumnDataCollection:IMochaCollection<MochaData> {
         #region Fields
 
         internal List<MochaData> collection;
+        private MochaDataType dataType;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Create new MochaDataCollection.
+        /// Create new MochaColumnDataCollection.
         /// </summary>
-        public MochaDataCollection() {
+        /// <param name="dataType">DataType of column.</param>
+        public MochaColumnDataCollection(MochaDataType dataType) {
             collection=new List<MochaData>();
+            this.dataType=dataType;
         }
 
         #endregion
@@ -43,6 +46,9 @@ namespace MochaDB.Collections {
         /// Remove all items.
         /// </summary>
         public void Clear() {
+            if(collection.Count ==0)
+                return;
+
             collection.Clear();
             OnChanged(this,new EventArgs());
         }
@@ -52,8 +58,28 @@ namespace MochaDB.Collections {
         /// </summary>
         /// <param name="item">Item to add.</param>
         public void Add(MochaData item) {
-            collection.Add(item);
-            OnChanged(this,new EventArgs());
+            if(DataType==MochaDataType.AutoInt)
+                throw new Exception("Data cannot be added directly to a column with AutoInt!");
+            if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
+                if(ContainsData(item.Data))
+                    throw new Exception("Any value can be added to a unique column only once!");
+
+            if(item.DataType == DataType) {
+                collection.Add(item);
+                Changed?.Invoke(this,new EventArgs());
+            } else
+                throw new Exception("This data's datatype not compatible column datatype.");
+        }
+
+        /// <summary>
+        /// Add data.
+        /// </summary>
+        /// <param name="data">Data to add.</param>
+        public void AddData(object data) {
+            if(MochaData.IsType(DataType,data))
+                AddData(new MochaData(DataType,data));
+            else
+                throw new Exception("This data's datatype not compatible column datatype.");
         }
 
         /// <summary>
@@ -115,6 +141,18 @@ namespace MochaDB.Collections {
         }
 
         /// <summary>
+        /// Return true if data is contained but return false if not exists.
+        /// </summary>
+        /// <param name="data">Data to check.</param>
+        public bool ContainsData(object data) {
+            for(int index = 0; index < Count; index++)
+                if(data ==this[index])
+                    return true;
+
+            return false;
+        }
+
+        /// <summary>
         /// Return max index of item count.
         /// </summary>
         public int MaxIndex() =>
@@ -165,17 +203,32 @@ namespace MochaDB.Collections {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaData this[int index] {
+        public MochaData this[int index] =>
+            ElementAt(index);
+
+        /// <summary>
+        /// Data type of column.
+        /// </summary>
+        public MochaDataType DataType {
             get =>
-                ElementAt(index);
-            set {
-                collection[index] = value;
-                OnChanged(this,new EventArgs());
+                dataType;
+            internal set {
+                if(value == dataType)
+                    return;
+
+                dataType = value;
+
+                if(value == MochaDataType.AutoInt) {
+                    return;
+                }
+
+                for(int index = 0; index < Count; index++)
+                    collection[index].DataType = dataType;
             }
         }
 
         /// <summary>
-        /// Count of data.
+        /// Count of items.
         /// </summary>
         public int Count =>
             collection.Count;

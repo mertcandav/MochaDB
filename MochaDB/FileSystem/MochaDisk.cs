@@ -60,7 +60,7 @@ namespace MochaDB.FileSystem {
             get =>
                 root;
             set {
-                value.TrimStart().TrimEnd();
+                value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
                     throw new Exception("Root is cannot null or whitespace!");
 
@@ -79,6 +79,7 @@ namespace MochaDB.FileSystem {
             get =>
                 name;
             set {
+                value=value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
                     throw new Exception("Name is cannot null or whitespace!");
 

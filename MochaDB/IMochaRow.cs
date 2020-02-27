@@ -1,6 +1,4 @@
-﻿using MochaDB.Collections;
-
-namespace MochaDB {
+﻿namespace MochaDB {
     /// <summary>
     /// Row interface for MochaDB rows.
     /// </summary>

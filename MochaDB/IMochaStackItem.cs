@@ -1,5 +1,4 @@
-﻿using MochaDB.Collections;
-using System;
+﻿using System;
 
 namespace MochaDB {
     /// <summary>

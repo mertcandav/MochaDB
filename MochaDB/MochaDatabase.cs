@@ -111,6 +111,27 @@ namespace MochaDB {
 
         #endregion
 
+        #region Xml
+
+        /// <summary>
+        /// Return xml schema of database.
+        /// </summary>
+        public MochaResult<string> GetXML() =>
+            GetXMLDocument().ToString();
+
+        /// <summary>
+        /// Return XDocument of database.
+        /// </summary>
+        public MochaResult<XDocument> GetXMLDocument() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            XDocument doc = XDocument.Parse(Doc.ToString());
+            doc.Root.Element("Root").Remove();
+            return doc;
+        }
+
+        #endregion
+
         #region Provider
 
         /// <summary>
@@ -1693,27 +1714,6 @@ namespace MochaDB {
                 throw new Exception("Column not found in this name!");
 
             return Doc.Root.Element("Tables").Element(tableName).Element(columnName).Elements().Count();
-        }
-
-        #endregion
-
-        #region Xml
-
-        /// <summary>
-        /// Return xml schema of database.
-        /// </summary>
-        public MochaResult<string> GetXML() =>
-            GetXMLDocument().ToString();
-
-        /// <summary>
-        /// Return XDocument of database.
-        /// </summary>
-        public MochaResult<XDocument> GetXMLDocument() {
-            OnConnectionCheckRequired(this,new EventArgs());
-
-            XDocument doc = XDocument.Parse(Doc.ToString());
-            doc.Root.Element("Root").Remove();
-            return doc;
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿using MochaDB.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -108,9 +107,9 @@ namespace MochaDB.FileSystem {
                 if(collection[index].Name == name) {
                     collection[index].NameChanged-=Item_NameChanged;
                     collection.RemoveAt(index);
+                    OnChanged(this,new EventArgs());
                     break;
                 }
-            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
@@ -119,7 +118,6 @@ namespace MochaDB.FileSystem {
         /// <param name="index">Index of item to remove.</param>
         public void RemoveAt(int index) {
             Remove(collection[index].Name);
-            OnChanged(this,new EventArgs());
         }
 
         /// <summary>

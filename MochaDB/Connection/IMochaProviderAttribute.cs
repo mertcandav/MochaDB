@@ -1,12 +1,13 @@
-﻿namespace MochaDB.Connection {
+﻿using MochaDB.Dynamic;
+
+namespace MochaDB.Connection {
     /// <summary>
     /// Provider attribute interface for MochaDB provider attributes.
     /// </summary>
-    public interface IMochaProviderAttribute {
-        #region Properties
+    public interface IMochaProviderAttribute:IMochaAttribute {
+        #region Methods
 
-        string Name { get; set; }
-        string Value { get; set; }
+        string GetProviderString();
 
         #endregion
     }

@@ -1,21 +1,21 @@
 ﻿using System;
 
-namespace MochaDB {
+namespace MochaDB.Dynamic {
     /// <summary>
-    /// Sector interface for MochaDB sectors.
+    /// Interface for MochaDB attributes.
     /// </summary>
-    public interface IMochaSector {
+    public interface IMochaAttribute {
         #region Events
 
         event EventHandler<EventArgs> NameChanged;
+        event EventHandler<EventArgs> ValueChanged;
 
         #endregion
 
         #region Properties
 
         string Name { get; set; }
-        string Data { get; set; }
-        string Description { get; set; }
+        string Value { get; set; }
 
         #endregion
     }
