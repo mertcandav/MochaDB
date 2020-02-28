@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MochaDB.Dynamic {
+namespace MochaDB {
     /// <summary>
     /// Interface for MochaDB attributes.
     /// </summary>

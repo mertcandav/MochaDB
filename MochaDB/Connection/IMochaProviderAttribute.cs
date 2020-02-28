@@ -1,6 +1,4 @@
-﻿using MochaDB.Dynamic;
-
-namespace MochaDB.Connection {
+﻿namespace MochaDB.Connection {
     /// <summary>
     /// Provider attribute interface for MochaDB provider attributes.
     /// </summary>

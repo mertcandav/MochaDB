@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MochaDB.Dynamic {
+namespace MochaDB {
     /// <summary>
     /// Attribute for MochaDB.
     /// </summary>
@@ -73,7 +73,7 @@ namespace MochaDB.Dynamic {
             set {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new Exception("Name is cannot null!");
+                    throw new Exception("Name is cannot null or whitespace!");
                 else if(bannedNamesRegex.IsMatch(value))
                     throw new Exception($@"Name is cannot ""{value}""");
 

@@ -1010,7 +1010,9 @@ namespace MochaDB {
                 AddColumn(table.Name,table.Columns[columnIndex]);
             }
 
-            Save();
+
+            if(table.Columns.Count==0)
+                Save();
         }
 
         /// <summary>
@@ -1140,8 +1142,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of column.</param>
         /// <param name="column">MochaColumn object to add.</param>
         public void AddColumn(string tableName,MochaColumn column) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(ExistsColumn(tableName,column.Name))
                 throw new Exception("There is already a column with this name!");
 
@@ -1152,13 +1152,13 @@ namespace MochaDB {
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
-                    Xcolumn.Add(new XElement(index.ToString()));
+                    Xcolumn.Add(new XElement("Data",index));
             } else {
                 for(int index = 1; index <= column.Datas.Count; index++)
-                    Xcolumn.Add(new XElement(column.Datas[index].Data.ToString()));
+                    Xcolumn.Add(new XElement("Data",column.Datas[index].Data));
 
                 for(int index = column.Datas.Count; index < rowCount; index++) {
-                    Xcolumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"").ToString()));
+                    Xcolumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
                 }
             }
 
@@ -1181,8 +1181,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public void RemoveColumn(string tableName,string name) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 return;
 
@@ -1197,8 +1195,6 @@ namespace MochaDB {
         /// <param name="name">Name of column to rename.</param>
         /// <param name="newName">New name of column.</param>
         public void RenameColumn(string tableName,string name,string newName) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1218,8 +1214,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public MochaResult<string> GetColumnDescription(string tableName,string name) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1233,8 +1227,6 @@ namespace MochaDB {
         /// <param name="name">Name of column.</param>
         /// <param name="description">Description to set.</param>
         public void SetColumnDescription(string tableName,string name,string description) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1252,18 +1244,12 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public MochaResult<MochaColumn> GetColumn(string tableName,string name) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
             column.Description = GetColumnDescription(tableName,name);
-
-            IEnumerable<XElement> dataRange = Doc.Root.Element("Tables").Element(tableName).Element(name).Elements();
-            for(int index = 0; index < dataRange.Count(); index++) {
-                column.Datas.collection.Add(GetData(tableName,name,index));
-            }
+            column.Datas.collection.AddRange(GetDatas(tableName,name).collection);
 
             return column;
         }
@@ -1299,8 +1285,12 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<bool> ExistsColumn(string tableName,string name) =>
-            ExistsElement($"Tables/{tableName}/{name}");
+        public MochaResult<bool> ExistsColumn(string tableName,string name) {
+            if(!ExistsTable(tableName))
+                throw new Exception("Table not found in this name!");
+
+            return GetElement($"Tables/{tableName}/{name}") != null;
+        }
 
         /// <summary>
         /// Return column datatype by name.
@@ -1308,8 +1298,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public MochaResult<MochaDataType> GetColumnDataType(string tableName,string name) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1323,8 +1311,6 @@ namespace MochaDB {
         /// <param name="name">Name of column.</param>
         /// <param name="dataType">MochaDataType to set.</param>
         public void SetColumnDataType(string tableName,string name,MochaDataType dataType) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1365,8 +1351,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
         public MochaResult<int> GetColumnAutoIntState(string tableName,string name) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
 
@@ -1503,8 +1487,6 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">MochaData object to add.</param>
         public void AddData(string tableName,string columnName,MochaData data) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1564,8 +1546,6 @@ namespace MochaDB {
         /// <param name="data">Data to replace.</param>
         /// <param name="index">Index of data.</param>
         public void UpdateData(string tableName,string columnName,int index,object data) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1602,8 +1582,6 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">MochaData object to check.</param>
         public MochaResult<bool> ExistsData(string tableName,string columnName,MochaData data) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1633,8 +1611,6 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to find index.</param>
         public MochaResult<int> GetDataIndex(string tableName,string columnName,object data) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1656,8 +1632,6 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="index">Index of data.</param>
         public MochaResult<MochaData> GetData(string tableName,string columnName,int index) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1679,8 +1653,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1708,8 +1680,6 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         public MochaResult<int> GetDataCount(string tableName,string columnName) {
-            if(!ExistsTable(tableName))
-                throw new Exception("Table not found in this name!");
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
