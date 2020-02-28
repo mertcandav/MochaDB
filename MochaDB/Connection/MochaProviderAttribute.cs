@@ -5,7 +5,7 @@ namespace MochaDB.Connection {
     /// <summary>
     /// Attributes for MochaProviders.
     /// </summary>
-    public sealed class MochaProviderAttribute:IMochaProviderAttribute {
+    public class MochaProviderAttribute:IMochaProviderAttribute {
         #region Fields
 
         internal static Regex booleanAttributesRegex = new Regex(@"

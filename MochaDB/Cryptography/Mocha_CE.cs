@@ -22,49 +22,7 @@
 
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Encrypt.
-        /// </summary>
-        /// <param name="data">Data to set data.</param>
-        public string Encrypt(string data) {
-            Data=data;
-            return Encrypt();
-        }
-
-        /// <summary>
-        /// Encrypt.
-        /// </summary>
-        public string Encrypt() {
-            string encryptText = "";
-
-            for(int i = 0; i < Data.Length; i++)
-                encryptText += TranslateCharToCode(Data[i]);
-
-            return encryptText;
-        }
-
-        /// <summary>
-        /// Decrypt.
-        /// </summary>
-        /// <param name="data">Data to set data.</param>
-        public string Decrypt(string data) {
-            Data=data;
-            return Decrypt();
-        }
-
-        /// <summary>
-        /// Decrypt.
-        /// </summary>
-        public string Decrypt() {
-            string decryptText = "";
-
-            for(int i = 0; i < Data.Length; i++)
-                decryptText += TranslateCodeToChar(Data[i]);
-
-            return decryptText;
-        }
+        #region Static
 
         /// <summary>
         /// Converts the character to its encrypted counterpart.
@@ -256,6 +214,52 @@
             #endregion
 
             else return data;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Encrypt.
+        /// </summary>
+        /// <param name="data">Data to set data.</param>
+        public string Encrypt(string data) {
+            Data=data;
+            return Encrypt();
+        }
+
+        /// <summary>
+        /// Encrypt.
+        /// </summary>
+        public string Encrypt() {
+            string encryptText = "";
+
+            for(int i = 0; i < Data.Length; i++)
+                encryptText += TranslateCharToCode(Data[i]);
+
+            return encryptText;
+        }
+
+        /// <summary>
+        /// Decrypt.
+        /// </summary>
+        /// <param name="data">Data to set data.</param>
+        public string Decrypt(string data) {
+            Data=data;
+            return Decrypt();
+        }
+
+        /// <summary>
+        /// Decrypt.
+        /// </summary>
+        public string Decrypt() {
+            string decryptText = "";
+
+            for(int i = 0; i < Data.Length; i++)
+                decryptText += TranslateCodeToChar(Data[i]);
+
+            return decryptText;
         }
 
         #endregion

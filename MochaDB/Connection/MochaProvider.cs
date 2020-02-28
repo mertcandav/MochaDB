@@ -7,7 +7,7 @@ namespace MochaDB.Connection {
     /// <summary>
     /// Provider for MochaDB connections.
     /// </summary>
-    public sealed class MochaProvider:IMochaProvider {
+    public class MochaProvider:IMochaProvider {
         #region Fields
 
         private string connectionString;
