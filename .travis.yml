@@ -1,6 +1,7 @@
 language: csharp
 mono: none
-os: linux
+os: windows
+dotnet: 1.1
 
 jobs:
   include:
