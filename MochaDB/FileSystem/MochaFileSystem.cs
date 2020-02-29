@@ -40,6 +40,18 @@ namespace MochaDB.FileSystem {
 
         #region Methods
 
+        #region Internal
+
+        /// <summary>
+        /// Process the path for use.
+        /// </summary>
+        /// <param name="value">Path.</param>
+        internal void ProcessPath(ref string value) {
+            value=value.Replace('\\','/');
+        }
+
+        #endregion
+
         /// <summary>
         /// Remove all disks.
         /// </summary>
@@ -58,6 +70,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsFile(path))
                 return null;
 
+            ProcessPath(ref path);
             int lastSlash = path.LastIndexOf('/');
             XElement fileElement = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}").Elements().Where(x =>
             x.Attribute("Type").Value=="File").First();
@@ -78,6 +91,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDirectory(path))
                 return new MochaCollectionResult<MochaFile>(files);
 
+            ProcessPath(ref path);
             int lastSlash = path.LastIndexOf('/');
             IEnumerable<XElement> fileRange = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}").Elements().Where(
                 x => x.Attribute("Type").Value=="File");
@@ -95,6 +109,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDirectory(path))
                 return null;
 
+            ProcessPath(ref path);
             XElement directoryElement = Database.GetElement($"FileSystem/{path}");
             MochaDirectory directory = new MochaDirectory(directoryElement.Name.LocalName);
             directory.Description=directoryElement.Attribute("Description").Value;
@@ -113,6 +128,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(path) && !ExistsDirectory(path))
                 return new MochaCollectionResult<MochaDirectory>(directories);
 
+            ProcessPath(ref path);
             int lastSlash = path.LastIndexOf('/');
             IEnumerable<XElement> directoryRange = Database.GetElement(
                 $"GileSystem{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}").Elements().Where(
@@ -173,7 +189,7 @@ namespace MochaDB.FileSystem {
             for(int index = 0; index < disk.Directories.Count; index++)
                 AddDirectory(disk.Directories[index],disk.Root);
 
-            if(disk.Directories.Count>0)
+            if(disk.Directories.Count==0)
                 Database.Save();
         }
 
@@ -206,6 +222,7 @@ namespace MochaDB.FileSystem {
         /// <param name="directory">Directory to add.</param>
         /// <param name="path">Path to add.</param>
         public void AddDirectory(MochaDirectory directory,string path) {
+            ProcessPath(ref path);
             string[] parts = path.Split('/');
             int lastSlash = path.LastIndexOf('/');
 
@@ -235,7 +252,7 @@ namespace MochaDB.FileSystem {
             for(int index = 0; index < directory.Directories.Count; index++)
                 AddDirectory(directory.Directories[index],path);
 
-            if(directory.Files.Count>0 || directory.Directories.Count>0)
+            if(directory.Files.Count==0 || directory.Directories.Count==0)
                 Database.Save();
         }
 
@@ -252,6 +269,7 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path of directory to remove.</param>
         public void RemoveDirectory(string path) {
+            ProcessPath(ref path);
             string[] parts = path.Split('/');
             int lastSlash = path.LastIndexOf('/');
 
@@ -273,6 +291,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsFile(path))
                 return;
 
+            ProcessPath(ref path);
             XElement element = Database.GetElement($"FileSystem/{path}").Elements().Where(x =>
             x.Attribute("Type").Value=="File").First(); ;
 
@@ -286,6 +305,7 @@ namespace MochaDB.FileSystem {
         /// <param name="file">File to add.</param>
         /// <param name="path">Path of directory to add.</param>
         public void AddFile(MochaFile file,string path) {
+            ProcessPath(ref path);
             string[] parts = path.Split('/');
             int lastSlash = path.LastIndexOf('/');
 
@@ -330,6 +350,7 @@ namespace MochaDB.FileSystem {
         /// Returns whether there is a directory with the specified path.
         /// </summary>
         public MochaResult<bool> ExistsDirectory(string path) {
+            ProcessPath(ref path);
             int lastSlash = path.LastIndexOf('/');
 
             XElement element = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}");
@@ -341,6 +362,7 @@ namespace MochaDB.FileSystem {
         /// Returns whether there is a file with the specified path.
         /// </summary>
         public MochaResult<bool> ExistsFile(string path) {
+            ProcessPath(ref path);
             int lastSlash = path.LastIndexOf('/');
 
             XElement element = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}");

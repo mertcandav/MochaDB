@@ -186,6 +186,9 @@ namespace MochaDB.Querying {
                     } else if(queryPaths[0] == "FILESYSTEM_CREATEDISK") {
                         Database.FileSystem.CreateDisk(queryPaths[1],queryPaths[2]);
                         return;
+                    } else if(queryPaths[0] == "FILESYSTEM_CREATEDIRECTORY") {
+                        Database.FileSystem.CreateDirectory(queryPaths[1],queryPaths[2]);
+                        return;
                     } else
                         throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
                 } else
