@@ -181,9 +181,7 @@ namespace MochaDB.Querying {
                     } else
                         throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
                 } else if(queryPaths.Length==3) {
-                    if(queryPaths[0]=="FILESYSTEM_UPLOADFILE") {
-                        Database.FileSystem.UploadFile(queryPaths[1],queryPaths[2]);
-                    } else if(queryPaths[0] == "FILESYSTEM_CREATEDISK") {
+                    if(queryPaths[0] == "FILESYSTEM_CREATEDISK") {
                         Database.FileSystem.CreateDisk(queryPaths[1],queryPaths[2]);
                         return;
                     } else if(queryPaths[0] == "FILESYSTEM_CREATEDIRECTORY") {
