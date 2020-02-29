@@ -1,7 +1,7 @@
 language: csharp
 mono: none
 os: windows
-dotnet: 1.1
+dotnet: 2.0.9
 
 jobs:
   include:
