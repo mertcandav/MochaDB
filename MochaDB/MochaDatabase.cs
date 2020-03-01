@@ -1743,7 +1743,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            "3.0.0";
+            "3.1.0";
 
         #endregion
     }
