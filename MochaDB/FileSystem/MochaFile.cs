@@ -90,6 +90,31 @@ namespace MochaDB.FileSystem {
         }
 
         /// <summary>
+        /// Set data from string with UTF8.
+        /// </summary>
+        /// <param name="value">String value.</param>
+        public void SetFromString(string value) {
+            Bytes=Encoding.UTF8.GetBytes(value);
+        }
+
+        /// <summary>
+        /// Set data from string with encoding.
+        /// </summary>
+        /// <param name="value">String value.</param>
+        /// <param name="encoding">Encoding to use.</param>
+        public void SetFromString(string value,Encoding encoding) {
+            Bytes=encoding.GetBytes(value);
+        }
+
+        /// <summary>
+        /// Set data from stream.
+        /// </summary>
+        /// <param name="stream">Stream to use.</param>
+        public void SetFromStream(MemoryStream stream) {
+            Bytes=stream.ToArray();
+        }
+
+        /// <summary>
         /// Returns bytes converted to Base64.
         /// </summary>
         public string ToBase64() =>
