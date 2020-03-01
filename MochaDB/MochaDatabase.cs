@@ -63,7 +63,7 @@ namespace MochaDB {
         /// <param name="path">Directory path of MochaDB database.</param>
         /// <param name="password">Password of MochaDB database.</param>
         public MochaDatabase(string path,string password) :
-            this(new MochaProvider($"path={path};password={password}")) { }
+            this(new MochaProvider($"path={path}; password={password}")) { }
 
         /// <summary>
         /// Create new MochaDatabase.
@@ -128,6 +128,138 @@ namespace MochaDB {
             XDocument doc = XDocument.Parse(Doc.ToString());
             doc.Root.Element("Root").Remove();
             return doc;
+        }
+
+        #endregion
+
+        #region MochaScript
+
+        #region Internal
+
+        /// <summary>
+        /// Returns MochaScript build code od stack item.
+        /// </summary>
+        /// <param name="stackName">Parent stack of StackItem.</param>
+        /// <param name="path">Path of StackItem.</param>
+        /// <param name="item">StackItem to get code.</param>
+        internal string GetBuildStackItem(string stackName,string path,IMochaStackItem item) {
+            string code = $"    CreateStackItem:{stackName}:{item.Name}:{path}\n";
+            code+=$"    SetStackItemValue:{stackName}:{item.Value}:{(path==string.Empty ? item.Name : path)}\n";
+            code+=$"    SetStackItemDescription:{stackName}:{item.Description}:{(path==string.Empty ? item.Name : path)}\n";
+            for(int index = 0; index < item.Items.Count; index++) {
+                code+=GetBuildStackItem(stackName,$"{(path==string.Empty ? item.Name : $"{path}/{item.Name}")}",item.Items[index]);
+            }
+            return code;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Returns MochaScript build func of sectors.
+        /// </summary>
+        public string GetBuildFuncSectors() {
+            string func = "func BuildSectors()\n{\n";
+            IMochaCollectionResult<MochaSector> sectors = GetSectors();
+            for(int index = 0; index < sectors.Count; index++) {
+                MochaSector currentSector = sectors[index];
+                func+=$"    AddSector:{currentSector.Name}:{currentSector.Data}:{currentSector.Description}\n";
+            }
+            func += "}\n";
+            return func;
+        }
+
+        /// <summary>
+        /// Returns MochaScript build func of stacks.
+        /// </summary>
+        public string GetBuildFuncStacks() {
+            string func = "func BuildStacks()\n{\n";
+            IMochaCollectionResult<MochaStack> stacks = GetStacks();
+            for(int index=0; index < stacks.Count; index++) {
+                IMochaStack stack = stacks[index];
+                func+=$"    CreateStack:{stack.Name}\n";
+                func+=$"    SetStackDescription:{stack.Name}:{stack.Description}\n";
+                for(int itemIndex=0; itemIndex< stack.Items.Count; itemIndex++)
+                    func+=$"{GetBuildStackItem(stack.Name,string.Empty,stack.Items[itemIndex])}\n";
+            }
+            func += "}\n";
+            return func;
+        }
+
+        /// <summary>
+        /// Returns MochaScript build func of tables.
+        /// </summary>
+        public string GetBuildFuncTables() {
+            string func = "func BuildTables()\n{\n";
+            IMochaCollectionResult<MochaTable> tables = GetTables();
+            for(int tableIndex = 0; tableIndex < tables.Count; tableIndex++) {
+                MochaTable currentTable = tables[tableIndex];
+                func += $"    CreateTable:{currentTable.Name}\n" +
+                    $"    SetTableDescription:{currentTable.Name}:{currentTable.Description}\n";
+                for(int columnIndex = 0; columnIndex < currentTable.Columns.Count; columnIndex++) {
+                    MochaColumn currentColumn = currentTable.Columns[columnIndex];
+                    func += $"    CreateColumn:{currentTable.Name}:{currentColumn.Name}\n" +
+                        $"    SetColumnDescription:{currentTable.Name}:{currentColumn.Name}:{currentTable.Description}\n" +
+                        $"    SetColumnDataType:{currentTable.Name}:{currentColumn.Name}:{currentColumn.DataType}\n";
+
+                    if(currentColumn.DataType==MochaDataType.AutoInt)
+                        continue;
+
+                    for(int dataIndex = 0; dataIndex < currentColumn.Datas.Count; dataIndex++) {
+                        MochaData currentData = currentColumn.Datas[dataIndex];
+                        func+=columnIndex==0 ? $"    AddData:{currentTable.Name}:{currentColumn.Name}:{currentData.Data}\n" :
+                            $"    UpdateData:{currentTable.Name}:{currentColumn.Name}:{dataIndex}:{currentData.Data}\n";
+                    }
+                }
+            }
+
+            func += "\n}\n";
+            return func;
+        }
+
+        /// <summary>
+        /// Return MochaScript build code of database.
+        /// </summary>
+        public string GetMochaScript() {
+            string code = $"// Created with MochaDB Engine. Version: {Version}";
+            code += $"\n\nProvider {Provider.Path} {Provider.Password}";
+            code += "\n\nBegin\n";
+            code += "func Main()\n{\n";
+            code +=
+@"    echo ""Script commands is start.""
+    
+    // Clear content.
+    echo ""Clearing content...""
+    ClearSectors
+    ClearStacks
+    ClearTables
+    echo ""Content is cleared.""
+
+    // Sectors.
+    echo ""Sectors is building...""
+    BuildSectors()
+    echo ""Sectors builded successful.""
+
+    // Stacks.
+    echo ""Stacks is building...""
+    BuildStacks()
+    echo ""Stacks builded successful.""
+
+    // Tables.
+    echo ""Tables is building...""
+    BuildTables()
+    echo ""Tables builded successful.""
+
+    echo ""Script commands is end successful.""
+}
+
+";
+            code +=$"{GetBuildFuncSectors()}\n";
+            code +=$"{GetBuildFuncStacks()}\n";
+            code +=$"{GetBuildFuncTables()}\n";
+
+            code += "Final";
+
+            return code;
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace MochaDB.MochaScript {
     /// <summary>
     /// Process, debug and run MochaScript codes.
     /// </summary>
-    public sealed class MochaScriptDebugger:IMochaScriptDebugger {
+    public class MochaScriptDebugger:IMochaScriptDebugger {
         #region Fields
 
         //Regexes.
@@ -128,10 +128,12 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// <param name="line">Line.</param>
         /// <param name="message">Error message.</param>
         private Exception Throw(int line,string message) {
-            if(db!=null)
+            if(db!=null) {
                 db.Dispose();
+            }
+            db=null;
 
-            return new Exception(line + message);
+            return new Exception($"{line}{message}");
         }
 
         #endregion
@@ -162,10 +164,10 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                             variables.Remove(parts[1]);
                             continue;
                         } else {
-                            Throw(index + 1,"|| The entry was not in the correct format!");
+                            throw Throw(index + 1,"|| The entry was not in the correct format!");
                         }
                     } else if(line.EndsWith("()")) {
-                        functions.Invoke(line.Substring(0,line.Length-2));
+                        try { functions.Invoke(line.Substring(0,line.Length-2)); } catch { throw Throw(index,MochaScriptArray[index+1]); }
                         continue;
                     } else if(TryVariable(index)) {
                         continue;
@@ -177,7 +179,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         try {
                             db.Query.GetRun(line);
                         } catch(Exception Excep) {
-                            Throw(index + 1,$"|| {Excep.Message}");
+                            throw Throw(index + 1,$"|| {Excep.Message}");
                         }
                     }
                 }
@@ -652,7 +654,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         throw Throw(index + 1,"|| Any function is not processed!");
 
                     func = new MochaScriptFunction(name);
-                    func.Source= MochaScriptArray.Skip(index +2).Take(dex-1).ToArray();
+                    func.Source= MochaScriptArray.Skip(index +2).Take(dex - (index + 2)).ToArray();
                     func.Index = index;
                     _functions.Add(func);
 
@@ -701,7 +703,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
                     _event = new MochaScriptFunction(name);
                     Array.Copy(MochaScriptArray,index +2,_event.Source,0,dex);
-                    _event.Source= MochaScriptArray.Skip(index +2).Take(dex-1).ToArray();
+                    _event.Source= MochaScriptArray.Skip(index +2).Take(dex - (index + 2)).ToArray();
                     _event.Index = index;
                     _compilerEvents.Add(_event);
 
@@ -721,9 +723,6 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         public void DebugRun() {
             OnStartDebug(new EventArgs());
 
-            //Use MochaDatabase object if success provider.
-            db = null;
-
             int dex = 0;
             //Find Provider and Debugger.
             for(int Index = 0; Index < MochaScriptArray.Length; Index++) {
@@ -733,9 +732,9 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                     if(line.StartsWith("Provider ")) {
                         string[] Parts = line.Split(' ');
                         if(Parts.Length == 3)
-                            db = new MochaDatabase(Parts[1],Parts[2]);
+                            db = new MochaDatabase($"path={Parts[1]}; password={Parts[2]};");
                         else if(Parts.Length == 2)
-                            db = new MochaDatabase($"path={Parts[1]}");
+                            db = new MochaDatabase($"path={Parts[1]}; password=;");
 
                         break;
                     }
@@ -744,7 +743,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
             //Check Provider.
             if(db == null)
-                Throw(dex+1,"|| Provider could not be processed!");
+                throw Throw(dex+1,"|| Provider could not be processed!");
 
             //Find Begin and Final tag index.
             beginIndex = Keyword_Begin.GetIndex(MochaScriptArray);
@@ -752,29 +751,28 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
             //Check indexes.
             if(beginIndex == -1)
-                Throw(-1,"|| Begin keyword not found!");
+                throw Throw(-1,"|| Begin keyword not found!");
             else if(finalIndex == -1)
-                Throw(-1,"|| Final keyword not found!");
+                throw Throw(-1,"|| Final keyword not found!");
             else if(beginIndex > finalIndex)
-                Throw(beginIndex,"|| Start keyword cannot come after Last keyword!");
+                throw Throw(beginIndex,"|| Start keyword cannot come after Last keyword!");
 
             //Functions.
             functions.Clear();
             functions.AddRange(GetFunctions());
-
+            
             //Check Main function.
             if(functions[0].Name != "Main")
-                Throw(functions[0].Index,"|| First function is not Main function.");
-            else if(!functions.Contains("Main"))
-                Throw(-1,"|| Not defined Main function.");
-
+                throw Throw(functions[0].Index,"|| First function is not Main function.");
+            if(!functions.Contains("Main"))
+                throw Throw(-1,"|| Not defined Main function.");
+                
             //Compiler Events.
             compilerEvents.Clear();
             compilerEvents.AddRange(GetCompilerEvents());
 
             //Variables.
             variables.Clear();
-
             //Connect to database.
             db.Connect();
 
@@ -782,6 +780,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
             functions.Invoke("Main");
 
             db.Dispose();
+            db=null;
 
             OnSuccessFinishDebug(new EventArgs());
         }
