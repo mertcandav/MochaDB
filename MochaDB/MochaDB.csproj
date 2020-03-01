@@ -10,7 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>3.0.0</Version>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
