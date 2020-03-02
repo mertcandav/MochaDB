@@ -131,7 +131,6 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
             if(db!=null) {
                 db.Dispose();
             }
-            db=null;
 
             return new Exception($"{line}{message}");
         }
@@ -167,21 +166,27 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                             throw Throw(index + 1,"|| The entry was not in the correct format!");
                         }
                     } else if(line.EndsWith("()")) {
-                        try { functions.Invoke(line.Substring(0,line.Length-2)); } catch { throw Throw(index,MochaScriptArray[index+1]); }
+                        try {
+                            functions.Invoke(line.Substring(0,line.Length-2));
+                        } catch {
+                            throw Throw(index+1,$"|| {MochaScriptArray[index+1]}");
+                        }
                         continue;
                     } else if(TryVariable(index)) {
                         continue;
                     }
 
-                    try {
-                        db.Query.Run(line);
-                    } catch {
+                    db.Query.MochaQ.Command=line;
+                    if(db.Query.MochaQ.IsRunQuery()) {
                         try {
-                            db.Query.GetRun(line);
-                        } catch(Exception Excep) {
-                            throw Throw(index + 1,$"|| {Excep.Message}");
+                            db.Query.Run(line);
+                            continue;
+                        } catch(Exception excep) {
+                            throw Throw(index+1,$"|| {excep.Message}");
                         }
                     }
+
+                    throw Throw(index+1,"|| The compiler doesn't know what to do with this code!");
                 }
             }
         }
@@ -627,10 +632,8 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         internal IList<MochaScriptFunction> GetFunctions() {
             List<MochaScriptFunction> _functions = new List<MochaScriptFunction>();
-            string
-                line = string.Empty,
-                name = string.Empty;
-            string[] parts = null;
+            string line,name;
+            string[] parts;
             int dex;
             MochaScriptFunction func;
 
@@ -671,10 +674,8 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         internal IList<MochaScriptFunction> GetCompilerEvents() {
             List<MochaScriptFunction> _compilerEvents = new List<MochaScriptFunction>();
-            string
-                line = string.Empty,
-                name = string.Empty;
-            string[] parts = null;
+            string line,name;
+            string[] parts;
             int dex;
             MochaScriptFunction _event;
 
