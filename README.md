@@ -22,7 +22,7 @@
 - Supports LINQ querys
 - Encrypted database file
 - Object oriented management support
-- <a href="https://github.com/MertcanDavulcu/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
+- <a href="https://github.com/mertcandav/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
 - Single DLL
 - Single database file
 - Portable
@@ -167,6 +167,6 @@ public void Debug(string path) {
 
 ## And More
 
-- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki/Warnings">Warnings</a>
-- <a href="https://github.com/MertcanDavulcu/MochaDB/wiki">Documentation</a>
+- <a href="https://github.com/mertcandav/MochaDB/wiki/Warnings">Warnings</a>
+- <a href="https://github.com/mertcandav/MochaDB/wiki">Documentation</a>
 - <a href="https://opensource.org/licenses/MIT">License<a/>
