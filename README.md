@@ -15,6 +15,7 @@
 - Small
 - Secure
 - Embedded
+- RDBMS(Relational Database Management System) features
 - Embed files into the database with FileSystem
 - Full compatible with .NET Core, .NET Standard and .NET Framework
 - Script build and debug with MochaScript
