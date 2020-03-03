@@ -2,7 +2,7 @@
 
 .NET embedded high performance NoSQL database system
 
-[![Build Status](https://travis-ci.com/MertcanDavulcu/MochaDB.svg?branch=master)](https://travis-ci.com/MertcanDavulcu/MochaDB)
+[![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 
 ---
 
