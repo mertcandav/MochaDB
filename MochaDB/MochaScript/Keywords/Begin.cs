@@ -2,7 +2,7 @@
     /// <summary>
     /// The "Begin" keyword.
     /// </summary>
-    public sealed class Keyword_Begin {
+    public static class Keyword_Begin {
         /// <summary>
         /// Return index if find but return -1 if not find.
         /// </summary>

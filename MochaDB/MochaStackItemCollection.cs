@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaStackItem collector.
     /// </summary>
-    public sealed class MochaStackItemCollection:IMochaCollection<MochaStackItem> {
+    public class MochaStackItemCollection:IMochaCollection<MochaStackItem> {
         #region Fields
 
         private List<MochaStackItem> collection;

@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaColumn collector.
     /// </summary>
-    public sealed class MochaColumnCollection:IMochaCollection<MochaColumn> {
+    public class MochaColumnCollection:IMochaCollection<MochaColumn> {
         #region Fields
 
         internal List<MochaColumn> collection;
