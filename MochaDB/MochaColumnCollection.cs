@@ -62,7 +62,8 @@ namespace MochaDB {
         }
 
         private void Item_NameChanged(object sender,EventArgs e) {
-            if(Contains((sender as MochaColumn).Name))
+            var result = collection.Where(x => x.Name==(sender as IMochaColumn).Name);
+            if(result.Count() >1)
                 throw new Exception("There is already a column with this name!");
 
             OnColumnNameChanged(sender,e);

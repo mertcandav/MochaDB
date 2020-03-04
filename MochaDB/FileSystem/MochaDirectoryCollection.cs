@@ -49,7 +49,8 @@ namespace MochaDB.FileSystem {
         #region Item Events
 
         private void Item_NameChanged(object sender,EventArgs e) {
-            if(Contains((sender as MochaDirectory).Name))
+            var result = collection.Where(x => x.Name==(sender as IMochaDirectory).Name);
+            if(result.Count()>1)
                 throw new Exception("There is already a directory with this name!");
 
             OnDirectoryNameChanged(sender,e);
