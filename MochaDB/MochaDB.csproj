@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net4;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3</TargetFrameworks>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
