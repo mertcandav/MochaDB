@@ -77,8 +77,11 @@ namespace MochaDB {
         /// Remove all items.
         /// </summary>
         public void Clear() {
-            for(int index = 0; index < Count; index++)
-                RemoveAt(index);
+            for(int index = 0; index < Count; index++) {
+                collection[index].NameChanged-=Item_NameChanged;
+                collection[index].Datas.Changed-=Item_Changed;
+            }
+            collection.Clear();
         }
 
         /// <summary>
