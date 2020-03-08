@@ -150,7 +150,7 @@ namespace MochaDB.FileSystem {
             get =>
                 name;
             set {
-                value=value.Trim();
+                value=value.TrimStart().TrimEnd();
                 if(value==name)
                     return;
 
@@ -172,8 +172,9 @@ namespace MochaDB.FileSystem {
             get =>
                 extension;
             set {
-                value=value.Trim();
-                value = value[0] != '.' ? $".{value}" : value;
+                value=value.TrimStart().TrimEnd();
+                if(!string.IsNullOrEmpty(value))
+                    value = value[0] != '.' ? $".{value}" : value;
                 if(value==extension)
                     return;
 

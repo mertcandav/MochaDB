@@ -7,18 +7,18 @@ namespace MochaDB.FileSystem {
     public interface IMochaFileSystem {
         #region Methods
 
-        MochaCollectionResult<MochaFile> GetFiles(string path);
-        MochaCollectionResult<MochaDirectory> GetDirectories(string path);
+        MochaCollectionResult<MochaFile> GetFiles(MochaPath path);
+        MochaCollectionResult<MochaDirectory> GetDirectories(MochaPath path);
         MochaCollectionResult<MochaDisk> GetDisks();
         void AddDisk(MochaDisk disk);
-        void AddDirectory(MochaDirectory directory,string path);
-        void AddFile(MochaFile file,string path);
+        void AddDirectory(MochaDirectory directory,MochaPath path);
+        void AddFile(MochaFile file,MochaPath path);
         void RemoveDisk(string root);
-        void RemoveDirectory(string path);
-        void RemoveFile(string path);
+        void RemoveDirectory(MochaPath path);
+        void RemoveFile(MochaPath path);
         MochaResult<bool> ExistsDisk(string root);
-        MochaResult<bool> ExistsDirectory(string path);
-        MochaResult<bool> ExistsFile(string path);
+        MochaResult<bool> ExistsDirectory(MochaPath path);
+        MochaResult<bool> ExistsFile(MochaPath path);
 
         #endregion
 

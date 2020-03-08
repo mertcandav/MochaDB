@@ -99,6 +99,17 @@ namespace MochaDB.Connection {
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns connection string.
+        /// </summary>
+        public override string ToString() {
+            return ConnectionString;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

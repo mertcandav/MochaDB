@@ -1,10 +1,10 @@
-using MochaDB.MochaScript.Keywords;
-using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MochaDB.MochaScript.Keywords;
+using MochaDB.Querying;
 
 namespace MochaDB.MochaScript {
     /// <summary>
@@ -632,7 +632,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         internal IList<MochaScriptFunction> GetFunctions() {
             List<MochaScriptFunction> _functions = new List<MochaScriptFunction>();
-            string line,name;
+            string line, name;
             string[] parts;
             int dex;
             MochaScriptFunction func;
@@ -674,7 +674,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         internal IList<MochaScriptFunction> GetCompilerEvents() {
             List<MochaScriptFunction> _compilerEvents = new List<MochaScriptFunction>();
-            string line,name;
+            string line, name;
             string[] parts;
             int dex;
             MochaScriptFunction _event;
@@ -761,13 +761,13 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
             //Functions.
             functions.Clear();
             functions.AddRange(GetFunctions());
-            
+
             //Check Main function.
             if(functions[0].Name != "Main")
                 throw Throw(functions[0].Index,"|| First function is not Main function.");
             if(!functions.Contains("Main"))
                 throw Throw(-1,"|| Not defined Main function.");
-                
+
             //Compiler Events.
             compilerEvents.Clear();
             compilerEvents.AddRange(GetCompilerEvents());

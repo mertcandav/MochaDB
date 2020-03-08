@@ -21,16 +21,16 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-using MochaDB.Connection;
-using MochaDB.Cryptography;
-using MochaDB.FileSystem;
-using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using MochaDB.Connection;
+using MochaDB.Cryptography;
+using MochaDB.FileSystem;
+using MochaDB.Querying;
 
 namespace MochaDB {
     /// <summary>
@@ -174,11 +174,11 @@ namespace MochaDB {
         public string GetBuildFuncStacks() {
             string func = "func BuildStacks()\n{\n";
             IMochaCollectionResult<MochaStack> stacks = GetStacks();
-            for(int index=0; index < stacks.Count; index++) {
+            for(int index = 0; index < stacks.Count; index++) {
                 IMochaStack stack = stacks[index];
                 func+=$"    CreateStack:{stack.Name}\n";
                 func+=$"    SetStackDescription:{stack.Name}:{stack.Description}\n";
-                for(int itemIndex=0; itemIndex< stack.Items.Count; itemIndex++)
+                for(int itemIndex = 0; itemIndex< stack.Items.Count; itemIndex++)
                     func+=$"{GetBuildStackItem(stack.Name,string.Empty,stack.Items[itemIndex])}\n";
             }
             func += "}\n";
@@ -480,14 +480,13 @@ namespace MochaDB {
         internal XElement GetElement(string path) {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            string[] elementsName = path.Split('/');
-
-            XElement element = Doc.Root.Element(elementsName[0]);
+            var elementsName = path.Split('/');
+            var element = Doc.Root.Element(elementsName[0]);
 
             if(element==null)
                 return null;
 
-            for(int i = 1; i < elementsName.Length; i++) {
+            for(var i = 1; i < elementsName.Length; i++) {
                 element = element.Element(elementsName[i]);
                 if(element == null)
                     return null;
@@ -726,7 +725,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
 
-            XElement xSector =GetElement($"Sectors/{name}");
+            XElement xSector = GetElement($"Sectors/{name}");
             MochaSector sector = new MochaSector(xSector.Name.LocalName);
             sector.Data=xSector.Value;
             sector.Description =xSector.Attribute("Description").Value;
@@ -1618,7 +1617,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
-            XElement xData = new XElement("Data",data.Data);;
+            XElement xData = new XElement("Data",data.Data); ;
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(dataType == MochaDataType.AutoInt) {
@@ -1875,7 +1874,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            "3.1.2";
+            "3.2.0";
 
         #endregion
     }

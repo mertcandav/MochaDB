@@ -91,6 +91,17 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns provider string.
+        /// </summary>
+        public override string ToString() {
+            return GetProviderString();
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

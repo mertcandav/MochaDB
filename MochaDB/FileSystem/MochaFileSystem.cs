@@ -21,11 +21,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-using MochaDB.Querying;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using MochaDB.Querying;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -66,11 +66,15 @@ namespace MochaDB.FileSystem {
         #region Internal
 
         /// <summary>
-        /// Process the path for use.
+        /// Return directory xml element by path.
         /// </summary>
-        /// <param name="value">Path.</param>
-        internal void ProcessPath(ref string value) {
-            value=value.Replace('\\','/');
+        /// <param name="path">Path of xml element.</param>
+        internal XElement GetDirectoryElement(MochaPath path) {
+            var originalname = path.Name();
+            path = path.ParentPath();
+            var elements = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            x.Attribute("Type").Value=="Directory");
+            return elements.Count()==0 ? null : elements.First();
         }
 
         #endregion
@@ -89,17 +93,17 @@ namespace MochaDB.FileSystem {
         /// Return file by path.
         /// </summary>
         /// <param name="path">path of file.</param>
-        public MochaResult<MochaFile> GetFile(string path) {
+        public MochaResult<MochaFile> GetFile(MochaPath path) {
             if(!ExistsFile(path))
                 return null;
 
-            ProcessPath(ref path);
-            int lastSlash = path.LastIndexOf('/');
-            XElement fileElement = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}").Elements().Where(x =>
-            x.Attribute("Type").Value=="File").First();
+            var originalname = path.Name();
+            path= path.ParentPath();
+            var fileElement = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First();
 
-            string[] nameParts = fileElement.Name.LocalName.Split('.');
-            MochaFile file = new MochaFile(nameParts.First(),nameParts.Last());
+            var nameParts = fileElement.Name.LocalName.Split('.');
+            var file = new MochaFile(nameParts.First(),nameParts.Length==1 ? string.Empty : nameParts.Last());
             file.Description=fileElement.Attribute("Description").Value;
             file.Bytes=Convert.FromBase64String(fileElement.Value);
 
@@ -110,16 +114,17 @@ namespace MochaDB.FileSystem {
         /// Return all files.
         /// </summary>
         /// <param name="path">Path of directory.</param>
-        public MochaCollectionResult<MochaFile> GetFiles(string path) {
-            List<MochaFile> files = new List<MochaFile>();
+        public MochaCollectionResult<MochaFile> GetFiles(MochaPath path) {
+            var files = new List<MochaFile>();
             if(!ExistsDirectory(path))
                 return new MochaCollectionResult<MochaFile>(files);
 
-            int lastSlash = path.LastIndexOf('/');
-            IEnumerable<XElement> fileRange = Database.GetElement($"FileSystem/{path}").Elements().Where(
+            var fileRange = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(
                 x => x.Attribute("Type").Value=="File");
-            for(int index = 0; index < fileRange.Count(); index++)
-                files.Add(GetFile($"{path}/{fileRange.ElementAt(index).Name.LocalName}"));
+            for(int index = 0; index < fileRange.Count(); index++) {
+                MochaFile file = GetFile($"{path.Path}/{fileRange.ElementAt(index).Name.LocalName}");
+                files.Add(file);
+            }
 
             return new MochaCollectionResult<MochaFile>(files);
         }
@@ -129,23 +134,23 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaFile> GetFiles(string path,Func<MochaFile,bool> query) =>
+        public MochaCollectionResult<MochaFile> GetFiles(MochaPath path,Func<MochaFile,bool> query) =>
             new MochaCollectionResult<MochaFile>(GetFiles(path).collection.Where(query));
 
         /// <summary>
         /// Return directory by path.
         /// </summary>
         /// <param name="path">Path of directory.</param>
-        public MochaResult<MochaDirectory> GetDirectory(string path) {
+        public MochaResult<MochaDirectory> GetDirectory(MochaPath path) {
             if(!ExistsDirectory(path))
                 return null;
 
-            ProcessPath(ref path);
-            XElement directoryElement = Database.GetElement($"FileSystem/{path}");
-            MochaDirectory directory = new MochaDirectory(directoryElement.Name.LocalName);
+            var originalpath = path.Path;
+            var directoryElement = GetDirectoryElement(path);
+            var directory = new MochaDirectory(directoryElement.Name.LocalName);
             directory.Description=directoryElement.Attribute("Description").Value;
-            directory.Files.AddRange(GetFiles(path).collection);
-            directory.Directories.AddRange(GetDirectories(path).collection);
+            directory.Files.AddRange(GetFiles(originalpath).collection);
+            directory.Directories.AddRange(GetDirectories(originalpath).collection);
 
             return directory;
         }
@@ -154,25 +159,23 @@ namespace MochaDB.FileSystem {
         /// Return all directories.
         /// </summary>
         /// <param name="path">Path of directory.</param>
-        public MochaCollectionResult<MochaDirectory> GetDirectories(string path) {
-            List<MochaDirectory> directories = new List<MochaDirectory>();
-            if(!ExistsDisk(path) && !ExistsDirectory(path))
+        public MochaCollectionResult<MochaDirectory> GetDirectories(MochaPath path) {
+            var directories = new List<MochaDirectory>();
+            if(!ExistsDisk(path.Path) && !ExistsDirectory(path))
                 return new MochaCollectionResult<MochaDirectory>(directories);
 
-            int lastSlash = path.LastIndexOf('/');
-            string parentPath = path.Substring(0,lastSlash == -1 ? path.Length : lastSlash);
-            IEnumerable<XElement> directoryRange = Database.GetElement(
-                $"FileSystem/{parentPath}").Elements().Where(
+            var directoryRange = Database.GetElement(
+                $"FileSystem/{path.Path}").Elements().Where(
                 x => x.Attribute("Type").Value == "Directory");
-
+            
             for(int index = 0; index < directoryRange.Count(); index++) {
-                MochaDirectory directory = GetDirectory($"{path}/{directoryRange.ElementAt(index).Name.LocalName}");
+                MochaDirectory directory = GetDirectory($"{path.Path}/{directoryRange.ElementAt(index).Name.LocalName}");
                 if(directory==null)
                     continue;
 
                 directories.Add(directory);
             }
-
+            
             return new MochaCollectionResult<MochaDirectory>(directories);
         }
 
@@ -181,7 +184,7 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaDirectory> GetDirectories(string path,Func<MochaDirectory,bool> query) =>
+        public MochaCollectionResult<MochaDirectory> GetDirectories(MochaPath path,Func<MochaDirectory,bool> query) =>
             new MochaCollectionResult<MochaDirectory>(GetDirectories(path).collection.Where(query));
 
         /// <summary>
@@ -192,8 +195,8 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(root))
                 return null;
 
-            XElement diskElement = Database.GetElement($"FileSystem/{root}");
-            MochaDisk disk = new MochaDisk(diskElement.Name.LocalName,diskElement.Attribute("Name").Value);
+            var diskElement = Database.GetElement($"FileSystem/{root}");
+            var disk = new MochaDisk(diskElement.Name.LocalName,diskElement.Attribute("Name").Value);
             disk.Description = diskElement.Attribute("Description").Value;
             disk.Directories.AddRange(GetDirectories(root).collection);
             disk.Files.AddRange(GetFiles(root).collection);
@@ -205,9 +208,9 @@ namespace MochaDB.FileSystem {
         /// Return all disks.
         /// </summary>
         public MochaCollectionResult<MochaDisk> GetDisks() {
-            List<MochaDisk> disks = new List<MochaDisk>();
+            var disks = new List<MochaDisk>();
 
-            IEnumerable<XElement> diskRange = Database.GetElement("FileSystem").Elements().Where(
+            var diskRange = Database.GetElement("FileSystem").Elements().Where(
                 x => x.Attribute("Type").Value=="Disk");
             for(int index = 0; index < diskRange.Count(); index++)
                 disks.Add(GetDisk(diskRange.ElementAt(index).Name.LocalName));
@@ -230,7 +233,7 @@ namespace MochaDB.FileSystem {
             if(ExistsDisk(disk.Root))
                 throw new Exception("There is already a disk with this root!");
 
-            XElement xDisk = new XElement(disk.Root);
+            var xDisk = new XElement(disk.Root);
             xDisk.Add(new XAttribute("Type","Disk"));
             xDisk.Add(new XAttribute("Name",disk.Name));
             xDisk.Add(new XAttribute("Description",disk.Description));
@@ -260,7 +263,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(root))
                 return;
 
-            XElement diskElement = Database.GetElement($"FileSystem/{root}").Elements().Where(x =>
+            var diskElement = Database.GetElement($"FileSystem/{root}").Elements().Where(x =>
             x.Attribute("Type").Value=="Disk").First();
 
             diskElement.Remove();
@@ -272,27 +275,27 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="directory">Directory to add.</param>
         /// <param name="path">Path to add.</param>
-        public void AddDirectory(MochaDirectory directory,string path) {
-            ProcessPath(ref path);
-            string[] parts = path.Split('/');
-            int lastSlash = path.LastIndexOf('/');
+        public void AddDirectory(MochaDirectory directory,MochaPath path) {
+            var parts = path.Path.Split('/');
 
             if(!ExistsDisk(parts[0]))
                 throw new Exception("Disk not found!");
-            string directoryPath = path.Substring(0,lastSlash == -1 ? path.Length : lastSlash);
-            if(parts.Length != 1 && !ExistsDirectory(directoryPath))
+            if(parts.Length != 1 && !ExistsDirectory(path.Path))
                 throw new Exception("Directory not found!");
-            if(ExistsDirectory(path))
+            if(ExistsDirectory($"{path.Path}/{directory.Name}"))
                 throw new Exception("This directory already exists!");
 
-            XElement element = Database.GetElement(parts.Length == 1 ? "FileSystem" :
-                $"FileSystem/{directoryPath}").Elements().Where(x =>
-            x.Attribute("Type").Value=="Disk" || x.Attribute("Type").Value=="Directory").First();
+            var originalname = path.Name();
+            path = path.ParentPath();
+            var element = Database.GetElement(parts.Length == 1 ? "FileSystem" :
+                $"FileSystem/{path.Path}").Elements().Where(x =>
+            (x.Attribute("Type").Value=="Disk" || x.Attribute("Type").Value=="Directory") && 
+            x.Name.LocalName==originalname).First();
 
             if(element==null)
                 return;
 
-            XElement xDirectory = new XElement(directory.Name);
+            var xDirectory = new XElement(directory.Name);
             xDirectory.Add(new XAttribute("Type","Directory"));
             xDirectory.Add(new XAttribute("Description",directory.Description));
             element.Add(xDirectory);
@@ -312,25 +315,15 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path to add.</param>
         /// <param name="name">Name of directory.</param>
-        public void CreateDirectory(string path,string name) =>
+        public void CreateDirectory(MochaPath path,string name) =>
             AddDirectory(new MochaDirectory(name),path);
 
         /// <summary>
         /// Remove directory.
         /// </summary>
         /// <param name="path">Path of directory to remove.</param>
-        public void RemoveDirectory(string path) {
-            ProcessPath(ref path);
-            string[] parts = path.Split('/');
-            int lastSlash = path.LastIndexOf('/');
-
-            XElement element = Database.GetElement($"FileSystem/{path}").Elements().Where(x =>
-            x.Attribute("Type").Value=="Directory").First();
-
-            if(element==null)
-                return;
-
-            element.Remove();
+        public void RemoveDirectory(MochaPath path) {
+            GetDirectoryElement(path).Remove();
             Database.Save();
         }
 
@@ -338,15 +331,14 @@ namespace MochaDB.FileSystem {
         /// Remove file.
         /// </summary>
         /// <param name="path">Path of file to remove.</param>
-        public void RemoveFile(string path) {
+        public void RemoveFile(MochaPath path) {
             if(!ExistsFile(path))
                 return;
+            var originalname = path.Name();
+            path= path.ParentPath();
+            Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+                x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First().Remove();
 
-            ProcessPath(ref path);
-            XElement element = Database.GetElement($"FileSystem/{path}").Elements().Where(x =>
-            x.Attribute("Type").Value=="File").First(); ;
-
-            element.Remove();
             Database.Save();
         }
 
@@ -355,11 +347,11 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="file">File to add.</param>
         /// <param name="path">Path of directory to add.</param>
-        public void AddFile(MochaFile file,string path) {
-            ProcessPath(ref path);
-            string[] parts = path.Split('/');
-            int lastSlash = path.LastIndexOf('/');
+        public void AddFile(MochaFile file,MochaPath path) {
+            var parts = path.Path.Split('/');
 
+            if(parts.Length == 1)
+                throw new Exception("Files is cannot add in disks directly!");
             if(!ExistsDisk(parts[0]))
                 throw new Exception("Disk not found!");
             if(!ExistsDirectory(path))
@@ -367,12 +359,12 @@ namespace MochaDB.FileSystem {
             if(ExistsFile($"{path}/{file.FullName}"))
                 throw new Exception("This file already exists!");
 
-            lastSlash = path.LastIndexOf('/');
-            XElement element = Database.GetElement(parts.Length == 1 ? "FileSystem"
-                : $"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}").Elements().Where(x =>
-            x.Attribute("Type").Value=="Directory").First();
+            var originalname = path.Name();
+            path = path.ParentPath();
+            var element = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+                    x.Attribute("Type").Value=="Directory").First();
 
-            XElement xFile = new XElement(file.FullName,Convert.ToBase64String(file.Bytes));
+            var xFile = new XElement(file.FullName,Convert.ToBase64String(file.Bytes));
             xFile.Add(new XAttribute("Type","File"));
             xFile.Add(new XAttribute("Description",file.Description));
             element.Add(xFile);
@@ -384,38 +376,31 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path of file.</param>
         /// <param name="virtualPath">FileSystem path of file.</param>
-        public void UploadFile(string path,string virtualPath) =>
+        public void UploadFile(string path,MochaPath virtualPath) =>
             AddFile(MochaFile.Load(path),virtualPath);
 
         /// <summary>
         /// Returns whether there is a disk with the specified root.
         /// </summary>
         public MochaResult<bool> ExistsDisk(string root) =>
-            Database.GetElement("FileSystem").Elements().Where(x => x.Attribute("Type").Value=="Disk" &&
+            Database.GetElement("FileSystem").Elements().Select(x => x.Attribute("Type").Value=="Disk" &&
             x.Name.LocalName==root).Count() > 0;
 
         /// <summary>
         /// Returns whether there is a directory with the specified path.
         /// </summary>
-        public MochaResult<bool> ExistsDirectory(string path) {
-            ProcessPath(ref path);
-            int lastSlash = path.LastIndexOf('/');
-
-            XElement element = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}");
-            return element == null ? false : element.Elements().Where(
-                x => x.Attribute("Type").Value=="Directory").Count() > 0;
+        public MochaResult<bool> ExistsDirectory(MochaPath path) {
+            return GetDirectoryElement(path) != null;
         }
 
         /// <summary>
         /// Returns whether there is a file with the specified path.
         /// </summary>
-        public MochaResult<bool> ExistsFile(string path) {
-            ProcessPath(ref path);
-            int lastSlash = path.LastIndexOf('/');
-
-            XElement element = Database.GetElement($"FileSystem/{path.Substring(0,lastSlash == -1 ? path.Length : lastSlash)}");
-            return element == null ? false : element.Elements().Where(
-                x => x.Attribute("Type").Value=="File").Count() > 0;
+        public MochaResult<bool> ExistsFile(MochaPath path) {
+            var originalname = path.Name();
+            path= path.ParentPath();
+            return Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+                x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).Count() > 0;
         }
 
         #endregion
