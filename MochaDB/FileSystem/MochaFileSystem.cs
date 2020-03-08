@@ -125,6 +125,14 @@ namespace MochaDB.FileSystem {
         }
 
         /// <summary>
+        /// Return all disks.
+        /// </summary>
+        /// <param name="path">Path of directory.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaFile> GetFiles(string path,Func<MochaFile,bool> query) =>
+            new MochaCollectionResult<MochaFile>(GetFiles(path).collection.Where(query));
+
+        /// <summary>
         /// Return directory by path.
         /// </summary>
         /// <param name="path">Path of directory.</param>
@@ -169,6 +177,14 @@ namespace MochaDB.FileSystem {
         }
 
         /// <summary>
+        /// Return all directories.
+        /// </summary>
+        /// <param name="path">Path of directory.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaDirectory> GetDirectories(string path,Func<MochaDirectory,bool> query) =>
+            new MochaCollectionResult<MochaDirectory>(GetDirectories(path).collection.Where(query));
+
+        /// <summary>
         /// Return disk by root.
         /// </summary>
         /// <param name="root">Root of disk.</param>
@@ -198,6 +214,13 @@ namespace MochaDB.FileSystem {
 
             return new MochaCollectionResult<MochaDisk>(disks);
         }
+
+        /// <summary>
+        /// Return all disks.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaCollectionResult<MochaDisk> GetDisks(Func<MochaDisk,bool> query) =>
+            new MochaCollectionResult<MochaDisk>(GetDisks().collection.Where(query));
 
         /// <summary>
         /// Add disk.
