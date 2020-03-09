@@ -46,7 +46,7 @@ namespace MochaDB.FileSystem {
         /// </summary>
         public MochaPath ParentPath() {
             var dex = Path.LastIndexOf('/');
-            var path=dex!=-1 ? Path.Substring(0,dex) : Path;
+            var path = dex!=-1 ? Path.Substring(0,dex) : Path;
             return path;
         }
 
@@ -93,7 +93,7 @@ namespace MochaDB.FileSystem {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrEmpty(value))
                     throw new Exception("Path is cannot null!");
-                
+
                 value=value.Replace('\\','/');
                 value = value.Last()=='/' ? value.Remove(value.Length-1,1) : value;
                 if(value==path)

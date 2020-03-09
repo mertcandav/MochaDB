@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -26,7 +27,7 @@ namespace MochaDB.FileSystem {
         string FullName { get; }
         string Extension { get; set; }
         string Description { get; set; }
-        byte[] Bytes { get; set; }
+        MochaStream Stream { get; set; }
 
         #endregion
     }

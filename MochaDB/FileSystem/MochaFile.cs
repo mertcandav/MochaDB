@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -25,7 +26,7 @@ namespace MochaDB.FileSystem {
             Name=name;
             Extension=extension;
             Description=string.Empty;
-            Bytes=new byte[0];
+            Stream=new MochaStream();
         }
 
         #endregion
@@ -70,7 +71,7 @@ namespace MochaDB.FileSystem {
                 throw new Exception("This path does not show a file!");
 
             MochaFile file = new MochaFile(fi.Name,fi.Extension);
-            file.Bytes = File.ReadAllBytes(path);
+            file.Stream.Bytes = File.ReadAllBytes(path);
             return file;
         }
 
@@ -86,7 +87,7 @@ namespace MochaDB.FileSystem {
             MochaFile file = Load(path);
             Name=file.Name;
             Extension=file.Extension;
-            Bytes=file.Bytes;
+            Stream=file.Stream;
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="value">String value.</param>
         public void SetFromString(string value) {
-            Bytes=Encoding.UTF8.GetBytes(value);
+            Stream.Bytes=Encoding.UTF8.GetBytes(value);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace MochaDB.FileSystem {
         /// <param name="value">String value.</param>
         /// <param name="encoding">Encoding to use.</param>
         public void SetFromString(string value,Encoding encoding) {
-            Bytes=encoding.GetBytes(value);
+            Stream.Bytes=encoding.GetBytes(value);
         }
 
         /// <summary>
@@ -111,33 +112,33 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="stream">Stream to use.</param>
         public void SetFromStream(MemoryStream stream) {
-            Bytes=stream.ToArray();
+            Stream.Bytes=stream.ToArray();
         }
 
         /// <summary>
         /// Returns bytes converted to Base64.
         /// </summary>
         public string ToBase64() =>
-            Convert.ToBase64String(Bytes);
+            Convert.ToBase64String(Stream.Bytes);
 
         /// <summary>
         /// Returns bytes converted to MemoryStream.
         /// </summary>
         public MemoryStream ToStream() =>
-            new MemoryStream(Bytes);
+            new MemoryStream(Stream.Bytes);
 
         /// <summary>
         /// Returns bytes converted to text with UTF8.
         /// </summary>
         public string ToText() =>
-            Encoding.UTF8.GetString(Bytes);
+            Encoding.UTF8.GetString(Stream.Bytes);
 
         /// <summary>
         /// Returns bytes converted to text with encoding.
         /// </summary>
         /// <param name="encoding">Encoding to use with converting.</param>
         public string ToText(Encoding encoding) =>
-            encoding.GetString(Bytes);
+            encoding.GetString(Stream.Bytes);
 
         #endregion
 
@@ -186,7 +187,7 @@ namespace MochaDB.FileSystem {
         /// <summary>
         /// File value.
         /// </summary>
-        public byte[] Bytes { get; set; }
+        public MochaStream Stream { get; set; }
 
         /// <summary>
         /// Description of file.

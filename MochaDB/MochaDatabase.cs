@@ -31,6 +31,7 @@ using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.FileSystem;
 using MochaDB.Querying;
+using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
@@ -756,6 +757,19 @@ namespace MochaDB {
             new MochaCollectionResult<MochaSector>(GetSectors().collection.Where(query));
 
         /// <summary>
+        /// Read all sectors in database.
+        /// </summary>
+        public MochaReader<MochaSector> ReadSectors() =>
+            new MochaReader<MochaSector>(GetSectors().collection);
+
+        /// <summary>
+        /// Read all sectors in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaSector> ReadSectors(Func<MochaSector,bool> query) =>
+            new MochaReader<MochaSector>(GetSectors(query).collection);
+
+        /// <summary>
         /// Returns whether there is a sector with the specified name.
         /// </summary>
         /// <param name="name">Name of sector to check.</param>
@@ -899,6 +913,19 @@ namespace MochaDB {
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaStack> GetStacks(Func<MochaStack,bool> query) =>
             new MochaCollectionResult<MochaStack>(GetStacks().collection.Where(query));
+
+        /// <summary>
+        /// Read all stacks in database.
+        /// </summary>
+        public MochaReader<MochaStack> ReadStacks() =>
+            new MochaReader<MochaStack>(GetStacks().collection);
+
+        /// <summary>
+        /// Read all stacks in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaStack> ReadStacks(Func<MochaStack,bool> query) =>
+            new MochaReader<MochaStack>(GetStacks(query).collection);
 
         /// <summary>
         /// Returns whether there is a stack with the specified name.
@@ -1250,6 +1277,19 @@ namespace MochaDB {
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaTable> GetTables(Func<MochaTable,bool> query) =>
             new MochaCollectionResult<MochaTable>(GetTables().collection.Where(query));
+
+        /// <summary>
+        /// Read all tables in database.
+        /// </summary>
+        public MochaReader<MochaTable> ReadTables() =>
+            new MochaReader<MochaTable>(GetTables().collection);
+
+        /// <summary>
+        /// Read all tables in database.
+        /// </summary>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaTable> ReadTables(Func<MochaTable,bool> query) =>
+            new MochaReader<MochaTable>(GetTables(query).collection);
 
         /// <summary>
         /// Returns whether there is a table with the specified name.
