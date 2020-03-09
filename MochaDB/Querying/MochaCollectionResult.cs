@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MochaDB.Streams;
 
 namespace MochaDB.Querying {
     /// <summary>
@@ -98,6 +99,12 @@ namespace MochaDB.Querying {
         /// </summary>
         public List<T> ToList() =>
             collection.ToList();
+
+        /// <summary>
+        /// Returns values in MochaReader.
+        /// </summary>
+        public MochaReader<T> ToReader() =>
+            new MochaReader<T>(collection);
 
         /// <summary>
         /// Return max index of item count.

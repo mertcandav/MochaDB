@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -220,6 +221,12 @@ namespace MochaDB.FileSystem {
         /// </summary>
         public List<MochaFile> ToList() =>
             collection.ToList();
+
+        /// <summary>
+        /// Returns values in MochaReader.
+        /// </summary>
+        public MochaReader<MochaFile> ToReader() =>
+            new MochaReader<MochaFile>(collection);
 
         #endregion
 

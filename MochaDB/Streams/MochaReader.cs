@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -48,7 +47,7 @@ namespace MochaDB.Streams {
                 Value = collection[Position];
                 return true;
             }
-            
+
             Value=null;
             return false;
         }
@@ -72,12 +71,6 @@ namespace MochaDB.Streams {
         /// </summary>
         public void GoLast() =>
             Position=Count-2 < -1 ? -1 : Count-2;
-
-        /// <summary>
-        /// Returns values in collection.
-        /// </summary>
-        public IEnumerable<T> ToEnumerable() =>
-            collection.AsEnumerable();
 
         #endregion
 

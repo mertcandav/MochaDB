@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MochaDB.Streams {
+﻿namespace MochaDB.Streams {
     /// <summary>
     /// Interface for MochaDB readers.
     /// </summary>
@@ -8,7 +6,6 @@ namespace MochaDB.Streams {
         #region Methods
 
         bool Read();
-        IEnumerable<T> ToEnumerable();
 
         #endregion
 
