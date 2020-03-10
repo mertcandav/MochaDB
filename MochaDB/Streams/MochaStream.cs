@@ -6,7 +6,7 @@ namespace MochaDB.Streams {
     /// <summary>
     /// Stream for MochaDB.
     /// </summary>
-    public class MochaStream:IMochaStream {
+    public class MochaStream:Stream, IMochaStream {
         #region Fields
 
         private MemoryStream baseStream;
@@ -18,7 +18,14 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Create a new MochaStream.
         /// </summary>
-        /// <param name="stream">Source stream.</param>
+        public MochaStream() {
+            baseStream=new MemoryStream();
+        }
+
+        /// <summary>
+        /// Create a new MochaStream.
+        /// </summary>
+        /// <param name="bytes">Bytes of stream.</param>
         public MochaStream(params byte[] bytes) {
             baseStream=new MemoryStream(bytes);
         }
@@ -40,6 +47,24 @@ namespace MochaDB.Streams {
             baseStream=new MemoryStream(bytes.ToArray());
         }
 
+        /// <summary>
+        /// Create a new MochaStream.
+        /// </summary>
+        /// <param name="writable">Whether the stream supports writing.</param>
+        /// <param name="bytes">Bytes of stream.</param>
+        public MochaStream(bool writable,params byte[] bytes) {
+            baseStream=new MemoryStream(bytes,writable);
+        }
+
+        /// <summary>
+        /// Create a new MochaStream.
+        /// </summary>
+        /// <param name="writable">Whether the stream supports writing.</param>
+        /// <param name="bytes">Bytes of stream.</param>
+        public MochaStream(bool writable,IEnumerable<byte> bytes) {
+            baseStream=new MemoryStream(bytes.ToArray(),writable);
+        }
+
         #endregion
 
         #region Methods
@@ -48,7 +73,7 @@ namespace MochaDB.Streams {
         /// Reads the bytes from the current stream and writes them to another stream.
         /// </summary>
         /// <param name="destination">Destination stream.</param>
-        public void CopyTo(Stream destination) =>
+        public new void CopyTo(Stream destination) =>
             baseStream.CopyTo(destination);
 
         /// <summary>
@@ -56,7 +81,7 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="destination">Destination stream.</param>
         /// <param name="buffer">Buffer size.</param>
-        public void CopyTo(Stream destination,int buffer) =>
+        public new void CopyTo(Stream destination,int buffer) =>
             baseStream.CopyTo(destination,buffer);
 
         /// <summary>
@@ -81,7 +106,7 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Releases all resources used by the Stream.
         /// </summary>
-        public void Dispose() {
+        public new void Dispose() {
             baseStream.Dispose();
         }
 
@@ -91,7 +116,7 @@ namespace MochaDB.Streams {
         /// <param name="buffer">When this method returns, contains the specified byte array with the values between offset and (offset + count - 1) replaced by the characters read from the current stream.</param>
         /// <param name="offset">The zero-based byte offset in buffer at which to begin storing data from the current stream.</param>
         /// <param name="count">The maximum number of bytes to read.</param>
-        public int Read(byte[] buffer,int offset,int count) {
+        public override int Read(byte[] buffer,int offset,int count) {
             return baseStream.Read(buffer,offset,count);
         }
 
@@ -101,14 +126,14 @@ namespace MochaDB.Streams {
         /// <param name="buffer">The buffer to write data from.</param>
         /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
         /// <param name="count">The maximum number of bytes to write.</param>
-        public void Write(byte[] buffer,int offset,int count) {
+        public override void Write(byte[] buffer,int offset,int count) {
             baseStream.Write(buffer,offset,count);
         }
 
         /// <summary>
         /// Reads a byte from the current stream.
         /// </summary>
-        public int ReadByte() {
+        public override int ReadByte() {
             return baseStream.ReadByte();
         }
 
@@ -116,14 +141,14 @@ namespace MochaDB.Streams {
         /// Writes a byte to the current stream at the current position.
         /// </summary>
         /// <param name="value">The byte to write.</param>
-        public void WriteByte(byte value) {
+        public override void WriteByte(byte value) {
             baseStream.WriteByte(value);
         }
 
         /// <summary>
         /// Overrides the Flush() method so that no action is performed.
         /// </summary>
-        public void Flush() {
+        public override void Flush() {
             baseStream.Flush();
         }
 
@@ -132,7 +157,7 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="offset">The new position within the stream. This is relative to the loc parameter, and can be positive or negative.</param>
         /// <param name="loc">A value of type SeekOrigin, which acts as the seek reference point.</param>
-        public long Seek(long offset,SeekOrigin loc) {
+        public override long Seek(long offset,SeekOrigin loc) {
             return baseStream.Seek(offset,loc);
         }
 
@@ -148,7 +173,7 @@ namespace MochaDB.Streams {
         /// Sets the length of the current stream to the specified value.
         /// </summary>
         /// <param name="value">The value at which to set the length.</param>
-        public void SetLength(long value) {
+        public override void SetLength(long value) {
             baseStream.SetLength(value);
         }
 
@@ -178,37 +203,37 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Gets the length of the stream in bytes.
         /// </summary>
-        public long Length =>
+        public override long Length =>
             baseStream.Length;
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports reading.
         /// </summary>
-        public bool CanRead =>
+        public override bool CanRead =>
             baseStream.CanRead;
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports writing.
         /// </summary>
-        public bool CanWrite =>
+        public override bool CanWrite =>
             baseStream.CanWrite;
 
         /// <summary>
         /// Gets a value that determines whether the current stream can time out.
         /// </summary>
-        public bool CanTimeout =>
+        public override bool CanTimeout =>
             baseStream.CanTimeout;
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports seeking.
         /// </summary>
-        public bool CanSeek =>
+        public override bool CanSeek =>
             baseStream.CanSeek;
 
         /// <summary>
         /// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out.
         /// </summary>
-        public int ReadTimeout {
+        public override int ReadTimeout {
             get => baseStream.ReadTimeout;
             set => baseStream.ReadTimeout=value;
         }
@@ -216,7 +241,7 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out.
         /// </summary>
-        public int WriteTimeout {
+        public override int WriteTimeout {
             get => baseStream.WriteTimeout;
             set => baseStream.WriteTimeout=value;
         }
@@ -224,7 +249,7 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Gets or sets the current position within the stream.
         /// </summary>
-        public long Position {
+        public override long Position {
             get => baseStream.Position;
             set => baseStream.Position=value;
         }
