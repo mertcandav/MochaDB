@@ -76,7 +76,7 @@ namespace MochaDB {
             aes256=new AES(Iv,Key);
             State=MochaConnectionState.Disconnected;
 
-            if(GetBoolAttributeState("AutoConnect")) {
+            if(Provider.GetBoolAttributeState("AutoConnect")) {
                 Connect();
             }
         }
@@ -265,21 +265,6 @@ namespace MochaDB {
 
         #endregion
 
-        #region Provider
-
-        /// <summary>
-        /// Return boolean provider attribute value by name.
-        /// </summary>
-        /// <param name="name">Name of attribute.</param>
-        internal bool GetBoolAttributeState(string name) {
-            MochaProviderAttribute attribute = Provider.GetAttribute(name);
-            if(attribute!=null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase))
-                return true;
-            return false;
-        }
-
-        #endregion
-
         #region Connection
 
         /// <summary>
@@ -292,7 +277,7 @@ namespace MochaDB {
             State=MochaConnectionState.Connected;
 
             if(!File.Exists(Provider.Path)) {
-                if(GetBoolAttributeState("AutoCreate"))
+                if(Provider.GetBoolAttributeState("AutoCreate"))
                     CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
                 else
                     throw new Exception("There is no Mocha DB database file in the specified path!");

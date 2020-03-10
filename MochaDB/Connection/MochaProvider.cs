@@ -91,11 +91,22 @@ namespace MochaDB.Connection {
         }
 
         /// <summary>
-        /// Return attribute by name.
+        /// Returns attribute by name.
         /// </summary>
         /// <param name="name">Name of attribute.</param>
         public MochaProviderAttribute GetAttribute(string name) =>
             GetAttribute(name,ConnectionString);
+
+        /// <summary>
+        /// Returns boolean provider attribute value by name.
+        /// </summary>
+        /// <param name="name">Name of attribute.</param>
+        public bool GetBoolAttributeState(string name) {
+            MochaProviderAttribute attribute = GetAttribute(name);
+            if(attribute!=null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
+        }
 
         #endregion
 
