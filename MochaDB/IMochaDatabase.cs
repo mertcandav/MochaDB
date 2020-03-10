@@ -56,7 +56,7 @@ namespace MochaDB {
         #region Properties
 
         MochaProvider Provider { get; }
-        MochaConnectionState State { get; }
+        MochaConnectionState ConnectionState { get; }
         string Name { get; }
 
         #endregion

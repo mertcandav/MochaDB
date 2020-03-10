@@ -146,7 +146,7 @@ namespace MochaDB {
         /// <param name="data">String data.</param>
         public static object GetDataFromString(MochaDataType dataType,string data) {
             if(data == null)
-                throw new Exception("Data is can not null!");
+                throw new NullReferenceException("Data is can not null!");
 
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return data.ToString();

@@ -39,7 +39,7 @@ namespace MochaDB.FileSystem {
         public event EventHandler<EventArgs> NameChanged;
         private void OnNameChanged(object sender,EventArgs e) {
             if(string.IsNullOrEmpty(FullName))
-                throw new Exception("At least one of the names and extensions must not be empty!");
+                throw new NullReferenceException("At least one of the names and extensions must not be empty!");
 
             //Invoke.
             NameChanged?.Invoke(this,new EventArgs());
@@ -51,7 +51,7 @@ namespace MochaDB.FileSystem {
         public event EventHandler<EventArgs> ExtensionChanged;
         private void OnExtensionChanged(object sender,EventArgs e) {
             if(string.IsNullOrEmpty(FullName))
-                throw new Exception("At least one of the names and extensions must not be empty!");
+                throw new NullReferenceException("At least one of the names and extensions must not be empty!");
 
             //Invoke.
             ExtensionChanged?.Invoke(this,new EventArgs());

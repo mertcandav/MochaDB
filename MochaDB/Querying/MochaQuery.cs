@@ -81,6 +81,10 @@ namespace MochaDB.Querying {
 
             Database.OnConnectionCheckRequired(this,new EventArgs());
 
+            //Check null.
+            if(string.IsNullOrEmpty(MochaQ))
+                throw new NullReferenceException("This MochaQ query is empty, invalid!");
+
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
                 return null;
@@ -151,7 +155,7 @@ namespace MochaDB.Querying {
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new Exception("This MochaQ query is empty, invalid!");
+                throw new NullReferenceException("This MochaQ query is empty, invalid!");
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
@@ -374,7 +378,7 @@ namespace MochaDB.Querying {
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new Exception("This MochaQ query is empty, invalid!");
+                throw new NullReferenceException("This MochaQ query is empty, invalid!");
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))

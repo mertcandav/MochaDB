@@ -71,7 +71,7 @@ namespace MochaDB {
             set {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrEmpty(value))
-                    throw new Exception("Name is cannot null!");
+                    throw new NullReferenceException("Name is cannot null!");
                 if(value==name)
                     return;
 

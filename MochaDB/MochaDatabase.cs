@@ -74,7 +74,7 @@ namespace MochaDB {
             provider.EnableConstant();
             Provider=provider;
             aes256=new AES(Iv,Key);
-            State=MochaConnectionState.Disconnected;
+            ConnectionState=MochaConnectionState.Disconnected;
 
             if(Provider.GetBoolAttributeState("AutoConnect")) {
                 Connect();
@@ -95,7 +95,7 @@ namespace MochaDB {
             //Invoke.
             ConnectionCheckRequired?.Invoke(sender,e);
 
-            if(State!=MochaConnectionState.Connected)
+            if(ConnectionState!=MochaConnectionState.Connected)
                 throw new Exception("Connection is not open!");
         }
 
@@ -271,10 +271,10 @@ namespace MochaDB {
         /// Connect to database.
         /// </summary>
         public void Connect() {
-            if(State==MochaConnectionState.Connected)
+            if(ConnectionState==MochaConnectionState.Connected)
                 return;
 
-            State=MochaConnectionState.Connected;
+            ConnectionState=MochaConnectionState.Connected;
 
             if(!File.Exists(Provider.Path)) {
                 if(Provider.GetBoolAttributeState("AutoCreate"))
@@ -308,10 +308,10 @@ namespace MochaDB {
         /// Disconnect from database.
         /// </summary>
         public void Disconnect() {
-            if(State==MochaConnectionState.Disconnected)
+            if(ConnectionState==MochaConnectionState.Disconnected)
                 return;
 
-            State=MochaConnectionState.Disconnected;
+            ConnectionState=MochaConnectionState.Disconnected;
 
             sourceStream.Dispose();
             Doc=null;
@@ -1888,7 +1888,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// <summary>
         /// State of connection.
         /// </summary>
-        public MochaConnectionState State { get; private set; }
+        public MochaConnectionState ConnectionState { get; private set; }
 
         /// <summary>
         /// Name of database.

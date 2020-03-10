@@ -816,14 +816,14 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 scriptPath;
             set {
                 if(string.IsNullOrEmpty(value))
-                    throw new Exception("ScriptPath is can not null!");
+                    throw new NullReferenceException("ScriptPath is can not null!");
 
                 FileInfo fInfo = new FileInfo(value);
 
                 if(!fInfo.Exists)
-                    throw new Exception("There is no such MochaScript file!");
+                    throw new NullReferenceException("There is no such MochaScript file!");
                 if(fInfo.Extension != ".mochascript")
-                    throw new Exception("The file shown is not a MochaScript file!");
+                    throw new NullReferenceException("The file shown is not a MochaScript file!");
 
                 if(scriptStream!=null)
                     scriptStream.Dispose();

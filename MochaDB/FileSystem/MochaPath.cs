@@ -92,7 +92,7 @@ namespace MochaDB.FileSystem {
             set {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrEmpty(value))
-                    throw new Exception("Path is cannot null!");
+                    throw new NullReferenceException("Path is cannot null or whitespace!");
 
                 value=value.Replace('\\','/');
                 value = value.Last()=='/' ? value.Remove(value.Length-1,1) : value;

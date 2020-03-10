@@ -71,7 +71,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
         internal void CheckValue() {
             if(string.IsNullOrWhiteSpace(value)) {
                 if(Name.Equals("Path"))
-                    throw new Exception("File path cannot be empty!");
+                    throw new NullReferenceException("File path cannot be empty!");
                 if(booleanAttributesRegex.IsMatch(Name))
                     value="False";
             } else {
@@ -112,7 +112,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
                 name;
             set {
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new Exception("Attribute name is can not empty or white space!");
+                    throw new NullReferenceException("Attribute name is can not empty or white space!");
 
                 if(value==name)
                     return;
