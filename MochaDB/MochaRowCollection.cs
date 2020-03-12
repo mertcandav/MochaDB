@@ -81,6 +81,27 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="datas">Datas of item.</param>
+        public void Add(params object[] datas) =>
+            Add(new MochaRow(datas));
+
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="datas">Datas of item.</param>
+        public void Add(params MochaData[] datas) =>
+            Add(new MochaRow(datas));
+
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="datas">Datas of item.</param>
+        public void Add(IEnumerable<MochaData> datas) =>
+            Add(new MochaRow(datas));
+
+        /// <summary>
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>

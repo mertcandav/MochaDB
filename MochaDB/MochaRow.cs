@@ -23,7 +23,9 @@ namespace MochaDB {
             MochaData[] coll = new MochaData[datas.Length];
             for(int index = 0; index < datas.Length; index++) {
                 object data = datas[index]==null ? string.Empty : datas[index];
-                coll[index] = new MochaData(MochaData.GetDataTypeFromType(data.GetType()),data);
+                coll[index] = data is MochaData ?
+                    data as MochaData :
+                    new MochaData(MochaData.GetDataTypeFromType(data.GetType()),data);
             }
             Datas.collection.AddRange(coll);
         }
