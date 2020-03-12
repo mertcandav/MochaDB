@@ -27,8 +27,8 @@ namespace MochaDB {
         /// <param name="dataType">Data type of data.</param>
         /// <param name="data">Data value.</param>
         public MochaData(MochaDataType dataType,object data) {
+            this.data = data;
             DataType = dataType;
-            Data = data;
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace MochaDB {
                 return false;
 
             try {
-                object testdata = GetDataFromString(dataType,data.ToString());
+                object testdata = GetDataFromString(dataType,(string)data);
                 return true;
             } catch { return false; }
         }
@@ -54,7 +54,7 @@ namespace MochaDB {
         /// Return MochaDataType by name.
         /// </summary>
         /// <param name="name">Name of MochaDataType.</param>
-        public static MochaDataType GetDataTypeFromName(string name = "") {
+        public static MochaDataType GetDataTypeFromName(string name = "String") {
             name=name.TrimStart().TrimEnd().ToLowerInvariant();
             MochaDataType dataType;
             if(Enum.TryParse(name,true,out dataType))
@@ -146,10 +146,10 @@ namespace MochaDB {
         /// <param name="data">String data.</param>
         public static object GetDataFromString(MochaDataType dataType,string data) {
             if(data == null)
-                throw new NullReferenceException("Data is can not null!");
+                throw new NullReferenceException("Data is cannot null!");
 
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
-                return data.ToString();
+                return data;
             if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)
                 return int.Parse(data);
             if(dataType == MochaDataType.Byte)
@@ -214,7 +214,7 @@ namespace MochaDB {
         /// Get data in string.
         /// </summary>
         public override string ToString() {
-            return Data.ToString();
+            return DataType != MochaDataType.String ? Data.ToString() : Data as string;
         }
 
         #endregion

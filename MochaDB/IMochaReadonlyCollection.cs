@@ -1,25 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MochaDB {
     /// <summary>
-    /// Collection interface for MochaDB.
+    /// Readonly collection interface for MochaDB.
     /// </summary>
     /// <typeparam name="T">Item type of collector.</typeparam>
-    public interface IMochaCollection<T> {
-        #region Events
-
-        event EventHandler<EventArgs> Changed;
-
-        #endregion
-
+    public interface IMochaReadonlyCollection<T> {
         #region Methods
 
-        void Clear();
-        void Add(T item);
-        void AddRange(IEnumerable<T> items);
-        void Remove(T item);
-        void RemoveAt(int index);
         int IndexOf(T item);
         bool Contains(T item);
         int MaxIndex();

@@ -397,7 +397,7 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path + ".mochadb",new AES(Iv,Key).Encrypt(content));
+            File.WriteAllText(path.EndsWith(".mochadb") ? path : path + ".mochadb",new AES(Iv,Key).Encrypt(content));
         }
 
         /// <summary>
@@ -1145,9 +1145,14 @@ namespace MochaDB {
             GetElement("Tables").Add(xTable);
 
             for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
-                AddColumn(table.Name,table.Columns[columnIndex]);
+                var column = table.Columns[columnIndex];
+                XElement Xcolumn = new XElement(column.Name);
+                Xcolumn.Add(new XAttribute("DataType",column.DataType));
+                Xcolumn.Add(new XAttribute("Description",column.Description));
+                for(int index = 0; index < column.Datas.Count; index++)
+                    Xcolumn.Add(new XElement("Data",column.Datas[index].Data));
+                xTable.Add(Xcolumn);
             }
-
 
             if(table.Columns.Count==0)
                 Save();
@@ -1296,24 +1301,24 @@ namespace MochaDB {
             if(ExistsColumn(tableName,column.Name))
                 throw new Exception("There is already a column with this name!");
 
-            XElement Xcolumn = new XElement(column.Name);
-            Xcolumn.Add(new XAttribute("DataType",column.DataType));
-            Xcolumn.Add(new XAttribute("Description",column.Description));
+            XElement xColumn = new XElement(column.Name);
+            xColumn.Add(new XAttribute("DataType",column.DataType));
+            xColumn.Add(new XAttribute("Description",column.Description));
 
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
-                    Xcolumn.Add(new XElement("Data",index));
+                    xColumn.Add(new XElement("Data",index));
             } else {
-                for(int index = 1; index <= column.Datas.Count; index++)
-                    Xcolumn.Add(new XElement("Data",column.Datas[index].Data));
+                for(int index = 0; index < column.Datas.Count; index++)
+                    xColumn.Add(new XElement("Data",column.Datas[index].Data));
 
                 for(int index = column.Datas.Count; index < rowCount; index++) {
-                    Xcolumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
+                    xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
                 }
             }
 
-            GetElement($"Tables/{tableName}").Add(Xcolumn);
+            GetElement($"Tables/{tableName}").Add(xColumn);
             Save();
         }
 

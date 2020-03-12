@@ -18,20 +18,30 @@ namespace MochaDB {
         /// <summary>
         /// Create new MochaColumn.
         /// </summary>
-        /// <param name="dataType">Data type.</param>
         /// <param name="name">Name.</param>
-        public MochaColumn(string name,MochaDataType dataType) {
-            Datas = new MochaColumnDataCollection(dataType);
+        public MochaColumn(string name) {
+            Datas = new MochaColumnDataCollection(MochaDataType.String);
             Name = name;
-            DataType = dataType;
+            DataType = MochaDataType.String;
             Description = string.Empty;
         }
 
         /// <summary>
         /// Create new MochaColumn.
         /// </summary>
-        /// <param name="dataType">Data type.</param>
-        /// <param name="name">Name.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="dataType">Data type of column.</param>
+        public MochaColumn(string name,MochaDataType dataType) :
+            this(name) {
+            Name = name;
+            DataType = dataType;
+        }
+
+        /// <summary>
+        /// Create new MochaColumn.
+        /// </summary>
+        /// <param name="name">Name of column.</param>
+        /// <param name="dataType">Data type of column.</param>
         public MochaColumn(string name,MochaDataType dataType,IEnumerable<MochaData> datas) :
             this(name,dataType) {
             Datas.AddRange(datas);

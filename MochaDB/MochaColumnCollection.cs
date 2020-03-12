@@ -37,15 +37,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// This happens after Changed event of any item in collection.
-        /// </summary>
-        public event EventHandler<EventArgs> ColumnChanged;
-        private void OnColumnChanged(object sender,EventArgs e) {
-            //Invoke.
-            ColumnChanged?.Invoke(sender,e);
-        }
-
-        /// <summary>
         /// This happens after NameChanged event of any item in collection.
         /// </summary>
         public event EventHandler<EventArgs> ColumnNameChanged;
@@ -59,7 +50,7 @@ namespace MochaDB {
         #region Item Events
 
         private void Item_Changed(object sender,EventArgs e) {
-            OnColumnChanged(sender,e);
+            //OnColumnChanged(sender,e);
         }
 
         private void Item_NameChanged(object sender,EventArgs e) {
@@ -80,7 +71,7 @@ namespace MochaDB {
         public void Clear() {
             for(int index = 0; index < Count; index++) {
                 collection[index].NameChanged-=Item_NameChanged;
-                collection[index].Datas.Changed-=Item_Changed;
+                //collection[index].Datas.Changed-=Item_Changed;
             }
             collection.Clear();
         }
@@ -96,9 +87,24 @@ namespace MochaDB {
                 throw new Exception("There is already a column with this name!");
 
             item.NameChanged+=Item_NameChanged;
-            item.Datas.Changed+=Item_Changed;
+            //item.Datas.Changed+=Item_Changed;
             collection.Add(item);
         }
+
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        public void Add(string name) =>
+            Add(new MochaColumn(name));
+
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        /// <param name="datatype">Datatype of item.</param>
+        public void Add(string name,MochaDataType datatype) =>
+            Add(new MochaColumn(name,datatype));
 
         /// <summary>
         /// Add item from range.
@@ -125,7 +131,7 @@ namespace MochaDB {
             for(int index = 0; index < Count; index++)
                 if(collection[index].Name == name) {
                     collection[index].NameChanged-=Item_NameChanged;
-                    collection[index].Datas.Changed-=Item_Changed;
+                    //collection[index].Datas.Changed-=Item_Changed;
                     collection.RemoveAt(index);
                     OnChanged(this,new EventArgs());
                     break;

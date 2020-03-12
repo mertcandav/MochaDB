@@ -33,7 +33,7 @@ namespace MochaDB {
         public event EventHandler<EventArgs> Changed;
         private void OnChanged(object sender,EventArgs e) {
             //Invoke.
-            Changed?.Invoke(this,new EventArgs());
+            Changed?.Invoke(this,e);
         }
 
         /// <summary>

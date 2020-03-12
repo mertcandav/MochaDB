@@ -7,7 +7,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaData collector for MochaColumns.
     /// </summary>
-    public class MochaColumnDataCollection:IMochaCollection<MochaData> {
+    public class MochaColumnDataCollection:IMochaReadonlyCollection<MochaData> {
         #region Fields
 
         internal List<MochaData> collection;
@@ -28,37 +28,26 @@ namespace MochaDB {
 
         #endregion
 
-        #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        private void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,new EventArgs());
-        }
-
-        #endregion
-
         #region Methods
+
+        #region Internal
 
         /// <summary>
         /// Remove all items.
         /// </summary>
-        public void Clear() {
+        internal void Clear() {
             if(collection.Count ==0)
                 return;
 
             collection.Clear();
-            OnChanged(this,new EventArgs());
+            //OnChanged(this,new EventArgs());
         }
 
         /// <summary>
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(MochaData item) {
+        internal void Add(MochaData item) {
             if(DataType==MochaDataType.AutoInt)
                 throw new Exception("Data cannot be added directly to a column with AutoInt!");
             if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
@@ -67,7 +56,7 @@ namespace MochaDB {
 
             if(item.DataType == DataType) {
                 collection.Add(item);
-                Changed?.Invoke(this,new EventArgs());
+                //Changed?.Invoke(this,new EventArgs());
             } else
                 throw new Exception("This data's datatype not compatible column datatype.");
         }
@@ -76,9 +65,9 @@ namespace MochaDB {
         /// Add data.
         /// </summary>
         /// <param name="data">Data to add.</param>
-        public void AddData(object data) {
+        internal void AddData(object data) {
             if(MochaData.IsType(DataType,data))
-                AddData(new MochaData(DataType,data));
+                Add(new MochaData(DataType,data));
             else
                 throw new Exception("This data's datatype not compatible column datatype.");
         }
@@ -87,7 +76,7 @@ namespace MochaDB {
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaData> items) {
+        internal void AddRange(IEnumerable<MochaData> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -96,34 +85,37 @@ namespace MochaDB {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public void Remove(MochaData item) {
-            if(collection.Remove(item))
-                OnChanged(this,new EventArgs());
+        internal void Remove(MochaData item) {
+            collection.Remove(item);
+            /*if(collection.Remove(item))
+                OnChanged(this,new EventArgs());*/
         }
 
         /// <summary>
         /// Removes all data equal to sample data.
         /// </summary>
         /// <param name="data">Sample data.</param>
-        public void RemoveAllData(object data) {
+        internal void RemoveAllData(object data) {
             int count = collection.Count;
             collection = (
                 from currentdata in collection
                 where currentdata.Data != data
                 select currentdata).ToList();
 
-            if(collection.Count != count)
-                OnChanged(this,new EventArgs());
+            /*if(collection.Count != count)
+                OnChanged(this,new EventArgs());*/
         }
 
         /// <summary>
         /// Remove item by index.
         /// </summary>
         /// <param name="index">Index of item to remove.</param>
-        public void RemoveAt(int index) {
+        internal void RemoveAt(int index) {
             collection.RemoveAt(index);
-            OnChanged(this,new EventArgs());
+            //OnChanged(this,new EventArgs());
         }
+
+        #endregion
 
         /// <summary>
         /// Return index if index is find but return -1 if index is not find.
