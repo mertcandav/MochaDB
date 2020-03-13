@@ -30,6 +30,7 @@ using System.Xml.Linq;
 using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.FileSystem;
+using MochaDB.Logging;
 using MochaDB.Querying;
 using MochaDB.Streams;
 
@@ -76,8 +77,6 @@ namespace MochaDB {
             aes256=new AES(Iv,Key);
             ConnectionState=MochaConnectionState.Disconnected;
             Logs = Provider.GetBoolAttributeState("Logs");
-            if(Logs)
-                KeepLog();
 
             if(Provider.GetBoolAttributeState("AutoConnect")) {
                 Connect();
@@ -430,6 +429,8 @@ namespace MochaDB {
                     return false;
                 else if(!ExistsElement(path,"FileSystem"))
                     return false;
+                else if(!ExistsElement(path,"Logs"))
+                    return false;
                 else
                     return true;
             } catch { return false; }
@@ -459,6 +460,8 @@ namespace MochaDB {
                 else if(!ExistsElement("Tables"))
                     return false;
                 else if(!ExistsElement("FileSystem"))
+                    return false;
+                else if(!ExistsElement("Logs"))
                     return false;
                 else
                     return true;
@@ -519,11 +522,20 @@ namespace MochaDB {
         /// Keep log of database.
         /// </summary>
         internal void KeepLog() {
+            string id;
+            do {
+                id = MochaID.GetID(MochaIDType.Hash16);
+            } while(ExistsLog(id));
             XElement xLog = new XElement("Log");
+            xLog.Add(new XAttribute("ID",id));
             xLog.Add(new XAttribute("Time",DateTime.Now));
             string content = aes256.Encrypt(Doc.ToString());
             xLog.Value=content;
-            GetElement("Logs").Add(xLog);
+            XElement xLogs = GetElement("Logs");
+            IEnumerable<XElement> logElements = xLogs.Elements();
+            if(logElements.Count() >= 1000)
+                logElements.Last().Remove();
+            xLogs.Add(xLog);
             Save(false);
         }
 
@@ -1860,6 +1872,44 @@ namespace MochaDB {
 
             return GetElement($"Tables/{tableName}/{columnName}").Elements().Count();
         }
+
+        #endregion
+
+        #region Logs
+
+        /// <summary>
+        /// Clear all logs.
+        /// </summary>
+        public void ClearLogs() {
+            OnConnectionCheckRequired(this,new EventArgs());
+
+            GetElement("Logs").RemoveNodes();
+            Save(true);
+        }
+
+        /// <summary>
+        /// Returns all logs.
+        /// </summary>
+        public MochaCollectionResult<MochaLog> GetLogs() {
+            List<MochaLog> logs = new List<MochaLog>();
+            IEnumerable<XElement> elements = GetElement("Logs").Elements();
+            for(int index = 0; index < elements.Count(); index++) {
+                XElement currentElement = elements.ElementAt(index);
+                MochaLog log = new MochaLog();
+                log.ID = currentElement.Attribute("ID").Value;
+                log.Time = DateTime.Parse(currentElement.Attribute("Time").Value);
+                log.Log=currentElement.Value;
+                logs.Add(log);
+            }
+            return new MochaCollectionResult<MochaLog>(logs);
+        }
+
+        /// <summary>
+        /// Returns whether there is a log with the specified id.
+        /// </summary>
+        /// <param name="id">ID of log.</param>
+        public MochaResult<bool> ExistsLog(string id) =>
+            GetElement("Logs").Elements().Where(x=> x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
 
