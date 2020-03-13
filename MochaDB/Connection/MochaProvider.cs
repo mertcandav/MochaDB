@@ -131,7 +131,7 @@ namespace MochaDB.Connection {
                 connectionString;
             set {
                 if(Constant)
-                    throw new NullReferenceException("This provider is constant, can only be read!");
+                    throw new Exception("This provider is constant, can only be read!");
 
                 if(string.IsNullOrWhiteSpace(value))
                     throw new NullReferenceException("Connection string is can not empty or white space!");

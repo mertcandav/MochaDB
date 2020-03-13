@@ -207,7 +207,7 @@ namespace MochaDB.Querying {
                         tableRange.ElementAt(index).Elements().Remove();
                     }
 
-                    Database.Save();
+                    Database.Save(true);
                     return;
                 } else if(queryPaths[0] == "CLEARSECTORS") {
                     Database.ClearSectors();
@@ -250,7 +250,7 @@ namespace MochaDB.Querying {
                         throw new Exception("Table not found in this name!");
 
                     Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
-                    Database.Save();
+                    Database.Save(true);
                     return;
                 } else if(queryPaths[0] == "CREATEMOCHA") {
                     MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1]) + ".bjay",string.Empty,string.Empty);

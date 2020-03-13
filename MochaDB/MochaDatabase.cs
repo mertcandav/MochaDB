@@ -75,6 +75,9 @@ namespace MochaDB {
             Provider=provider;
             aes256=new AES(Iv,Key);
             ConnectionState=MochaConnectionState.Disconnected;
+            Logs = Provider.GetBoolAttributeState("Logs");
+            if(Logs)
+                KeepLog();
 
             if(Provider.GetBoolAttributeState("AutoConnect")) {
                 Connect();
@@ -108,6 +111,8 @@ namespace MochaDB {
         private void OnChangeContent(object sender,EventArgs e) {
             //Invoke.
             ChangeContent?.Invoke(sender,e);
+
+            KeepLog();
         }
 
         #endregion
@@ -491,7 +496,8 @@ namespace MochaDB {
         /// <summary>
         /// Save MochaDB database.
         /// </summary>
-        internal void Save() {
+        /// <param name="changedEvent">Execute Changed event after saved.</param>
+        internal void Save(bool changedEvent) {
             if(Provider.Readonly)
                 throw new Exception("This connection is can read only, cannot task of write!");
 
@@ -504,7 +510,20 @@ namespace MochaDB {
             Provider.EnableConstant();
             Connect();
 
-            OnChangeContent(this,new EventArgs());
+            if(changedEvent)
+                OnChangeContent(this,new EventArgs());
+        }
+
+        /// <summary>
+        /// Keep log of database.
+        /// </summary>
+        internal void KeepLog() {
+            XElement xLog = new XElement("Log");
+            xLog.Add(new XAttribute("Time",DateTime.Now));
+            string content = aes256.Encrypt(Doc.ToString());
+            xLog.Value=content;
+            GetElement("Logs").Add(xLog);
+            Save(false);
         }
 
         #endregion
@@ -526,7 +545,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             GetElement("Root/Password").Value = password;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -546,7 +565,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             GetElement("Root/Description").Value = Description;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -558,7 +577,7 @@ namespace MochaDB {
             GetElement("Sectors").RemoveNodes();
             GetElement("Stacks").RemoveNodes();
             GetElement("Tables").RemoveNodes();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -568,7 +587,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             Doc = XDocument.Parse(EmptyContent);
-            Save();
+            Save(true);
         }
 
         #endregion
@@ -582,7 +601,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             GetElement("Sectors").RemoveNodes();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -597,7 +616,7 @@ namespace MochaDB {
             xSector.Add(new XAttribute("Description",sector.Description));
 
             GetElement("Sectors").Add(xSector);
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -624,7 +643,7 @@ namespace MochaDB {
                 return;
 
             GetElement($"Sectors/{name}").Remove();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -643,7 +662,7 @@ namespace MochaDB {
                 throw new Exception("There is already a sector with this name!");
 
             GetElement($"Sectors/{name}").Name=newName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -671,7 +690,7 @@ namespace MochaDB {
                 return;
 
             xSector.Value=data;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -700,7 +719,7 @@ namespace MochaDB {
 
             xDescription.Value=description;
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -772,7 +791,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             GetElement("Stacks").RemoveNodes();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -793,7 +812,7 @@ namespace MochaDB {
 
             GetElement("Stacks").Add(xStack);
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -805,7 +824,7 @@ namespace MochaDB {
                 return;
 
             GetElement($"Stacks/{name}").Remove();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -834,7 +853,7 @@ namespace MochaDB {
 
             xDescription.Value=description;
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -849,7 +868,7 @@ namespace MochaDB {
                 throw new Exception("There is already a stack with this name!");
 
             GetElement($"Stacks/{name}").Name=newName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -959,7 +978,7 @@ namespace MochaDB {
                 throw new Exception("The road is wrong, there is no such way!");
 
             element.Add(GetMochaStackItemXML(item));
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -981,7 +1000,7 @@ namespace MochaDB {
                 element.Remove();
             }
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1003,7 +1022,7 @@ namespace MochaDB {
                 return;
 
             element.Value=value;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1042,7 +1061,7 @@ namespace MochaDB {
                 return;
 
             element.Attribute("Description").Value=description;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1084,7 +1103,7 @@ namespace MochaDB {
                 throw new Exception("There is already a stack item with this name!");
 
             element.Name=newName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1129,7 +1148,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
 
             GetElement("Tables").RemoveNodes();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1155,7 +1174,7 @@ namespace MochaDB {
             }
 
             if(table.Columns.Count==0)
-                Save();
+                Save(true);
         }
 
         /// <summary>
@@ -1176,7 +1195,7 @@ namespace MochaDB {
                 return;
 
             GetElement($"Tables/{name}").Remove();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1195,7 +1214,7 @@ namespace MochaDB {
                 throw new Exception("There is already a table with this name!");
 
             GetElement($"Tables/{name}").Name=newName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1224,7 +1243,7 @@ namespace MochaDB {
 
             xDescription.Value=description;
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1319,7 +1338,7 @@ namespace MochaDB {
             }
 
             GetElement($"Tables/{tableName}").Add(xColumn);
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1341,7 +1360,7 @@ namespace MochaDB {
                 return;
 
             GetElement($"Tables/{tableName}/{name}").Remove();
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1361,7 +1380,7 @@ namespace MochaDB {
                 throw new Exception("There is already a column with this name!");
 
             GetElement($"Tables/{tableName}/{name}").Name=newName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1391,7 +1410,7 @@ namespace MochaDB {
                 return;
 
             xDescription.Value = description;
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1483,14 +1502,14 @@ namespace MochaDB {
                     dataRange.ElementAt(index).Value = (index + 1).ToString();
                 }
 
-                Save();
+                Save(true);
                 return;
             } else if(dataType == MochaDataType.Unique) {
                 for(int index = 0; index <dataRange.Count(); index++) {
                     dataRange.ElementAt(index).Value = string.Empty;
                 }
 
-                Save();
+                Save(true);
                 return;
             }
 
@@ -1499,7 +1518,7 @@ namespace MochaDB {
                     dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
             }
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1567,7 +1586,7 @@ namespace MochaDB {
                 }
             }
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1680,7 +1699,7 @@ namespace MochaDB {
 
             GetElement($"Tables/{tableName}/{columnName}").Add(xData);
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1727,7 +1746,7 @@ namespace MochaDB {
 
             dataElement.Value=data.ToString();
 
-            Save();
+            Save(true);
         }
 
         /// <summary>
@@ -1871,6 +1890,8 @@ $@"<?MochaDB Version=\""{Version}""?>
     <FileSystem Description=""FileSystem of database."">
         <C Type=""Disk"" Name=""Default"" Description=""Default disk.""></C>
     </FileSystem>
+    <Logs Description=""Logs of database."">
+    </Logs>
 </MochaDB>";
 
         #endregion
@@ -1879,6 +1900,11 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Connection provider.
         /// </summary>
         public MochaProvider Provider { get; private set; }
+
+        /// <summary>
+        /// Log keeping status.
+        /// </summary>
+        public bool Logs { get; }
 
         /// <summary>
         /// Mapped MochaQuery.

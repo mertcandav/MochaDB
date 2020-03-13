@@ -71,7 +71,7 @@ namespace MochaDB.FileSystem {
             Database.OnConnectionCheckRequired(this,new EventArgs());
             Database.Doc.Root.Element("FileSystem").RemoveNodes();
 
-            Database.Save();
+            Database.Save(true);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace MochaDB.FileSystem {
                 AddDirectory(disk.Directories[index],disk.Root);
 
             if(disk.Directories.Count==0)
-                Database.Save();
+                Database.Save(true);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace MochaDB.FileSystem {
             x.Attribute("Type").Value=="Disk").First();
 
             diskElement.Remove();
-            Database.Save();
+            Database.Save(true);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace MochaDB.FileSystem {
                 AddDirectory(directory.Directories[index],path);
 
             if(directory.Files.Count==0 || directory.Directories.Count==0)
-                Database.Save();
+                Database.Save(true);
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace MochaDB.FileSystem {
         /// <param name="path">Path of directory to remove.</param>
         public void RemoveDirectory(MochaPath path) {
             GetDirectoryElement(path).Remove();
-            Database.Save();
+            Database.Save(true);
         }
 
         /// <summary>
@@ -405,7 +405,7 @@ namespace MochaDB.FileSystem {
             Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
                 x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First().Remove();
 
-            Database.Save();
+            Database.Save(true);
         }
 
         /// <summary>
@@ -434,7 +434,7 @@ namespace MochaDB.FileSystem {
             xFile.Add(new XAttribute("Type","File"));
             xFile.Add(new XAttribute("Description",file.Description));
             element.Add(xFile);
-            Database.Save();
+            Database.Save(true);
         }
 
         /// <summary>
