@@ -163,8 +163,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(root))
                 return;
 
-            var diskElement = Database.GetElement($"FileSystem/{root}").Elements().Where(x =>
-            x.Attribute("Type").Value=="Disk").First();
+            var diskElement = Database.GetElement($"FileSystem/{root}");
 
             diskElement.Remove();
             Database.Save(true);
@@ -174,8 +173,7 @@ namespace MochaDB.FileSystem {
         /// Returns whether there is a disk with the specified root.
         /// </summary>
         public MochaResult<bool> ExistsDisk(string root) =>
-            Database.GetElement("FileSystem").Elements().Select(x => x.Attribute("Type").Value=="Disk" &&
-            x.Name.LocalName==root).Count() > 0;
+            Database.GetElement("FileSystem").Elements().Select(x => x.Name.LocalName==root).Count() > 0;
 
         #endregion
 
