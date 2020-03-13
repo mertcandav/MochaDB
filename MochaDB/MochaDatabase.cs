@@ -112,7 +112,8 @@ namespace MochaDB {
             //Invoke.
             ChangeContent?.Invoke(sender,e);
 
-            KeepLog();
+            if(Logs)
+                KeepLog();
         }
 
         #endregion
