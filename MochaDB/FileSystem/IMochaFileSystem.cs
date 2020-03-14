@@ -13,9 +13,9 @@ namespace MochaDB.FileSystem {
         void AddDisk(MochaDisk disk);
         void AddDirectory(MochaDirectory directory,MochaPath path);
         void AddFile(MochaFile file,MochaPath path);
-        void RemoveDisk(string root);
-        void RemoveDirectory(MochaPath path);
-        void RemoveFile(MochaPath path);
+        bool RemoveDisk(string root);
+        bool RemoveDirectory(MochaPath path);
+        bool RemoveFile(MochaPath path);
         MochaResult<bool> ExistsDisk(string root);
         MochaResult<bool> ExistsDirectory(MochaPath path);
         MochaResult<bool> ExistsFile(MochaPath path);

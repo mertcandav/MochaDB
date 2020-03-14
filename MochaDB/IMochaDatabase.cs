@@ -9,6 +9,7 @@ namespace MochaDB {
     public interface IMochaDatabase:IDisposable {
         #region Events
 
+        event EventHandler<EventArgs> Changing;
         event EventHandler<EventArgs> Changed;
 
         #endregion
@@ -19,32 +20,32 @@ namespace MochaDB {
         void Disconnect();
 
         void AddSector(MochaSector sector);
-        void RemoveSector(string name);
+        bool RemoveSector(string name);
         MochaResult<MochaSector> GetSector(string name);
         MochaResult<bool> ExistsSector(string name);
 
         void AddStack(MochaStack stack);
-        void RemoveStack(string name);
+        bool RemoveStack(string name);
         MochaResult<MochaStack> GetStack(string name);
         MochaResult<bool> ExistsStack(string name);
 
         void AddStackItem(string name,string path,MochaStackItem item);
-        void RemoveStackItem(string name,string path);
+        bool RemoveStackItem(string name,string path);
         MochaResult<MochaStackItem> GetStackItem(string name,string path);
         MochaResult<bool> ExistsStackItem(string name,string path);
 
         void AddTable(MochaTable table);
-        void RemoveTable(string name);
+        bool RemoveTable(string name);
         MochaResult<MochaTable> GetTable(string name);
         MochaResult<bool> ExistsTable(string name);
 
         void AddColumn(string tableName,MochaColumn column);
-        void RemoveColumn(string tableName,string name);
+        bool RemoveColumn(string tableName,string name);
         MochaResult<MochaColumn> GetColumn(string tableName,string name);
         MochaResult<bool> ExistsColumn(string tableName,string name);
 
         void AddRow(string tableName,MochaRow row);
-        void RemoveRow(string tableName,int index);
+        bool RemoveRow(string tableName,int index);
         MochaResult<MochaRow> GetRow(string tableName,int index);
 
         void AddData(string tableName,string columnName,MochaData data);

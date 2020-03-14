@@ -664,16 +664,17 @@ namespace MochaDB {
             AddSector(new MochaSector(name,data));
 
         /// <summary>
-        /// Remove sector by name.
+        /// Remove sector by name. Returns true if sector is exists and removed.
         /// </summary>
         /// <param name="name">Name of sector to remove.</param>
-        public void RemoveSector(string name) {
+        public bool RemoveSector(string name) {
             if(!ExistsSector(name))
-                return;
+                return false;
             OnChanging(this,new EventArgs());
 
             GetElement($"Sectors/{name}").Remove();
             Save();
+            return true;
         }
 
         /// <summary>
@@ -851,16 +852,17 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Remove stack by name.
+        /// Remove stack by name. Returns stack if table is exists and removed.
         /// </summary>
         /// <param name="name">Name of stack to remove.</param>
-        public void RemoveStack(string name) {
+        public bool RemoveStack(string name) {
             if(!ExistsStack(name))
-                return;
+                return false;
             OnChanging(this,new EventArgs());
 
             GetElement($"Stacks/{name}").Remove();
             Save();
+            return true;
         }
 
         /// <summary>
@@ -1025,22 +1027,24 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to remove.</param>
-        public void RemoveStackItem(string name,string path) {
+        public bool RemoveStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
             OnChanging(this,new EventArgs());
 
-            if(path==string.Empty)
+            if(path==string.Empty) {
                 GetElement($"Stacks/{name}").RemoveAll();
-            else {
+                return true;
+            } else {
                 XElement element = GetElement($"Stacks/{name}/{path}");
                 if(element==null)
-                    return;
+                    return false;
 
                 element.Remove();
             }
 
             Save();
+            return true;
         }
 
         /// <summary>
@@ -1232,16 +1236,17 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Remove table by name.
+        /// Remove table by name. Returns true if table is exists and removed.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public void RemoveTable(string name) {
+        public bool RemoveTable(string name) {
             if(!ExistsTable(name))
-                return;
+                return false;
             OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{name}").Remove();
             Save();
+            return true;
         }
 
         /// <summary>
@@ -1404,13 +1409,14 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public void RemoveColumn(string tableName,string name) {
+        public bool RemoveColumn(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
-                return;
+                return false;
             OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{tableName}/{name}").Remove();
             Save();
+            return true;
         }
 
         /// <summary>
@@ -1640,7 +1646,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="index">Index of row to remove.</param>
-        public void RemoveRow(string tableName,int index) {
+        public bool RemoveRow(string tableName,int index) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
 
@@ -1651,12 +1657,13 @@ namespace MochaDB {
                     if(dataIndex == index) {
                         OnChanging(this,new EventArgs());
                         dataRange.ElementAt(dataIndex).Remove();
-                        break;
+                        return true;
                     }
                 }
             }
 
             Save();
+            return false;
         }
 
         /// <summary>

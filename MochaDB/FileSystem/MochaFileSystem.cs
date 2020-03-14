@@ -159,18 +159,19 @@ namespace MochaDB.FileSystem {
             AddDisk(new MochaDisk(root,name));
 
         /// <summary>
-        /// Remove disk.
+        /// Remove disk. Returns true if disk is exists and removed.
         /// </summary>
         /// <param name="root">Root of disk.</param>
-        public void RemoveDisk(string root) {
+        public bool RemoveDisk(string root) {
             if(!ExistsDisk(root))
-                return;
+                return false;
             Database.OnChanging(this,new EventArgs());
 
             var diskElement = Database.GetElement($"FileSystem/{root}");
 
             diskElement.Remove();
             Database.Save();
+            return true;
         }
 
         /// <summary>
@@ -314,14 +315,19 @@ namespace MochaDB.FileSystem {
             AddDirectory(new MochaDirectory(name),path);
 
         /// <summary>
-        /// Remove directory.
+        /// Remove directory. Returns true if directory is exists and removed.
         /// </summary>
         /// <param name="path">Path of directory to remove.</param>
-        public void RemoveDirectory(MochaPath path) {
+        public bool RemoveDirectory(MochaPath path) {
             Database.OnChanging(this,new EventArgs());
 
-            GetDirectoryElement(path).Remove();
+            var element = GetDirectoryElement(path);
+            if(element == null)
+                return false;
+
+            element.Remove();
             Database.Save();
+            return true;
         }
 
         /// <summary>
@@ -399,12 +405,12 @@ namespace MochaDB.FileSystem {
             new MochaReader<MochaFile>(GetFiles(path).collection.Where(query));
 
         /// <summary>
-        /// Remove file.
+        /// Remove file. Returns true if file is exists and removed.
         /// </summary>
         /// <param name="path">Path of file to remove.</param>
-        public void RemoveFile(MochaPath path) {
+        public bool RemoveFile(MochaPath path) {
             if(!ExistsFile(path))
-                return;
+                return false;
             Database.OnChanging(this,new EventArgs());
 
             var originalname = path.Name();
@@ -413,6 +419,7 @@ namespace MochaDB.FileSystem {
                 x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First().Remove();
 
             Database.Save();
+            return true;
         }
 
         /// <summary>
