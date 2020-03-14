@@ -2101,7 +2101,7 @@ namespace MochaDB {
             GetElement("Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
-
+        
         #region Properties
 
         #region Internal
@@ -2176,7 +2176,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            "3.3.0";
+            "3.4.0";
 
         #endregion
     }
