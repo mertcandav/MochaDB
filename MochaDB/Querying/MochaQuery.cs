@@ -202,12 +202,13 @@ namespace MochaDB.Querying {
                     Database.Reset();
                     return;
                 } else if(queryPaths[0] == "RESETTABLES") {
+                    Database.OnChanging(this,new EventArgs());
                     IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
                     for(int index = 0; index < tableRange.Count(); index++) {
                         tableRange.ElementAt(index).Elements().Remove();
                     }
 
-                    Database.Save(true);
+                    Database.Save();
                     return;
                 } else if(queryPaths[0] == "CLEARSECTORS") {
                     Database.ClearSectors();
@@ -248,9 +249,9 @@ namespace MochaDB.Querying {
                 } else if(queryPaths[0] == "RESETTABLE") {
                     if(!Database.ExistsTable(queryPaths[1]))
                         throw new Exception("Table not found in this name!");
-
+                    Database.OnChanging(this,new EventArgs());
                     Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
-                    Database.Save(true);
+                    Database.Save();
                     return;
                 } else if(queryPaths[0] == "CREATEMOCHA") {
                     MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1]) + ".bjay",string.Empty,string.Empty);

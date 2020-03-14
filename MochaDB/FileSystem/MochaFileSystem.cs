@@ -69,9 +69,11 @@ namespace MochaDB.FileSystem {
         /// </summary>
         public void ClearDisks() {
             Database.OnConnectionCheckRequired(this,new EventArgs());
+            Database.OnChanging(this,new EventArgs());
+
             Database.Doc.Root.Element("FileSystem").RemoveNodes();
 
-            Database.Save(true);
+            Database.Save();
         }
 
         /// <summary>
@@ -132,6 +134,7 @@ namespace MochaDB.FileSystem {
         public void AddDisk(MochaDisk disk) {
             if(ExistsDisk(disk.Root))
                 throw new Exception("There is already a disk with this root!");
+            Database.OnChanging(this,new EventArgs());
 
             var xDisk = new XElement(disk.Root);
             xDisk.Add(new XAttribute("Type","Disk"));
@@ -144,7 +147,7 @@ namespace MochaDB.FileSystem {
                 AddDirectory(disk.Directories[index],disk.Root);
 
             if(disk.Directories.Count==0)
-                Database.Save(true);
+                Database.Save();
         }
 
         /// <summary>
@@ -162,11 +165,12 @@ namespace MochaDB.FileSystem {
         public void RemoveDisk(string root) {
             if(!ExistsDisk(root))
                 return;
+            Database.OnChanging(this,new EventArgs());
 
             var diskElement = Database.GetElement($"FileSystem/{root}");
 
             diskElement.Remove();
-            Database.Save(true);
+            Database.Save();
         }
 
         /// <summary>
@@ -274,6 +278,7 @@ namespace MochaDB.FileSystem {
                 throw new Exception("Directory not found!");
             if(ExistsDirectory($"{path.Path}/{directory.Name}"))
                 throw new Exception("This directory already exists!");
+            Database.OnChanging(this,new EventArgs());
 
             var originalname = path.Name();
             path = path.ParentPath();
@@ -297,7 +302,7 @@ namespace MochaDB.FileSystem {
                 AddDirectory(directory.Directories[index],path);
 
             if(directory.Files.Count==0 || directory.Directories.Count==0)
-                Database.Save(true);
+                Database.Save();
         }
 
         /// <summary>
@@ -313,8 +318,10 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="path">Path of directory to remove.</param>
         public void RemoveDirectory(MochaPath path) {
+            Database.OnChanging(this,new EventArgs());
+
             GetDirectoryElement(path).Remove();
-            Database.Save(true);
+            Database.Save();
         }
 
         /// <summary>
@@ -398,12 +405,14 @@ namespace MochaDB.FileSystem {
         public void RemoveFile(MochaPath path) {
             if(!ExistsFile(path))
                 return;
+            Database.OnChanging(this,new EventArgs());
+
             var originalname = path.Name();
             path= path.ParentPath();
             Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
                 x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First().Remove();
 
-            Database.Save(true);
+            Database.Save();
         }
 
         /// <summary>
@@ -422,6 +431,7 @@ namespace MochaDB.FileSystem {
                 throw new Exception("Directory not found!");
             if(ExistsFile($"{path}/{file.FullName}"))
                 throw new Exception("This file already exists!");
+            Database.OnChanging(this,new EventArgs());
 
             var originalname = path.Name();
             path = path.ParentPath();
@@ -432,7 +442,7 @@ namespace MochaDB.FileSystem {
             xFile.Add(new XAttribute("Type","File"));
             xFile.Add(new XAttribute("Description",file.Description));
             element.Add(xFile);
-            Database.Save(true);
+            Database.Save();
         }
 
         /// <summary>

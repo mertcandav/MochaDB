@@ -104,15 +104,24 @@ namespace MochaDB {
         #endregion
 
         /// <summary>
-        /// This happens after content changed.
+        /// This happens before content changed.
         /// </summary>
-        public event EventHandler<EventArgs> ChangeContent;
-        private void OnChangeContent(object sender,EventArgs e) {
+        public event EventHandler<EventArgs> Changing;
+        internal void OnChanging(object sender,EventArgs e) {
             //Invoke.
-            ChangeContent?.Invoke(sender,e);
+            Changing?.Invoke(sender,e);
 
             if(Logs)
-                KeepLog();
+                KeepLog(false);
+        }
+
+        /// <summary>
+        /// This happens after content changed.
+        /// </summary>
+        public event EventHandler<EventArgs> Changed;
+        internal void OnChanged(object sender,EventArgs e) {
+            //Invoke.
+            Changed?.Invoke(sender,e);
         }
 
         #endregion
@@ -500,8 +509,7 @@ namespace MochaDB {
         /// <summary>
         /// Save MochaDB database.
         /// </summary>
-        /// <param name="changedEvent">Execute Changed event after saved.</param>
-        internal void Save(bool changedEvent) {
+        internal void Save() {
             if(Provider.Readonly)
                 throw new Exception("This connection is can read only, cannot task of write!");
 
@@ -514,14 +522,14 @@ namespace MochaDB {
             Provider.EnableConstant();
             Connect();
 
-            if(changedEvent)
-                OnChangeContent(this,new EventArgs());
+            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
         /// Keep log of database.
         /// </summary>
-        internal void KeepLog() {
+        /// <param name="save">Save after log.</param>
+        internal void KeepLog(bool save) {
             string id;
             do {
                 id = MochaID.GetID(MochaIDType.Hash16);
@@ -536,7 +544,9 @@ namespace MochaDB {
             if(logElements.Count() >= 1000)
                 logElements.Last().Remove();
             xLogs.Add(xLog);
-            Save(false);
+
+            if(save)
+                Save();
         }
 
         #endregion
@@ -556,9 +566,10 @@ namespace MochaDB {
         /// <param name="password">Password to set.</param>
         public void SetPassword(string password) {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Root/Password").Value = password;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -576,9 +587,10 @@ namespace MochaDB {
         /// <param name="Description">Description to set.</param>
         public void SetDescription(string Description) {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Root/Description").Value = Description;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -586,11 +598,12 @@ namespace MochaDB {
         /// </summary>
         public void ClearAll() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Sectors").RemoveNodes();
             GetElement("Stacks").RemoveNodes();
             GetElement("Tables").RemoveNodes();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -598,9 +611,10 @@ namespace MochaDB {
         /// </summary>
         public void Reset() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             Doc = XDocument.Parse(EmptyContent);
-            Save(true);
+            Save();
         }
 
         #endregion
@@ -612,9 +626,10 @@ namespace MochaDB {
         /// </summary>
         public void ClearSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Sectors").RemoveNodes();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -624,12 +639,13 @@ namespace MochaDB {
         public void AddSector(MochaSector sector) {
             if(ExistsSector(sector.Name))
                 throw new Exception("There is already a sector with this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xSector = new XElement(sector.Name,sector.Data);
             xSector.Add(new XAttribute("Description",sector.Description));
 
             GetElement("Sectors").Add(xSector);
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -654,9 +670,10 @@ namespace MochaDB {
         public void RemoveSector(string name) {
             if(!ExistsSector(name))
                 return;
+            OnChanging(this,new EventArgs());
 
             GetElement($"Sectors/{name}").Remove();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -673,9 +690,10 @@ namespace MochaDB {
 
             if(ExistsSector(newName))
                 throw new Exception("There is already a sector with this name!");
+            OnChanging(this,new EventArgs());
 
             GetElement($"Sectors/{name}").Name=newName;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -697,13 +715,14 @@ namespace MochaDB {
         public void SetSectorData(string name,string data) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xSector = GetElement($"Sectors/{name}");
             if(xSector.Value==data)
                 return;
 
             xSector.Value=data;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -725,6 +744,7 @@ namespace MochaDB {
         public void SetSectorDescription(string name,string description) {
             if(!ExistsSector(name))
                 throw new Exception("Sector not found in this name!");
+            OnChanging(this,new EventArgs());
 
             XAttribute xDescription = GetElement($"Sectors/{name}").Attribute("Description");
             if(xDescription.Value==description)
@@ -732,7 +752,7 @@ namespace MochaDB {
 
             xDescription.Value=description;
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -802,9 +822,10 @@ namespace MochaDB {
         /// </summary>
         public void ClearStacks() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Stacks").RemoveNodes();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -814,6 +835,7 @@ namespace MochaDB {
         public void AddStack(MochaStack stack) {
             if(ExistsStack(stack.Name))
                 throw new Exception("There is already a stack with this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xStack = new XElement(stack.Name);
             xStack.Add(new XAttribute("Description",stack.Description));
@@ -825,7 +847,7 @@ namespace MochaDB {
 
             GetElement("Stacks").Add(xStack);
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -835,9 +857,10 @@ namespace MochaDB {
         public void RemoveStack(string name) {
             if(!ExistsStack(name))
                 return;
+            OnChanging(this,new EventArgs());
 
             GetElement($"Stacks/{name}").Remove();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -859,6 +882,7 @@ namespace MochaDB {
         public void SetStackDescription(string name,string description) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
+            OnChanging(this,new EventArgs());
 
             XAttribute xDescription = GetElement($"Stacks/{name}").Attribute("Description");
             if(xDescription.Value==description)
@@ -866,7 +890,7 @@ namespace MochaDB {
 
             xDescription.Value=description;
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -879,9 +903,10 @@ namespace MochaDB {
                 throw new Exception("Stack not found in this name!");
             if(ExistsStack(newName))
                 throw new Exception("There is already a stack with this name!");
+            OnChanging(this,new EventArgs());
 
             GetElement($"Stacks/{name}").Name=newName;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -984,6 +1009,7 @@ namespace MochaDB {
         public void AddStackItem(string name,string path,MochaStackItem item) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
+            OnChanging(this,new EventArgs());
 
             XElement element = !string.IsNullOrWhiteSpace(path) ? GetElement($"Stacks/{name}/{path}") :
                 GetElement($"Stacks/{name}");
@@ -991,7 +1017,7 @@ namespace MochaDB {
                 throw new Exception("The road is wrong, there is no such way!");
 
             element.Add(GetMochaStackItemXML(item));
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1002,6 +1028,7 @@ namespace MochaDB {
         public void RemoveStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new Exception("Stack not found in this name!");
+            OnChanging(this,new EventArgs());
 
             if(path==string.Empty)
                 GetElement($"Stacks/{name}").RemoveAll();
@@ -1013,7 +1040,7 @@ namespace MochaDB {
                 element.Remove();
             }
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1033,9 +1060,10 @@ namespace MochaDB {
 
             if(element.Value == value)
                 return;
+            OnChanging(this,new EventArgs());
 
             element.Value=value;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1072,9 +1100,10 @@ namespace MochaDB {
 
             if(element.Attribute("Description").Value == description)
                 return;
+            OnChanging(this,new EventArgs());
 
             element.Attribute("Description").Value=description;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1114,9 +1143,10 @@ namespace MochaDB {
 
             if(path.Contains('/') && ExistsStackItem(name,$"{path.Substring(0,path.IndexOf("/"))}/{newName}"))
                 throw new Exception("There is already a stack item with this name!");
+            OnChanging(this,new EventArgs());
 
             element.Name=newName;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1159,9 +1189,10 @@ namespace MochaDB {
         /// </summary>
         public void ClearTables() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Tables").RemoveNodes();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1171,6 +1202,7 @@ namespace MochaDB {
         public void AddTable(MochaTable table) {
             if(ExistsTable(table.Name))
                 throw new Exception("There is already a table with this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xTable = new XElement(table.Name);
             xTable.Add(new XAttribute("Description",table.Description));
@@ -1187,7 +1219,7 @@ namespace MochaDB {
             }
 
             if(table.Columns.Count==0)
-                Save(true);
+                Save();
         }
 
         /// <summary>
@@ -1206,9 +1238,10 @@ namespace MochaDB {
         public void RemoveTable(string name) {
             if(!ExistsTable(name))
                 return;
+            OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{name}").Remove();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1225,9 +1258,10 @@ namespace MochaDB {
 
             if(ExistsTable(newName))
                 throw new Exception("There is already a table with this name!");
+            OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{name}").Name=newName;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1253,10 +1287,11 @@ namespace MochaDB {
             XAttribute xDescription = GetElement($"Tables/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
+            OnChanging(this,new EventArgs());
 
             xDescription.Value=description;
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1332,6 +1367,7 @@ namespace MochaDB {
         public void AddColumn(string tableName,MochaColumn column) {
             if(ExistsColumn(tableName,column.Name))
                 throw new Exception("There is already a column with this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xColumn = new XElement(column.Name);
             xColumn.Add(new XAttribute("DataType",column.DataType));
@@ -1351,7 +1387,7 @@ namespace MochaDB {
             }
 
             GetElement($"Tables/{tableName}").Add(xColumn);
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1371,9 +1407,10 @@ namespace MochaDB {
         public void RemoveColumn(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
                 return;
+            OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{tableName}/{name}").Remove();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1391,9 +1428,10 @@ namespace MochaDB {
 
             if(ExistsColumn(tableName,newName))
                 throw new Exception("There is already a column with this name!");
+            OnChanging(this,new EventArgs());
 
             GetElement($"Tables/{tableName}/{name}").Name=newName;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1421,9 +1459,10 @@ namespace MochaDB {
             XAttribute xDescription = GetElement($"Tables/{tableName}/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
+            OnChanging(this,new EventArgs());
 
             xDescription.Value = description;
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1502,6 +1541,7 @@ namespace MochaDB {
         public void SetColumnDataType(string tableName,string name,MochaDataType dataType) {
             if(!ExistsColumn(tableName,name))
                 throw new Exception("Column not found in this name!");
+            OnChanging(this,new EventArgs());
 
             XElement xColumn = GetElement($"Tables/{tableName}/{name}");
             if(xColumn.Attribute("DataType").Value==dataType.ToString())
@@ -1515,14 +1555,14 @@ namespace MochaDB {
                     dataRange.ElementAt(index).Value = (index + 1).ToString();
                 }
 
-                Save(true);
+                Save();
                 return;
             } else if(dataType == MochaDataType.Unique) {
                 for(int index = 0; index <dataRange.Count(); index++) {
                     dataRange.ElementAt(index).Value = string.Empty;
                 }
 
-                Save(true);
+                Save();
                 return;
             }
 
@@ -1531,7 +1571,7 @@ namespace MochaDB {
                     dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
             }
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1568,6 +1608,7 @@ namespace MochaDB {
         public void AddRow(string tableName,MochaRow row) {
             if(!ExistsTable(tableName))
                 throw new Exception("Table not found in this name!");
+            OnChanging(this,new EventArgs());
 
             IEnumerable<XElement> columnRange = GetElement($"Tables/{tableName}").Elements();
 
@@ -1575,7 +1616,7 @@ namespace MochaDB {
                 throw new Exception("The data count of the row is not equal to the number of columns!");
 
             for(int index = 0; index <columnRange.Count(); index++) {
-                AddData(tableName,columnRange.ElementAt(index).Name.LocalName,row.Datas[index]);
+                InternalAddData(tableName,columnRange.ElementAt(index).Name.LocalName,row.Datas[index]);
             }
         }
 
@@ -1593,13 +1634,14 @@ namespace MochaDB {
                 IEnumerable<XElement> dataRange = columnRange.ElementAt(columnIndex).Elements();
                 for(int dataIndex = 0; dataIndex < dataRange.Count(); dataIndex++) {
                     if(dataIndex == index) {
+                        OnChanging(this,new EventArgs());
                         dataRange.ElementAt(dataIndex).Remove();
                         break;
                     }
                 }
             }
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1669,13 +1711,12 @@ namespace MochaDB {
 
         #region Data
 
+        #region Internal
+
         /// <summary>
         /// Add data.
         /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="columnName">Name of column.</param>
-        /// <param name="data">MochaData object to add.</param>
-        public void AddData(string tableName,string columnName,MochaData data) {
+        internal void InternalAddData(string tableName,string columnName,MochaData data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
 
@@ -1712,7 +1753,20 @@ namespace MochaDB {
 
             GetElement($"Tables/{tableName}/{columnName}").Add(xData);
 
-            Save(true);
+            Save();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Add data.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">MochaData object to add.</param>
+        public void AddData(string tableName,string columnName,MochaData data) {
+            OnChanging(this,new EventArgs());
+            InternalAddData(tableName,columnName,data);
         }
 
         /// <summary>
@@ -1735,6 +1789,7 @@ namespace MochaDB {
         public void UpdateData(string tableName,string columnName,int index,object data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new Exception("Column not found in this name!");
+            OnChanging(this,new EventArgs());
 
             data = data == null ? "" : data;
             XElement xColumn = GetElement($"Tables/{tableName}/{columnName}");
@@ -1759,7 +1814,7 @@ namespace MochaDB {
 
             dataElement.Value=data.ToString();
 
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1882,9 +1937,10 @@ namespace MochaDB {
         /// </summary>
         public void ClearLogs() {
             OnConnectionCheckRequired(this,new EventArgs());
+            OnChanging(this,new EventArgs());
 
             GetElement("Logs").RemoveNodes();
-            Save(true);
+            Save();
         }
 
         /// <summary>
@@ -1902,6 +1958,40 @@ namespace MochaDB {
                 logs.Add(log);
             }
             return new MochaCollectionResult<MochaLog>(logs);
+        }
+
+        /// <summary>
+        /// Restore database to last keeped log.
+        /// </summary>
+        public void RestoreToLastLog() {
+            var logs = GetElement("Logs").Elements();
+            if(logs.Count() == 0)
+                throw new Exception("Not exists any log!");
+            RestoreToLog(logs.Last().Attribute("ID").Value);
+        }
+
+        /// <summary>
+        /// Restore database to first keeped log.
+        /// </summary>
+        public void RestoreToFirstLog() {
+            var logs = GetElement("Logs").Elements();
+            if(logs.Count() == 0)
+                throw new Exception("Not exists any log!");
+            RestoreToLog(logs.First().Attribute("ID").Value);
+        }
+
+        /// <summary>
+        /// Restore database to log by id.
+        /// </summary>
+        /// <param name="id">ID of log to restore.</param>
+        public void RestoreToLog(string id) {
+            if(!ExistsLog(id))
+                throw new Exception("Log not found in this id!");
+            Changing?.Invoke(this,new EventArgs());
+
+            var log = GetElement("Logs").Elements().Where(x=>x.Attribute("ID").Value==id).First();
+            Doc=XDocument.Parse(aes256.Decrypt(log.Value));
+            Save();
         }
 
         /// <summary>

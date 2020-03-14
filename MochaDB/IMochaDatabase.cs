@@ -9,7 +9,7 @@ namespace MochaDB {
     public interface IMochaDatabase:IDisposable {
         #region Events
 
-        event EventHandler<EventArgs> ChangeContent;
+        event EventHandler<EventArgs> Changed;
 
         #endregion
 
