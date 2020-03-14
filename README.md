@@ -3,7 +3,7 @@
 <a href="https://opensource.org/licenses/MIT">![license](https://camo.githubusercontent.com/890acbdcb87868b382af9a4b1fac507b9659d9bf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667)</a>
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 
-.NET embedded high performance NoSQL database system
+.NET embedded high performance NoSQL database system.
 
 ---
 
@@ -17,6 +17,7 @@
 - Secure
 - Embedded
 - RDBMS(Relational Database Management System) features
+- Restore unwanted changes with logs
 - Embed files into the database with FileSystem
 - Full compatible with .NET Core, .NET Standard and .NET Framework
 - Script build and debug with MochaScript
@@ -41,7 +42,11 @@
 
 <br>
 
-## Use
+# Preview
+---
+<br>
+
+## Querying
 
 You cannot work with SQL queries, but with MochaQ you can do basic operations with custom commands and work with LINQ queries.
 
@@ -58,14 +63,18 @@ public IEnumerable<MochaTable> GetMatchTables(string key) {
 }
 ```
 
-<br><br>
-
-# MochaQ
-MochaQ offers quick basic queries. With MochaQuery, you can process and run queries.
-
 <br>
 
-## Use
+```c#
+MochaCollectionResult<MochaTable> tables = GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
+```
+
+<br><br>
+
+## MochaQ
+MochaQ offers quick basic queries. With MochaQuery, you can process and run queries.
+
+### Use
 
 ```c#
 MochaDatabase db = new MochaDatabase("connection string");
@@ -88,16 +97,14 @@ if(value!="3.14")
 
 <br><br>
 
-# MochaScript
+## MochaScript
 
 MochaScript is a scripting language for MochaDB databases.<br>
 It is processed by the debugger and executed with C# code.<br>
-It operates independently from the database, but no connection should be open to the targeted database when it is run!
+It operates independently from the database, but no connection should be open to the targeted database when it is run!<br>
 It allows you to work with its own functions and MochaQ commands.
 
-<br>
-
-## Use
+### Use
 
 ```
 //Author: Mertcan DAVULCU
