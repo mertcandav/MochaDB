@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MochaDB.Streams;
@@ -227,6 +228,18 @@ namespace MochaDB.FileSystem {
         /// </summary>
         public MochaReader<MochaFile> ToReader() =>
             new MochaReader<MochaFile>(collection);
+
+        /// <summary>
+        /// Returns enumerator.
+        /// </summary>
+        public IEnumerator<MochaFile> GetEnumerator() =>
+            collection.GetEnumerator();
+
+        /// <summary>
+        /// Returns enumerator.
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator() =>
+            collection.GetEnumerator();
 
         #endregion
 

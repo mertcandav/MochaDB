@@ -5,7 +5,7 @@ namespace MochaDB.Querying {
     /// Interface for MochaDB collection results.
     /// </summary>
     /// <typeparam name="T">Value type.</typeparam>
-    public interface IMochaCollectionResult<T>:IMochaQueryableCollection<T>, IMochaResult {
+    public interface IMochaCollectionResult<T>:IMochaQueryableCollection<T>, IMochaResult, IEnumerable<T> {
         #region Methods
 
         T ElementAt(int index);

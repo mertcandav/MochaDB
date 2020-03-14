@@ -6,7 +6,7 @@ namespace MochaDB {
     /// Collection interface for MochaDB.
     /// </summary>
     /// <typeparam name="T">Item type of collector.</typeparam>
-    public interface IMochaCollection<T> {
+    public interface IMochaCollection<T>:IEnumerable<T> {
         #region Events
 
         event EventHandler<EventArgs> Changed;

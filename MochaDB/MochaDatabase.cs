@@ -791,20 +791,20 @@ namespace MochaDB {
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaSector> GetSectors(Func<MochaSector,bool> query) =>
-            new MochaCollectionResult<MochaSector>(GetSectors().collection.Where(query));
+            new MochaCollectionResult<MochaSector>(GetSectors().Where(query));
 
         /// <summary>
         /// Read all sectors in database.
         /// </summary>
         public MochaReader<MochaSector> ReadSectors() =>
-            new MochaReader<MochaSector>(GetSectors().collection);
+            new MochaReader<MochaSector>(GetSectors());
 
         /// <summary>
         /// Read all sectors in database.
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaSector> ReadSectors(Func<MochaSector,bool> query) =>
-            new MochaReader<MochaSector>(GetSectors(query).collection);
+            new MochaReader<MochaSector>(GetSectors(query));
 
         /// <summary>
         /// Returns whether there is a sector with the specified name.
@@ -954,20 +954,20 @@ namespace MochaDB {
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaStack> GetStacks(Func<MochaStack,bool> query) =>
-            new MochaCollectionResult<MochaStack>(GetStacks().collection.Where(query));
+            new MochaCollectionResult<MochaStack>(GetStacks().Where(query));
 
         /// <summary>
         /// Read all stacks in database.
         /// </summary>
         public MochaReader<MochaStack> ReadStacks() =>
-            new MochaReader<MochaStack>(GetStacks().collection);
+            new MochaReader<MochaStack>(GetStacks());
 
         /// <summary>
         /// Read all stacks in database.
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaStack> ReadStacks(Func<MochaStack,bool> query) =>
-            new MochaReader<MochaStack>(GetStacks(query).collection);
+            new MochaReader<MochaStack>(GetStacks(query));
 
         /// <summary>
         /// Returns whether there is a stack with the specified name.
@@ -1333,20 +1333,20 @@ namespace MochaDB {
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaTable> GetTables(Func<MochaTable,bool> query) =>
-            new MochaCollectionResult<MochaTable>(GetTables().collection.Where(query));
+            new MochaCollectionResult<MochaTable>(GetTables().Where(query));
 
         /// <summary>
         /// Read all tables in database.
         /// </summary>
         public MochaReader<MochaTable> ReadTables() =>
-            new MochaReader<MochaTable>(GetTables().collection);
+            new MochaReader<MochaTable>(GetTables());
 
         /// <summary>
         /// Read all tables in database.
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaTable> ReadTables(Func<MochaTable,bool> query) =>
-            new MochaReader<MochaTable>(GetTables(query).collection);
+            new MochaReader<MochaTable>(GetTables(query));
 
         /// <summary>
         /// Returns whether there is a table with the specified name.
@@ -1505,14 +1505,14 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaColumn> GetColumns(string tableName,Func<MochaColumn,bool> query) =>
-            new MochaCollectionResult<MochaColumn>(GetColumns(tableName).collection.Where(query));
+            new MochaCollectionResult<MochaColumn>(GetColumns(tableName).Where(query));
 
         /// <summary>
         /// Read all columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaReader<MochaColumn> ReadColumns(string tableName) =>
-            new MochaReader<MochaColumn>(GetColumns(tableName).collection);
+            new MochaReader<MochaColumn>(GetColumns(tableName));
 
         /// <summary>
         /// Read all columns in table by name.
@@ -1520,7 +1520,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaColumn> ReadColumns(string tableName,Func<MochaColumn,bool> query) =>
-            new MochaReader<MochaColumn>(GetColumns(tableName,query).collection);
+            new MochaReader<MochaColumn>(GetColumns(tableName,query));
 
         /// <summary>
         /// Returns whether there is a column with the specified name.
@@ -1720,14 +1720,14 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaRow> GetRows(string tableName,Func<MochaRow,bool> query) =>
-            new MochaCollectionResult<MochaRow>(GetRows(tableName).collection.Where(query));
+            new MochaCollectionResult<MochaRow>(GetRows(tableName).Where(query));
 
         /// <summary>
         /// Read all rows in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaReader<MochaRow> ReadRows(string tableName) =>
-            new MochaReader<MochaRow>(GetRows(tableName).collection);
+            new MochaReader<MochaRow>(GetRows(tableName));
 
         /// <summary>
         /// Read all rows in table by name.
@@ -1735,7 +1735,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaRow> ReadRows(string tableName,Func<MochaRow,bool> query) =>
-            new MochaReader<MochaRow>(GetRows(tableName,query).collection);
+            new MochaReader<MochaRow>(GetRows(tableName,query));
 
         #endregion
 
@@ -1944,7 +1944,7 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
-            new MochaCollectionResult<MochaData>(GetDatas(tableName,columnName).collection.Where(query));
+            new MochaCollectionResult<MochaData>(GetDatas(tableName,columnName).Where(query));
 
         /// <summary>
         /// Read all datas in column int table by name.
@@ -1952,7 +1952,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         public MochaReader<MochaData> ReadDatas(string tableName,string columnName) =>
-            new MochaReader<MochaData>(GetDatas(tableName,columnName).collection);
+            new MochaReader<MochaData>(GetDatas(tableName,columnName));
 
         /// <summary>
         /// Read all datas in column int table by name.
@@ -1961,7 +1961,7 @@ namespace MochaDB {
         /// <param name="columnName">Name of column.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaData> ReadDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
-            new MochaReader<MochaData>(GetDatas(tableName,columnName,query).collection);
+            new MochaReader<MochaData>(GetDatas(tableName,columnName,query));
 
         /// <summary>
         /// Get data count of table's column.
@@ -2011,7 +2011,7 @@ namespace MochaDB {
         /// Real all logs.
         /// </summary>
         public MochaReader<MochaLog> ReadLogs() =>
-            new MochaReader<MochaLog>(GetLogs().collection);
+            new MochaReader<MochaLog>(GetLogs());
 
         /// <summary>
         /// Restore database to last keeped log.
