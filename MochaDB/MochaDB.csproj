@@ -14,6 +14,8 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>3.4.0</Version>
     <NeutralLanguage>en</NeutralLanguage>
+    <PackageIcon>MochaDB_Texted.ico</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,6 +27,10 @@
 
   <ItemGroup>
     <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
+    <None Include="C:\Users\mertc\Desktop\MochaDB_Texted.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

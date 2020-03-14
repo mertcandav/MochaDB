@@ -27,6 +27,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C1D92442-FEE4-41A0-B375-ECEC11BA750A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{A0662273-0273-4D70-BE6B-7DE1EF5AE41A}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\Resources\MochaDB_Logo.png = Docs\Resources\MochaDB_Logo.png
+		Docs\Resources\MochaDB_Texted.png = Docs\Resources\MochaDB_Texted.png
+		Docs\Resources\MochaDB_Texted.psd = Docs\Resources\MochaDB_Texted.psd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +53,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3C47CF88-E6CB-42A4-A903-15FF3E7836B3} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
+		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
