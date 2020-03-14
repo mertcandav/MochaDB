@@ -1508,6 +1508,21 @@ namespace MochaDB {
             new MochaCollectionResult<MochaColumn>(GetColumns(tableName).collection.Where(query));
 
         /// <summary>
+        /// Read all columns in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        public MochaReader<MochaColumn> ReadColumns(string tableName) =>
+            new MochaReader<MochaColumn>(GetColumns(tableName).collection);
+
+        /// <summary>
+        /// Read all columns in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaColumn> ReadColumns(string tableName,Func<MochaColumn,bool> query) =>
+            new MochaReader<MochaColumn>(GetColumns(tableName,query).collection);
+
+        /// <summary>
         /// Returns whether there is a column with the specified name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
@@ -1678,7 +1693,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all rows in table.
+        /// Return all rows in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaCollectionResult<MochaRow> GetRows(string tableName) {
@@ -1700,12 +1715,27 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all rows in table.
+        /// Return all rows in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaRow> GetRows(string tableName,Func<MochaRow,bool> query) =>
             new MochaCollectionResult<MochaRow>(GetRows(tableName).collection.Where(query));
+
+        /// <summary>
+        /// Read all rows in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        public MochaReader<MochaRow> ReadRows(string tableName) =>
+            new MochaReader<MochaRow>(GetRows(tableName).collection);
+
+        /// <summary>
+        /// Read all rows in table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaRow> ReadRows(string tableName,Func<MochaRow,bool> query) =>
+            new MochaReader<MochaRow>(GetRows(tableName,query).collection);
 
         #endregion
 
@@ -1917,6 +1947,23 @@ namespace MochaDB {
             new MochaCollectionResult<MochaData>(GetDatas(tableName,columnName).collection.Where(query));
 
         /// <summary>
+        /// Read all datas in column int table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        public MochaReader<MochaData> ReadDatas(string tableName,string columnName) =>
+            new MochaReader<MochaData>(GetDatas(tableName,columnName).collection);
+
+        /// <summary>
+        /// Read all datas in column int table by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="query">Query for filtering.</param>
+        public MochaReader<MochaData> ReadDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
+            new MochaReader<MochaData>(GetDatas(tableName,columnName,query).collection);
+
+        /// <summary>
         /// Get data count of table's column.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
@@ -1959,6 +2006,12 @@ namespace MochaDB {
             }
             return new MochaCollectionResult<MochaLog>(logs);
         }
+
+        /// <summary>
+        /// Real all logs.
+        /// </summary>
+        public MochaReader<MochaLog> ReadLogs() =>
+            new MochaReader<MochaLog>(GetLogs().collection);
 
         /// <summary>
         /// Restore database to last keeped log.
