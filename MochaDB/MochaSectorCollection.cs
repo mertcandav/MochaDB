@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace MochaDB {
     /// <summary>
-    /// MochaStackItem collector.
+    /// MochaSector collector.
     /// </summary>
-    public class MochaStackItemCollection:MochaCollection<MochaStackItem>, IMochaCollection<MochaStackItem> {
+    public class MochaSectorCollection:MochaCollection<MochaSector>, IMochaCollection<MochaSector> {
         #region Constructors
 
         /// <summary>
-        /// Create new MochaStackItemCollection.
+        /// Create a new MochaSectorCollection.
         /// </summary>
-        public MochaStackItemCollection() {
-            collection= new List<MochaStackItem>();
+        public MochaSectorCollection() {
+            collection=new List<MochaSector>();
         }
 
         #endregion
@@ -23,10 +23,10 @@ namespace MochaDB {
         /// <summary>
         /// This happens after NameChanged event of any item in collection.
         /// </summary>
-        public event EventHandler<EventArgs> StackItemNameChanged;
-        private void OnStackItemNameChanged(object sender,EventArgs e) {
+        public event EventHandler<EventArgs> SectorNameChanged;
+        private void OnSectorNameChanged(object sender,EventArgs e) {
             //Invoke.
-            StackItemNameChanged?.Invoke(sender,e);
+            SectorNameChanged?.Invoke(sender,e);
         }
 
         #endregion
@@ -36,9 +36,9 @@ namespace MochaDB {
         private void Item_NameChanged(object sender,EventArgs e) {
             var result = collection.Where(x => x.Name==(sender as IMochaStackItem).Name);
             if(result.Count()>1)
-                throw new Exception("There is already a stack item with this name!");
+                throw new Exception("There is already a sector with this name!");
 
-            OnStackItemNameChanged(sender,e);
+            OnSectorNameChanged(sender,e);
         }
 
         #endregion
@@ -59,9 +59,9 @@ namespace MochaDB {
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(MochaStackItem item) {
+        public void Add(MochaSector item) {
             if(Contains(item.Name))
-                throw new Exception("There is already a stack item with this name!");
+                throw new Exception("There is already a sector with this name!");
 
             item.NameChanged+=Item_NameChanged;
             collection.Add(item);
@@ -72,7 +72,7 @@ namespace MochaDB {
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaStackItem> items) {
+        public void AddRange(IEnumerable<MochaSector> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -81,7 +81,7 @@ namespace MochaDB {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public void Remove(MochaStackItem item) {
+        public void Remove(MochaSector item) {
             Remove(item.Name);
         }
 
@@ -128,13 +128,13 @@ namespace MochaDB {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public MochaStackItem GetFirst() =>
+        public MochaSector GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public MochaStackItem GetLast() =>
+        public MochaSector GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion
@@ -145,7 +145,7 @@ namespace MochaDB {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public new MochaStackItem this[int index] {
+        public new MochaSector this[int index] {
             get =>
                 ElementAt(index);
             set {
@@ -161,7 +161,7 @@ namespace MochaDB {
         /// Return item by name.
         /// </summary>
         /// <param name="name">Name of item.</param>
-        public MochaStackItem this[string name] {
+        public MochaSector this[string name] {
             get {
                 int dex = IndexOf(name);
                 return dex!=-1 ? this[dex] : throw new Exception("There is no item by this name!");

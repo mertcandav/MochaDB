@@ -73,6 +73,7 @@ namespace MochaDB {
         /// <param name="provider">Provider for connect database.</param>
         public MochaDatabase(MochaProvider provider) {
             provider.EnableConstant();
+            SuspendChangeEvents=false;
             Provider=provider;
             aes256=new AES(Iv,Key);
             ConnectionState=MochaConnectionState.Disconnected;
@@ -108,6 +109,9 @@ namespace MochaDB {
         /// </summary>
         public event EventHandler<EventArgs> Changing;
         internal void OnChanging(object sender,EventArgs e) {
+            if(SuspendChangeEvents)
+                return;
+
             //Invoke.
             Changing?.Invoke(sender,e);
 
@@ -120,6 +124,9 @@ namespace MochaDB {
         /// </summary>
         public event EventHandler<EventArgs> Changed;
         internal void OnChanged(object sender,EventArgs e) {
+            if(SuspendChangeEvents)
+                return;
+
             //Invoke.
             Changed?.Invoke(sender,e);
         }
@@ -615,6 +622,39 @@ namespace MochaDB {
 
             Doc = XDocument.Parse(EmptyContent);
             Save();
+        }
+
+        /// <summary>
+        /// Copy database content from schema.
+        /// </summary>
+        /// <param name="schema">Database schema to copy.</param>
+        public void CopySchema(MochaDatabaseSchema schema) {
+            OnChanging(this,new EventArgs());
+
+            SuspendChangeEvents=true;
+            ClearSectors();
+            ClearStacks();
+            ClearTables();
+            for(int index = 0; index < schema.Sectors.Count; index++)
+                AddSector(schema.Sectors[index]);
+            for(int index = 0; index < schema.Stacks.Count; index++)
+                AddStack(schema.Stacks[index]);
+            for(int index = 0; index < schema.Tables.Count; index++)
+                AddTable(schema.Tables[index]);
+            SuspendChangeEvents=false;
+
+            OnChanged(this,new EventArgs());
+        }
+
+        /// <summary>
+        /// Returns schema of database.
+        /// </summary>
+        public MochaDatabaseSchema GetSchema() {
+            var schema = new MochaDatabaseSchema();
+            schema.Sectors.collection.AddRange(GetSectors());
+            schema.Stacks.collection.AddRange(GetStacks());
+            schema.Tables.collection.AddRange(GetTables());
+            return schema;
         }
 
         #endregion
@@ -1990,7 +2030,6 @@ namespace MochaDB {
         /// Clear all logs.
         /// </summary>
         public void ClearLogs() {
-            OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
             GetElement("Logs").RemoveNodes();
@@ -2073,6 +2112,11 @@ namespace MochaDB {
         internal XDocument Doc { get; set; }
 
         /// <summary>
+        /// Suspend the changeds events.
+        /// </summary>
+        internal bool SuspendChangeEvents { get; set; }
+
+        /// <summary>
         /// The most basic content of the database.
         /// </summary>
         internal static string EmptyContent =>
@@ -2094,6 +2138,7 @@ $@"<?MochaDB Version=\""{Version}""?>
     <Logs Description=""Logs of database."">
     </Logs>
 </MochaDB>";
+
 
         #endregion
 
