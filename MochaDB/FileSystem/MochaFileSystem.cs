@@ -87,8 +87,8 @@ namespace MochaDB.FileSystem {
             var diskElement = Database.GetElement($"FileSystem/{root}");
             var disk = new MochaDisk(diskElement.Name.LocalName,diskElement.Attribute("Name").Value);
             disk.Description = diskElement.Attribute("Description").Value;
-            disk.Directories.AddRange(GetDirectories(root).collection);
-            disk.Files.AddRange(GetFiles(root).collection);
+            disk.Directories.AddRange(GetDirectories(root));
+            disk.Files.AddRange(GetFiles(root));
 
             return disk;
         }
@@ -112,20 +112,20 @@ namespace MochaDB.FileSystem {
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaDisk> GetDisks(Func<MochaDisk,bool> query) =>
-            new MochaCollectionResult<MochaDisk>(GetDisks().collection.Where(query));
+            new MochaCollectionResult<MochaDisk>(GetDisks().Where(query));
 
         /// <summary>
         /// Read all disks.
         /// </summary>
         public MochaReader<MochaDisk> ReadDisks() =>
-            new MochaReader<MochaDisk>(GetDisks().collection);
+            new MochaReader<MochaDisk>(GetDisks());
 
         /// <summary>
         /// Read all disks.
         /// </summary>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaDisk> ReadDisks(Func<MochaDisk,bool> query) =>
-            new MochaReader<MochaDisk>(GetDisks().collection.Where(query));
+            new MochaReader<MochaDisk>(GetDisks().Where(query));
 
         /// <summary>
         /// Add disk.
@@ -212,8 +212,8 @@ namespace MochaDB.FileSystem {
             var directoryElement = GetDirectoryElement(path);
             var directory = new MochaDirectory(directoryElement.Name.LocalName);
             directory.Description=directoryElement.Attribute("Description").Value;
-            directory.Files.AddRange(GetFiles(originalpath).collection);
-            directory.Directories.AddRange(GetDirectories(originalpath).collection);
+            directory.Files.AddRange(GetFiles(originalpath));
+            directory.Directories.AddRange(GetDirectories(originalpath));
 
             return directory;
         }
@@ -248,14 +248,14 @@ namespace MochaDB.FileSystem {
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaDirectory> GetDirectories(MochaPath path,Func<MochaDirectory,bool> query) =>
-            new MochaCollectionResult<MochaDirectory>(GetDirectories(path).collection.Where(query));
+            new MochaCollectionResult<MochaDirectory>(GetDirectories(path).Where(query));
 
         /// <summary>
         /// Read all directories.
         /// </summary>
         /// <param name="path">Path of directory.</param>
         public MochaReader<MochaDirectory> ReadDirectories(MochaPath path) =>
-            new MochaReader<MochaDirectory>(GetDirectories(path).collection);
+            new MochaReader<MochaDirectory>(GetDirectories(path));
 
         /// <summary>
         /// Read all directories.
@@ -263,7 +263,7 @@ namespace MochaDB.FileSystem {
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaDirectory> ReadDirectories(MochaPath path,Func<MochaDirectory,bool> query) =>
-            new MochaReader<MochaDirectory>(GetDirectories(path).collection.Where(query));
+            new MochaReader<MochaDirectory>(GetDirectories(path).Where(query));
 
         /// <summary>
         /// Add directory.
@@ -387,14 +387,14 @@ namespace MochaDB.FileSystem {
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaCollectionResult<MochaFile> GetFiles(MochaPath path,Func<MochaFile,bool> query) =>
-            new MochaCollectionResult<MochaFile>(GetFiles(path).collection.Where(query));
+            new MochaCollectionResult<MochaFile>(GetFiles(path).Where(query));
 
         /// <summary>
         /// Read all files.
         /// </summary>
         /// <param name="path">Path of directory.</param>
         public MochaReader<MochaFile> ReadFiles(MochaPath path) =>
-            new MochaReader<MochaFile>(GetFiles(path).collection);
+            new MochaReader<MochaFile>(GetFiles(path));
 
         /// <summary>
         /// Read all files.
@@ -402,7 +402,7 @@ namespace MochaDB.FileSystem {
         /// <param name="path">Path of directory.</param>
         /// <param name="query">Query for filtering.</param>
         public MochaReader<MochaFile> ReadFiles(MochaPath path,Func<MochaFile,bool> query) =>
-            new MochaReader<MochaFile>(GetFiles(path).collection.Where(query));
+            new MochaReader<MochaFile>(GetFiles(path).Where(query));
 
         /// <summary>
         /// Remove file. Returns true if file is exists and removed.

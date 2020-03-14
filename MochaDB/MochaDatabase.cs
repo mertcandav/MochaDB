@@ -1311,8 +1311,8 @@ namespace MochaDB {
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
 
-            table.Columns.collection.AddRange(GetColumns(name).collection);
-            table.Rows.collection.AddRange(GetRows(name).collection);
+            table.Columns.collection.AddRange(GetColumns(name));
+            table.Rows.collection.AddRange(GetRows(name));
 
             return table;
         }
@@ -1482,7 +1482,7 @@ namespace MochaDB {
 
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
             column.Description = GetColumnDescription(tableName,name);
-            column.Datas.collection.AddRange(GetDatas(tableName,name).collection);
+            column.Datas.collection.AddRange(GetDatas(tableName,name));
 
             return column;
         }
@@ -2049,7 +2049,7 @@ namespace MochaDB {
                 throw new Exception("Log not found in this id!");
             Changing?.Invoke(this,new EventArgs());
 
-            var log = GetElement("Logs").Elements().Where(x=>x.Attribute("ID").Value==id).First();
+            var log = GetElement("Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
             Doc=XDocument.Parse(aes256.Decrypt(log.Value));
             Save();
         }
@@ -2059,7 +2059,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="id">ID of log.</param>
         public MochaResult<bool> ExistsLog(string id) =>
-            GetElement("Logs").Elements().Where(x=> x.Attribute("ID").Value == id).Count() != 0;
+            GetElement("Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
 

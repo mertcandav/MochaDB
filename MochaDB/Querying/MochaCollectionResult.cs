@@ -1,33 +1,23 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MochaDB.Streams;
 
 namespace MochaDB.Querying {
     /// <summary>
     /// Base for MochaDB collection results.
     /// </summary>
     /// <typeparam name="T">Type of result value.</typeparam>
-    public class MochaCollectionResult<T>:IMochaCollectionResult<T> {
-        #region Fields
-
-        internal IEnumerable<T> collection;
-
-        #endregion
-
+    public class MochaCollectionResult<T>:MochaCollection<T>, IMochaCollectionResult<T> {
         #region Constructors
 
         /// <summary>
         /// Create new MochaCollectionResult.
         /// </summary>
         public MochaCollectionResult(IEnumerable<T> collection) {
-            this.collection=collection;
+            this.collection=new List<T>(collection);
         }
 
         #endregion
-
-        #region Methods
 
         #region Queryable
 
@@ -82,71 +72,7 @@ namespace MochaDB.Querying {
 
         #endregion
 
-        /// <summary>
-        /// Return item by element.
-        /// </summary>
-        /// <param name="index">Index of element.</param>
-        public T ElementAt(int index) =>
-            collection.ElementAt(index);
-
-        /// <summary>
-        /// Create and return static array from collection.
-        /// </summary>
-        public T[] ToArray() =>
-            collection.ToArray();
-
-        /// <summary>
-        /// Create and return List<T> from collection.
-        /// </summary>
-        public List<T> ToList() =>
-            collection.ToList();
-
-        /// <summary>
-        /// Returns values in MochaReader.
-        /// </summary>
-        public MochaReader<T> ToReader() =>
-            new MochaReader<T>(collection);
-
-        /// <summary>
-        /// Return max index of item count.
-        /// </summary>
-        public int MaxIndex() =>
-            Count-1;
-
-        /// <summary>
-        /// Return true if is empty collection but return false if not.
-        /// </summary>
-        public bool IsEmptyCollection() =>
-            collection.Count() == 0 ? true : false;
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        public IEnumerator<T> GetEnumerator() =>
-            collection.GetEnumerator();
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() =>
-            collection.GetEnumerator();
-
-        #endregion
-
         #region Properties
-
-        /// <summary>
-        /// Return item by index.
-        /// </summary>
-        /// <param name="index">Index of item.</param>
-        public T this[int index] =>
-            ElementAt(index);
-
-        /// <summary>
-        /// Count of items.
-        /// </summary>
-        public int Count =>
-            collection.Count();
 
         /// <summary>
         /// This is collection result.

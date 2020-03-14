@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
     /// MochaRow collector.
     /// </summary>
-    public class MochaRowCollection:IMochaCollection<MochaRow> {
-        #region Fields
-
-        internal List<MochaRow> collection;
-
-        #endregion
-
+    public class MochaRowCollection:MochaCollection<MochaRow>, IMochaCollection<MochaRow> {
         #region Constructors
 
         /// <summary>
@@ -27,15 +19,6 @@ namespace MochaDB {
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        private void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,e);
-        }
 
         /// <summary>
         /// This happens after Changed event of any item in collection.
@@ -132,34 +115,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return index if index is find but return -1 if index is not find.
-        /// </summary>
-        /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaRow item) {
-            return collection.IndexOf(item);
-        }
-
-        /// <summary>
-        /// Return true if item is exists but return false if item not exists.
-        /// </summary>
-        /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaRow item) {
-            return collection.Contains(item);
-        }
-
-        /// <summary>
-        /// Return max index of item count.
-        /// </summary>
-        public int MaxIndex() =>
-            collection.Count-1;
-
-        /// <summary>
-        /// Return true if is empty collection but return false if not.
-        /// </summary>
-        public bool IsEmptyCollection() =>
-            collection.Count == 0 ? true : false;
-
-        /// <summary>
         /// Return first element in collection.
         /// </summary>
         public MochaRow GetFirst() =>
@@ -170,60 +125,6 @@ namespace MochaDB {
         /// </summary>
         public MochaRow GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
-
-        /// <summary>
-        /// Return element by index.
-        /// </summary>
-        /// <param name="index">Index of element.</param>
-        public MochaRow ElementAt(int index) =>
-            collection.ElementAt(index);
-
-        /// <summary>
-        /// Create and return static array from collection.
-        /// </summary>
-        public MochaRow[] ToArray() =>
-            collection.ToArray();
-
-        /// <summary>
-        /// Create and return List<T> from collection.
-        /// </summary>
-        public List<MochaRow> ToList() =>
-            collection.ToList();
-
-        /// <summary>
-        /// Returns values in MochaReader.
-        /// </summary>
-        public MochaReader<MochaRow> ToReader() =>
-            new MochaReader<MochaRow>(collection);
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        public IEnumerator<MochaRow> GetEnumerator() =>
-            collection.GetEnumerator();
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() =>
-            collection.GetEnumerator();
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Return item by index.
-        /// </summary>
-        /// <param name="index">Index of item.</param>
-        public MochaRow this[int index] =>
-            ElementAt(index);
-
-        /// <summary>
-        /// Count of items.
-        /// </summary>
-        public int Count =>
-            collection.Count;
 
         #endregion
     }

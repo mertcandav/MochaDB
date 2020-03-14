@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
     /// MochaStackItem collector.
     /// </summary>
-    public class MochaStackItemCollection:IMochaCollection<MochaStackItem> {
-        #region Fields
-
-        private List<MochaStackItem> collection;
-
-        #endregion
-
+    public class MochaStackItemCollection:MochaCollection<MochaStackItem>, IMochaCollection<MochaStackItem> {
         #region Constructors
 
         /// <summary>
@@ -27,15 +19,6 @@ namespace MochaDB {
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        private void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,new EventArgs());
-        }
 
         /// <summary>
         /// This happens after NameChanged event of any item in collection.
@@ -125,22 +108,6 @@ namespace MochaDB {
         /// <summary>
         /// Return index if index is find but return -1 if index is not find.
         /// </summary>
-        /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaStackItem item) {
-            return IndexOf(item.Name);
-        }
-
-        /// <summary>
-        /// Return true if item is exists but return false if item not exists.
-        /// </summary>
-        /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaStackItem item) {
-            return Contains(item.Name);
-        }
-
-        /// <summary>
-        /// Return index if index is find but return -1 if index is not find.
-        /// </summary>
         /// <param name="name">Name of item to find index.</param>
         public int IndexOf(string name) {
             for(int index = 0; index < Count; index++) {
@@ -159,18 +126,6 @@ namespace MochaDB {
             IndexOf(name)!=-1 ? true : false;
 
         /// <summary>
-        /// Return max index of item count.
-        /// </summary>
-        public int MaxIndex() =>
-            collection.Count-1;
-
-        /// <summary>
-        /// Return true if is empty collection but return false if not.
-        /// </summary>
-        public bool IsEmptyCollection() =>
-            collection.Count == 0 ? true : false;
-
-        /// <summary>
         /// Return first element in collection.
         /// </summary>
         public MochaStackItem GetFirst() =>
@@ -182,43 +137,6 @@ namespace MochaDB {
         public MochaStackItem GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
-        /// <summary>
-        /// Return element by index.
-        /// </summary>
-        /// <param name="index">Index of element.</param>
-        public MochaStackItem ElementAt(int index) =>
-            collection.ElementAt(index);
-
-        /// <summary>
-        /// Create and return static array from collection.
-        /// </summary>
-        public MochaStackItem[] ToArray() =>
-            collection.ToArray();
-
-        /// <summary>
-        /// Create and return List<T> from collection.
-        /// </summary>
-        public List<MochaStackItem> ToList() =>
-            collection.ToList();
-
-        /// <summary>
-        /// Returns values in MochaReader.
-        /// </summary>
-        public MochaReader<MochaStackItem> ToReader() =>
-            new MochaReader<MochaStackItem>(collection);
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        public IEnumerator<MochaStackItem> GetEnumerator() =>
-            collection.GetEnumerator();
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() =>
-            collection.GetEnumerator();
-
         #endregion
 
         #region Properties
@@ -227,7 +145,7 @@ namespace MochaDB {
         /// Return item by index.
         /// </summary>
         /// <param name="index">Index of item.</param>
-        public MochaStackItem this[int index] {
+        public new MochaStackItem this[int index] {
             get =>
                 ElementAt(index);
             set {
@@ -250,12 +168,6 @@ namespace MochaDB {
                 this[dex] = dex!=-1 ? value : throw new Exception("There is no item by this name!");
             }
         }
-
-        /// <summary>
-        /// Count of items.
-        /// </summary>
-        public int Count =>
-            collection.Count;
 
         #endregion
     }

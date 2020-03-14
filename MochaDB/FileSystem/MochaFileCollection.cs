@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
     /// <summary>
     /// MochaDb file system file collector.
     /// </summary>
-    public class MochaFileCollection:IMochaCollection<MochaFile> {
-        #region Fields
-
-        internal List<MochaFile> collection;
-
-        #endregion
-
+    public class MochaFileCollection:MochaCollection<MochaFile>, IMochaCollection<MochaFile> {
         #region Constructors
 
         /// <summary>
@@ -27,15 +19,6 @@ namespace MochaDB.FileSystem {
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        private void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,new EventArgs());
-        }
 
         /// <summary>
         /// This happens after NameChanged event of any item in collection.
@@ -148,14 +131,6 @@ namespace MochaDB.FileSystem {
         /// <summary>
         /// Return index if index is find but return -1 if index is not find.
         /// </summary>
-        /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaFile item) {
-            return IndexOf(item.Name);
-        }
-
-        /// <summary>
-        /// Return index if index is find but return -1 if index is not find.
-        /// </summary>
         /// <param name="fullName">FullName of item to find index.</param>
         public int IndexOf(string fullName) {
             for(int index = 0; index < Count; index++)
@@ -167,30 +142,10 @@ namespace MochaDB.FileSystem {
         /// <summary>
         /// Return true if item is exists but return false if item not exists.
         /// </summary>
-        /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaFile item) {
-            return Contains(item.Name);
-        }
-
-        /// <summary>
-        /// Return true if item is exists but return false if item not exists.
-        /// </summary>
         /// <param name="fullName">FullName of item to exists check.</param>
         public bool Contains(string fullName) {
             return IndexOf(fullName) != -1;
         }
-
-        /// <summary>
-        /// Return max index of item count.
-        /// </summary>
-        public int MaxIndex() =>
-            collection.Count-1;
-
-        /// <summary>
-        /// Return true if is empty collection but return false if not.
-        /// </summary>
-        public bool IsEmptyCollection() =>
-            collection.Count == 0 ? true : false;
 
         /// <summary>
         /// Return first element in collection.
@@ -204,53 +159,9 @@ namespace MochaDB.FileSystem {
         public MochaFile GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
-        /// <summary>
-        /// Return element by index.
-        /// </summary>
-        /// <param name="index">Index of element.</param>
-        public MochaFile ElementAt(int index) =>
-            collection.ElementAt(index);
-
-        /// <summary>
-        /// Create and return static array from collection.
-        /// </summary>
-        public MochaFile[] ToArray() =>
-            collection.ToArray();
-
-        /// <summary>
-        /// Create and return List<T> from collection.
-        /// </summary>
-        public List<MochaFile> ToList() =>
-            collection.ToList();
-
-        /// <summary>
-        /// Returns values in MochaReader.
-        /// </summary>
-        public MochaReader<MochaFile> ToReader() =>
-            new MochaReader<MochaFile>(collection);
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        public IEnumerator<MochaFile> GetEnumerator() =>
-            collection.GetEnumerator();
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() =>
-            collection.GetEnumerator();
-
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Return item by index.
-        /// </summary>
-        /// <param name="index">Index of item.</param>
-        public MochaFile this[int index] =>
-            ElementAt(index);
 
         /// <summary>
         /// Return item by name.
@@ -264,12 +175,6 @@ namespace MochaDB.FileSystem {
                 return null;
             }
         }
-
-        /// <summary>
-        /// Count of items.
-        /// </summary>
-        public int Count =>
-            collection.Count;
 
         #endregion
     }

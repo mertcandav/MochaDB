@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
     /// MochaData collector.
     /// </summary>
-    public class MochaDataCollection:IMochaCollection<MochaData> {
-        #region Fields
-
-        internal List<MochaData> collection;
-
-        #endregion
-
+    public class MochaDataCollection:MochaCollection<MochaData>, IMochaCollection<MochaData> {
         #region Constructors
 
         /// <summary>
@@ -22,19 +14,6 @@ namespace MochaDB {
         /// </summary>
         public MochaDataCollection() {
             collection=new List<MochaData>();
-        }
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        private void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,new EventArgs());
         }
 
         #endregion
@@ -104,34 +83,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return index if index is find but return -1 if index is not find.
-        /// </summary>
-        /// <param name="item">Item to find index.</param>
-        public int IndexOf(MochaData item) {
-            return collection.IndexOf(item);
-        }
-
-        /// <summary>
-        /// Return true if item is exists but return false if item not exists.
-        /// </summary>
-        /// <param name="item">Item to exists check.</param>
-        public bool Contains(MochaData item) {
-            return collection.Contains(item);
-        }
-
-        /// <summary>
-        /// Return max index of item count.
-        /// </summary>
-        public int MaxIndex() =>
-            collection.Count-1;
-
-        /// <summary>
-        /// Return true if is empty collection but return false if not.
-        /// </summary>
-        public bool IsEmptyCollection() =>
-            collection.Count == 0 ? true : false;
-
-        /// <summary>
         /// Return first element in collection.
         /// </summary>
         public MochaData GetFirst() =>
@@ -142,66 +93,6 @@ namespace MochaDB {
         /// </summary>
         public MochaData GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
-
-        /// <summary>
-        /// Return element by index.
-        /// </summary>
-        /// <param name="index">Index of element.</param>
-        public MochaData ElementAt(int index) =>
-            collection.ElementAt(index);
-
-        /// <summary>
-        /// Create and return static array from collection.
-        /// </summary>
-        public MochaData[] ToArray() =>
-            collection.ToArray();
-
-        /// <summary>
-        /// Create and return List<T> from collection.
-        /// </summary>
-        public List<MochaData> ToList() =>
-            collection.ToList();
-
-        /// <summary>
-        /// Returns values in MochaReader.
-        /// </summary>
-        public MochaReader<MochaData> ToReader() =>
-            new MochaReader<MochaData>(collection);
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        public IEnumerator<MochaData> GetEnumerator() =>
-            collection.GetEnumerator();
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() =>
-            collection.GetEnumerator();
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Return item by index.
-        /// </summary>
-        /// <param name="index">Index of item.</param>
-        public MochaData this[int index] {
-            get =>
-                ElementAt(index);
-            set {
-                collection[index] = value;
-                OnChanged(this,new EventArgs());
-            }
-        }
-
-        /// <summary>
-        /// Count of items.
-        /// </summary>
-        public int Count =>
-            collection.Count;
 
         #endregion
     }
