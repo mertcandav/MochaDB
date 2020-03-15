@@ -133,6 +133,19 @@ namespace MochaDB {
 
         #endregion
 
+        #region General
+
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        public void Dispose() {
+            Disconnect();
+            aes256=null;
+            Provider=null;
+        }
+
+        #endregion
+
         #region Xml
 
         /// <summary>
@@ -338,15 +351,6 @@ namespace MochaDB {
             Doc=null;
             Query=null;
             FileSystem=null;
-        }
-
-        /// <summary>
-        /// Dispose.
-        /// </summary>
-        public void Dispose() {
-            Disconnect();
-            aes256=null;
-            Provider=null;
         }
 
         #endregion
@@ -2101,7 +2105,18 @@ namespace MochaDB {
             GetElement("Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
-        
+
+        #region Overrides
+
+        /// <summary>
+        /// Returns MochaScript build code of database.
+        /// </summary>
+        public override string ToString() {
+            return GetMochaScript();
+        }
+
+        #endregion
+
         #region Properties
 
         #region Internal

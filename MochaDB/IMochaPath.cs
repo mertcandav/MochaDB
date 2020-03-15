@@ -1,4 +1,4 @@
-﻿namespace MochaDB.FileSystem {
+﻿namespace MochaDB {
     /// <summary>
     /// Interface for MochaDB path definers.
     /// </summary>

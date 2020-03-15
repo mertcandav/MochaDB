@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-namespace MochaDB.FileSystem {
+namespace MochaDB {
     /// <summary>
     /// MochaDB path definer.
     /// </summary>
-    public class MochaPath:IMochaPath {
+    public struct MochaPath:IMochaPath {
         #region Fields
 
         private string path;
