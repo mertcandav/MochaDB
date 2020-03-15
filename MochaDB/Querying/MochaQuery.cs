@@ -50,6 +50,44 @@ namespace MochaDB.Querying {
 
         #endregion
 
+        #region General
+
+        /// <summary>
+        /// Detect command type and execute. Returns result if exists returned result.
+        /// </summary>
+        /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        public IMochaResult ExecuteCommand(string mochaQ) {
+            MochaQ.Command=mochaQ;
+            return ExecuteCommand();
+        }
+
+        /// <summary>
+        /// Detect command type and execute. Returns result if exists returned result.
+        /// </summary>
+        /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        public IMochaResult ExecuteCommand(MochaDatabase database,string mochaQ) {
+            Database=database;
+            MochaQ.Command=mochaQ;
+            return ExecuteCommand();
+        }
+
+        /// <summary>
+        /// Detect command type and execute. Returns result if exists returned result.
+        /// </summary>
+        public IMochaResult ExecuteCommand() {
+            if(MochaQ.IsRunQuery()) {
+                Run();
+                return null;
+            } else if(MochaQ.IsGetRunQuery()) {
+                return GetRun();
+            } else if(MochaQ.IsDynamicQuery()) {
+                return Dynamic();
+            } else
+                throw new Exception("This command is a not valid MochaQ command!");
+        }
+
+        #endregion
+
         #region Dynamic
 
         /// <summary>
@@ -57,7 +95,7 @@ namespace MochaDB.Querying {
         /// </summary>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public IMochaResult Dynamic(string mochaQ) {
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             return Dynamic();
         }
 
@@ -68,7 +106,7 @@ namespace MochaDB.Querying {
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public IMochaResult Dynamic(MochaDatabase database,string mochaQ) {
             Database = database;
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             return Dynamic();
         }
 
@@ -126,7 +164,7 @@ namespace MochaDB.Querying {
         /// </summary>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public void Run(string mochaQ) {
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             Run();
         }
 
@@ -137,7 +175,7 @@ namespace MochaDB.Querying {
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public void Run(MochaDatabase database,string mochaQ) {
             Database = database;
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             Run();
         }
 
@@ -365,7 +403,7 @@ namespace MochaDB.Querying {
         /// </summary>
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public IMochaResult GetRun(string mochaQ) {
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             return GetRun();
         }
 
@@ -376,7 +414,7 @@ namespace MochaDB.Querying {
         /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
         public IMochaResult GetRun(MochaDatabase database,string mochaQ) {
             Database = database;
-            MochaQ = mochaQ;
+            MochaQ.Command = mochaQ;
             return GetRun();
         }
 

@@ -60,6 +60,16 @@ namespace MochaDB {
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// Returns MochaSector converted to MochaElement.
+        /// </summary>
+        public MochaElement ToElement() =>
+            new MochaElement(Name,Description,Value);
+
+        #endregion
+
         #region Properties
 
         /// <summary>
