@@ -460,6 +460,12 @@ namespace MochaDB.Querying {
                     return Database.ExistsSector(queryPaths[1]);
                 } else if(queryPaths[0] == "EXISTSSTACK") {
                     return Database.ExistsStack(queryPaths[1]);
+                } else if(queryPaths[0] == "#REMOVESECTOR") {
+                    return new MochaResult<bool>(Database.RemoveSector(queryPaths[1]));
+                } else if(queryPaths[0] == "#REMOVESTACK") {
+                    return new MochaResult<bool>(Database.RemoveStack(queryPaths[1]));
+                } else if(queryPaths[0] == "#REMOVETABLE") {
+                    return new MochaResult<bool>(Database.RemoveTable(queryPaths[1]));
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 3) {
@@ -483,6 +489,12 @@ namespace MochaDB.Querying {
                     return Database.GetColumnDescription(queryPaths[1],queryPaths[2]);
                 } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
                     return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
+                } else if(queryPaths[0] == "#REMOVECOLUMN") {
+                    return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "#REMOVEROW") {
+                    return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
+                } else if(queryPaths[0] == "#REMOVESTACKITEM") {
+                    return new MochaResult<bool>(Database.RemoveStackItem(queryPaths[1],queryPaths[2]));
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 4) {

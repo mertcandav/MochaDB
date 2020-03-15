@@ -59,7 +59,8 @@
                 command.StartsWith("ROWCOUNT") ||
                 command.StartsWith("DATACOUNT") ||
                 command.StartsWith("EXISTS") ||
-                command.StartsWith("FILESYSTEM_EXISTS"))
+                command.StartsWith("FILESYSTEM_EXISTS") ||
+                command[0] == '#')
                 return true;
             else
                 return false;
