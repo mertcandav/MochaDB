@@ -14,8 +14,14 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>3.4.1</Version>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageIcon>MochaDB_Texted.ico</PackageIcon>
+    <PackageIcon>MochaDB_Texted.png</PackageIcon>
     <PackageIconUrl />
+    <PackageReleaseNotes>- Improvements for logs
+- Add remove command support for GetRun
+- Add GetRun support for FileSystem remove functions
+- Add MochaQ commands and improvements for logs
+- Minor optimizations</PackageReleaseNotes>
+    <PackageTags></PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,7 +33,7 @@
 
   <ItemGroup>
     <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
-    <None Include="C:\Users\mertc\Desktop\MochaDB_Texted.ico">
+    <None Include="..\Docs\Resources\MochaDB_Texted.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
