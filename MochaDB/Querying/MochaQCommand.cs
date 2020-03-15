@@ -84,7 +84,8 @@
                 command.StartsWith("FILESYSTEM_CLEAR") ||
                 command.StartsWith("FILESYSTEM_REMOVE") ||
                 command.StartsWith("FILESYSTEM_UPLOAD") ||
-                command.StartsWith("FILESYSTEM_CREATE"))
+                command.StartsWith("FILESYSTEM_CREATE") ||
+                command.StartsWith("RESTORE"))
                 return true;
             else
                 return false;

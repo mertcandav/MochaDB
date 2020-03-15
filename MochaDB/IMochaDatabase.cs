@@ -52,6 +52,9 @@ namespace MochaDB {
         void UpdateData(string tableName,string columnName,int index,object data);
         MochaResult<MochaData> GetData(string tableName,string columnName,int index);
 
+        void ClearLogs();
+        void RestoreToLog(string id);
+
         #endregion
 
         #region Properties

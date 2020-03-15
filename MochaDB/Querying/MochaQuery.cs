@@ -222,6 +222,15 @@ namespace MochaDB.Querying {
                 } else if(queryPaths[0] == "CLEARALL") {
                     Database.ClearAll();
                     return;
+                } else if(queryPaths[0] == "CLEARLOGS") {
+                    Database.ClearLogs();
+                    return;
+                } else if(queryPaths[0] == "RESTORETOFIRSTLOG") {
+                    Database.RestoreToFirstLog();
+                    return;
+                } else if(queryPaths[0] == "RESTORETOLASTLOG") {
+                    Database.RestoreToLastLog();
+                    return;
                 } else
                     throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 2) {
@@ -245,6 +254,9 @@ namespace MochaDB.Querying {
                     return;
                 } else if(queryPaths[0] == "SETDESCRIPTION") {
                     Database.SetDescription(queryPaths[1]);
+                    return;
+                } else if(queryPaths[0] == "RESTORETOLOG") {
+                    Database.RestoreToLog(queryPaths[1]);
                     return;
                 } else if(queryPaths[0] == "RESETTABLE") {
                     if(!Database.ExistsTable(queryPaths[1]))
@@ -416,6 +428,8 @@ namespace MochaDB.Querying {
                     return Database.GetPassword();
                 } else if(queryPaths[0] == "GETDESCRIPTION") {
                     return Database.GetDescription();
+                } else if(queryPaths[0] == "GETLOGS") {
+                    return Database.GetLogs();
                 } else if(queryPaths[0] == "GETDATAS") {
                     List<MochaData> datas = new List<MochaData>();
                     IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
@@ -435,7 +449,9 @@ namespace MochaDB.Querying {
                 } else if(queryPaths[0] == "GETSECTOR") {
                     return Database.GetSector(queryPaths[1]);
                 } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
-                    return new MochaResult<string>(GETFIRSTCOLUMN_NAME(queryPaths[1]));
+                    return GETFIRSTCOLUMN_NAME(queryPaths[1]);
+                } else if(queryPaths[0] == "EXISTSLOG") {
+                    return Database.ExistsLog(queryPaths[1]);
                 } else if(queryPaths[0] == "GETROWS") {
                     return Database.GetRows(queryPaths[1]);
                 } else if(queryPaths[0] == "GETDATAS") {
