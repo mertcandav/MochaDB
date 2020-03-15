@@ -397,6 +397,12 @@ namespace MochaDB.Querying {
                         return Database.FileSystem.ExistsDirectory(queryPaths[1]);
                     } else if(queryPaths[0] == "FILESYSTEM_EXISTSFILE") {
                         return Database.FileSystem.ExistsFile(queryPaths[1]);
+                    } else if(queryPaths[0]=="#FILESYSTEM_REMOVEDISK") {
+                        return new MochaResult<bool>(Database.FileSystem.RemoveDisk(queryPaths[1]));
+                    } else if(queryPaths[0] == "#FILESYSTEM_REMOVEDIRECTORY") {
+                        return new MochaResult<bool>(Database.FileSystem.RemoveDirectory(queryPaths[1]));
+                    } else if(queryPaths[0] == "#FILESYSTEM_REMOVEFILE") {
+                        return new MochaResult<bool>(Database.FileSystem.RemoveFile(queryPaths[1]));
                     } else
                         throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
                 } else
