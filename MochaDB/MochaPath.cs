@@ -19,7 +19,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="path">Path.</param>
         public MochaPath(string path) {
-            Path=path;
+            this.path=path;
         }
 
         #endregion
