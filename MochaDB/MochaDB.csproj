@@ -12,7 +12,7 @@
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.4.0</Version>
+    <Version>3.4.1</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>MochaDB_Texted.ico</PackageIcon>
     <PackageIconUrl />
