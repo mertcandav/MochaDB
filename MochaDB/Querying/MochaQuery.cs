@@ -50,7 +50,7 @@ namespace MochaDB.Querying {
 
         #endregion
 
-        #region General
+        #region ExecuteCommand
 
         /// <summary>
         /// Detect command type and execute. Returns result if exists returned result.
@@ -612,6 +612,17 @@ namespace MochaDB.Querying {
 
             XElement firstColumn = (XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode;
             return firstColumn == null ? null : firstColumn.Name.LocalName;
+        }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// Returns command property value of <see cref="MochaQ"/>.
+        /// </summary>
+        public override string ToString() {
+            return MochaQ.Command;
         }
 
         #endregion

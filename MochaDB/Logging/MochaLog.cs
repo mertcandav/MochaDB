@@ -50,7 +50,7 @@ namespace MochaDB.Logging {
         #region Overrides
 
         /// <summary>
-        /// Returns log content.
+        /// Returns <see cref="Log"/>.
         /// </summary>
         public override string ToString() {
             return Log;

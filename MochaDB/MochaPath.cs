@@ -73,7 +73,7 @@ namespace MochaDB {
         #region Overrides
 
         /// <summary>
-        /// Returns path.
+        /// Returns <see cref="Path"/>.
         /// </summary>
         public override string ToString() {
             return Path;

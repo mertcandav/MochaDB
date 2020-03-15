@@ -93,6 +93,17 @@
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns <see cref="Command"/>.
+        /// </summary>
+        public override string ToString() {
+            return Command;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

@@ -51,7 +51,7 @@
         #region Override
 
         /// <summary>
-        /// Returns the value converted to string.
+        /// Returns result of <see cref="GetString()"/>.
         /// </summary>
         public override string ToString() =>
             GetString();

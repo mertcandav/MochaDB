@@ -104,6 +104,17 @@ namespace MochaDB.Cryptography {
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns <see cref="Data"/>.
+        /// </summary>
+        public override string ToString() {
+            return Data;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

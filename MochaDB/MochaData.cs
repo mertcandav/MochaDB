@@ -211,7 +211,7 @@ namespace MochaDB {
         #region Overrides
 
         /// <summary>
-        /// Get data in string.
+        /// Returns <see cref="Data"/> as string with UTF8.
         /// </summary>
         public override string ToString() {
             return DataType != MochaDataType.String ? Data.ToString() : Data as string;

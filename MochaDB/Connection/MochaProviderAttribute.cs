@@ -94,7 +94,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
         #region Overrides
 
         /// <summary>
-        /// Returns provider string.
+        /// Returns result of <see cref="GetProviderString()"/>.
         /// </summary>
         public override string ToString() {
             return GetProviderString();

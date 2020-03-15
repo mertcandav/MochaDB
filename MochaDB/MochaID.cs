@@ -133,10 +133,10 @@ namespace MochaDB {
 
         #endregion
 
-        #region Override
+        #region Overrides
 
         /// <summary>
-        /// Returns value.
+        /// Returns <see cref="Value"/>.
         /// </summary>
         public override string ToString() {
             return Value;

@@ -113,7 +113,7 @@ namespace MochaDB.Connection {
         #region Overrides
 
         /// <summary>
-        /// Returns connection string.
+        /// Returns <see cref="ConnectionString"/>.
         /// </summary>
         public override string ToString() {
             return ConnectionString;
@@ -183,6 +183,6 @@ namespace MochaDB.Connection {
     /// </summary>
     public enum MochaConnectionState {
         Connected,
-        Disconnected
+        Disconnected 
     }
 }

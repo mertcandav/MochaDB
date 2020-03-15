@@ -2109,7 +2109,7 @@ namespace MochaDB {
         #region Overrides
 
         /// <summary>
-        /// Returns MochaScript build code of database.
+        /// Returns result of <see cref="GetMochaScript()"/>
         /// </summary>
         public override string ToString() {
             return GetMochaScript();

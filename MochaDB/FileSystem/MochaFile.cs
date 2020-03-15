@@ -142,6 +142,17 @@ namespace MochaDB.FileSystem {
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Execute <see cref="ToText()"/> function and returns result.
+        /// </summary>
+        public override string ToString() {
+            return ToText();
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

@@ -796,6 +796,17 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns <see cref="MochaScript"/>.
+        /// </summary>
+        public override string ToString() {
+            return MochaScript;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

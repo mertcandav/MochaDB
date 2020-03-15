@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -175,6 +176,17 @@ namespace MochaDB.Streams {
         /// <param name="value">The value at which to set the length.</param>
         public override void SetLength(long value) {
             baseStream.SetLength(value);
+        }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// Returns <see cref="Bytes"/> as string with UTF8.
+        /// </summary>
+        public override string ToString() {
+            return Encoding.UTF8.GetString(Bytes);
         }
 
         #endregion

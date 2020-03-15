@@ -48,6 +48,17 @@ namespace MochaDB {
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Returns <see cref="Name"/>.
+        /// </summary>
+        public override string ToString() {
+            return Name;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
