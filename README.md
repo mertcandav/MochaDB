@@ -68,7 +68,7 @@ You cannot work with SQL queries, but with MochaQ you can do basic operations wi
 Of course, when you pull data from the database, you can also query it directly. For this, MochaDB strives to help you, as always!
 
 ```c#
-var tables = GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
+var tables = DB.GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
 ```
 
 <br><br>
@@ -79,8 +79,7 @@ MochaQ offers quick basic queries. With MochaQuery, you can process and run quer
 ### Use
 
 ```c#
-MochaDatabase db = new MochaDatabase("connection string");
-db.Connect();
+MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
 string value = (MochaResult<string>)db.Query.GetRun("GETSECTORDATA:PiNumber");
 
 if(value!="3.14")
@@ -88,8 +87,7 @@ if(value!="3.14")
 
 //Or
 
-MochaDatabase db = new MochaDatabase("connection string");
-db.Connect();
+MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
 MochaQuery query = new MochaQuery(db);
 string value = (MochaResult<string>)query.GetRun("GETSECTORDATA:PiNumber");
 
