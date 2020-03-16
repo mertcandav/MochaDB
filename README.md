@@ -1,6 +1,6 @@
-![alt text](https://github.com/mertcandav/MochaDB/blob/master/Docs/Resources/MochaDB_Texted.ico)
+![alt text](https://github.com/mertcandav/MochaDB/blob/master/docs/resources/MochaDB_Texted.ico)
 
-<a href="https://opensource.org/licenses/MIT">![license](https://camo.githubusercontent.com/890acbdcb87868b382af9a4b1fac507b9659d9bf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667)</a>
+[![license](https://camo.githubusercontent.com/890acbdcb87868b382af9a4b1fac507b9659d9bf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 
 MochaDB is a user-friendly, loving database system that loves to help.<br>
@@ -27,7 +27,7 @@ Come on, meet the world's most advanced .NET database system!
 - Supports LINQ querys
 - Encrypted database file
 - Object oriented management support
-- <a href="https://github.com/mertcandav/MochaDBStudio">MochaDB Studio</a> for databases management with graphical user interface
+- [MochaDB Studio](https://github.com/mertcandav/MochaDBStudio) for databases management with graphical user interface
 - Single DLL
 - Single database file
 - Portable
@@ -176,5 +176,6 @@ public void Debug(string path) {
 
 ## And More
 
-- <a href="https://github.com/mertcandav/MochaDB/wiki/Warnings">Warnings</a>
-- <a href="https://github.com/mertcandav/MochaDB/wiki">Documentation</a>
+- [Warnings](https://github.com/mertcandav/MochaDB/wiki/Warnings)
+- [Documentation](https://github.com/mertcandav/MochaDB/wiki)
+- [NuGet Page](https://www.nuget.org/packages/MochaDB/)

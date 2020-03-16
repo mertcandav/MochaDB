@@ -28,17 +28,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
+    <OutputPath>M:\Development\CSharp\MochaDB\output\</OutputPath>
     <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
-    <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
+    <OutputPath>M:\Development\CSharp\MochaDB\output\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
-    <None Include="..\Docs\Resources\MochaDB_Texted.png">
+    <None Include="..\docs\resources\MochaDB_Texted.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
