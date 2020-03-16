@@ -182,7 +182,13 @@ namespace MochaDB.Connection {
     /// Connection states for MochaDB.
     /// </summary>
     public enum MochaConnectionState {
-        Connected,
-        Disconnected 
+        /// <summary>
+        /// Connected to database.
+        /// </summary>
+        Connected = 0,
+        /// <summary>
+        /// Disconnected from database.
+        /// </summary>
+        Disconnected = 1 
     }
 }

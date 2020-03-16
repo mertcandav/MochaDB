@@ -18,7 +18,6 @@ namespace MochaDB {
         /// Create new MochaData.
         /// </summary>
         internal MochaData() {
-
         }
 
         /// <summary>
@@ -259,22 +258,73 @@ namespace MochaDB {
     /// DataTypes for MochaDB.
     /// </summary>
     public enum MochaDataType {
+        /// <summary>
+        /// String.
+        /// </summary>
         String = 0,
+        /// <summary>
+        /// 16-bit signed integer.
+        /// </summary>
         Int16 = 1,
+        /// <summary>
+        /// 32-bit signed integer.
+        /// </summary>
         Int32 = 2,
+        /// <summary>
+        /// 64-bit signed integer.
+        /// </summary>
         Int64 = 3,
+        /// <summary>
+        /// 16-bit unsigned integer.
+        /// </summary>
         UInt16 = 4,
+        /// <summary>
+        /// 32-bit unsigned integer.
+        /// </summary>
         UInt32 = 5,
+        /// <summary>
+        /// 64-bit unsigned integer.
+        /// </summary>
         UInt64 = 6,
+        /// <summary>
+        /// Double-precision floating-point number.
+        /// </summary>
         Double = 7,
+        /// <summary>
+        /// Single-precision floating-point number.
+        /// </summary>
         Float = 8,
+        /// <summary>
+        /// Decimal floating-point number.
+        /// </summary>
         Decimal = 9,
+        /// <summary>
+        /// 8-bit unsigned integer.
+        /// </summary>
         Byte = 10,
+        /// <summary>
+        /// Date, Time, Date + Time.
+        /// </summary>
         DateTime = 11,
+        /// <summary>
+        /// 8-bit signed integer.
+        /// </summary>
         SByte = 12,
+        /// <summary>
+        /// True or False
+        /// </summary>
         Boolean = 13,
+        /// <summary>
+        /// UTF16 Character.
+        /// </summary>
         Char = 14,
+        /// <summary>
+        /// Auto-incrementing 32-bit integer.
+        /// </summary>
         AutoInt = 15,
+        /// <summary>
+        /// Unique string.
+        /// </summary>
         Unique = 16
     }
 }

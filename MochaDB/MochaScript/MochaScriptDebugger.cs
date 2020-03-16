@@ -856,12 +856,33 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
     /// Comparison mark for MochaScript.
     /// </summary>
     public enum MochaScriptComparisonMark {
-        Equal,
-        NotEqual,
-        Bigger,
-        Smaller,
-        EqualBigger,
-        EqualSmaller,
-        Undefined
+        /// <summary>
+        /// '==' operator.
+        /// </summary>
+        Equal = 0,
+        /// <summary>
+        /// '!=' operator.
+        /// </summary>
+        NotEqual = 1,
+        /// <summary>
+        /// '>' operator.
+        /// </summary>
+        Bigger = 2,
+        /// <summary>
+        /// '<' operator.
+        /// </summary>
+        Smaller = 3,
+        /// <summary>
+        /// '>=' operator.
+        /// </summary>
+        EqualBigger = 4,
+        /// <summary>
+        /// '=<' operator.
+        /// </summary>
+        EqualSmaller = 5,
+        /// <summary>
+        /// Undefined operator.
+        /// </summary>
+        Undefined = 6
     }
 }
