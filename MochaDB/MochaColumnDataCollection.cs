@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
     /// MochaData collector for MochaColumns.
     /// </summary>
-    public class MochaColumnDataCollection:MochaCollection<MochaData>, IMochaReadonlyCollection<MochaData> {
+    public class MochaColumnDataCollection:MochaReadonlyCollection<MochaData> {
         #region Fields
 
         private MochaDataType dataType;
@@ -22,6 +24,19 @@ namespace MochaDB {
         public MochaColumnDataCollection(MochaDataType dataType) {
             collection=new List<MochaData>();
             this.dataType=dataType;
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// This happens after collection changed.
+        /// </summary>
+        public event EventHandler<EventArgs> Changed;
+        protected virtual void OnChanged(object sender,EventArgs e) {
+            //Invoke.
+            Changed?.Invoke(this,e);
         }
 
         #endregion
@@ -130,13 +145,13 @@ namespace MochaDB {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public MochaData GetFirst() =>
+        public override MochaData GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public MochaData GetLast() =>
+        public override MochaData GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion

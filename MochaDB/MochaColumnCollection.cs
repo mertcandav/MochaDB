@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaColumn collector.
     /// </summary>
-    public class MochaColumnCollection:MochaCollection<MochaColumn>, IMochaCollection<MochaColumn> {
+    public class MochaColumnCollection:MochaCollection<MochaColumn> {
         #region Constructors
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace MochaDB {
         /// <summary>
         /// Remove all items.
         /// </summary>
-        public void Clear() {
+        public override void Clear() {
             for(int index = 0; index < Count; index++) {
                 collection[index].NameChanged-=Item_NameChanged;
                 //collection[index].Datas.Changed-=Item_Changed;
@@ -64,7 +64,7 @@ namespace MochaDB {
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(MochaColumn item) {
+        public override void Add(MochaColumn item) {
             if(item == null)
                 return;
             if(Contains(item.Name))
@@ -94,7 +94,7 @@ namespace MochaDB {
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaColumn> items) {
+        public override void AddRange(IEnumerable<MochaColumn> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -103,7 +103,7 @@ namespace MochaDB {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public void Remove(MochaColumn item) {
+        public override void Remove(MochaColumn item) {
             Remove(item.Name);
         }
 
@@ -126,7 +126,7 @@ namespace MochaDB {
         /// Remove item by index.
         /// </summary>
         /// <param name="index">Index of item to remove.</param>
-        public void RemoveAt(int index) {
+        public override void RemoveAt(int index) {
             Remove(collection[index].Name);
         }
 
@@ -152,13 +152,13 @@ namespace MochaDB {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public MochaColumn GetFirst() =>
+        public override MochaColumn GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public MochaColumn GetLast() =>
+        public override MochaColumn GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion

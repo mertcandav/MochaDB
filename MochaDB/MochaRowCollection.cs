@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaRow collector.
     /// </summary>
-    public class MochaRowCollection:MochaCollection<MochaRow>, IMochaCollection<MochaRow> {
+    public class MochaRowCollection:MochaCollection<MochaRow> {
         #region Constructors
 
         /// <summary>
@@ -41,21 +41,14 @@ namespace MochaDB {
 
         #region Methods
 
-        /// <summary>
-        /// Remove all items.
-        /// </summary>
-        public void Clear() {
+        public override void Clear() {
             for(int index = 0; index < Count; index++) {
                 collection[index].Datas.Changed-=Item_Changed;
             }
             collection.Clear();
         }
 
-        /// <summary>
-        /// Add item.
-        /// </summary>
-        /// <param name="item">Item to add.</param>
-        public void Add(MochaRow item) {
+        public override void Add(MochaRow item) {
             if(item== null)
                 return;
 
@@ -85,45 +78,27 @@ namespace MochaDB {
         public void Add(IEnumerable<MochaData> datas) =>
             Add(new MochaRow(datas));
 
-        /// <summary>
-        /// Add item from range.
-        /// </summary>
-        /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaRow> items) {
+        public override void AddRange(IEnumerable<MochaRow> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
 
-        /// <summary>
-        /// Remove item.
-        /// </summary>
-        /// <param name="item">Item to remove.</param>
-        public void Remove(MochaRow item) {
+        public override void Remove(MochaRow item) {
             int dex = IndexOf(item);
             if(dex!=-1)
                 RemoveAt(dex);
         }
 
-        /// <summary>
-        /// Remove item by index.
-        /// </summary>
-        /// <param name="index">Index of item to remove.</param>
-        public void RemoveAt(int index) {
+        public override void RemoveAt(int index) {
             collection[index].Datas.Changed-=Item_Changed;
             collection.RemoveAt(index);
             OnChanged(this,new EventArgs());
         }
 
-        /// <summary>
-        /// Return first element in collection.
-        /// </summary>
-        public MochaRow GetFirst() =>
+        public override MochaRow GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
-        /// <summary>
-        /// Return last element in collection.
-        /// </summary>
-        public MochaRow GetLast() =>
+        public override MochaRow GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion

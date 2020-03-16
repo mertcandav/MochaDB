@@ -6,7 +6,7 @@ namespace MochaDB.FileSystem {
     /// <summary>
     /// MochaDb file system file collector.
     /// </summary>
-    public class MochaFileCollection:MochaCollection<MochaFile>, IMochaCollection<MochaFile> {
+    public class MochaFileCollection:MochaCollection<MochaFile> {
         #region Constructors
 
         /// <summary>
@@ -62,10 +62,7 @@ namespace MochaDB.FileSystem {
 
         #region Methods
 
-        /// <summary>
-        /// Remove all items.
-        /// </summary>
-        public void Clear() {
+        public override void Clear() {
             for(int index = 0; index < Count; index++) {
                 collection[index].NameChanged-=Item_NameChanged;
                 collection[index].ExtensionChanged-=Item_ExtensionChanged;
@@ -73,11 +70,7 @@ namespace MochaDB.FileSystem {
             collection.Clear();
         }
 
-        /// <summary>
-        /// Add item.
-        /// </summary>
-        /// <param name="item">Item to add.</param>
-        public void Add(MochaFile item) {
+        public override void Add(MochaFile item) {
             if(item == null)
                 return;
             if(Contains(item.FullName))
@@ -88,20 +81,12 @@ namespace MochaDB.FileSystem {
             collection.Add(item);
         }
 
-        /// <summary>
-        /// Add item from range.
-        /// </summary>
-        /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaFile> items) {
+        public override void AddRange(IEnumerable<MochaFile> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
 
-        /// <summary>
-        /// Remove item.
-        /// </summary>
-        /// <param name="item">Item to remove.</param>
-        public void Remove(MochaFile item) {
+        public override void Remove(MochaFile item) {
             Remove(item.Name);
         }
 
@@ -120,11 +105,7 @@ namespace MochaDB.FileSystem {
                 }
         }
 
-        /// <summary>
-        /// Remove item by index.
-        /// </summary>
-        /// <param name="index">Index of item to remove.</param>
-        public void RemoveAt(int index) {
+        public override void RemoveAt(int index) {
             Remove(collection[index].Name);
         }
 
@@ -147,16 +128,10 @@ namespace MochaDB.FileSystem {
             return IndexOf(fullName) != -1;
         }
 
-        /// <summary>
-        /// Return first element in collection.
-        /// </summary>
-        public MochaFile GetFirst() =>
+        public override MochaFile GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
-        /// <summary>
-        /// Return last element in collection.
-        /// </summary>
-        public MochaFile GetLast() =>
+        public override MochaFile GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion

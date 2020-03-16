@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace MochaDB {
@@ -6,7 +7,7 @@ namespace MochaDB {
     /// Collection interface for MochaDB.
     /// </summary>
     /// <typeparam name="T">Item type of collector.</typeparam>
-    public interface IMochaCollection<T>:IEnumerable<T> {
+    public interface IMochaCollection<T>:IEnumerable<T>, IEnumerable, ICollection<T> {
         #region Events
 
         event EventHandler<EventArgs> Changed;
@@ -15,13 +16,7 @@ namespace MochaDB {
 
         #region Methods
 
-        void Clear();
-        void Add(T item);
         void AddRange(IEnumerable<T> items);
-        void Remove(T item);
-        void RemoveAt(int index);
-        int IndexOf(T item);
-        bool Contains(T item);
         int MaxIndex();
         bool IsEmptyCollection();
         T ElementAt(int index);
@@ -34,7 +29,6 @@ namespace MochaDB {
 
         #region Properties
 
-        int Count { get; }
         T this[int index] { get; }
 
         #endregion

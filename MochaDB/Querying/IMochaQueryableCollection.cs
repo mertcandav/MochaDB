@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace MochaDB.Querying {
     /// Interface for queryable collections.
     /// </summary>
     /// <typeparam name="T">Type of collection value type.</typeparam>
-    public interface IMochaQueryableCollection<T> {
+    public interface IMochaQueryableCollection<T>:IEnumerable<T>, IEnumerable {
         #region Methods
 
         IEnumerable<T> Select(Func<T,T> query);

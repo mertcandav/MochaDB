@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaSector collector.
     /// </summary>
-    public class MochaSectorCollection:MochaCollection<MochaSector>, IMochaCollection<MochaSector> {
+    public class MochaSectorCollection:MochaCollection<MochaSector> {
         #region Constructors
 
         /// <summary>
@@ -45,21 +45,14 @@ namespace MochaDB {
 
         #region Methods
 
-        /// <summary>
-        /// Remove all items.
-        /// </summary>
-        public void Clear() {
+        public override void Clear() {
             for(int index = 0; index < Count; index++) {
                 collection[index].NameChanged-=Item_NameChanged;
             }
             collection.Clear();
         }
 
-        /// <summary>
-        /// Add item.
-        /// </summary>
-        /// <param name="item">Item to add.</param>
-        public void Add(MochaSector item) {
+        public override void Add(MochaSector item) {
             if(Contains(item.Name))
                 throw new Exception("There is already a sector with this name!");
 
@@ -68,20 +61,12 @@ namespace MochaDB {
             OnChanged(this,new EventArgs());
         }
 
-        /// <summary>
-        /// Add item from range.
-        /// </summary>
-        /// <param name="items">Range to add items.</param>
-        public void AddRange(IEnumerable<MochaSector> items) {
+        public override void AddRange(IEnumerable<MochaSector> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
 
-        /// <summary>
-        /// Remove item.
-        /// </summary>
-        /// <param name="item">Item to remove.</param>
-        public void Remove(MochaSector item) {
+        public override void Remove(MochaSector item) {
             Remove(item.Name);
         }
 
@@ -95,11 +80,7 @@ namespace MochaDB {
                 RemoveAt(dex);
         }
 
-        /// <summary>
-        /// Remove item by index.
-        /// </summary>
-        /// <param name="index">Index of item to remove.</param>
-        public void RemoveAt(int index) {
+        public override void RemoveAt(int index) {
             collection[index].NameChanged-=Item_NameChanged;
             collection.RemoveAt(index);
             OnChanged(this,new EventArgs());
@@ -125,16 +106,10 @@ namespace MochaDB {
         public bool Contains(string name) =>
             IndexOf(name)!=-1 ? true : false;
 
-        /// <summary>
-        /// Return first element in collection.
-        /// </summary>
-        public MochaSector GetFirst() =>
+        public override MochaSector GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
-        /// <summary>
-        /// Return last element in collection.
-        /// </summary>
-        public MochaSector GetLast() =>
+        public override MochaSector GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion

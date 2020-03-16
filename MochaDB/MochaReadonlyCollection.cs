@@ -6,59 +6,17 @@ using MochaDB.Streams;
 
 namespace MochaDB {
     /// <summary>
-    /// Base class for MochaDB collections.
+    /// Base class for MochaDB readonly collections.
     /// </summary>    
     /// <typeparam name="T">Item type.</typeparam>
-    public abstract class MochaCollection<T>:IMochaCollection<T> {
+    public abstract class MochaReadonlyCollection<T>:IMochaReadonlyCollection<T> {
         #region Fields
 
         internal protected List<T> collection;
 
         #endregion
 
-        #region Events
-
-        /// <summary>
-        /// This happens after collection changed.
-        /// </summary>
-        public event EventHandler<EventArgs> Changed;
-        protected virtual void OnChanged(object sender,EventArgs e) {
-            //Invoke.
-            Changed?.Invoke(this,e);
-        }
-
-        #endregion
-
-        #region Abstact Methods
-
-        /// <summary>
-        /// Remove all items.
-        /// </summary>
-        public abstract void Clear();
-
-        /// <summary>
-        /// Add item.
-        /// </summary>
-        /// <param name="item">Item to add.</param>
-        public abstract void Add(T item);
-
-        /// <summary>
-        /// Add item from range.
-        /// </summary>
-        /// <param name="items">Range to add items.</param>
-        public abstract void AddRange(IEnumerable<T> items);
-
-        /// <summary>
-        /// Remove item.
-        /// </summary>
-        /// <param name="item">Item to remove.</param>
-        public abstract void Remove(T item);
-
-        /// <summary>
-        /// Remove item by index.
-        /// </summary>
-        /// <param name="index">Index of item to remove.</param>
-        public abstract void RemoveAt(int index);
+        #region Abstract Methods
 
         /// <summary>
         /// Return first element in collection.
@@ -152,16 +110,6 @@ namespace MochaDB {
         IEnumerator IEnumerable.GetEnumerator() =>
             collection.GetEnumerator();
 
-        /// <summary>
-        /// Removes the first occurrence of a specific object from the collection.
-        /// </summary>
-        /// <param name="item">Item to remove.</param>
-        bool ICollection<T>.Remove(T item) {
-            bool state = Contains(item);
-            Remove(item);
-            return state;
-        }
-
         #endregion
 
         #region Properties
@@ -183,7 +131,7 @@ namespace MochaDB {
         /// Is Readonly collection.
         /// </summary>
         public virtual bool IsReadOnly =>
-            false;
+            true;
 
         #endregion
     }
