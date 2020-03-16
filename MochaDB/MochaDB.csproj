@@ -29,13 +29,11 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
-    <DocumentationFile>M:\Development\CSharp\MochaDB\Output\netstandard1.3\MochaDB.xml</DocumentationFile>
     <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
     <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
-    <DocumentationFile>M:\Development\CSharp\MochaDB\Output\net4\MochaDB.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
