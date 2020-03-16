@@ -3,12 +3,14 @@
 <a href="https://opensource.org/licenses/MIT">![license](https://camo.githubusercontent.com/890acbdcb87868b382af9a4b1fac507b9659d9bf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667)</a>
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 
-.NET embedded high performance NoSQL database system.
+MochaDB is a user-friendly, loving database system that loves to help.<br>
+Come on, meet the world's most advanced .NET database system!
 
 ---
 
-## Featured features.
+## Featured features
 - Open source and free for everyone
+- Always up to date!
 - Serverless
 - File based
 - High performance
@@ -33,10 +35,11 @@
 <br>
 
 ## Usage areas
+- Remotely accessible database with a provided server
 - Desktop applications
 - Web sites/applications
 - Mobile applications
-- Servers
+- Data storages of servers
 - Libraries
 - Games
 
@@ -51,22 +54,21 @@
 You cannot work with SQL queries, but with MochaQ you can do basic operations with custom commands and work with LINQ queries.
 
 ```c#
-public IEnumerable<MochaTable> GetMatchTables(string key) {
-  Regex rgx = new Regex(key);
   var tables = DB.GetTables();
   var result =
     from table in tables
-    where rgx.IsMatch(table.Name)
+    where table.Name.StartsWith("A") && table.Columns.Count > 0
     select table;
   
   return result;
-}
 ```
 
 <br>
 
+Of course, when you pull data from the database, you can also query it directly. For this, MochaDB strives to help you, as always!
+
 ```c#
-MochaCollectionResult<MochaTable> tables = GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
+var tables = GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
 ```
 
 <br><br>
@@ -164,7 +166,7 @@ Final
 
 <br>
 
-## Debugging
+### Debugging
 
 ```c#
 public void Debug(string path) {
