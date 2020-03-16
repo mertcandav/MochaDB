@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C1D92442-F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{A0662273-0273-4D70-BE6B-7DE1EF5AE41A}"
 	ProjectSection(SolutionItems) = preProject
+		docs\resources\MochaDB_Logo.ico = docs\resources\MochaDB_Logo.ico
 		docs\Resources\MochaDB_Logo.png = docs\Resources\MochaDB_Logo.png
 		docs\Resources\MochaDB_Texted.png = docs\Resources\MochaDB_Texted.png
 		docs\Resources\MochaDB_Texted.psd = docs\Resources\MochaDB_Texted.psd
