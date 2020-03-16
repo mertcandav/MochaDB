@@ -28,12 +28,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>M:\Development\CSharp\MochaDB\output\</OutputPath>
+    <OutputPath>..\output\</OutputPath>
     <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
-    <OutputPath>M:\Development\CSharp\MochaDB\output\</OutputPath>
+    <OutputPath>..\output\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
