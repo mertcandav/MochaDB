@@ -4,7 +4,7 @@
     <TargetFrameworks>net4;netstandard1.3</TargetFrameworks>
     <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3</TargetFrameworks>
     <Copyright>MIT</Copyright>
-    <PackageLicenseFile></PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
     <Description>.NET embedded high performance NoSQL database system.</Description>
@@ -22,18 +22,29 @@
 - Add MochaQ commands and improvements for logs
 - Minor optimizations</PackageReleaseNotes>
     <PackageTags></PackageTags>
+    <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile></DocumentationFile>
+    <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
+    <DocumentationFile>M:\Development\CSharp\MochaDB\Output\netstandard1.3\MochaDB.xml</DocumentationFile>
     <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
+    <OutputPath>M:\Development\CSharp\MochaDB\Output\</OutputPath>
+    <DocumentationFile>M:\Development\CSharp\MochaDB\Output\net4\MochaDB.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
     <None Include="..\Docs\Resources\MochaDB_Texted.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
