@@ -80,7 +80,7 @@ MochaQ offers quick basic queries. With MochaQuery, you can process and run quer
 
 ```c#
 MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
-string value = (MochaResult<string>)db.Query.GetRun("GETSECTORDATA:PiNumber");
+string value = db.Query.GetRun("GETSECTORDATA:PiNumber").ToString();
 
 if(value!="3.14")
     db.Query.Run("SETSECTORDATA:PiNumber:3.14");
@@ -89,7 +89,7 @@ if(value!="3.14")
 
 MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
 MochaQuery query = new MochaQuery(db);
-string value = (MochaResult<string>)query.GetRun("GETSECTORDATA:PiNumber");
+string value = query.GetRun("GETSECTORDATA:PiNumber").ToString();
 
 if(value!="3.14")
     query.Run("SETSECTORDATA:PiNumber:3.14");
