@@ -24,7 +24,7 @@ namespace MochaDB {
         public event EventHandler<EventArgs> Changed;
         protected virtual void OnChanged(object sender,EventArgs e) {
             //Invoke.
-            Changed?.Invoke(this,e);
+            Changed?.Invoke(sender,e);
         }
 
         #endregion

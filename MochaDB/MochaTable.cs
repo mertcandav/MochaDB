@@ -22,7 +22,6 @@ namespace MochaDB {
             Description = string.Empty;
             Columns = new MochaColumnCollection();
             Columns.Changed+=Column_Changed;
-            //Columns.ColumnChanged+=Column_Changed;
             Rows = new MochaRowCollection();
             Rows.Changed+=Row_Changed;
             Rows.RowChanged+=Row_Changed;
@@ -112,9 +111,19 @@ namespace MochaDB {
         internal void SetRowsByDatas() {
             Rows.collection.Clear();
 
-            for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
-                MochaColumn currentColumn = Columns[columnIndex];
-                Rows.collection.Add(new MochaRow(currentColumn.Datas.collection));
+            MochaData[] datas = new MochaData[Columns.Count];
+            for(int dataIndex = 0; dataIndex < Columns[0].Datas.Count; dataIndex++) {
+                for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
+                    MochaColumn currentColumn = Columns[columnIndex];
+                    if(currentColumn.Datas.Count < dataIndex + 1)
+                        datas[columnIndex] = new MochaData {
+                            dataType = currentColumn.DataType,
+                            data = MochaData.TryGetData(currentColumn.DataType,"")
+                        };
+                    else
+                        datas[columnIndex] = currentColumn.Datas[dataIndex];
+                }
+                Rows.collection.Add(new MochaRow(datas));
             }
         }
 

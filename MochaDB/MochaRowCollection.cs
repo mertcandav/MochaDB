@@ -61,13 +61,6 @@ namespace MochaDB {
         /// Add item.
         /// </summary>
         /// <param name="datas">Datas of item.</param>
-        public void Add(params object[] datas) =>
-            Add(new MochaRow(datas));
-
-        /// <summary>
-        /// Add item.
-        /// </summary>
-        /// <param name="datas">Datas of item.</param>
         public void Add(params MochaData[] datas) =>
             Add(new MochaRow(datas));
 

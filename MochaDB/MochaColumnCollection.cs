@@ -58,6 +58,7 @@ namespace MochaDB {
                 //collection[index].Datas.Changed-=Item_Changed;
             }
             collection.Clear();
+            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
@@ -73,6 +74,7 @@ namespace MochaDB {
             item.NameChanged+=Item_NameChanged;
             //item.Datas.Changed+=Item_Changed;
             collection.Add(item);
+            OnChanged(this,new EventArgs());
         }
 
         /// <summary>
