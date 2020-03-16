@@ -34,9 +34,6 @@ namespace MochaDB.Logging {
         public static implicit operator string(MochaLog value) =>
             value.Log;
 
-        public static explicit operator string(MochaLog value) =>
-            value.ToString();
-
         #endregion
 
         #region Methods
