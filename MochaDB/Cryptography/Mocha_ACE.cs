@@ -22,6 +22,13 @@
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(Mocha_ACE value) =>
+            value.ToString();
+
+        #endregion
+
         #region Static
 
         /// <summary>

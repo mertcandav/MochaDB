@@ -32,6 +32,55 @@ namespace MochaDB {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaData value) =>
+            value.ToString();
+
+        public static explicit operator char(MochaData value) =>
+            char.Parse(value.ToString());
+
+        public static explicit operator int(MochaData value) =>
+            int.Parse(value.ToString());
+
+        public static explicit operator long(MochaData value) =>
+            long.Parse(value.ToString());
+
+        public static explicit operator short(MochaData value) =>
+            short.Parse(value.ToString());
+
+        public static explicit operator uint(MochaData value) =>
+            uint.Parse(value.ToString());
+
+        public static explicit operator ulong(MochaData value) =>
+            ulong.Parse(value.ToString());
+
+        public static explicit operator ushort(MochaData value) =>
+            ushort.Parse(value.ToString());
+
+        public static explicit operator byte(MochaData value) =>
+            byte.Parse(value.ToString());
+
+        public static explicit operator sbyte(MochaData value) =>
+            sbyte.Parse(value.ToString());
+
+        public static explicit operator float(MochaData value) =>
+            float.Parse(value.ToString());
+
+        public static explicit operator decimal(MochaData value) =>
+            decimal.Parse(value.ToString());
+
+        public static explicit operator double(MochaData value) =>
+            double.Parse(value.ToString());
+
+        public static explicit operator bool(MochaData value) =>
+            bool.Parse(value.ToString());
+
+        public static explicit operator DateTime(MochaData value) =>
+            DateTime.Parse(value.ToString());
+
+        #endregion
+
         #region Static
 
         /// <summary>

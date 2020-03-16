@@ -34,6 +34,13 @@ namespace MochaDB.Cryptography {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(AES value) =>
+            value.ToString();
+
+        #endregion
+
         #region Methods
 
         /// <summary>

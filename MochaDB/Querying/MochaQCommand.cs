@@ -29,7 +29,7 @@
 
         #endregion
 
-        #region Implicit & Explicit
+        #region Operators
 
         public static implicit operator string(MochaQCommand value) =>
             value.Command;

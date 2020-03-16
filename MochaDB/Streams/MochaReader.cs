@@ -36,6 +36,13 @@ namespace MochaDB.Streams {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaReader<T> value) =>
+            value.ToString();
+
+        #endregion
+
         #region Methods
 
         /// <summary>

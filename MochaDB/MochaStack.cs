@@ -35,6 +35,13 @@ namespace MochaDB {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaStack value) =>
+            value.ToString();
+
+        #endregion
+
         #region Events
 
         /// <summary>

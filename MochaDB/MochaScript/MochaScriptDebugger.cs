@@ -64,6 +64,13 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaScriptDebugger value) =>
+            value.ToString();
+
+        #endregion
+
         #region Events
 
         public event EventHandler<EventArgs> StartDebug;

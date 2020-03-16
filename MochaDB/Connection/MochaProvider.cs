@@ -26,6 +26,13 @@ namespace MochaDB.Connection {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaProvider value) =>
+            value.ToString();
+
+        #endregion
+
         #region Static
 
         /// <summary>

@@ -16,7 +16,7 @@
 
         #endregion
 
-        #region Implicit & Explicit
+        #region Operators
 
         public static implicit operator MochaResult<T>(T value) =>
             new MochaResult<T>(value);

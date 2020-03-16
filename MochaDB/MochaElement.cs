@@ -38,6 +38,13 @@
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaElement value) =>
+            value.ToString();
+
+        #endregion
+
         #region Overrides
 
         /// <summary>

@@ -86,6 +86,13 @@ namespace MochaDB {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaDatabase value) =>
+            value.ToString();
+
+        #endregion
+
         #region Events
 
         #region Internal

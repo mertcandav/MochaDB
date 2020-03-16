@@ -50,6 +50,13 @@ namespace MochaDB.Querying {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaQuery value) =>
+            value.ToString();
+
+        #endregion
+
         #region ExecuteCommand
 
         /// <summary>

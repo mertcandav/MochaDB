@@ -68,6 +68,13 @@ namespace MochaDB.Streams {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaStream value) =>
+            value.ToString();
+
+        #endregion
+
         #region Methods
 
         /// <summary>

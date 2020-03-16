@@ -29,6 +29,13 @@ namespace MochaDB.FileSystem {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaDisk value) =>
+            value.ToString();
+
+        #endregion
+
         #region Events
 
         /// <summary>

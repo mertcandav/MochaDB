@@ -24,10 +24,13 @@ namespace MochaDB {
 
         #endregion
 
-        #region Implicit & Explicit
+        #region Operators
 
         public static implicit operator MochaPath(string path) =>
             new MochaPath(path);
+
+        public static implicit operator string(MochaPath path) =>
+            path.ToString();
 
         #endregion
 
