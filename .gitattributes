@@ -11,8 +11,6 @@
 # Note: This is only used by command line
 ###############################################################################
 #*.cs     diff=csharp
-#*.xml    diff=xml
-#*.md     diff=markdown
 
 ###############################################################################
 # Set the merge driver for project and solution files
