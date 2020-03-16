@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C1D92442-F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{A0662273-0273-4D70-BE6B-7DE1EF5AE41A}"
 	ProjectSection(SolutionItems) = preProject
-		Docs\Resources\MochaDB_Logo.png = Docs\Resources\MochaDB_Logo.png
-		Docs\Resources\MochaDB_Texted.png = Docs\Resources\MochaDB_Texted.png
-		Docs\Resources\MochaDB_Texted.psd = Docs\Resources\MochaDB_Texted.psd
+		docs\Resources\MochaDB_Logo.png = docs\Resources\MochaDB_Logo.png
+		docs\Resources\MochaDB_Texted.png = docs\Resources\MochaDB_Texted.png
+		docs\Resources\MochaDB_Texted.psd = docs\Resources\MochaDB_Texted.psd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3AA8059-4CBE-44A1-8792-EDCB236D7361}"
@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".bin", ".bin", "{06A59BC1-9
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{128C3BA0-02D7-4A52-8102-F440C7C4CEED}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{62116A0C-4ADB-4D6F-9A70-A75B7E70469F}"
 	ProjectSection(SolutionItems) = preProject
 		docs\packages\documentation.md = docs\packages\documentation.md
 	EndProjectSection
@@ -62,7 +62,7 @@ Global
 		{3C47CF88-E6CB-42A4-A903-15FF3E7836B3} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
-		{128C3BA0-02D7-4A52-8102-F440C7C4CEED} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
+		{62116A0C-4ADB-4D6F-9A70-A75B7E70469F} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
