@@ -2,9 +2,9 @@
 
 namespace MochaDB.Streams {
     /// <summary>
-    /// Reader for MochaDB.
+    /// Stream reader for MochaDB.
     /// </summary>
-    /// <typeparam name="T">Value type.</typeparam>
+    /// <typeparam name="T">Value type of stream reader.</typeparam>
     public class MochaReader<T>:IMochaReader<T> {
         #region Fields
 

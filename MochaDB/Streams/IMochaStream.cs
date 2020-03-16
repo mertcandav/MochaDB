@@ -17,7 +17,7 @@ namespace MochaDB.Streams {
         void WriteByte(byte value);
         void Flush();
         long Seek(long offset,SeekOrigin loc);
-        IEnumerable<byte> ToCollection();
+        IEnumerable<byte> ToEnumerable();
         void CopyTo(Stream destination);
         byte[] ToArray();
 

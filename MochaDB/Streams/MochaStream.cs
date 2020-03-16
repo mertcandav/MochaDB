@@ -94,9 +94,21 @@ namespace MochaDB.Streams {
         /// <summary>
         /// Returns byte enumerable of stream bytes.
         /// </summary>
-        public IEnumerable<byte> ToCollection() {
+        public IEnumerable<byte> ToEnumerable() {
             return baseStream.ToArray().AsEnumerable();
         }
+
+        /// <summary>
+        /// Returns bytes as MochaWriter.
+        /// </summary>
+        public MochaWriter<byte> ToWriter() =>
+            new MochaWriter<byte>(Bytes);
+
+        /// <summary>
+        /// Returns bytes as MochaStreamWriter.
+        /// </summary>
+        public MochaStreamWriter ToStreamWriter() =>
+            new MochaStreamWriter(Bytes);
 
         /// <summary>
         /// Writes the stream contents to a byte array, regardless of the Position property.
