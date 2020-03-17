@@ -2842,6 +2842,11 @@
             Return true if path is database path but returns false if not.
             </summary>
         </member>
+        <member name="M:MochaDB.MochaPath.ToElement">
+            <summary>
+            Returns MochaPath converted to MochaElement.
+            </summary>
+        </member>
         <member name="M:MochaDB.MochaPath.ToString">
             <summary>
             Returns <see cref="P:MochaDB.MochaPath.Path"/>.

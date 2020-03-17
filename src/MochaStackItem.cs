@@ -52,6 +52,9 @@ namespace MochaDB {
         public static explicit operator string(MochaStackItem value) =>
             value.ToString();
 
+        public static explicit operator MochaElement(MochaStackItem value) =>
+            value.ToElement();
+
         #endregion
 
         #region Events

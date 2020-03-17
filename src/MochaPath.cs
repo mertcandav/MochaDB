@@ -26,11 +26,14 @@ namespace MochaDB {
 
         #region Operators
 
-        public static implicit operator MochaPath(string path) =>
-            new MochaPath(path);
+        public static implicit operator MochaPath(string value) =>
+            new MochaPath(value);
 
-        public static implicit operator string(MochaPath path) =>
-            path.ToString();
+        public static implicit operator string(MochaPath value) =>
+            value.ToString();
+
+        public static explicit operator MochaElement(MochaPath value) =>
+            value.ToElement();
 
         #endregion
 
@@ -70,6 +73,12 @@ namespace MochaDB {
             Path.StartsWith("Sectors") ||
             Path.StartsWith("Stacks") ||
             Path.StartsWith("FileSystem");
+
+        /// <summary>
+        /// Returns MochaPath converted to MochaElement.
+        /// </summary>
+        public MochaElement ToElement() =>
+            new MochaElement(new System.IO.FileInfo(Path).Name,string.Empty,Path);
 
         #endregion
 
