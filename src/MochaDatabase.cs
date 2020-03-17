@@ -640,6 +640,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="schema">Database schema to copy.</param>
         public void CopySchema(MochaDatabaseSchema schema) {
+            OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
             SuspendChangeEvents=true;
@@ -666,6 +667,57 @@ namespace MochaDB {
             schema.Stacks.collection.AddRange(GetStacks());
             schema.Tables.collection.AddRange(GetTables());
             return schema;
+        }
+
+        /// <summary>
+        /// Copy this database to destination database. Returns true is copying is success, returns false if not.
+        /// </summary>
+        /// <param name="destination">Destination MochaDatabase.</param>
+        public bool Copy(MochaDatabase destination) {
+            OnConnectionCheckRequired(this,new EventArgs());
+            try {
+                if(destination == null)
+                    return false;
+                if(this == destination)
+                    return false;
+                var descncstate = destination.ConnectionState;
+
+                if(descncstate==MochaConnectionState.Disconnected)
+                    destination.Connect();
+
+                var schema = GetSchema();
+                destination.CopySchema(schema);
+
+                if(descncstate==MochaConnectionState.Disconnected)
+                    destination.Disconnect();
+
+                return true;
+            } catch { return false; }
+        }
+
+        /// <summary>
+        /// Copy database content from destination database. Returns true is copying is success, returns false if not.
+        /// </summary>
+        /// <param name="destination">Destination MochaDatabase.</param>
+        public bool CopyFrom(MochaDatabase destination) {
+            try {
+                if(destination == null)
+                    return false;
+                if(this == destination)
+                    return false;
+                var descncstate = destination.ConnectionState;
+
+                if(descncstate==MochaConnectionState.Disconnected)
+                    destination.Connect();
+
+                var schema = destination.GetSchema();
+                CopySchema(schema);
+
+                if(descncstate==MochaConnectionState.Disconnected)
+                    destination.Disconnect();
+
+                return true;
+            } catch { return false; }
         }
 
         #endregion

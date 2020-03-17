@@ -1755,6 +1755,18 @@
             Returns schema of database.
             </summary>
         </member>
+        <member name="M:MochaDB.MochaDatabase.Copy(MochaDB.MochaDatabase)">
+            <summary>
+            Copy this database to destination database. Returns true is copying is success, returns false if not.
+            </summary>
+            <param name="destination">Destination MochaDatabase.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.CopyFrom(MochaDB.MochaDatabase)">
+            <summary>
+            Copy database content from destination database. Returns true is copying is success, returns false if not.
+            </summary>
+            <param name="destination">Destination MochaDatabase.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.ClearSectors">
             <summary>
             Remove all sectors.
