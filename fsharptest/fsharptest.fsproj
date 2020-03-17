@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net452</TargetFramework>
+    <Authors>Mertcan Davulcu</Authors>
+    <Description>Test application for MochaDB in F#.</Description>
+    <Copyright>MIT</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\out\fsharptest\</OutputPath>
+    <DocumentationFile>..\out\xml\fsharptest.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\MochaDB.csproj" />
+  </ItemGroup>
+
+</Project>

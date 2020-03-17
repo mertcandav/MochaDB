@@ -44,6 +44,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{62
 		docs\packages\documentation.md = docs\packages\documentation.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharptest", "fsharptest", "{822876C1-D58A-4513-BA76-846D0FE5BC93}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +58,10 @@ Global
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 		{62116A0C-4ADB-4D6F-9A70-A75B7E70469F} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
+		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2} = {822876C1-D58A-4513-BA76-846D0FE5BC93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

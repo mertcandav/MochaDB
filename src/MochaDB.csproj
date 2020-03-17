@@ -29,13 +29,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>..\out\</OutputPath>
-    <DocumentationFile>..\out\documentation\MochaDB_NetStandard1_3.xml</DocumentationFile>
+    <DocumentationFile>..\out\xml\MochaDB_NetStandard1_3.xml</DocumentationFile>
     <NoWarn>1701;1702;CS0252;CS0642;CS1591;;CS1570;CS1572;CS1573</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
     <OutputPath>..\out\</OutputPath>
-    <DocumentationFile>..\out\documentation\MochaDB_NetFramework4.xml</DocumentationFile>
+    <DocumentationFile>..\out\xml\MochaDB_NetFramework4.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
