@@ -66,7 +66,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return true if path is database path but returns false if not.
+        /// Returns true if the path is compatible with database paths, false if not.
         /// </summary>
         public bool IsDatabasePath() =>
             Path.StartsWith("Tables") ||

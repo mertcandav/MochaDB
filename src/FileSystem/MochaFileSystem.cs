@@ -84,7 +84,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(root))
                 return null;
 
-            var diskElement = Database.GetElement($"FileSystem/{root}");
+            var diskElement = Database.GetXElement($"FileSystem/{root}");
             var disk = new MochaDisk(diskElement.Name.LocalName,diskElement.Attribute("Name").Value);
             disk.Description = diskElement.Attribute("Description").Value;
             disk.Directories.AddRange(GetDirectories(root));
@@ -99,7 +99,7 @@ namespace MochaDB.FileSystem {
         public MochaCollectionResult<MochaDisk> GetDisks() {
             var disks = new List<MochaDisk>();
 
-            var diskRange = Database.GetElement("FileSystem").Elements().Where(
+            var diskRange = Database.GetXElement("FileSystem").Elements().Where(
                 x => x.Attribute("Type").Value=="Disk");
             for(int index = 0; index < diskRange.Count(); index++)
                 disks.Add(GetDisk(diskRange.ElementAt(index).Name.LocalName));
@@ -167,7 +167,7 @@ namespace MochaDB.FileSystem {
                 return false;
             Database.OnChanging(this,new EventArgs());
 
-            var diskElement = Database.GetElement($"FileSystem/{root}");
+            var diskElement = Database.GetXElement($"FileSystem/{root}");
 
             diskElement.Remove();
             Database.Save();
@@ -178,7 +178,7 @@ namespace MochaDB.FileSystem {
         /// Returns whether there is a disk with the specified root.
         /// </summary>
         public MochaResult<bool> ExistsDisk(string root) =>
-            Database.GetElement("FileSystem").Elements().Select(x => x.Name.LocalName==root).Count() > 0;
+            Database.GetXElement("FileSystem").Elements().Select(x => x.Name.LocalName==root).Count() > 0;
 
         #endregion
 
@@ -193,7 +193,7 @@ namespace MochaDB.FileSystem {
         internal XElement GetDirectoryElement(MochaPath path) {
             var originalname = path.Name();
             path = path.ParentPath();
-            var elements = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            var elements = Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(x =>
             x.Attribute("Type").Value=="Directory");
             return elements.Count()==0 ? null : elements.First();
         }
@@ -227,7 +227,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDisk(path.Path) && !ExistsDirectory(path))
                 return new MochaCollectionResult<MochaDirectory>(directories);
 
-            var directoryRange = Database.GetElement(
+            var directoryRange = Database.GetXElement(
                 $"FileSystem/{path.Path}").Elements().Where(
                 x => x.Attribute("Type").Value == "Directory");
 
@@ -283,7 +283,7 @@ namespace MochaDB.FileSystem {
 
             var originalname = path.Name();
             path = path.ParentPath();
-            var element = Database.GetElement(parts.Length == 1 ? "FileSystem" :
+            var element = Database.GetXElement(parts.Length == 1 ? "FileSystem" :
                 $"FileSystem/{path.Path}").Elements().Where(x =>
             (x.Attribute("Type").Value=="Disk" || x.Attribute("Type").Value=="Directory") &&
             x.Name.LocalName==originalname).First();
@@ -351,7 +351,7 @@ namespace MochaDB.FileSystem {
 
             var originalname = path.Name();
             path= path.ParentPath();
-            var fileElement = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            var fileElement = Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(x =>
             x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First();
 
             var nameParts = fileElement.Name.LocalName.Split('.');
@@ -371,7 +371,7 @@ namespace MochaDB.FileSystem {
             if(!ExistsDirectory(path))
                 return new MochaCollectionResult<MochaFile>(files);
 
-            var fileRange = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(
+            var fileRange = Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(
                 x => x.Attribute("Type").Value=="File");
             for(int index = 0; index < fileRange.Count(); index++) {
                 MochaFile file = GetFile($"{path.Path}/{fileRange.ElementAt(index).Name.LocalName}");
@@ -415,7 +415,7 @@ namespace MochaDB.FileSystem {
 
             var originalname = path.Name();
             path= path.ParentPath();
-            Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(x =>
                 x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).First().Remove();
 
             Database.Save();
@@ -442,7 +442,7 @@ namespace MochaDB.FileSystem {
 
             var originalname = path.Name();
             path = path.ParentPath();
-            var element = Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            var element = Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(x =>
                     x.Attribute("Type").Value=="Directory").First();
 
             var xFile = new XElement(file.FullName,Convert.ToBase64String(file.Stream.Bytes));
@@ -466,7 +466,7 @@ namespace MochaDB.FileSystem {
         public MochaResult<bool> ExistsFile(MochaPath path) {
             var originalname = path.Name();
             path= path.ParentPath();
-            return Database.GetElement($"FileSystem/{path.Path}").Elements().Where(x =>
+            return Database.GetXElement($"FileSystem/{path.Path}").Elements().Where(x =>
                 x.Attribute("Type").Value=="File" && x.Name.LocalName==originalname).Count() > 0;
         }
 

@@ -1855,7 +1855,7 @@
             Checks the suitability and robustness of the MochaDB database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetElement(System.String)">
+        <member name="M:MochaDB.MochaDatabase.GetXElement(System.String)">
             <summary>
             Return element by path.
             </summary>
@@ -2541,6 +2541,24 @@
             </summary>
             <param name="id">ID of log.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.ExistsElement(MochaDB.MochaPath)">
+            <summary>
+            Returns whether there is a path with the specified path.
+            </summary>
+            <param name="path">Path to check.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetElement(MochaDB.MochaPath)">
+            <summary>
+            Return element by path.
+            </summary>
+            <param name="path">Path of element.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetElements(MochaDB.MochaPath)">
+            <summary>
+            Returns sub elements of element in path.
+            </summary>
+            <param name="path">Path of elements.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.ToString">
             <summary>
             Returns result of <see cref="M:MochaDB.MochaDatabase.GetMochaScript"/>
@@ -2839,7 +2857,7 @@
         </member>
         <member name="M:MochaDB.MochaPath.IsDatabasePath">
             <summary>
-            Return true if path is database path but returns false if not.
+            Returns true if the path is compatible with database paths, false if not.
             </summary>
         </member>
         <member name="M:MochaDB.MochaPath.ToElement">
