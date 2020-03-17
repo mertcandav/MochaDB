@@ -236,7 +236,10 @@ orleans.codegen.cs
 Generated_Code/
 
 # XML Files
-#*.xml
+*.xml
+
+#FSharp Files
+*.fs
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
