@@ -46,7 +46,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{62
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharptest", "fsharptest", "{822876C1-D58A-4513-BA76-846D0FE5BC93}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E91656EB-BAEE-4557-93D2-3B2D58367A95}"
+	ProjectSection(SolutionItems) = preProject
+		testdocs\testdb.mochadb = testdocs\testdb.mochadb
+		testdocs\testscript.mochascript = testdocs\testscript.mochascript
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

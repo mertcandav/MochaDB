@@ -321,7 +321,7 @@ namespace MochaDB {
                 if(Provider.GetBoolAttributeState("AutoCreate"))
                     CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
                 else
-                    throw new Exception("There is no Mocha DB database file in the specified path!");
+                    throw new Exception("There is no MochaDB database file in the specified path!");
             } else {
                 if(!IsMochaDB(Provider.Path))
                     throw new Exception("The file shown is not a MochaDB database file!");

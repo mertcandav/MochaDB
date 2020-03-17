@@ -1,0 +1,87 @@
+// Created with MochaDB Engine. Version: 3.1.0
+
+Provider .\testdb.mochadb 
+
+Begin
+func Main()
+{
+    echo "Script commands is start."
+    
+    // Clear content.
+    echo "Clearing content..."
+    ClearSectors
+    ClearStacks
+    ClearTables
+    echo "Content is cleared."
+
+    // Sectors.
+    echo "Sectors is building..."
+    BuildSectors()
+    echo "Sectors builded successful."
+
+    // Stacks.
+    echo "Stacks is building..."
+    BuildStacks()
+    echo "Stacks builded successful."
+
+    // Tables.
+    echo "Tables is building..."
+    BuildTables()
+    echo "Tables builded successful."
+
+    echo "Script commands is end successful."
+}
+
+func BuildSectors()
+{
+}
+
+func BuildStacks()
+{
+    CreateStack:StackOne
+    SetStackDescription:StackOne:
+    CreateStack:StackTwo
+    SetStackDescription:StackTwo:
+    CreateStackItem:StackTwo:SubItemOne:
+    SetStackItemValue:StackTwo::SubItemOne
+    SetStackItemDescription:StackTwo::SubItemOne
+    CreateStackItem:StackTwo:One:SubItemOne
+    SetStackItemValue:StackTwo::SubItemOne
+    SetStackItemDescription:StackTwo::SubItemOne
+
+    CreateStackItem:StackTwo:SubItemTwo:
+    SetStackItemValue:StackTwo::SubItemTwo
+    SetStackItemDescription:StackTwo::SubItemTwo
+
+    CreateStackItem:StackTwo:SubItemThree:
+    SetStackItemValue:StackTwo::SubItemThree
+    SetStackItemDescription:StackTwo::SubItemThree
+
+}
+
+func BuildTables()
+{
+    CreateTable:TableOne
+    SetTableDescription:TableOne:
+    CreateColumn:TableOne:Name
+    SetColumnDescription:TableOne:Name:
+    SetColumnDataType:TableOne:Name:String
+    AddData:TableOne:Name:Joe
+    AddData:TableOne:Name:Mike
+    AddData:TableOne:Name:Lily
+    CreateColumn:TableOne:Surname
+    SetColumnDescription:TableOne:Surname:
+    SetColumnDataType:TableOne:Surname:String
+    UpdateData:TableOne:Surname:0:Tavish
+    UpdateData:TableOne:Surname:1:Gorb
+    UpdateData:TableOne:Surname:2:Frank
+    CreateColumn:TableOne:Gender
+    SetColumnDescription:TableOne:Gender:
+    SetColumnDataType:TableOne:Gender:String
+    UpdateData:TableOne:Gender:0:Male
+    UpdateData:TableOne:Gender:1:Male
+    UpdateData:TableOne:Gender:2:Female
+
+}
+
+Final

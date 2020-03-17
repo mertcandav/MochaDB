@@ -80,7 +80,6 @@
                 command.StartsWith("REMOVE") ||
                 command.StartsWith("RENAME") ||
                 command.StartsWith("UPDATE") ||
-                command.StartsWith("EXISTS") ||
                 command.StartsWith("FILESYSTEM_CLEAR") ||
                 command.StartsWith("FILESYSTEM_REMOVE") ||
                 command.StartsWith("FILESYSTEM_UPLOAD") ||
