@@ -3913,10 +3913,16 @@
             </summary>
             <typeparam name="T">Type of result value.</typeparam>
         </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor">
+            <summary>
+            Create new MochaCollectionResult.
+            </summary>
+        </member>
         <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
             <summary>
             Create new MochaCollectionResult.
             </summary>
+            <param name="collection">Items.</param>
         </member>
         <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,`0})">
             <summary>

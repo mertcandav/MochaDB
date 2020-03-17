@@ -13,6 +13,14 @@ namespace MochaDB.Querying {
         /// <summary>
         /// Create new MochaCollectionResult.
         /// </summary>
+        public MochaCollectionResult() {
+            collection=new List<T>();
+        }
+
+        /// <summary>
+        /// Create new MochaCollectionResult.
+        /// </summary>
+        /// <param name="collection">Items.</param>
         public MochaCollectionResult(IEnumerable<T> collection) {
             this.collection=new List<T>(collection);
         }
