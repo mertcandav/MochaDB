@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -151,6 +152,17 @@ namespace MochaDB.Streams {
         }
 
         /// <summary>
+        /// Write asynchronous a block of bytes to the current stream using data read from a buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer to write data from.</param>
+        /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
+        /// <param name="count">The maximum number of bytes to write.</param>
+        public void WriteAsync(byte[] buffer,int offset,int count) {
+            var async = new Task(() => { Write(buffer,offset,count); });
+            async.Start();
+        }
+
+        /// <summary>
         /// Reads a byte from the current stream.
         /// </summary>
         public override int ReadByte() {
@@ -163,6 +175,15 @@ namespace MochaDB.Streams {
         /// <param name="value">The byte to write.</param>
         public override void WriteByte(byte value) {
             baseStream.WriteByte(value);
+        }
+
+        /// <summary>
+        /// Writes asynchronous a byte to the current stream at the current position.
+        /// </summary>
+        /// <param name="value">The byte to write.</param>
+        public void WriteByteAsync(byte value) {
+            var async = new Task(() => { baseStream.WriteByte(value); });
+            async.Start();
         }
 
         /// <summary>

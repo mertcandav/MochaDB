@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -49,10 +50,8 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="source">Source collection.</param>
         /// <param name="destination">Destination collection.</param>
-        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination) {
-            for(int index = 0; index < source.Count(); index++)
-                destination.Add(source.ElementAt(index));
-        }
+        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination) =>
+            MochaWriter<byte>.Write(source,destination);
 
         /// <summary>
         /// Write to destination collection from source collection.
@@ -60,10 +59,8 @@ namespace MochaDB.Streams {
         /// <param name="source">Source collection.</param>
         /// <param name="destination">Destination collection.</param>
         /// <param name="start">Start index to write.</param>
-        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination,int start) {
-            for(int index = start; index < source.Count(); index++)
-                destination.Add(source.ElementAt(index));
-        }
+        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination,int start) =>
+            MochaWriter<byte>.Write(source,destination,start);
 
         /// <summary>
         /// Write to destination collection from source collection.
@@ -72,12 +69,8 @@ namespace MochaDB.Streams {
         /// <param name="destination">Destination collection.</param>
         /// <param name="start">Start index to write.</param>
         /// <param name="count">Count of item to write.</param>
-        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination,int start,int count) {
-            for(int counter = 1; counter <= count; counter++) {
-                destination.Add(source.ElementAt(start));
-                start++;
-            }
-        }
+        public static void Write(IEnumerable<byte> source,IMochaCollection<byte> destination,int start,int count) =>
+            MochaWriter<byte>.Write(source,destination,start,count);
 
         /// <summary>
         /// Write to stream from source collection.
@@ -114,6 +107,83 @@ namespace MochaDB.Streams {
             }
         }
 
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        public static void WriteAsync(IEnumerable<byte> source,IMochaCollection<byte> destination) {
+            var async = new Task(() => { Write(source,destination); });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        public static void WriteAsync(IEnumerable<byte> source,IMochaCollection<byte> destination,int start) {
+            var async = new Task(() => { Write(source,destination,start); });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public static void WriteAsync(IEnumerable<byte> source,IMochaCollection<byte> destination,int start,int count) {
+            var async = new Task(() => { Write(source,destination,start,count); });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination stream.</param>
+        public static void WriteToStreamAsync(IEnumerable<byte> source,Stream destination) {
+            var async = new Task(() => {
+                for(int index = 0; index < source.Count(); index++)
+                    destination.WriteByte(source.ElementAt(index));
+            });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination stream.</param>
+        /// <param name="start">Start index to write.</param>
+        public static void WriteToStreamAsync(IEnumerable<byte> source,Stream destination,int start) {
+            var async = new Task(() => {
+                for(int index = start; index < source.Count(); index++)
+                    destination.WriteByte(source.ElementAt(index));
+            });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination stream.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public static void WriteToStreamAsync(IEnumerable<byte> source,Stream destination,int start,int count) {
+            var async = new Task(() => {
+                for(int counter = 1; counter <= count; counter++) {
+                    destination.WriteByte(source.ElementAt(start));
+                    start++;
+                }
+            });
+            async.Start();
+        }
+
         #endregion
 
         #region Methods
@@ -146,7 +216,7 @@ namespace MochaDB.Streams {
         /// <param name="start">Start index to write.</param>
         /// <param name="count">Count of item to write.</param>
         public void Write(IMochaCollection<byte> destination,int start,int count) =>
-            Write(collection,destination,start);
+            Write(collection,destination,start,count);
 
         /// <summary>
         /// Write to stream from source collection.
@@ -171,6 +241,54 @@ namespace MochaDB.Streams {
         /// <param name="count">Count of item to write.</param>
         public void WriteToStream(Stream destination,int start,int count) =>
             WriteToStream(collection,destination,start,count);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from bytes.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        public void WriteAsync(IMochaCollection<byte> destination) =>
+            WriteAsync(collection,destination);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from bytes.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        public void WriteAsync(IMochaCollection<byte> destination,int start) =>
+            WriteAsync(collection,destination,start);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from bytes.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public void WriteAsync(IMochaCollection<byte> destination,int start,int count) =>
+            WriteAsync(collection,destination,start,count);
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="destination">Destination stream.</param>
+        public void WriteToStreamAsync(Stream destination) =>
+            WriteToStreamAsync(collection,destination);
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="destination">Destination stream.</param>
+        /// <param name="start">Start index to write.</param>
+        public void WriteToStreamAsync(Stream destination,int start) =>
+            WriteToStreamAsync(collection,destination,start);
+
+        /// <summary>
+        /// Write asynchronous to stream from source collection.
+        /// </summary>
+        /// <param name="destination">Destination stream.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public void WriteToStreamAsync(Stream destination,int start,int count) =>
+            WriteToStreamAsync(collection,destination,start,count);
 
         /// <summary>
         /// Read bytes from collection.

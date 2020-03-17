@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -79,6 +80,50 @@ namespace MochaDB.Streams {
             }
         }
 
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        public static void WriteAsync(IEnumerable<T> source,IMochaCollection<T> destination) {
+            var async = new Task(() => {
+                for(int index = 0; index < source.Count(); index++)
+                    destination.Add(source.ElementAt(index));
+            });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        public static void WriteAsync(IEnumerable<T> source,IMochaCollection<T> destination,int start) {
+            var async = new Task(() => {
+                for(int index = start; index < source.Count(); index++)
+                    destination.Add(source.ElementAt(index));
+            });
+            async.Start();
+        }
+
+        /// <summary>
+        /// Write asynchronous to destination collection from source collection.
+        /// </summary>
+        /// <param name="source">Source collection.</param>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public static void WriteAsync(IEnumerable<T> source,IMochaCollection<T> destination,int start,int count) {
+            var async = new Task(() => {
+                for(int counter = 1; counter <= count; counter++) {
+                    destination.Add(source.ElementAt(start));
+                    start++;
+                }
+            });
+            async.Start();
+        }
+
         #endregion
 
         #region Methods
@@ -112,6 +157,30 @@ namespace MochaDB.Streams {
         /// <param name="count">Count of item to write.</param>
         public void Write(IMochaCollection<T> destination,int start,int count) => 
             Write(collection,destination,start);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from items.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        public void WriteAsync(IMochaCollection<T> destination) =>
+            WriteAsync(collection,destination);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from items.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        public void WriteAsync(IMochaCollection<T> destination,int start) =>
+            WriteAsync(collection,destination,start);
+
+        /// <summary>
+        /// Write asynchronous to destination collection from items.
+        /// </summary>
+        /// <param name="destination">Destination collection.</param>
+        /// <param name="start">Start index to write.</param>
+        /// <param name="count">Count of item to write.</param>
+        public void WriteAsync(IMochaCollection<T> destination,int start,int count) =>
+            WriteAsync(collection,destination,start,count);
 
         /// <summary>
         /// Read items from collection.
