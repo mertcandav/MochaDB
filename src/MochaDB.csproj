@@ -28,12 +28,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>..\output\</OutputPath>
-    <NoWarn>1701;1702;CS0252;CS0642</NoWarn>
+    <OutputPath>..\out\</OutputPath>
+    <DocumentationFile>..\out\documentation\MochaDB_NetStandard1_3.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS0252;CS0642;CS1591;;CS1570;CS1572;CS1573</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net4|AnyCPU'">
-    <OutputPath>..\output\</OutputPath>
+    <OutputPath>..\out\</OutputPath>
+    <DocumentationFile>..\out\documentation\MochaDB_NetFramework4.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

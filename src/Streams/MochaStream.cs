@@ -157,7 +157,7 @@ namespace MochaDB.Streams {
         /// <param name="buffer">The buffer to write data from.</param>
         /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
         /// <param name="count">The maximum number of bytes to write.</param>
-        public void WriteAsync(byte[] buffer,int offset,int count) {
+        public void WriteAsynchronous(byte[] buffer,int offset,int count) {
             var async = new Task(() => { Write(buffer,offset,count); });
             async.Start();
         }
