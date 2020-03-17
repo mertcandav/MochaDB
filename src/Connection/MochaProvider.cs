@@ -196,6 +196,6 @@ namespace MochaDB.Connection {
         /// <summary>
         /// Disconnected from database.
         /// </summary>
-        Disconnected = 1 
+        Disconnected = 1
     }
 }

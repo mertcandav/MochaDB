@@ -8,7 +8,7 @@ namespace MochaDB.Streams {
     public class MochaReader<T>:IMochaReader<T> {
         #region Fields
 
-        private List<T> collection;
+        private MochaArray<T> array;
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="values">Values of stream.</param>
         public MochaReader(params T[] values) {
-            collection = new List<T>(values);
+            array = values;
             Value=null;
             Position=-1;
         }
@@ -29,7 +29,7 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="values">Values of stream.</param>
         public MochaReader(IEnumerable<T> values) {
-            collection = new List<T>(values);
+            array = new MochaArray<T>(values);
             Value=null;
             Position=-1;
         }
@@ -51,7 +51,7 @@ namespace MochaDB.Streams {
         public bool Read() {
             if(Position+1 < Count) {
                 Position++;
-                Value = collection[Position];
+                Value = array[Position];
                 return true;
             }
 
@@ -108,7 +108,7 @@ namespace MochaDB.Streams {
         /// Count of value.
         /// </summary>
         public int Count =>
-            collection.Count;
+            array.Length;
 
         #endregion
     }

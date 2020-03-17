@@ -42,7 +42,7 @@ namespace MochaDB.Streams {
         }
 
         #endregion
-        
+
         #region Static
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace MochaDB.Streams {
         /// <param name="destination">Destination collection.</param>
         /// <param name="start">Start index to write.</param>
         /// <param name="count">Count of item to write.</param>
-        public void Write(IMochaCollection<T> destination,int start,int count) => 
+        public void Write(IMochaCollection<T> destination,int start,int count) =>
             Write(collection,destination,start);
 
         /// <summary>

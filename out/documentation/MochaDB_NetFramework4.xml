@@ -840,6 +840,12 @@
             MochaDatabase object to use file system processes.
             </summary>
         </member>
+        <member name="T:MochaDB.IMochaArray`1">
+            <summary>
+            Interface for MochaDB static arrays.
+            </summary>
+            <typeparam name="T">Type of array items.</typeparam>
+        </member>
         <member name="T:MochaDB.IMochaAttribute">
             <summary>
             Interface for MochaDB attributes.
@@ -959,6 +965,166 @@
             <summary>
             Log time.
             </summary>
+        </member>
+        <member name="T:MochaDB.MochaArray`1">
+            <summary>
+            Static array for MochaDB.
+            </summary>
+            <typeparam name="T">Type of items.</typeparam>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.#ctor(System.Int32)">
+            <summary>
+            Create a new MochaArray.
+            </summary>
+            <param name="capacity">Capacity of items.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.#ctor(`0[])">
+            <summary>
+            Create a new MochaArray.
+            </summary>
+            <param name="item">Items of array.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Create a new MochaArray.
+            </summary>
+            <param name="item">Items of array.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Select(System.Func{`0,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Select(System.Func{`0,System.Int32,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Where(System.Func{`0,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Where(System.Func{`0,System.Int32,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.OrderByDescending(System.Func{`0,`0})">
+            <summary>
+            Order items descending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.OrderBy(System.Func{`0,`0})">
+            <summary>
+            Order items ascending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.GroupBy(System.Func{`0,`0})">
+            <summary>
+            Group items by query.
+            </summary>
+            <param name="query">Query to use in grouping.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.IndexOf(`0)">
+            <summary>
+            Return index if index is find but return -1 if index is not find.
+            </summary>
+            <param name="item">Item to find index.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Contains(`0)">
+            <summary>
+            Return true if item is exists but return false if item not exists.
+            </summary>
+            <param name="item">Item to exists check.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.MaxIndex">
+            <summary>
+            Return max index of item count.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.IsEmptyCollection">
+            <summary>
+            Return true if is empty collection but return false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.ElementAt(System.Int32)">
+            <summary>
+            Return element by index.
+            </summary>
+            <param name="index">Index of element.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.SetElement(System.Int32,`0)">
+            <summary>
+            Set element by index.
+            </summary>
+            <param name="index">Index of element.</param>
+            <param name="item">Item to set.</param>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.Clone">
+            <summary>
+            Create and return copy this collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.ArrayClone">
+            <summary>
+            Create and return static array from collection.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaArray`1.ToList" -->
+        <member name="M:MochaDB.MochaArray`1.ToReader">
+            <summary>
+            Returns values in MochaReader.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.ToWriter">
+            <summary>
+            Returns values in MochaWriter.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.GetFirst">
+            <summary>
+            Return first element in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.GetLast">
+            <summary>
+            Return last element in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns enumerator.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.GetEnumerator">
+            <summary>
+            Returns enumerator.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaArray`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copy items to array by start index.
+            </summary>
+            <param name="array">Destination array.</param>
+            <param name="arrayIndex">Index to start copying.</param>
+        </member>
+        <member name="P:MochaDB.MochaArray`1.Length">
+            <summary>
+            Count of item.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaArray`1.Item(System.Int32)">
+            <summary>
+            Returns or set item by index.
+            </summary>
+            <param name="index">Index.</param>
         </member>
         <member name="T:MochaDB.MochaAttribute">
             <summary>
