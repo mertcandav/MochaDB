@@ -4,22 +4,22 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # XML Files
-*.xml
-*.xaml
-*.yaml
-*.html
-*.htmlx
+#*.xml
+#*.xaml
+#*.yaml
+#*.html
+#*.htmlx
 
 #FSharp Files
-*.fs
-*.fsx
-*.fsi
+#*.fs
+#*.fsx
+#*.fsi
 
 #CSharp Files
-*.cs
+#*.cs
 
 #MochaDB Files
-*.mochascript
+#*.mochascript
 
 # User-specific files
 *.rsuser
