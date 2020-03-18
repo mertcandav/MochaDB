@@ -1,6 +1,7 @@
 ﻿//Libraries
 open System
 open DbEngine
+open FileEngine
 open MochaDB
 open MochaDB.Connection
 open MochaDB.MochaScript
@@ -26,6 +27,8 @@ let main argv =
             if input.Equals("clear",StringComparison.InvariantCultureIgnoreCase) then
                 Console.Clear()
                 printfn "MochaDB FSharp Test Console"
+            elif input.Equals("exit",StringComparison.InvariantCultureIgnoreCase) then
+                exit 0
             elif input.Equals("connectdb",StringComparison.InvariantCultureIgnoreCase) then
                 if db.ConnectionState = MochaConnectionState.Connected then
                     printfn "Connection is already open!"
@@ -38,15 +41,20 @@ let main argv =
                 else
                     db.Disconnect()
                     printfn "Disconnected!"
+            elif input.Equals("getscript",StringComparison.InvariantCultureIgnoreCase) then
+                printfn "\n\n------ Script Content ------\n\n"
+                let content = GetFileContent(path + "/testscript.mochascript")
+                Console.Write content
+                printfn "\n\n------ Script Content ------\n\n"
             elif input.Equals("cncstate",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine db.ConnectionState
             elif input.Equals("runscript",StringComparison.InvariantCultureIgnoreCase) then
                 let debugger = GetScriptDebugger(path + "/testscript.mochascript")
                 debugger.Echo.Add(OnEcho)
-                printfn "\n\n------ Script Output ------\n\n"
+                printfn "\n\n------ Script Debug Output ------\n\n"
                 db.Disconnect()
                 debugger.DebugRun()
-                printfn "\n\n------ Script Output ------\n\n"
+                printfn "\n\n------ Script Debug Output ------\n\n"
                 debugger.Dispose()
                 db.Connect()
             else
