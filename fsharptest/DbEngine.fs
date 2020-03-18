@@ -30,3 +30,21 @@ let GetDbWithProvider(provider: string) : MochaDatabase =
 let GetScriptDebugger(path: string) : MochaScriptDebugger =
     let debugger = new MochaScriptDebugger(path)
     debugger
+
+//Execute MochaQ command.
+//db: Database.
+let ExecuteCommand(db: MochaDatabase) =
+    try
+        if db.Query.MochaQ.IsGetRunQuery() = true then
+            let result = db.Query.GetRun()
+            Console.WriteLine(result.ToString())
+        elif db.Query.MochaQ.IsDynamicQuery() = true then
+            let result = db.Query.Dynamic()
+            Console.WriteLine(result.ToString())
+        elif db.Query.MochaQ.IsRunQuery() = true then
+            db.Query.Run()
+        else
+            printfn "ERROR: Command is cannot defined!"
+    with
+        | :? Exception ->
+            Console.WriteLine "ERROR: Invalid query command!"

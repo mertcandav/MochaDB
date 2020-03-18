@@ -42,10 +42,24 @@
         #region Methods
 
         /// <summary>
+        /// Set command.
+        /// </summary>
+        /// <param name="command">Command to set.</param>
+        public void SetCommand(string command) =>
+            Command = command;
+
+        /// <summary>
         /// Return true if this MochaQ command ise Dynamic command but return false if not.
         /// </summary>
-        public bool IsDynamicQuery() =>
-            Command.ToUpperInvariant().StartsWith("SELECT");
+        public bool IsDynamicQuery() {
+            string command = Command.ToUpperInvariant();
+            if(
+                !string.IsNullOrEmpty(command) &&
+                command.StartsWith("SELECT"))
+                return true;
+            else
+                return false;
+        }
 
         /// <summary>
         /// Return true if this MochaQ command ise GetRun command but return false if not.

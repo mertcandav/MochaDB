@@ -6,6 +6,7 @@
 # XML Files
 *.xml
 *.xaml
+*.yaml
 *.html
 *.htmlx
 

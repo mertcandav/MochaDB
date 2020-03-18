@@ -3997,6 +3997,12 @@
             </summary>
             <param name="command">MochaQ command.</param>
         </member>
+        <member name="M:MochaDB.Querying.MochaQCommand.SetCommand(System.String)">
+            <summary>
+            Set command.
+            </summary>
+            <param name="command">Command to set.</param>
+        </member>
         <member name="M:MochaDB.Querying.MochaQCommand.IsDynamicQuery">
             <summary>
             Return true if this MochaQ command ise Dynamic command but return false if not.
