@@ -1,7 +1,7 @@
 // Author: Mertcan DAVULCU
 // Description: This MochaScript code for the testdb.
 
-Provider >SOURCEDIR<3\testdocs\testdb.mochadb 
+Provider >SOURCEDIR<3\testdocs\testdb 
 
 Begin
 func Main()

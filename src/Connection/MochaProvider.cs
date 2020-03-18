@@ -152,6 +152,11 @@ namespace MochaDB.Connection {
                 Path=pathAttribute !=null || pathAttribute.Value.Length == 0 ?
                     pathAttribute.Value :
                     throw new NullReferenceException("'Path' attribute is not defined!");
+                Path =
+                    !Path.EndsWith(".mochadb") ?
+                    Path.Last() != '.' ?
+                    Path + ".mochadb" :
+                    Path + "mochadb" : Path;
                 int index;
                 var keyword = ">SOURCEDIR<";
                 var currentdir = Directory.GetCurrentDirectory();
