@@ -12,15 +12,38 @@
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.4.1</Version>
+    <Version>3.4.2</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>MochaDB_Texted.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>- Improvements for logs
-- Add remove command support for GetRun
-- Add GetRun support for FileSystem remove functions
-- Add MochaQ commands and improvements for logs
-- Minor optimizations</PackageReleaseNotes>
+    <PackageReleaseNotes>+ Upgrade F# compatibility
++ Add IMochaElement interface
++ Add MochaElement
++ Improvements for ToString functions
++ Optimizations and improvements for MochaQuery
++ Fix null command bug in MochaQCommand
++ Improvements for streams
++ Add async functions in streams
++ Fix Write function's count parameter never used on streams
++ Add IEnumerable interface compatibility for collections
++ Add IEnumerable&lt;T&gt; interface compatibility for collections
++ Add ICollection&lt;T&gt; interface compatibility for collections
++ Improvements for castings
++ Add copy functions for MochaDatabase
++ Add "&gt;SOURCEDIR&lt;subcount" connection string functions
++ Add MochaReadonlyCollection base class
++ Fix column data listing on MochaTable
++ Fix column data sets on MochaTable
++ Fix data count disagreement on MochaTable and MochaColumn
++ Performance improvements on MochaDatabase functions
++ Add IMochaWriter interface
++ Add MochaWriter
++ Add MochaStreamWriter
++ Add IMochaArray interface
++ Add MochaArray
++ Add element functions for MochaDatabase
++ Add element functions for compatibility objects
++ Improvements for enumerators</PackageReleaseNotes>
     <PackageTags></PackageTags>
     <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
   </PropertyGroup>
