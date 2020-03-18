@@ -53,6 +53,7 @@
         public bool IsGetRunQuery() {
             string command = Command.ToUpperInvariant();
             if(
+                !string.IsNullOrEmpty(command) && (
                 command.StartsWith("GET") ||
                 command.StartsWith("TABLECOUNT") ||
                 command.StartsWith("COLUMNCOUNT") ||
@@ -60,7 +61,7 @@
                 command.StartsWith("DATACOUNT") ||
                 command.StartsWith("EXISTS") ||
                 command.StartsWith("FILESYSTEM_EXISTS") ||
-                command[0] == '#')
+                command[0] == '#'))
                 return true;
             else
                 return false;
@@ -72,6 +73,7 @@
         public bool IsRunQuery() {
             string command = Command.ToUpperInvariant();
             if(
+                !string.IsNullOrEmpty(command) && (
                 command.StartsWith("RESET") ||
                 command.StartsWith("SET") ||
                 command.StartsWith("ADD") ||
@@ -84,7 +86,7 @@
                 command.StartsWith("FILESYSTEM_REMOVE") ||
                 command.StartsWith("FILESYSTEM_UPLOAD") ||
                 command.StartsWith("FILESYSTEM_CREATE") ||
-                command.StartsWith("RESTORE"))
+                command.StartsWith("RESTORE")))
                 return true;
             else
                 return false;

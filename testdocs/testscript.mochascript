@@ -1,6 +1,7 @@
-// Created with MochaDB Engine. Version: 3.1.0
+// Author: Mertcan DAVULCU
+// Description: This MochaScript code for the testdb.
 
-Provider .\testdb.mochadb 
+Provider >SOURCEDIR<3\testdocs\testdb.mochadb 
 
 Begin
 func Main()

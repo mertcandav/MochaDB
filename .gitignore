@@ -3,6 +3,23 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# XML Files
+*.xml
+*.xaml
+*.html
+*.htmlx
+
+#FSharp Files
+*.fs
+*.fsx
+*.fsi
+
+#CSharp Files
+*.cs
+
+#MochaDB Files
+*.mochascript
+
 # User-specific files
 *.rsuser
 *.suo
@@ -181,7 +198,7 @@ publish/
 PublishScripts/
 
 # NuGet Packages
-#*.nupkg
+*.nupkg
 # The packages folder can be ignored because of Package Restore
 **/[Pp]ackages/*
 # except build/, which is used as an MSBuild target.
@@ -234,12 +251,6 @@ orleans.codegen.cs
 
 # RIA/Silverlight projects
 Generated_Code/
-
-# XML Files
-*.xml
-
-#FSharp Files
-*.fs
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,

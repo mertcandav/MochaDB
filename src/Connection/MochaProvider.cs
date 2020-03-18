@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -148,7 +149,23 @@ namespace MochaDB.Connection {
 
                 MochaProviderAttribute pathAttribute = GetAttribute("Path",value);
 
-                Path=pathAttribute !=null ? pathAttribute.Value : throw new NullReferenceException("'Path' attribute is not defined!");
+                Path=pathAttribute !=null || pathAttribute.Value.Length == 0 ?
+                    pathAttribute.Value :
+                    throw new NullReferenceException("'Path' attribute is not defined!");
+                int index;
+                var keyword = ">SOURCEDIR<";
+                var currentdir = Directory.GetCurrentDirectory();
+                currentdir.Substring(0,currentdir.Length-1);
+                while((index = Path.IndexOf(keyword)) != -1) {
+                    var path = new MochaPath(currentdir);
+                    var digit = Path.Substring(index+keyword.Length,1);
+                    int subcount;
+                    if(int.TryParse(digit,out subcount)) {
+                        for(int pathcounter = 0; pathcounter <= subcount; pathcounter++)
+                            path.ParentDirectory();
+                        Path=Path.Replace($">SOURCEDIR<{subcount}",path.Path);
+                    }
+                }
 
                 MochaProviderAttribute
                     passwordAttribute = GetAttribute("Password",value),
