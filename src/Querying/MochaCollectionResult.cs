@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MochaDB.Mochaq {
+namespace MochaDB.Querying {
     /// <summary>
     /// Base for MochaDB collection results.
     /// </summary>

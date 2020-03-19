@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using MochaDB.Mhql;
 
@@ -56,7 +55,7 @@ namespace MochaDB.mhqlcore {
                     throw new MochaException($"'{callcmd}' command is cannot processed!");
                 for(byte partindex = 0; partindex < callparts.Length; partindex++)
                     callparts[partindex] = callparts[partindex].TrimStart().TrimEnd();
-                var table = Tdb.GetTable(callparts[0]).Value;
+                var table = Tdb.GetTable(callparts[0]);
                 if(callparts.Length==1) {
                     columns.AddRange(table.Columns);
                 } else {

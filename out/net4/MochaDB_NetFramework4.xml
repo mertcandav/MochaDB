@@ -660,31 +660,14 @@
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDisk(System.String)">
             <summary>
-            Return disk by root.
+            Returns disk by root.
             </summary>
             <param name="root">Root of disk.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDisks">
             <summary>
-            Return all disks.
+            Returns all disks.
             </summary>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDisks(System.Func{MochaDB.FileSystem.MochaDisk,System.Boolean})">
-            <summary>
-            Return all disks.
-            </summary>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadDisks">
-            <summary>
-            Read all disks.
-            </summary>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadDisks(System.Func{MochaDB.FileSystem.MochaDisk,System.Boolean})">
-            <summary>
-            Read all disks.
-            </summary>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.AddDisk(MochaDB.FileSystem.MochaDisk)">
             <summary>
@@ -718,35 +701,15 @@
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDirectory(MochaDB.MochaPath)">
             <summary>
-            Return directory by path.
+            Returns directory by path.
             </summary>
             <param name="path">Path of directory.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDirectories(MochaDB.MochaPath)">
             <summary>
-            Return all directories.
+            Returns all directories.
             </summary>
             <param name="path">Path of directory.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.GetDirectories(MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaDirectory,System.Boolean})">
-            <summary>
-            Return all directories.
-            </summary>
-            <param name="path">Path of directory.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadDirectories(MochaDB.MochaPath)">
-            <summary>
-            Read all directories.
-            </summary>
-            <param name="path">Path of directory.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadDirectories(MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaDirectory,System.Boolean})">
-            <summary>
-            Read all directories.
-            </summary>
-            <param name="path">Path of directory.</param>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.AddDirectory(MochaDB.FileSystem.MochaDirectory,MochaDB.MochaPath)">
             <summary>
@@ -775,35 +738,15 @@
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetFile(MochaDB.MochaPath)">
             <summary>
-            Return file by path.
+            Returns file by path.
             </summary>
             <param name="path">path of file.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.GetFiles(MochaDB.MochaPath)">
             <summary>
-            Return all files.
+            Returns all files.
             </summary>
             <param name="path">Path of directory.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.GetFiles(MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaFile,System.Boolean})">
-            <summary>
-            Return all files.
-            </summary>
-            <param name="path">Path of directory.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadFiles(MochaDB.MochaPath)">
-            <summary>
-            Read all files.
-            </summary>
-            <param name="path">Path of directory.</param>
-        </member>
-        <member name="M:MochaDB.FileSystem.MochaFileSystem.ReadFiles(MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaFile,System.Boolean})">
-            <summary>
-            Read all files.
-            </summary>
-            <param name="path">Path of directory.</param>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.FileSystem.MochaFileSystem.RemoveFile(MochaDB.MochaPath)">
             <summary>
@@ -1000,7 +943,7 @@
             </summary>
             <param name="command">MQL Command to set.</param>
         </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteQuery">
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand">
             <summary>
             Run command.
             </summary>
@@ -2103,23 +2046,6 @@
             Return all sectors in database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetSectors(System.Func{MochaDB.MochaSector,System.Boolean})">
-            <summary>
-            Return all sectors in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadSectors">
-            <summary>
-            Read all sectors in database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadSectors(System.Func{MochaDB.MochaSector,System.Boolean})">
-            <summary>
-            Read all sectors in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsSector(System.String)">
             <summary>
             Returns whether there is a sector with the specified name.
@@ -2145,7 +2071,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackDescription(System.String)">
             <summary>
-            Return description of stack by name.
+            Returns description of stack by name.
             </summary>
             <param name="name">Name of stack.</param>
         </member>
@@ -2165,32 +2091,15 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStack(System.String)">
             <summary>
-            Return stack by name.
+            Returns stack by name.
             </summary>
             <param name="name">Name of stack.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStacks">
             <summary>
-            Return all stacks in database.
+            Returns all stacks in database.
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetStacks(System.Func{MochaDB.MochaStack,System.Boolean})">
-            <summary>
-            Return all stacks in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadStacks">
-            <summary>
-            Read all stacks in database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadStacks(System.Func{MochaDB.MochaStack,System.Boolean})">
-            <summary>
-            Read all stacks in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsStack(System.String)">
             <summary>
@@ -2303,7 +2212,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetTableDescription(System.String)">
             <summary>
-            Return description of table by name.
+            Returns description of table by name.
             </summary>
             <param name="name">Name of table.</param>
         </member>
@@ -2316,31 +2225,14 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetTable(System.String)">
             <summary>
-            Return table by name.
+            Returns table by name.
             </summary>
             <param name="name">Name of table.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetTables">
             <summary>
-            Return all tables in database.
+            Returns all tables in database.
             </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTables(System.Func{MochaDB.MochaTable,System.Boolean})">
-            <summary>
-            Return all tables in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadTables">
-            <summary>
-            Read all tables in database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadTables(System.Func{MochaDB.MochaTable,System.Boolean})">
-            <summary>
-            Read all tables in database.
-            </summary>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
             <summary>
@@ -2379,7 +2271,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetColumnDescription(System.String,System.String)">
             <summary>
-            Get description of column by name.
+            Returns description of column by name.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
@@ -2394,36 +2286,16 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetColumn(System.String,System.String)">
             <summary>
-            Get column from table by name
+            Returns column from table by name
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetColumns(System.String)">
             <summary>
-            Return all columns in table by name.
+            Returns all columns in table by name.
             </summary>
             <param name="tableName">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetColumns(System.String,System.Func{MochaDB.MochaColumn,System.Boolean})">
-            <summary>
-            Return all columns in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadColumns(System.String)">
-            <summary>
-            Read all columns in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadColumns(System.String,System.Func{MochaDB.MochaColumn,System.Boolean})">
-            <summary>
-            Read all columns in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsColumn(System.String,System.String)">
             <summary>
@@ -2434,7 +2306,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetColumnDataType(System.String,System.String)">
             <summary>
-            Return column datatype by name.
+            Returns column datatype by name.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
@@ -2449,7 +2321,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetColumnAutoIntState(System.String,System.String)">
             <summary>
-            Return column's last AutoInt value by name.
+            Returns column's last AutoInt value by name.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
@@ -2470,36 +2342,16 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetRow(System.String,System.Int32)">
             <summary>
-            Return row from table by index.
+            Returns row from table by index.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="index">Index of row.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetRows(System.String)">
             <summary>
-            Return all rows in table by name.
+            Returns all rows in table by name.
             </summary>
             <param name="tableName">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetRows(System.String,System.Func{MochaDB.MochaRow,System.Boolean})">
-            <summary>
-            Return all rows in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadRows(System.String)">
-            <summary>
-            Read all rows in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadRows(System.String,System.Func{MochaDB.MochaRow,System.Boolean})">
-            <summary>
-            Read all rows in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.InternalAddData(System.String,System.String,MochaDB.MochaData)">
             <summary>
@@ -2549,7 +2401,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetDataIndex(System.String,System.String,System.Object)">
             <summary>
-            Return data index. If there are two of the same data, it returns the index of the one you found first!
+            Returns data index. If there are two of the same data, it returns the index of the one you found first!
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
@@ -2557,7 +2409,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetData(System.String,System.String,System.Int32)">
             <summary>
-            Return data by index.
+            Returns data by index.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
@@ -2565,37 +2417,14 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetDatas(System.String,System.String)">
             <summary>
-            Return all datas in column in table by name.
+            Returns all datas in column in table by name.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetDatas(System.String,System.String,System.Func{MochaDB.MochaData,System.Boolean})">
-            <summary>
-            Return all datas in column in table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadDatas(System.String,System.String)">
-            <summary>
-            Read all datas in column int table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ReadDatas(System.String,System.String,System.Func{MochaDB.MochaData,System.Boolean})">
-            <summary>
-            Read all datas in column int table by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetDataCount(System.String,System.String)">
             <summary>
-            Get data count of table's column.
+            Returns data count of table's column.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
@@ -3003,12 +2832,6 @@
             Path.
             </summary>
         </member>
-        <member name="T:MochaDB.Mochaq.IMochaCollectionResult`1">
-            <summary>
-            Interface for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
         <member name="T:MochaDB.Mochaq.IMochaQCommand">
             <summary>
             Interface for MochaQ commands.
@@ -3017,97 +2840,6 @@
         <member name="T:MochaDB.Mochaq.IMochaQuery">
             <summary>
             Interface for MochaDB query handlers.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.IMochaQueryableCollection`1">
-            <summary>
-            Interface for queryable collections.
-            </summary>
-            <typeparam name="T">Type of collection value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Mochaq.IMochaResult">
-            <summary>
-            Interface for MochaDB results.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.IMochaResult`1">
-            <summary>
-            Iterface for MochaDB value results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Mochaq.MochaCollectionResult`1">
-            <summary>
-            Base for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.#ctor">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-            <param name="collection">Items.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Select(System.Func{`0,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Select(System.Func{`0,System.Int32,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Where(System.Func{`0,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Where(System.Func{`0,System.Int32,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.OrderByDescending(System.Func{`0,`0})">
-            <summary>
-            Order items descending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.OrderBy(System.Func{`0,`0})">
-            <summary>
-            Order items ascending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GroupBy(System.Func{`0,`0})">
-            <summary>
-            Group items by query.
-            </summary>
-            <param name="query">Query to use in grouping.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaCollectionResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
             </summary>
         </member>
         <member name="T:MochaDB.Mochaq.MochaQCommand">
@@ -3312,48 +3044,6 @@
         <member name="P:MochaDB.Mochaq.MochaQuery.MochaQ">
             <summary>
             Active MochaQ query.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.MochaResult`1">
-            <summary>
-            Base for MochaDB value results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaResult`1.#ctor(`0)">
-            <summary>
-            Create new MochaResult.
-            </summary>
-            <param name="value">Result value.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaResult`1.GetObject">
-            <summary>
-            Returns value as object.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaResult`1.GetString">
-            <summary>
-            Return 
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaResult`1.GetHash">
-            <summary>
-            Return hash code of value.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaResult`1.ToString">
-            <summary>
-            Returns result of <see cref="M:MochaDB.Mochaq.MochaResult`1.GetString"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaResult`1.Value">
-            <summary>
-            Result value.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
             </summary>
         </member>
         <member name="T:MochaDB.MochaReadonlyCollection`1">
@@ -4354,6 +4044,437 @@
             Return item by name.
             </summary>
             <param name="name">Name of item.</param>
+        </member>
+        <member name="T:MochaDB.Querying.IMochaCollectionResult`1">
+            <summary>
+            Interface for MochaDB collection results.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Querying.IMochaQueryableCollection`1">
+            <summary>
+            Interface for queryable collections.
+            </summary>
+            <typeparam name="T">Type of collection value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Querying.IMochaResult">
+            <summary>
+            Interface for MochaDB results.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Querying.IMochaResult`1">
+            <summary>
+            Iterface for MochaDB value results.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Querying.QueryingMochaCollection">
+            <summary>
+            Query extension for MochaCollections.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.Select``1(MochaDB.MochaCollection{``0},System.Func{``0,``0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.Select``1(MochaDB.MochaCollection{``0},System.Func{``0,System.Int32,``0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.Where``1(MochaDB.MochaCollection{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.Where``1(MochaDB.MochaCollection{``0},System.Func{``0,System.Int32,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.OrderByDescending``1(MochaDB.MochaCollection{``0},System.Func{``0,``0})">
+            <summary>
+            Order items descending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.OrderBy``1(MochaDB.MochaCollection{``0},System.Func{``0,``0})">
+            <summary>
+            Order items ascending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaCollection.GroupBy``1(MochaDB.MochaCollection{``0},System.Func{``0,``0})">
+            <summary>
+            Group items by query.
+            </summary>
+            <param name="query">Query to use in grouping.</param>
+        </member>
+        <member name="T:MochaDB.Querying.MochaCollectionResult`1">
+            <summary>
+            Base for MochaDB collection results.
+            </summary>
+            <typeparam name="T">Type of result value.</typeparam>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor">
+            <summary>
+            Create new MochaCollectionResult.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Create new MochaCollectionResult.
+            </summary>
+            <param name="collection">Items.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,System.Int32,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Int32,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderByDescending(System.Func{`0,`0})">
+            <summary>
+            Order items descending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderBy(System.Func{`0,`0})">
+            <summary>
+            Order items ascending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GroupBy(System.Func{`0,`0})">
+            <summary>
+            Group items by query.
+            </summary>
+            <param name="query">Query to use in grouping.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetFirst">
+            <summary>
+            Return first element in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetLast">
+            <summary>
+            Return last element in collection.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Querying.MochaCollectionResult`1.IsCollectionResult">
+            <summary>
+            This is collection result.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Querying.QueryingMochaDatabase">
+            <summary>
+            Query extension for MochaDatabases.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteReader(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteReader"/> function.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="mhql">MHQL Command.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteScalar(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar"/> function.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="mhql">MHQL Command.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand"/> function.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="mhql">MHQL Command.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetSectors(MochaDB.MochaDatabase,System.Func{MochaDB.MochaSector,System.Boolean})">
+            <summary>
+            Returns all sectors in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectors(MochaDB.MochaDatabase)">
+            <summary>
+            Read all sectors in database.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectors(MochaDB.MochaDatabase,System.Func{MochaDB.MochaSector,System.Boolean})">
+            <summary>
+            Read all sectors in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStacks(MochaDB.MochaDatabase,System.Func{MochaDB.MochaStack,System.Boolean})">
+            <summary>
+            Returns all stacks in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStacks(MochaDB.MochaDatabase)">
+            <summary>
+            Read all stacks in database.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStacks(MochaDB.MochaDatabase,System.Func{MochaDB.MochaStack,System.Boolean})">
+            <summary>
+            Read all stacks in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTables(MochaDB.MochaDatabase,System.Func{MochaDB.MochaTable,System.Boolean})">
+            <summary>
+            Returns all tables in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTables(MochaDB.MochaDatabase)">
+            <summary>
+            Read all tables in database.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTables(MochaDB.MochaDatabase,System.Func{MochaDB.MochaTable,System.Boolean})">
+            <summary>
+            Read all tables in database.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetColumns(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.MochaColumn,System.Boolean})">
+            <summary>
+            Returns all columns in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumns(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Read all columns in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumns(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.MochaColumn,System.Boolean})">
+            <summary>
+            Read all columns in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetRows(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.MochaRow,System.Boolean})">
+            <summary>
+            Returns all rows in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadRows(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Read all rows in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadRows(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.MochaRow,System.Boolean})">
+            <summary>
+            Read all rows in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetDatas(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.MochaData,System.Boolean})">
+            <summary>
+            Returns all datas in column in table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadDatas(MochaDB.MochaDatabase,System.String,System.String)">
+            <summary>
+            Read all datas in column int table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadDatas(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.MochaData,System.Boolean})">
+            <summary>
+            Read all datas in column int table by name.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="T:MochaDB.Querying.QueryingMochaFileSystem">
+            <summary>
+            Query extension for MochaFileSystems.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.GetDisks(MochaDB.FileSystem.MochaFileSystem,System.Func{MochaDB.FileSystem.MochaDisk,System.Boolean})">
+            <summary>
+            Return all disks.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadDisks(MochaDB.FileSystem.MochaFileSystem)">
+            <summary>
+            Read all disks.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadDisks(MochaDB.FileSystem.MochaFileSystem,System.Func{MochaDB.FileSystem.MochaDisk,System.Boolean})">
+            <summary>
+            Read all disks.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.GetDirectories(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaDirectory,System.Boolean})">
+            <summary>
+            Returns all directories.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="path">Path of directory.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadDirectories(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath)">
+            <summary>
+            Read all directories.
+            </summary>
+            <param name="path">Path of directory.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadDirectories(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaDirectory,System.Boolean})">
+            <summary>
+            Read all directories.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="path">Path of directory.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.GetFiles(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaFile,System.Boolean})">
+            <summary>
+            Returns all files.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="path">Path of directory.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadFiles(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath)">
+            <summary>
+            Read all files.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="path">Path of directory.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaFileSystem.ReadFiles(MochaDB.FileSystem.MochaFileSystem,MochaDB.MochaPath,System.Func{MochaDB.FileSystem.MochaFile,System.Boolean})">
+            <summary>
+            Read all files.
+            </summary>
+            <param name="fs">Target filesystem.</param>
+            <param name="path">Path of directory.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="T:MochaDB.Querying.MochaResult`1">
+            <summary>
+            Base for MochaDB value results.
+            </summary>
+            <typeparam name="T">Type of result value.</typeparam>
+        </member>
+        <member name="M:MochaDB.Querying.MochaResult`1.#ctor(`0)">
+            <summary>
+            Create new MochaResult.
+            </summary>
+            <param name="value">Result value.</param>
+        </member>
+        <member name="M:MochaDB.Querying.MochaResult`1.GetObject">
+            <summary>
+            Returns value as object.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.MochaResult`1.GetString">
+            <summary>
+            Return 
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.MochaResult`1.GetHash">
+            <summary>
+            Return hash code of value.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.MochaResult`1.ToString">
+            <summary>
+            Returns result of <see cref="M:MochaDB.Querying.MochaResult`1.GetString"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Querying.MochaResult`1.Value">
+            <summary>
+            Result value.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Querying.MochaResult`1.IsCollectionResult">
+            <summary>
+            This is collection result.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Querying.QueryingString">
+            <summary>
+            Strings.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingString.FirstChar(System.String)">
+            <summary>
+            Returns first char.
+            </summary>
+            <param name="value">String.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingString.LastChar(System.String)">
+            <summary>
+            Returns last char.
+            </summary>
+            <param name="value">String.</param>
         </member>
         <member name="T:MochaDB.Streams.IMochaReader`1">
             <summary>

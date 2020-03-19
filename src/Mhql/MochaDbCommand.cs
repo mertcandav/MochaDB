@@ -71,13 +71,13 @@ namespace MochaDB.Mhql {
         /// <param name="command">MQL Command to set.</param>
         public void ExecuteQuery(string command) {
             Command=command;
-            ExecuteQuery();
+            ExecuteCommand();
         }
 
         /// <summary>
         /// Run command.
         /// </summary>
-        public void ExecuteQuery() {
+        public void ExecuteCommand() {
             CheckConnection();
             if(RETURN.IsReturnableCmd())
                 return;

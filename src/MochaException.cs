@@ -24,6 +24,13 @@ namespace MochaDB {
 
         #endregion
 
+        #region Operators
+
+        public static explicit operator string(MochaException value) =>
+            value.ToString();
+
+        #endregion
+
         #region Methods
 
         /// <summary>

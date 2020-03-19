@@ -1,4 +1,6 @@
-﻿namespace MochaDB.Mochaq {
+﻿using MochaDB.Querying;
+
+namespace MochaDB.Mochaq {
     /// <summary>
     /// Interface for MochaDB query handlers.
     /// </summary>

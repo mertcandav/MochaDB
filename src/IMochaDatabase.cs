@@ -1,6 +1,5 @@
 ﻿using System;
 using MochaDB.Connection;
-using MochaDB.Mochaq;
 
 namespace MochaDB {
     /// <summary>
@@ -21,36 +20,36 @@ namespace MochaDB {
 
         void AddSector(MochaSector sector);
         bool RemoveSector(string name);
-        MochaResult<MochaSector> GetSector(string name);
-        MochaResult<bool> ExistsSector(string name);
+        MochaSector GetSector(string name);
+        bool ExistsSector(string name);
 
         void AddStack(MochaStack stack);
         bool RemoveStack(string name);
-        MochaResult<MochaStack> GetStack(string name);
-        MochaResult<bool> ExistsStack(string name);
+        MochaStack GetStack(string name);
+        bool ExistsStack(string name);
 
         void AddStackItem(string name,string path,MochaStackItem item);
         bool RemoveStackItem(string name,string path);
-        MochaResult<MochaStackItem> GetStackItem(string name,string path);
-        MochaResult<bool> ExistsStackItem(string name,string path);
+        MochaStackItem GetStackItem(string name,string path);
+        bool ExistsStackItem(string name,string path);
 
         void AddTable(MochaTable table);
         bool RemoveTable(string name);
-        MochaResult<MochaTable> GetTable(string name);
-        MochaResult<bool> ExistsTable(string name);
+        MochaTable GetTable(string name);
+        bool ExistsTable(string name);
 
         void AddColumn(string tableName,MochaColumn column);
         bool RemoveColumn(string tableName,string name);
-        MochaResult<MochaColumn> GetColumn(string tableName,string name);
-        MochaResult<bool> ExistsColumn(string tableName,string name);
+        MochaColumn GetColumn(string tableName,string name);
+        bool ExistsColumn(string tableName,string name);
 
         void AddRow(string tableName,MochaRow row);
         bool RemoveRow(string tableName,int index);
-        MochaResult<MochaRow> GetRow(string tableName,int index);
+        MochaRow GetRow(string tableName,int index);
 
         void AddData(string tableName,string columnName,MochaData data);
         void UpdateData(string tableName,string columnName,int index,object data);
-        MochaResult<MochaData> GetData(string tableName,string columnName,int index);
+        MochaData GetData(string tableName,string columnName,int index);
 
         void ClearLogs();
         void RestoreToLog(string id);

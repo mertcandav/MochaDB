@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using MochaDB.Querying;
 
 namespace MochaDB.Mochaq {
     /// <summary>
@@ -449,11 +450,11 @@ namespace MochaDB.Mochaq {
             if(queryPaths[0].StartsWith("FILESYSTEM_")) {
                 if(queryPaths.Length==2) {
                     if(queryPaths[0]=="FILESYSTEM_EXISTSDISK") {
-                        return Database.FileSystem.ExistsDisk(queryPaths[1]);
+                        return new MochaResult<bool>(Database.FileSystem.ExistsDisk(queryPaths[1]));
                     } else if(queryPaths[0] == "FILESYSTEM_EXISTSDIRECTORY") {
-                        return Database.FileSystem.ExistsDirectory(queryPaths[1]);
+                        return new MochaResult<bool>(Database.FileSystem.ExistsDirectory(queryPaths[1]));
                     } else if(queryPaths[0] == "FILESYSTEM_EXISTSFILE") {
-                        return Database.FileSystem.ExistsFile(queryPaths[1]);
+                        return new MochaResult<bool>(Database.FileSystem.ExistsFile(queryPaths[1]));
                     } else if(queryPaths[0]=="#FILESYSTEM_REMOVEDISK") {
                         return new MochaResult<bool>(Database.FileSystem.RemoveDisk(queryPaths[1]));
                     } else if(queryPaths[0] == "#FILESYSTEM_REMOVEDIRECTORY") {
@@ -470,9 +471,9 @@ namespace MochaDB.Mochaq {
                 if(queryPaths[0] == "GETTABLES") {
                     return Database.GetTables();
                 } else if(queryPaths[0] == "GETPASSWORD") {
-                    return Database.GetPassword();
+                    return new MochaResult<string>(Database.GetPassword());
                 } else if(queryPaths[0] == "GETDESCRIPTION") {
-                    return Database.GetDescription();
+                    return new MochaResult<string>(Database.GetDescription());
                 } else if(queryPaths[0] == "GETLOGS") {
                     return Database.GetLogs();
                 } else if(queryPaths[0] == "GETDATAS") {
@@ -488,11 +489,11 @@ namespace MochaDB.Mochaq {
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 2) {
                 if(queryPaths[0] == "GETTABLE") {
-                    return Database.GetTable(queryPaths[1]);
+                    return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
                 } else if(queryPaths[0] == "GETCOLUMNS") {
                     return Database.GetColumns(queryPaths[1]);
                 } else if(queryPaths[0] == "GETSECTOR") {
-                    return Database.GetSector(queryPaths[1]);
+                    return new MochaResult<MochaSector>(Database.GetSector(queryPaths[1]));
                 } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
                     return GETFIRSTCOLUMN_NAME(queryPaths[1]);
                 } else if(queryPaths[0] == "EXISTSLOG") {
@@ -502,13 +503,13 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "GETDATAS") {
                     return GETDATAS(queryPaths[1]);
                 } else if(queryPaths[0] == "GETSECTORDATA") {
-                    return Database.GetSectorData(queryPaths[1]);
+                    return new MochaResult<string>(Database.GetSectorData(queryPaths[1]));
                 } else if(queryPaths[0] == "GETSECTORDESCRIPTION") {
-                    return Database.GetSectorDescription(queryPaths[1]);
+                    return new MochaResult<string>(Database.GetSectorDescription(queryPaths[1]));
                 } else if(queryPaths[0] == "GETTABLEDESCRIPTION") {
-                    return Database.GetTableDescription(queryPaths[1]);
+                    return new MochaResult<string>(Database.GetTableDescription(queryPaths[1]));
                 } else if(queryPaths[0] == "GETSTACKDESCRIPTION") {
-                    return Database.GetStackDescription(queryPaths[1]);
+                    return new MochaResult<string>(Database.GetStackDescription(queryPaths[1]));
                 } else if(queryPaths[0] == "COLUMNCOUNT") {
                     return COLUMNCOUNT(queryPaths[1]);
                 } else if(queryPaths[0] == "ROWCOUNT") {
@@ -522,11 +523,11 @@ namespace MochaDB.Mochaq {
                     return new MochaResult<int>(Database.GetDataCount(queryPaths[1],GETFIRSTCOLUMN_NAME(queryPaths[1]))
                         * COLUMNCOUNT(queryPaths[1]));
                 } else if(queryPaths[0] == "EXISTSTABLE") {
-                    return Database.ExistsTable(queryPaths[1]);
+                    return new MochaResult<bool>(Database.ExistsTable(queryPaths[1]));
                 } else if(queryPaths[0] == "EXISTSSECTOR") {
-                    return Database.ExistsSector(queryPaths[1]);
+                    return new MochaResult<bool>(Database.ExistsSector(queryPaths[1]));
                 } else if(queryPaths[0] == "EXISTSSTACK") {
-                    return Database.ExistsStack(queryPaths[1]);
+                    return new MochaResult<bool>(Database.ExistsStack(queryPaths[1]));
                 } else if(queryPaths[0] == "#REMOVESECTOR") {
                     return new MochaResult<bool>(Database.RemoveSector(queryPaths[1]));
                 } else if(queryPaths[0] == "#REMOVESTACK") {
@@ -537,25 +538,25 @@ namespace MochaDB.Mochaq {
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "GETCOLUMN") {
-                    return Database.GetColumn(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "DATACOUNT") {
-                    return Database.GetDataCount(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "EXISTSCOLUMN") {
-                    return Database.ExistsColumn(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "EXISTSSTACKITEM") {
-                    return Database.ExistsStackItem(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<bool>(Database.ExistsStackItem(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETSTACKITEMVALUE") {
-                    return Database.GetStackItemValue(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<string>(Database.GetStackItemValue(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETSTACKITEMDESCRIPTION") {
-                    return Database.GetStackItemDescription(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<string>(Database.GetStackItemDescription(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETDATAS") {
                     return Database.GetDatas(queryPaths[1],queryPaths[2]);
                 } else if(queryPaths[0] == "GETSTACKITEM") {
-                    return Database.GetStackItem(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<MochaStackItem>(Database.GetStackItem(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
-                    return Database.GetColumnDescription(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
-                    return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
+                    return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "#REMOVECOLUMN") {
                     return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "#REMOVEROW") {
@@ -566,9 +567,9 @@ namespace MochaDB.Mochaq {
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "EXISTSDATA") {
-                    return Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]);
+                    return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
                 } else if(queryPaths[0] == "GETDATA") {
-                    return Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]));
+                    return new MochaResult<MochaData>(Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3])));
                 } else
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else

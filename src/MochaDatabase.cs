@@ -32,6 +32,7 @@ using MochaDB.Cryptography;
 using MochaDB.FileSystem;
 using MochaDB.Logging;
 using MochaDB.Mochaq;
+using MochaDB.Querying;
 using MochaDB.Streams;
 
 namespace MochaDB {
@@ -572,7 +573,7 @@ namespace MochaDB {
         /// <summary>
         /// Returns the password of the MochaDB database.
         /// </summary>
-        public MochaResult<string> GetPassword() {
+        public string GetPassword() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             return GetXElement("Root/Password").Value;
@@ -593,7 +594,7 @@ namespace MochaDB {
         /// <summary>
         /// Returns the description of the database.
         /// </summary>
-        public MochaResult<string> GetDescription() {
+        public string GetDescription() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             return GetXElement("Root/Description").Value;
@@ -804,7 +805,7 @@ namespace MochaDB {
         /// Return data of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public MochaResult<string> GetSectorData(string name) {
+        public string GetSectorData(string name) {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
@@ -833,7 +834,7 @@ namespace MochaDB {
         /// Return description of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public MochaResult<string> GetSectorDescription(string name) {
+        public string GetSectorDescription(string name) {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
@@ -863,7 +864,7 @@ namespace MochaDB {
         /// Return sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
-        public MochaResult<MochaSector> GetSector(string name) {
+        public MochaSector GetSector(string name) {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
@@ -891,30 +892,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all sectors in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaSector> GetSectors(Func<MochaSector,bool> query) =>
-            new MochaCollectionResult<MochaSector>(GetSectors().Where(query));
-
-        /// <summary>
-        /// Read all sectors in database.
-        /// </summary>
-        public MochaReader<MochaSector> ReadSectors() =>
-            new MochaReader<MochaSector>(GetSectors());
-
-        /// <summary>
-        /// Read all sectors in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaSector> ReadSectors(Func<MochaSector,bool> query) =>
-            new MochaReader<MochaSector>(GetSectors(query));
-
-        /// <summary>
         /// Returns whether there is a sector with the specified name.
         /// </summary>
         /// <param name="name">Name of sector to check.</param>
-        public MochaResult<bool> ExistsSector(string name) =>
+        public bool ExistsSector(string name) =>
             ExistsElement($"Sectors/{name}");
 
         #endregion
@@ -969,10 +950,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return description of stack by name.
+        /// Returns description of stack by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        public MochaResult<string> GetStackDescription(string name) {
+        public string GetStackDescription(string name) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
@@ -1015,10 +996,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return stack by name.
+        /// Returns stack by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        public MochaResult<MochaStack> GetStack(string name) {
+        public MochaStack GetStack(string name) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
@@ -1036,7 +1017,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all stacks in database.
+        /// Returns all stacks in database.
         /// </summary>
         /// <returns></returns>
         public MochaCollectionResult<MochaStack> GetStacks() {
@@ -1053,30 +1034,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all stacks in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaStack> GetStacks(Func<MochaStack,bool> query) =>
-            new MochaCollectionResult<MochaStack>(GetStacks().Where(query));
-
-        /// <summary>
-        /// Read all stacks in database.
-        /// </summary>
-        public MochaReader<MochaStack> ReadStacks() =>
-            new MochaReader<MochaStack>(GetStacks());
-
-        /// <summary>
-        /// Read all stacks in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaStack> ReadStacks(Func<MochaStack,bool> query) =>
-            new MochaReader<MochaStack>(GetStacks(query));
-
-        /// <summary>
         /// Returns whether there is a stack with the specified name.
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
-        public MochaResult<bool> ExistsStack(string name) =>
+        public bool ExistsStack(string name) =>
             ExistsElement($"Stacks/{name}");
 
         #endregion
@@ -1176,7 +1137,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get value.</param>
-        public MochaResult<string> GetStackItemValue(string name,string path) {
+        public string GetStackItemValue(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
@@ -1216,7 +1177,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
-        public MochaResult<string> GetStackItemDescription(string name,string path) {
+        public string GetStackItemDescription(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
@@ -1259,7 +1220,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Name path of stack item to get description.</param>
-        public MochaResult<MochaStackItem> GetStackItem(string name,string path) {
+        public MochaStackItem GetStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
@@ -1282,7 +1243,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack item.</param>
         /// <param name="path">Name path of item to check.</param>
-        public MochaResult<bool> ExistsStackItem(string name,string path) =>
+        public bool ExistsStackItem(string name,string path) =>
             ExistsElement($"Stacks/{name}/{path}");
 
         #endregion
@@ -1371,10 +1332,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return description of table by name.
+        /// Returns description of table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public MochaResult<string> GetTableDescription(string name) {
+        public string GetTableDescription(string name) {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
@@ -1401,10 +1362,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return table by name.
+        /// Returns table by name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public MochaResult<MochaTable> GetTable(string name) {
+        public MochaTable GetTable(string name) {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
@@ -1419,7 +1380,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all tables in database.
+        /// Returns all tables in database.
         /// </summary>
         public MochaCollectionResult<MochaTable> GetTables() {
             OnConnectionCheckRequired(this,new EventArgs());
@@ -1434,30 +1395,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all tables in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaTable> GetTables(Func<MochaTable,bool> query) =>
-            new MochaCollectionResult<MochaTable>(GetTables().Where(query));
-
-        /// <summary>
-        /// Read all tables in database.
-        /// </summary>
-        public MochaReader<MochaTable> ReadTables() =>
-            new MochaReader<MochaTable>(GetTables());
-
-        /// <summary>
-        /// Read all tables in database.
-        /// </summary>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaTable> ReadTables(Func<MochaTable,bool> query) =>
-            new MochaReader<MochaTable>(GetTables(query));
-
-        /// <summary>
         /// Returns whether there is a table with the specified name.
         /// </summary>
         /// <param name="name">Name of table.</param>
-        public MochaResult<bool> ExistsTable(string name) =>
+        public bool ExistsTable(string name) =>
             ExistsElement($"Tables/{name}");
 
         #endregion
@@ -1541,11 +1482,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get description of column by name.
+        /// Returns description of column by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<string> GetColumnDescription(string tableName,string name) {
+        public string GetColumnDescription(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
@@ -1572,11 +1513,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Get column from table by name
+        /// Returns column from table by name
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<MochaColumn> GetColumn(string tableName,string name) {
+        public MochaColumn GetColumn(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
@@ -1588,7 +1529,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all columns in table by name.
+        /// Returns all columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaCollectionResult<MochaColumn> GetColumns(string tableName) {
@@ -1605,34 +1546,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all columns in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaColumn> GetColumns(string tableName,Func<MochaColumn,bool> query) =>
-            new MochaCollectionResult<MochaColumn>(GetColumns(tableName).Where(query));
-
-        /// <summary>
-        /// Read all columns in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        public MochaReader<MochaColumn> ReadColumns(string tableName) =>
-            new MochaReader<MochaColumn>(GetColumns(tableName));
-
-        /// <summary>
-        /// Read all columns in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaColumn> ReadColumns(string tableName,Func<MochaColumn,bool> query) =>
-            new MochaReader<MochaColumn>(GetColumns(tableName,query));
-
-        /// <summary>
         /// Returns whether there is a column with the specified name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<bool> ExistsColumn(string tableName,string name) {
+        public bool ExistsColumn(string tableName,string name) {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
@@ -1640,11 +1558,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return column datatype by name.
+        /// Returns column datatype by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<MochaDataType> GetColumnDataType(string tableName,string name) {
+        public MochaDataType GetColumnDataType(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
@@ -1695,11 +1613,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return column's last AutoInt value by name.
+        /// Returns column's last AutoInt value by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="name">Name of column.</param>
-        public MochaResult<int> GetColumnAutoIntState(string tableName,string name) {
+        public int GetColumnAutoIntState(string tableName,string name) {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
@@ -1766,11 +1684,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return row from table by index.
+        /// Returns row from table by index.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="index">Index of row.</param>
-        public MochaResult<MochaRow> GetRow(string tableName,int index) {
+        public MochaRow GetRow(string tableName,int index) {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
@@ -1799,7 +1717,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all rows in table by name.
+        /// Returns all rows in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         public MochaCollectionResult<MochaRow> GetRows(string tableName) {
@@ -1819,29 +1737,6 @@ namespace MochaDB {
 
             return new MochaCollectionResult<MochaRow>(rows);
         }
-
-        /// <summary>
-        /// Return all rows in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaRow> GetRows(string tableName,Func<MochaRow,bool> query) =>
-            new MochaCollectionResult<MochaRow>(GetRows(tableName).Where(query));
-
-        /// <summary>
-        /// Read all rows in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        public MochaReader<MochaRow> ReadRows(string tableName) =>
-            new MochaReader<MochaRow>(GetRows(tableName));
-
-        /// <summary>
-        /// Read all rows in table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaRow> ReadRows(string tableName,Func<MochaRow,bool> query) =>
-            new MochaReader<MochaRow>(GetRows(tableName,query));
 
         #endregion
 
@@ -1959,7 +1854,7 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">MochaData object to check.</param>
-        public MochaResult<bool> ExistsData(string tableName,string columnName,MochaData data) {
+        public bool ExistsData(string tableName,string columnName,MochaData data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
@@ -1978,17 +1873,17 @@ namespace MochaDB {
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to check.</param>
-        public MochaResult<bool> ExistsData(string tableName,string columnName,object data) {
+        public bool ExistsData(string tableName,string columnName,object data) {
             return ExistsData(tableName,columnName,new MochaData() { data = data });
         }
 
         /// <summary>
-        /// Return data index. If there are two of the same data, it returns the index of the one you found first!
+        /// Returns data index. If there are two of the same data, it returns the index of the one you found first!
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="data">Data to find index.</param>
-        public MochaResult<int> GetDataIndex(string tableName,string columnName,object data) {
+        public int GetDataIndex(string tableName,string columnName,object data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
@@ -2004,12 +1899,12 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return data by index.
+        /// Returns data by index.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
         /// <param name="index">Index of data.</param>
-        public MochaResult<MochaData> GetData(string tableName,string columnName,int index) {
+        public MochaData GetData(string tableName,string columnName,int index) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
@@ -2026,7 +1921,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all datas in column in table by name.
+        /// Returns all datas in column in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
@@ -2042,37 +1937,11 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all datas in column in table by name.
+        /// Returns data count of table's column.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
-            new MochaCollectionResult<MochaData>(GetDatas(tableName,columnName).Where(query));
-
-        /// <summary>
-        /// Read all datas in column int table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="columnName">Name of column.</param>
-        public MochaReader<MochaData> ReadDatas(string tableName,string columnName) =>
-            new MochaReader<MochaData>(GetDatas(tableName,columnName));
-
-        /// <summary>
-        /// Read all datas in column int table by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="columnName">Name of column.</param>
-        /// <param name="query">Query for filtering.</param>
-        public MochaReader<MochaData> ReadDatas(string tableName,string columnName,Func<MochaData,bool> query) =>
-            new MochaReader<MochaData>(GetDatas(tableName,columnName,query));
-
-        /// <summary>
-        /// Get data count of table's column.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="columnName">Name of column.</param>
-        public MochaResult<int> GetDataCount(string tableName,string columnName) {
+        public int GetDataCount(string tableName,string columnName) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 

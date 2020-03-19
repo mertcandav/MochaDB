@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using MochaDB.Mochaq;
 using MochaDB.MochaScript.Keywords;
 
 namespace MochaDB.MochaScript {
@@ -445,8 +444,8 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                     return !arg1.Equals(arg2);
                 }
 
-                var a1 = new MochaResult<decimal>((decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg1.ToString()));
-                var a2 = new MochaResult<decimal>((decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg2.ToString()));
+                var a1 = (decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg1.ToString());
+                var a2 = (decimal)MochaData.GetDataFromString(MochaDataType.Decimal,arg2.ToString());
                 if(mark == MochaScriptComparisonMark.EqualBigger) {
                     return a1 >= a2;
                 }

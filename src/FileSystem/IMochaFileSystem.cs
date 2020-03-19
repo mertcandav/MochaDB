@@ -1,4 +1,4 @@
-﻿using MochaDB.Mochaq;
+﻿using MochaDB.Querying;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -16,9 +16,9 @@ namespace MochaDB.FileSystem {
         bool RemoveDisk(string root);
         bool RemoveDirectory(MochaPath path);
         bool RemoveFile(MochaPath path);
-        MochaResult<bool> ExistsDisk(string root);
-        MochaResult<bool> ExistsDirectory(MochaPath path);
-        MochaResult<bool> ExistsFile(MochaPath path);
+        bool ExistsDisk(string root);
+        bool ExistsDirectory(MochaPath path);
+        bool ExistsFile(MochaPath path);
 
         #endregion
 

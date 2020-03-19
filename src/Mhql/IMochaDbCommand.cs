@@ -7,7 +7,7 @@ namespace MochaDB.Mhql {
     public interface IMochaDbCommand {
         #region Methods
 
-        void ExecuteQuery();
+        void ExecuteCommand();
         object ExecuteScalar();
         MochaReader<object> ExecuteReader();
 
