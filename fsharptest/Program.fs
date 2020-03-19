@@ -1,6 +1,7 @@
 ﻿//Libraries
 open System
 open DbEngine
+open MhqlEngine
 open MhqlStress
 open FileEngine
 open MochaDB
@@ -47,6 +48,10 @@ let main argv =
                 let content = GetFileContent(path + "/testscript.mochascript")
                 Console.Write content
                 printfn "\n\n------ Script Content ------\n\n"
+            elif input.StartsWith("reader ",StringComparison.InvariantCultureIgnoreCase) then
+                Reader(db,input.[6..])
+            elif input.StartsWith("scalar ",StringComparison.InvariantCultureIgnoreCase) then
+                Scalar(db,input.[6..])
             elif input.Equals("cncstate",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine db.ConnectionState
             elif input.Equals("mhqlstress",StringComparison.InvariantCultureIgnoreCase) then
