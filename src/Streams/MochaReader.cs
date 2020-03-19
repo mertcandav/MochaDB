@@ -8,7 +8,7 @@ namespace MochaDB.Streams {
     public class MochaReader<T>:IMochaReader<T> {
         #region Fields
 
-        private MochaArray<T> array;
+        internal MochaArray<T> array;
 
         #endregion
 

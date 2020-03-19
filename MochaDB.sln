@@ -9,7 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5084
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3C47CF88-E6CB-42A4-A903-15FF3E7836B3}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+		.github\workflows\fsharptest.yml = .github\workflows\fsharptest.yml
+		.github\workflows\mochadb.yml = .github\workflows\mochadb.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{F47449D2-7577-4B2D-8482-232639DCE51D}"
@@ -52,6 +53,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E9
 	ProjectSection(SolutionItems) = preProject
 		testdocs\testdb.mochadb = testdocs\testdb.mochadb
 		testdocs\testscript.mochascript = testdocs\testscript.mochascript
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
+		mhql\MhqlKeyword.cs = mhql\MhqlKeyword.cs
+		mhql\return.cs = mhql\return.cs
+		mhql\use.cs = mhql\use.cs
 	EndProjectSection
 EndProject
 Global

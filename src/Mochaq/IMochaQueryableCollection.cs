@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MochaDB.Querying {
+namespace MochaDB.Mochaq {
     /// <summary>
     /// Interface for queryable collections.
     /// </summary>

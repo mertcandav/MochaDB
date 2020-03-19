@@ -1,4 +1,4 @@
-﻿using MochaDB.Querying;
+﻿using MochaDB.Mochaq;
 
 namespace MochaDB.FileSystem {
     /// <summary>

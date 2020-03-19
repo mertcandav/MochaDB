@@ -966,6 +966,102 @@
             Log time.
             </summary>
         </member>
+        <member name="T:MochaDB.Mhql.IMochaDbCommand">
+            <summary>
+            Interface for MHQL commands processors.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mhql.MochaDbCommand">
+            <summary>
+            MHQL Command processor for MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new MochaDbCommand.
+            </summary>
+            <param name="db">Target MochaDatabase.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.#ctor(System.String,MochaDB.MochaDatabase)">
+            <summary>
+            Create a new MochaDbCommand.
+            </summary>
+            <param name="command">MQL Command.</param>
+            <param name="db">Target MochaDatabase.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.CheckConnection">
+            <summary>
+            Check connection and database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteQuery(System.String)">
+            <summary>
+            Run command.
+            </summary>
+            <param name="command">MQL Command to set.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteQuery">
+            <summary>
+            Run command.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar(System.String)">
+            <summary>
+            Returns first result or null.
+            </summary>
+            <param name="command">MQL Command to set.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar">
+            <summary>
+            Returns first result or null.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteReader(System.String)">
+            <summary>
+            Read returned results.
+            </summary>
+            <param name="command">MQL Command to set.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteReader">
+            <summary>
+            Read returned results.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ToString">
+            <summary>
+            Returns command.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhql.MochaDbCommand.Command">
+            <summary>
+            Current MQL command.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhql.MochaDbCommand.Database">
+            <summary>
+            Target database.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mhql.MochaTableResult">
+            <summary>
+            Table result for Mhql query results.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.#ctor">
+            <summary>
+            Create a new MochaTableResult.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
+            <summary>
+            Columns.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhql.MochaTableResult.Rows">
+            <summary>
+            Rows.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaArray`1">
             <summary>
             Static array for MochaDB.
@@ -2875,6 +2971,359 @@
             Path.
             </summary>
         </member>
+        <member name="T:MochaDB.Mochaq.IMochaCollectionResult`1">
+            <summary>
+            Interface for MochaDB collection results.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Mochaq.IMochaQCommand">
+            <summary>
+            Interface for MochaQ commands.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.IMochaQuery">
+            <summary>
+            Interface for MochaDB query handlers.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.IMochaQueryableCollection`1">
+            <summary>
+            Interface for queryable collections.
+            </summary>
+            <typeparam name="T">Type of collection value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Mochaq.IMochaResult">
+            <summary>
+            Interface for MochaDB results.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.IMochaResult`1">
+            <summary>
+            Iterface for MochaDB value results.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+        </member>
+        <member name="T:MochaDB.Mochaq.MochaCollectionResult`1">
+            <summary>
+            Base for MochaDB collection results.
+            </summary>
+            <typeparam name="T">Type of result value.</typeparam>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.#ctor">
+            <summary>
+            Create new MochaCollectionResult.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Create new MochaCollectionResult.
+            </summary>
+            <param name="collection">Items.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Select(System.Func{`0,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Select(System.Func{`0,System.Int32,`0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Where(System.Func{`0,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.Where(System.Func{`0,System.Int32,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.OrderByDescending(System.Func{`0,`0})">
+            <summary>
+            Order items descending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.OrderBy(System.Func{`0,`0})">
+            <summary>
+            Order items ascending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GroupBy(System.Func{`0,`0})">
+            <summary>
+            Group items by query.
+            </summary>
+            <param name="query">Query to use in grouping.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GetFirst">
+            <summary>
+            Return first element in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaCollectionResult`1.GetLast">
+            <summary>
+            Return last element in collection.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaCollectionResult`1.IsCollectionResult">
+            <summary>
+            This is collection result.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.MochaQCommand">
+            <summary>
+            Base for MochaQ querys.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.#ctor">
+            <summary>
+            Create new MochaQCommand.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.#ctor(System.String)">
+            <summary>
+            Create new MochaQCommand.
+            </summary>
+            <param name="command">MochaQ command.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.SetCommand(System.String)">
+            <summary>
+            Set command.
+            </summary>
+            <param name="command">Command to set.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.IsDynamicQuery">
+            <summary>
+            Return true if this MochaQ command ise Dynamic command but return false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.IsGetRunQuery">
+            <summary>
+            Return true if this MochaQ command ise GetRun command but return false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.IsRunQuery">
+            <summary>
+            Return true if this MochaQ command ise Run command but return false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQCommand.ToString">
+            <summary>
+            Returns <see cref="P:MochaDB.Mochaq.MochaQCommand.Command"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaQCommand.Command">
+            <summary>
+            MochaQ command.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.MochaQFormatter">
+            <summary>
+            Formatter for MochaQ commands.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQFormatter.IsKeyword(System.String)">
+            <summary>
+            Return true if value is MochaQ keyword but return false if not.
+            </summary>
+            <param name="value">Value to check.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQFormatter.UpperCaseKeywords(System.String@)">
+            <summary>
+            Replace MochaQ keywords to upper case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQFormatter.LowerCaseKeywords(System.String@)">
+            <summary>
+            Replace MochaQ keywords to lower case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="T:MochaDB.Mochaq.MochaQuery">
+            <summary>
+            It offers query usage and management with MochaQ.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase,System.Boolean)">
+            <summary>
+            Create new MochaQuery.
+            </summary>
+            <param name="database">MochaDatabase object to use querying.</param>
+            <param name="embedded">Is embedded query in database.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create new MochaQuery.
+            </summary>
+            <param name="database">MochaDatabase object to use querying.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Create new MochaQuery.
+            </summary>
+            <param name="database">MochaDatabase object to use querying.</param>
+            <param name="mochaQ">MochaQuery to use.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand(System.String)">
+            <summary>
+            Detect command type and execute. Returns result if exists returned result.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Detect command type and execute. Returns result if exists returned result.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand">
+            <summary>
+            Detect command type and execute. Returns result if exists returned result.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic(System.String)">
+            <summary>
+            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
+            </summary>
+            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic">
+            <summary>
+            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Run(System.String)">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Run(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.Run">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun(System.String)">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.COLUMNCOUNT(System.String)">
+            <summary>
+            Return column count of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.GETDATAS(System.String)">
+            <summary>
+            Return all datas of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.GETFIRSTCOLUMN_NAME(System.String)">
+            <summary>
+            Return first column name of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQuery.ToString">
+            <summary>
+            Returns command property value of <see cref="P:MochaDB.Mochaq.MochaQuery.MochaQ"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaQuery.IsDatabaseEmbedded">
+            <summary>
+            Is embedded query in database.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaQuery.Database">
+            <summary>
+            MochaDatabase object to use querying.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaQuery.MochaQ">
+            <summary>
+            Active MochaQ query.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mochaq.MochaResult`1">
+            <summary>
+            Base for MochaDB value results.
+            </summary>
+            <typeparam name="T">Type of result value.</typeparam>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaResult`1.#ctor(`0)">
+            <summary>
+            Create new MochaResult.
+            </summary>
+            <param name="value">Result value.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaResult`1.GetObject">
+            <summary>
+            Returns value as object.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaResult`1.GetString">
+            <summary>
+            Return 
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaResult`1.GetHash">
+            <summary>
+            Return hash code of value.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaResult`1.ToString">
+            <summary>
+            Returns result of <see cref="M:MochaDB.Mochaq.MochaResult`1.GetString"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaResult`1.Value">
+            <summary>
+            Result value.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mochaq.MochaResult`1.IsCollectionResult">
+            <summary>
+            This is collection result.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaReadonlyCollection`1">
             <summary>
             Base class for MochaDB readonly collections.
@@ -3874,359 +4323,6 @@
             </summary>
             <param name="name">Name of item.</param>
         </member>
-        <member name="T:MochaDB.Querying.IMochaCollectionResult`1">
-            <summary>
-            Interface for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaQCommand">
-            <summary>
-            Interface for MochaQ commands.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaQuery">
-            <summary>
-            Interface for MochaDB query handlers.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaQueryableCollection`1">
-            <summary>
-            Interface for queryable collections.
-            </summary>
-            <typeparam name="T">Type of collection value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaResult">
-            <summary>
-            Interface for MochaDB results.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaResult`1">
-            <summary>
-            Iterface for MochaDB value results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Querying.MochaCollectionResult`1">
-            <summary>
-            Base for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-            <param name="collection">Items.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,System.Int32,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Int32,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderByDescending(System.Func{`0,`0})">
-            <summary>
-            Order items descending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderBy(System.Func{`0,`0})">
-            <summary>
-            Order items ascending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GroupBy(System.Func{`0,`0})">
-            <summary>
-            Group items by query.
-            </summary>
-            <param name="query">Query to use in grouping.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaCollectionResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.MochaQCommand">
-            <summary>
-            Base for MochaQ querys.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.#ctor">
-            <summary>
-            Create new MochaQCommand.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.#ctor(System.String)">
-            <summary>
-            Create new MochaQCommand.
-            </summary>
-            <param name="command">MochaQ command.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.SetCommand(System.String)">
-            <summary>
-            Set command.
-            </summary>
-            <param name="command">Command to set.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.IsDynamicQuery">
-            <summary>
-            Return true if this MochaQ command ise Dynamic command but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.IsGetRunQuery">
-            <summary>
-            Return true if this MochaQ command ise GetRun command but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.IsRunQuery">
-            <summary>
-            Return true if this MochaQ command ise Run command but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQCommand.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.Querying.MochaQCommand.Command"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaQCommand.Command">
-            <summary>
-            MochaQ command.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.MochaQFormatter">
-            <summary>
-            Formatter for MochaQ commands.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQFormatter.IsKeyword(System.String)">
-            <summary>
-            Return true if value is MochaQ keyword but return false if not.
-            </summary>
-            <param name="value">Value to check.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQFormatter.UpperCaseKeywords(System.String@)">
-            <summary>
-            Replace MochaQ keywords to upper case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQFormatter.LowerCaseKeywords(System.String@)">
-            <summary>
-            Replace MochaQ keywords to lower case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="T:MochaDB.Querying.MochaQuery">
-            <summary>
-            It offers query usage and management with MochaQ.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.#ctor(MochaDB.MochaDatabase,System.Boolean)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-            <param name="embedded">Is embedded query in database.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.#ctor(MochaDB.MochaDatabase)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.#ctor(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-            <param name="mochaQ">MochaQuery to use.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.ExecuteCommand(System.String)">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.ExecuteCommand">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Dynamic(System.String)">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Dynamic(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Dynamic">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Run(System.String)">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Run(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.Run">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.GetRun(System.String)">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.GetRun(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.GetRun">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.COLUMNCOUNT(System.String)">
-            <summary>
-            Return column count of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.GETDATAS(System.String)">
-            <summary>
-            Return all datas of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.GETFIRSTCOLUMN_NAME(System.String)">
-            <summary>
-            Return first column name of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaQuery.ToString">
-            <summary>
-            Returns command property value of <see cref="P:MochaDB.Querying.MochaQuery.MochaQ"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaQuery.IsDatabaseEmbedded">
-            <summary>
-            Is embedded query in database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaQuery.Database">
-            <summary>
-            MochaDatabase object to use querying.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaQuery.MochaQ">
-            <summary>
-            Active MochaQ query.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.MochaResult`1">
-            <summary>
-            Base for MochaDB value results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.#ctor(`0)">
-            <summary>
-            Create new MochaResult.
-            </summary>
-            <param name="value">Result value.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetObject">
-            <summary>
-            Returns value as object.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetString">
-            <summary>
-            Return 
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetHash">
-            <summary>
-            Return hash code of value.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.ToString">
-            <summary>
-            Returns result of <see cref="M:MochaDB.Querying.MochaResult`1.GetString"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaResult`1.Value">
-            <summary>
-            Result value.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
-            </summary>
-        </member>
         <member name="T:MochaDB.Streams.IMochaReader`1">
             <summary>
             Interface for MochaDB readers.
@@ -4902,6 +4998,65 @@
         <member name="P:MochaDB.Streams.MochaWriter`1.Length">
             <summary>
             Count of item.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhqlcore.Mhql_USE">
+            <summary>
+            MHQL USE keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_USE.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_USE.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetUSE(System.Int32@)">
+            <summary>
+            Returns use command.
+            </summary>
+            <param name="final">Final index of use command.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetTable(System.String)">
+            <summary>
+            Returns table by use command.
+            </summary>
+            <param name="usecommand">Use command.</param>
+        </member>
+        <member name="T:MochaDB.mhqlcore.Mhql_RETURN">
+            <summary>
+            MHQL RETURN keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_RETURN.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_RETURN.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_RETURN.IsReturnableCmd">
+            <summary>
+            Returns true if command is returnable, return false if not.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhqlcore.IMhqlKeyword">
+            <summary>
+            Interface for Mhql keywords.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhqlcore.IMhqlKeyword.Tdb">
+            <summary>
+            Target database.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhqlcore.IMhqlKeyword.Command">
+            <summary>
+            MHQL Command.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhqlcore.MhqlKeyword">
+            <summary>
+            Base class for Mhql keywords.
             </summary>
         </member>
     </members>

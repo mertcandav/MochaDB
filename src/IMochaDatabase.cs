@@ -1,6 +1,6 @@
 ﻿using System;
 using MochaDB.Connection;
-using MochaDB.Querying;
+using MochaDB.Mochaq;
 
 namespace MochaDB {
     /// <summary>

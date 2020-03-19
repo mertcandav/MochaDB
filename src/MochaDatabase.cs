@@ -31,7 +31,7 @@ using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.FileSystem;
 using MochaDB.Logging;
-using MochaDB.Querying;
+using MochaDB.Mochaq;
 using MochaDB.Streams;
 
 namespace MochaDB {
@@ -501,20 +501,20 @@ namespace MochaDB {
         /// <param name="path">Path of element.</param>
         internal XElement GetXElement(string path) {
             OnConnectionCheckRequired(this,new EventArgs());
-
             var elementsName = path.Split('/');
-            var element = Doc.Root.Element(elementsName[0]);
+            try {
+                var element = Doc.Root.Element(elementsName[0]);
 
-            if(element==null)
-                return null;
-
-            for(var i = 1; i < elementsName.Length; i++) {
-                element = element.Element(elementsName[i]);
-                if(element == null)
+                if(element==null)
                     return null;
-            }
 
-            return element;
+                for(var i = 1; i < elementsName.Length; i++) {
+                    element = element.Element(elementsName[i]);
+                    if(element == null)
+                        return null;
+                }
+                return element;
+            } catch { return null; }
         }
 
         /// <summary>

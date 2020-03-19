@@ -1,4 +1,4 @@
-﻿namespace MochaDB.Querying {
+﻿namespace MochaDB.Mochaq {
     /// <summary>
     /// Interface for MochaDB results.
     /// </summary>

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using MochaDB.Querying;
+using MochaDB.Mochaq;
 using MochaDB.Streams;
 
 namespace MochaDB {
