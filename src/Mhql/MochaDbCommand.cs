@@ -15,10 +15,13 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"USE|RETURN",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|ASC|DESC)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+
+        internal MochaArray<MhqlKeyword> mhqlobjs;
 
         internal Mhql_USE USE;
         internal Mhql_RETURN RETURN;
+        internal Mhql_ORDERBY ORDERBY;
 
         #endregion
 
@@ -32,6 +35,8 @@ namespace MochaDB.Mhql {
             //Load mhql core.
             USE = new Mhql_USE(Database);
             RETURN = new Mhql_RETURN(Database);
+            ORDERBY = new Mhql_ORDERBY(Database);
+            mhqlobjs = new MochaArray<MhqlKeyword>(USE,RETURN,ORDERBY);
 
             Database=db;
             Command=string.Empty;
@@ -122,15 +127,20 @@ namespace MochaDB.Mhql {
         /// <summary>
         /// Read returned results.
         /// </summary>
-        public MochaReader<object> ExecuteReader() {
+        public unsafe MochaReader<object> ExecuteReader() {
             CheckConnection();
             var reader = new MochaReader<object>();
             if(!RETURN.IsReturnableCmd())
                 return reader;
-            int finaldex;
-            var table = USE.GetTable(USE.GetUSE(out finaldex));
-            var lastcommand = Command.Substring(finaldex);
-            if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
+            string lastcommand;
+            var table = USE.GetTable(USE.GetUSE(out lastcommand));
+
+            //Orderby.
+            if(ORDERBY.IsORDERBY(lastcommand))
+                ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table);
+
+            //Return.
+            else if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
                 throw new MochaException($"'{lastcommand}' command is cannot processed!");
 
             reader.array = new MochaArray<object>(table);
@@ -164,8 +174,8 @@ namespace MochaDB.Mhql {
                     return;
 
                 command = value;
-                USE.Command=value;
-                RETURN.Command=value;
+                for(int index = 0; index < mhqlobjs.Length; index++)
+                    mhqlobjs[index].Command = value;
             }
         }
 
@@ -180,8 +190,8 @@ namespace MochaDB.Mhql {
                     return;
 
                 db = value;
-                USE.Tdb=value;
-                RETURN.Tdb=value;
+                for(int index = 0; index < mhqlobjs.Length; index++)
+                    mhqlobjs[index].Tdb = value;
             }
         }
 

@@ -995,6 +995,11 @@
             Create a new MochaTableResult.
             </summary>
         </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.SetRowsByDatas">
+            <summary>
+            Set rows by datas of columns.
+            </summary>
+        </member>
         <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
             <summary>
             Columns.
@@ -5164,11 +5169,11 @@
             </summary>
             <param name="db">Target database.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetUSE(System.Int32@)">
+        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetUSE(System.String@)">
             <summary>
             Returns use command.
             </summary>
-            <param name="final">Final index of use command.</param>
+            <param name="final">Command of removed use commands.</param>
         </member>
         <member name="M:MochaDB.mhqlcore.Mhql_USE.GetTable(System.String)">
             <summary>
@@ -5211,6 +5216,38 @@
             <summary>
             Base class for Mhql keywords.
             </summary>
+        </member>
+        <member name="T:MochaDB.mhqlcore.Mhql_ORDERBY">
+            <summary>
+            MHQL ORDERBY keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_ORDERBY.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.IsORDERBY(System.String)">
+            <summary>
+            Returns true if command is ORDERBY command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.GetORDERBY(System.String,System.String@)">
+            <summary>
+            Returns orderby command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed orderby commands.</param>
+        </member>
+        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.OrderBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Orderby by command.
+            </summary>
+            <param name="command">Orderby command.</param>
+            <param name="table">Table to ordering.</param>
+            <param name="final">Command of removed use commands.</param>
         </member>
     </members>
 </doc>

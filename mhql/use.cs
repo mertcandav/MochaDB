@@ -25,17 +25,17 @@ namespace MochaDB.mhqlcore {
         /// <summary>
         /// Returns use command.
         /// </summary>
-        /// <param name="final">Final index of use command.</param>
-        public string GetUSE(out int final) {
+        /// <param name="final">Command of removed use commands.</param>
+        public string GetUSE(out string final) {
             int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
                 throw new MochaException("USE command is cannot processed!");
             int finaldex = MochaDbCommand.keywordRegex.Match(Command,usedex+3).Index;
-            if(finaldex==-1)
+            if(finaldex==0)
                 throw new MochaException("USE command is cannot processed!");
             var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));
 
-            final = finaldex;
+            final = Command.Substring(finaldex);
             return usecommand;
         }
 
@@ -63,25 +63,9 @@ namespace MochaDB.mhqlcore {
                 }
             }
 
-            if(columns.Count > 0 && columns[0].Datas.Count > 0) {
-                var firstcolumn = columns[0];
-                MochaArray<MochaRow> rows = new MochaRow[firstcolumn.Datas.Count];
-                //Process rows.
-                for(var dataindex = 0; dataindex < firstcolumn.Datas.Count; dataindex++) {
-                    MochaArray<MochaData> datas = new MochaArray<MochaData>(columns.Count);
-                    for(var columnindex = 0; columnindex < columns.Count; columnindex++) {
-                        var column = columns[columnindex];
-                        datas[columnindex] =
-                            column.Datas.Count < dataindex+1 ?
-                            new MochaData { data =string.Empty,dataType=MochaDataType.String } :
-                            column.Datas[dataindex];
-                    }
-                    rows[dataindex] = new MochaRow(datas);
-                }
-                resulttable.Rows = rows;
-            }
-
             resulttable.Columns = columns.ToArray();
+            resulttable.SetRowsByDatas();
+
             return resulttable;
         }
 

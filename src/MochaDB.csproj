@@ -87,6 +87,9 @@
     <Compile Include="..\mhql\MhqlKeyword.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\orderby.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
 </Project>
