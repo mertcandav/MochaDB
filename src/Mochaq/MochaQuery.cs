@@ -90,7 +90,7 @@ namespace MochaDB.Mochaq {
             } else if(MochaQ.IsDynamicQuery()) {
                 return Dynamic();
             } else
-                throw new Exception("This command is a not valid MochaQ command!");
+                throw new MochaException("This command is a not valid MochaQ command!");
         }
 
         #endregion
@@ -122,13 +122,13 @@ namespace MochaDB.Mochaq {
         /// </summary>
         public IMochaResult Dynamic() {
             if(!MochaQ.IsDynamicQuery())
-                throw new Exception(@"This MochaQ command is not ""Dynamic"" type command.");
+                throw new MochaException(@"This MochaQ command is not ""Dynamic"" type command.");
 
             Database.OnConnectionCheckRequired(this,new EventArgs());
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new NullReferenceException("This MochaQ query is empty, invalid!");
+                throw new MochaException("This MochaQ query is empty, invalid!");
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
@@ -155,9 +155,9 @@ namespace MochaDB.Mochaq {
                         return new MochaResult<MochaTable>(table);
 
                     } else
-                        throw new Exception("Table not specified!");
+                        throw new MochaException("Table not specified!");
                 } else
-                    throw new Exception("The first syntax is wrong, there is no such function.");
+                    throw new MochaException("The first syntax is wrong, there is no such function.");
 
             } catch { return null; }
         }
@@ -191,16 +191,16 @@ namespace MochaDB.Mochaq {
         /// </summary>
         public void Run() {
             if(!MochaQ.IsRunQuery())
-                throw new Exception(@"This MochaQ command is not ""Run"" type command.");
+                throw new MochaException(@"This MochaQ command is not ""Run"" type command.");
 
             Database.OnConnectionCheckRequired(this,new EventArgs());
 
             if(Database.Provider.Readonly)
-                throw new Exception("This connection is can read only, cannot task of write!");
+                throw new MochaException("This connection is can read only, cannot task of write!");
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new NullReferenceException("This MochaQ query is empty, invalid!");
+                throw new MochaException("This MochaQ query is empty, invalid!");
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
@@ -216,7 +216,7 @@ namespace MochaDB.Mochaq {
                         Database.FileSystem.ClearDisks();
                         return;
                     } else
-                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
                 } else if(queryPaths.Length==2) {
                     if(queryPaths[0]=="FILESYSTEM_REMOVEDISK") {
                         Database.FileSystem.RemoveDisk(queryPaths[1]);
@@ -228,7 +228,7 @@ namespace MochaDB.Mochaq {
                         Database.FileSystem.RemoveFile(queryPaths[1]);
                         return;
                     } else
-                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
                 } else if(queryPaths.Length==3) {
                     if(queryPaths[0] == "FILESYSTEM_CREATEDISK") {
                         Database.FileSystem.CreateDisk(queryPaths[1],queryPaths[2]);
@@ -237,9 +237,9 @@ namespace MochaDB.Mochaq {
                         Database.FileSystem.CreateDirectory(queryPaths[1],queryPaths[2]);
                         return;
                     } else
-                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             }
 
             if(queryPaths.Length == 1) {
@@ -277,7 +277,7 @@ namespace MochaDB.Mochaq {
                     Database.RestoreToLastLog();
                     return;
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 2) {
                 if(queryPaths[0] == "REMOVETABLE") {
                     Database.RemoveTable(queryPaths[1]);
@@ -305,7 +305,7 @@ namespace MochaDB.Mochaq {
                     return;
                 } else if(queryPaths[0] == "RESETTABLE") {
                     if(!Database.ExistsTable(queryPaths[1]))
-                        throw new Exception("Table not found in this name!");
+                        throw new MochaException("Table not found in this name!");
                     Database.OnChanging(this,new EventArgs());
                     Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
                     Database.Save();
@@ -314,7 +314,7 @@ namespace MochaDB.Mochaq {
                     MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1]) + ".bjay",string.Empty,string.Empty);
                     return;
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "REMOVECOLUMN") {
                     Database.RemoveColumn(queryPaths[1],queryPaths[2]);
@@ -353,7 +353,7 @@ namespace MochaDB.Mochaq {
                     MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]) + ".bjay",string.Empty,string.Empty);
                     return;
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "RENAMECOLUMN") {
                     Database.RenameColumn(queryPaths[1],queryPaths[2],queryPaths[3]);
@@ -391,13 +391,13 @@ namespace MochaDB.Mochaq {
                     Database.AddSector(Sector);
                     return;
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 5) {
                 if(queryPaths[0] == "UPDATEDATA") {
                     Database.UpdateData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]),queryPaths[4]);
                     return;
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             }
         }
 
@@ -430,13 +430,13 @@ namespace MochaDB.Mochaq {
         /// </summary>
         public IMochaResult GetRun() {
             if(!MochaQ.IsGetRunQuery())
-                throw new Exception(@"This MochaQ command is not ""GetRun"" type command.");
+                throw new MochaException(@"This MochaQ command is not ""GetRun"" type command.");
 
             Database.OnConnectionCheckRequired(this,new EventArgs());
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new NullReferenceException("This MochaQ query is empty, invalid!");
+                throw new MochaException("This MochaQ query is empty, invalid!");
 
             //Check BREAKQUERY.
             if(MochaQ.Command.Contains("BREAKQUERY"))
@@ -461,9 +461,9 @@ namespace MochaDB.Mochaq {
                     } else if(queryPaths[0] == "#FILESYSTEM_REMOVEFILE") {
                         return new MochaResult<bool>(Database.FileSystem.RemoveFile(queryPaths[1]));
                     } else
-                        throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             }
 
             if(queryPaths.Length == 1) {
@@ -485,7 +485,7 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "TABLECOUNT") {
                     return new MochaResult<int>(Database.Doc.Root.Elements().Count());
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 2) {
                 if(queryPaths[0] == "GETTABLE") {
                     return Database.GetTable(queryPaths[1]);
@@ -534,7 +534,7 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "#REMOVETABLE") {
                     return new MochaResult<bool>(Database.RemoveTable(queryPaths[1]));
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "GETCOLUMN") {
                     return Database.GetColumn(queryPaths[1],queryPaths[2]);
@@ -563,16 +563,16 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "#REMOVESTACKITEM") {
                     return new MochaResult<bool>(Database.RemoveStackItem(queryPaths[1],queryPaths[2]));
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "EXISTSDATA") {
                     return Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]);
                 } else if(queryPaths[0] == "GETDATA") {
                     return Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]));
                 } else
-                    throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
             } else
-                throw new Exception("Invalid query. The content of the query could not be processed, wrong!");
+                throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
         }
 
         #endregion
@@ -585,7 +585,7 @@ namespace MochaDB.Mochaq {
         /// <param name="name">Name of table.</param>
         private MochaResult<int> COLUMNCOUNT(string name) {
             if(!Database.ExistsTable(name))
-                throw new Exception("Table not found in this name!");
+                throw new MochaException("Table not found in this name!");
 
             IEnumerable<XElement> columnElements = Database.Doc.Root.Element("Tables").Elements(name).Elements();
             return columnElements.Count();
@@ -597,7 +597,7 @@ namespace MochaDB.Mochaq {
         /// <param name="name">Name of table.</param>
         private MochaCollectionResult<MochaData> GETDATAS(string name) {
             if(!Database.ExistsTable(name))
-                throw new Exception("Table not found in this name!");
+                throw new MochaException("Table not found in this name!");
 
             List<MochaData> datas = new List<MochaData>();
 
@@ -615,7 +615,7 @@ namespace MochaDB.Mochaq {
         /// <param name="name">Name of table.</param>
         private MochaResult<string> GETFIRSTCOLUMN_NAME(string name) {
             if(!Database.ExistsTable(name))
-                throw new Exception("Table not found in this name!");
+                throw new MochaException("Table not found in this name!");
 
             XElement firstColumn = (XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode;
             return firstColumn == null ? null : firstColumn.Name.LocalName;
@@ -649,10 +649,10 @@ namespace MochaDB.Mochaq {
                 database;
             set {
                 if(IsDatabaseEmbedded)
-                    throw new Exception("This is embedded in database, can not set database!");
+                    throw new MochaException("This is embedded in database, can not set database!");
 
                 if(database == null)
-                    throw new Exception("This MochaDatabase is not affiliated with a database!");
+                    throw new MochaException("This MochaDatabase is not affiliated with a database!");
 
                 if(value == database)
                     return;

@@ -36,7 +36,7 @@ namespace MochaDB {
         private void Item_NameChanged(object sender,EventArgs e) {
             var result = collection.Where(x => x.Name==(sender as IMochaStackItem).Name);
             if(result.Count()>1)
-                throw new Exception("There is already a stack item with this name!");
+                throw new MochaException("There is already a stack item with this name!");
 
             OnStackItemNameChanged(sender,e);
         }
@@ -54,7 +54,7 @@ namespace MochaDB {
 
         public override void Add(MochaStackItem item) {
             if(Contains(item.Name))
-                throw new Exception("There is already a stack item with this name!");
+                throw new MochaException("There is already a stack item with this name!");
 
             item.NameChanged+=Item_NameChanged;
             collection.Add(item);
@@ -125,7 +125,7 @@ namespace MochaDB {
                 ElementAt(index);
             set {
                 if(Contains(value.Name))
-                    throw new Exception("");
+                    throw new MochaException("There is already a stack item with this name!");
 
                 collection[index]=value;
                 OnChanged(this,new EventArgs());
@@ -139,11 +139,11 @@ namespace MochaDB {
         public MochaStackItem this[string name] {
             get {
                 int dex = IndexOf(name);
-                return dex!=-1 ? this[dex] : throw new Exception("There is no item by this name!");
+                return dex!=-1 ? this[dex] : throw new MochaException("There is no item by this name!");
             }
             set {
                 int dex = IndexOf(name);
-                this[dex] = dex!=-1 ? value : throw new Exception("There is no item by this name!");
+                this[dex] = dex!=-1 ? value : throw new MochaException("There is no item by this name!");
             }
         }
 

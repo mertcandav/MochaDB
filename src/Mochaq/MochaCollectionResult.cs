@@ -86,13 +86,13 @@ namespace MochaDB.Mochaq {
         /// Return first element in collection.
         /// </summary>
         public override T GetFirst() =>
-            IsEmptyCollection() ? throw new Exception("Collection is empty!") : this[0];
+            IsEmptyCollection() ? throw new MochaException("Collection is empty!") : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
         public override T GetLast() =>
-            IsEmptyCollection() ? throw new Exception("Collection is empty!") : this[MaxIndex()];
+            IsEmptyCollection() ? throw new MochaException("Collection is empty!") : this[MaxIndex()];
 
         #endregion
 

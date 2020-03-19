@@ -56,9 +56,9 @@ namespace MochaDB.Mhql {
         /// </summary>
         internal void CheckConnection() {
             if(Database==null)
-                throw new NullReferenceException("Target database is cannot null!");
+                throw new MochaException("Target database is cannot null!");
             if(Database.ConnectionState!=MochaConnectionState.Connected)
-                throw new Exception("Connection is not open!");
+                throw new MochaException("Connection is not open!");
         }
 
         #endregion
@@ -131,7 +131,7 @@ namespace MochaDB.Mhql {
             var table = USE.GetTable(USE.GetUSE(out finaldex));
             var lastcommand = Command.Substring(finaldex);
             if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
-                throw new Exception($"'{lastcommand}' command is not processed!");
+                throw new MochaException($"'{lastcommand}' command is cannot processed!");
 
             reader.array = new MochaArray<object>(table);
             return reader;

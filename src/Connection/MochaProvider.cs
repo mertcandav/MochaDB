@@ -43,10 +43,10 @@ namespace MochaDB.Connection {
         /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
         public static MochaProviderAttribute GetAttribute(string name,string connectionString) {
             if(string.IsNullOrWhiteSpace(name))
-                throw new NullReferenceException("Attribute name is can not empty or white space!");
+                throw new MochaException("Attribute name is can not empty or white space!");
 
             if(string.IsNullOrWhiteSpace(connectionString))
-                throw new NullReferenceException("Connection string is can not empty or white space!");
+                throw new MochaException("Connection string is can not empty or white space!");
 
             Regex rgx = new Regex(name+".?=.?",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
@@ -62,7 +62,7 @@ namespace MochaDB.Connection {
                 return null;
 
             if(count>1)
-                throw new Exception("An attribute can only be specified once!");
+                throw new MochaException("An attribute can only be specified once!");
 
             string sresult = result.ElementAt(0);
             string attributeValue = sresult.Substring(sresult.IndexOf('=')+1);
@@ -139,10 +139,10 @@ namespace MochaDB.Connection {
                 connectionString;
             set {
                 if(Constant)
-                    throw new Exception("This provider is constant, can only be read!");
+                    throw new MochaException("This provider is constant, can only be read!");
 
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new NullReferenceException("Connection string is can not empty or white space!");
+                    throw new MochaException("Connection string is can not empty or white space!");
 
                 if(value==connectionString)
                     return;
@@ -151,7 +151,7 @@ namespace MochaDB.Connection {
 
                 Path=pathAttribute !=null || pathAttribute.Value.Length == 0 ?
                     pathAttribute.Value :
-                    throw new NullReferenceException("'Path' attribute is not defined!");
+                    throw new MochaException("'Path' attribute is not defined!");
                 Path =
                     !Path.EndsWith(".mochadb") ?
                     Path.Last() != '.' ?

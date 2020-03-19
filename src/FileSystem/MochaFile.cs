@@ -46,7 +46,7 @@ namespace MochaDB.FileSystem {
         public event EventHandler<EventArgs> NameChanged;
         private void OnNameChanged(object sender,EventArgs e) {
             if(string.IsNullOrEmpty(FullName))
-                throw new NullReferenceException("At least one of the names and extensions must not be empty!");
+                throw new MochaException("At least one of the names and extensions must not be empty!");
 
             //Invoke.
             NameChanged?.Invoke(this,new EventArgs());
@@ -58,7 +58,7 @@ namespace MochaDB.FileSystem {
         public event EventHandler<EventArgs> ExtensionChanged;
         private void OnExtensionChanged(object sender,EventArgs e) {
             if(string.IsNullOrEmpty(FullName))
-                throw new NullReferenceException("At least one of the names and extensions must not be empty!");
+                throw new MochaException("At least one of the names and extensions must not be empty!");
 
             //Invoke.
             ExtensionChanged?.Invoke(this,new EventArgs());
@@ -75,7 +75,7 @@ namespace MochaDB.FileSystem {
         public static MochaFile Load(string path) {
             FileInfo fi = new FileInfo(path);
             if(!fi.Exists)
-                throw new Exception("This path does not show a file!");
+                throw new MochaException("This path does not show a file!");
 
             MochaFile file = new MochaFile(fi.Name,fi.Extension);
             file.Stream.Bytes = File.ReadAllBytes(path);

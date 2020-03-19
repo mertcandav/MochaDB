@@ -30,10 +30,10 @@ namespace MochaDB.mhqlcore {
         public string GetUSE(out int final) {
             int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
-                throw new Exception("USE command is not processed!");
+                throw new MochaException("USE command is cannot processed!");
             int finaldex = MochaDbCommand.keywordRegex.Match(Command,usedex+3).Index;
             if(finaldex==-1)
-                throw new Exception("USE command is not processed!");
+                throw new MochaException("USE command is cannot processed!");
             var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));
 
             final = finaldex;
@@ -53,7 +53,7 @@ namespace MochaDB.mhqlcore {
                 var callcmd = parts[index];
                 var callparts = callcmd.Split('.');
                 if(callparts.Length>2)
-                    throw new Exception($"'{callcmd}' command is not processed!");
+                    throw new MochaException($"'{callcmd}' command is cannot processed!");
                 for(byte partindex = 0; partindex < callparts.Length; partindex++)
                     callparts[partindex] = callparts[partindex].TrimStart().TrimEnd();
                 var table = Tdb.GetTable(callparts[0]).Value;

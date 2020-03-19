@@ -45,7 +45,7 @@ namespace MochaDB.FileSystem {
         private void Item_NameChanged(object sender,EventArgs e) {
             var result = collection.Where(x => x.Name==(sender as IMochaFile).Name);
             if(result.Count()>1)
-                throw new Exception("There is already a file with this name and extension!");
+                throw new MochaException("There is already a file with this name and extension!");
 
             OnFileNameChanged(sender,e);
         }
@@ -53,7 +53,7 @@ namespace MochaDB.FileSystem {
         private void Item_ExtensionChanged(object sender,EventArgs e) {
             var result = collection.Where(x => x.Name==(sender as IMochaFile).Name);
             if(result.Count()>1)
-                throw new Exception("There is already a file with this name and extension!");
+                throw new MochaException("There is already a file with this name and extension!");
 
             OnFileExtensionChanged(sender,e);
         }
@@ -74,7 +74,7 @@ namespace MochaDB.FileSystem {
             if(item == null)
                 return;
             if(Contains(item.FullName))
-                throw new Exception("There is already a file with this name and extension!");
+                throw new MochaException("There is already a file with this name and extension!");
 
             item.NameChanged+=Item_NameChanged;
             item.ExtensionChanged+=Item_ExtensionChanged;

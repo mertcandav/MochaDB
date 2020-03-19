@@ -91,9 +91,9 @@ namespace MochaDB {
             set {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new NullReferenceException("Name is cannot null or whitespace!");
+                    throw new MochaException("Name is cannot null or whitespace!");
                 else if(bannedNamesRegex.IsMatch(value))
-                    throw new Exception($@"Name is cannot ""{value}""");
+                    throw new MochaException($@"Name is cannot ""{value}""");
 
                 if(value==name)
                     return;

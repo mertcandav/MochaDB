@@ -60,16 +60,16 @@ namespace MochaDB {
         /// <param name="item">Item to add.</param>
         internal void Add(MochaData item) {
             if(DataType==MochaDataType.AutoInt)
-                throw new Exception("Data cannot be added directly to a column with AutoInt!");
+                throw new MochaException("Data cannot be added directly to a column with AutoInt!");
             if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
                 if(ContainsData(item.Data))
-                    throw new Exception("Any value can be added to a unique column only once!");
+                    throw new MochaException("Any value can be added to a unique column only once!");
 
             if(item.DataType == DataType) {
                 collection.Add(item);
                 //Changed?.Invoke(this,new EventArgs());
             } else
-                throw new Exception("This data's datatype not compatible column datatype.");
+                throw new MochaException("This data's datatype not compatible column datatype.");
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace MochaDB {
             if(MochaData.IsType(DataType,data))
                 Add(new MochaData(DataType,data));
             else
-                throw new Exception("This data's datatype not compatible column datatype.");
+                throw new MochaException("This data's datatype not compatible column datatype.");
         }
 
         /// <summary>

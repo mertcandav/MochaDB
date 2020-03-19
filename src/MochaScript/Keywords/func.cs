@@ -87,7 +87,7 @@ namespace MochaDB.MochaScript.Keywords {
             int dex = IndexOf(name);
 
             if(dex == -1)
-                throw new Exception("No function defined this name.");
+                throw new MochaException("No function defined this name.");
 
             if(!Debugger.compilerEventsRegex.IsMatch(name))
                 Debugger.OnFunctionInvoking(new EventArgs());

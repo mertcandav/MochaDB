@@ -133,7 +133,7 @@ namespace MochaDB.FileSystem {
         /// <param name="disk">Disk to add.</param>
         public void AddDisk(MochaDisk disk) {
             if(ExistsDisk(disk.Root))
-                throw new Exception("There is already a disk with this root!");
+                throw new MochaException("There is already a disk with this root!");
             Database.OnChanging(this,new EventArgs());
 
             var xDisk = new XElement(disk.Root);
@@ -274,11 +274,11 @@ namespace MochaDB.FileSystem {
             var parts = path.Path.Split('/');
 
             if(!ExistsDisk(parts[0]))
-                throw new Exception("Disk not found!");
+                throw new MochaException("Disk not found!");
             if(parts.Length != 1 && !ExistsDirectory(path.Path))
-                throw new Exception("Directory not found!");
+                throw new MochaException("Directory not found!");
             if(ExistsDirectory($"{path.Path}/{directory.Name}"))
-                throw new Exception("This directory already exists!");
+                throw new MochaException("This directory already exists!");
             Database.OnChanging(this,new EventArgs());
 
             var originalname = path.Name();
@@ -431,13 +431,13 @@ namespace MochaDB.FileSystem {
             var parts = path.Path.Split('/');
 
             if(parts.Length == 1)
-                throw new Exception("Files is cannot add in disks directly!");
+                throw new MochaException("Files is cannot add in disks directly!");
             if(!ExistsDisk(parts[0]))
-                throw new Exception("Disk not found!");
+                throw new MochaException("Disk not found!");
             if(!ExistsDirectory(path))
-                throw new Exception("Directory not found!");
+                throw new MochaException("Directory not found!");
             if(ExistsFile($"{path}/{file.FullName}"))
-                throw new Exception("This file already exists!");
+                throw new MochaException("This file already exists!");
             Database.OnChanging(this,new EventArgs());
 
             var originalname = path.Name();
@@ -487,10 +487,10 @@ namespace MochaDB.FileSystem {
                 database;
             set {
                 if(IsDatabaseEmbedded)
-                    throw new Exception("This is embedded in database, can not set database!");
+                    throw new MochaException("This is embedded in database, can not set database!");
 
                 if(database == null)
-                    throw new Exception("This MochaDatabase is not affiliated with a database!");
+                    throw new MochaException("This MochaDatabase is not affiliated with a database!");
 
                 if(value == database)
                     return;

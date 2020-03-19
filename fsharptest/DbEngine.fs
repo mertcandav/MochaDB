@@ -46,5 +46,5 @@ let ExecuteCommand(db: MochaDatabase) =
         else
             printfn "ERROR: Command is cannot defined!"
     with
-        | :? Exception ->
+        | :? MochaException ->
             Console.WriteLine "ERROR: Invalid query command!"

@@ -104,7 +104,7 @@ namespace MochaDB {
             set {
                 value=value.TrimStart().TrimEnd();
                 if(string.IsNullOrEmpty(value))
-                    throw new NullReferenceException("Path is cannot null or whitespace!");
+                    throw new MochaException("Path is cannot null or whitespace!");
 
                 value=value.Replace('\\','/');
                 value = value.Last()=='/' ? value.Remove(value.Length-1,1) : value;

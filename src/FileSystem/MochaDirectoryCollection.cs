@@ -36,7 +36,7 @@ namespace MochaDB.FileSystem {
         private void Item_NameChanged(object sender,EventArgs e) {
             var result = collection.Where(x => x.Name==(sender as IMochaDirectory).Name);
             if(result.Count()>1)
-                throw new Exception("There is already a directory with this name!");
+                throw new MochaException("There is already a directory with this name!");
 
             OnDirectoryNameChanged(sender,e);
         }
@@ -56,7 +56,7 @@ namespace MochaDB.FileSystem {
             if(item == null)
                 return;
             if(Contains(item.Name))
-                throw new Exception("There is already a directory with this name!");
+                throw new MochaException("There is already a directory with this name!");
 
             item.NameChanged+=Item_NameChanged;
             collection.Add(item);

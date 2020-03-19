@@ -108,7 +108,7 @@ namespace MochaDB {
             if(Enum.TryParse(name,true,out dataType))
                 return dataType;
 
-            throw new Exception("There is no MochaDB data type by this name!");
+            throw new MochaException("There is no MochaDB data type by this name!");
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace MochaDB {
             if(type == typeof(DateTime))
                 return MochaDataType.DateTime;
 
-            throw new Exception("There is no MochaDB data type of this type!");
+            throw new MochaException("There is no MochaDB data type of this type!");
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace MochaDB {
         /// <param name="data">String data.</param>
         public static object GetDataFromString(MochaDataType dataType,string data) {
             if(data == null)
-                throw new NullReferenceException("Data is cannot null!");
+                throw new MochaException("Data is cannot null!");
 
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return data;
@@ -276,10 +276,10 @@ namespace MochaDB {
             get => data;
             set {
                 if(DataType==MochaDataType.AutoInt)
-                    throw new Exception("Value data cannot be edited because it is AutoInt!");
+                    throw new MochaException("Value data cannot be edited because it is AutoInt!");
 
                 if(!IsType(DataType,value))
-                    throw new Exception("The submitted data is not compatible with the targeted data!");
+                    throw new MochaException("The submitted data is not compatible with the targeted data!");
 
                 data = GetDataFromString(DataType,value.ToString());
             }

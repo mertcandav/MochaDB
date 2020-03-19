@@ -101,7 +101,7 @@ namespace MochaDB {
             set {
                 value=value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
-                    throw new NullReferenceException("Name is cannot null or whitespace!");
+                    throw new MochaException("Name is cannot null or whitespace!");
 
                 if(value==name)
                     return;

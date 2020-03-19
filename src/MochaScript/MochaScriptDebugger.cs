@@ -139,7 +139,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 db.Dispose();
             }
 
-            return new Exception($"{line}{message}");
+            return new MochaException($"{line}{message}");
         }
 
         #endregion
@@ -834,14 +834,14 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 scriptPath;
             set {
                 if(string.IsNullOrEmpty(value))
-                    throw new NullReferenceException("ScriptPath is can not null!");
+                    throw new MochaException("ScriptPath is can not null or whitespace!");
 
                 FileInfo fInfo = new FileInfo(value);
 
                 if(!fInfo.Exists)
-                    throw new NullReferenceException("There is no such MochaScript file!");
+                    throw new MochaException("There is no such MochaScript file!");
                 if(fInfo.Extension != ".mochascript")
-                    throw new NullReferenceException("The file shown is not a MochaScript file!");
+                    throw new MochaException("The file shown is not a MochaScript file!");
 
                 if(scriptStream!=null)
                     scriptStream.Dispose();
