@@ -4073,6 +4073,53 @@
             </summary>
             <typeparam name="T">Value type.</typeparam>
         </member>
+        <member name="T:MochaDB.Querying.QueryingMochaArray">
+            <summary>
+            Query extension for MochaArrays.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.Select``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.Select``1(MochaDB.MochaArray{``0},System.Func{``0,System.Int32,``0})">
+            <summary>
+            Select items by query.
+            </summary>
+            <param name="query">Query to use in filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.Where``1(MochaDB.MochaArray{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.Where``1(MochaDB.MochaArray{``0},System.Func{``0,System.Int32,System.Boolean})">
+            <summary>
+            Select items by condition.
+            </summary>
+            <param name="query">Query to use in conditioning.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.OrderByDescending``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
+            <summary>
+            Order items descending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.OrderBy``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
+            <summary>
+            Order items ascending by query.
+            </summary>
+            <param name="query">Query to use in ordering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaArray.GroupBy``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
+            <summary>
+            Group items by query.
+            </summary>
+            <param name="query">Query to use in grouping.</param>
+        </member>
         <member name="T:MochaDB.Querying.QueryingMochaCollection">
             <summary>
             Query extension for MochaCollections.

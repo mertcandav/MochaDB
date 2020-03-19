@@ -21,7 +21,7 @@ namespace MochaDB.mhqlcore {
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Returns true if command is ORDERBY command, returns if not.
         /// </summary>
@@ -72,7 +72,7 @@ namespace MochaDB.mhqlcore {
             table.Rows.Clone();
             table.Rows.array = (
                 dex == 0 || dex == 3 ?
-                table.Rows.OrderBy(x=> x.Datas[columndex].ToString()) :
+                table.Rows.OrderBy(x => x.Datas[columndex].ToString()) :
                 table.Rows.OrderByDescending(x => x.Datas[columndex].ToString())).ToArray();
         }
 
