@@ -172,11 +172,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                             throw Throw(index + 1,"|| The entry was not in the correct format!");
                         }
                     } else if(line.EndsWith("()")) {
-                        try {
-                            functions.Invoke(line.Substring(0,line.Length-2));
-                        } catch {
-                            throw Throw(index+1,$"|| {MochaScriptArray[index+1]}");
-                        }
+                        functions.Invoke(line.Substring(0,line.Length-2));
                         continue;
                     } else if(TryVariable(index)) {
                         continue;
@@ -187,7 +183,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         try {
                             db.Query.Run(line);
                             continue;
-                        } catch(Exception excep) {
+                        } catch(MochaException excep) {
                             throw Throw(index+1,$"|| {excep.Message}");
                         }
                     }

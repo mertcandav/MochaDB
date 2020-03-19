@@ -83,6 +83,32 @@ func BuildTables()
     UpdateData:TableOne:Gender:1:Male
     UpdateData:TableOne:Gender:2:Female
 
+    CreateTable:Persons
+    SetTableDescription:Persons:
+    CreateColumn:Persons:Name
+    SetColumnDescription:Persons:Name:
+    SetColumnDataType:Persons:Name:String
+    AddData:Persons:Name:Joe
+    AddData:Persons:Name:Mike
+    AddData:Persons:Name:Lily
+    CreateColumn:Persons:Surname
+    SetColumnDescription:Persons:Surname:
+    SetColumnDataType:Persons:Surname:String
+    UpdateData:Persons:Surname:0:Tavish
+    UpdateData:Persons:Surname:1:Gorb
+    UpdateData:Persons:Surname:2:Frank
+    CreateColumn:Persons:Gender
+    SetColumnDescription:Persons:Gender:
+    SetColumnDataType:Persons:Gender:String
+    UpdateData:Persons:Gender:0:Male
+    UpdateData:Persons:Gender:1:Male
+    UpdateData:Persons:Gender:2:Female
+    CreateColumn:Persons:Age
+    SetColumnDescription:Persons:Age:
+    SetColumnDataType:Persons:Age:Byte
+    UpdateData:Persons:Age:0:18
+    UpdateData:Persons:Age:1:18
+    UpdateData:Persons:Age:2:20
 }
 
 Final
