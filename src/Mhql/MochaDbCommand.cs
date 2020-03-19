@@ -127,7 +127,7 @@ namespace MochaDB.Mhql {
         /// <summary>
         /// Read returned results.
         /// </summary>
-        public unsafe MochaReader<object> ExecuteReader() {
+        public MochaReader<object> ExecuteReader() {
             CheckConnection();
             var reader = new MochaReader<object>();
             if(!RETURN.IsReturnableCmd())
