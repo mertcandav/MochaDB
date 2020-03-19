@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="MhqlStress.fs" />
     <Compile Include="FileEngine.fs" />
     <Compile Include="DbEngine.fs" />
     <Compile Include="Program.fs" />

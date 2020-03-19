@@ -1,6 +1,7 @@
 ﻿//Libraries
 open System
 open DbEngine
+open MhqlStress
 open FileEngine
 open MochaDB
 open MochaDB.Connection
@@ -48,6 +49,13 @@ let main argv =
                 printfn "\n\n------ Script Content ------\n\n"
             elif input.Equals("cncstate",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine db.ConnectionState
+            elif input.Equals("mhqlstress",StringComparison.InvariantCultureIgnoreCase) then
+                printfn "\n\n------ MHQL Stress Test -----\n\n"
+                StartMhqlTableGetStress db
+            elif input.StartsWith("mhqlstress",StringComparison.InvariantCultureIgnoreCase) then
+                printfn "\n\n------ MHQL Stress Test -----\n\n"
+                StartMhqlTableGetStressWithTick(db,Int32.Parse(input.Split(' ').[1]))
+                printfn "\n\n------ MHQL Stress Test -----\n\n"
             elif input.Equals("runscript",StringComparison.InvariantCultureIgnoreCase) then
                 let debugger = GetScriptDebugger(path + "/testscript.mochascript")
                 debugger.Echo.Add(OnEcho)
