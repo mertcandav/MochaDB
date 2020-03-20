@@ -44,7 +44,7 @@ let ExecuteCommand(db: MochaDatabase) =
         elif db.Query.MochaQ.IsRunQuery() = true then
             db.Query.Run()
         else
-            printfn "ERROR: Command is cannot defined!"
+            Console.WriteLine "ERROR: Command is cannot defined!"
     with
         | :? MochaException ->
             Console.WriteLine "ERROR: Invalid query command!"

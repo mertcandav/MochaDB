@@ -1,6 +1,7 @@
 ﻿module FileEngine
 
 //Libraries
+open System
 open System.IO
 open System.Text
 
@@ -8,7 +9,7 @@ open System.Text
 //path: Path of file.
 let ExistsFile(path: string) : bool =
     if File.Exists path = false then
-        printfn "ERROR: File is not exists!"
+        Console.WriteLine "ERROR: File is not exists!"
         false
     else
         true
