@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhqlcore {
+namespace MochaDB.mhql {
     /// <summary>
     /// MHQL USE keyword.
     /// </summary>
@@ -30,7 +30,7 @@ namespace MochaDB.mhqlcore {
             int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
                 throw new MochaException("USE command is cannot processed!");
-            int finaldex = MochaDbCommand.keywordRegex.Match(Command,usedex+3).Index;
+            int finaldex = MochaDbCommand.mainkeywordRegex.Match(Command,usedex+3).Index;
             if(finaldex==0)
                 throw new MochaException("USE command is cannot processed!");
             var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));

@@ -1,6 +1,6 @@
 using System;
 
-namespace MochaDB.mhqlcore {
+namespace MochaDB.mhql {
     /// <summary>
     /// MHQL RETURN keyword.
     /// </summary>

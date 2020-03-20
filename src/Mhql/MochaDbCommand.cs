@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using MochaDB.Connection;
-using MochaDB.mhqlcore;
+using MochaDB.mhql;
 using MochaDB.Streams;
 
 namespace MochaDB.Mhql {
@@ -15,13 +15,17 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+
+        internal static Regex mainkeywordRegex = new Regex(
+@"\b(USE|RETURN|ORDERBY|MUST)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal MochaArray<MhqlKeyword> mhqlobjs;
 
         internal Mhql_USE USE;
         internal Mhql_RETURN RETURN;
         internal Mhql_ORDERBY ORDERBY;
+        internal Mhql_MUST MUST;
 
         #endregion
 
@@ -36,7 +40,8 @@ namespace MochaDB.Mhql {
             USE = new Mhql_USE(Database);
             RETURN = new Mhql_RETURN(Database);
             ORDERBY = new Mhql_ORDERBY(Database);
-            mhqlobjs = new MochaArray<MhqlKeyword>(USE,RETURN,ORDERBY);
+            MUST = new Mhql_MUST(Database);
+            mhqlobjs = new MochaArray<MhqlKeyword>(USE,RETURN,ORDERBY,MUST);
 
             Database=db;
             Command=string.Empty;
@@ -132,16 +137,31 @@ namespace MochaDB.Mhql {
             var reader = new MochaReader<object>();
             if(!RETURN.IsReturnableCmd())
                 return reader;
+
+            bool
+                orderby = false;
             string lastcommand;
+
             var table = USE.GetTable(USE.GetUSE(out lastcommand));
+            do {
+                //Orderby.
+                if(ORDERBY.IsORDERBY(lastcommand)) {
+                    orderby=true;
+                    ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table);
+                }
+                //Must.
+                else if(MUST.IsMUST(lastcommand)) {
+                    if(orderby)
+                        throw new MochaException("MUST keyword must be specified before ORDERBY!");
 
-            //Orderby.
-            if(ORDERBY.IsORDERBY(lastcommand))
-                ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table);
-
-            //Return.
-            else if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
-                throw new MochaException($"'{lastcommand}' command is cannot processed!");
+                    MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table);
+                }
+                //Return.
+                else if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
+                    throw new MochaException($"'{lastcommand}' command is cannot processed!");
+                else
+                    break;
+            } while(true);
 
             reader.array = new MochaArray<object>(table);
             return reader;
@@ -186,6 +206,8 @@ namespace MochaDB.Mhql {
             get =>
                 db;
             set {
+                if(value==null)
+                    throw new MochaException("This MochaDatabase is not affiliated with a database!");
                 if(value==db)
                     return;
 

@@ -652,7 +652,7 @@ namespace MochaDB.Mochaq {
                 if(IsDatabaseEmbedded)
                     throw new MochaException("This is embedded in database, can not set database!");
 
-                if(database == null)
+                if(value == null)
                     throw new MochaException("This MochaDatabase is not affiliated with a database!");
 
                 if(value == database)

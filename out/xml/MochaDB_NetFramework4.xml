@@ -5205,96 +5205,175 @@
             Count of item.
             </summary>
         </member>
-        <member name="T:MochaDB.mhqlcore.Mhql_USE">
+        <member name="T:MochaDB.mhql.Mhql_USE">
             <summary>
             MHQL USE keyword.
             </summary>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_USE.#ctor(MochaDB.MochaDatabase)">
+        <member name="M:MochaDB.mhql.Mhql_USE.#ctor(MochaDB.MochaDatabase)">
             <summary>
             Create a new Mhql_USE.
             </summary>
             <param name="db">Target database.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetUSE(System.String@)">
+        <member name="M:MochaDB.mhql.Mhql_USE.GetUSE(System.String@)">
             <summary>
             Returns use command.
             </summary>
             <param name="final">Command of removed use commands.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_USE.GetTable(System.String)">
+        <member name="M:MochaDB.mhql.Mhql_USE.GetTable(System.String)">
             <summary>
             Returns table by use command.
             </summary>
             <param name="usecommand">Use command.</param>
         </member>
-        <member name="T:MochaDB.mhqlcore.Mhql_RETURN">
+        <member name="T:MochaDB.mhql.Mhql_RETURN">
             <summary>
             MHQL RETURN keyword.
             </summary>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_RETURN.#ctor(MochaDB.MochaDatabase)">
+        <member name="M:MochaDB.mhql.Mhql_RETURN.#ctor(MochaDB.MochaDatabase)">
             <summary>
             Create a new Mhql_RETURN.
             </summary>
             <param name="db">Target database.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_RETURN.IsReturnableCmd">
+        <member name="M:MochaDB.mhql.Mhql_RETURN.IsReturnableCmd">
             <summary>
             Returns true if command is returnable, return false if not.
             </summary>
         </member>
-        <member name="T:MochaDB.mhqlcore.IMhqlKeyword">
+        <member name="T:MochaDB.mhql.IMhqlKeyword">
             <summary>
             Interface for Mhql keywords.
             </summary>
         </member>
-        <member name="P:MochaDB.mhqlcore.IMhqlKeyword.Tdb">
+        <member name="P:MochaDB.mhql.IMhqlKeyword.Tdb">
             <summary>
             Target database.
             </summary>
         </member>
-        <member name="P:MochaDB.mhqlcore.IMhqlKeyword.Command">
+        <member name="P:MochaDB.mhql.IMhqlKeyword.Command">
             <summary>
             MHQL Command.
             </summary>
         </member>
-        <member name="T:MochaDB.mhqlcore.MhqlKeyword">
+        <member name="T:MochaDB.mhql.MhqlKeyword">
             <summary>
             Base class for Mhql keywords.
             </summary>
         </member>
-        <member name="T:MochaDB.mhqlcore.Mhql_ORDERBY">
+        <member name="T:MochaDB.mhql.Mhql_ORDERBY">
             <summary>
             MHQL ORDERBY keyword.
             </summary>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.#ctor(MochaDB.MochaDatabase)">
+        <member name="M:MochaDB.mhql.Mhql_ORDERBY.#ctor(MochaDB.MochaDatabase)">
             <summary>
             Create a new Mhql_ORDERBY.
             </summary>
             <param name="db">Target database.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.IsORDERBY(System.String)">
+        <member name="M:MochaDB.mhql.Mhql_ORDERBY.IsORDERBY(System.String)">
             <summary>
             Returns true if command is ORDERBY command, returns if not.
             </summary>
             <param name="command">Command to check.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.GetORDERBY(System.String,System.String@)">
+        <member name="M:MochaDB.mhql.Mhql_ORDERBY.GetORDERBY(System.String,System.String@)">
             <summary>
             Returns orderby command.
             </summary>
             <param name="command">MHQL Command.</param>
             <param name="final">Command of removed orderby commands.</param>
         </member>
-        <member name="M:MochaDB.mhqlcore.Mhql_ORDERBY.OrderBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+        <member name="M:MochaDB.mhql.Mhql_ORDERBY.OrderBy(System.String,MochaDB.Mhql.MochaTableResult@)">
             <summary>
             Orderby by command.
             </summary>
             <param name="command">Orderby command.</param>
             <param name="table">Table to ordering.</param>
             <param name="final">Command of removed use commands.</param>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_MUST">
+            <summary>
+            MHQL ORDERBY must.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_MUST.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_MUST.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_MUST.IsMUST(System.String)">
+            <summary>
+            Returns true if command is MUST command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_MUST.GetMUST(System.String,System.String@)">
+            <summary>
+            Returns must command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed orderby commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_MUST.MustTable(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Must by tables.
+            </summary>
+            <param name="command">Must command.</param>
+            <param name="table">Table.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">
+            <summary>
+            MHQL MUST core.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.GetMusts(System.String)">
+            <summary>
+            Returns seperated commands by brackets.
+            </summary>
+            <param name="command">Command.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.GetDataFromCommand(System.String,MochaDB.MochaRow)">
+            <summary>
+            Returns data by command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Base row.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
+            <summary>
+            MHQL command editor.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.DecomposeBrackets(System.String@)">
+            <summary>
+            Decompose command ares by brackets.
+            </summary>
+            <param name="">Command.</param>
+        </member>
+        <member name="T:MochaDB.mhql.must.MhqlMust_REGEX">
+            <summary>
+            REGEX functions of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.GetCommand(System.String,MochaDB.MochaRow)">
+            <summary>
+            Returns Regex command by row.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Reference row.</param>
+        </member>
+        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.Match(System.String,System.String)">
+            <summary>
+            Execute regex and returns result.
+            </summary>
+            <param name="pattern">Regex pattern.</param>
+            <param name="value">Value.</param>
         </member>
     </members>
 </doc>

@@ -44,7 +44,7 @@
 + Add element functions for MochaDatabase
 + Add element functions for compatibility objects
 + Improvements for enumerators</PackageReleaseNotes>
-    <PackageTags></PackageTags>
+    <PackageTags>database,embedded,nosql,nosqldatabase,datastorage</PackageTags>
     <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
   </PropertyGroup>
 
@@ -88,6 +88,18 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\orderby.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\must.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\must.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\must\regex.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\editor.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>

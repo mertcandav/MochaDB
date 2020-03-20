@@ -59,9 +59,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 	ProjectSection(SolutionItems) = preProject
 		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
 		mhql\MhqlKeyword.cs = mhql\MhqlKeyword.cs
+		mhql\must.cs = mhql\must.cs
 		mhql\orderby.cs = mhql\orderby.cs
 		mhql\return.cs = mhql\return.cs
 		mhql\use.cs = mhql\use.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA287-C416-43F8-A401-B3A598C27655}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\engine\editor.cs = mhql\engine\editor.cs
+		mhql\engine\must.cs = mhql\engine\must.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
 Global
@@ -89,6 +101,8 @@ Global
 		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 		{62116A0C-4ADB-4D6F-9A70-A75B7E70469F} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2} = {822876C1-D58A-4513-BA76-846D0FE5BC93}
+		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
+		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

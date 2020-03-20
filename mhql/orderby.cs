@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhqlcore {
+namespace MochaDB.mhql {
     /// <summary>
     /// MHQL ORDERBY keyword.
     /// </summary>
@@ -38,10 +38,7 @@ namespace MochaDB.mhqlcore {
             int orderbydex = command.IndexOf("ORDERBY",StringComparison.OrdinalIgnoreCase);
             if(orderbydex==-1)
                 throw new MochaException("ORDERBY command is cannot processed!");
-            var match = MochaDbCommand.keywordRegex.Match(command,orderbydex+7);
-            if(match.Value.Equals("ASC",StringComparison.OrdinalIgnoreCase) ||
-                match.Value.Equals("DESC",StringComparison.OrdinalIgnoreCase))
-                match = MochaDbCommand.keywordRegex.Match(command,match.Index+match.Length);
+            var match = MochaDbCommand.mainkeywordRegex.Match(command,orderbydex+7);
             int finaldex = match.Index;
             if(finaldex==0)
                 throw new MochaException("ORDERBY command is cannot processed!");
