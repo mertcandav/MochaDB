@@ -91,6 +91,9 @@
     <Compile Include="..\mhql\orderby.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\groupby.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\must -->

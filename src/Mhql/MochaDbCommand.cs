@@ -15,10 +15,10 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|MUST)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal MochaArray<MhqlKeyword> mhqlobjs;
 
@@ -26,6 +26,7 @@ namespace MochaDB.Mhql {
         internal Mhql_RETURN RETURN;
         internal Mhql_ORDERBY ORDERBY;
         internal Mhql_MUST MUST;
+        internal Mhql_GROUPBY GROUPBY;
 
         #endregion
 
@@ -40,8 +41,9 @@ namespace MochaDB.Mhql {
             USE = new Mhql_USE(Database);
             RETURN = new Mhql_RETURN(Database);
             ORDERBY = new Mhql_ORDERBY(Database);
+            GROUPBY = new Mhql_GROUPBY(Database);
             MUST = new Mhql_MUST(Database);
-            mhqlobjs = new MochaArray<MhqlKeyword>(USE,RETURN,ORDERBY,MUST);
+            mhqlobjs = new MochaArray<MhqlKeyword>(USE,RETURN,ORDERBY,GROUPBY,MUST);
 
             Database=db;
             Command=string.Empty;
@@ -139,7 +141,8 @@ namespace MochaDB.Mhql {
                 return reader;
 
             bool
-                orderby = false;
+                orderby = false,
+                groupby = false;
             string lastcommand;
 
             var table = USE.GetTable(USE.GetUSE(out lastcommand));
@@ -147,12 +150,21 @@ namespace MochaDB.Mhql {
                 //Orderby.
                 if(ORDERBY.IsORDERBY(lastcommand)) {
                     orderby=true;
+                    if(groupby)
+                        throw new MochaException("GROUPBY keyword must be specified before ORDERBY!");
                     ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table);
+                }
+                //Groupby.
+                else if(GROUPBY.IsGROUPBY(lastcommand)) {
+                    groupby=true;
+                    GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table);
                 }
                 //Must.
                 else if(MUST.IsMUST(lastcommand)) {
                     if(orderby)
                         throw new MochaException("MUST keyword must be specified before ORDERBY!");
+                    else if(groupby)
+                        throw new MochaException("MUST keyword must be specified before GROUPBY!");
 
                     MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table);
                 }

@@ -64,13 +64,13 @@ namespace MochaDB.mhql {
 
             int columndex;
             if(!int.TryParse(command.Substring(dex),out columndex))
-                throw new MochaException(command);//"Item index is cannot processed!");
+                throw new MochaException("Item index is cannot processed!");
 
-            table.Rows.Clone();
             table.Rows.array = (
                 dex == 0 || dex == 3 ?
                 table.Rows.OrderBy(x => x.Datas[columndex].ToString()) :
                 table.Rows.OrderByDescending(x => x.Datas[columndex].ToString())).ToArray();
+            table.SetDatasByRows();
         }
 
         #endregion

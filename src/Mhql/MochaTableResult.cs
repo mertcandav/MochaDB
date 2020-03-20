@@ -41,6 +41,23 @@
                 Rows = new MochaRow[0];
         }
 
+        /// <summary>
+        /// Set datas by row datas.
+        /// </summary>
+        internal void SetDatasByRows() {
+            for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+                Columns[columnIndex].Datas.collection.Clear();
+            }
+            
+            for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
+                MochaRow currentRow = Rows[rowIndex];
+
+                for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+                    Columns[columnIndex].Datas.collection.Add(currentRow.Datas[columnIndex]);
+                }
+            }
+        }
+
         #endregion
 
         #region Properties

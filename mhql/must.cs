@@ -35,7 +35,7 @@ namespace MochaDB.mhql {
         /// Returns must command.
         /// </summary>
         /// <param name="command">MHQL Command.</param>
-        /// <param name="final">Command of removed orderby commands.</param>
+        /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
             int mustdex = command.IndexOf("MUST",StringComparison.OrdinalIgnoreCase);
             if(mustdex==-1)
@@ -71,6 +71,7 @@ namespace MochaDB.mhql {
                         select value
                         ).ToArray();
             }
+            table.SetDatasByRows();
         }
 
         #endregion

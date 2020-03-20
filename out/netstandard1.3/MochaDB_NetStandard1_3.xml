@@ -1000,6 +1000,11 @@
             Set rows by datas of columns.
             </summary>
         </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.SetDatasByRows">
+            <summary>
+            Set datas by row datas.
+            </summary>
+        </member>
         <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
             <summary>
             Columns.
@@ -5296,6 +5301,38 @@
             <param name="table">Table to ordering.</param>
             <param name="final">Command of removed use commands.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_GROUPBY">
+            <summary>
+            MHQL GROUPBY keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_GROUPBY.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_GROUPBY.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_GROUPBY.IsGROUPBY(System.String)">
+            <summary>
+            Returns true if command is GROUPBY command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_GROUPBY.GetGROUPBY(System.String,System.String@)">
+            <summary>
+            Returns groupby command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed groupby commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_GROUPBY.GroupBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Groupby by command.
+            </summary>
+            <param name="command">Orderby command.</param>
+            <param name="table">Table to ordering.</param>
+            <param name="final">Command of removed use commands.</param>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_MUST">
             <summary>
             MHQL ORDERBY must.
@@ -5318,7 +5355,7 @@
             Returns must command.
             </summary>
             <param name="command">MHQL Command.</param>
-            <param name="final">Command of removed orderby commands.</param>
+            <param name="final">Command of removed must commands.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_MUST.MustTable(System.String,MochaDB.Mhql.MochaTableResult@)">
             <summary>
