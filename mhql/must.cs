@@ -1,9 +1,8 @@
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
-using MochaDB.Mhql;
 using MochaDB.mhql.engine;
 using MochaDB.mhql.must;
+using MochaDB.Mhql;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -60,14 +59,18 @@ namespace MochaDB.mhql {
         /// <param name="table">Table.</param>
         public void MustTable(string command,ref MochaTableResult table) {
             command = command.TrimStart().TrimEnd();
-            table.Rows = (
-                    from value in table.Rows
-                    where MhqlMust_REGEX.Match(
-                        MhqlMust_REGEX.GetCommand(command,value),
-                        (string)MhqlEng_MUST.GetDataFromCommand(command,value)
-                        )
-                    select value
-                    ).ToArray();
+            var parts = MhqlMust_AND.GetParts(command);
+            for(int index = 0; index < parts.Length; index++) {
+                var partcmd = parts[index].TrimStart().TrimEnd();
+                table.Rows = (
+                        from value in table.Rows
+                        where MhqlMust_REGEX.Match(
+                            MhqlMust_REGEX.GetCommand(partcmd,value),
+                            (string)MhqlEng_MUST.GetDataFromCommand(partcmd,value)
+                            )
+                        select value
+                        ).ToArray();
+            }
         }
 
         #endregion

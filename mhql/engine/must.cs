@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.engine {
@@ -6,28 +5,6 @@ namespace MochaDB.mhql.engine {
     /// MHQL MUST core.
     /// </summary>
     internal class MhqlEng_MUST {
-        /// <summary>
-        /// Returns seperated commands by brackets.
-        /// </summary>
-        /// <param name="command">Command.</param>
-        public static MochaArray<string> GetMusts(string command) {
-            var parts = new List<string>();
-            var dex = 0;
-            while(dex != -1) {
-                var finaldex = command.IndexOf('&',dex);
-                finaldex =
-                    finaldex == -1 ?
-                    command.IndexOf('|',dex) : dex;
-
-                if(finaldex != -1)
-                    parts.Add(command.Substring(dex,finaldex-dex));
-                else
-                    parts.Add(command.Substring(dex));
-            }
-
-            return parts.ToArray();
-        }
-
         /// <summary>
         /// Returns data by command.
         /// </summary>

@@ -74,6 +74,7 @@
   </ItemGroup>
 
   <!-- MQL source code files links -->
+  <!-- General -->
   <ItemGroup>
     <Compile Include="..\mhql\use.cs" Link="use.cs">
       <Visible>False</Visible>
@@ -90,18 +91,29 @@
     <Compile Include="..\mhql\orderby.cs">
       <Visible>False</Visible>
     </Compile>
+  </ItemGroup>
+
+  <!-- .\must -->
+  <ItemGroup>
     <Compile Include="..\mhql\must.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\engine\must.cs">
+    <Compile Include="..\mhql\must\regex.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\must\regex.cs">
+    <Compile Include="..\mhql\must\and.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+
+  <!-- .\engine -->
+  <ItemGroup>
+    <Compile Include="..\mhql\engine\must.cs">
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\engine\editor.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
-
+  
 </Project>

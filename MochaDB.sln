@@ -73,6 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
 	ProjectSection(SolutionItems) = preProject
+		mhql\must\and.cs = mhql\must\and.cs
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
