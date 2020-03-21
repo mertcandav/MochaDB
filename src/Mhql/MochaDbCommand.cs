@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using MochaDB.Connection;
 using MochaDB.mhql;
+using MochaDB.mhql.engine;
 using MochaDB.Streams;
 
 namespace MochaDB.Mhql {
@@ -205,6 +206,7 @@ namespace MochaDB.Mhql {
                 command;
             set {
                 value=value.TrimStart().TrimEnd();
+                MhqlEng_EDITOR.RemoveComments(ref value);
                 if(value==command)
                     return;
 

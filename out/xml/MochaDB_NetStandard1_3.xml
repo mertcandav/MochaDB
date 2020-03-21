@@ -5417,5 +5417,11 @@
             </summary>
             <param name="">Command.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.RemoveComments(System.String@)">
+            <summary>
+            Remove all comments from code.
+            </summary>
+            <param name="command">Command.</param>
+        </member>
     </members>
 </doc>

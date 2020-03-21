@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.engine {
@@ -22,6 +23,21 @@ namespace MochaDB.mhql.engine {
                 if(command.LastChar() != '(')
                     throw new MochaException("Bracket is open but not closed!");
                 command = command.Substring(1,command.Length-1);
+            }
+        }
+
+        /// <summary>
+        /// Remove all comments from code.
+        /// </summary>
+        /// <param name="command">Command.</param>
+        public static void RemoveComments(ref string command) {
+            var regex = new Regex(@"/\*.*\*/");
+            var matches = regex.Matches(command);
+            for(int index = 0; index < matches.Count; index++) {
+                var match = matches[index];
+                if(!match.Success)
+                    continue;
+                command = command.Remove(match.Index,match.Length);
             }
         }
     }
