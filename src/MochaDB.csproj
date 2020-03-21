@@ -94,20 +94,19 @@
     <Compile Include="..\mhql\groupby.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\must.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\and.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\must -->
   <ItemGroup>
-    <Compile Include="..\mhql\must.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\must\regex.cs">
       <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\must\and.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
+    </Compile>  </ItemGroup>
 
   <!-- .\engine -->
   <ItemGroup>

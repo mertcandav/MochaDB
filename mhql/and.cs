@@ -1,10 +1,10 @@
-using System;
+  using System;
 
-namespace MochaDB.mhql.must {
+namespace MochaDB.mhql {
     /// <summary>
     /// MHQL AND keyword.
     /// </summary>
-    internal class MhqlMust_AND {
+    internal class Mhql_AND {
         /// <summary>
         /// Returns seperated commands by or.
         /// </summary>

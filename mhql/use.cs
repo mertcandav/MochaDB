@@ -43,23 +43,39 @@ namespace MochaDB.mhql {
         /// Returns table by use command.
         /// </summary>
         /// <param name="usecommand">Use command.</param>
-        public MochaTableResult GetTable(string usecommand) {
+        public MochaTableResult GetTable(string usecommand,bool from) {
             var columns = new List<MochaColumn>();
             var resulttable = new MochaTableResult();
-            var parts = usecommand.Split(',');
 
-            for(var index = 0; index < parts.Length; index++) {
-                var callcmd = parts[index];
-                var callparts = callcmd.Split('.');
-                if(callparts.Length>2)
-                    throw new MochaException($"'{callcmd}' command is cannot processed!");
-                for(byte partindex = 0; partindex < callparts.Length; partindex++)
-                    callparts[partindex] = callparts[partindex].TrimStart().TrimEnd();
-                var table = Tdb.GetTable(callparts[0]);
-                if(callparts.Length==1) {
+            if(from) {
+                var dex = usecommand.IndexOf("FROM",StringComparison.OrdinalIgnoreCase);
+                var tablename = usecommand.Substring(dex+4).TrimStart().TrimEnd();
+                var parts = usecommand.Substring(0,dex).Split(',');
+
+                var table = Tdb.GetTable(tablename);
+
+                if(parts.Length == 1 && parts[0].TrimStart().TrimEnd() == "*")
                     columns.AddRange(table.Columns);
-                } else {
-                    columns.Add(table.Columns[callparts[1]]);
+                else
+                    for(var index = 0; index < parts.Length; index++) {
+                        var callcmd = parts[index].TrimStart().TrimEnd();
+                        columns.Add(table.Columns[callcmd]);
+                    }
+            } else {
+                var parts = usecommand.Split(',');
+                for(var index = 0; index < parts.Length; index++) {
+                    var callcmd = parts[index];
+                    var callparts = callcmd.Split('.');
+                    if(callparts.Length>2)
+                        throw new MochaException($"'{callcmd}' command is cannot processed!");
+                    for(byte partindex = 0; partindex < callparts.Length; partindex++)
+                        callparts[partindex] = callparts[partindex].TrimStart().TrimEnd();
+                    var table = Tdb.GetTable(callparts[0]);
+                    if(callparts.Length==1) {
+                        columns.AddRange(table.Columns);
+                    } else {
+                        columns.Add(table.Columns[callparts[1]]);
+                    }
                 }
             }
 

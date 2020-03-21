@@ -15,7 +15,7 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
 @"\b(USE|RETURN|ORDERBY|MUST|GROUPBY)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
@@ -141,11 +141,14 @@ namespace MochaDB.Mhql {
                 return reader;
 
             bool
+                fromkw,
                 orderby = false,
                 groupby = false;
-            string lastcommand;
 
-            var table = USE.GetTable(USE.GetUSE(out lastcommand));
+            string lastcommand;
+            var use = USE.GetUSE(out lastcommand);
+            fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
+            var table = USE.GetTable(use,fromkw);
             do {
                 //Orderby.
                 if(ORDERBY.IsORDERBY(lastcommand)) {
