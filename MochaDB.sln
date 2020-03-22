@@ -79,6 +79,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vbnetmhql", "vbnetmhql", "{4F4FE20E-5295-48C1-A3C2-3B925800832E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,10 @@ Global
 		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,7 @@ Global
 		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2} = {822876C1-D58A-4513-BA76-846D0FE5BC93}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
+		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3} = {4F4FE20E-5295-48C1-A3C2-3B925800832E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
