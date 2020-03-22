@@ -1,6 +1,0 @@
-steps:
-- task:
-  inputs:
-    command: test
-    projects: '.\src\MochaDB.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect
