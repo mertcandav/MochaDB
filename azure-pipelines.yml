@@ -1,0 +1,14 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script:
+  displayName: "MochaDB Azure Pipeline"
+
+- script: |
+    - dotnet restore ./src/MochaDB.csproj
+    - dotnet build ./src/MochaDB.csproj -f netstandard1.3
+    - dotnet test ./src/MochaDB.csproj --logger:console --verbosity=minimal
