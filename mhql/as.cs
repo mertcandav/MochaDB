@@ -11,6 +11,7 @@ namespace MochaDB.mhql {
         /// <param name="command">Command</param>
         /// <param name="final">As removed command.</param>
         public static string GetAS(ref string command) {
+            command = command.TrimStart().TrimEnd();
             var dex = command.IndexOf("AS",StringComparison.OrdinalIgnoreCase);
             if(dex==-1)
                 return command;

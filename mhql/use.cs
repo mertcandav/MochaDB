@@ -77,11 +77,11 @@ namespace MochaDB.mhql {
                     if(callparts.Length==1) {
                         columns.AddRange(table.Columns);
                     } else {
-                        var callp1 = callparts[index];
+                        var callp1 = callparts[1];
                         var name = Mhql_AS.GetAS(ref callp1);
                         var column = table.Columns[callp1];
                         column.Name = name;
-                        columns.Add(table.Columns[callparts[1]]);
+                        columns.Add(column);
                     }
                 }
             }
