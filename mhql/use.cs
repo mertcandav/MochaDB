@@ -58,8 +58,11 @@ namespace MochaDB.mhql {
                     columns.AddRange(table.Columns);
                 else
                     for(var index = 0; index < parts.Length; index++) {
-                        var callcmd = parts[index].TrimStart().TrimEnd();
-                        columns.Add(table.Columns[callcmd]);
+                        var callcmd = parts[index];
+                        var name = Mhql_AS.GetAS(ref callcmd);
+                        var column = table.Columns[callcmd];
+                        column.Name = name;
+                        columns.Add(column);
                     }
             } else {
                 var parts = usecommand.Split(',');
@@ -74,6 +77,10 @@ namespace MochaDB.mhql {
                     if(callparts.Length==1) {
                         columns.AddRange(table.Columns);
                     } else {
+                        var callp1 = callparts[index];
+                        var name = Mhql_AS.GetAS(ref callp1);
+                        var column = table.Columns[callp1];
+                        column.Name = name;
                         columns.Add(table.Columns[callparts[1]]);
                     }
                 }

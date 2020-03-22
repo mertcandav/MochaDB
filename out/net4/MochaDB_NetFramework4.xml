@@ -5375,6 +5375,18 @@
             </summary>
             <param name="command">Command.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_AS">
+            <summary>
+            MHQL AS keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_AS.GetAS(System.String@)">
+            <summary>
+            Returns as name.
+            </summary>
+            <param name="command">Command</param>
+            <param name="final">As removed command.</param>
+        </member>
         <member name="T:MochaDB.mhql.must.MhqlMust_REGEX">
             <summary>
             REGEX functions of MUST.
