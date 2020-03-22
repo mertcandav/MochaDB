@@ -17,7 +17,7 @@ namespace MochaDB.mhql.must {
             decimal
                 range1,
                 range2;
-            
+
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
                 throw new MochaException("BETWEEN is cannot processed!");
             if(!decimal.TryParse(parts[1].TrimStart().TrimEnd(),out range1))

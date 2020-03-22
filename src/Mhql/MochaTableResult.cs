@@ -48,7 +48,7 @@
             for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
                 Columns[columnIndex].Datas.collection.Clear();
             }
-            
+
             for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
                 MochaRow currentRow = Rows[rowIndex];
 

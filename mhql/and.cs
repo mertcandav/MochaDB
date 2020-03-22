@@ -1,4 +1,4 @@
-  using System;
+using System.Text.RegularExpressions;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -10,9 +10,8 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         public static MochaArray<string> GetParts(string command) {
-            return command.Split(new[] {
-                "AND","and","And","ANd","anD","aND","AnD"
-            },StringSplitOptions.RemoveEmptyEntries);
+            var regex = new Regex(@"\).*AND.*",RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            return regex.Split(command);
         }
     }
 }
