@@ -29,6 +29,7 @@ Partial Class app
         '
         'codebox
         '
+        Me.codebox.AcceptsTab = True
         Me.codebox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.codebox.BorderStyle = System.Windows.Forms.BorderStyle.None

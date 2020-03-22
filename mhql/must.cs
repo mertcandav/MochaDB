@@ -64,10 +64,7 @@ namespace MochaDB.mhql {
                 var partcmd = parts[index].TrimStart().TrimEnd();
                 table.Rows = (
                         from value in table.Rows
-                        where MhqlMust_REGEX.Match(
-                            MhqlMust_REGEX.GetCommand(partcmd,value),
-                            (string)MhqlEng_MUST.GetDataFromCommand(partcmd,value)
-                            )
+                        where MhqlEng_MUST.IsPassTable(ref partcmd,value)
                         select value
                         ).ToArray();
             }

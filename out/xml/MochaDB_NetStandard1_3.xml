@@ -5406,6 +5406,18 @@
             <param name="pattern">Regex pattern.</param>
             <param name="value">Value.</param>
         </member>
+        <member name="T:MochaDB.mhql.must.MhqlMust_BETWEEN">
+            <summary>
+            BETWEEN functions of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.must.MhqlMust_BETWEEN.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">
             <summary>
             MHQL MUST core.
@@ -5417,6 +5429,13 @@
             </summary>
             <param name="command">Command.</param>
             <param name="row">Base row.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.IsPassTable(System.String@,MochaDB.MochaRow)">
+            <summary>
+            Returns command must result.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
             <summary>

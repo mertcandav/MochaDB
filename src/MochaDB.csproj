@@ -109,7 +109,11 @@
   <ItemGroup>
     <Compile Include="..\mhql\must\regex.cs">
       <Visible>False</Visible>
-    </Compile>  </ItemGroup>
+    </Compile>
+    <Compile Include="..\mhql\must\between.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
 
   <!-- .\engine -->
   <ItemGroup>
