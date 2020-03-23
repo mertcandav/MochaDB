@@ -88,6 +88,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{
 	ProjectSection(SolutionItems) = preProject
 		mhql\functions\between.cs = mhql\functions\between.cs
 		mhql\functions\bigger.cs = mhql\functions\bigger.cs
+		mhql\functions\equal.cs = mhql\functions\equal.cs
 		mhql\functions\lower.cs = mhql\functions\lower.cs
 	EndProjectSection
 EndProject

@@ -5412,6 +5412,18 @@
             <param name="command">Command.</param>
             <param name="row">Row.</param>
         </member>
+        <member name="T:MochaDB.mhql.functions.MhqlFunc_EQUAL">
+            <summary>
+            EQUAL function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_EQUAL.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_AND">
             <summary>
             MHQL AND keyword.

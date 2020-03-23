@@ -113,6 +113,9 @@
     <Compile Include="..\mhql\functions\lower.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\functions\equal.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->

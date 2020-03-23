@@ -16,10 +16,12 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL)\b",
+    RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY)\b",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY)\b",
+    RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal MochaArray<MhqlKeyword> mhqlobjs;
 

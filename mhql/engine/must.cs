@@ -44,6 +44,8 @@ namespace MochaDB.mhql.engine {
                 return MhqlFunc_BIGGER.Pass(command.Substring(7,command.Length-8),row);
             } else if(command.StartsWith("LOWER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_LOWER.Pass(command.Substring(6,command.Length-7),row);
+            } else if(command.StartsWith("EQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_EQUAL.Pass(command.Substring(6,command.Length-7),row);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }
