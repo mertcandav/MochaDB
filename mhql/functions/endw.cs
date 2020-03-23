@@ -1,8 +1,8 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL STARTW function.
+    /// MHQL ENDW function.
     /// </summary>
-    internal class MhqlFunc_STARTW {
+    internal class MhqlFunc_ENDW {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -11,14 +11,14 @@ namespace MochaDB.mhql.functions {
         public static bool Pass(string command,MochaRow row) {
             var parts = command.Split(',');
             if(parts.Length < 2 || parts.Length > 2)
-                throw new MochaException("STARTW function is cannot processed!");
+                throw new MochaException("ENDW function is cannot processed!");
 
             int dex;
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
-                throw new MochaException("STARTW function is cannot processed!");
+                throw new MochaException("ENDW function is cannot processed!");
 
             return
-                row.Datas[dex].Data.ToString().StartsWith(parts[1]);
+                row.Datas[dex].Data.ToString().EndsWith(parts[1]);
         }
     }
 }

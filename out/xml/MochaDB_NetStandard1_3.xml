@@ -5378,7 +5378,7 @@
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
-            BETWEEN function.
+            MHQL BETWEEN function.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.functions.MhqlFunc_BETWEEN.Pass(System.String,MochaDB.MochaRow)">
@@ -5390,7 +5390,7 @@
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BIGGER">
             <summary>
-            BIGGER function.
+            MHQL BIGGER function.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.functions.MhqlFunc_BIGGER.Pass(System.String,MochaDB.MochaRow)">
@@ -5402,7 +5402,7 @@
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_LOWER">
             <summary>
-            LOWER function.
+            MHQL LOWER function.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.functions.MhqlFunc_LOWER.Pass(System.String,MochaDB.MochaRow)">
@@ -5414,7 +5414,7 @@
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_EQUAL">
             <summary>
-            EQUAL function.
+            MHQL EQUAL function.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.functions.MhqlFunc_EQUAL.Pass(System.String,MochaDB.MochaRow)">
@@ -5426,10 +5426,22 @@
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_STARTW">
             <summary>
-            STARTW function.
+            MHQL STARTW function.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.functions.MhqlFunc_STARTW.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlFunc_ENDW">
+            <summary>
+            MHQL ENDW function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_ENDW.Pass(System.String,MochaDB.MochaRow)">
             <summary>
             Pass command?
             </summary>

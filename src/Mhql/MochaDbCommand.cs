@@ -16,7 +16,7 @@ namespace MochaDB.Mhql {
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL|STARTW)\b",
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL|STARTW|ENDW)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(

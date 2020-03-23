@@ -1,6 +1,6 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// BETWEEN function.
+    /// MHQL BETWEEN function.
     /// </summary>
     internal class MhqlFunc_BETWEEN {
         /// <summary>

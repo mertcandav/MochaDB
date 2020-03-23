@@ -1,6 +1,6 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// LOWER function.
+    /// MHQL LOWER function.
     /// </summary>
     internal class MhqlFunc_LOWER {
         /// <summary>

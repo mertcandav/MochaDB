@@ -119,6 +119,9 @@
     <Compile Include="..\mhql\functions\startw.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\functions\endw.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->

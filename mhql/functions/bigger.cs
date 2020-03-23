@@ -1,6 +1,6 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// BIGGER function.
+    /// MHQL BIGGER function.
     /// </summary>
     internal class MhqlFunc_BIGGER {
         /// <summary>

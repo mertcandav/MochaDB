@@ -1,6 +1,6 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// EQUAL function.
+    /// MHQL EQUAL function.
     /// </summary>
     internal class MhqlFunc_EQUAL {
         /// <summary>
