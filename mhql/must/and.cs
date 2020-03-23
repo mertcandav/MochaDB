@@ -11,7 +11,11 @@ namespace MochaDB.mhql {
         /// <param name="command">Command.</param>
         public static MochaArray<string> GetParts(string command) {
             var regex = new Regex(@"\).*AND.*",RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-            return regex.Split(command);
+            var parts = regex.Split(command);
+            for(int index = 0; index < parts.Length-1; index++) {
+                parts[index] += ')';
+            }
+            return parts;
         }
     }
 }

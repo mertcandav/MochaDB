@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".bin", ".bin", "{06A59BC1-9
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
+		azure-pipelines.yml = azure-pipelines.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -57,7 +58,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
 	ProjectSection(SolutionItems) = preProject
-		mhql\and.cs = mhql\and.cs
 		mhql\as.cs = mhql\as.cs
 		mhql\groupby.cs = mhql\groupby.cs
 		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
@@ -76,13 +76,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
 	ProjectSection(SolutionItems) = preProject
-		mhql\must\between.cs = mhql\must\between.cs
+		mhql\must\and.cs = mhql\must\and.cs
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vbnetmhql", "vbnetmhql", "{4F4FE20E-5295-48C1-A3C2-3B925800832E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{4D5E482B-6B35-4989-8773-5FA84900E6DA}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\functions\between.cs = mhql\functions\between.cs
+		mhql\functions\bigger.cs = mhql\functions\bigger.cs
+		mhql\functions\lower.cs = mhql\functions\lower.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +123,7 @@ Global
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3} = {4F4FE20E-5295-48C1-A3C2-3B925800832E}
+		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

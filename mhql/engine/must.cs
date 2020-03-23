@@ -1,5 +1,6 @@
 using System;
 using MochaDB.mhql.must;
+using MochaDB.mhql.functions;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.engine {
@@ -38,7 +39,11 @@ namespace MochaDB.mhql.engine {
                                 MhqlMust_REGEX.GetCommand(command,row),
                                 (string)GetDataFromCommand(command,row));
             } else if(command.StartsWith("BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlMust_BETWEEN.Pass(command.Substring(8,command.Length-9),row);
+                return MhqlFunc_BETWEEN.Pass(command.Substring(8,command.Length-9),row);
+            } else if(command.StartsWith("BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_BIGGER.Pass(command.Substring(7,command.Length-8),row);
+            } else if(command.StartsWith("LOWER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_LOWER.Pass(command.Substring(6,command.Length-7),row);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }

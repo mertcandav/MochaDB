@@ -5364,17 +5364,6 @@
             <param name="command">Must command.</param>
             <param name="table">Table.</param>
         </member>
-        <member name="T:MochaDB.mhql.Mhql_AND">
-            <summary>
-            MHQL AND keyword.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.Mhql_AND.GetParts(System.String)">
-            <summary>
-            Returns seperated commands by or.
-            </summary>
-            <param name="command">Command.</param>
-        </member>
         <member name="T:MochaDB.mhql.Mhql_AS">
             <summary>
             MHQL AS keyword.
@@ -5386,6 +5375,53 @@
             </summary>
             <param name="command">Command</param>
             <param name="final">As removed command.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
+            <summary>
+            BETWEEN function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_BETWEEN.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlFunc_BIGGER">
+            <summary>
+            BIGGER function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_BIGGER.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlFunc_LOWER">
+            <summary>
+            LOWER function.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_LOWER.Pass(System.String,MochaDB.MochaRow)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="row">Row.</param>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_AND">
+            <summary>
+            MHQL AND keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_AND.GetParts(System.String)">
+            <summary>
+            Returns seperated commands by or.
+            </summary>
+            <param name="command">Command.</param>
         </member>
         <member name="T:MochaDB.mhql.must.MhqlMust_REGEX">
             <summary>
@@ -5405,18 +5441,6 @@
             </summary>
             <param name="pattern">Regex pattern.</param>
             <param name="value">Value.</param>
-        </member>
-        <member name="T:MochaDB.mhql.must.MhqlMust_BETWEEN">
-            <summary>
-            BETWEEN functions of MUST.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.must.MhqlMust_BETWEEN.Pass(System.String,MochaDB.MochaRow)">
-            <summary>
-            Pass command?
-            </summary>
-            <param name="command">Command.</param>
-            <param name="row">Row.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">
             <summary>

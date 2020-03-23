@@ -1,8 +1,8 @@
-namespace MochaDB.mhql.must {
+namespace MochaDB.mhql.functions {
     /// <summary>
-    /// BETWEEN functions of MUST.
+    /// BETWEEN function.
     /// </summary>
-    internal class MhqlMust_BETWEEN {
+    internal class MhqlFunc_BETWEEN {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -11,7 +11,7 @@ namespace MochaDB.mhql.must {
         public static bool Pass(string command,MochaRow row) {
             var parts = command.Split(',');
             if(parts.Length < 3 || parts.Length > 3)
-                throw new MochaException("BETWEEN is cannot processed!");
+                throw new MochaException("BETWEEN function is cannot processed!");
 
             int dex;
             decimal
@@ -19,15 +19,15 @@ namespace MochaDB.mhql.must {
                 range2;
 
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
-                throw new MochaException("BETWEEN is cannot processed!");
+                throw new MochaException("BETWEEN function is cannot processed!");
             if(!decimal.TryParse(parts[1].TrimStart().TrimEnd(),out range1))
-                throw new MochaException("BETWEEN is cannot processed!");
+                throw new MochaException("BETWEEN function is cannot processed!");
             if(!decimal.TryParse(parts[2].TrimStart().TrimEnd(),out range2))
-                throw new MochaException("BETWEEN is cannot processed!");
+                throw new MochaException("BETWEEN function is cannot processed!");
 
             decimal value;
             if(!decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("BETWEEN is cannot processed!");
+                throw new MochaException("BETWEEN function is cannot processed!");
 
             return
                     range1 <= range2 ?
