@@ -79,25 +79,25 @@ namespace MochaDB.Mhql {
         #endregion
 
         #region ExecuteQuery
+        /*
+/// <summary>
+/// Run command.
+/// </summary>
+/// <param name="command">MQL Command to set.</param>
+public void ExecuteQuery(string command) {
+    Command=command;
+    ExecuteCommand();
+}
 
-        /// <summary>
-        /// Run command.
-        /// </summary>
-        /// <param name="command">MQL Command to set.</param>
-        public void ExecuteQuery(string command) {
-            Command=command;
-            ExecuteCommand();
-        }
-
-        /// <summary>
-        /// Run command.
-        /// </summary>
-        public void ExecuteCommand() {
-            CheckConnection();
-            if(RETURN.IsReturnableCmd())
-                return;
-        }
-
+/// <summary>
+/// Run command.
+/// </summary>
+public void ExecuteCommand() {
+    CheckConnection();
+    if(RETURN.IsReturnableCmd())
+        return;
+}
+*/
         #endregion
 
         #region ExecuteScalar
