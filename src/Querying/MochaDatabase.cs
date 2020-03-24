@@ -22,7 +22,7 @@ namespace MochaDB.Querying {
         /// <param name="mhql">MHQL Command.</param>
         public static object ExecuteScalar(this MochaDatabase db,string mhql) =>
             new MochaDbCommand(mhql,db).ExecuteScalar();
-
+        /*
         /// <summary>
         /// Execute <see cref="MochaDbCommand.ExecuteCommand()"/> function.
         /// </summary>
@@ -30,7 +30,7 @@ namespace MochaDB.Querying {
         /// <param name="mhql">MHQL Command.</param>
         public static void ExecuteCommand(this MochaDatabase db,string mhql) =>
             new MochaDbCommand(mhql,db).ExecuteCommand();
-
+            */
         /// <summary>
         /// Returns all sectors in database.
         /// </summary>

@@ -937,17 +937,6 @@
             Check connection and database.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteQuery(System.String)">
-            <summary>
-            Run command.
-            </summary>
-            <param name="command">MQL Command to set.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand">
-            <summary>
-            Run command.
-            </summary>
-        </member>
         <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar(System.String)">
             <summary>
             Returns first result or null.
@@ -4261,13 +4250,6 @@
         <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteScalar(MochaDB.MochaDatabase,System.String)">
             <summary>
             Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar"/> function.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="mhql">MHQL Command.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand"/> function.
             </summary>
             <param name="db">Target database.</param>
             <param name="mhql">MHQL Command.</param>
