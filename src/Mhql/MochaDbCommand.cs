@@ -142,16 +142,21 @@ public void ExecuteCommand() {
             var reader = new MochaReader<object>();
             if(!RETURN.IsReturnableCmd())
                 return reader;
-
             bool
                 fromkw,
                 orderby = false,
                 groupby = false;
 
             string lastcommand;
+            var at = Mhql_AT.GetAT(Command,out lastcommand);
             var use = USE.GetUSE(out lastcommand);
             fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
-            var table = USE.GetTable(use,fromkw);
+            var table =
+                string.IsNullOrEmpty(at) || at.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
+                    USE.GetTable(use,fromkw) :
+                    at.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
+                        USE.GetSector(use,fromkw) :
+                        throw new MochaException("@ mark is cannot processed!");
             do {
                 //Orderby.
                 if(ORDERBY.IsORDERBY(lastcommand)) {

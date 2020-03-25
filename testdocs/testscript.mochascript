@@ -35,6 +35,11 @@ func Main()
 
 func BuildSectors()
 {
+    AddSector:Admin:Mertcan Davulcu:Moderator.
+    AddSector:Mod1:Taner Erdem:Moderator.
+    AddSector:Mod2:Mike Tam:Moderator.
+    AddSector:Mod3:Monark Mac:Moderator.
+    AddSector:Mod4:Angela Love:Moderator.
 }
 
 func BuildStacks()

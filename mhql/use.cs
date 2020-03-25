@@ -92,6 +92,68 @@ namespace MochaDB.mhql {
             return resulttable;
         }
 
+        /// <summary>
+        /// Returns sector table by use command.
+        /// </summary>
+        /// <param name="usecommand">Use command.</param>
+        public MochaTableResult GetSector(string usecommand,bool from) {
+            if(from)
+                throw new MochaException("FROM keyword is cannot used with @SECTORS marked commands!");
+
+            var resulttable = new MochaTableResult {
+                Columns = new[] {
+                    new MochaColumn("Name"),
+                    new MochaColumn("Description"),
+                    new MochaColumn("Data")
+                }
+            };
+            var rows = new List<MochaRow>();
+
+            var parts = usecommand.Split(',');
+            for(var index = 0; index < parts.Length; index++) {
+                var callcmd = parts[index].TrimStart().TrimEnd();
+                if(callcmd == "*") {
+                    var sectors = Tdb.GetSectors();
+                    for(int sindex = 0; sindex < sectors.Count; sindex++) {
+                        var currentsector = sectors.ElementAt(sindex);
+                        rows.Add(new MochaRow(
+                                new MochaData {
+                                    data = currentsector.Name,
+                                    dataType = MochaDataType.String
+                                },
+                                new MochaData {
+                                    data = currentsector.Description,
+                                    dataType = MochaDataType.String
+                                },
+                                new MochaData {
+                                    data = currentsector.Data,
+                                    dataType = MochaDataType.String
+                                }
+                            ));
+                    }
+                } else {
+                    var sector = Tdb.GetSector(callcmd);
+                    rows.Add(new MochaRow(
+                            new MochaData {
+                                data = sector.Name,
+                                dataType = MochaDataType.String
+                            },
+                            new MochaData {
+                                data = sector.Description,
+                                dataType = MochaDataType.String
+                            },
+                            new MochaData {
+                                data = sector.Data,
+                                dataType = MochaDataType.String
+                            }
+                        ));
+                }
+            }
+            resulttable.Rows = rows.ToArray();
+
+            return resulttable;
+        }
+
         #endregion
     }
 }

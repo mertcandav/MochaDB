@@ -58,6 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
 	ProjectSection(SolutionItems) = preProject
+		mhql\@.cs = mhql\@.cs
 		mhql\as.cs = mhql\as.cs
 		mhql\groupby.cs = mhql\groupby.cs
 		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
