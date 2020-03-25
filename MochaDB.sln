@@ -95,6 +95,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{
 		mhql\functions\startw.cs = mhql\functions\startw.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharpmhql", "fsharpmhql", "{09C26371-28DF-43E5-B6BF-EFC72F40A3F4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fsharpmhql.fsproj", "{F19A9F6D-5CE4-446C-9A70-6094A0056241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +117,10 @@ Global
 		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F19A9F6D-5CE4-446C-9A70-6094A0056241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19A9F6D-5CE4-446C-9A70-6094A0056241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19A9F6D-5CE4-446C-9A70-6094A0056241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19A9F6D-5CE4-446C-9A70-6094A0056241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +136,7 @@ Global
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3} = {4F4FE20E-5295-48C1-A3C2-3B925800832E}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
+		{F19A9F6D-5CE4-446C-9A70-6094A0056241} = {09C26371-28DF-43E5-B6BF-EFC72F40A3F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
