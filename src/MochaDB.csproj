@@ -103,6 +103,9 @@
     <Compile Include="..\mhql\@.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\select.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\functions -->

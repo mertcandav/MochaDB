@@ -5376,6 +5376,35 @@
             <param name="command">Command.</param>
             <param name="final">Command of removed use commands.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_SELECT">
+            <summary>
+            MHQL SELECT keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SELECT.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_SELECT.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SELECT.GetSELECT(System.String@)">
+            <summary>
+            Returns select command.
+            </summary>
+            <param name="final">Command of removed select commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SELECT.GetTables(System.String)">
+            <summary>
+            Returns tables by select command.
+            </summary>
+            <param name="selectcommand">Select command.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SELECT.GetSectors(System.String)">
+            <summary>
+            Returns sectors by select command.
+            </summary>
+            <param name="selectcommand">Select command.</param>
+        </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
             MHQL BETWEEN function.
