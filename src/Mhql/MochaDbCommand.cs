@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MochaDB.Connection;
 using MochaDB.mhql;
@@ -151,17 +151,25 @@ public void ExecuteCommand() {
                 groupby = false;
 
             string lastcommand;
-            var at = Mhql_AT.GetAT(Command,out lastcommand);
+            var tags = Mhql_AT.GetATS(Command,out lastcommand);
             if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-                if(at.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
+                if(tags.Length > 1)
+                    throw new MochaException("Multi tags is cannot used with USE keyword!");
+
+                string tag =
+                    tags.Length == 0 ?
+                        string.Empty :
+                        tags.GetFirst();
+
+                if(tag.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
                     throw new MochaException("@STACKS is cannot target if used with USE keyword!");
 
                 var use = USE.GetUSE(out lastcommand);
                 fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
                 var table =
-                    string.IsNullOrEmpty(at) || at.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
+                    string.IsNullOrEmpty(tag) || tag.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
                         USE.GetTable(use,fromkw) :
-                        at.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
+                        tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
                             USE.GetSector(use,fromkw) :
                             throw new MochaException("@ mark is cannot processed!");
                 do {
@@ -201,14 +209,37 @@ public void ExecuteCommand() {
                 if(fromkw)
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
 
-                IEnumerable array;
-                if(string.IsNullOrEmpty(at) || at.Equals("@TABLES",StringComparison.OrdinalIgnoreCase))
-                    array = SELECT.GetTables(select);
-                else if(at.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase))
-                    array = SELECT.GetSectors(select);
-                else if(at.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
-                    array = SELECT.GetStacks(select);
-                else throw new MochaException("@ mark is cannot processed!");
+                List<object> collection = new List<object>();
+                if(tags.Length == 0)
+                    collection.AddRange(SELECT.GetTables(select));
+                else {
+                    bool
+                        tables = false,
+                        sectors = false,
+                        stacks = false;
+                    for(int index = 0; index < tags.Length; index++) {
+                        if(tags.ElementAt(index).Equals("@TABLES",StringComparison.OrdinalIgnoreCase)) {
+                            if(tables)
+                                throw new MochaException("@TABLES cannot be targeted more than once!");
+
+                            tables = true;
+                            collection.AddRange(SELECT.GetTables(select));
+                        } else if(tags.ElementAt(index).Equals("@SECTORS",StringComparison.OrdinalIgnoreCase)) {
+                            if(sectors)
+                                throw new MochaException("@SECTORS cannot be targeted more than once!");
+
+                            sectors = true;
+                            collection.AddRange(SELECT.GetSectors(select));
+                        } else if(tags.ElementAt(index).Equals("@STACKS",StringComparison.OrdinalIgnoreCase)) {
+                            if(stacks)
+                                throw new MochaException("@STACKS cannot be targeted more than once!");
+
+                            stacks = true;
+                            collection.AddRange(SELECT.GetStacks(select));
+                        } else
+                            throw new MochaException(tags.ElementAt(index));//"@ mark is cannot processed!");
+                    }
+                }
 
                 do {
                     //Orderby.
@@ -230,9 +261,9 @@ public void ExecuteCommand() {
                         break;
                 } while(true);
 
-                reader.array = new MochaArray<object>(array);
+                reader.array = new MochaArray<object>(collection);
             } else
-                throw new MochaException("MHQL is cannot processed!");
+                throw new MochaException(lastcommand);//"MHQL is cannot processed!");
 
             return reader;
         }

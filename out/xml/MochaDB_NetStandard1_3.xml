@@ -5371,10 +5371,17 @@
         </member>
         <member name="M:MochaDB.mhql.Mhql_AT.GetAT(System.String,System.String@)">
             <summary>
-            Returns use command.
+            Returns tag from command.
             </summary>
             <param name="command">Command.</param>
-            <param name="final">Command of removed use commands.</param>
+            <param name="final">Command of removed tag.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_AT.GetATS(System.String,System.String@)">
+            <summary>
+            Returns tags from command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="final">Command of removed tags.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_SELECT">
             <summary>
