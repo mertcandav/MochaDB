@@ -153,6 +153,9 @@ public void ExecuteCommand() {
             string lastcommand;
             var at = Mhql_AT.GetAT(Command,out lastcommand);
             if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
+                if(at.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
+                    throw new MochaException("@STACKS is cannot target if used with USE keyword!");
+
                 var use = USE.GetUSE(out lastcommand);
                 fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
                 var table =
@@ -203,6 +206,8 @@ public void ExecuteCommand() {
                     array = SELECT.GetTables(select);
                 else if(at.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase))
                     array = SELECT.GetSectors(select);
+                else if(at.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
+                    array = SELECT.GetStacks(select);
                 else throw new MochaException("@ mark is cannot processed!");
 
                 do {

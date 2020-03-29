@@ -58,6 +58,15 @@ namespace MochaDB.mhql {
             return new MochaArray<MochaSector>(Tdb.GetSectors(x => regex.IsMatch(x.Name)));
         }
 
+        /// <summary>
+        /// Returns stacks by select command.
+        /// </summary>
+        /// <param name="selectcommand">Select command.</param>
+        public MochaArray<MochaStack> GetStacks(string selectcommand) {
+            var regex = new Regex(selectcommand);
+            return new MochaArray<MochaStack>(Tdb.GetStacks(x => regex.IsMatch(x.Name)));
+        }
+
         #endregion
     }
 }

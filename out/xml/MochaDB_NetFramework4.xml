@@ -5405,6 +5405,12 @@
             </summary>
             <param name="selectcommand">Select command.</param>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_SELECT.GetStacks(System.String)">
+            <summary>
+            Returns stacks by select command.
+            </summary>
+            <param name="selectcommand">Select command.</param>
+        </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
             MHQL BETWEEN function.
