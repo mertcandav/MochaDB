@@ -19,14 +19,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C1D92442-FEE4-41A0-B375-ECEC11BA750A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pdocs", "pdocs", "{C1D92442-FEE4-41A0-B375-ECEC11BA750A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{A0662273-0273-4D70-BE6B-7DE1EF5AE41A}"
 	ProjectSection(SolutionItems) = preProject
-		docs\resources\MochaDB_Logo.ico = docs\resources\MochaDB_Logo.ico
-		docs\Resources\MochaDB_Logo.png = docs\Resources\MochaDB_Logo.png
-		docs\Resources\MochaDB_Texted.png = docs\Resources\MochaDB_Texted.png
-		docs\Resources\MochaDB_Texted.psd = docs\Resources\MochaDB_Texted.psd
+		pdocs\resources\MochaDB_Logo.ico = pdocs\resources\MochaDB_Logo.ico
+		pdocs\resources\MochaDB_Logo.png = pdocs\resources\MochaDB_Logo.png
+		pdocs\resources\MochaDB_Texted.ico = pdocs\resources\MochaDB_Texted.ico
+		pdocs\resources\MochaDB_Texted.png = pdocs\resources\MochaDB_Texted.png
+		pdocs\resources\MochaDB_Texted.psd = pdocs\resources\MochaDB_Texted.psd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3AA8059-4CBE-44A1-8792-EDCB236D7361}"
@@ -41,9 +42,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".bin", ".bin", "{06A59BC1-9
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{62116A0C-4ADB-4D6F-9A70-A75B7E70469F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget-packages", "nuget-packages", "{62116A0C-4ADB-4D6F-9A70-A75B7E70469F}"
 	ProjectSection(SolutionItems) = preProject
-		docs\packages\documentation.md = docs\packages\documentation.md
+		pdocs\nuget-packages\documentation.md = pdocs\nuget-packages\documentation.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharptest", "fsharptest", "{822876C1-D58A-4513-BA76-846D0FE5BC93}"
