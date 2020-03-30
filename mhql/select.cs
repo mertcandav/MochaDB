@@ -34,10 +34,12 @@ namespace MochaDB.mhql {
             int finaldex = MochaDbCommand.mainkeywordRegex.Match(Command,usedex+6).Index;
             if(finaldex==0)
                 throw new MochaException("SELECT command is cannot processed!");
-            var usecommand = Command.Substring(usedex+6,finaldex-(usedex+6));
+            var usecommand = Command.Substring(usedex+6,finaldex-(usedex+6)).TrimStart().TrimEnd();
+            if(!usecommand.StartsWith("\"") || !usecommand.EndsWith("\""))
+                throw new MochaException("Regex query is cannot processed!");
 
             final = Command.Substring(finaldex);
-            return usecommand;
+            return usecommand.Substring(1,usecommand.Length-2);
         }
 
         /// <summary>

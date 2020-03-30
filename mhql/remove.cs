@@ -2,16 +2,16 @@ using System;
 
 namespace MochaDB.mhql {
     /// <summary>
-    /// MHQL RETURN keyword.
+    /// MHQL REMOVE keyword.
     /// </summary>
-    internal class Mhql_RETURN:MhqlKeyword {
+    internal class Mhql_REMOVE:MhqlKeyword {
         #region Constructors
 
         /// <summary>
-        /// Create a new Mhql_RETURN.
+        /// Create a new Mhql_REMOVE.
         /// </summary>
         /// <param name="db">Target database.</param>
-        public Mhql_RETURN(MochaDatabase db) {
+        public Mhql_REMOVE(MochaDatabase db) {
             Command = string.Empty;
             Tdb = db;
         }
@@ -21,10 +21,10 @@ namespace MochaDB.mhql {
         #region Methods
 
         /// <summary>
-        /// Returns true if command is returnable, return false if not.
+        /// Returns true if command is remove, return false if not.
         /// </summary>
-        public bool IsReturnableCmd() =>
-            Command.EndsWith("RETURN",StringComparison.OrdinalIgnoreCase);
+        public bool IsRemoveCmd() =>
+            Command.EndsWith("REMOVE",StringComparison.OrdinalIgnoreCase);
 
         #endregion
     }

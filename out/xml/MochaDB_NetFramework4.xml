@@ -815,6 +815,11 @@
             Interface for MochaDB database managers.
             </summary>
         </member>
+        <member name="T:MochaDB.IMochaDatabaseItem">
+            <summary>
+            Interface for MochaDB database data items.
+            </summary>
+        </member>
         <member name="T:MochaDB.IMochaDatabaseSchema">
             <summary>
             Interface for MochaDB database schemas.
@@ -909,9 +914,42 @@
             Log time.
             </summary>
         </member>
+        <member name="T:MochaDB.Mhql.IMhqlCommand">
+            <summary>
+            Interface for MochaDB Mhql commands.
+            </summary>
+        </member>
         <member name="T:MochaDB.Mhql.IMochaDbCommand">
             <summary>
             Interface for MHQL commands processors.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Mhql.MhqlCommand">
+            <summary>
+            Mhql command for MochaDB Mhql querys.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlCommand.#ctor(System.String)">
+            <summary>
+            Create a new MhqlCommand.
+            </summary>
+            <param name="command">Mhql command.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible" -->
+        <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible">
+            <summary>
+            Returns true if command ise reader compatible command, returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlCommand.IsScalarCompatible">
+            <summary>
+            Returns true if command ise scalar compatible command, returns false if not.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.ToString" -->
+        <member name="P:MochaDB.Mhql.MhqlCommand.Command">
+            <summary>
+            Mhql command.
             </summary>
         </member>
         <member name="T:MochaDB.Mhql.MochaDbCommand">
@@ -935,6 +973,17 @@
         <member name="M:MochaDB.Mhql.MochaDbCommand.CheckConnection">
             <summary>
             Check connection and database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand(System.String)">
+            <summary>
+            Run command.
+            </summary>
+            <param name="command">MQL Command to set.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand">
+            <summary>
+            Run command.
             </summary>
         </member>
         <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar(System.String)">
@@ -2483,6 +2532,12 @@
             </summary>
             <param name="path">Path of elements.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveDatabaseItem(MochaDB.IMochaDatabaseItem)">
+            <summary>
+            Remove database item by type.
+            </summary>
+            <param name="item">DatabaseItem object.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.ToString">
             <summary>
             Returns result of <see cref="M:MochaDB.MochaDatabase.GetMochaScript"/>
@@ -2843,12 +2898,7 @@
         </member>
         <member name="T:MochaDB.Mochaq.MochaQCommand">
             <summary>
-            Base for MochaQ querys.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.#ctor">
-            <summary>
-            Create new MochaQCommand.
+            MochaQ query for MochaDB.
             </summary>
         </member>
         <member name="M:MochaDB.Mochaq.MochaQCommand.#ctor(System.String)">
@@ -5417,6 +5467,22 @@
             Returns stacks by select command.
             </summary>
             <param name="selectcommand">Select command.</param>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_REMOVE">
+            <summary>
+            MHQL REMOVE keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_REMOVE.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_REMOVE.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_REMOVE.IsRemoveCmd">
+            <summary>
+            Returns true if command is remove, return false if not.
+            </summary>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>

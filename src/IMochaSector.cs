@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// Sector interface for MochaDB sectors.
     /// </summary>
-    public interface IMochaSector {
+    public interface IMochaSector:IMochaDatabaseItem {
         #region Events
 
         event EventHandler<EventArgs> NameChanged;
@@ -13,9 +13,7 @@ namespace MochaDB {
 
         #region Properties
 
-        string Name { get; set; }
         string Data { get; set; }
-        string Description { get; set; }
 
         #endregion
     }

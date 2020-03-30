@@ -13,22 +13,23 @@ namespace MochaDB.Mhql {
     public class MochaDbCommand:IMochaDbCommand {
         #region Fields
 
-        private string command;
+        private MhqlCommand command;
         private MochaDatabase db;
 
         internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL|STARTW|ENDW|SELECT)\b",
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL|STARTW|ENDW|SELECT|REMOVE)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT)\b",
+@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT|REMOVE)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
-        internal MochaArray<MhqlKeyword> mhqlobjs;
+        internal MochaArray<MhqlKeyword> keywords;
 
         internal Mhql_USE USE;
         internal Mhql_SELECT SELECT;
         internal Mhql_RETURN RETURN;
+        internal Mhql_REMOVE REMOVE;
         internal Mhql_ORDERBY ORDERBY;
         internal Mhql_MUST MUST;
         internal Mhql_GROUPBY GROUPBY;
@@ -49,7 +50,8 @@ namespace MochaDB.Mhql {
             ORDERBY = new Mhql_ORDERBY(Database);
             GROUPBY = new Mhql_GROUPBY(Database);
             MUST = new Mhql_MUST(Database);
-            mhqlobjs = new MochaArray<MhqlKeyword>(USE,SELECT,RETURN,ORDERBY,GROUPBY,MUST);
+            REMOVE = new Mhql_REMOVE(Database);
+            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,RETURN,ORDERBY,GROUPBY,MUST);
 
             Database=db;
             Command=string.Empty;
@@ -82,25 +84,89 @@ namespace MochaDB.Mhql {
         #endregion
 
         #region ExecuteQuery
-        /*
-/// <summary>
-/// Run command.
-/// </summary>
-/// <param name="command">MQL Command to set.</param>
-public void ExecuteQuery(string command) {
-    Command=command;
-    ExecuteCommand();
-}
 
-/// <summary>
-/// Run command.
-/// </summary>
-public void ExecuteCommand() {
-    CheckConnection();
-    if(RETURN.IsReturnableCmd())
-        return;
-}
-*/
+        /// <summary>
+        /// Run command.
+        /// </summary>
+        /// <param name="command">MQL Command to set.</param>
+        public void ExecuteCommand(string command) {
+            Command=command;
+            ExecuteCommand();
+        }
+
+        /// <summary>
+        /// Run command.
+        /// </summary>
+        public void ExecuteCommand() {
+            CheckConnection();
+            if(RETURN.IsReturnableCmd())
+                return;
+
+            string lastcommand;
+            var tags = Mhql_AT.GetATS(Command,out lastcommand);
+            if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
+                throw new MochaException("USE keyword is not supported by execute command!");
+            } else if(lastcommand.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
+                var select = SELECT.GetSELECT(out lastcommand);
+                List<object> collection = new List<object>();
+                if(tags.Length == 0)
+                    collection.AddRange(SELECT.GetTables(select));
+                else {
+                    bool
+                        tables = false,
+                        sectors = false,
+                        stacks = false;
+                    for(int index = 0; index < tags.Length; index++) {
+                        if(tags.ElementAt(index).Equals("@TABLES",StringComparison.OrdinalIgnoreCase)) {
+                            if(tables)
+                                throw new MochaException("@TABLES cannot be targeted more than once!");
+
+                            tables = true;
+                            collection.AddRange(SELECT.GetTables(select));
+                        } else if(tags.ElementAt(index).Equals("@SECTORS",StringComparison.OrdinalIgnoreCase)) {
+                            if(sectors)
+                                throw new MochaException("@SECTORS cannot be targeted more than once!");
+
+                            sectors = true;
+                            collection.AddRange(SELECT.GetSectors(select));
+                        } else if(tags.ElementAt(index).Equals("@STACKS",StringComparison.OrdinalIgnoreCase)) {
+                            if(stacks)
+                                throw new MochaException("@STACKS cannot be targeted more than once!");
+
+                            stacks = true;
+                            collection.AddRange(SELECT.GetStacks(select));
+                        } else
+                            throw new MochaException("@ mark is cannot processed!");
+                    }
+                }
+
+                do {
+                    //Orderby.
+                    if(ORDERBY.IsORDERBY(lastcommand)) {
+                        throw new MochaException("ORDERBY keyword is canot used with SELECT keyword!");
+                    }
+                    //Groupby.
+                    else if(GROUPBY.IsGROUPBY(lastcommand)) {
+                        throw new MochaException("GROUPBY keyword is canot used with SELECT keyword!");
+                    }
+                    //Must.
+                    else if(MUST.IsMUST(lastcommand)) {
+                        throw new MochaException("MUST keyword is canot used with SELECT keyword!");
+                    }
+                    //Remove.
+                    else if(lastcommand.Equals("REMOVE",StringComparison.OrdinalIgnoreCase)) {
+                        for(int index = 0; index < collection.Count; index++) {
+                            var item = (IMochaDatabaseItem)collection[index];
+                            Database.RemoveDatabaseItem(item);
+                        }
+                        return;
+                    } else
+                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
+                } while(true);
+            } else
+                throw new MochaException("MHQL is cannot processed!");
+        }
+
         #endregion
 
         #region ExecuteScalar
@@ -255,7 +321,7 @@ public void ExecuteCommand() {
                         throw new MochaException("MUST keyword is canot used with SELECT keyword!");
                     }
                     //Return.
-                    else if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
+                    else if(!lastcommand.Equals("REMOVE",StringComparison.OrdinalIgnoreCase))
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                     else
                         break;
@@ -263,7 +329,7 @@ public void ExecuteCommand() {
 
                 reader.array = new MochaArray<object>(collection);
             } else
-                throw new MochaException(lastcommand);//"MHQL is cannot processed!");
+                throw new MochaException("MHQL is cannot processed!");
 
             return reader;
         }
@@ -286,18 +352,16 @@ public void ExecuteCommand() {
         /// <summary>
         /// Current MQL command.
         /// </summary>
-        public string Command {
+        public MhqlCommand Command {
             get =>
                 command;
             set {
-                value=value.TrimStart().TrimEnd();
-                MhqlEng_EDITOR.RemoveComments(ref value);
                 if(value==command)
                     return;
 
                 command = value;
-                for(int index = 0; index < mhqlobjs.Length; index++)
-                    mhqlobjs[index].Command = value;
+                for(int index = 0; index < keywords.Length; index++)
+                    keywords[index].Command = value;
             }
         }
 
@@ -314,8 +378,8 @@ public void ExecuteCommand() {
                     return;
 
                 db = value;
-                for(int index = 0; index < mhqlobjs.Length; index++)
-                    mhqlobjs[index].Tdb = value;
+                for(int index = 0; index < keywords.Length; index++)
+                    keywords[index].Tdb = value;
             }
         }
 

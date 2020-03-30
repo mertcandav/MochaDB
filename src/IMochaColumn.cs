@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// Column interface for MochaDB columns.
     /// </summary>
-    public interface IMochaColumn {
+    public interface IMochaColumn:IMochaDatabaseItem {
         #region Events
 
         event EventHandler<EventArgs> NameChanged;
@@ -13,8 +13,6 @@ namespace MochaDB {
 
         #region Properties
 
-        string Name { get; set; }
-        string Description { get; set; }
         MochaColumnDataCollection Datas { get; }
         MochaDataType DataType { get; set; }
 

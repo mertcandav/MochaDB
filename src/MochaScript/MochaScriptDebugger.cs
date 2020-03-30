@@ -178,7 +178,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                         continue;
                     }
 
-                    db.Query.MochaQ.Command=line;
+                    db.Query.MochaQ=line;
                     if(db.Query.MochaQ.IsRunQuery()) {
                         try {
                             db.Query.Run(line);

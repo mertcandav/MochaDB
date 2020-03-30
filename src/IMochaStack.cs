@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// Stack interface for MochaDB stacks.
     /// </summary>
-    public interface IMochaStack {
+    public interface IMochaStack:IMochaDatabaseItem {
         #region Events
 
         event EventHandler<EventArgs> NameChanged;
@@ -13,8 +13,6 @@ namespace MochaDB {
 
         #region Properties
 
-        string Name { get; set; }
-        string Description { get; set; }
         MochaStackItemCollection Items { get; }
 
         #endregion

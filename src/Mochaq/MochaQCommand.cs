@@ -1,8 +1,8 @@
 ﻿namespace MochaDB.Mochaq {
     /// <summary>
-    /// Base for MochaQ querys.
+    /// MochaQ query for MochaDB.
     /// </summary>
-    public class MochaQCommand:IMochaQCommand {
+    public struct MochaQCommand:IMochaQCommand {
         #region Fields
 
         private string command;
@@ -10,13 +10,6 @@
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// Create new MochaQCommand.
-        /// </summary>
-        public MochaQCommand() {
-            Command="BREAKQUERY";
-        }
 
         /// <summary>
         /// Create new MochaQCommand.

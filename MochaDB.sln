@@ -66,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 		mhql\MhqlKeyword.cs = mhql\MhqlKeyword.cs
 		mhql\must.cs = mhql\must.cs
 		mhql\orderby.cs = mhql\orderby.cs
+		mhql\remove.cs = mhql\remove.cs
 		mhql\return.cs = mhql\return.cs
 		mhql\select.cs = mhql\select.cs
 		mhql\use.cs = mhql\use.cs

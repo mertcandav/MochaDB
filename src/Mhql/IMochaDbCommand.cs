@@ -15,7 +15,7 @@ namespace MochaDB.Mhql {
 
         #region Properties
 
-        string Command { get; set; }
+        MhqlCommand Command { get; set; }
 
         #endregion
     }
