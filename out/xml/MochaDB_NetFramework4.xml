@@ -952,6 +952,41 @@
             Mhql command.
             </summary>
         </member>
+        <member name="T:MochaDB.Mhql.MhqlFormatter">
+            <summary>
+            Formatter for Mhql commands.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlFormatter.IsKeyword(System.String)">
+            <summary>
+            Return true if value is Mhql keyword but return false if not.
+            </summary>
+            <param name="value">Value to check.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseKeywords(System.String@)">
+            <summary>
+            Replace Mhql keywords to upper case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseKeywords(System.String)">
+            <summary>
+            Replace Mhql keywords to upper case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseKeywords(System.String@)">
+            <summary>
+            Replace Mhql keywords to lower case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseKeywords(System.String)">
+            <summary>
+            Replace Mhql keywords to lower case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
         <member name="T:MochaDB.Mhql.MochaDbCommand">
             <summary>
             MHQL Command processor for MochaDB.
