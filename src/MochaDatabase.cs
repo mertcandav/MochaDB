@@ -2081,16 +2081,16 @@ namespace MochaDB {
         /// Remove database item by type.
         /// </summary>
         /// <param name="item">DatabaseItem object.</param>
-        public void RemoveDatabaseItem(IMochaDatabaseItem item) {
+        public bool RemoveDatabaseItem(IMochaDatabaseItem item) {
             var type = item.GetType();
             if(type == typeof(MochaTable))
-                RemoveTable(item.Name);
+                return RemoveTable(item.Name);
             else if(type == typeof(MochaSector))
-                RemoveSector(item.Name);
+                return RemoveSector(item.Name);
             else if(type == typeof(MochaStack))
-                RemoveStack(item.Name);
+                return RemoveStack(item.Name);
             else
-                throw new MochaException("Item type is not compatible any database data items!");
+                return false;
         }
 
         #endregion

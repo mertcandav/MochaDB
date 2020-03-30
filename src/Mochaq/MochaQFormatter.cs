@@ -114,6 +114,15 @@ $@"^({dynamicKeywords})$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant)
         }
 
         /// <summary>
+        /// Replace MochaQ keywords to upper case.
+        /// </summary>
+        /// <param name="value">The value to targeting.</param>
+        public static string UpperCaseKeywords(string value) {
+            UpperCaseKeywords(ref value);
+            return value;
+        }
+
+        /// <summary>
         /// Replace MochaQ keywords to lower case.
         /// </summary>
         /// <param name="value">The value to targeting.</param>
@@ -158,6 +167,15 @@ $@"^({dynamicKeywords})$",RegexOptions.IgnoreCase|RegexOptions.CultureInvariant)
             }
 
             value = valueSB.ToString();
+        }
+
+        /// <summary>
+        /// Replace MochaQ keywords to lower case.
+        /// </summary>
+        /// <param name="value">The value to targeting.</param>
+        public static string LowerCaseKeywords(string value) {
+            LowerCaseKeywords(ref value);
+            return value;
         }
 
         #endregion

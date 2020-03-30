@@ -2955,7 +2955,19 @@
             </summary>
             <param name="value">The value to targeting.</param>
         </member>
+        <member name="M:MochaDB.Mochaq.MochaQFormatter.UpperCaseKeywords(System.String)">
+            <summary>
+            Replace MochaQ keywords to upper case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
         <member name="M:MochaDB.Mochaq.MochaQFormatter.LowerCaseKeywords(System.String@)">
+            <summary>
+            Replace MochaQ keywords to lower case.
+            </summary>
+            <param name="value">The value to targeting.</param>
+        </member>
+        <member name="M:MochaDB.Mochaq.MochaQFormatter.LowerCaseKeywords(System.String)">
             <summary>
             Replace MochaQ keywords to lower case.
             </summary>
