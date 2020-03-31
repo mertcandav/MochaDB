@@ -14,6 +14,7 @@ namespace MochaDB {
         #region Properties
 
         string Data { get; set; }
+        MochaAttributeCollection Attributes { get; }
 
         #endregion
     }

@@ -21,6 +21,7 @@ namespace MochaDB {
         /// <param name="name">Name.</param>
         public MochaColumn(string name) {
             Datas = new MochaColumnDataCollection(MochaDataType.String);
+            Attributes = new MochaAttributeCollection();
             Name = name;
             DataType = MochaDataType.String;
             Description = string.Empty;
@@ -124,6 +125,11 @@ namespace MochaDB {
                 Datas.DataType=value;
             }
         }
+
+        /// <summary>
+        /// Attributes of column.
+        /// </summary>
+        public MochaAttributeCollection Attributes { get; }
 
         #endregion
     }

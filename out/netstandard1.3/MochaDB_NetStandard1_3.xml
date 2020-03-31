@@ -1291,6 +1291,91 @@
             Value.
             </summary>
         </member>
+        <member name="T:MochaDB.MochaAttributeCollection">
+            <summary>
+            MochaAttribute collector.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.#ctor">
+            <summary>
+            Create new MochaAttributeCollection.
+            </summary>
+        </member>
+        <member name="E:MochaDB.MochaAttributeCollection.AttributeNameChanged">
+            <summary>
+            This happens after NameChanged event of any item in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Clear">
+            <summary>
+            Remove all items.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Add(MochaDB.MochaAttribute)">
+            <summary>
+            Add item.
+            </summary>
+            <param name="item">Item to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Add(System.String,System.String)">
+            <summary>
+            Add item.
+            </summary>
+            <param name="name">Name of item.</param>
+            <param name="value">Value of item.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.MochaAttribute})">
+            <summary>
+            Add item from range.
+            </summary>
+            <param name="items">Range to add items.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Remove(MochaDB.MochaAttribute)">
+            <summary>
+            Remove item.
+            </summary>
+            <param name="item">Item to remove.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Remove(System.String)">
+            <summary>
+            Remove item by name.
+            </summary>
+            <param name="name">Name of item to remove.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.RemoveAt(System.Int32)">
+            <summary>
+            Remove item by index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.IndexOf(System.String)">
+            <summary>
+            Return index if index is find but return -1 if index is not find.
+            </summary>
+            <param name="name">Name of item to find index.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.Contains(System.String)">
+            <summary>
+            Return true if item is exists but return false if item not exists.
+            </summary>
+            <param name="name">Name of item to exists check.</param>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.GetFirst">
+            <summary>
+            Return first element in collection.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaAttributeCollection.GetLast">
+            <summary>
+            Return last element in collection.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaAttributeCollection.Item(System.String)">
+            <summary>
+            Return item by name.
+            </summary>
+            <param name="name">Name of item.</param>
+        </member>
         <member name="T:MochaDB.MochaCollection`1">
             <summary>
             Base class for MochaDB collections.
@@ -1472,6 +1557,11 @@
         <member name="P:MochaDB.MochaColumn.DataType">
             <summary>
             Data type of datas.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaColumn.Attributes">
+            <summary>
+            Attributes of column.
             </summary>
         </member>
         <member name="T:MochaDB.MochaColumnCollection">
@@ -3788,6 +3878,11 @@
             Description.
             </summary>
         </member>
+        <member name="P:MochaDB.MochaSector.Attributes">
+            <summary>
+            Attributes of sector.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaSectorCollection">
             <summary>
             MochaSector collector.
@@ -3874,6 +3969,11 @@
         <member name="P:MochaDB.MochaStack.Items">
             <summary>
             Items of stack.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaStack.Attributes">
+            <summary>
+            Attributes of stack.
             </summary>
         </member>
         <member name="T:MochaDB.MochaStackCollection">
@@ -3980,6 +4080,11 @@
         <member name="P:MochaDB.MochaStackItem.Items">
             <summary>
             Items of item.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaStackItem.Attributes">
+            <summary>
+            Attributes of item.
             </summary>
         </member>
         <member name="T:MochaDB.MochaStackItemCollection">
@@ -4094,6 +4199,11 @@
         <member name="P:MochaDB.MochaTable.Rows">
             <summary>
             Rows of table.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaTable.Attributes">
+            <summary>
+            Attributes of table.
             </summary>
         </member>
         <member name="T:MochaDB.MochaTableCollection">
@@ -5668,6 +5778,36 @@
             Remove all comments from code.
             </summary>
             <param name="command">Command.</param>
+        </member>
+        <member name="T:MochaDB.engine.Engine_ATTRIBUTES">
+            <summary>
+            MochaDB attribute engine.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributeCode(MochaDB.IMochaAttribute@)">
+            <summary>
+            Returns attribute as code.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.AppendAttribute(System.String@,MochaDB.IMochaAttribute@)">
+            <summary>
+            Append attribute code to code.
+            </summary>
+            <param name="code">Code.</param>
+            <param name="attr">Attribute to add code.</param>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttribute(System.String@,System.String)">
+            <summary>
+            Returns attribute from code by name.
+            </summary>
+            <param name="code">Code.</param>
+            <param name="name">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributes(System.String@)">
+            <summary>
+            Return attributes from code.
+            </summary>
+            <param name="code">Code.</param>
         </member>
     </members>
 </doc>

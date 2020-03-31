@@ -20,6 +20,7 @@ namespace MochaDB {
 
         #region Properties
 
+        MochaAttributeCollection Attributes { get; }
         MochaColumnCollection Columns { get; }
         MochaRowCollection Rows { get; }
 

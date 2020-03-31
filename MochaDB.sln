@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3AA8059-4CBE-44A1-8792-EDCB236D7361}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".bin", ".bin", "{06A59BC1-99C3-43FF-A15C-38284C130AF6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06A59BC1-99C3-43FF-A15C-38284C130AF6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
@@ -101,6 +101,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharpmhql", "fsharpmhql", "{09C26371-28DF-43E5-B6BF-EFC72F40A3F4}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fsharpmhql.fsproj", "{F19A9F6D-5CE4-446C-9A70-6094A0056241}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E4792-5216-44C2-AB5B-E15DFD534A88}"
+	ProjectSection(SolutionItems) = preProject
+		engine\attributes.cs = engine\attributes.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,6 +13,7 @@ namespace MochaDB {
 
         #region Properties
 
+        MochaAttributeCollection Attributes { get; }
         MochaStackItemCollection Items { get; }
 
         #endregion

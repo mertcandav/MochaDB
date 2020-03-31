@@ -23,6 +23,7 @@ namespace MochaDB {
             Columns = new MochaColumnCollection();
             Columns.Changed+=Column_Changed;
             Rows = new MochaRowCollection();
+            Attributes = new MochaAttributeCollection();
             Rows.Changed+=Row_Changed;
             Rows.RowChanged+=Row_Changed;
         }
@@ -201,6 +202,11 @@ namespace MochaDB {
         /// Rows of table.
         /// </summary>
         public MochaRowCollection Rows { get; }
+
+        /// <summary>
+        /// Attributes of table.
+        /// </summary>
+        public MochaAttributeCollection Attributes { get; }
 
         #endregion
     }
