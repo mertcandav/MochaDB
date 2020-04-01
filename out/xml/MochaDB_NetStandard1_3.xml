@@ -4461,6 +4461,13 @@
             <param name="db">Target database.</param>
             <param name="mhql">MHQL Command.</param>
         </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand"/> function.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="mhql">MHQL Command.</param>
+        </member>
         <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetSectors(MochaDB.MochaDatabase,System.Func{MochaDB.MochaSector,System.Boolean})">
             <summary>
             Returns all sectors in database.
