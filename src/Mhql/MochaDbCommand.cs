@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MochaDB.Connection;
 using MochaDB.mhql;
-using MochaDB.mhql.engine;
 using MochaDB.Streams;
 
 namespace MochaDB.Mhql {
@@ -261,7 +260,7 @@ namespace MochaDB.Mhql {
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table);
                     }
                     //Return.
-                    else if(!lastcommand.Equals("return",StringComparison.OrdinalIgnoreCase))
+                    else if(!lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                     else
                         break;
@@ -321,7 +320,7 @@ namespace MochaDB.Mhql {
                         throw new MochaException("MUST keyword is canot used with SELECT keyword!");
                     }
                     //Return.
-                    else if(!lastcommand.Equals("REMOVE",StringComparison.OrdinalIgnoreCase))
+                    else if(!lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                     else
                         break;
