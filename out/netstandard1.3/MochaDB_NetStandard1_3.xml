@@ -1311,7 +1311,7 @@
             Remove all items.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Add(MochaDB.MochaAttribute)">
+        <member name="M:MochaDB.MochaAttributeCollection.Add(MochaDB.IMochaAttribute)">
             <summary>
             Add item.
             </summary>
@@ -1324,13 +1324,13 @@
             <param name="name">Name of item.</param>
             <param name="value">Value of item.</param>
         </member>
-        <member name="M:MochaDB.MochaAttributeCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.MochaAttribute})">
+        <member name="M:MochaDB.MochaAttributeCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.IMochaAttribute})">
             <summary>
             Add item from range.
             </summary>
             <param name="items">Range to add items.</param>
         </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Remove(MochaDB.MochaAttribute)">
+        <member name="M:MochaDB.MochaAttributeCollection.Remove(MochaDB.IMochaAttribute)">
             <summary>
             Remove item.
             </summary>
@@ -2363,6 +2363,27 @@
             Add table.
             </summary>
             <param name="table">MochaTable object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.AddTableAttribute(System.String,MochaDB.IMochaAttribute)">
+            <summary>
+            Add attribute to table.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="attr">Attribute to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveTableAttribute(System.String,System.String)">
+            <summary>
+            Remove attribute from table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTableAttribute(System.String,System.String)">
+            <summary>
+            Returns attribute from table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
             <summary>
@@ -5803,18 +5824,32 @@
             <param name="code">Code.</param>
             <param name="attr">Attribute to add code.</param>
         </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttribute(System.String@,System.String)">
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttribute(System.String,System.String)">
             <summary>
             Returns attribute from code by name.
             </summary>
             <param name="code">Code.</param>
             <param name="name">Name of attribute.</param>
         </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributes(System.String@)">
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.RemoveAttribute(System.String@,System.String)">
+            <summary>
+            Remove attribute from code by name.
+            </summary>
+            <param name="code">Code.</param>
+            <param name="name">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributes(System.String)">
             <summary>
             Return attributes from code.
             </summary>
             <param name="code">Code.</param>
+        </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.ExistsAttribute(System.String,System.String)">
+            <summary>
+            Return true if attribute is exists this name, returns false if not.
+            </summary>
+            <param name="code">Code.</param>
+            <param name="name">Name of attribute.</param>
         </member>
     </members>
 </doc>

@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using MochaDB.engine;
 using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.FileSystem;
@@ -1272,20 +1273,70 @@ namespace MochaDB {
 
             XElement xTable = new XElement(table.Name);
             xTable.Add(new XAttribute("Description",table.Description));
+            xTable.Add(new XAttribute("Attributes",string.Empty));
             GetXElement("Tables").Add(xTable);
 
-            for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
-                var column = table.Columns[columnIndex];
+            // Columns.
+            for(int index = 0; index < table.Columns.Count; index++) {
+                var column = table.Columns[index];
                 XElement Xcolumn = new XElement(column.Name);
                 Xcolumn.Add(new XAttribute("DataType",column.DataType));
                 Xcolumn.Add(new XAttribute("Description",column.Description));
-                for(int index = 0; index < column.Datas.Count; index++)
-                    Xcolumn.Add(new XElement("Data",column.Datas[index].Data));
+                for(int dindex = 0; dindex < column.Datas.Count; dindex++)
+                    Xcolumn.Add(new XElement("Data",column.Datas[dindex].Data));
                 xTable.Add(Xcolumn);
             }
 
-            if(table.Columns.Count==0)
+            // Attributes
+            for(int index = 0; index < table.Attributes.Count; index++)
+                AddTableAttribute(table.Name,table.Attributes[index]);
+
+            if(table.Columns.Count==0 && table.Attributes.Count==0)
                 Save();
+        }
+
+        /// <summary>
+        /// Add attribute to table.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        /// <param name="attr">Attribute to add.</param>
+        public void AddTableAttribute(string name,IMochaAttribute attr) {
+            if(!ExistsTable(name))
+                throw new MochaException("Table not found in this name!");
+            var xattr = GetXElement($"Tables/{name}").Attribute("Attributes");
+            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
+                throw new MochaException("There is already a attribute with this name!");
+
+            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
+            Save();
+        }
+
+        /// <summary>
+        /// Remove attribute from table by name.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public bool RemoveTableAttribute(string name,string attrname) {
+            if(!ExistsTable(name))
+                return false;
+
+            var xtable = GetXElement($"Tables/{name}");
+            var code = xtable.Attribute("Attributes").Value;
+            return Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+        }
+
+        /// <summary>
+        /// Returns attribute from table by name.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public IMochaAttribute GetTableAttribute(string name,string attrname) {
+            if(!ExistsTable(name))
+                throw new MochaException("Table not found in this name!");
+
+            var xtable = GetXElement($"Tables/{name}");
+            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
+            return attr;
         }
 
         /// <summary>
@@ -1372,6 +1423,7 @@ namespace MochaDB {
             XElement xTable = GetXElement($"Tables/{name}");
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
+            table.Attributes.AddRange(Engine_ATTRIBUTES.GetAttributes(xTable.Attribute("Attributes").Value));
 
             table.Columns.collection.AddRange(GetColumns(name));
             table.Rows.collection.AddRange(GetRows(name));
@@ -2023,7 +2075,7 @@ namespace MochaDB {
         /// Returns whether there is a log with the specified id.
         /// </summary>
         /// <param name="id">ID of log.</param>
-        public MochaResult<bool> ExistsLog(string id) =>
+        public bool ExistsLog(string id) =>
             GetXElement("Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
@@ -2034,14 +2086,14 @@ namespace MochaDB {
         /// Returns whether there is a path with the specified path.
         /// </summary>
         /// <param name="path">Path to check.</param>
-        public MochaResult<bool> ExistsElement(MochaPath path) =>
+        public bool ExistsElement(MochaPath path) =>
             ExistsElement(path.Path);
 
         /// <summary>
         /// Return element by path.
         /// </summary>
         /// <param name="path">Path of element.</param>
-        public MochaResult<MochaElement> GetElement(MochaPath path) {
+        public MochaElement GetElement(MochaPath path) {
             if(!path.IsDatabasePath())
                 throw new MochaException("This path is not database compatible path!");
             if(!ExistsElement(path.Path))

@@ -37,6 +37,9 @@ namespace MochaDB {
         bool RemoveTable(string name);
         MochaTable GetTable(string name);
         bool ExistsTable(string name);
+        void AddTableAttribute(string name,IMochaAttribute attr);
+        IMochaAttribute GetTableAttribute(string name,string attrname);
+        bool RemoveTableAttribute(string name,string attrname);
 
         void AddColumn(string tableName,MochaColumn column);
         bool RemoveColumn(string tableName,string name);

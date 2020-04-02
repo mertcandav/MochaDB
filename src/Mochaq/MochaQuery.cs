@@ -497,7 +497,7 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
                     return GETFIRSTCOLUMN_NAME(queryPaths[1]);
                 } else if(queryPaths[0] == "EXISTSLOG") {
-                    return Database.ExistsLog(queryPaths[1]);
+                    return new MochaResult<bool>(Database.ExistsLog(queryPaths[1]));
                 } else if(queryPaths[0] == "GETROWS") {
                     return Database.GetRows(queryPaths[1]);
                 } else if(queryPaths[0] == "GETDATAS") {

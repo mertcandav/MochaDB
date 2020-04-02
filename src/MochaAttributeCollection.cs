@@ -6,14 +6,14 @@ namespace MochaDB {
     /// <summary>
     /// MochaAttribute collector.
     /// </summary>
-    public class MochaAttributeCollection:MochaCollection<MochaAttribute> {
+    public class MochaAttributeCollection:MochaCollection<IMochaAttribute> {
         #region Constructors
 
         /// <summary>
         /// Create new MochaAttributeCollection.
         /// </summary>
         public MochaAttributeCollection() {
-            collection =new List<MochaAttribute>();
+            collection =new List<IMochaAttribute>();
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace MochaDB {
         /// Add item.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public override void Add(MochaAttribute item) {
+        public override void Add(IMochaAttribute item) {
             if(item == null)
                 return;
             if(Contains(item.Name))
@@ -83,7 +83,7 @@ namespace MochaDB {
         /// Add item from range.
         /// </summary>
         /// <param name="items">Range to add items.</param>
-        public override void AddRange(IEnumerable<MochaAttribute> items) {
+        public override void AddRange(IEnumerable<IMochaAttribute> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));
         }
@@ -92,7 +92,7 @@ namespace MochaDB {
         /// Remove item.
         /// </summary>
         /// <param name="item">Item to remove.</param>
-        public override void Remove(MochaAttribute item) {
+        public override void Remove(IMochaAttribute item) {
             Remove(item.Name);
         }
 
@@ -140,13 +140,13 @@ namespace MochaDB {
         /// <summary>
         /// Return first element in collection.
         /// </summary>
-        public override MochaAttribute GetFirst() =>
+        public override IMochaAttribute GetFirst() =>
             IsEmptyCollection() ? null : this[0];
 
         /// <summary>
         /// Return last element in collection.
         /// </summary>
-        public override MochaAttribute GetLast() =>
+        public override IMochaAttribute GetLast() =>
             IsEmptyCollection() ? null : this[MaxIndex()];
 
         #endregion
@@ -157,7 +157,7 @@ namespace MochaDB {
         /// Return item by name.
         /// </summary>
         /// <param name="name">Name of item.</param>
-        public MochaAttribute this[string name] {
+        public IMochaAttribute this[string name] {
             get {
                 int dex = IndexOf(name);
                 if(dex!=-1)
