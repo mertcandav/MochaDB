@@ -1,6 +1,6 @@
-REM Mertcan DAVULCU
+:: Mertcan DAVULCU
 
-REM Compile solution
+:: Compile solution
 dotnet restore MochaDB.sln
 dotnet build MochaDB.sln
 

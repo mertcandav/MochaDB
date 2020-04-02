@@ -1,6 +1,6 @@
-REM Mertcan DAVULCU
+:: Mertcan DAVULCU
 
-REM Compile fsharptest
+:: Compile fsharptest
 dotnet restore ./fsharptest/fsharptest.fsproj
 dotnet build ./fsharptest/fsharptest.fsproj
 

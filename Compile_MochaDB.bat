@@ -1,6 +1,6 @@
-REM Mertcan DAVULCU
+:: Mertcan DAVULCU
 
-REM Compile MochaDB
+:: Compile MochaDB
 dotnet restore ./src/MochaDB.csproj
 dotnet build ./src/MochaDB.csproj
 

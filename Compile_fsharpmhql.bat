@@ -1,6 +1,6 @@
-REM Mertcan DAVULCU
+:: Mertcan DAVULCU
 
-REM Compile fsharpmhql
+:: Compile fsharpmhql
 dotnet restore ./fsharpmhql/fsharpmhql.fsproj
 dotnet build ./fsharpmhql/fsharpmhql.fsproj
 

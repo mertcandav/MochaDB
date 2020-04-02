@@ -1,6 +1,6 @@
-REM Mertcan DAVULCU
+:: Mertcan DAVULCU
 
-REM Compile vbnetmhql
+:: Compile vbnetmhql
 dotnet restore ./vbnetmhql/vbnetmhql.vbproj
 dotnet build ./vbnetmhql/vbnetmhql.vbproj
 

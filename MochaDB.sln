@@ -38,6 +38,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
 		azure-pipelines.yml = azure-pipelines.yml
+		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
+		Compile_fsharptest.bat = Compile_fsharptest.bat
+		Compile_MochaDB.bat = Compile_MochaDB.bat
+		Compile_Solution.bat = Compile_Solution.bat
+		Compile_vbnetmhql.bat = Compile_vbnetmhql.bat
+		Exec_All.bat = Exec_All.bat
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
