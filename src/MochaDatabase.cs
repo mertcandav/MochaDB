@@ -1322,7 +1322,12 @@ namespace MochaDB {
 
             var xtable = GetXElement($"Tables/{name}");
             var code = xtable.Attribute("Attributes").Value;
-            return Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+            var copycode = code;
+            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+
+            if(copycode != code) Save();
+
+            return result;
         }
 
         /// <summary>
@@ -1486,6 +1491,59 @@ namespace MochaDB {
 
             GetXElement($"Tables/{tableName}").Add(xColumn);
             Save();
+        }
+
+        /// <summary>
+        /// Add attribute to column.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="attr">Attribute to add.</param>
+        public void AddColumnAttribute(string tableName,string name,IMochaAttribute attr) {
+            if(!ExistsColumn(tableName,name))
+                throw new MochaException("Column not found in this name!");
+
+            var xattr = GetXElement($"Tables/{tableName}/{name}").Attribute("Attributes");
+            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
+                throw new MochaException("There is already a attribute with this name!");
+
+            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
+            Save();
+        }
+
+        /// <summary>
+        /// Returns attribute from column by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public IMochaAttribute GetColumnAttribute(string tableName,string name,string attrname) {
+            if(!ExistsColumn(tableName,name))
+                throw new MochaException("Column not found in this name!");
+
+            var xtable = GetXElement($"Tables/{tableName}/{name}");
+            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
+            return attr;
+        }
+
+        /// <summary>
+        /// Remove attribute from column by name.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public bool RemoveColumnAttribute(string tableName,string name,string attrname) {
+            if(ExistsColumn(tableName,name))
+                return false;
+            
+            var xcolumn = GetXElement($"Tables/{tableName}/{name}");
+            var code = xcolumn.Attribute("Attributes").Value;
+            var copycode = code;
+            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+
+            if(copycode != code) Save();
+
+            return result;
         }
 
         /// <summary>

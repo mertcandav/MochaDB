@@ -2441,6 +2441,30 @@
             <param name="tableName">Name of column.</param>
             <param name="column">MochaColumn object to add.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.AddColumnAttribute(System.String,System.String,MochaDB.IMochaAttribute)">
+            <summary>
+            Add attribute to column.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="name">Name of column.</param>
+            <param name="attr">Attribute to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetColumnAttribute(System.String,System.String,System.String)">
+            <summary>
+            Returns attribute from column by name.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="name">Name of column.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveColumnAttribute(System.String,System.String,System.String)">
+            <summary>
+            Remove attribute from column by name.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="name">Name of column.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.CreateColumn(System.String,System.String)">
             <summary>
             Create column in table.
