@@ -27,6 +27,9 @@ namespace MochaDB {
         bool RemoveStack(string name);
         MochaStack GetStack(string name);
         bool ExistsStack(string name);
+        void AddStackAttribute(string name,IMochaAttribute attr);
+        IMochaAttribute GetStackAttribute(string name,string attrname);
+        bool RemoveStackAttribute(string name,string attrname);
 
         void AddStackItem(string name,string path,MochaStackItem item);
         bool RemoveStackItem(string name,string path);

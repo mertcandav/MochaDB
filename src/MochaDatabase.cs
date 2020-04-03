@@ -951,6 +951,56 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Add attribute to stack.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="attr">Attribute to add.</param>
+        public void AddStackAttribute(string name,IMochaAttribute attr) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            var xattr = GetXElement($"Stacks/{name}").Attribute("Attributes");
+            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
+                throw new MochaException("There is already a attribute with this name!");
+
+            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
+            Save();
+        }
+
+        /// <summary>
+        /// Remove attribute from stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public bool RemoveStackAttribute(string name,string attrname) {
+            if(!ExistsStack(name))
+                return false;
+
+            var xtable = GetXElement($"Stacks/{name}");
+            var code = xtable.Attribute("Attributes").Value;
+            var copycode = code;
+            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+
+            if(copycode != code) Save();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns attribute from stack by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public IMochaAttribute GetStackAttribute(string name,string attrname) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            var xtable = GetXElement($"Stacks/{name}");
+            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
+            return attr;
+        }
+
+        /// <summary>
         /// Returns description of stack by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>

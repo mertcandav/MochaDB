@@ -2242,6 +2242,27 @@
             </summary>
             <param name="name">Name of stack to remove.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.AddStackAttribute(System.String,MochaDB.IMochaAttribute)">
+            <summary>
+            Add attribute to stack.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="attr">Attribute to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveStackAttribute(System.String,System.String)">
+            <summary>
+            Remove attribute from stack by name.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetStackAttribute(System.String,System.String)">
+            <summary>
+            Returns attribute from stack by name.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.GetStackDescription(System.String)">
             <summary>
             Returns description of stack by name.
