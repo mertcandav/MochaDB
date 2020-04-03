@@ -754,6 +754,56 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Add attribute to sector.
+        /// </summary>
+        /// <param name="name">Name of sector.</param>
+        /// <param name="attr">Attribute to add.</param>
+        public void AddSectorAttribute(string name,IMochaAttribute attr) {
+            if(!ExistsSector(name))
+                throw new MochaException("Table not found in this name!");
+
+            var xattr = GetXElement($"Sectors/{name}").Attribute("Attributes");
+            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
+                throw new MochaException("There is already a attribute with this name!");
+
+            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
+            Save();
+        }
+
+        /// <summary>
+        /// Remove attribute from sector by name.
+        /// </summary>
+        /// <param name="name">Name of sector.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public bool RemoveSectorAttribute(string name,string attrname) {
+            if(!ExistsSector(name))
+                return false;
+
+            var xtable = GetXElement($"Sectors/{name}");
+            var code = xtable.Attribute("Attributes").Value;
+            var copycode = code;
+            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+
+            if(copycode != code) Save();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns attribute from sector by name.
+        /// </summary>
+        /// <param name="name">Name of sector.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public IMochaAttribute GetSectorAttribute(string name,string attrname) {
+            if(!ExistsSector(name))
+                throw new MochaException("Table not found in this name!");
+
+            var xtable = GetXElement($"Sectors/{name}");
+            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
+            return attr;
+        }
+
+        /// <summary>
         /// Add sector.
         /// </summary>
         /// <param name="name">Name of sector to add.</param>
@@ -1133,6 +1183,59 @@ namespace MochaDB {
 
             element.Add(GetMochaStackItemXML(item));
             Save();
+        }
+
+        /// <summary>
+        /// Add attribute to stackitem.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="attr">Attribute to add.</param>
+        public void AddStackItemAttribute(string name,string path,IMochaAttribute attr) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            var xattr = GetXElement($"Stacks/{name}/{path}").Attribute("Attributes");
+            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
+                throw new MochaException("There is already a attribute with this name!");
+
+            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
+            Save();
+        }
+
+        /// <summary>
+        /// Returns attribute from stackitem by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public IMochaAttribute GetStackItemAttribute(string name,string path,string attrname) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            var xtable = GetXElement($"Stacks/{name}/{path}");
+            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
+            return attr;
+        }
+
+        /// <summary>
+        /// Remove attribute from stackitem by name.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="attrname">Name of attribute.</param>
+        public bool RemoveStackItemAttribute(string name,string path,string attrname) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            var xitem = GetXElement($"Stacks/{name}/{path}");
+            var code = xitem.Attribute("Attributes").Value;
+            var copycode = code;
+            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
+
+            if(copycode != code) Save();
+
+            return result;
         }
 
         /// <summary>

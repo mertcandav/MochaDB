@@ -22,6 +22,9 @@ namespace MochaDB {
         bool RemoveSector(string name);
         MochaSector GetSector(string name);
         bool ExistsSector(string name);
+        void AddSectorAttribute(string name,IMochaAttribute attr);
+        IMochaAttribute GetSectorAttribute(string name,string attrname);
+        bool RemoveSectorAttribute(string name,string attrname);
 
         void AddStack(MochaStack stack);
         bool RemoveStack(string name);
@@ -35,6 +38,9 @@ namespace MochaDB {
         bool RemoveStackItem(string name,string path);
         MochaStackItem GetStackItem(string name,string path);
         bool ExistsStackItem(string name,string path);
+        void AddStackItemAttribute(string name,string path,IMochaAttribute attr);
+        IMochaAttribute GetStackItemAttribute(string name,string path,string attrname);
+        bool RemoveStackItemAttribute(string name,string path,string attrname);
 
         void AddTable(MochaTable table);
         bool RemoveTable(string name);

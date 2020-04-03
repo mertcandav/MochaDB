@@ -2156,6 +2156,27 @@
             </summary>
             <param name="sector">MochaSector object to add.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.AddSectorAttribute(System.String,MochaDB.IMochaAttribute)">
+            <summary>
+            Add attribute to sector.
+            </summary>
+            <param name="name">Name of sector.</param>
+            <param name="attr">Attribute to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveSectorAttribute(System.String,System.String)">
+            <summary>
+            Remove attribute from sector by name.
+            </summary>
+            <param name="name">Name of sector.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetSectorAttribute(System.String,System.String)">
+            <summary>
+            Returns attribute from sector by name.
+            </summary>
+            <param name="name">Name of sector.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.AddSector(System.String)">
             <summary>
             Add sector.
@@ -2314,6 +2335,30 @@
             <param name="name">Name of stack.</param>
             <param name="path">Path of stack item to add.</param>
             <param name="item">MochaStackItem object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.AddStackItemAttribute(System.String,System.String,MochaDB.IMochaAttribute)">
+            <summary>
+            Add attribute to stackitem.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item to add.</param>
+            <param name="attr">Attribute to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetStackItemAttribute(System.String,System.String,System.String)">
+            <summary>
+            Returns attribute from stackitem by name.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item to add.</param>
+            <param name="attrname">Name of attribute.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveStackItemAttribute(System.String,System.String,System.String)">
+            <summary>
+            Remove attribute from stackitem by name.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item to add.</param>
+            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RemoveStackItem(System.String,System.String)">
             <summary>
