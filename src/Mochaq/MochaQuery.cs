@@ -320,6 +320,15 @@ namespace MochaDB.Mochaq {
                 if(queryPaths[0] == "REMOVECOLUMN") {
                     Database.RemoveColumn(queryPaths[1],queryPaths[2]);
                     return;
+                } else if(queryPaths[0] == "REMOVETABLEATTRIBUTE") {
+                    Database.RemoveTableAttribute(queryPaths[1],queryPaths[2]);
+                    return;
+                } else if(queryPaths[0] == "REMOVESTACKATTRIBUTE") {
+                    Database.RemoveStackAttribute(queryPaths[1],queryPaths[2]);
+                    return;
+                } else if(queryPaths[0] == "REMOVESECTORATTRIBUTE") {
+                    Database.RemoveSectorAttribute(queryPaths[1],queryPaths[2]);
+                    return;
                 } else if(queryPaths[0] == "SETSECTORDATA") {
                     Database.SetSectorData(queryPaths[1],queryPaths[2]);
                     return;
@@ -358,6 +367,12 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "RENAMECOLUMN") {
                     Database.RenameColumn(queryPaths[1],queryPaths[2],queryPaths[3]);
+                    return;
+                } else if(queryPaths[0] == "REMOVECOLUMNATTRIBUTE") {
+                    Database.RemoveColumnAttribute(queryPaths[1],queryPaths[2],queryPaths[3]);
+                    return;
+                } else if(queryPaths[0] == "REMOVESTACKITEMATTRIBUTE") {
+                    Database.RemoveStackItemAttribute(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "SETCOLUMNDESCRIPTION") {
                     Database.SetColumnDescription(queryPaths[1],queryPaths[2],queryPaths[3]);
@@ -545,6 +560,12 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "GETCOLUMN") {
                     return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "#REMOVETABLEATTRIBUTE") {
+                    return new MochaResult<bool>(Database.RemoveTableAttribute(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "#REMOVESTACKATTRIBUTE") {
+                    return new MochaResult<bool>(Database.RemoveStackAttribute(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "#REMOVESECTORATTRIBUTE") {
+                    return new MochaResult<bool>(Database.RemoveSectorAttribute(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETCOLUMNATTRIBUTES") {
                     return Database.GetColumnAttributes(queryPaths[1],queryPaths[2]);
                 } else if(queryPaths[0] == "GETSTACKITEMATTRIBUTES") {
@@ -578,6 +599,10 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "EXISTSDATA") {
                     return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
+                } else if(queryPaths[0] == "#REMOVECOLUMNATTRIBUTE") {
+                    return new MochaResult<bool>(Database.RemoveColumnAttribute(queryPaths[1],queryPaths[2],queryPaths[3]));
+                } else if(queryPaths[0] == "#REMOVESTACKITEMATTRIBUTE") {
+                    return new MochaResult<bool>(Database.RemoveStackItemAttribute(queryPaths[1],queryPaths[2],queryPaths[3]));
                 } else if(queryPaths[0] == "GETDATA") {
                     return new MochaResult<MochaData>(Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3])));
                 } else

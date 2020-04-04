@@ -1,4 +1,6 @@
-﻿namespace MochaDB.Mochaq {
+﻿using MochaDB.Querying;
+
+namespace MochaDB.Mochaq {
     /// <summary>
     /// MochaQ query for MochaDB.
     /// </summary>
@@ -68,7 +70,7 @@
                 command.StartsWith("DATACOUNT") ||
                 command.StartsWith("EXISTS") ||
                 command.StartsWith("FILESYSTEM_EXISTS") ||
-                command[0] == '#'))
+                command.FirstChar() == '#'))
                 return true;
             else
                 return false;
