@@ -1865,6 +1865,7 @@ namespace MochaDB {
 
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
             column.Description = GetColumnDescription(tableName,name);
+            column.Attributes.collection.AddRange(GetColumnAttributes(tableName,name));
             column.Datas.collection.AddRange(GetDatas(tableName,name));
 
             return column;
