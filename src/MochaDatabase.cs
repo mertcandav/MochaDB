@@ -748,9 +748,14 @@ namespace MochaDB {
 
             XElement xSector = new XElement(sector.Name,sector.Data);
             xSector.Add(new XAttribute("Description",sector.Description));
-
             GetXElement("Sectors").Add(xSector);
-            Save();
+
+            // Attributes
+            for(int index = 0; index < sector.Attributes.Count; index++)
+                AddSectorAttribute(sector.Name,sector.Attributes[index]);
+
+            if(sector.Attributes.Count==0)
+                Save();
         }
 
         /// <summary>
@@ -923,6 +928,7 @@ namespace MochaDB {
             MochaSector sector = new MochaSector(xSector.Name.LocalName);
             sector.Data=xSector.Value;
             sector.Description =xSector.Attribute("Description").Value;
+            sector.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xSector.Attribute("Attributes").Value));
 
             return sector;
         }
@@ -976,14 +982,19 @@ namespace MochaDB {
             XElement xStack = new XElement(stack.Name);
             xStack.Add(new XAttribute("Description",stack.Description));
 
-            if(stack.Items.Count > 0)
-                for(int index = 0; index < stack.Items.Count; index++) {
-                    xStack.Add(GetMochaStackItemXML(stack.Items[index]));
-                }
+            // Items
+            for(int index = 0; index < stack.Items.Count; index++) {
+                xStack.Add(GetMochaStackItemXML(stack.Items[index]));
+            }
+
+            // Attributes
+            for(int index = 0; index < stack.Attributes.Count; index++)
+                AddStackAttribute(stack.Name,stack.Attributes[index]);
 
             GetXElement("Stacks").Add(xStack);
 
-            Save();
+            if(stack.Items.Count==0 && stack.Attributes.Count == 0)
+                Save();
         }
 
         /// <summary>
@@ -1107,12 +1118,12 @@ namespace MochaDB {
             XElement xStack = GetXElement($"Stacks/{name}");
             MochaStack stack = new MochaStack(xStack.Name.LocalName);
             stack.Description=xStack.Attribute("Description").Value;
+            stack.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xStack.Attribute("Attributes").Value));
 
             IEnumerable<XElement> elementRange = xStack.Elements();
-            if(elementRange.Count() > 0)
-                for(int index = 0; index < elementRange.Count(); index++) {
-                    stack.Items.collection.Add(GetStackItem(name,elementRange.ElementAt(index).Name.LocalName));
-                }
+            for(int index = 0; index < elementRange.Count(); index++) {
+                stack.Items.collection.Add(GetStackItem(name,elementRange.ElementAt(index).Name.LocalName));
+            }
 
             return stack;
         }
@@ -1154,11 +1165,13 @@ namespace MochaDB {
         internal XElement GetMochaStackItemXML(MochaStackItem item) {
             XElement element = new XElement(item.Name,item.Value);
             element.Add(new XAttribute("Description",item.Description));
+            element.Add(new XAttribute("Attributes",string.Empty) {
+                Value = Engine_ATTRIBUTES.BuildCode(item.Attributes)
+            });
 
-            if(item.Items.Count >=0)
-                for(int index = 0; index < item.Items.Count; index++) {
-                    element.Add(GetMochaStackItemXML(item.Items[index]));
-                }
+            for(int index = 0; index < item.Items.Count; index++) {
+                element.Add(GetMochaStackItemXML(item.Items[index]));
+            }
 
             return element;
         }
@@ -1176,8 +1189,10 @@ namespace MochaDB {
                 throw new MochaException("Stack not found in this name!");
             OnChanging(this,new EventArgs());
 
-            XElement element = !string.IsNullOrWhiteSpace(path) ? GetXElement($"Stacks/{name}/{path}") :
-                GetXElement($"Stacks/{name}");
+            var element =
+                !string.IsNullOrWhiteSpace(path) ?
+                    GetXElement($"Stacks/{name}/{path}") : GetXElement($"Stacks/{name}");
+
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
 
@@ -1381,8 +1396,10 @@ namespace MochaDB {
             XElement xStackItem = GetXElement($"Stacks/{name}/{path}");
 
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
-            item.Description=xStackItem.Attribute("Description").Value;
             item.Value=xStackItem.Value;
+            item.Description=xStackItem.Attribute("Description").Value;
+            item.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(
+                xStackItem.Attribute("Attributes").Value));
 
             IEnumerable<XElement> elementRange = xStackItem.Elements();
             if(elementRange.Count() >0)
@@ -1581,7 +1598,7 @@ namespace MochaDB {
             XElement xTable = GetXElement($"Tables/{name}");
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
-            table.Attributes.AddRange(Engine_ATTRIBUTES.GetAttributes(xTable.Attribute("Attributes").Value));
+            table.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xTable.Attribute("Attributes").Value));
 
             table.Columns.collection.AddRange(GetColumns(name));
             table.Rows.collection.AddRange(GetRows(name));
@@ -1628,7 +1645,9 @@ namespace MochaDB {
             XElement xColumn = new XElement(column.Name);
             xColumn.Add(new XAttribute("DataType",column.DataType));
             xColumn.Add(new XAttribute("Description",column.Description));
+            GetXElement($"Tables/{tableName}").Add(xColumn);
 
+            // Datas.
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(column.DataType==MochaDataType.AutoInt) {
                 for(int index = 1; index <= rowCount; index++)
@@ -1642,8 +1661,12 @@ namespace MochaDB {
                 }
             }
 
-            GetXElement($"Tables/{tableName}").Add(xColumn);
-            Save();
+            // Attributes
+            for(int index = 0; index < column.Attributes.Count; index++)
+                AddColumnAttribute(tableName,column.Name,column.Attributes[index]);
+
+            if(column.Attributes.Count==0)
+                Save();
         }
 
         /// <summary>

@@ -5907,6 +5907,12 @@
             Returns attribute as code.
             </summary>
         </member>
+        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.BuildCode(MochaDB.IMochaCollection{MochaDB.IMochaAttribute})">
+            <summary>
+            Returns builded attributes code by attributes.
+            </summary>
+            <param name="attrs">Attributes.</param>
+        </member>
         <member name="M:MochaDB.engine.Engine_ATTRIBUTES.AppendAttribute(System.String@,MochaDB.IMochaAttribute@)">
             <summary>
             Append attribute code to code.

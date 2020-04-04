@@ -15,6 +15,19 @@ namespace MochaDB.engine {
         }
 
         /// <summary>
+        /// Returns builded attributes code by attributes.
+        /// </summary>
+        /// <param name="attrs">Attributes.</param>
+        public static string BuildCode(IMochaCollection<IMochaAttribute> attrs) {
+            string code = string.Empty;
+            for(int index = 0; index < 0; index++) {
+                var attr = attrs.ElementAt(index);
+                code+=GetAttributeCode(ref attr);
+            }
+            return code;
+        }
+
+        /// <summary>
         /// Append attribute code to code.
         /// </summary>
         /// <param name="code">Code.</param>
