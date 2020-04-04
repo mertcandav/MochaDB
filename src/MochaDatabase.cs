@@ -858,7 +858,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return data of sector by name.
+        /// Returns data of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorData(string name) {
@@ -887,7 +887,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return description of sector by name.
+        /// Returns description of sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public string GetSectorDescription(string name) {
@@ -917,7 +917,7 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return sector by name.
+        /// Returns sector by name.
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public MochaSector GetSector(string name) {
@@ -934,11 +934,10 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Return all sectors in database.
+        /// Returns all sectors in database.
         /// </summary>
         public MochaCollectionResult<MochaSector> GetSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
-
 
             IEnumerable<XElement> sectorRange = GetXElement("Sectors").Elements();
             MochaArray<MochaSector> sectors = new MochaSector[sectorRange.Count()];
@@ -946,6 +945,20 @@ namespace MochaDB {
                 sectors[index] = GetSector(sectorRange.ElementAt(index).Name.LocalName);
 
             return new MochaCollectionResult<MochaSector>(sectors);
+        }
+
+        /// <summary>
+        /// Returns all attributes from sector.
+        /// </summary>
+        /// <param name="name">Name of sector.</param>
+        public MochaCollectionResult<IMochaAttribute> GetSectorAttributes(string name) {
+            if(!ExistsSector(name))
+                throw new MochaException("Sector not found in this name!");
+
+            XElement xSector = GetXElement($"Sectors/{name}");
+            var attrs = Engine_ATTRIBUTES.GetAttributes(xSector.Attribute("Attributes").Value);
+
+            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>
@@ -1146,6 +1159,20 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Returns all attributes from stack.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        public MochaCollectionResult<IMochaAttribute> GetStackAttributes(string name) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            XElement xstack = GetXElement($"Stacks/{name}");
+            var attrs = Engine_ATTRIBUTES.GetAttributes(xstack.Attribute("Attributes").Value);
+
+            return new MochaCollectionResult<IMochaAttribute>(attrs);
+        }
+
+        /// <summary>
         /// Returns whether there is a stack with the specified name.
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
@@ -1182,7 +1209,7 @@ namespace MochaDB {
         /// Add stack item.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="path">Path of stack item.</param>
         /// <param name="item">MochaStackItem object to add.</param>
         public void AddStackItem(string name,string path,MochaStackItem item) {
             if(!ExistsStack(name))
@@ -1204,7 +1231,7 @@ namespace MochaDB {
         /// Add attribute to stackitem.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="path">Path of stack item.</param>
         /// <param name="attr">Attribute to add.</param>
         public void AddStackItemAttribute(string name,string path,IMochaAttribute attr) {
             if(!ExistsStack(name))
@@ -1222,7 +1249,7 @@ namespace MochaDB {
         /// Returns attribute from stackitem by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="path">Path of stack item.</param>
         /// <param name="attrname">Name of attribute.</param>
         public IMochaAttribute GetStackItemAttribute(string name,string path,string attrname) {
             if(!ExistsStack(name))
@@ -1237,7 +1264,7 @@ namespace MochaDB {
         /// Remove attribute from stackitem by name.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item to add.</param>
+        /// <param name="path">Path of stack item.</param>
         /// <param name="attrname">Name of attribute.</param>
         public bool RemoveStackItemAttribute(string name,string path,string attrname) {
             if(!ExistsStack(name))
@@ -1257,7 +1284,7 @@ namespace MochaDB {
         /// Remove item of stack.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Name path of stack item to remove.</param>
+        /// <param name="path">Path of stack item.</param>
         public bool RemoveStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1283,7 +1310,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="value">Value to set.</param>
-        /// <param name="path">Name path of stack item to set value.</param>
+        /// <param name="path">Path of stack item.</param>
         public void SetStackItemValue(string name,string value,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1305,7 +1332,7 @@ namespace MochaDB {
         /// Return value of stack item.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Name path of stack item to get value.</param>
+        /// <param name="path">Path of stack item.</param>
         public string GetStackItemValue(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1323,7 +1350,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="description">Description to set.</param>
-        /// <param name="path">Name path of stack item to set description.</param>
+        /// <param name="path">Path of stack item.</param>
         public void SetStackItemDescription(string name,string description,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1345,7 +1372,7 @@ namespace MochaDB {
         /// Return description of stack item.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Name path of stack item to get description.</param>
+        /// <param name="path">Path of stack item.</param>
         public string GetStackItemDescription(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1363,7 +1390,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack.</param>
         /// <param name="newName">New name of stack item.</param>
-        /// <param name="path">Name path of stack item to get description.</param>
+        /// <param name="path">Path of stack item.</param>
         public void RenameStackItem(string name,string newName,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1388,7 +1415,7 @@ namespace MochaDB {
         /// Return StackItem.
         /// </summary>
         /// <param name="name">Name of stack.</param>
-        /// <param name="path">Name path of stack item to get description.</param>
+        /// <param name="path">Path of stack item.</param>
         public MochaStackItem GetStackItem(string name,string path) {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
@@ -1410,10 +1437,25 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Returns all attributes from stackitem.
+        /// </summary>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item.</param>
+        public MochaCollectionResult<IMochaAttribute> GetStackItemAttributes(string name,string path) {
+            if(!ExistsStack(name))
+                throw new MochaException("Stack not found in this name!");
+
+            XElement xstackitem = GetXElement($"Stacks/{name}/{path}");
+            var attrs = Engine_ATTRIBUTES.GetAttributes(xstackitem.Attribute("Attributes").Value);
+
+            return new MochaCollectionResult<IMochaAttribute>(attrs);
+        }
+
+        /// <summary>
         /// Returns whether there is a stack item with the specified name.
         /// </summary>
-        /// <param name="name">Name of stack item.</param>
-        /// <param name="path">Name path of item to check.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item.</param>
         public bool ExistsStackItem(string name,string path) =>
             ExistsElement($"Stacks/{name}/{path}");
 
@@ -1619,6 +1661,20 @@ namespace MochaDB {
             }
 
             return new MochaCollectionResult<MochaTable>(tables);
+        }
+
+        /// <summary>
+        /// Returns all attributes from table.
+        /// </summary>
+        /// <param name="name">Name of table.</param>
+        public MochaCollectionResult<IMochaAttribute> GetTableAttributes(string name) {
+            if(!ExistsTable(name))
+                throw new MochaException("Table not found in this name!");
+
+            XElement xtable = GetXElement($"Tables/{name}");
+            var attrs = Engine_ATTRIBUTES.GetAttributes(xtable.Attribute("Attributes").Value);
+
+            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>
@@ -1854,6 +1910,21 @@ namespace MochaDB {
 
             return (MochaDataType)Enum.Parse(typeof(MochaDataType),
                 GetXElement($"Tables/{tableName}/{name}").Attribute("DataType").Value);
+        }
+
+        /// <summary>
+        /// Returns all attributes from column.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="name">Name of column.</param>
+        public MochaCollectionResult<IMochaAttribute> GetColumnAttributes(string tableName,string name) {
+            if(!ExistsColumn(tableName,name))
+                throw new MochaException("Column not found in this name!");
+
+            var xcolumn = GetXElement($"Tables/{tableName}/{name}");
+            var attrs = Engine_ATTRIBUTES.GetAttributes(xcolumn.Attribute("Attributes").Value);
+
+            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>

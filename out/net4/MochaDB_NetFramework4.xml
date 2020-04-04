@@ -2205,7 +2205,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetSectorData(System.String)">
             <summary>
-            Return data of sector by name.
+            Returns data of sector by name.
             </summary>
             <param name="name">Name of sector.</param>
         </member>
@@ -2218,7 +2218,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetSectorDescription(System.String)">
             <summary>
-            Return description of sector by name.
+            Returns description of sector by name.
             </summary>
             <param name="name">Name of sector.</param>
         </member>
@@ -2231,14 +2231,20 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.GetSector(System.String)">
             <summary>
-            Return sector by name.
+            Returns sector by name.
             </summary>
             <param name="name">Name of sector.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetSectors">
             <summary>
-            Return all sectors in database.
+            Returns all sectors in database.
             </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetSectorAttributes(System.String)">
+            <summary>
+            Returns all attributes from sector.
+            </summary>
+            <param name="name">Name of sector.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsSector(System.String)">
             <summary>
@@ -2316,6 +2322,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MochaDB.MochaDatabase.GetStackAttributes(System.String)">
+            <summary>
+            Returns all attributes from stack.
+            </summary>
+            <param name="name">Name of stack.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsStack(System.String)">
             <summary>
             Returns whether there is a stack with the specified name.
@@ -2333,7 +2345,7 @@
             Add stack item.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item to add.</param>
+            <param name="path">Path of stack item.</param>
             <param name="item">MochaStackItem object to add.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.AddStackItemAttribute(System.String,System.String,MochaDB.IMochaAttribute)">
@@ -2341,7 +2353,7 @@
             Add attribute to stackitem.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item to add.</param>
+            <param name="path">Path of stack item.</param>
             <param name="attr">Attribute to add.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackItemAttribute(System.String,System.String,System.String)">
@@ -2349,7 +2361,7 @@
             Returns attribute from stackitem by name.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item to add.</param>
+            <param name="path">Path of stack item.</param>
             <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RemoveStackItemAttribute(System.String,System.String,System.String)">
@@ -2357,7 +2369,7 @@
             Remove attribute from stackitem by name.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item to add.</param>
+            <param name="path">Path of stack item.</param>
             <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RemoveStackItem(System.String,System.String)">
@@ -2365,7 +2377,7 @@
             Remove item of stack.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Name path of stack item to remove.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.SetStackItemValue(System.String,System.String,System.String)">
             <summary>
@@ -2373,14 +2385,14 @@
             </summary>
             <param name="name">Name of stack.</param>
             <param name="value">Value to set.</param>
-            <param name="path">Name path of stack item to set value.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackItemValue(System.String,System.String)">
             <summary>
             Return value of stack item.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Name path of stack item to get value.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.SetStackItemDescription(System.String,System.String,System.String)">
             <summary>
@@ -2388,14 +2400,14 @@
             </summary>
             <param name="name">Name of stack.</param>
             <param name="description">Description to set.</param>
-            <param name="path">Name path of stack item to set description.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackItemDescription(System.String,System.String)">
             <summary>
             Return description of stack item.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Name path of stack item to get description.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RenameStackItem(System.String,System.String,System.String)">
             <summary>
@@ -2403,21 +2415,28 @@
             </summary>
             <param name="name">Name of stack.</param>
             <param name="newName">New name of stack item.</param>
-            <param name="path">Name path of stack item to get description.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackItem(System.String,System.String)">
             <summary>
             Return StackItem.
             </summary>
             <param name="name">Name of stack.</param>
-            <param name="path">Name path of stack item to get description.</param>
+            <param name="path">Path of stack item.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetStackItemAttributes(System.String,System.String)">
+            <summary>
+            Returns all attributes from stackitem.
+            </summary>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsStackItem(System.String,System.String)">
             <summary>
             Returns whether there is a stack item with the specified name.
             </summary>
-            <param name="name">Name of stack item.</param>
-            <param name="path">Name path of item to check.</param>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ClearTables">
             <summary>
@@ -2493,6 +2512,12 @@
             <summary>
             Returns all tables in database.
             </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTableAttributes(System.String)">
+            <summary>
+            Returns all attributes from table.
+            </summary>
+            <param name="name">Name of table.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
             <summary>
@@ -2591,6 +2616,13 @@
         <member name="M:MochaDB.MochaDatabase.GetColumnDataType(System.String,System.String)">
             <summary>
             Returns column datatype by name.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="name">Name of column.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetColumnAttributes(System.String,System.String)">
+            <summary>
+            Returns all attributes from column.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
