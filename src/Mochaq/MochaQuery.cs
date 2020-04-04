@@ -492,6 +492,12 @@ namespace MochaDB.Mochaq {
                     return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
                 } else if(queryPaths[0] == "GETCOLUMNS") {
                     return Database.GetColumns(queryPaths[1]);
+                } else if(queryPaths[0] == "GETTABLEATTRIBUTES") {
+                    return Database.GetTableAttributes(queryPaths[1]);
+                } else if(queryPaths[0] == "GETSECTORATTRIBUTES") {
+                    return Database.GetSectorAttributes(queryPaths[1]);
+                } else if(queryPaths[0] == "GETSTACKATTRIBUTES") {
+                    return Database.GetStackAttributes(queryPaths[1]);
                 } else if(queryPaths[0] == "GETSECTOR") {
                     return new MochaResult<MochaSector>(Database.GetSector(queryPaths[1]));
                 } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
@@ -539,6 +545,10 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "GETCOLUMN") {
                     return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "GETCOLUMNATTRIBUTES") {
+                    return Database.GetColumnAttributes(queryPaths[1],queryPaths[2]);
+                } else if(queryPaths[0] == "GETSTACKITEMATTRIBUTES") {
+                    return Database.GetStackItemAttributes(queryPaths[1],queryPaths[2]);
                 } else if(queryPaths[0] == "DATACOUNT") {
                     return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "EXISTSCOLUMN") {
