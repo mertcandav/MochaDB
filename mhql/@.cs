@@ -1,5 +1,5 @@
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql {
@@ -23,7 +23,7 @@ namespace MochaDB.mhql {
 
             if(finaldex==0)
                 throw new MochaException("@ mark is cannot processed!");
-            
+
             var atcommand = command.Substring(0,finaldex).TrimStart().TrimEnd();
             final = command.Substring(finaldex);
             return
@@ -39,13 +39,13 @@ namespace MochaDB.mhql {
             var tags = new List<string>();
             do {
                 string tag = GetAT(command,out command);
-                
+
                 if(string.IsNullOrEmpty(tag))
                     continue;
 
                 tags.Add(tag);
             } while(command.FirstChar() == '@');
-            
+
             final = command;
             return tags.ToArray();
         }

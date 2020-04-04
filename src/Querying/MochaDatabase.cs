@@ -22,7 +22,7 @@ namespace MochaDB.Querying {
         /// <param name="mhql">MHQL Command.</param>
         public static object ExecuteScalar(this MochaDatabase db,string mhql) =>
             new MochaDbCommand(mhql,db).ExecuteScalar();
-        
+
         /// <summary>
         /// Execute <see cref="MochaDbCommand.ExecuteCommand()"/> function.
         /// </summary>
@@ -30,7 +30,7 @@ namespace MochaDB.Querying {
         /// <param name="mhql">MHQL Command.</param>
         public static void ExecuteCommand(this MochaDatabase db,string mhql) =>
             new MochaDbCommand(mhql,db).ExecuteCommand();
-            
+
         /// <summary>
         /// Returns all sectors in database.
         /// </summary>
@@ -180,5 +180,186 @@ namespace MochaDB.Querying {
         /// <param name="query">Query for filtering.</param>
         public static MochaReader<MochaData> ReadDatas(this MochaDatabase db,string tableName,string columnName,Func<MochaData,bool> query) =>
             new MochaReader<MochaData>(db.GetDatas(tableName,columnName,query));
+
+        /// <summary>
+        /// Returns all attributes from sector.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of sector.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetSectorAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetSectorAttributes(name).Where(query));
+
+        /// <summary>
+        /// Read all attributes from sector.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of sector.</param>
+        public static MochaReader<IMochaAttribute> ReadSectorAttributes(this MochaDatabase db,string name) =>
+            new MochaReader<IMochaAttribute>(db.GetSectorAttributes(name));
+
+        /// <summary>
+        /// Read all attributes from sector.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of sector.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaReader<IMochaAttribute> ReadSectorAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaReader<IMochaAttribute>(db.GetSectorAttributes(name).Where(query));
+
+        /// <summary>
+        /// Returns all attributes from stack.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetStackAttributes(this MochaDatabase db,string name) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetStackAttributes(name));
+
+        /// <summary>
+        /// Returns all attributes from stack.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetStackAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetStackAttributes(name).Where(query));
+
+        /// <summary>
+        /// Read all attributes from stack.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        public static MochaReader<IMochaAttribute> ReadStackAttributes(this MochaDatabase db,string name) =>
+            new MochaReader<IMochaAttribute>(db.GetStackAttributes(name));
+
+        /// <summary>
+        /// Read all attributes from stack.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaReader<IMochaAttribute> ReadStackAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaReader<IMochaAttribute>(db.GetStackAttributes(name).Where(query));
+
+        /// <summary>
+        /// Returns all attributes from stackitem.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetStackItemAttributes(this MochaDatabase db,string name,string path) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetStackItemAttributes(name,path));
+
+        /// <summary>
+        /// Returns all attributes from stackitem.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="query">Query for filtering.</param>
+        /// <param name="path">Path of stack item.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetStackItemAttributes(this MochaDatabase db,
+            string name,string path,Func<IMochaAttribute,bool> query) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetStackItemAttributes(name,path).Where(query));
+
+        /// <summary>
+        /// Read all attributes from stackitem.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="path">Path of stack item.</param>
+        public static MochaReader<IMochaAttribute> ReadStackItemAttributes(this MochaDatabase db,string name,string path) =>
+            new MochaReader<IMochaAttribute>(db.GetStackItemAttributes(name,path));
+
+        /// <summary>
+        /// Read all attributes from stackitem.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of stack.</param>
+        /// <param name="query">Query for filtering.</param>
+        /// <param name="path">Path of stack item.</param>
+        public static MochaReader<IMochaAttribute> ReadStackItemAttributes(this MochaDatabase db,
+            string name,string path,Func<IMochaAttribute,bool> query) =>
+            new MochaReader<IMochaAttribute>(db.GetStackItemAttributes(name,path).Where(query));
+
+        /// <summary>
+        /// Returns all attributes from table.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of table.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetTableAttributes(this MochaDatabase db,string name) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetTableAttributes(name));
+
+        /// <summary>
+        /// Returns all attributes from table.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetTableAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetTableAttributes(name).Where(query));
+
+        /// <summary>
+        /// Read all attributes from table.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of table.</param>
+        public static MochaReader<IMochaAttribute> ReadTableAttributes(this MochaDatabase db,string name) =>
+            new MochaReader<IMochaAttribute>(db.GetTableAttributes(name));
+
+        /// <summary>
+        /// Read all attributes from table.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="name">Name of table.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaReader<IMochaAttribute> ReadTableAttributes(this MochaDatabase db,
+            string name,Func<IMochaAttribute,bool> query) =>
+            new MochaReader<IMochaAttribute>(db.GetTableAttributes(name).Where(query));
+
+        /// <summary>
+        /// Returns all attributes from column.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="tableName">Name of column.</param>
+        /// <param name="name">Name of column.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetColumnAttributes(this MochaDatabase db,
+            string tableName,string name) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetColumnAttributes(tableName,name));
+
+        /// <summary>
+        /// Returns all attributes from column.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="tableName">Name of column.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaCollectionResult<IMochaAttribute> GetColumnAttributes(this MochaDatabase db,
+            string tableName,string name,Func<IMochaAttribute,bool> query) =>
+            new MochaCollectionResult<IMochaAttribute>(db.GetColumnAttributes(tableName,name).Where(query));
+
+        /// <summary>
+        /// Read all attributes from column.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="tableName">Name of column.</param>
+        /// <param name="name">Name of column.</param>
+        public static MochaReader<IMochaAttribute> ReadColumnAttributes(this MochaDatabase db,string tableName,string name) =>
+            new MochaReader<IMochaAttribute>(db.GetColumnAttributes(tableName,name));
+
+        /// <summary>
+        /// Read all attributes from column.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="tableName">Name of column.</param>
+        /// <param name="name">Name of column.</param>
+        /// <param name="query">Query for filtering.</param>
+        public static MochaReader<IMochaAttribute> ReadColumnAttributes(this MochaDatabase db,
+            string tableName,string name,Func<IMochaAttribute,bool> query) =>
+            new MochaReader<IMochaAttribute>(db.GetColumnAttributes(tableName,name).Where(query));
     }
 }

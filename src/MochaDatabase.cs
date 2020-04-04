@@ -27,9 +27,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using MochaDB.engine;
 using MochaDB.Connection;
 using MochaDB.Cryptography;
+using MochaDB.engine;
 using MochaDB.FileSystem;
 using MochaDB.Logging;
 using MochaDB.Mochaq;
@@ -1766,7 +1766,7 @@ namespace MochaDB {
         public bool RemoveColumnAttribute(string tableName,string name,string attrname) {
             if(ExistsColumn(tableName,name))
                 return false;
-            
+
             var xcolumn = GetXElement($"Tables/{tableName}/{name}");
             var code = xcolumn.Attribute("Attributes").Value;
             var copycode = code;

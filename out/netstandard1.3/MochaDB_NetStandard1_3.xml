@@ -4743,6 +4743,157 @@
             <param name="columnName">Name of column.</param>
             <param name="query">Query for filtering.</param>
         </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetSectorAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Returns all attributes from sector.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of sector.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectorAttributes(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Read all attributes from sector.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of sector.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectorAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Read all attributes from sector.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of sector.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackAttributes(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Returns all attributes from stack.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Returns all attributes from stack.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackAttributes(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Read all attributes from stack.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Read all attributes from stack.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String)">
+            <summary>
+            Returns all attributes from stackitem.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Returns all attributes from stackitem.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="query">Query for filtering.</param>
+            <param name="path">Path of stack item.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String)">
+            <summary>
+            Read all attributes from stackitem.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="path">Path of stack item.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Read all attributes from stackitem.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of stack.</param>
+            <param name="query">Query for filtering.</param>
+            <param name="path">Path of stack item.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTableAttributes(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Returns all attributes from table.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTableAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Returns all attributes from table.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTableAttributes(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Read all attributes from table.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTableAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Read all attributes from table.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="name">Name of table.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetColumnAttributes(MochaDB.MochaDatabase,System.String,System.String)">
+            <summary>
+            Returns all attributes from column.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of column.</param>
+            <param name="name">Name of column.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetColumnAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Returns all attributes from column.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of column.</param>
+            <param name="name">Name of column.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,System.String,System.String)">
+            <summary>
+            Read all attributes from column.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of column.</param>
+            <param name="name">Name of column.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
+            <summary>
+            Read all attributes from column.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="tableName">Name of column.</param>
+            <param name="name">Name of column.</param>
+            <param name="query">Query for filtering.</param>
+        </member>
         <member name="T:MochaDB.Querying.QueryingMochaFileSystem">
             <summary>
             Query extension for MochaFileSystems.
