@@ -928,7 +928,7 @@ namespace MochaDB {
             MochaSector sector = new MochaSector(xSector.Name.LocalName);
             sector.Data=xSector.Value;
             sector.Description =xSector.Attribute("Description").Value;
-            sector.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xSector.Attribute("Attributes").Value));
+            sector.Attributes.collection.AddRange(GetSectorAttributes(name));
 
             return sector;
         }
@@ -1131,7 +1131,7 @@ namespace MochaDB {
             XElement xStack = GetXElement($"Stacks/{name}");
             MochaStack stack = new MochaStack(xStack.Name.LocalName);
             stack.Description=xStack.Attribute("Description").Value;
-            stack.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xStack.Attribute("Attributes").Value));
+            stack.Attributes.collection.AddRange(GetStackAttributes(name));
 
             IEnumerable<XElement> elementRange = xStack.Elements();
             for(int index = 0; index < elementRange.Count(); index++) {
@@ -1425,8 +1425,7 @@ namespace MochaDB {
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
             item.Value=xStackItem.Value;
             item.Description=xStackItem.Attribute("Description").Value;
-            item.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(
-                xStackItem.Attribute("Attributes").Value));
+            item.Attributes.collection.AddRange(GetStackItemAttributes(name,path));
 
             IEnumerable<XElement> elementRange = xStackItem.Elements();
             if(elementRange.Count() >0)
@@ -1640,7 +1639,7 @@ namespace MochaDB {
             XElement xTable = GetXElement($"Tables/{name}");
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
-            table.Attributes.collection.AddRange(Engine_ATTRIBUTES.GetAttributes(xTable.Attribute("Attributes").Value));
+            table.Attributes.collection.AddRange(GetTableAttributes(name));
 
             table.Columns.collection.AddRange(GetColumns(name));
             table.Rows.collection.AddRange(GetRows(name));
