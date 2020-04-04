@@ -560,8 +560,12 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 3) {
                 if(queryPaths[0] == "GETCOLUMN") {
                     return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
-                } else if(queryPaths[0] == "#REMOVETABLEATTRIBUTE") {
-                    return new MochaResult<bool>(Database.RemoveTableAttribute(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "GETTABLEATTRIBUTE") {
+                    return new MochaResult<IMochaAttribute>(Database.GetTableAttribute(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "GETSTACKATTRIBUTE") {
+                    return new MochaResult<IMochaAttribute>(Database.GetStackAttribute(queryPaths[1],queryPaths[2]));
+                } else if(queryPaths[0] == "GETTABLEATTRIBUTE") {
+                    return new MochaResult<IMochaAttribute>(Database.GetTableAttribute(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "#REMOVESTACKATTRIBUTE") {
                     return new MochaResult<bool>(Database.RemoveStackAttribute(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "#REMOVESECTORATTRIBUTE") {
@@ -599,6 +603,10 @@ namespace MochaDB.Mochaq {
             } else if(queryPaths.Length == 4) {
                 if(queryPaths[0] == "EXISTSDATA") {
                     return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
+                } else if(queryPaths[0] == "GETCOLUMNATTRIBUTE") {
+                    return new MochaResult<IMochaAttribute>(Database.GetColumnAttribute(queryPaths[1],queryPaths[2],queryPaths[3]));
+                } else if(queryPaths[0] == "GETSTACKITEMATTRIBUTE") {
+                    return new MochaResult<IMochaAttribute>(Database.GetStackItemAttribute(queryPaths[1],queryPaths[2],queryPaths[3]));
                 } else if(queryPaths[0] == "#REMOVECOLUMNATTRIBUTE") {
                     return new MochaResult<bool>(Database.RemoveColumnAttribute(queryPaths[1],queryPaths[2],queryPaths[3]));
                 } else if(queryPaths[0] == "#REMOVESTACKITEMATTRIBUTE") {
