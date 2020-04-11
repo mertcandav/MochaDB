@@ -2798,7 +2798,7 @@
             <summary>
             Returns sub elements of element in path.
             </summary>
-            <param name="path">Path of elements.</param>
+            <param name="path">Path of base element.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RemoveDatabaseItem(MochaDB.IMochaDatabaseItem)">
             <summary>
@@ -4893,6 +4893,14 @@
             <param name="tableName">Name of column.</param>
             <param name="name">Name of column.</param>
             <param name="query">Query for filtering.</param>
+        </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetElements(MochaDB.MochaDatabase,MochaDB.MochaPath,System.Func{MochaDB.MochaElement,System.Boolean})">
+            <summary>
+            Returns sub elements of element in path.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="path">Path of base element.</param>
+            <param name="query">Path of base element.</param>
         </member>
         <member name="T:MochaDB.Querying.QueryingMochaFileSystem">
             <summary>

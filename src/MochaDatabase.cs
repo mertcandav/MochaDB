@@ -2417,7 +2417,7 @@ namespace MochaDB {
         /// <summary>
         /// Returns sub elements of element in path.
         /// </summary>
-        /// <param name="path">Path of elements.</param>
+        /// <param name="path">Path of base element.</param>
         public MochaCollectionResult<MochaElement> GetElements(MochaPath path) {
             if(!path.IsDatabasePath())
                 throw new MochaException("This path is not database compatible path!");

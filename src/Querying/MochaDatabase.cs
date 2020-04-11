@@ -361,5 +361,15 @@ namespace MochaDB.Querying {
         public static MochaReader<IMochaAttribute> ReadColumnAttributes(this MochaDatabase db,
             string tableName,string name,Func<IMochaAttribute,bool> query) =>
             new MochaReader<IMochaAttribute>(db.GetColumnAttributes(tableName,name).Where(query));
+
+        /// <summary>
+        /// Returns sub elements of element in path.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="path">Path of base element.</param>
+        /// <param name="query">Path of base element.</param>
+        public static MochaCollectionResult<MochaElement> GetElements(
+            this MochaDatabase db,MochaPath path,Func<MochaElement,bool> query) =>
+            new MochaCollectionResult<MochaElement>(db.GetElements(path).Where(query));
     }
 }
