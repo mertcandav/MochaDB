@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06
 		Exec_All.ps1 = Exec_All.ps1
 		Exec_All.sh = Exec_All.sh
 		LICENSE = LICENSE
+		Make.ps1 = Make.ps1
+		Make.sh = Make.sh
 		Makefile = Makefile
 		README.md = README.md
 	EndProjectSection
