@@ -8,22 +8,22 @@
 
 :: MochaDB
 if %MochaDB% == Y (
-    start Compile_MochaDB.bat
+    @start Compile_MochaDB.bat
 )
 
 :: fsharptest
 if %fsharptest% == Y (
-    start Compile_fsharptest.bat
+    @start Compile_fsharptest.bat
 )
 
 :: vbnetmhql
 if %vbnetmhql% == Y (
-    start Compile_vbnetmhql.bat
+    @start Compile_vbnetmhql.bat
 )
 
 :: fsharpmhql
 if %fsharpmhql% == Y (
-    start Compile_fsharpmhql.bat
+    @start Compile_fsharpmhql.bat
 )
 
 exit
