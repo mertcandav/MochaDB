@@ -1,3 +1,5 @@
+<div align="center">
+  
 ![alt text](https://github.com/mertcandav/MochaDB/blob/master/pdocs/resources/MochaDB_Texted.ico)
 
 [![Gitter](https://badges.gitter.im/mertcandv/MochaDB.svg)](https://gitter.im/mertcandv/MochaDB?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
@@ -8,8 +10,11 @@
 
 MochaDB is a user-friendly, loving database system that loves to help.<br>
 Come on, meet the world's most advanced .NET database system!
+</div>
 
----
+#
+
+<br>
 
 ## Featured features
 - Open source and free for everyone
@@ -49,7 +54,7 @@ Come on, meet the world's most advanced .NET database system!
 <br>
 
 # Preview
----
+
 <br>
 
 ## Querying
@@ -177,8 +182,8 @@ public void Debug(string path) {
 ```
 <br>
 
-## And More
+#
 
-- [Warnings](https://github.com/mertcandav/MochaDB/wiki/Warnings)
-- [Documentation](https://github.com/mertcandav/MochaDB/wiki)
-- [NuGet Page](https://www.nuget.org/packages/MochaDB/)
+[Warnings](https://github.com/mertcandav/MochaDB/wiki/Warnings)<br>
+[Documentation](https://github.com/mertcandav/MochaDB/wiki)<br>
+[NuGet Page](https://www.nuget.org/packages/MochaDB/)
