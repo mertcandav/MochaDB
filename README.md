@@ -8,11 +8,9 @@
 [![Build Status](https://dev.azure.com/mertcandav/MochaDB/_apis/build/status/mertcandav.MochaDB?branchName=master)](https://dev.azure.com/mertcandav/MochaDB/_build/latest?definitionId=2&branchName=master)
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 
-MochaDB is a user-friendly, loving database system that loves to help.<br>
-Come on, meet the world's most advanced .NET database system!
+<b>MochaDB is a user-friendly, loving database system that loves to help.<br>
+Come on, meet the world's most advanced .NET database system!</b>
 </div>
-
-#
 
 <br>
 
