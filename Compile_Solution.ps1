@@ -24,7 +24,7 @@
 #!bin/bash
 
 # Compile solution
-@dotnet restore MochaDB.sln
-@dotnet build MochaDB.sln
+dotnet restore MochaDB.sln
+dotnet build MochaDB.sln
 
-@pause
+pause
