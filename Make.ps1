@@ -2,6 +2,6 @@
 #!bin/bash
 
 # Make
-make
+@make
 
-pause
+@pause
