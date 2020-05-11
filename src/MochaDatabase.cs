@@ -1700,6 +1700,7 @@ namespace MochaDB {
             XElement xColumn = new XElement(column.Name);
             xColumn.Add(new XAttribute("DataType",column.DataType));
             xColumn.Add(new XAttribute("Description",column.Description));
+            xColumn.Add(new XAttribute("Attributes",string.Empty));
             GetXElement($"Tables/{tableName}").Add(xColumn);
 
             // Datas.
@@ -1715,7 +1716,7 @@ namespace MochaDB {
                     xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
                 }
             }
-
+            
             // Attributes
             for(int index = 0; index < column.Attributes.Count; index++)
                 AddColumnAttribute(tableName,column.Name,column.Attributes[index]);
@@ -2138,7 +2139,6 @@ namespace MochaDB {
                 element.Add(
                     new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
-
             GetXElement($"Tables/{tableName}/{columnName}").Add(xData);
 
             Save();
