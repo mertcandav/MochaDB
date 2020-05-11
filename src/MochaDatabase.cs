@@ -995,6 +995,7 @@ namespace MochaDB {
 
             XElement xStack = new XElement(stack.Name);
             xStack.Add(new XAttribute("Description",stack.Description));
+            xStack.Add(new XAttribute("Attributes",string.Empty));
 
             // Items
             for(int index = 0; index < stack.Items.Count; index++) {
