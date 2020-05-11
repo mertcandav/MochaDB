@@ -748,6 +748,7 @@ namespace MochaDB {
 
             XElement xSector = new XElement(sector.Name,sector.Data);
             xSector.Add(new XAttribute("Description",sector.Description));
+            xSector.Add(new XAttribute("Attributes",string.Empty));
             GetXElement("Sectors").Add(xSector);
 
             // Attributes
