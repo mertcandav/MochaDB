@@ -60,7 +60,7 @@ namespace MochaDB.mhql {
             command = command.TrimStart().TrimEnd();
             var parts = Mhql_AND.GetParts(command);
             for(int index = 0; index < parts.Length; index++) {
-                var partcmd = parts[index].TrimStart().TrimEnd();
+                var partcmd = parts[index];
                 table.Rows = (
                         from value in table.Rows
                         where MhqlEng_MUST.IsPassTable(ref partcmd,value)
