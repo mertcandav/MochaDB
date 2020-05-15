@@ -2210,6 +2210,16 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Update first data.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">Data to replace.</param>
+        public void UpdateFirstData(string tableName,string columnName,object data) {
+            UpdateData(tableName,columnName,0,data);
+        }
+
+        /// <summary>
         /// Update last data.
         /// </summary>
         /// <param name="tableName">Name of table.</param>

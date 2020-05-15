@@ -397,7 +397,7 @@ namespace MochaDB.Mochaq {
                     Database.SetStackItemDescription(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "UPDATEFIRSTDATA") {
-                    //Database.UpdateFirstData(queryPaths[1],queryPaths[2],queryPaths[3]);
+                    Database.UpdateFirstData(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "UPDATELASTDATA") {
                     Database.UpdateLastData(queryPaths[1],queryPaths[2],queryPaths[3]);
