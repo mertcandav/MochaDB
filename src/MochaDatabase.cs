@@ -2013,10 +2013,11 @@ namespace MochaDB {
             if(columnRange.Count() != row.Datas.Count)
                 throw new MochaException("The data count of the row is not equal to the number of columns!");
 
-            /*InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
+            var dex = GetDataCount(tableName,columnRange.First().Name.LocalName);
+            InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
             for(int index = 1; index < columnRange.Count(); index++) {
-                UpdateData(tableName,columnRange.ElementAt(index).Name,,row.Datas[index]);
-            }*/
+                UpdateData(tableName,columnRange.ElementAt(index).Name.LocalName,dex,row.Datas[index].Data);
+            }
         }
 
         /// <summary>
