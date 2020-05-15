@@ -397,10 +397,10 @@ namespace MochaDB.Mochaq {
                     Database.SetStackItemDescription(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "UPDATEFIRSTDATA") {
-                    Database.UpdateData(queryPaths[1],queryPaths[2],0,queryPaths[3]);
+                    //Database.UpdateFirstData(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "UPDATELASTDATA") {
-                    Database.UpdateData(queryPaths[1],queryPaths[2],Database.GetDataCount(queryPaths[1],queryPaths[2]) - 1,queryPaths[3]);
+                    Database.UpdateLastData(queryPaths[1],queryPaths[2],queryPaths[3]);
                     return;
                 } else if(queryPaths[0] == "ADDSECTOR") {
                     MochaSector Sector = new MochaSector(queryPaths[1],queryPaths[2],queryPaths[3]);

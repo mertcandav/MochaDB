@@ -2696,8 +2696,16 @@
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
-            <param name="data">Data to replace.</param>
             <param name="index">Index of data.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.UpdateLastData(System.String,System.String,System.Object)">
+            <summary>
+            Update last data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">Data to replace.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.ExistsData(System.String,System.String,MochaDB.MochaData)">
             <summary>

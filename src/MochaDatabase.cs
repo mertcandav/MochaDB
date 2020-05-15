@@ -2013,9 +2013,10 @@ namespace MochaDB {
             if(columnRange.Count() != row.Datas.Count)
                 throw new MochaException("The data count of the row is not equal to the number of columns!");
 
-            for(int index = 0; index <columnRange.Count(); index++) {
-                InternalAddData(tableName,columnRange.ElementAt(index).Name.LocalName,row.Datas[index]);
-            }
+            /*InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
+            for(int index = 1; index < columnRange.Count(); index++) {
+                UpdateData(tableName,columnRange.ElementAt(index).Name,,row.Datas[index]);
+            }*/
         }
 
         /// <summary>
@@ -2175,8 +2176,8 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        /// <param name="data">Data to replace.</param>
         /// <param name="index">Index of data.</param>
+        /// <param name="data">Data to replace.</param>
         public void UpdateData(string tableName,string columnName,int index,object data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
@@ -2206,6 +2207,17 @@ namespace MochaDB {
             dataElement.Value=data.ToString();
 
             Save();
+        }
+
+        /// <summary>
+        /// Update last data.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">Data to replace.</param>
+        public void UpdateLastData(string tableName,string columnName,object data) {
+            UpdateData(tableName,columnName,
+                GetDataCount(tableName,columnName) - 1,data);
         }
 
         /// <summary>
