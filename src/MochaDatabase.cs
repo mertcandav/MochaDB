@@ -2034,6 +2034,7 @@ namespace MochaDB {
                     if(dataIndex == index) {
                         OnChanging(this,new EventArgs());
                         dataRange.ElementAt(dataIndex).Remove();
+                        Save();
                         return true;
                     }
                 }
