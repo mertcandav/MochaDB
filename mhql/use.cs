@@ -67,7 +67,14 @@ namespace MochaDB.mhql {
             } else {
                 var parts = usecommand.Split(',');
                 for(var index = 0; index < parts.Length; index++) {
-                    var callcmd = parts[index];
+                    var callcmd = parts[index].Trim();
+                    if(callcmd == "*") {
+                        var tables = Tdb.GetTables();
+                        for(int tindex = 0; tindex < tables.Count; tindex++)
+                            columns.AddRange(tables[tindex].Columns);
+                        continue;
+                    }
+                        
                     var callparts = callcmd.Split('.');
                     if(callparts.Length>2)
                         throw new MochaException($"'{callcmd}' command is cannot processed!");
