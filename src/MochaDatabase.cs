@@ -2029,20 +2029,28 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
+            bool state = false;
             IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
             for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
                 IEnumerable<XElement> dataRange = columnRange.ElementAt(columnIndex).Elements();
                 for(int dataIndex = 0; dataIndex < dataRange.Count(); dataIndex++) {
                     if(dataIndex == index) {
-                        OnChanging(this,new EventArgs());
-                        dataRange.ElementAt(dataIndex).Remove();
-                        Save();
-                        return true;
+                        state = true;
+                        break;
                     }
                 }
             }
 
-            Save();
+            if(state) {
+                OnChanging(this,new EventArgs());
+                for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+                    columnRange.ElementAt(columnIndex).Elements().
+                        ElementAt(index).Remove();
+                }
+                Save();
+                return true;
+            }
+
             return false;
         }
 
