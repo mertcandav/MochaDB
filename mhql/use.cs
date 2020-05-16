@@ -72,7 +72,7 @@ namespace MochaDB.mhql {
                     if(callparts.Length>2)
                         throw new MochaException($"'{callcmd}' command is cannot processed!");
                     for(byte partindex = 0; partindex < callparts.Length; partindex++)
-                        callparts[partindex] = callparts[partindex].TrimStart().TrimEnd();
+                        callparts[partindex] = callparts[partindex].Trim();
                     var table = Tdb.GetTable(callparts[0]);
                     if(callparts.Length==1) {
                         columns.AddRange(table.Columns);

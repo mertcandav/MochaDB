@@ -11,13 +11,12 @@ namespace MochaDB.mhql {
         /// <param name="command">Command</param>
         /// <param name="final">As removed command.</param>
         public static string GetAS(ref string command) {
-            command = command.TrimStart().TrimEnd();
-            var dex = command.IndexOf("AS",StringComparison.OrdinalIgnoreCase);
+            var dex = command.IndexOf(" AS ",StringComparison.OrdinalIgnoreCase);
             if(dex==-1)
                 return command;
 
-            var name = command.Substring(dex+2).TrimStart().TrimEnd();
-            command = command.Substring(0,dex).TrimStart().TrimEnd();
+            var name = command.Substring(dex+3).Trim();
+            command = command.Substring(0,dex).Trim();
             return name;
         }
     }
