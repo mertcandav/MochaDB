@@ -60,6 +60,17 @@
 
         #endregion
 
+        #region Methods
+        
+        /// <summary>
+        /// Returns table empty state.
+        /// </summary>
+        public bool IsEmpty() {
+            return Rows.Length == 0;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

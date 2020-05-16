@@ -1078,6 +1078,11 @@
             Set datas by row datas.
             </summary>
         </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.IsEmpty">
+            <summary>
+            Returns table empty state.
+            </summary>
+        </member>
         <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
             <summary>
             Columns.
