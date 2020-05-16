@@ -178,6 +178,9 @@
     <Compile Include="..\mhql\functions\endw.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\functions\notequal.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->

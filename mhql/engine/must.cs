@@ -33,7 +33,7 @@ namespace MochaDB.mhql.engine {
         /// <param name="command">Command.</param>
         /// <param name="row">Row.</param>
         public static bool IsPassTable(ref string command,MochaRow row) {
-            command=command.TrimStart().TrimEnd();
+            command=command.Trim();
             if(char.IsNumber(command.FirstChar())) {
                 return MhqlMust_REGEX.Match(
                                 MhqlMust_REGEX.GetCommand(command,row),
@@ -46,6 +46,8 @@ namespace MochaDB.mhql.engine {
                 return MhqlFunc_LOWER.Pass(command.Substring(6,command.Length-7),row);
             } else if(command.StartsWith("EQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_EQUAL.Pass(command.Substring(6,command.Length-7),row);
+            } else if(command.StartsWith("NOTEQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_NOTEQUAL.Pass(command.Substring(9,command.Length-10),row);
             } else if(command.StartsWith("STARTW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_STARTW.Pass(command.Substring(7,command.Length-8),row);
             } else if(command.StartsWith("ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
