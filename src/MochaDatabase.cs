@@ -2016,7 +2016,7 @@ namespace MochaDB {
             var dex = GetDataCount(tableName,columnRange.First().Name.LocalName);
             InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
             for(int index = 1; index < columnRange.Count(); index++) {
-                UpdateData(tableName,columnRange.ElementAt(index).Name.LocalName,dex,row.Datas[index].Data);
+                InternalUpdateData(tableName,columnRange.ElementAt(index).Name.LocalName,dex,row.Datas[index].Data);
             }
         }
 
@@ -2110,11 +2110,14 @@ namespace MochaDB {
         /// <summary>
         /// Add data.
         /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">MochaData object to add.</param>
         internal void InternalAddData(string tableName,string columnName,MochaData data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
-            XElement xData = new XElement("Data",data.Data); ;
+            XElement xData = new XElement("Data");
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(dataType == MochaDataType.AutoInt) {
@@ -2122,10 +2125,17 @@ namespace MochaDB {
             } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.Data.ToString())) {
                 if(ExistsData(tableName,columnName,data))
                     throw new MochaException("Any value can be added to a unique column only once!");
-            }
 
-            if(!MochaData.IsType(dataType,data.Data))
-                throw new MochaException("The submitted data is not compatible with the targeted data!");
+                if(!MochaData.IsType(dataType,data.Data))
+                    throw new MochaException("The submitted data is not compatible with the targeted data!");
+
+                xData.Value = data.Data.ToString();
+            } else {
+                if(!MochaData.IsType(dataType,data.Data))
+                    throw new MochaException("The submitted data is not compatible with the targeted data!");
+
+                xData.Value = data.Data.ToString();
+            }
 
             IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
             for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
@@ -2147,6 +2157,55 @@ namespace MochaDB {
             GetXElement($"Tables/{tableName}/{columnName}").Add(xData);
 
             Save();
+        }
+
+        /// <summary>
+        /// Update data by index.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="index">Index of data.</param>
+        /// <param name="data">Data to replace.</param>
+        internal void InternalUpdateData(string tableName,string columnName,int index,object data) {
+            if(!ExistsColumn(tableName,columnName))
+                throw new MochaException("Column not found in this name!");
+            OnChanging(this,new EventArgs());
+
+            data = data == null ? "" : data;
+            XElement xColumn = GetXElement($"Tables/{tableName}/{columnName}");
+
+            IEnumerable<XElement> dataRange = xColumn.Elements();
+            if(dataRange.Count() - 1 < index)
+                throw new MochaException("This index is larger than the maximum number of data in the table!");
+
+            XElement dataElement = dataRange.ElementAt(index);
+            if(dataElement.Value==data.ToString())
+                return;
+
+            dataElement.Value=data.ToString();
+
+            Save();
+        }
+
+        /// <summary>
+        /// Update first data.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">Data to replace.</param>
+        internal void InternalUpdateFirstData(string tableName,string columnName,object data) {
+            InternalUpdateData(tableName,columnName,0,data);
+        }
+
+        /// <summary>
+        /// Update last data.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="columnName">Name of column.</param>
+        /// <param name="data">Data to replace.</param>
+        internal void InternalUpdateLastData(string tableName,string columnName,object data) {
+            InternalUpdateData(tableName,columnName,
+                GetDataCount(tableName,columnName) - 1,data);
         }
 
         #endregion
@@ -2182,32 +2241,21 @@ namespace MochaDB {
         public void UpdateData(string tableName,string columnName,int index,object data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
-            OnChanging(this,new EventArgs());
-
-            data = data == null ? "" : data;
-            XElement xColumn = GetXElement($"Tables/{tableName}/{columnName}");
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(dataType == MochaDataType.AutoInt) {
                 throw new MochaException("The data type of this column is AutoInt, so data update cannot be done!");
             } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.ToString())) {
-                if(ExistsData(tableName,columnName,data.ToString()))
+                var dex = GetDataIndex(tableName,columnName,data.ToString());
+                if(dex != -1 && dex != index)
                     throw new MochaException("Any value can be added to a unique column only once!");
+                else if(dex == index)
+                    return;
             } else if(!MochaData.IsType(dataType,data)) {
                 throw new MochaException("The submitted data is not compatible with the targeted data!");
             }
 
-            IEnumerable<XElement> dataRange = xColumn.Elements();
-            if(dataRange.Count() - 1 < index)
-                throw new MochaException("This index is larger than the maximum number of data in the table!");
-
-            XElement dataElement = dataRange.ElementAt(index);
-            if(dataElement.Value==data.ToString())
-                return;
-
-            dataElement.Value=data.ToString();
-
-            Save();
+            InternalUpdateData(tableName,columnName,index,data);
         }
 
         /// <summary>

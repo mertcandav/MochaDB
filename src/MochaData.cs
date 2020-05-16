@@ -93,7 +93,7 @@ namespace MochaDB {
                 return false;
 
             try {
-                object testdata = GetDataFromString(dataType,(string)data);
+                object testdata = GetDataFromString(dataType,data.ToString());
                 return true;
             } catch { return false; }
         }
@@ -238,7 +238,7 @@ namespace MochaDB {
         public static object TryGetData(MochaDataType dataType,object data) {
             if(!IsType(dataType,data)) {
                 if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
-                    return "";
+                    return string.Empty;
                 else if(dataType == MochaDataType.Boolean)
                     return false;
                 else

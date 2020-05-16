@@ -2673,6 +2673,34 @@
             <summary>
             Add data.
             </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">MochaData object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateData(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            Update data by index.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="index">Index of data.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateFirstData(System.String,System.String,System.Object)">
+            <summary>
+            Update first data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateLastData(System.String,System.String,System.Object)">
+            <summary>
+            Update last data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">Data to replace.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.AddData(System.String,System.String,MochaDB.MochaData)">
             <summary>
