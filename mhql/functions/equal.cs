@@ -12,20 +12,13 @@ namespace MochaDB.mhql.functions {
             var parts = command.Split(',');
             if(parts.Length < 2 || parts.Length > 2)
                 throw new MochaException("EQUAL function is cannot processed!");
-
+            
             int dex;
-            decimal range;
 
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
                 throw new MochaException("EQUAL function is cannot processed!");
-            if(!decimal.TryParse(parts[1].TrimStart().TrimEnd(),out range))
-                throw new MochaException("EQUAL function is cannot processed!");
 
-            decimal value;
-            if(!decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("EQUAL function is cannot processed!");
-
-            return value == range;
+            return parts[1].Trim() == row.Datas[dex].Data.ToString();
         }
     }
 }
