@@ -4363,6 +4363,11 @@
             Sort columns by name.
             </summary>
         </member>
+        <member name="M:MochaDB.MochaTable.IsEmpty">
+            <summary>
+            Returns table empty state.
+            </summary>
+        </member>
         <member name="M:MochaDB.MochaTable.ToString">
             <summary>
             Returns <see cref="P:MochaDB.MochaTable.Name"/>.

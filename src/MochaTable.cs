@@ -154,6 +154,13 @@ namespace MochaDB {
             SetRowsByDatas();
         }
 
+        /// <summary>
+        /// Returns table empty state.
+        /// </summary>
+        public bool IsEmpty() {
+            return Rows.Count == 0;
+        }
+
         #endregion
 
         #region Overrides
