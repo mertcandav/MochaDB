@@ -54,11 +54,11 @@ namespace MochaDB.mhql {
 
                 var table = Tdb.GetTable(tablename);
 
-                if(parts.Length == 1 && parts[0].TrimStart().TrimEnd() == "*")
+                if(parts.Length == 1 && parts[0].Trim() == "*")
                     columns.AddRange(table.Columns);
                 else
                     for(var index = 0; index < parts.Length; index++) {
-                        var callcmd = parts[index];
+                        var callcmd = parts[index].Trim();
                         var name = Mhql_AS.GetAS(ref callcmd);
                         var column = table.Columns[callcmd];
                         column.Name = name;
