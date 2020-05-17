@@ -1798,6 +1798,96 @@
             </summary>
             <param name="value">Bytes.</param>
         </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.String)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Char)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Int32)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Int64)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Int16)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.UInt32)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.UInt64)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.UInt16)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Byte)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.SByte)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Single)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Decimal)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Double)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.Boolean)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
+        <member name="M:MochaDB.MochaConvert.ToMochaData(System.DateTime)">
+            <summary>
+            Returns value as MochaData.
+            </summary>
+            <param name="value">Value to convert.</param>
+        </member>
         <member name="T:MochaDB.MochaData">
             <summary>
             This is data object for MochaDB.

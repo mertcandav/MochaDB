@@ -59,5 +59,110 @@ namespace MochaDB {
         /// <param name="value">Bytes.</param>
         public static byte[] FromBase64String(string value) =>
             Convert.FromBase64String(value);
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this string value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this char value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this int value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this long value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this short value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this uint value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this ulong value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this ushort value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this byte value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this sbyte value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this float value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this decimal value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this double value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this bool value) =>
+            (MochaData)value;
+
+        /// <summary>
+        /// Returns value as MochaData.
+        /// </summary>
+        /// <param name="value">Value to convert.</param>
+        public static MochaData ToMochaData(this DateTime value) =>
+            (MochaData)value;
     }
 }
