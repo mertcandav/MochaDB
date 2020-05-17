@@ -78,7 +78,7 @@ namespace MochaDB {
             SuspendChangeEvents=false;
             Provider=provider;
             aes256=new AES(Iv,Key);
-            ConnectionState=MochaConnectionState.Disconnected;
+            State=MochaConnectionState.Disconnected;
             Logs = Provider.GetBoolAttributeState("Logs");
 
             if(Provider.GetBoolAttributeState("AutoConnect")) {
@@ -107,7 +107,7 @@ namespace MochaDB {
             //Invoke.
             ConnectionCheckRequired?.Invoke(sender,e);
 
-            if(ConnectionState!=MochaConnectionState.Connected)
+            if(State!=MochaConnectionState.Connected)
                 throw new MochaException("Connection is not open!");
         }
 
@@ -314,10 +314,10 @@ namespace MochaDB {
         /// Connect to database.
         /// </summary>
         public void Connect() {
-            if(ConnectionState==MochaConnectionState.Connected)
+            if(State==MochaConnectionState.Connected)
                 return;
 
-            ConnectionState=MochaConnectionState.Connected;
+            State=MochaConnectionState.Connected;
 
             if(!File.Exists(Provider.Path)) {
                 if(Provider.GetBoolAttributeState("AutoCreate"))
@@ -351,10 +351,10 @@ namespace MochaDB {
         /// Disconnect from database.
         /// </summary>
         public void Disconnect() {
-            if(ConnectionState==MochaConnectionState.Disconnected)
+            if(State==MochaConnectionState.Disconnected)
                 return;
 
-            ConnectionState=MochaConnectionState.Disconnected;
+            State=MochaConnectionState.Disconnected;
 
             sourceStream.Dispose();
             Doc=null;
@@ -682,7 +682,7 @@ namespace MochaDB {
                     return false;
                 if(this == destination)
                     return false;
-                var descncstate = destination.ConnectionState;
+                var descncstate = destination.State;
 
                 if(descncstate==MochaConnectionState.Disconnected)
                     destination.Connect();
@@ -707,7 +707,7 @@ namespace MochaDB {
                     return false;
                 if(this == destination)
                     return false;
-                var descncstate = destination.ConnectionState;
+                var descncstate = destination.State;
 
                 if(descncstate==MochaConnectionState.Disconnected)
                     destination.Connect();
@@ -2624,7 +2624,7 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// <summary>
         /// State of connection.
         /// </summary>
-        public MochaConnectionState ConnectionState { get; private set; }
+        public MochaConnectionState State { get; private set; }
 
         /// <summary>
         /// Name of database.

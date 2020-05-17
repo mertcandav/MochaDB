@@ -10,7 +10,7 @@ open MochaDB.Mhql
 //Stress mhql commands.
 //db: Target database.
 let StartMhqlTableGetStress(db: MochaDatabase) =
-    let cncstate = db.ConnectionState
+    let cncstate = db.State
     if cncstate = MochaConnectionState.Disconnected then
         db.Connect()
 
@@ -50,7 +50,7 @@ let StartMhqlTableGetStress(db: MochaDatabase) =
 //db: Target database.
 //tick: Test count.
 let StartMhqlTableGetStressWithTick(db: MochaDatabase, tick: int) =
-    let cncstate = db.ConnectionState
+    let cncstate = db.State
     if cncstate = MochaConnectionState.Disconnected then
         db.Connect()
 
@@ -90,7 +90,7 @@ let StartMhqlTableGetStressWithTick(db: MochaDatabase, tick: int) =
 //db: Target database.
 //cmd: Command.
 let StartMhqlTableGetStressCmd(db: MochaDatabase,cmd: string) =
-    let cncstate = db.ConnectionState
+    let cncstate = db.State
     if cncstate = MochaConnectionState.Disconnected then
         db.Connect()
 
@@ -116,7 +116,7 @@ let StartMhqlTableGetStressCmd(db: MochaDatabase,cmd: string) =
 //tick: Test count.
 //cmd: Command.
 let StartMhqlTableGetStressWithTickCmd(db: MochaDatabase, tick: int,cmd: string) =
-    let cncstate = db.ConnectionState
+    let cncstate = db.State
     if cncstate = MochaConnectionState.Disconnected then
         db.Connect()
 

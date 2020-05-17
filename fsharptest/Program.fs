@@ -55,13 +55,13 @@ let main argv =
             elif input.Equals("exit",StringComparison.InvariantCultureIgnoreCase) then
                 exit 0
             elif input.Equals("connectdb",StringComparison.InvariantCultureIgnoreCase) then
-                if db.ConnectionState = MochaConnectionState.Connected then
+                if db.State = MochaConnectionState.Connected then
                     Console.WriteLine "Connection is already open!"
                 else
                     db.Connect()
                     Console.WriteLine "Connected!"
             elif input.Equals("disconnectdb",StringComparison.InvariantCultureIgnoreCase) then
-                if db.ConnectionState = MochaConnectionState.Disconnected then
+                if db.State = MochaConnectionState.Disconnected then
                     Console.WriteLine "Connection is already closed!"
                 else
                     db.Disconnect()
@@ -76,7 +76,7 @@ let main argv =
             elif input.StartsWith("scalar ",StringComparison.InvariantCultureIgnoreCase) then
                 Scalar(db,input.[6..])
             elif input.Equals("cncstate",StringComparison.InvariantCultureIgnoreCase) then
-                Console.WriteLine db.ConnectionState
+                Console.WriteLine db.State
             elif input.StartsWith("mhqlstresscmd",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
                 StartMhqlTableGetStressCmd(db,input.Split(' ').[1])

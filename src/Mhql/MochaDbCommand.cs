@@ -77,7 +77,7 @@ SELECT|REMOVE|NOTEQUAL)\b",
         internal void CheckConnection() {
             if(Database==null)
                 throw new MochaException("Target database is cannot null!");
-            if(Database.ConnectionState!=MochaConnectionState.Connected)
+            if(Database.State!=MochaConnectionState.Connected)
                 throw new MochaException("Connection is not open!");
         }
 

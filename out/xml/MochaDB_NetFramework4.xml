@@ -2912,7 +2912,7 @@
             Mapped MochaFileSystem.
             </summary>
         </member>
-        <member name="P:MochaDB.MochaDatabase.ConnectionState">
+        <member name="P:MochaDB.MochaDatabase.State">
             <summary>
             State of connection.
             </summary>
