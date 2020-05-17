@@ -12,7 +12,7 @@ namespace MochaDB.mhql.functions {
             var parts = command.Split(',');
             if(parts.Length < 2 || parts.Length > 2)
                 throw new MochaException("EQUAL function is cannot processed!");
-            
+
             int dex;
 
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))

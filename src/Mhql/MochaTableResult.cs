@@ -61,7 +61,7 @@
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Returns table empty state.
         /// </summary>

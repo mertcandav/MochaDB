@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace MochaDB.engine {
@@ -49,6 +48,7 @@ namespace MochaDB.engine {
                 var parts = match.Value.Split(':');
                 var attr = new MochaAttribute(parts[0]);
                 attr.Value = parts[1];
+                attr.Value = attr.Value.Substring(0,attr.Value.Length-1);
                 return attr;
             }
 

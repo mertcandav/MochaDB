@@ -74,7 +74,7 @@ namespace MochaDB.mhql {
                             columns.AddRange(tables[tindex].Columns);
                         continue;
                     }
-                        
+
                     var callparts = callcmd.Split('.');
                     if(callparts.Length>2)
                         throw new MochaException($"'{callcmd}' command is cannot processed!");

@@ -1726,7 +1726,7 @@ namespace MochaDB {
                     xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
                 }
             }
-            
+
             // Attributes
             for(int index = 0; index < column.Attributes.Count; index++)
                 AddColumnAttribute(tableName,column.Name,column.Attributes[index]);
