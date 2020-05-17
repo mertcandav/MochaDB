@@ -304,6 +304,9 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "RESTORETOLOG") {
                     Database.RestoreToLog(queryPaths[1]);
                     return;
+                } else if(queryPaths[0] == "CLEARROWS") {
+                    Database.ClearRows(queryPaths[1]);
+                    return;
                 } else if(queryPaths[0] == "RESETTABLE") {
                     if(!Database.ExistsTable(queryPaths[1]))
                         throw new MochaException("Table not found in this name!");
