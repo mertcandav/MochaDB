@@ -1,6 +1,6 @@
 CHANGELOGS of MochaDB.
 
-# rlsv 3.4.4
+# rlsv 3.4.4 [ 11 April 2020 ]
 
 + Performance optimizations
 + Fix Mhql RETURN keyword fix "'RETURN' command is cannot processed!" error with used SELECT keyword
@@ -77,7 +77,7 @@ CHANGELOGS of MochaDB.
 + Add [MochaQ:GetRun Command]#REMOVESTACKITEMATTRIBUTE:StackName:Path:AttributeName
 + Add [MochaQ:GetRun Command]#REMOVECOLUMNATTRIBUTE:TableName:ColumnName:AttributeName
 
-# rlsv3.4.3
+# rlsv3.4.3 [ 30 March 2020 ]
 
 + Rename [Namespace]Querying to Mochaq
 + In the path property in the connection string, the extension .mochadb is added automatically if it does not exist.
@@ -99,7 +99,7 @@ CHANGELOGS of MochaDB.
 + Add [MochaQFormatter:Returnable Method]LowerCaseKeywords
 + Add [Class]MhqlFormatter
 
-# rlsv3.4.2
+# rlsv3.4.2 [ 18 March 2020 ]
 
 + Upgrade F# compatibility
 + Add IMochaElement interface
@@ -130,7 +130,7 @@ CHANGELOGS of MochaDB.
 + Add element functions for compatibility objects
 + Improvements for enumerators
 
-# rlsv3.4.1
+# rlsv3.4.1 [ 15 March 2020 ]
 
 + Improvements for logs
 + Add remove command support for GetRun
@@ -138,7 +138,7 @@ CHANGELOGS of MochaDB.
 + Add MochaQ commands and improvements for logs
 + Minor optimizations
 
-# rlsv3.4.0
+# rlsv3.4.0 [ 14 March 2020 ]
 
 + Bug fixes
 + New features
@@ -149,7 +149,7 @@ CHANGELOGS of MochaDB.
 
 And more...
 
-# rlsv3.3.0
+# rlsv3.3.0 [ 12 March 2020 ]
 
 + Important bug fixes
 + Optimizations
@@ -158,7 +158,7 @@ And more...
 
 And more...
 
-# rlsv3.2.0
+# rlsv3.2.0 [ 8 March 2020 ]
 
 + Update compatibility
 + Improvements
@@ -166,24 +166,24 @@ And more...
 + New features
 + Important bug fixes
 
-# rlsv3.1.2
+# rlsv3.1.2 [ 5 March 2020 ]
 
 + Fix name protections of collections
 + Optimizations in MochaScriptDebugger
 
-# rlsv3.1.1
+# rlsv3.1.1 [ 1 March 2020 ]
 
 + Bug fixes for MochaScript
 + Optimization for MochaScript
 + Added MochaScript functions
 
-# rlsv3.1.0
+# rlsv3.1.0 [ 1 March 2020 ]
 
 + Bug fixes
 + Optimization
 + Minor additions
 
-# rlsv3.0.0
+# rlsv3.0.0 [ 23 February 2020 ]
 
 + Important bug fixes
 + Performance improvements
@@ -199,10 +199,10 @@ And more...
 + New data types for database
 + New variable types for MochaScript
 
-# rlsv2.0.0
+# rlsv2.0.0 [ 9 February 2020 ]
 
 Optimization, performance improvements, bug fixes and new features.
 
-# rlsv1.0.0
+# rlsv1.0.0 [ 27 January 2020 ]
 
 First release.
