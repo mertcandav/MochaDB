@@ -57,7 +57,7 @@ namespace MochaDB.mhql {
         /// <param name="command">Must command.</param>
         /// <param name="table">Table.</param>
         public void MustTable(string command,ref MochaTableResult table) {
-            command = command.TrimStart().TrimEnd();
+            command = command.Trim();
             var parts = Mhql_AND.GetParts(command);
             for(int index = 0; index < parts.Length; index++) {
                 var partcmd = parts[index];

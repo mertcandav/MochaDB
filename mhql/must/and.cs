@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace MochaDB.mhql {
@@ -10,12 +12,32 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         public static MochaArray<string> GetParts(string command) {
-            var regex = new Regex(@"AND",RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-            var parts = regex.Split(command);
-            for(int index = 0; index < parts.Length-1; index++) {
-                parts[index] = parts[index].Trim();
+            var pattern = new Regex("AND",
+                RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+            var parts = new List<string>();
+            var value = string.Empty;
+            var count = 0;
+            for(int index = 0; index < command.Length; index++) {
+                var currentChar = command[index];
+                if(currentChar == 'A' || currentChar == 'a') {
+                    if(command.Length - 1 - index >= 3) {
+                        if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
+                            parts.Add(value.Trim());
+                            value = string.Empty;
+                            index+=2;
+                            continue;
+                        }
+                    }
+                }
+                else if(currentChar == '(')
+                    count++;
+                else if(currentChar == ')')
+                    count--;
+
+                value += currentChar;
             }
-            return parts;
+            parts.Add(value.Trim());
+            return new MochaArray<string>(parts);
         }
     }
 }
