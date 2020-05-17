@@ -3551,6 +3551,12 @@
             </summary>
             <param name="datas">Datas of row.</param>
         </member>
+        <member name="M:MochaDB.MochaRow.#ctor(System.Object[])">
+            <summary>
+            Create new MochaRow.
+            </summary>
+            <param name="datas">Datas of row.</param>
+        </member>
         <member name="P:MochaDB.MochaRow.Datas">
             <summary>
             Datas of row.
