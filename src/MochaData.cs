@@ -81,6 +81,100 @@ namespace MochaDB {
 
         #endregion
 
+        #region Castings
+
+        public static explicit operator MochaData(string value) =>
+            new MochaData() {
+                dataType = MochaDataType.String,
+                data = value
+            };
+
+        public static explicit operator MochaData(char value) =>
+            new MochaData() {
+                dataType = MochaDataType.Char,
+                data = value
+            };
+
+        public static explicit operator MochaData(int value) =>
+            new MochaData() {
+                dataType = MochaDataType.Int32,
+                data = value
+            };
+
+        public static explicit operator MochaData(long value) =>
+            new MochaData() {
+                dataType = MochaDataType.Int64,
+                data = value
+            };
+
+        public static explicit operator MochaData(short value) =>
+            new MochaData() {
+                dataType = MochaDataType.Int16,
+                data = value
+            };
+
+        public static explicit operator MochaData(uint value) =>
+            new MochaData() {
+                dataType = MochaDataType.UInt32,
+                data = value
+            };
+
+        public static explicit operator MochaData(ulong value) =>
+            new MochaData() {
+                dataType = MochaDataType.UInt64,
+                data = value
+            };
+
+        public static explicit operator MochaData(ushort value) =>
+            new MochaData() {
+                dataType = MochaDataType.UInt16,
+                data = value
+            };
+
+        public static explicit operator MochaData(byte value) =>
+            new MochaData() {
+                dataType = MochaDataType.Byte,
+                data = value
+            };
+
+        public static explicit operator MochaData(sbyte value) =>
+            new MochaData() {
+                dataType = MochaDataType.SByte,
+                data = value
+            };
+
+        public static explicit operator MochaData(float value) =>
+            new MochaData() {
+                dataType = MochaDataType.Float,
+                data = value
+            };
+
+        public static explicit operator MochaData(decimal value) =>
+            new MochaData() {
+                dataType = MochaDataType.Decimal,
+                data = value
+            };
+
+        public static explicit operator MochaData(double value) =>
+            new MochaData() {
+                dataType = MochaDataType.Double,
+                data = value
+            };
+
+        public static explicit operator MochaData(bool value) =>
+            new MochaData() {
+                dataType = MochaDataType.Boolean,
+                data = value
+            };
+
+        public static explicit operator MochaData(DateTime value) =>
+            new MochaData() {
+                dataType = MochaDataType.DateTime,
+                data = value
+            };
+
+        #endregion
+
         #region Static
 
         /// <summary>
