@@ -787,10 +787,12 @@ namespace MochaDB {
 
             var xtable = GetXElement($"Sectors/{name}");
             var code = xtable.Attribute("Attributes").Value;
-            var copycode = code;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
-            if(copycode != code) Save();
+            if(result) {
+                xtable.Attribute("Attributes").Value = code;
+                Save();
+            }
 
             return result;
         }
@@ -1054,10 +1056,12 @@ namespace MochaDB {
 
             var xtable = GetXElement($"Stacks/{name}");
             var code = xtable.Attribute("Attributes").Value;
-            var copycode = code;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
-            if(copycode != code) Save();
+            if(result) {
+                xtable.Attribute("Attributes").Value = code;
+                Save();
+            }
 
             return result;
         }
@@ -1274,10 +1278,12 @@ namespace MochaDB {
 
             var xitem = GetXElement($"Stacks/{name}/{path}");
             var code = xitem.Attribute("Attributes").Value;
-            var copycode = code;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
-            if(copycode != code) Save();
+            if(result) {
+                xitem.Attribute("Attributes").Value = code;
+                Save();
+            }
 
             return result;
         }
@@ -1535,10 +1541,12 @@ namespace MochaDB {
 
             var xtable = GetXElement($"Tables/{name}");
             var code = xtable.Attribute("Attributes").Value;
-            var copycode = code;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
-            if(copycode != code) Save();
+            if(result) {
+                xtable.Attribute("Attributes").Value = code;
+                Save();
+            }
 
             return result;
         }
@@ -1772,10 +1780,12 @@ namespace MochaDB {
 
             var xcolumn = GetXElement($"Tables/{tableName}/{name}");
             var code = xcolumn.Attribute("Attributes").Value;
-            var copycode = code;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
-            if(copycode != code) Save();
+            if(result) {
+                xcolumn.Attribute("Attributes").Value = code;
+                Save();
+            }
 
             return result;
         }

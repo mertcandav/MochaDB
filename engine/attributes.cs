@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 
 namespace MochaDB.engine {
@@ -10,7 +11,7 @@ namespace MochaDB.engine {
         /// </summary>
         public static string GetAttributeCode(ref IMochaAttribute attr) {
             string code;
-            code = $"{attr.Name}:\"{attr.Value}\";";
+            code = $"{attr.Name}:{attr.Value};";
             return code;
         }
 
@@ -42,13 +43,12 @@ namespace MochaDB.engine {
         /// <param name="code">Code.</param>
         /// <param name="name">Name of attribute.</param>
         public static IMochaAttribute GetAttribute(string code,string name) {
-            var rgx = new Regex($@"{name}:"".*"";");
+            var rgx = new Regex($@"{name}:.*;");
             var match = rgx.Match(code);
             if(match.Success) {
-                var attrcode = code.Substring(match.Index,match.Length);
-                var splitdex = attrcode.IndexOf(':');
-                var attr = new MochaAttribute(attrcode.Substring(0,splitdex));
-                attr.Value = attrcode.Substring(splitdex+2,match.Length-name.Length-4);
+                var parts = match.Value.Split(':');
+                var attr = new MochaAttribute(parts[0]);
+                attr.Value = parts[1];
                 return attr;
             }
 
@@ -61,7 +61,7 @@ namespace MochaDB.engine {
         /// <param name="code">Code.</param>
         /// <param name="name">Name of attribute.</param>
         public static bool RemoveAttribute(ref string code,string name) {
-            var rgx = new Regex($@"{name}:"".*"";");
+            var rgx = new Regex($@"{name}:.*;");
             var match = rgx.Match(code);
             if(match.Success) {
                 code = rgx.Replace(code,string.Empty);
@@ -76,12 +76,14 @@ namespace MochaDB.engine {
         /// </summary>
         /// <param name="code">Code.</param>
         public static MochaAttributeCollection GetAttributes(string code) {
-            var rgx = new Regex($"(( *?)|(;.*)):\".*\";");
-            var matches = rgx.Matches(code);
+            var parts = code.Split(';');
             var attrs = new MochaAttributeCollection();
-            for(int index = 0; index < matches.Count; index++) {
-                var match = matches[index];
-                var attrcode = code.Substring(match.Index,match.Length);
+            for(int index = 0; index < parts.Length; index++) {
+                var attrcode = parts[index];
+
+                if(string.IsNullOrWhiteSpace(attrcode))
+                    continue;
+
                 var attr = GetAttribute(code,attrcode.Substring(0,attrcode.IndexOf(':')));
                 attrs.Add(attr);
             }
