@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
@@ -36,19 +38,29 @@ namespace MochaDB.mhql {
         /// <param name="command">MHQL Command.</param>
         /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
-            int mustdex = command.IndexOf("MUST",StringComparison.OrdinalIgnoreCase);
-            if(mustdex==-1)
-                throw new MochaException("MUST command is cannot processed!");
-            var match = MochaDbCommand.mainkeywordRegex.Match(command,mustdex+4);
-            int finaldex = match.Index;
-            string mustcommand;
-            if(finaldex!=0)
-                mustcommand = command.Substring(mustdex+4,finaldex-(mustdex+4));
-            else
-                mustcommand = command.Substring(mustdex+4);
+            var pattern = new Regex("END",
+                RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+            var value = string.Empty;
+            var count = 0;
+            command = command.Substring(4);
+            for(int index = 0; index < command.Length; index++) {
+                var currentChar = command[index];
+                if(currentChar == 'E' || currentChar == 'e') {
+                    if(command.Length - 1 - index >= 3) {
+                        if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
+                            final = command.Substring(index+3).Trim();
+                            return value.Trim();
+                        }
+                    }
+                } else if(currentChar == '(')
+                    count++;
+                else if(currentChar == ')')
+                    count--;
 
-            final = command.Substring(finaldex);
-            return mustcommand;
+                value += currentChar;
+            }
+            final = command;
+            return value.Trim();
         }
 
         /// <summary>
