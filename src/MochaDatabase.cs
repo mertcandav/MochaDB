@@ -2109,6 +2109,24 @@ namespace MochaDB {
             return new MochaCollectionResult<MochaRow>(rows);
         }
 
+        /// <summary>
+        /// Clear all rows of table.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        public void ClearRows(string tableName) {
+            if(!ExistsTable(tableName))
+                throw new MochaException("Table not found in this name!");
+
+            IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
+            var count = columnRange.First().Elements().Count();
+            if(count > 0) {
+                OnChanging(this,new EventArgs());
+                for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++)
+                    columnRange.ElementAt(columnIndex).RemoveNodes();
+                Save();
+            }
+        }
+
         #endregion
 
         #region Data

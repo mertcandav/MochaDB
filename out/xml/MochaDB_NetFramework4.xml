@@ -2685,6 +2685,12 @@
             </summary>
             <param name="tableName">Name of table.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.ClearRows(System.String)">
+            <summary>
+            Clear all rows of table.
+            </summary>
+            <param name="tableName">Name of table.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.InternalAddData(System.String,System.String,MochaDB.MochaData)">
             <summary>
             Add data.
