@@ -2028,6 +2028,7 @@ namespace MochaDB {
             for(int index = 1; index < columnRange.Count(); index++) {
                 InternalUpdateData(tableName,columnRange.ElementAt(index).Name.LocalName,dex,row.Datas[index].Data);
             }
+            Save();
         }
 
         /// <summary>
@@ -2162,8 +2163,6 @@ namespace MochaDB {
                     new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
             GetXElement($"Tables/{tableName}/{columnName}").Add(xData);
-
-            Save();
         }
 
         /// <summary>
@@ -2176,7 +2175,6 @@ namespace MochaDB {
         internal void InternalUpdateData(string tableName,string columnName,int index,object data) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
-            OnChanging(this,new EventArgs());
 
             data = data == null ? "" : data;
             XElement xColumn = GetXElement($"Tables/{tableName}/{columnName}");
@@ -2190,8 +2188,6 @@ namespace MochaDB {
                 return;
 
             dataElement.Value=data.ToString();
-
-            Save();
         }
 
         /// <summary>
@@ -2226,6 +2222,7 @@ namespace MochaDB {
         public void AddData(string tableName,string columnName,MochaData data) {
             OnChanging(this,new EventArgs());
             InternalAddData(tableName,columnName,data);
+            Save();
         }
 
         /// <summary>
@@ -2262,7 +2259,9 @@ namespace MochaDB {
                 throw new MochaException("The submitted data is not compatible with the targeted data!");
             }
 
+            OnChanging(this,new EventArgs());
             InternalUpdateData(tableName,columnName,index,data);
+            Save();
         }
 
         /// <summary>
