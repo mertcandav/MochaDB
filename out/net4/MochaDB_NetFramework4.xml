@@ -2665,6 +2665,13 @@
             <param name="tableName">Name of table.</param>
             <param name="row">MochaRow object to add.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.AddRow(System.String,System.Object[])">
+            <summary>
+            Add row in table.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="datas">Datas of row.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.RemoveRow(System.String,System.Int32)">
             <summary>
             Remove row from table by index.

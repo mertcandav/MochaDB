@@ -2032,6 +2032,15 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Add row in table.
+        /// </summary>
+        /// <param name="tableName">Name of table.</param>
+        /// <param name="datas">Datas of row.</param>
+        public void AddRow(string tableName,params object[] datas) {
+            AddRow(tableName,new MochaRow(datas));
+        }
+
+        /// <summary>
         /// Remove row from table by index.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
