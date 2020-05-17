@@ -70,8 +70,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget-packages", "nuget-pac
 		pdocs\nuget-packages\documentation.md = pdocs\nuget-packages\documentation.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharptest", "fsharptest", "{822876C1-D58A-4513-BA76-846D0FE5BC93}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E91656EB-BAEE-4557-93D2-3B2D58367A95}"
@@ -107,8 +105,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vbnetmhql", "vbnetmhql", "{4F4FE20E-5295-48C1-A3C2-3B925800832E}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{4D5E482B-6B35-4989-8773-5FA84900E6DA}"
@@ -121,8 +117,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{
 		mhql\functions\notequal.cs = mhql\functions\notequal.cs
 		mhql\functions\startw.cs = mhql\functions\startw.cs
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharpmhql", "fsharpmhql", "{09C26371-28DF-43E5-B6BF-EFC72F40A3F4}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fsharpmhql.fsproj", "{F19A9F6D-5CE4-446C-9A70-6094A0056241}"
 EndProject
@@ -163,12 +157,9 @@ Global
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 		{62116A0C-4ADB-4D6F-9A70-A75B7E70469F} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
-		{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2} = {822876C1-D58A-4513-BA76-846D0FE5BC93}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
-		{118E0215-C298-4E8C-AAF7-4AA9452E8FA3} = {4F4FE20E-5295-48C1-A3C2-3B925800832E}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
-		{F19A9F6D-5CE4-446C-9A70-6094A0056241} = {09C26371-28DF-43E5-B6BF-EFC72F40A3F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
