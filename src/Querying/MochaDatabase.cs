@@ -24,6 +24,14 @@ namespace MochaDB.Querying {
             new MochaDbCommand(mhql,db).ExecuteScalar();
 
         /// <summary>
+        /// Execute <see cref="MochaDbCommand.ExecuteScalarTable()"/> function.
+        /// </summary>
+        /// <param name="db">Target database.</param>
+        /// <param name="mhql">MHQL Command.</param>
+        public static MochaTableResult ExecuteScalarTable(this MochaDatabase db,string mhql) =>
+            new MochaDbCommand(mhql,db).ExecuteScalarTable();
+
+        /// <summary>
         /// Execute <see cref="MochaDbCommand.ExecuteCommand()"/> function.
         /// </summary>
         /// <param name="db">Target database.</param>
