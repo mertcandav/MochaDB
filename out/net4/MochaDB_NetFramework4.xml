@@ -1021,6 +1021,17 @@
             Run command.
             </summary>
         </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable">
+            <summary>
+            Returns first data as MochaTableResult.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable(System.String)">
+            <summary>
+            Returns first data as MochaTableResult.
+            </summary>
+            <param name="command">MHQL Command to set.</param>
+        </member>
         <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar(System.String)">
             <summary>
             Returns first result or null.

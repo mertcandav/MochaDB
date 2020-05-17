@@ -172,6 +172,21 @@ SELECT|REMOVE|NOTEQUAL)\b",
         #region ExecuteScalar
 
         /// <summary>
+        /// Returns first data as MochaTableResult.
+        /// </summary>
+        public MochaTableResult ExecuteScalarTable() {
+            return ExecuteScalar() as MochaTableResult;
+        }
+
+        /// <summary>
+        /// Returns first data as MochaTableResult.
+        /// </summary>
+        /// <param name="command">MHQL Command to set.</param>
+        public MochaTableResult ExecuteScalarTable(string command) {
+            return ExecuteScalar(command) as MochaTableResult;
+        }
+
+        /// <summary>
         /// Returns first result or null.
         /// </summary>
         /// <param name="command">MQL Command to set.</param>
