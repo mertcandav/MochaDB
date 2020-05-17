@@ -38,6 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06
 		.gitignore = .gitignore
 		.travis.yml = .travis.yml
 		azure-pipelines.yml = azure-pipelines.yml
+		CHANGELOG.md = CHANGELOG.md
 		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
 		Compile_fsharpmhql.ps1 = Compile_fsharpmhql.ps1
 		Compile_fsharpmhql.sh = Compile_fsharpmhql.sh
