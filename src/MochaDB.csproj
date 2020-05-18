@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>3.4.4</Version>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageIcon>MochaDB_Texted.png</PackageIcon>
+    <PackageIcon>MochaDB_Logo.ico</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>+ Performance optimizations
 + Fix Mhql RETURN keyword fix "'RETURN' command is cannot processed!" error with used SELECT keyword
@@ -110,7 +110,7 @@
 
   <ItemGroup>
     <None Remove="MochaDatabase.cs~RF65b20e.TMP" />
-    <None Include="..\pdocs\resources\MochaDB_Texted.png">
+    <None Include="..\pdocs\resources\MochaDB_Logo.ico">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
