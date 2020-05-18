@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -28,8 +27,7 @@ namespace MochaDB.mhql {
                             continue;
                         }
                     }
-                }
-                else if(currentChar == '(')
+                } else if(currentChar == '(')
                     count++;
                 else if(currentChar == ')')
                     count--;

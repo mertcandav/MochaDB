@@ -20,13 +20,14 @@ let StartMhqlTableGetStress(db: MochaDatabase) =
         let command = new MochaDbCommand(db)
         let reader = command.ExecuteReader("
         USE
-            TableOne,
-                TableOne.Name,
-                    TableOne.Gender
+            Persons.ID
+                Persons.Name
+                    Persons.Password
         MUST
-            0(Mike|Lily)
+            0(Mertcan|Emirhan)
                 AND
                     1()
+                    END
         ORDERBY
             DESC
                 3
@@ -60,13 +61,14 @@ let StartMhqlTableGetStressWithTick(db: MochaDatabase, tick: int) =
         let command = new MochaDbCommand(db)
         let reader = command.ExecuteReader("
         USE
-            TableOne,
-                TableOne.Name,
-                    TableOne.Gender
+            Persons.ID,
+                Persons.Name,
+                    Persons.Password
         MUST
-            0(Mike|Lily)
+            0(Mertcan|Emirhan)
                 AND
                     1()
+                    END
         ORDERBY
             DESC
                 3
