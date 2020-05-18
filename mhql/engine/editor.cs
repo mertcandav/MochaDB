@@ -36,6 +36,7 @@ namespace MochaDB.mhql.engine {
             command = multiline.Replace(command,string.Empty);
             var singleline = new Regex(@"//.*$",RegexOptions.Multiline);
             command = singleline.Replace(command,string.Empty);
+            command = command.Trim();
         }
     }
 }
