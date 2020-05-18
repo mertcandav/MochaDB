@@ -1911,6 +1911,13 @@
             </summary>
             <param name="value">Value.</param>
         </member>
+        <member name="M:MochaDB.MochaData.TryParse(System.Object,MochaDB.MochaData@)">
+            <summary>
+            Try convert value to MochaData.
+            </summary>
+            <param name="value">Value.</param>
+            <param name="data">Output.</param>
+        </member>
         <member name="M:MochaDB.MochaData.IsType(MochaDB.MochaDataType,System.Object)">
             <summary>
             Return the data equality to the data type.

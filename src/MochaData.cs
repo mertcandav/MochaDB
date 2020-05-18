@@ -189,6 +189,21 @@ namespace MochaDB {
         }
 
         /// <summary>
+        /// Try convert value to MochaData.
+        /// </summary>
+        /// <param name="value">Value.</param>
+        /// <param name="data">Output.</param>
+        public static bool TryParse(object value,out MochaData data) {
+            try {
+                data = Parse(value);
+                return true;
+            } catch { }
+
+            data = null;
+            return false;
+        }
+
+        /// <summary>
         /// Return the data equality to the data type.
         /// </summary>
         /// <param name="dataType">Base datatype.</param>
