@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using MochaDB.Querying;
 
@@ -31,7 +32,7 @@ namespace MochaDB.mhql.engine {
         /// </summary>
         /// <param name="command">Command.</param>
         public static void RemoveComments(ref string command) {
-            var multiline = new Regex(@"/\*.*\*/");
+            var multiline = new Regex(@"/\*.*?\*/",RegexOptions.Singleline);
             command = multiline.Replace(command,string.Empty);
         }
     }
