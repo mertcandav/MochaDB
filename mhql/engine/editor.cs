@@ -31,14 +31,8 @@ namespace MochaDB.mhql.engine {
         /// </summary>
         /// <param name="command">Command.</param>
         public static void RemoveComments(ref string command) {
-            var regex = new Regex(@"/\*.*\*/");
-            var matches = regex.Matches(command);
-            for(int index = 0; index < matches.Count; index++) {
-                var match = matches[index];
-                if(!match.Success)
-                    continue;
-                command = command.Remove(match.Index,match.Length);
-            }
+            var multiline = new Regex(@"/\*.*\*/");
+            command = multiline.Replace(command,string.Empty);
         }
     }
 }
