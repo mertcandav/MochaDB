@@ -2050,7 +2050,7 @@ namespace MochaDB {
                 throw new MochaException("Table not found in this name!");
 
             IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
-            if(columnRange.First().Elements().Count()-1 <= index) {
+            if(columnRange.First().Elements().Count()-1 >= index) {
                 OnChanging(this,new EventArgs());
                 for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
                     columnRange.ElementAt(columnIndex).Elements().
