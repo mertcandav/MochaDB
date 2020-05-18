@@ -16,80 +16,47 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>MochaDB_Logo.ico</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>+ Performance optimizations
-+ Fix Mhql RETURN keyword fix "'RETURN' command is cannot processed!" error with used SELECT keyword
-+ Fix MochaQFormatter GetRun keyowrds
-+ [MochaDatabase]Normalized return functions.
-+ Add Attribute support for MochaDatabase extensions of Querying namespace.
-+ Add Element support for MochaDatabase extensions of Querying namespace.
-+ Add [Feature]Attributes
-+ Add [Class]MochaAttributeCollection
-+ Add [IMochaTable:Propertie]Attributes
-+ Add [MochaTable:Propertie]Attributes
-+ Add [IMochaColumn:Propertie]Attributes
-+ Add [MochaColumn:Propertie]Attributes
-+ Add [IMochaSecor:Propertie]Attributes
-+ Add [MochaSector:Propertie]Attributes
-+ Add [IMochaStack:Propertie]Attributes
-+ Add [MochaStack:Propertie]Attributes
-+ Add [IMochaStackItem:Propertie]Attributes
-+ Add [MochaStackItem:Propertie]Attributes
-+ Add [[Namespace]Qerying:Extension Method -&gt; MochaDatabase]ExecuteCommand
-+ Add [IMochaDatabase:Method]AddTableAttribute
-+ Add [IMochaDatabase:Returnable Method]GetTableAttribute
-+ Add [IMochaDatabase:Returnable Method]RemoveTableAttribute
-+ Add [IMochaDatabase:Method]AddColumnAttribute
-+ Add [IMochaDatabase:Returnable Method]GetColumnAttribute
-+ Add [IMochaDatabase:Returnable Method]RemoveColumnAttribute
-+ Add [IMochaDatabase:Method]AddStackAttribute
-+ Add [IMochaDatabase:Returnable Method]GetStackAttribute
-+ Add [IMochaDatabase:Returnable Method]RemoveStackAttribute
-+ Add [IMochaDatabase:Method]AddStackItemAttribute
-+ Add [IMochaDatabase:Returnable Method]GetStackItemAttribute
-+ Add [IMochaDatabase:Returnable Method]RemoveStackItemAttribute
-+ Add [IMochaDatabase:Method]AddSectorAttribute
-+ Add [IMochaDatabase:Returnable Method]GetSectorAttribute
-+ Add [IMochaDatabase:Returnable Method]RemoveSectorAttribute
-+ Add [MochaDatabase:Method]AddTableAttribute
-+ Add [MochaDatabase:Returnable Method]GetTableAttribute
-+ Add [MochaDatabase:Returnable Method]RemoveTableAttribute
-+ Add [MochaDatabase:Method]AddColumnAttribute
-+ Add [MochaDatabase:Returnable Method]GetColumnAttribute
-+ Add [MochaDatabase:Returnable Method]RemoveColumnAttribute
-+ Add [MochaDatabase:Method]AddStackAttribute
-+ Add [MochaDatabase:Returnable Method]GetStackAttribute
-+ Add [MochaDatabase:Returnable Method]RemoveStackAttribute
-+ Add [MochaDatabase:Method]AddStackItemAttribute
-+ Add [MochaDatabase:Returnable Method]GetStackItemAttribute
-+ Add [MochaDatabase:Returnable Method]RemoveStackItemAttribute
-+ Add [MochaDatabase:Method]AddSectorAttribute
-+ Add [MochaDatabase:Returnable Method]GetSectorAttribute
-+ Add [MochaDatabase:Returnable Method]RemoveSectorAttribute
-+ Add [MochaDatabase:Returnable Method]GetSectorAttributes
-+ Add [MochaDatabase:Returnable Method]GetStackAttributes
-+ Add [MochaDatabase:Returnable Method]GetStackItemAttributes
-+ Add [MochaDatabase:Returnable Method]GetTableAttributes
-+ Add [MochaDatabase:Returnable Method]GetColumnAttributes
-+ Add [MochaQ:GetRun Command]GETTABLEATTRIBUTES:TableName
-+ Add [MochaQ:GetRun Command]GETSECTORATTRIBUTES:SectorName
-+ Add [MochaQ:GetRun Command]GETSTACKATTRIBUTES:StackName
-+ Add [MochaQ:GetRun Command]GETCOLUMNATTRIBUTES:TableName:ColumnName
-+ Add [MochaQ:GetRun Command]GETSTACKITEMATTRIBUTES:StackName:Path
-+ Add [MochaQ:Run Command]REMOVETABLEATTRIBUTE:TableName:AttributeName
-+ Add [MochaQ:Run Command]REMOVESECTORATTRIBUTE:SectorName:AttributeName
-+ Add [MochaQ:Run Command]REMOVESTACKATTRIBUTE:StackName:AttributeName
-+ Add [MochaQ:Run Command]REMOVESTACKITEMATTRIBUTE:StackName:Path:AttributeName
-+ Add [MochaQ:Run Command]REMOVECOLUMNATTRIBUTE:TableName:ColumnName:AttributeName
-+ Add [MochaQ:GetRun Command]GETTABLEATTRIBUTE:TableName:AttributeName
-+ Add [MochaQ:GetRun Command]GETSECTORATTRIBUTE:SectorName:AttributeName
-+ Add [MochaQ:GetRun Command]GETSTACKATTRIBUTE:StackName:AttributeName
-+ Add [MochaQ:GetRun Command]GETSTACKITEMATTRIBUTE:StackName:Path:AttributeName
-+ Add [MochaQ:GetRun Command]GETCOLUMNATTRIBUTE:TableName:ColumnName:AttributeName
-+ Add [MochaQ:GetRun Command]#REMOVETABLEATTRIBUTE:TableName:AttributeName
-+ Add [MochaQ:GetRun Command]#REMOVESECTORATTRIBUTE:SectorName:AttributeName
-+ Add [MochaQ:GetRun Command]#REMOVESTACKATTRIBUTE:StackName:AttributeName
-+ Add [MochaQ:GetRun Command]#REMOVESTACKITEMATTRIBUTE:StackName:Path:AttributeName
-+ Add [MochaQ:GetRun Command]#REMOVECOLUMNATTRIBUTE:TableName:ColumnName:AttributeName</PackageReleaseNotes>
+    <PackageReleaseNotes>+ Performance improvements.
++ Optimizations.
++ MochaDatabase ConnectionState property rename to State.
++ The obligation to write the tags one after the other was removed on MHQL.
++ Fix column Attributes null bug.
++ Fix sector Attributes null bug.
++ Fix stack Attributes null bug.
++ Fix mhql and keyword bug.
++ Fix not saving the deleted row.
++ Fix the error of adding rows as many as the number of columns when adding rows.
++ Fix MHQL AS keyword column name bug.
++ Fix MHQL column name bug with FROM keyword.
++ Fix value type check system wrong check bug.
++ Fix the indistinguishable from AND or keyword AND, which has condition content in MHQL code.
++ Fix the indistinguishable from MUST or keyword MUST, which has condition content in MHQL code.
++ Fix row remove bug.
++ Fix attribute engine and improvements.
++ Fix MHQL multiline comment pattern.
++ Fix the gaps to the error at the start of the MHQL.
++ Add singleline comments to MHQL.
++ Add END keyword to MHQL.
++ Add ClearRows function to MochaDatabase.
++ Add ClearRows:TableName command to MochaQ.
++ Add ExecuteScalarTable functions to MochaDbCommand.
++ Add ExecuteScalarTable extension function to MochaDatabase with Querying namespace.
++ Add all data types support to MHQL EQUAL function.
++ Add all data types support to MHQL NOTEQUAL function.
++ Add NOTEQUAL function to MHQL.
++ Add IsEmpty function to MochaTable.
++ Add IsEmpty function to MochaTableResult.
++ Add UpdateFirstData function to MochaDatabase.
++ Add UpdateLastData function to MochaDatabase.
++ Add "*" pattern to only USE keyword use type.
++ Add casting support for string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime to MochaData.
++ Add ToMochaData function to MochaConvert.
++ Add ToMochaData extension function to string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime.
++ Add object params support constructor to MochaRow.
++ Add object params support constructor to MochaRowCollection.
++ Add object params support to AddRow fucntion of MochaDatabase.
++ Add Parse static function to MochaData.
++ Add TryParse static function to MochaData.</PackageReleaseNotes>
     <PackageTags>database,embedded,nosql,nosqldatabase,datastorage</PackageTags>
     <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
     <RepositoryType>Public</RepositoryType>
