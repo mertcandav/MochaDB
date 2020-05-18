@@ -178,6 +178,17 @@ namespace MochaDB {
         #region Static
 
         /// <summary>
+        /// Convert value to MochaData.
+        /// </summary>
+        /// <param name="value">Value.</param>
+        public static MochaData Parse(object value) {
+            var type = GetDataTypeFromType(value.GetType());
+            return new MochaData(
+                type,
+                GetDataFromString(type,value.ToString()));
+        }
+
+        /// <summary>
         /// Return the data equality to the data type.
         /// </summary>
         /// <param name="dataType">Base datatype.</param>

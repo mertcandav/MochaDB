@@ -1905,6 +1905,12 @@
             <param name="dataType">Data type of data.</param>
             <param name="data">Data value.</param>
         </member>
+        <member name="M:MochaDB.MochaData.Parse(System.Object)">
+            <summary>
+            Convert value to MochaData.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
         <member name="M:MochaDB.MochaData.IsType(MochaDB.MochaDataType,System.Object)">
             <summary>
             Return the data equality to the data type.
