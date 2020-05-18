@@ -71,6 +71,13 @@ namespace MochaDB {
         public void Add(IEnumerable<MochaData> datas) =>
             Add(new MochaRow(datas));
 
+        /// <summary>
+        /// Add item.
+        /// </summary>
+        /// <param name="datas">Datas of item.</param>
+        public void Add(params object[] datas) =>
+            Add(new MochaRow(datas));
+
         public override void AddRange(IEnumerable<MochaRow> items) {
             for(int index = 0; index < items.Count(); index++)
                 Add(items.ElementAt(index));

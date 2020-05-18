@@ -3686,6 +3686,12 @@
             </summary>
             <param name="datas">Datas of item.</param>
         </member>
+        <member name="M:MochaDB.MochaRowCollection.Add(System.Object[])">
+            <summary>
+            Add item.
+            </summary>
+            <param name="datas">Datas of item.</param>
+        </member>
         <member name="T:MochaDB.MochaScript.IMochaScriptCodeProcessor">
             <summary>
             Interface for MochaScript code processors.
