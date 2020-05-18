@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>3.4.5</Version>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageIcon>MochaDB_Logo.ico</PackageIcon>
+    <PackageIcon>MochaDB_Logo.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>+ Performance improvements.
 + Optimizations.
