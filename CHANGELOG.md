@@ -1,5 +1,49 @@
 CHANGELOGS of MochaDB.
 
+# rlsv 3.4.5 [ 18 May 2020 ]
+
++ Performance improvements.
++ Optimizations.
++ MochaDatabase ConnectionState property rename to State.
++ The obligation to write the tags one after the other was removed on MHQL.
++ Fix column Attributes null bug.
++ Fix sector Attributes null bug.
++ Fix stack Attributes null bug.
++ Fix mhql and keyword bug.
++ Fix not saving the deleted row.
++ Fix the error of adding rows as many as the number of columns when adding rows.
++ Fix MHQL AS keyword column name bug.
++ Fix MHQL column name bug with FROM keyword.
++ Fix value type check system wrong check bug.
++ Fix the indistinguishable from AND or keyword AND, which has condition content in MHQL code.
++ Fix the indistinguishable from MUST or keyword MUST, which has condition content in MHQL code.
++ Fix row remove bug.
++ Fix attribute engine and improvements.
++ Fix MHQL multiline comment pattern.
++ Fix the gaps to the error at the start of the MHQL.
++ Add singleline comments to MHQL.
++ Add END keyword to MHQL.
++ Add ClearRows function to MochaDatabase.
++ Add ClearRows:TableName command to MochaQ.
++ Add ExecuteScalarTable functions to MochaDbCommand.
++ Add ExecuteScalarTable extension function to MochaDatabase with Querying namespace.
++ Add all data types support to MHQL EQUAL function.
++ Add all data types support to MHQL NOTEQUAL function.
++ Add NOTEQUAL function to MHQL.
++ Add IsEmpty function to MochaTable.
++ Add IsEmpty function to MochaTableResult.
++ Add UpdateFirstData function to MochaDatabase.
++ Add UpdateLastData function to MochaDatabase.
++ Add ``*`` pattern to only USE keyword use type.
++ Add casting support for string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime to MochaData.
++ Add ToMochaData function to MochaConvert.
++ Add ToMochaData extension function to string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime.
++ Add object params support constructor to MochaRow.
++ Add object params support constructor to MochaRowCollection.
++ Add object params support to AddRow fucntion of MochaDatabase.
++ Add Parse static function to MochaData.
++ Add TryParse static function to MochaData.
+
 # rlsv 3.4.4 [ 11 April 2020 ]
 
 + Performance optimizations
