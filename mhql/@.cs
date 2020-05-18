@@ -24,8 +24,8 @@ namespace MochaDB.mhql {
             if(finaldex==0)
                 throw new MochaException("@ mark is cannot processed!");
 
-            var atcommand = command.Substring(0,finaldex).TrimStart().TrimEnd();
-            final = command.Substring(finaldex);
+            var atcommand = command.Substring(0,finaldex).Trim();
+            final = command.Substring(finaldex).Trim();
             return
                 atcommand;
         }
