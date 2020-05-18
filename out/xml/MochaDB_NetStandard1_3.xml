@@ -2987,6 +2987,11 @@
             Returns result of <see cref="M:MochaDB.MochaDatabase.GetMochaScript"/>
             </summary>
         </member>
+        <member name="P:MochaDB.MochaDatabase.Version">
+            <summary>
+            Version of MochaDB.
+            </summary>
+        </member>
         <member name="P:MochaDB.MochaDatabase.Doc">
             <summary>
             XML Document.
@@ -3030,11 +3035,6 @@
         <member name="P:MochaDB.MochaDatabase.Name">
             <summary>
             Name of database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaDatabase.Version">
-            <summary>
-            Version of MochaDB.
             </summary>
         </member>
         <member name="T:MochaDB.MochaDatabaseSchema">

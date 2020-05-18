@@ -2572,6 +2572,16 @@ namespace MochaDB {
 
         #region Properties
 
+        #region Static
+
+        /// <summary>
+        /// Version of MochaDB.
+        /// </summary>
+        public static string Version =>
+            "3.4.5";
+
+        #endregion
+
         #region Internal
 
         /// <summary>
@@ -2607,7 +2617,6 @@ $@"<?MochaDB Version=\""{Version}""?>
     </Logs>
 </MochaDB>";
 
-
         #endregion
 
         /// <summary>
@@ -2639,12 +2648,6 @@ $@"<?MochaDB Version=\""{Version}""?>
         /// Name of database.
         /// </summary>
         public string Name { get; private set; }
-
-        /// <summary>
-        /// Version of MochaDB.
-        /// </summary>
-        public static string Version =>
-            "3.4.4";
 
         #endregion
     }

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "MochaDB/3.4.4": {
+      "MochaDB/3.4.5": {
         "dependencies": {
           "NETStandard.Library": "1.6.1"
         },
@@ -604,7 +604,7 @@
     }
   },
   "libraries": {
-    "MochaDB/3.4.4": {
+    "MochaDB/3.4.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
