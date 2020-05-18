@@ -51,6 +51,12 @@ Come on, meet the world's most advanced .NET database system!</b>
 
 <br>
 
+# MochaDB Studio
+Manage with a powerful management system!
+[![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
+
+<br>
+
 # Preview
 
 <br>
