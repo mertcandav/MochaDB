@@ -6366,5 +6366,27 @@
             </summary>
             <param name="value">Value.</param>
         </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.DiskCheck(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.DiskCheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.DiskRootCheck(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.DiskRootCheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
     </members>
 </doc>

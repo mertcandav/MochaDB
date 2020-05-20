@@ -1,4 +1,5 @@
 ﻿using System;
+using MochaDB.engine;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -79,11 +80,14 @@ namespace MochaDB.FileSystem {
                 root;
             set {
                 value.Trim();
-                if(string.IsNullOrWhiteSpace(value))
-                    throw new MochaException("Root is cannot null or whitespace!");
 
                 if(value==root)
                     return;
+
+                if(string.IsNullOrWhiteSpace(value))
+                    throw new MochaException("Root is cannot null or whitespace!");
+
+                Engine_NAMES.DiskRootCheckThrow(value);
 
                 root=value;
                 OnRootChanged(this,new EventArgs());
@@ -100,6 +104,8 @@ namespace MochaDB.FileSystem {
                 value=value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
                     throw new MochaException("Name is cannot null or whitespace!");
+
+                Engine_NAMES.DiskCheckThrow(value);
 
                 if(value==name)
                     return;

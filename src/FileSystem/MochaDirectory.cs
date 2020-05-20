@@ -1,4 +1,5 @@
 ﻿using System;
+using MochaDB.engine;
 
 namespace MochaDB.FileSystem {
     /// <summary>
@@ -69,6 +70,8 @@ namespace MochaDB.FileSystem {
                 value=value.Trim();
                 if(string.IsNullOrWhiteSpace(value))
                     throw new MochaException("Name is cannot null or whitespace!");
+
+                Engine_NAMES.CheckThrow(value);
 
                 if(value==name)
                     return;

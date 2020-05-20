@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using MochaDB.engine;
 using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
@@ -169,7 +170,8 @@ namespace MochaDB.FileSystem {
             get =>
                 name;
             set {
-                value=value.TrimStart().TrimEnd();
+                value=value.Trim();
+
                 if(value==name)
                     return;
 
@@ -191,11 +193,12 @@ namespace MochaDB.FileSystem {
             get =>
                 extension;
             set {
-                value=value.TrimStart().TrimEnd();
-                if(!string.IsNullOrEmpty(value))
-                    value = value[0] != '.' ? $".{value}" : value;
+                value=value.Trim();
                 if(value==extension)
                     return;
+
+                if(!string.IsNullOrEmpty(value))
+                    value = value[0] != '.' ? $".{value}" : value;
 
                 extension=value;
                 OnExtensionChanged(this,new EventArgs());
