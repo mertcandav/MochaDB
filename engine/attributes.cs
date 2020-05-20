@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace MochaDB.engine {
     /// <summary>
-    /// MochaDB attribute engine.
+    /// Attribute engine of MochaDB.
     /// </summary>
     internal static class Engine_ATTRIBUTES {
         /// <summary>

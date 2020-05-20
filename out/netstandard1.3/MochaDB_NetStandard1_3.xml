@@ -6302,7 +6302,7 @@
         </member>
         <member name="T:MochaDB.engine.Engine_ATTRIBUTES">
             <summary>
-            MochaDB attribute engine.
+            Attribute engine of MochaDB.
             </summary>
         </member>
         <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributeCode(MochaDB.IMochaAttribute@)">
@@ -6349,6 +6349,22 @@
             </summary>
             <param name="code">Code.</param>
             <param name="name">Name of attribute.</param>
+        </member>
+        <member name="T:MochaDB.engine.Engine_NAMES">
+            <summary>
+            Name engine of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.Check(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.CheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
         </member>
     </members>
 </doc>
