@@ -2026,7 +2026,13 @@ namespace MochaDB {
             var dex = GetDataCount(tableName,columnRange.First().Name.LocalName);
             InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
             for(int index = 1; index < columnRange.Count(); index++) {
-                InternalUpdateData(tableName,columnRange.ElementAt(index).Name.LocalName,dex,row.Datas[index].Data);
+                var columnElement = columnRange.ElementAt(index);
+                MochaDataType dataType =
+                    GetColumnDataType(tableName,columnElement.Name.LocalName);
+                if(dataType == MochaDataType.AutoInt)
+                    continue;
+
+                InternalUpdateData(tableName,columnElement.Name.LocalName,dex,row.Datas[index].Data);
             }
             Save();
         }
@@ -2182,12 +2188,14 @@ namespace MochaDB {
                 MochaDataType _dataType = GetColumnDataType(tableName,element.Name.LocalName);
                 if(_dataType == MochaDataType.AutoInt) {
                     element.Add(
-                        new XElement("Data",1 + GetColumnAutoIntState(tableName,element.Name.LocalName),string.Empty));
+                        new XElement("Data",
+                        1 + GetColumnAutoIntState(tableName,element.Name.LocalName)));
                     continue;
                 }
 
                 element.Add(
-                    new XElement("Data",MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
+                    new XElement("Data",
+                    MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
             GetXElement($"Tables/{tableName}/{columnName}").Add(xData);
         }
