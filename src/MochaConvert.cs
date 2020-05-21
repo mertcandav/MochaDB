@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using MochaDB.Mhql;
 using MochaDB.Streams;
 
 namespace MochaDB {
@@ -187,6 +188,36 @@ $@"<Root>
             for(int dex = 0; dex < table.Rows.Count; dex++) {
                 XElement row = new XElement(table.Name);
                 for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
+                    var column = table.Columns[columnIndex];
+                    XElement value = new XElement(column.Name);
+                    value.Value = column.Datas[dex].Data.ToString();
+                    row.Add(value);
+                }
+                doc.Root.Add(row);
+            }
+
+            return doc.CreateReader();
+        }
+
+        /// <summary>
+        /// Returns table as XmlReader.
+        /// </summary>
+        /// <param name="table">Table to convert.</param>
+        public static XmlReader ToXmlTable(MochaTableResult table) {
+            if(table.Columns.Length == 0) {
+                var val =
+$@"<Root>
+    <Table></Table>
+</Root>";
+                return XmlReader.Create(new StringReader(val));
+            }
+
+            var doc = XDocument.Parse(
+@"<Root>
+</Root>");
+            for(int dex = 0; dex < table.Rows.Length; dex++) {
+                XElement row = new XElement("Table");
+                for(int columnIndex = 0; columnIndex < table.Columns.Length; columnIndex++) {
                     var column = table.Columns[columnIndex];
                     XElement value = new XElement(column.Name);
                     value.Value = column.Datas[dex].Data.ToString();

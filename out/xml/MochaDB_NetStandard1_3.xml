@@ -1894,6 +1894,12 @@
             </summary>
             <param name="table">Table to convert.</param>
         </member>
+        <member name="M:MochaDB.MochaConvert.ToXmlTable(MochaDB.Mhql.MochaTableResult)">
+            <summary>
+            Returns table as XmlReader.
+            </summary>
+            <param name="table">Table to convert.</param>
+        </member>
         <member name="T:MochaDB.MochaData">
             <summary>
             This is data object for MochaDB.
