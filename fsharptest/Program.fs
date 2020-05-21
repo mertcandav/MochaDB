@@ -43,7 +43,7 @@ let main argv =
     path.ParentDirectory()
     path.ParentDirectory()
     let path = path.Path + "/testdocs"
-    let dbprovider = "path=" + (path + "/testdb.mochadb") + "; password=; AutoConnect=true"
+    let dbprovider = "path=" + (path + "/testdb.mhdb") + "; password=; AutoConnect=true"
     let db = GetDbWithProvider dbprovider
     while true do
         printf "Command: "

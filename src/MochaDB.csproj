@@ -186,6 +186,9 @@
     <Compile Include="..\engine\values.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\engine\lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
 </Project>

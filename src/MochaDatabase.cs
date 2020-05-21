@@ -407,7 +407,7 @@ namespace MochaDB {
 
             FileInfo fInfo = new FileInfo(path);
 
-            if(fInfo.Extension != ".mochadb")
+            if(fInfo.Extension != Engine_LEXER.Extension)
                 return false;
 
             return true;
@@ -420,7 +420,7 @@ namespace MochaDB {
         /// <param name="description">Description of database.</param>
         /// <param name="password">Password of database.</param>
         public static void CreateMochaDB(string path,string description,string password) {
-            string content = EmptyContent;
+            string content = Engine_LEXER.EmptyContent;
 
             if(!string.IsNullOrEmpty(password)) {
                 int dex = content.IndexOf("</Password>");
@@ -431,7 +431,9 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path.EndsWith(".mochadb") ? path : path + ".mochadb",new AES(Iv,Key).Encrypt(content));
+            File.WriteAllText(path.EndsWith(Engine_LEXER.Extension) ?
+                path :
+                path + Engine_LEXER.Extension,new AES(Iv,Key).Encrypt(content));
         }
 
         /// <summary>
@@ -633,7 +635,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            Doc = XDocument.Parse(EmptyContent);
+            Doc = XDocument.Parse(Engine_LEXER.EmptyContent);
             Save();
         }
 
@@ -2586,7 +2588,7 @@ namespace MochaDB {
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            "3.4.5";
+            Engine_LEXER.Version;
 
         #endregion
 
@@ -2601,29 +2603,6 @@ namespace MochaDB {
         /// Suspend the changeds events.
         /// </summary>
         internal bool SuspendChangeEvents { get; set; }
-
-        /// <summary>
-        /// The most basic content of the database.
-        /// </summary>
-        internal static string EmptyContent =>
-$@"<?MochaDB Version=\""{Version}""?>
-<MochaDB Description=""Root element of database."">>
-    <Root Description=""Root of database."">>
-        <Password DataType=""String"" Description=""Password of database.""></Password>
-        <Description DataType=""String"" Description=""Description of database.""></Description>
-    </Root>
-    <Sectors Description=""Base of sectors."">>
-    </Sectors>
-    <Stacks Description=""Base of stacks."">>
-    </Stacks>
-    <Tables Description=""Base of tables."">
-    </Tables>
-    <FileSystem Description=""FileSystem of database."">
-        <C Type=""Disk"" Name=""Default"" Description=""Default disk.""></C>
-    </FileSystem>
-    <Logs Description=""Logs of database."">
-    </Logs>
-</MochaDB>";
 
         #endregion
 

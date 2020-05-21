@@ -3014,11 +3014,6 @@
             Suspend the changeds events.
             </summary>
         </member>
-        <member name="P:MochaDB.MochaDatabase.EmptyContent">
-            <summary>
-            The most basic content of the database.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaDatabase.Provider">
             <summary>
             Connection provider.
@@ -6426,6 +6421,26 @@
             Check name and give exception if not pass.
             </summary>
             <param name="value">Value.</param>
+        </member>
+        <member name="T:MochaDB.engine.Engine_LEXER">
+            <summary>
+            Lexer of MochaDB.
+            </summary>
+        </member>
+        <member name="P:MochaDB.engine.Engine_LEXER.Extension">
+            <summary>
+            File extension of MochaDB.
+            </summary>
+        </member>
+        <member name="P:MochaDB.engine.Engine_LEXER.Version">
+            <summary>
+            Version of MochaDB.
+            </summary>
+        </member>
+        <member name="P:MochaDB.engine.Engine_LEXER.EmptyContent">
+            <summary>
+            The most basic content of the database.
+            </summary>
         </member>
     </members>
 </doc>

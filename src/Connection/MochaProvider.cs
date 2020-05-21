@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MochaDB.engine;
 
 namespace MochaDB.Connection {
     /// <summary>
@@ -153,10 +154,10 @@ namespace MochaDB.Connection {
                     pathAttribute.Value :
                     throw new MochaException("'Path' attribute is not defined!");
                 Path =
-                    !Path.EndsWith(".mochadb") ?
+                    !Path.EndsWith(Engine_LEXER.Extension) ?
                     Path.Last() != '.' ?
-                    Path + ".mochadb" :
-                    Path + "mochadb" : Path;
+                    Path + Engine_LEXER.Extension :
+                    Path + Engine_LEXER.Extension : Path;
                 int index;
                 var keyword = ">SOURCEDIR<";
                 var currentdir = Directory.GetCurrentDirectory();
