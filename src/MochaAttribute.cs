@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MochaDB.engine;
 
 namespace MochaDB {
     /// <summary>
@@ -89,14 +90,17 @@ namespace MochaDB {
             get =>
                 name;
             set {
-                value=value.TrimStart().TrimEnd();
-                if(string.IsNullOrWhiteSpace(value))
-                    throw new MochaException("Name is cannot null or whitespace!");
-                else if(bannedNamesRegex.IsMatch(value))
-                    throw new MochaException($@"Name is cannot ""{value}""");
-
+                value=value.Trim();
                 if(value==name)
                     return;
+
+                if(string.IsNullOrWhiteSpace(value))
+                    throw new MochaException("Name is cannot null or whitespace!");
+
+                Engine_NAMES.AttributeCheckThrow(value);
+
+                if(bannedNamesRegex.IsMatch(value))
+                    throw new MochaException($@"Name is cannot ""{value}""");
 
                 name=value;
                 OnNameChanged(this,new EventArgs());
@@ -113,7 +117,10 @@ namespace MochaDB {
                 if(this.value==value)
                     return;
 
+                Engine_VALUES.AttributeCheckThrow(value);
+
                 this.value=value;
+
                 OnValueChanged(this,new EventArgs());
             }
         }

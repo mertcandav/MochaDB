@@ -124,6 +124,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E47
 	ProjectSection(SolutionItems) = preProject
 		engine\attributes.cs = engine\attributes.cs
 		engine\names.cs = engine\names.cs
+		engine\values.cs = engine\values.cs
 	EndProjectSection
 EndProject
 Global

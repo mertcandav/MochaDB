@@ -6400,5 +6400,32 @@
             </summary>
             <param name="value">Value.</param>
         </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.AttributeCheck(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_NAMES.AttributeCheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
+        <member name="T:MochaDB.engine.Engine_VALUES">
+            <summary>
+            Name engine of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheck(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
     </members>
 </doc>
