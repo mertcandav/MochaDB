@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 using MochaDB.Streams;
 
 namespace MochaDB {
@@ -164,5 +167,35 @@ namespace MochaDB {
         /// <param name="value">Value to convert.</param>
         public static MochaData ToMochaData(this DateTime value) =>
             (MochaData)value;
+
+        /// <summary>
+        /// Returns table as XmlReader.
+        /// </summary>
+        /// <param name="table">Table to convert.</param>
+        public static XmlReader ToXmlTable(MochaTable table) {
+            if(table.Columns.Count == 0) {
+                var val =
+$@"<Root>
+    <{table.Name}></{table.Name}>
+</Root>";
+                return XmlReader.Create(new StringReader(val));
+            }
+
+            var doc = XDocument.Parse(
+@"<Root>
+</Root>");
+            for(int dex = 0; dex < table.Rows.Count; dex++) {
+                XElement row = new XElement(table.Name);
+                for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
+                    var column = table.Columns[columnIndex];
+                    XElement value = new XElement(column.Name);
+                    value.Value = column.Datas[dex].Data.ToString();
+                    row.Add(value);
+                }
+                doc.Root.Add(row);
+            }
+
+            return doc.CreateReader();
+        }
     }
 }

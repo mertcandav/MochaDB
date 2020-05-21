@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using MochaDB.engine;
 using MochaDB.Streams;
 
 namespace MochaDB.FileSystem {
