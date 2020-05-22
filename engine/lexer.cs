@@ -9,6 +9,11 @@ namespace MochaDB.engine {
         public static string Extension => ".mhdb";
 
         /// <summary>
+        /// MochaScript file extension of MochaDB.
+        /// </summary>
+        public static string ScriptExtension => ".mhsc";
+
+        /// <summary>
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>

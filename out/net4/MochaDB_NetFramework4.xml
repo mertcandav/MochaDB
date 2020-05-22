@@ -6432,6 +6432,11 @@
             File extension of MochaDB.
             </summary>
         </member>
+        <member name="P:MochaDB.engine.Engine_LEXER.ScriptExtension">
+            <summary>
+            MochaScript file extension of MochaDB.
+            </summary>
+        </member>
         <member name="P:MochaDB.engine.Engine_LEXER.Version">
             <summary>
             Version of MochaDB.

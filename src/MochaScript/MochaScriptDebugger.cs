@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MochaDB.engine;
 using MochaDB.MochaScript.Keywords;
 
 namespace MochaDB.MochaScript {
@@ -835,7 +836,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
                 if(!fInfo.Exists)
                     throw new MochaException("There is no such MochaScript file!");
-                if(fInfo.Extension != ".mochascript")
+                if(fInfo.Extension != Engine_LEXER.ScriptExtension)
                     throw new MochaException("The file shown is not a MochaScript file!");
 
                 if(scriptStream!=null)
