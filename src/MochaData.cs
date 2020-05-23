@@ -315,7 +315,7 @@ namespace MochaDB {
         public static object GetDataFromString(MochaDataType dataType,string data) {
             if(data == null)
                 throw new MochaException("Data is cannot null!");
-
+            Console.WriteLine("'" + data + "'");
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
                 return data;
             if(dataType == MochaDataType.AutoInt || dataType == MochaDataType.Int32)

@@ -384,8 +384,14 @@ namespace MochaDB.Mochaq {
                     Database.SetColumnDataType(queryPaths[1],queryPaths[2],MochaData.GetDataTypeFromName(queryPaths[3]));
                     return;
                 } else if(queryPaths[0] == "ADDDATA") {
-                    Database.AddData(queryPaths[1],queryPaths[2],MochaData.GetDataFromString(Database.GetColumnDataType(queryPaths[1],queryPaths[2])
-                        ,queryPaths[3]));
+                    Console.WriteLine((queryPaths[3] != "") + "||'" + queryPaths[3] + "'");
+                    if(queryPaths[3] != "")
+                        Database.AddData(queryPaths[1],queryPaths[2],
+                            MochaData.GetDataFromString(
+                                Database.GetColumnDataType(queryPaths[1],queryPaths[2])
+                                ,queryPaths[3]));
+                    else
+                        Database.AddData(queryPaths[1],queryPaths[2],null);
                     return;
                 } else if(queryPaths[0] == "CREATESTACKITEM") {
                     Database.AddStackItem(queryPaths[1],queryPaths[3],new MochaStackItem(queryPaths[2]));

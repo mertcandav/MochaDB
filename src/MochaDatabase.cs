@@ -244,16 +244,20 @@ namespace MochaDB {
                     func += $"    CreateColumn:{currentTable.Name}:{currentColumn.Name}\n" +
                         $"    SetColumnDescription:{currentTable.Name}:{currentColumn.Name}:{currentTable.Description}\n" +
                         $"    SetColumnDataType:{currentTable.Name}:{currentColumn.Name}:{currentColumn.DataType}\n";
+                }
 
-                    if(currentColumn.DataType==MochaDataType.AutoInt)
-                        continue;
+                for(int rowIndex = 0; rowIndex < currentTable.Rows.Count; rowIndex++) {
+                    func += $"    AddData:{currentTable.Name}:{currentTable.Columns[0]}:\n";
+                    for(int columnIndex = 0; columnIndex < currentTable.Columns.Count; columnIndex++) {
+                        var column = currentTable.Columns[columnIndex];
+                        
+                        if(column.DataType == MochaDataType.AutoInt)
+                            continue;
 
-                    for(int dataIndex = 0; dataIndex < currentColumn.Datas.Count; dataIndex++) {
-                        MochaData currentData = currentColumn.Datas[dataIndex];
-                        func+=columnIndex==0 ? $"    AddData:{currentTable.Name}:{currentColumn.Name}:{currentData.Data}\n" :
-                            $"    UpdateData:{currentTable.Name}:{currentColumn.Name}:{dataIndex}:{currentData.Data}\n";
+                        func += $"    UpdateLastData:{currentTable.Name}:{column.Name}:{column.Datas[rowIndex]}\n";
                     }
                 }
+                func += "\n\n";
             }
 
             func += "\n}\n";
@@ -266,7 +270,7 @@ namespace MochaDB {
         public string GetMochaScript() {
             string code = $"// Created with MochaDB Engine. Version: {Version}";
             code += $"\n\nProvider {Provider.Path} {Provider.Password}";
-            code += "\n\nBegin\n";
+            code += "\n\nBegin\n\n";
             code += "func Main()\n{\n";
             code +=
 @"    echo ""Script commands is start.""
