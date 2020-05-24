@@ -127,6 +127,9 @@
     <Compile Include="..\mhql\remove.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\grammar.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\functions -->
