@@ -1129,6 +1129,9 @@ namespace MochaDB {
                 throw new MochaException("Stack not found in this name!");
             if(ExistsStack(newName))
                 throw new MochaException("There is already a stack with this name!");
+
+            Engine_NAMES.CheckThrow(newName);
+
             OnChanging(this,new EventArgs());
 
             GetXElement($"Stacks/{name}").Name=newName;
