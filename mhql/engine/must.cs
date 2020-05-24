@@ -53,28 +53,26 @@ namespace MochaDB.mhql.engine {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="row">Row.</param>
-        /// <param name="columns">Columns of table.</param>
-        /// <param name="from">Use state FROM keyword.</param>
         public static bool IsPassTable(ref string command,MochaRow row) {
             command=command.Trim();
             if(char.IsNumber(command.FirstChar())) {
                 return MhqlMust_REGEX.Match(
                                 MhqlMust_REGEX.GetCommand(command),
                                 (string)GetDataFromCommand(command,row));
-            } else if(command.StartsWith("BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_BETWEEN.Pass(command.Substring(8,command.Length-9),row);
-            } else if(command.StartsWith("BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_BIGGER.Pass(command.Substring(7,command.Length-8),row);
-            } else if(command.StartsWith("LOWER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_LOWER.Pass(command.Substring(6,command.Length-7),row);
-            } else if(command.StartsWith("EQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_EQUAL.Pass(command.Substring(6,command.Length-7),row);
-            } else if(command.StartsWith("NOTEQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_NOTEQUAL.Pass(command.Substring(9,command.Length-10),row);
-            } else if(command.StartsWith("STARTW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_STARTW.Pass(command.Substring(7,command.Length-8),row);
-            } else if(command.StartsWith("ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_ENDW.Pass(command.Substring(5,command.Length-6),row);
+            } else if(command.StartsWith("$BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_BETWEEN.Pass(command.Substring(9,command.Length-10),row);
+            } else if(command.StartsWith("$BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_BIGGER.Pass(command.Substring(8,command.Length-9),row);
+            } else if(command.StartsWith("$LOWER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_LOWER.Pass(command.Substring(7,command.Length-8),row);
+            } else if(command.StartsWith("$EQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_EQUAL.Pass(command.Substring(7,command.Length-8),row);
+            } else if(command.StartsWith("$NOTEQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_NOTEQUAL.Pass(command.Substring(10,command.Length-11),row);
+            } else if(command.StartsWith("$STARTW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_STARTW.Pass(command.Substring(8,command.Length-9),row);
+            } else if(command.StartsWith("$ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_ENDW.Pass(command.Substring(6,command.Length-7),row);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }

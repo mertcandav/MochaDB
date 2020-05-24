@@ -6158,6 +6158,16 @@
             Returns true if command is remove, return false if not.
             </summary>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_GRAMMAR">
+            <summary>
+            Grammar of MHQL.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_GRAMMAR.MustFunctions">
+            <summary>
+            Functions of must.
+            </summary>
+        </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
             MHQL BETWEEN function.
@@ -6258,12 +6268,11 @@
             REGEX functions of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.GetCommand(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.GetCommand(System.String)">
             <summary>
             Returns Regex command by row.
             </summary>
             <param name="command">Command.</param>
-            <param name="row">Reference row.</param>
         </member>
         <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.Match(System.String,System.String)">
             <summary>
@@ -6298,8 +6307,6 @@
             </summary>
             <param name="command">Command.</param>
             <param name="row">Row.</param>
-            <param name="columns">Columns of table.</param>
-            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
             <summary>
