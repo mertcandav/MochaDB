@@ -58,7 +58,7 @@ namespace MochaDB.mhql.engine {
             if(char.IsNumber(command.FirstChar())) {
                 return MhqlMust_REGEX.Match(
                                 MhqlMust_REGEX.GetCommand(command),
-                                (string)GetDataFromCommand(command,row));
+                                GetDataFromCommand(command,row).ToString());
             } else if(command.StartsWith("$BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_BETWEEN.Pass(command.Substring(9,command.Length-10),row);
             } else if(command.StartsWith("$BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
