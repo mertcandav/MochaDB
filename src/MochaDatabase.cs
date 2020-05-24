@@ -860,6 +860,9 @@ namespace MochaDB {
 
             if(ExistsSector(newName))
                 throw new MochaException("There is already a sector with this name!");
+
+            Engine_NAMES.CheckThrow(newName);
+
             OnChanging(this,new EventArgs());
 
             GetXElement($"Sectors/{name}").Name=newName;
