@@ -41,7 +41,7 @@ namespace MochaDB.Mhql {
         /// Returns true if command ise execute compatible command, returns false if not.
         /// </summary
         public bool IsExecuteCompatible() {
-            return !Command.TrimEnd().EndsWith("RETURN");
+            return !Command.TrimEnd().EndsWith("RETURN",StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
