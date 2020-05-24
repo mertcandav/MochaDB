@@ -16,9 +16,9 @@ namespace MochaDB.mhql.functions {
             int dex;
             decimal range;
 
-            if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
+            if(!int.TryParse(parts[0].Trim(),out dex))
                 throw new MochaException("LOWER function is cannot processed!");
-            if(!decimal.TryParse(parts[1].TrimStart().TrimEnd(),out range))
+            if(!decimal.TryParse(parts[1].Trim(),out range))
                 throw new MochaException("LOWER function is cannot processed!");
 
             decimal value;
