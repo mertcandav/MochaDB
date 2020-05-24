@@ -1,4 +1,5 @@
-﻿using MochaDB.mhql.engine;
+﻿using System;
+using MochaDB.mhql.engine;
 
 namespace MochaDB.Mhql {
     /// <summary>
@@ -47,7 +48,7 @@ namespace MochaDB.Mhql {
         /// Returns true if command ise reader compatible command, returns false if not.
         /// </summary>
         public bool IsReaderCompatible() {
-            return Command.TrimEnd().EndsWith("RETURN");
+            return Command.TrimEnd().EndsWith("RETURN",StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

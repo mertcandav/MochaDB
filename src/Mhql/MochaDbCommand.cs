@@ -276,10 +276,10 @@ SELECT|REMOVE|NOTEQUAL)\b",
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Return.
-                    else if(!lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
-                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
-                    else
+                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
                         break;
+                    else
+                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
 
                 reader.array = new MochaArray<object>(table);
@@ -318,7 +318,7 @@ SELECT|REMOVE|NOTEQUAL)\b",
                             stacks = true;
                             collection.AddRange(SELECT.GetStacks(select));
                         } else
-                            throw new MochaException(tags.ElementAt(index));//"@ mark is cannot processed!");
+                            throw new MochaException(tags.ElementAt(index));
                     }
                 }
 
@@ -336,10 +336,10 @@ SELECT|REMOVE|NOTEQUAL)\b",
                         throw new MochaException("MUST keyword is canot used with SELECT keyword!");
                     }
                     //Return.
-                    else if(!lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
-                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
-                    else
+                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
                         break;
+                    else
+                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
 
                 reader.array = new MochaArray<object>(collection);
