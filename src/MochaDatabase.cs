@@ -1617,6 +1617,9 @@ namespace MochaDB {
 
             if(ExistsTable(newName))
                 throw new MochaException("There is already a table with this name!");
+
+            Engine_NAMES.CheckThrow(newName);
+
             OnChanging(this,new EventArgs());
 
             GetXElement($"Tables/{name}").Name=newName;
