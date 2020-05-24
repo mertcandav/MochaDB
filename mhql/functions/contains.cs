@@ -15,7 +15,7 @@ namespace MochaDB.mhql.functions {
 
             int dex;
 
-            if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
+            if(!int.TryParse(parts[0].Trim(),out dex))
                 throw new MochaException("CONTAINS function is cannot processed!");
 
             return row.Datas[dex].Data.ToString().Contains(parts[1]);
