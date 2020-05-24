@@ -14,7 +14,7 @@ namespace MochaDB.mhql.functions {
                 throw new MochaException("STARTW function is cannot processed!");
 
             int dex;
-            if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
+            if(!int.TryParse(parts[0].Trim(),out dex))
                 throw new MochaException("STARTW function is cannot processed!");
 
             return
