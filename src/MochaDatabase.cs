@@ -1847,6 +1847,9 @@ namespace MochaDB {
 
             if(ExistsColumn(tableName,newName))
                 throw new MochaException("There is already a column with this name!");
+
+            Engine_NAMES.CheckThrow(newName);
+
             OnChanging(this,new EventArgs());
 
             GetXElement($"Tables/{tableName}/{name}").Name=newName;
