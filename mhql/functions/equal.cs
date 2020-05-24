@@ -15,7 +15,7 @@ namespace MochaDB.mhql.functions {
 
             int dex;
 
-            if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
+            if(!int.TryParse(parts[0].Trim(),out dex))
                 throw new MochaException("EQUAL function is cannot processed!");
 
             return parts[1] == row.Datas[dex].Data.ToString();
