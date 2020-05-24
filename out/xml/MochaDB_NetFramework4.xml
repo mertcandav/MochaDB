@@ -6068,12 +6068,13 @@
             <param name="command">MHQL Command.</param>
             <param name="final">Command of removed must commands.</param>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_MUST.MustTable(System.String,MochaDB.Mhql.MochaTableResult@)">
+        <member name="M:MochaDB.mhql.Mhql_MUST.MustTable(System.String,MochaDB.Mhql.MochaTableResult@,System.Boolean)">
             <summary>
             Must by tables.
             </summary>
             <param name="command">Must command.</param>
             <param name="table">Table.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_AS">
             <summary>
@@ -6276,6 +6277,14 @@
             MHQL MUST core.
             </summary>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.ProcessPart(System.String@,MochaDB.Mhql.MochaTableResult,System.Boolean)">
+            <summary>
+            Process mhql query part.
+            </summary>
+            <param name="value">Query.</param>
+            <param name="table">Table.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.GetDataFromCommand(System.String,MochaDB.MochaRow)">
             <summary>
             Returns data by command.
@@ -6289,6 +6298,8 @@
             </summary>
             <param name="command">Command.</param>
             <param name="row">Row.</param>
+            <param name="columns">Columns of table.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
             <summary>

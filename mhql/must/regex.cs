@@ -11,8 +11,10 @@ namespace MochaDB.mhql.must {
         /// <param name="command">Command.</param>
         /// <param name="row">Reference row.</param>
         public static string GetCommand(string command,MochaRow row) {
+            command = command.Trim();
+            System.Console.WriteLine("'" + command + "'");
             int dex;
-            command = command.TrimStart().TrimEnd().Substring(2);
+            command = command.Substring(2);
             command = command.Remove(command.Length-1,1);
             while(
                 (dex = command.IndexOf('\\')) != -1 &&
@@ -21,6 +23,7 @@ namespace MochaDB.mhql.must {
                 var number = int.Parse(command[dex+1].ToString());
                 command =command.Replace($"\\{number}",$"{row.Datas[number]}");
             }
+            System.Console.WriteLine("'" + command + "'");
             return command;
         }
 

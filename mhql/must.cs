@@ -67,11 +67,13 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Must command.</param>
         /// <param name="table">Table.</param>
-        public void MustTable(string command,ref MochaTableResult table) {
+        /// <param name="from">Use state FROM keyword.</param>
+        public void MustTable(string command,ref MochaTableResult table,bool from) {
             command = command.Trim();
             var parts = Mhql_AND.GetParts(command);
             for(int index = 0; index < parts.Length; index++) {
                 var partcmd = parts[index];
+                MhqlEng_MUST.ProcessPart(ref partcmd,table,from);
                 table.Rows = (
                         from value in table.Rows
                         where MhqlEng_MUST.IsPassTable(ref partcmd,value)

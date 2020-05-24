@@ -273,7 +273,7 @@ SELECT|REMOVE|NOTEQUAL)\b",
                         else if(groupby)
                             throw new MochaException("MUST keyword must be specified before GROUPBY!");
 
-                        MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table);
+                        MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Return.
                     else if(!lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))

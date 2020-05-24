@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using MochaDB.mhql.functions;
 using MochaDB.mhql.must;
+using MochaDB.Mhql;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.engine {
@@ -9,12 +11,32 @@ namespace MochaDB.mhql.engine {
     /// </summary>
     internal class MhqlEng_MUST {
         /// <summary>
+        /// Process mhql query part.
+        /// </summary>
+        /// <param name="value">Query.</param>
+        /// <param name="table">Table.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static void ProcessPart(ref string value,MochaTableResult table,bool from) {
+            if(!from)
+                return;
+
+            var dex = value.IndexOf('(');
+            var val = value.Substring(0,dex);
+            var result = table.Columns.Where(x => x.Name == val);
+
+            if(result.Count() == 0)
+                return;
+
+            value = table.Columns.IndexOf(result.First()) + value.Substring(dex);
+        }
+
+        /// <summary>
         /// Returns data by command.
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="row">Base row.</param>
         public static MochaData GetDataFromCommand(string command,MochaRow row) {
-            command = command.TrimStart().TrimEnd();
+            command = command.Trim();
             if(!char.IsNumber(command.FirstChar()))
                 throw new MochaException("Column is not defined!");
             var dex = int.Parse(command.FirstChar().ToString());
@@ -23,7 +45,6 @@ namespace MochaDB.mhql.engine {
                 throw new MochaException("Index is cannot lower than zero!");
             else if(dex > row.Datas.MaxIndex())
                 throw new MochaException("The specified index is more than the number of columns!");
-
             return row.Datas[dex];
         }
 
@@ -32,6 +53,8 @@ namespace MochaDB.mhql.engine {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="row">Row.</param>
+        /// <param name="columns">Columns of table.</param>
+        /// <param name="from">Use state FROM keyword.</param>
         public static bool IsPassTable(ref string command,MochaRow row) {
             command=command.Trim();
             if(char.IsNumber(command.FirstChar())) {
