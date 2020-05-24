@@ -1425,6 +1425,9 @@ namespace MochaDB {
 
             if(path.Contains('/') && ExistsStackItem(name,$"{path.Substring(0,path.IndexOf("/"))}/{newName}"))
                 throw new MochaException("There is already a stack item with this name!");
+
+            Engine_NAMES.CheckThrow(newName);
+
             OnChanging(this,new EventArgs());
 
             element.Name=newName;
