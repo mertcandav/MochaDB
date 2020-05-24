@@ -9,21 +9,10 @@ namespace MochaDB.mhql.must {
         /// Returns Regex command by row.
         /// </summary>
         /// <param name="command">Command.</param>
-        /// <param name="row">Reference row.</param>
-        public static string GetCommand(string command,MochaRow row) {
+        public static string GetCommand(string command) {
             command = command.Trim();
-            System.Console.WriteLine("'" + command + "'");
-            int dex;
             command = command.Substring(2);
             command = command.Remove(command.Length-1,1);
-            while(
-                (dex = command.IndexOf('\\')) != -1 &&
-                command.Length-1 < dex+1 &&
-                char.IsNumber(command[dex+1])) {
-                var number = int.Parse(command[dex+1].ToString());
-                command =command.Replace($"\\{number}",$"{row.Datas[number]}");
-            }
-            System.Console.WriteLine("'" + command + "'");
             return command;
         }
 
