@@ -15,7 +15,8 @@ namespace MochaDB.mhql {
                 "NOTEQUAL",
                 "STARTW",
                 "ENDW",
-                "CONTAINS"
+                "CONTAINS",
+                "NOTCONTAINS"
             };
     }
 }

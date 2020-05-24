@@ -1,8 +1,8 @@
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL CONTAINS function.
+    /// MHQL NOTCONTAINS function.
     /// </summary>
-    internal class MhqlFunc_CONTAINS {
+    internal class MhqlFunc_NOTCONTAINS {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -11,14 +11,14 @@ namespace MochaDB.mhql.functions {
         public static bool Pass(string command,MochaRow row) {
             var parts = command.Split(',');
             if(parts.Length < 2 || parts.Length > 2)
-                throw new MochaException("CONTAINS function is cannot processed!");
+                throw new MochaException("NOTCONTAINS function is cannot processed!");
 
             int dex;
 
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
-                throw new MochaException("CONTAINS function is cannot processed!");
+                throw new MochaException("NOTCONTAINS function is cannot processed!");
 
-            return row.Datas[dex].Data.ToString().Contains(parts[1]);
+            return !row.Datas[dex].Data.ToString().Contains(parts[1]);
         }
     }
 }
