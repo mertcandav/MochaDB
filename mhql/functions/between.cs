@@ -18,7 +18,7 @@ namespace MochaDB.mhql.functions {
                 range1,
                 range2;
 
-            if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
+            if(!int.TryParse(parts[0].Trim(),out dex))
                 throw new MochaException("BETWEEN function is cannot processed!");
             if(!decimal.TryParse(parts[1].TrimStart().TrimEnd(),out range1))
                 throw new MochaException("BETWEEN function is cannot processed!");
