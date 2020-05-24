@@ -1,8 +1,8 @@
-﻿namespace MochaDB.mhql.functions {
+namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL NOTEQUAL function.
+    /// MHQL CONTAINS function.
     /// </summary>
-    internal class MhqlFunc_NOTEQUAL {
+    internal class MhqlFunc_CONTAINS {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -18,7 +18,7 @@
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
                 throw new MochaException("EQUAL function is cannot processed!");
 
-            return parts[1] != row.Datas[dex].Data.ToString();
+            return row.Datas[dex].Data.ToString().Contains(parts[1]);
         }
     }
 }

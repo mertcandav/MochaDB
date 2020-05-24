@@ -18,7 +18,7 @@ namespace MochaDB.mhql.functions {
             if(!int.TryParse(parts[0].TrimStart().TrimEnd(),out dex))
                 throw new MochaException("EQUAL function is cannot processed!");
 
-            return parts[1].Trim() == row.Datas[dex].Data.ToString();
+            return parts[1] == row.Datas[dex].Data.ToString();
         }
     }
 }

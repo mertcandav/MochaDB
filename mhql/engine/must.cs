@@ -73,6 +73,8 @@ namespace MochaDB.mhql.engine {
                 return MhqlFunc_STARTW.Pass(command.Substring(8,command.Length-9),row);
             } else if(command.StartsWith("$ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_ENDW.Pass(command.Substring(6,command.Length-7),row);
+            } else if(command.StartsWith("$CONTAINS(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlFunc_CONTAINS.Pass(command.Substring(10,command.Length-11),row);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }

@@ -155,6 +155,9 @@
     <Compile Include="..\mhql\functions\notequal.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\functions\contains.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->
