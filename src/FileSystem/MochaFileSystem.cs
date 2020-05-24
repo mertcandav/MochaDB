@@ -27,7 +27,6 @@ using System.Linq;
 using System.Xml.Linq;
 using MochaDB.Querying;
 
-
 namespace MochaDB.FileSystem {
     /// <summary>
     /// FileSystem manager for MochaDB.

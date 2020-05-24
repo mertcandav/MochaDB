@@ -250,7 +250,7 @@ namespace MochaDB {
                     func += $"    AddData:{currentTable.Name}:{currentTable.Columns[0]}:\n";
                     for(int columnIndex = 0; columnIndex < currentTable.Columns.Count; columnIndex++) {
                         var column = currentTable.Columns[columnIndex];
-                        
+
                         if(column.DataType == MochaDataType.AutoInt)
                             continue;
 
