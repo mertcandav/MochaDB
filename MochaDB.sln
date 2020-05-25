@@ -132,11 +132,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E47
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mochascript", "mochascript", "{5006D10C-9DFB-45A3-B98E-6A6B07505E34}"
+	ProjectSection(SolutionItems) = preProject
+		mochascript\variables.cs = mochascript\variables.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{594ED776-9400-4916-9581-3C813FD4AC7C}"
 	ProjectSection(SolutionItems) = preProject
 		mochascript\keywords\func.cs = mochascript\keywords\func.cs
-		mochascript\keywords\variables.cs = mochascript\keywords\variables.cs
 	EndProjectSection
 EndProject
 Global

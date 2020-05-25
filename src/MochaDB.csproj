@@ -97,7 +97,7 @@
     <Compile Include="..\mochascript\keywords\func.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mochascript\keywords\variables.cs">
+    <Compile Include="..\mochascript\variables.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
