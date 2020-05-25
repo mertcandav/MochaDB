@@ -131,6 +131,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E47
 		engine\values.cs = engine\values.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mochascript", "mochascript", "{5006D10C-9DFB-45A3-B98E-6A6B07505E34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{594ED776-9400-4916-9581-3C813FD4AC7C}"
+	ProjectSection(SolutionItems) = preProject
+		mochascript\keywords\func.cs = mochascript\keywords\func.cs
+		mochascript\keywords\variables.cs = mochascript\keywords\variables.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +174,7 @@ Global
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
+		{594ED776-9400-4916-9581-3C813FD4AC7C} = {5006D10C-9DFB-45A3-B98E-6A6B07505E34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

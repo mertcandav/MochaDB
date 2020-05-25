@@ -91,10 +91,21 @@
     </None>
   </ItemGroup>
 
-  <!-- MQL source code files links -->
+  <!-- MochaScript source code files links -->
   <!-- General -->
   <ItemGroup>
-    <Compile Include="..\mhql\use.cs" Link="use.cs">
+    <Compile Include="..\mochascript\keywords\func.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mochascript\keywords\variables.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+  
+  <!-- MHQL source code files links -->
+  <!-- General -->
+  <ItemGroup>
+    <Compile Include="..\mhql\use.cs">
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\return.cs">

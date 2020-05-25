@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MochaDB.MochaScript.Keywords {
+namespace MochaDB.MochaScript.keywords {
     /// <summary>
     /// Collectioner for MochaScript Functions.
     /// </summary>

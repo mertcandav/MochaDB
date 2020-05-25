@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using MochaDB.engine;
+using MochaDB.MochaScript.keywords;
 using MochaDB.MochaScript.Keywords;
 
 namespace MochaDB.MochaScript {
