@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using MochaDB.framework;
+
 namespace MochaDB.mhql.engine.value {
     /// <summary>
     /// Lexer of MHQL values.

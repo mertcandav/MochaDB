@@ -91,13 +91,25 @@
     </None>
   </ItemGroup>
 
+  <!-- Framework source code files links -->
+  <!-- General -->
+  <ItemGroup>
+    <Compile Include="..\framework\dictionary.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+
   <!-- MochaScript source code files links -->
   <!-- General -->
   <ItemGroup>
-    <Compile Include="..\mochascript\keywords\func.cs">
+    <Compile Include="..\mochascript\variables.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mochascript\variables.cs">
+  </ItemGroup>
+
+  <!-- .\keywords -->
+  <ItemGroup>
+    <Compile Include="..\mochascript\keywords\func.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
