@@ -3937,6 +3937,115 @@
             Echo message.
             </summary>
         </member>
+        <member name="T:MochaDB.MochaScript.keywords.MochaScriptVariableCollection">
+            <summary>
+            Collectioner for MochaScript variables.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.#ctor">
+            <summary> 
+            Create new MochaScriptVariableCollection.
+            </summary>
+            <param name="debugger">Based debugger.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.#ctor(System.Collections.Generic.IEnumerable{MochaDB.MochaScript.keywords.MochaScriptVariable})">
+            <summary> 
+            Create new MochaScriptVariableCollection.
+            </summary>
+            <param name="variables">To be variables.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Clear">
+            <summary>
+            Remove all variables.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Add(MochaDB.MochaScript.keywords.MochaScriptVariable)">
+            <summary>
+            Add variable.
+            </summary>
+            <param name="variable">To be added variable.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.MochaScript.keywords.MochaScriptVariable})">
+            <summary>
+            Add varaible from collection.
+            </summary>
+            <param name="variables">To be added variables.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Remove(System.String)">
+            <summary>
+            Remove variable by name.
+            </summary>
+            <param name="name">Name of variable to remove.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Remove(System.Int32)">
+            <summary>
+            Remove variable by index.
+            </summary>
+            <param name="name">Index of variable to remove.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.IndexOf(System.String)">
+            <summary>
+            Return index from name. Return index if defined name but return -1 if not defined name.
+            </summary>
+            <param name="name">Name of variable.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Contains(System.String)">
+            <summary>
+            Exists variable.
+            </summary>
+            <param name="name">Name of variable.</param>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Item(System.Int32)">
+            <summary>
+            Get variable in index.
+            </summary>
+            <param name="index">Index.</param>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Variables">
+            <summary>
+            All functions as array.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Count">
+            <summary>
+            Get function count.
+            </summary>
+        </member>
+        <member name="T:MochaDB.MochaScript.keywords.MochaScriptVariable">
+            <summary>
+            This is the variable delegate object for MochaScript.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariable.#ctor(System.String,System.String)">
+            <summary>
+            Create new MochaScriptVariable.
+            </summary>
+            <param name="name">Name of variable.</param>
+            <param name="type">Value type of variable.</param>
+        </member>
+        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariable.#ctor(System.String,System.String,System.Object)">
+            <summary>
+            Create new MochaScriptFunction.
+            </summary>
+            <param name="name">Name of variable.</param>
+            <param name="type">Value type of variable.</param>
+            <param name="value">Value of varaible.</param>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.Name">
+            <summary>
+            Name of variable.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.ValueType">
+            <summary>
+            Value type of variable.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.Value">
+            <summary>
+            Value of variable.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaScript.keywords.MochaScriptFunctionCollection">
             <summary>
             Collectioner for MochaScript Functions.
@@ -4049,115 +4158,6 @@
         <member name="P:MochaDB.MochaScript.keywords.MochaScriptFunction.Index">
             <summary>
             Function index in code.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaScript.keywords.MochaScriptVariableCollection">
-            <summary>
-            Collectioner for MochaScript variables.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.#ctor">
-            <summary> 
-            Create new MochaScriptVariableCollection.
-            </summary>
-            <param name="debugger">Based debugger.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.#ctor(System.Collections.Generic.IEnumerable{MochaDB.MochaScript.keywords.MochaScriptVariable})">
-            <summary> 
-            Create new MochaScriptVariableCollection.
-            </summary>
-            <param name="variables">To be variables.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Clear">
-            <summary>
-            Remove all variables.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Add(MochaDB.MochaScript.keywords.MochaScriptVariable)">
-            <summary>
-            Add variable.
-            </summary>
-            <param name="variable">To be added variable.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.MochaScript.keywords.MochaScriptVariable})">
-            <summary>
-            Add varaible from collection.
-            </summary>
-            <param name="variables">To be added variables.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Remove(System.String)">
-            <summary>
-            Remove variable by name.
-            </summary>
-            <param name="name">Name of variable to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Remove(System.Int32)">
-            <summary>
-            Remove variable by index.
-            </summary>
-            <param name="name">Index of variable to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.IndexOf(System.String)">
-            <summary>
-            Return index from name. Return index if defined name but return -1 if not defined name.
-            </summary>
-            <param name="name">Name of variable.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Contains(System.String)">
-            <summary>
-            Exists variable.
-            </summary>
-            <param name="name">Name of variable.</param>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Item(System.Int32)">
-            <summary>
-            Get variable in index.
-            </summary>
-            <param name="index">Index.</param>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Variables">
-            <summary>
-            All functions as array.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariableCollection.Count">
-            <summary>
-            Get function count.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaScript.keywords.MochaScriptVariable">
-            <summary>
-            This is the variable delegate object for MochaScript.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariable.#ctor(System.String,System.String)">
-            <summary>
-            Create new MochaScriptVariable.
-            </summary>
-            <param name="name">Name of variable.</param>
-            <param name="type">Value type of variable.</param>
-        </member>
-        <member name="M:MochaDB.MochaScript.keywords.MochaScriptVariable.#ctor(System.String,System.String,System.Object)">
-            <summary>
-            Create new MochaScriptFunction.
-            </summary>
-            <param name="name">Name of variable.</param>
-            <param name="type">Value type of variable.</param>
-            <param name="value">Value of varaible.</param>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.Name">
-            <summary>
-            Name of variable.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.ValueType">
-            <summary>
-            Value type of variable.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaScript.keywords.MochaScriptVariable.Value">
-            <summary>
-            Value of variable.
             </summary>
         </member>
         <member name="T:MochaDB.MochaSector">
@@ -5915,6 +5915,17 @@
             Count of item.
             </summary>
         </member>
+        <member name="T:MochaDB.framework.Framework_DICTIONARY">
+            <summary>
+            Dictionary for MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.framework.Framework_DICTIONARY.FromArray(System.String[0:,0:])">
+            <summary>
+            Dictionary from array.
+            </summary>
+            <param name="array">Source array.</param>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_USE">
             <summary>
             MHQL USE keyword.
@@ -6348,6 +6359,37 @@
             Remove all comments from code.
             </summary>
             <param name="command">Command.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_CHAR">
+            <summary>
+            Char value engine of MHQL.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.value.MhqlEngVal_CHAR.Process(System.String@)">
+            <summary>
+            Process value.
+            </summary>
+            <param name="val">Value.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_LEXER">
+            <summary>
+            Lexer of MHQL values.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.engine.value.MhqlEngVal_LEXER.Escapes">
+            <summary>
+            Escape characters of char.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.engine.value.MhqlEngVal_LEXER.EscapeCheck">
+            <summary>
+            Check escape characters for escape character processor(s).
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.engine.value.MhqlEngVal_LEXER.Operators">
+            <summary>
+            Operators.
+            </summary>
         </member>
         <member name="T:MochaDB.engine.Engine_ATTRIBUTES">
             <summary>

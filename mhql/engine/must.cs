@@ -17,8 +17,12 @@ namespace MochaDB.mhql.engine {
         /// <param name="table">Table.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public static void ProcessPart(ref string value,MochaTableResult table,bool from) {
-            if(!from)
+            if(!from) {
+                var _dex = value.IndexOf('(');
+                var _val = value.Substring(0,_dex).Trim();
+                value = _val + value.Substring(_dex);
                 return;
+            }
 
             var dex = value.IndexOf('(');
             var val = value.Substring(0,dex);
