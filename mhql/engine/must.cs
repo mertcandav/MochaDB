@@ -25,7 +25,7 @@ namespace MochaDB.mhql.engine {
             }
 
             var dex = value.IndexOf('(');
-            var val = value.Substring(0,dex);
+            var val = value.Substring(0,dex).Trim();
             var result = table.Columns.Where(x => x.Name == val);
 
             if(result.Count() == 0)
