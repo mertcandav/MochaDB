@@ -30,5 +30,15 @@ namespace MochaDB.mhql.engine.value {
             new[,] {
                 { "\\", "\"" }
         };
+
+        /// <summary>
+        /// Operators.
+        /// </summary>
+        public static Dictionary<string,string> Operators =>
+            Framework_DICTIONARY.FromArray(
+                new[,] {
+                    { "EQUAL", "==" },
+                    { "NOTEQUAL", "!=" }
+                });
     }
 }
