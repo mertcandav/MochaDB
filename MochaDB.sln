@@ -141,6 +141,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{59
 		mochascript\keywords\func.cs = mochascript\keywords\func.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "value", "value", "{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\engine\value\char.cs = mhql\engine\value\char.cs
+		mhql\engine\value\lexer.cs = mhql\engine\value\lexer.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +183,7 @@ Global
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{594ED776-9400-4916-9581-3C813FD4AC7C} = {5006D10C-9DFB-45A3-B98E-6A6B07505E34}
+		{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8} = {A74FA287-C416-43F8-A401-B3A598C27655}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

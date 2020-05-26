@@ -193,6 +193,16 @@
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
+
+  <!-- .\engine\value -->
+  <ItemGroup>
+    <Compile Include="..\mhql\engine\value\char.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\value\lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
   
   <!-- Engine source code files links -->
   <!-- General -->
