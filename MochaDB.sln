@@ -96,6 +96,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA287-C416-43F8-A401-B3A598C27655}"
 	ProjectSection(SolutionItems) = preProject
+		mhql\engine\condition.cs = mhql\engine\condition.cs
+		mhql\engine\condition_lexer.cs = mhql\engine\condition_lexer.cs
 		mhql\engine\editor.cs = mhql\engine\editor.cs
 		mhql\engine\must.cs = mhql\engine\must.cs
 	EndProjectSection

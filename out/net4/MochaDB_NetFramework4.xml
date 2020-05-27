@@ -6336,12 +6336,14 @@
             <param name="command">Command.</param>
             <param name="row">Base row.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.IsPassTable(System.String@,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.IsPassTable(System.String@,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Returns command must result.
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
             <summary>
@@ -6359,6 +6361,82 @@
             Remove all comments from code.
             </summary>
             <param name="command">Command.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION">
+            <summary>
+            Condition engine for MHQL.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process condition and returns condition result.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.IsCondition(System.String,MochaDB.mhql.engine.ConditionType@)">
+            <summary>
+            Returns true if command is condition but returns false if not.
+            </summary>
+            <param name="command">Command to check.</param>
+            <param name="type">Type of condition.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_EQUAL(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process equal condition and returns result.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetConditionParts(System.String,System.String)">
+            <summary>
+            Returns condition parts.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="operator">Operator.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetValue(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Returns value.
+            </summary>
+            <param name="value">Value.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER">
+            <summary>
+            lexer of MHQL conditions.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.Operators">
+            <summary>
+            Operators.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.ConditionType">
+            <summary>
+            Condition type.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.ConditionType.None">
+            <summary>
+            None.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.ConditionType.EQUAL">
+            <summary>
+            Euqal operator.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.ConditionType.NOTEQUAL">
+            <summary>
+            Not equal operator.
+            </summary>
         </member>
         <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_CHAR">
             <summary>
@@ -6384,11 +6462,6 @@
         <member name="P:MochaDB.mhql.engine.value.MhqlEngVal_LEXER.EscapeCheck">
             <summary>
             Check escape characters for escape character processor(s).
-            </summary>
-        </member>
-        <member name="P:MochaDB.mhql.engine.value.MhqlEngVal_LEXER.Operators">
-            <summary>
-            Operators.
             </summary>
         </member>
         <member name="T:MochaDB.engine.Engine_ATTRIBUTES">

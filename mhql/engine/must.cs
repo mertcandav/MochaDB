@@ -19,12 +19,16 @@ namespace MochaDB.mhql.engine {
         public static void ProcessPart(ref string value,MochaTableResult table,bool from) {
             if(!from) {
                 var _dex = value.IndexOf('(');
+                if(_dex == -1)
+                    return;
                 var _val = value.Substring(0,_dex).Trim();
                 value = _val + value.Substring(_dex);
                 return;
             }
 
             var dex = value.IndexOf('(');
+            if(dex == -1)
+                return;
             var val = value.Substring(0,dex).Trim();
             var result = table.Columns.Where(x => x.Name == val);
 
@@ -56,13 +60,17 @@ namespace MochaDB.mhql.engine {
         /// Returns command must result.
         /// </summary>
         /// <param name="command">Command.</param>
+        /// <param name="table">Table.</param>
         /// <param name="row">Row.</param>
-        public static bool IsPassTable(ref string command,MochaRow row) {
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool IsPassTable(ref string command,MochaTableResult table,MochaRow row,bool from) {
             command=command.Trim();
-            if(char.IsNumber(command.FirstChar())) {
+            if(MhqlEng_CONDITION.IsCondition(command,out _))
+                return MhqlEng_CONDITION.Process(command,table,row,from);
+            else if(char.IsNumber(command.FirstChar())) {
                 return MhqlMust_REGEX.Match(
-                                MhqlMust_REGEX.GetCommand(command),
-                                GetDataFromCommand(command,row).ToString());
+                            MhqlMust_REGEX.GetCommand(command),
+                            GetDataFromCommand(command,row).ToString());
             } else if(command.StartsWith("$BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_BETWEEN.Pass(command.Substring(9,command.Length-10),row);
             } else if(command.StartsWith("$BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {

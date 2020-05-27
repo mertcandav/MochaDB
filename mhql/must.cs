@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using MochaDB.mhql.engine;
@@ -74,11 +75,13 @@ namespace MochaDB.mhql {
             for(int index = 0; index < parts.Length; index++) {
                 var partcmd = parts[index];
                 MhqlEng_MUST.ProcessPart(ref partcmd,table,from);
-                table.Rows = (
-                        from value in table.Rows
-                        where MhqlEng_MUST.IsPassTable(ref partcmd,value)
-                        select value
-                        ).ToArray();
+                var rows = new List<MochaRow>();
+                for(int dex = 0; dex < table.Rows.Length; dex++) {
+                    var row = table.Rows[dex];
+                    if(MhqlEng_MUST.IsPassTable(ref partcmd,table,row,@from))
+                        rows.Add(row);
+                }
+                table.Rows = rows.ToArray();
             }
             table.SetDatasByRows();
         }
