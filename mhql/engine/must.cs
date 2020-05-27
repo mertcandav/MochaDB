@@ -47,7 +47,10 @@ namespace MochaDB.mhql.engine {
             command = command.Trim();
             if(!char.IsNumber(command.FirstChar()))
                 throw new MochaException("Column is not defined!");
-            var dex = int.Parse(command.FirstChar().ToString());
+            var bracketdex = command.IndexOf('(');
+            if(bracketdex == -1)
+                throw new MochaException("Pattern is not defined!");
+            var dex = int.Parse(command.Substring(0,bracketdex));
 
             if(dex < 0)
                 throw new MochaException("Index is cannot lower than zero!");
