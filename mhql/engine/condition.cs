@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using MochaDB.mhql.engine.value;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 
@@ -86,6 +87,11 @@ namespace MochaDB.mhql.engine {
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public static string GetValue(string value,MochaTableResult table,MochaRow row,bool from) {
+            if(value.StartsWith("'")) {
+                MhqlEngVal_CHAR.Process(ref value);
+                return value;
+            }
+
             if(from) {
                 var result = table.Columns.Where(x => x.Name == value);
 

@@ -8,7 +8,7 @@ namespace MochaDB.mhql.engine.value {
         /// </summary>
         public static string[,] Escapes =>
             new[,] {
-                { "\\\\", "\\\\\\\\" },
+                { "\\", "\\\\\\\\" },
                 { "\"", "\\\\\"" },
                 { "\'", "\\\\\'" },
                 { "\n", "\\\\n" },
@@ -23,9 +23,10 @@ namespace MochaDB.mhql.engine.value {
         /// <summary>
         /// Check escape characters for escape character processor(s).
         /// </summary>
-        public static string[,] EscapeCheck =>
-            new[,] {
-                { "\\", "\"" }
+        public static string[] EscapeCheck =>
+            new[] {
+                "\\",
+                "\""
         };
     }
 }

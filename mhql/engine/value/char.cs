@@ -16,31 +16,19 @@ namespace MochaDB.mhql.engine.value {
                 throw new MochaException("Char is not defined!");
             if(!val.StartsWith("'"))
                 throw new MochaException("Char is not declare!");
+            if(!val.EndsWith("'"))
+                throw new MochaException("Char end is not declared!");
 
             void control(ref string cval) {
-                for(int dex = 0; dex < MhqlEngVal_LEXER.Escapes.Length; dex++) {
-                    var pattern = new Regex(MhqlEngVal_LEXER.Escapes[dex,0],
+                cval = cval.Substring(1,cval.Length-2);
+                for(int dex = 0; dex < MhqlEngVal_LEXER.Escapes.Length/2; dex++) {
+                    var pattern = new Regex(MhqlEngVal_LEXER.Escapes[dex,1],
                         RegexOptions.Multiline);
-                    cval = pattern.Replace(cval,MhqlEngVal_LEXER.Escapes[dex,1]);
+                    cval = pattern.Replace(cval,MhqlEngVal_LEXER.Escapes[dex,0]);
                 }
-
-                if(!cval.EndsWith("'"))
-                    throw new MochaException("Char end is not declared!");
-
-                cval = cval.Substring(0,cval.Length-1);
 
                 if(cval.Length > 1)
                     throw new MochaException("Char can be at most one character!");
-
-                for(int dex = 0; dex < MhqlEngVal_LEXER.EscapeCheck.Length; dex++) {
-                    var key = MhqlEngVal_LEXER.EscapeCheck[dex,0];
-
-                    if(key == "\"")
-                        continue;
-
-                    if(cval.IndexOf(key) != -1)
-                        throw new MochaException($"'{key}' invalid value!");
-                }
             }
 
             control(ref val);
