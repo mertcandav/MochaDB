@@ -100,8 +100,7 @@ namespace MochaDB.mhql.engine {
 
             if(!char.IsNumber(value.FirstChar()))
                 throw new MochaException("Column is not defined!");
-            var dex = int.Parse(value.FirstChar().ToString());
-
+            var dex = int.Parse(value);
             if(dex < 0)
                 throw new MochaException("Index is cannot lower than zero!");
             else if(dex > row.Datas.MaxIndex())
