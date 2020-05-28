@@ -23,8 +23,8 @@ namespace MochaDB.mhql.engine {
 
             if(type == ConditionType.EQUAL)
                 return Process_EQUAL(command,table,row,from);
-            /*else if(type == ConditionType.NOTEQUAL)
-                return Process_NOTEQUAL(command,table,row);*/
+            else if(type == ConditionType.NOTEQUAL)
+                return Process_NOTEQUAL(command,table,row,from);
             return false;
         }
 
@@ -63,6 +63,20 @@ namespace MochaDB.mhql.engine {
             var value0 = GetValue(parts[0],table,row,from);
             var value1 = GetValue(parts[1],table,row,from);
             return value0 == value1;
+        }
+
+        /// <summary>
+        /// Process not equal condition and returns result.
+        /// </summary>
+        /// <param name="command">Condition.</param>
+        /// <param name="table">Table.</param>
+        /// <param name="row">Row.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
+            var parts = GetConditionParts(command,"!=");
+            var value0 = GetValue(parts[0],table,row,from);
+            var value1 = GetValue(parts[1],table,row,from);
+            return value0 != value1;
         }
 
         /// <summary>

@@ -6392,6 +6392,15 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_NOTEQUAL(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process not equal condition and returns result.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetConditionParts(System.String,System.String)">
             <summary>
             Returns condition parts.
