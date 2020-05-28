@@ -223,7 +223,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of MochaDataType.</param>
         public static MochaDataType GetDataTypeFromName(string name = "String") {
-            name=name.TrimStart().TrimEnd().ToLowerInvariant();
+            name=name.Trim().ToLowerInvariant();
             MochaDataType dataType;
             if(Enum.TryParse(name,true,out dataType))
                 return dataType;

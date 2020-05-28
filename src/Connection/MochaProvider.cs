@@ -54,7 +54,7 @@ namespace MochaDB.Connection {
             IEnumerable<string> result =
                 from rvalue in
                     from value in connectionString.Split(';')
-                    select value.TrimStart().TrimEnd()
+                    select value.Trim()
                 where rgx.IsMatch(rvalue)
                 select rvalue;
 
@@ -68,10 +68,10 @@ namespace MochaDB.Connection {
             string sresult = result.ElementAt(0);
             string attributeValue = sresult.Substring(sresult.IndexOf('=')+1);
             MochaProviderAttribute attribute = new MochaProviderAttribute();
-            attribute.name=name.TrimStart().TrimEnd();
+            attribute.name=name.Trim();
             attribute.Value= attributeValue==null ? string.Empty :
                 string.Equals(attribute.Name,"password") ?
-                attributeValue : attributeValue.TrimStart().TrimEnd();
+                attributeValue : attributeValue.Trim();
             return attribute;
         }
 

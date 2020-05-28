@@ -80,7 +80,7 @@ namespace MochaDB.Mhql {
             get =>
                 command;
             set {
-                value=value.TrimStart().TrimEnd();
+                value=value.Trim();
                 MhqlEng_EDITOR.RemoveComments(ref value);
                 if(value==command)
                     return;

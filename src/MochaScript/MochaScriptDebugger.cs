@@ -292,18 +292,18 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// <param name="index">Index of line.</param>
         /// <returns>True if variable is defined successfully but false if not.</returns>
         internal bool TryVariable(int index) {
-            string line = MochaScriptArray[index].TrimStart().TrimEnd();
+            string line = MochaScriptArray[index].Trim();
             IEnumerable<string> parts = line.Split('=');
             IEnumerable<string> varParts = parts.ElementAt(0).Split(' ');
 
             parts =
                 from value in parts
                 where !string.IsNullOrWhiteSpace(value)
-                select value.TrimStart().TrimEnd();
+                select value.Trim();
             varParts =
                 from value in varParts
                 where !string.IsNullOrWhiteSpace(value)
-                select value.TrimStart().TrimEnd();
+                select value.Trim();
 
 
             if(parts.Count()==1 && varParts.Count() == 2) {

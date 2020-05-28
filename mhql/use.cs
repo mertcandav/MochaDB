@@ -49,7 +49,7 @@ namespace MochaDB.mhql {
 
             if(from) {
                 var dex = usecommand.IndexOf("FROM",StringComparison.OrdinalIgnoreCase);
-                var tablename = usecommand.Substring(dex+4).TrimStart().TrimEnd();
+                var tablename = usecommand.Substring(dex+4).Trim();
                 var parts = usecommand.Substring(0,dex).Split(',');
 
                 var table = Tdb.GetTable(tablename);
@@ -118,7 +118,7 @@ namespace MochaDB.mhql {
 
             var parts = usecommand.Split(',');
             for(var index = 0; index < parts.Length; index++) {
-                var callcmd = parts[index].TrimStart().TrimEnd();
+                var callcmd = parts[index].Trim();
                 if(callcmd == "*") {
                     var sectors = Tdb.GetSectors();
                     for(int sindex = 0; sindex < sectors.Count; sindex++) {

@@ -101,7 +101,7 @@ namespace MochaDB {
             get =>
                 path;
             set {
-                value=value.TrimStart().TrimEnd();
+                value=value.Trim();
                 if(string.IsNullOrEmpty(value))
                     throw new MochaException("Path is cannot null or whitespace!");
 

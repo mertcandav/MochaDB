@@ -102,7 +102,7 @@ namespace MochaDB {
             get =>
                 name;
             set {
-                value=value.TrimStart().TrimEnd();
+                value=value.Trim();
                 if(string.IsNullOrEmpty(value))
                     throw new MochaException("Name is cannot null or whitespace!");
 

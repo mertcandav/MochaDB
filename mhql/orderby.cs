@@ -55,7 +55,7 @@ namespace MochaDB.mhql {
         /// <param name="table">Table to ordering.</param>
         /// <param name="final">Command of removed use commands.</param>
         public void OrderBy(string command,ref MochaTableResult table) {
-            command = command.TrimStart().TrimEnd();
+            command = command.Trim();
             int dex =
                 command.StartsWith("ASC",StringComparison.OrdinalIgnoreCase) ?
                 3 :
