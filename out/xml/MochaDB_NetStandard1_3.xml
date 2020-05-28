@@ -6438,17 +6438,6 @@
             Not equal operator.
             </summary>
         </member>
-        <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_CHAR">
-            <summary>
-            Char value engine of MHQL.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.engine.value.MhqlEngVal_CHAR.Process(System.String@)">
-            <summary>
-            Process value.
-            </summary>
-            <param name="val">Value.</param>
-        </member>
         <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_LEXER">
             <summary>
             Lexer of MHQL values.
@@ -6463,6 +6452,28 @@
             <summary>
             Check escape characters for escape character processor(s).
             </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_CHAR">
+            <summary>
+            Char value engine of MHQL.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.value.MhqlEngVal_CHAR.Process(System.String@)">
+            <summary>
+            Process value.
+            </summary>
+            <param name="val">Value.</param>
+        </member>
+        <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_STRING">
+            <summary>
+            Char value engine of MHQL.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.value.MhqlEngVal_STRING.Process(System.String@)">
+            <summary>
+            Process value.
+            </summary>
+            <param name="val">Value.</param>
         </member>
         <member name="T:MochaDB.engine.Engine_ATTRIBUTES">
             <summary>

@@ -8,7 +8,6 @@ namespace MochaDB.mhql.engine.value {
         /// </summary>
         public static string[,] Escapes =>
             new[,] {
-                { "\\", "\\\\\\\\" },
                 { "\"", "\\\\\"" },
                 { "\'", "\\\\\'" },
                 { "\n", "\\\\n" },

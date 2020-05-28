@@ -90,6 +90,9 @@ namespace MochaDB.mhql.engine {
             if(value.StartsWith("'")) {
                 MhqlEngVal_CHAR.Process(ref value);
                 return value;
+            } else if(value.StartsWith("\"")) {
+                MhqlEngVal_STRING.Process(ref value);
+                return value;
             }
 
             if(from) {

@@ -214,10 +214,13 @@
 
   <!-- .\engine\value -->
   <ItemGroup>
+    <Compile Include="..\mhql\engine\value\lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
     <Compile Include="..\mhql\engine\value\char.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\engine\value\lexer.cs">
+    <Compile Include="..\mhql\engine\value\string.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
