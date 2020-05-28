@@ -35,7 +35,7 @@ namespace MochaDB.mhql {
             if(finaldex==0)
                 throw new MochaException("SELECT command is cannot processed!");
             var usecommand = Command.Substring(usedex+6,finaldex-(usedex+6)).TrimStart().TrimEnd();
-            if(!usecommand.StartsWith("\"") || !usecommand.EndsWith("\""))
+            if(!usecommand.StartsWith("(") || !usecommand.EndsWith(")"))
                 throw new MochaException("Regex query is cannot processed!");
 
             final = Command.Substring(finaldex);
