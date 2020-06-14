@@ -92,6 +92,40 @@ namespace MochaDB {
 
         #endregion
 
+        #region Static Properties
+
+        /// <summary>
+        /// Root path.
+        /// </summary>
+        public static MochaPath Root =>
+            "Root";
+
+        /// <summary>
+        /// Sectors path.
+        /// </summary>
+        public static MochaPath Sectors =>
+            "Sectors";
+
+        /// <summary>
+        /// Stacks path.
+        /// </summary>
+        public static MochaPath Stacks =>
+            "Stacks";
+
+        /// <summary>
+        /// Tables path.
+        /// </summary>
+        public static MochaPath Tables =>
+            "Tables";
+
+        /// <summary>
+        /// Logs path.
+        /// </summary>
+        public static MochaPath Logs =>
+            "Logs";
+
+        #endregion
+
         #region Properties
 
         /// <summary>

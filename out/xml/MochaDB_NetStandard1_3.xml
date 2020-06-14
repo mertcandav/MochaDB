@@ -3374,6 +3374,31 @@
             Returns <see cref="P:MochaDB.MochaPath.Path"/>.
             </summary>
         </member>
+        <member name="P:MochaDB.MochaPath.Root">
+            <summary>
+            Root path.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaPath.Sectors">
+            <summary>
+            Sectors path.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaPath.Stacks">
+            <summary>
+            Stacks path.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaPath.Tables">
+            <summary>
+            Tables path.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaPath.Logs">
+            <summary>
+            Logs path.
+            </summary>
+        </member>
         <member name="P:MochaDB.MochaPath.Path">
             <summary>
             Path.
