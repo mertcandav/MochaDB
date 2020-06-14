@@ -5,13 +5,13 @@ using System.Text;
 
 namespace MochaDB.Cryptography {
     /// <summary>
-    /// AES encryptor.
+    /// AES encryptor of MochaDB.
     /// </summary>
     public class AES:IMochaEncryptor {
         #region Constructors
 
         /// <summary>
-        /// Create new AES.
+        /// Constructor.
         /// </summary>
         /// <param name="iv">Iv.</param>
         /// <param name="key">Key.</param>
@@ -22,7 +22,7 @@ namespace MochaDB.Cryptography {
         }
 
         /// <summary>
-        /// Create new AES.
+        /// Constructor.
         /// </summary>
         /// <param name="iv">Iv.</param>
         /// <param name="key">Key.</param>
@@ -41,7 +41,7 @@ namespace MochaDB.Cryptography {
 
         #endregion
 
-        #region Methods
+        #region Members
 
         /// <summary>
         /// Encrypt.

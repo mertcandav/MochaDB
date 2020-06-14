@@ -154,19 +154,19 @@
         </member>
         <member name="T:MochaDB.Cryptography.AES">
             <summary>
-            AES encryptor.
+            AES encryptor of MochaDB.
             </summary>
         </member>
         <member name="M:MochaDB.Cryptography.AES.#ctor(System.String,System.String)">
             <summary>
-            Create new AES.
+            Constructor.
             </summary>
             <param name="iv">Iv.</param>
             <param name="key">Key.</param>
         </member>
         <member name="M:MochaDB.Cryptography.AES.#ctor(System.String,System.String,System.String)">
             <summary>
-            Create new AES.
+            Constructor.
             </summary>
             <param name="iv">Iv.</param>
             <param name="key">Key.</param>
@@ -217,6 +217,48 @@
         <member name="T:MochaDB.Cryptography.IMochaEncryptor">
             <summary>
             Interface for MochaDB encryptors.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Cryptography.IMochaHashEncryptor">
+            <summary>
+            Interface for MochaDB hash encryptors.
+            </summary>
+        </member>
+        <member name="T:MochaDB.Cryptography.MD5">
+            <summary>
+            MD5 encryptor of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Cryptography.MD5.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Cryptography.MD5.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">Data to set data.</param>
+        </member>
+        <member name="M:MochaDB.Cryptography.MD5.Encrypt(System.String)">
+            <summary>
+            Encrypt.
+            </summary>
+            <param name="data">Data to set data.</param>
+        </member>
+        <member name="M:MochaDB.Cryptography.MD5.Encrypt">
+            <summary>
+            Encrypt.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Cryptography.MD5.ToString">
+            <summary>
+            Returns <see cref="P:MochaDB.Cryptography.MD5.Data"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Cryptography.MD5.Data">
+            <summary>
+            Data of use the cryptography processes.
             </summary>
         </member>
         <member name="T:MochaDB.Cryptography.Mocha_ACE">
