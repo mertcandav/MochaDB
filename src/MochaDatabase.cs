@@ -2554,7 +2554,7 @@ namespace MochaDB {
         /// Returns sub elements of element in path.
         /// </summary>
         /// <param name="path">Path of base element.</param>
-        public MochaCollectionResult<MochaElement> GetElements(MochaPath path) {
+        public MochaArray<MochaElement> GetElements(MochaPath path) {
             if(!path.IsDatabasePath())
                 throw new MochaException("This path is not database compatible path!");
             if(!ExistsElement(path.Path))
@@ -2563,7 +2563,7 @@ namespace MochaDB {
             MochaArray<MochaElement> array = new MochaElement[elements.Count()];
             for(int index = 0; index < array.Length; index++)
                 array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
-            return new MochaCollectionResult<MochaElement>(array);
+            return array;
         }
 
         #endregion
