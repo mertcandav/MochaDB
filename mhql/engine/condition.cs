@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using MochaDB.mhql.engine.value;
@@ -39,11 +40,16 @@ namespace MochaDB.mhql.engine {
                 return false;
             }
 
-            if(command.Contains("==")) {
-                type = ConditionType.EQUAL;
-                return true;
-            } else if(command.Contains("!=")) {
-                type = ConditionType.NOTEQUAL;
+            for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Keys.Count; index++) {
+                string
+                    key,
+                    value;
+                value = MhqlEng_CONDITION_LEXER.Operators.Values.ElementAt(index);
+                if(!command.Contains(value))
+                    continue;
+
+                key = MhqlEng_CONDITION_LEXER.Operators.Keys.ElementAt(index);
+                type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
                 return true;
             }
 

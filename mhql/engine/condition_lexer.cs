@@ -10,17 +10,16 @@ namespace MochaDB.mhql.engine {
         /// Operators.
         /// </summary>
         public static Dictionary<string,string> Operators =>
-            Framework_DICTIONARY.FromArray(
-                new[,] {
+            new Dictionary<string,string>() {
                     { "EQUAL", "==" },
                     { "NOTEQUAL", "!=" }
-                });
+            };
     }
 
     /// <summary>
     /// Condition type.
     /// </summary>
-    public enum ConditionType {
+    internal enum ConditionType {
         /// <summary>
         /// None.
         /// </summary>
