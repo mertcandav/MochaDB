@@ -9,11 +9,11 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Operators.
         /// </summary>
-        public static Dictionary<string,string> Operators =>
-            new Dictionary<string,string>() {
-                    { "EQUAL", "==" },
-                    { "NOTEQUAL", "!=" }
-            };
+        public static string[,] Operators =>
+            new[,] {
+                { "EQUAL", "==" },
+                { "NOTEQUAL", "!=" }
+        };
     }
 
     /// <summary>

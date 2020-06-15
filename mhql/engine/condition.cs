@@ -40,15 +40,15 @@ namespace MochaDB.mhql.engine {
                 return false;
             }
 
-            for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Keys.Count; index++) {
+            for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Length/2; index++) {
                 string
                     key,
                     value;
-                value = MhqlEng_CONDITION_LEXER.Operators.Values.ElementAt(index);
+                value = MhqlEng_CONDITION_LEXER.Operators[index,1];
                 if(!command.Contains(value))
                     continue;
 
-                key = MhqlEng_CONDITION_LEXER.Operators.Keys.ElementAt(index);
+                key = MhqlEng_CONDITION_LEXER.Operators[index,0];
                 type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
                 return true;
             }
