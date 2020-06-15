@@ -91,8 +91,8 @@ namespace MochaDB.mhql.engine {
         /// <param name="command">Condition.</param>
         /// <param name="operator">Operator.</param>
         public static string[] GetConditionParts(string command,string @operator) {
-            var parts = command.Split(new[] { @operator },0);
-            if(parts.Length != 2)
+            var parts = command.Split(new[] { @operator },2,0);
+            if(parts.Length < 2)
                 throw new MochaException("Condition is cannot processed!");
             parts[0] = parts[0].Trim();
             parts[1] = parts[1].Trim();
