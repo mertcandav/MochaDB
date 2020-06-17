@@ -1,4 +1,5 @@
 ﻿using System;
+using MochaDB.Data.Types;
 
 namespace MochaDB {
     /// <summary>
@@ -78,10 +79,6 @@ namespace MochaDB {
 
         public static explicit operator DateTime(MochaData value) =>
             DateTime.Parse(value.ToString());
-
-        #endregion
-
-        #region Castings
 
         public static explicit operator MochaData(string value) =>
             new MochaData() {
@@ -264,8 +261,9 @@ namespace MochaDB {
                 return typeof(uint);
             if(dataType == MochaDataType.UInt64)
                 return typeof(ulong);
-            //if(dataType == MochaDataType.DateTime)
-            return typeof(DateTime);
+            if(dataType == MochaDataType.DateTime)
+                return typeof(DateTime);
+            return typeof(Bit);
         }
 
         /// <summary>
@@ -303,6 +301,8 @@ namespace MochaDB {
                 return MochaDataType.UInt64;
             if(type == typeof(DateTime))
                 return MochaDataType.DateTime;
+            if(type == typeof(Bit))
+                return MochaDataType.Bit;
 
             throw new MochaException("There is no MochaDB data type of this type!");
         }
@@ -346,8 +346,9 @@ namespace MochaDB {
                 return uint.Parse(data);
             if(dataType == MochaDataType.UInt64)
                 return ulong.Parse(data);
-            //if(dataType == MochaDataType.DateTime)
-            return DateTime.Parse(data);
+            if(dataType == MochaDataType.DateTime)
+                return DateTime.Parse(data);
+            return Bit.Parse(data);
         }
 
         /// <summary>
@@ -494,6 +495,10 @@ namespace MochaDB {
         /// <summary>
         /// Unique string.
         /// </summary>
-        Unique = 16
+        Unique = 16,
+        /// <summary>
+        /// Binary digit.
+        /// </summary>
+        Bit = 17
     }
 }

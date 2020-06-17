@@ -377,6 +377,29 @@
             Data of use the cryptography processes.
             </summary>
         </member>
+        <member name="T:MochaDB.Data.Types.Bit">
+            <summary>
+            Bit data type of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Data.Types.Bit.#ctor(System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Double)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" -->
+        <member name="M:MochaDB.Data.Types.Bit.ToString">
+            <summary>
+            Returns value as string.
+            </summary>
+        </member>
         <member name="T:MochaDB.FileSystem.IMochaDirectory">
             <summary>
             Interface for MochaDB file system directorys.
@@ -2114,6 +2137,11 @@
         <member name="F:MochaDB.MochaDataType.Unique">
             <summary>
             Unique string.
+            </summary>
+        </member>
+        <member name="F:MochaDB.MochaDataType.Bit">
+            <summary>
+            Binary digit.
             </summary>
         </member>
         <member name="T:MochaDB.MochaDatabase">
