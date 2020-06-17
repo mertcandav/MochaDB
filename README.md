@@ -25,13 +25,11 @@
 + Lightweight
 + Single DLL
 + Single database file
-+ Portable
 + Small
-+ Secure
-+ Embedded
-+ Supports LINQ and PLINQ querys
-+ <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast querys
-+ <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced querys
++ Thread-safe
++ Supports LINQ and PLINQ queries
++ <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
++ <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
 + RDBMS(Relational Database Management System) features
 + Restore unwanted changes with logs
 + Embed files into the database with FileSystem
