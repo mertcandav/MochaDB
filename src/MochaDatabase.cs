@@ -2233,6 +2233,10 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
 
             data = data == null ? "" : data;
+            MochaDataType dataType = GetColumnDataType(tableName,columnName);
+            if(!MochaData.IsType(dataType,data)) {
+                throw new MochaException("The submitted data is not compatible with the targeted data!");
+            }
             XElement xColumn = GetXElement($"Tables/{tableName}/{columnName}");
 
             IEnumerable<XElement> dataRange = xColumn.Elements();
@@ -2311,8 +2315,6 @@ namespace MochaDB {
                     throw new MochaException("Any value can be added to a unique column only once!");
                 else if(dex == index)
                     return;
-            } else if(!MochaData.IsType(dataType,data)) {
-                throw new MochaException("The submitted data is not compatible with the targeted data!");
             }
 
             OnChanging(this,new EventArgs());
