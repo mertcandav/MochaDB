@@ -5204,6 +5204,14 @@
             <param name="path">Path of base element.</param>
             <param name="query">Path of base element.</param>
         </member>
+        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,MochaDB.MochaPath,System.Func{MochaDB.MochaElement,System.Boolean})">
+            <summary>
+            Read all sub elements of element in path.
+            </summary>
+            <param name="db">Target database.</param>
+            <param name="path">Path of base element.</param>
+            <param name="query">Path of base element.</param>
+        </member>
         <member name="T:MochaDB.Querying.QueryingMochaFileSystem">
             <summary>
             Query extension for MochaFileSystems.
