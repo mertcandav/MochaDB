@@ -1022,33 +1022,33 @@
             Formatter for Mhql commands.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.IsKeyword(System.String)">
+        <member name="M:MochaDB.Mhql.MhqlFormatter.IsObject(System.String)">
             <summary>
-            Return true if value is Mhql keyword but return false if not.
+            Returns true if value is Mhql keyword or function but return false if not.
             </summary>
             <param name="value">Value to check.</param>
         </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseKeywords(System.String@)">
+        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseObjects(System.String@)">
             <summary>
-            Replace Mhql keywords to upper case.
+            Replace Mhql keywords and functions to upper case.
             </summary>
             <param name="value">The value to targeting.</param>
         </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseKeywords(System.String)">
+        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseObjects(System.String)">
             <summary>
-            Replace Mhql keywords to upper case.
+            Replace Mhql keywords and functions to upper case.
             </summary>
             <param name="value">The value to targeting.</param>
         </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseKeywords(System.String@)">
+        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseObjects(System.String@)">
             <summary>
-            Replace Mhql keywords to lower case.
+            Replace Mhql keywords and functions to lower case.
             </summary>
             <param name="value">The value to targeting.</param>
         </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseKeywords(System.String)">
+        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseObjects(System.String)">
             <summary>
-            Replace Mhql keywords to lower case.
+            Replace Mhql keywords and functions to lower case.
             </summary>
             <param name="value">The value to targeting.</param>
         </member>

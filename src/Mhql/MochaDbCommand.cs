@@ -15,9 +15,9 @@ namespace MochaDB.Mhql {
         private MhqlCommand command;
         private MochaDatabase db;
 
-        internal static Regex keywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|END|GROUPBY|FROM|AS|BETWEEN|BIGGER|LOWER|EQUAL|STARTW|ENDW|
-SELECT|REMOVE|NOTEQUAL)\b",
+        internal static Regex fullRegex = new Regex(
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|END|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
+SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
