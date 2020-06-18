@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
@@ -40,7 +41,7 @@ namespace MochaDB.mhql {
         public string GetMUST(string command,out string final) {
             var pattern = new Regex("END",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-            var value = string.Empty;
+            var value = new StringBuilder();
             var count = 0;
             command = command.Substring(4);
             for(int index = 0; index < command.Length; index++) {
@@ -49,7 +50,7 @@ namespace MochaDB.mhql {
                     if(command.Length - 1 - index >= 3) {
                         if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
                             final = command.Substring(index+3).Trim();
-                            return value.Trim();
+                            return value.ToString().Trim();
                         }
                     }
                 } else if(currentChar == '(')
@@ -57,10 +58,10 @@ namespace MochaDB.mhql {
                 else if(currentChar == ')')
                     count--;
 
-                value += currentChar;
+                value.Append(currentChar);
             }
             final = command;
-            return value.Trim();
+            return value.ToString().Trim();
         }
 
         /// <summary>

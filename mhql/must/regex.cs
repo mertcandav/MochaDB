@@ -10,7 +10,6 @@ namespace MochaDB.mhql.must {
         /// </summary>
         /// <param name="command">Command.</param>
         public static string GetCommand(string command) {
-            command = command.Trim();
             command = command.Substring(2);
             command = command.Remove(command.Length-1,1);
             return command;

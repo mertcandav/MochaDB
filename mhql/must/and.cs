@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MochaDB.mhql {
@@ -14,15 +15,15 @@ namespace MochaDB.mhql {
             var pattern = new Regex("AND",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var parts = new List<string>();
-            var value = string.Empty;
+            var value = new StringBuilder();
             var count = 0;
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
                 if(currentChar == 'A' || currentChar == 'a') {
                     if(command.Length - 1 - index >= 3) {
                         if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
-                            parts.Add(value.Trim());
-                            value = string.Empty;
+                            parts.Add(value.ToString().Trim());
+                            value.Clear();
                             index+=2;
                             continue;
                         }
@@ -32,9 +33,9 @@ namespace MochaDB.mhql {
                 else if(currentChar == ')')
                     count--;
 
-                value += currentChar;
+                value.Append(currentChar);
             }
-            parts.Add(value.Trim());
+            parts.Add(value.ToString().Trim());
             return new MochaArray<string>(parts);
         }
     }
