@@ -11,7 +11,7 @@ namespace MochaDB.mhql.engine.value {
         /// <param name="val">Value.</param>
         public static void Process(ref string val) {
             val = val.Trim();
-            
+
             if(val == string.Empty)
                 throw new MochaException("Char is not defined!");
             if(!val.StartsWith("'"))
