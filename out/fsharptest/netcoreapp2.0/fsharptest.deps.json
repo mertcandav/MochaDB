@@ -8,18 +8,18 @@
     ".NETCoreApp,Version=v2.0": {
       "fsharptest/1.0.0": {
         "dependencies": {
-          "FSharp.Core": "4.7.0",
+          "FSharp.Core": "4.7.2",
           "MochaDB": "3.4.5"
         },
         "runtime": {
           "fsharptest.dll": {}
         }
       },
-      "FSharp.Core/4.7.0": {
+      "FSharp.Core/4.7.2": {
         "runtime": {
           "lib/netstandard2.0/FSharp.Core.dll": {
             "assemblyVersion": "4.7.0.0",
-            "fileVersion": "4.700.19.40208"
+            "fileVersion": "4.700.20.27008"
           }
         },
         "resources": {
@@ -77,12 +77,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "FSharp.Core/4.7.0": {
+    "FSharp.Core/4.7.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6Bf2qzSCaJoP6tTfO+a5muUS7QbyJANqSut73zQvwQ9It5P0ITz9VKseeia2ofco30c55EQ0jA2wf2+A2gpGnw==",
-      "path": "fsharp.core/4.7.0",
-      "hashPath": "fsharp.core.4.7.0.nupkg.sha512"
+      "sha512": "sha512-w3XFVTnyZUbC8e2QT6a85ern6y7eQPPk+MYemz1FP0iBfgZcembL+wmo5cIZ1kxB8jfoXC8Q9KVkOMsGpkBKbA==",
+      "path": "fsharp.core/4.7.2",
+      "hashPath": "fsharp.core.4.7.2.nupkg.sha512"
     },
     "MochaDB/3.4.5": {
       "type": "project",

@@ -42,6 +42,12 @@
  <param name="endIndex">The end index.</param>
  <returns>The sub list specified by the input indices.</returns>
 </member>
+<member name="M:Microsoft.FSharp.Collections.FSharpList`1.GetReverseIndex(System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
+</member>
 <member name="M:Microsoft.FSharp.Collections.FSharpList`1.Cons(`0,Microsoft.FSharp.Collections.FSharpList{`0})">
  <summary>Returns a list with <c>head</c> as its first element and <c>tail</c> as its subsequent elements</summary>
  <param name="head">A new head value for the list.</param>
@@ -4013,6 +4019,7 @@
 </member>
 <member name="M:Microsoft.FSharp.Reflection.FSharpType.MakeTupleType(System.Reflection.Assembly,System.Type[])">
  <summary>Returns a <c>System.Type</c> representing an F# tuple type with the given element types</summary>
+ <param name="asm">Runtime assembly containing System.Tuple definitions.</param>
  <param name="types">An array of types for the tuple elements.</param>
  <returns>The type representing the tuple containing the input elements.</returns>
 </member>
@@ -4023,6 +4030,7 @@
 </member>
 <member name="M:Microsoft.FSharp.Reflection.FSharpType.MakeStructTupleType(System.Reflection.Assembly,System.Type[])">
  <summary>Returns a <c>System.Type</c> representing an F# struct tuple type with the given element types</summary>
+ <param name="asm">Runtime assembly containing System.ValueTuple definitions.</param>
  <param name="types">An array of types for the tuple elements.</param>
  <returns>The type representing the struct tuple containing the input elements.</returns>
 </member>
@@ -4917,6 +4925,12 @@
  <param name="elements">The list of elements of the tuple.</param>
  <returns>The resulting expression.</returns>
 </member>
+<member name="M:Microsoft.FSharp.Quotations.FSharpExpr.NewStructTuple(System.Reflection.Assembly,Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Quotations.FSharpExpr})">
+ <summary>Builds an expression that represents the creation of an F# tuple value</summary>
+ <param name="asm">Runtime assembly containing System.ValueTuple definitions.</param>
+ <param name="elements">The list of elements of the tuple.</param>
+ <returns>The resulting expression.</returns>
+</member>
 <member name="M:Microsoft.FSharp.Quotations.FSharpExpr.NewRecord(System.Type,Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Quotations.FSharpExpr})">
  <summary>Builds record-construction expressions </summary>
  <param name="recordType">The type of record.</param>
@@ -5329,6 +5343,11 @@
  <summary>An active pattern to recognize expressions that represent the read of a static or instance property, or a non-function value declared in a module</summary>
  <param name="input">The input expression to match against.</param>
  <returns>(Expr option * PropertyInfo * Expr list) option</returns>
+</member>
+<member name="M:Microsoft.FSharp.Quotations.PatternsModule.NewStructTuplePattern(Microsoft.FSharp.Quotations.FSharpExpr)">
+ <summary>An active pattern to recognize expressions that represent construction of struct tuple values</summary>
+ <param name="input">The input expression to match against.</param>
+ <returns>(Expr list) option</returns>
 </member>
 <member name="M:Microsoft.FSharp.Quotations.PatternsModule.NewTuplePattern(Microsoft.FSharp.Quotations.FSharpExpr)">
  <summary>An active pattern to recognize expressions that represent construction of tuple values</summary>
@@ -5802,8 +5821,8 @@
  The default is used if this parameter is not provided.</param>
 </member>
 <member name="M:Microsoft.FSharp.Control.FSharpAsync.StartImmediateAsTask``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})">
- <summary>Runs an asynchronous computation, starting immediately on the current operating system, 
- but also returns the execution as <c>System.Threading.Tasks.Task</c> 
+ <summary>Runs an asynchronous computation, starting immediately on the current operating system
+ thread, but also returns the execution as <c>System.Threading.Tasks.Task</c>
  </summary>
  <remarks>If no cancellation token is provided then the default cancellation token is used.
  You may prefer using this method if you want to achive a similar behviour to async await in C# as 
@@ -7797,6 +7816,9 @@
  of this type, or the notation <c>arr.[x]</c> to get/set array
  values.</remarks>
 </member>
+<member name="T:Microsoft.FSharp.Core.uint">
+ <summary>An abbreviation for the CLI type <c>System.UInt32</c>.</summary>
+</member>
 <member name="T:Microsoft.FSharp.Core.int">
  <summary>An abbreviation for the CLI type <c>System.Int32</c>.</summary>
 </member>
@@ -7893,6 +7915,11 @@
 </member>
 <member name="T:Microsoft.FSharp.Core.FSharpValueOption`1.ValueNone">
  <summary>The representation of "No value"</summary>
+</member>
+<member name="M:Microsoft.FSharp.Core.FSharpValueOption`1.op_Implicit(`0)">
+ <summary>Implicitly converts a value into an optional that is a 'ValueSome' value.</summary>
+ <param name="value">The input value</param>
+ <returns>A voption representing the value.</returns>
 </member>
 <member name="P:Microsoft.FSharp.Core.FSharpValueOption`1.Value">
  <summary>Get the value of a 'ValueSome' option. An InvalidOperationException is raised if the option is 'ValueNone'.</summary>
@@ -9531,6 +9558,14 @@
  <param name="value">The input value.</param>
  <returns>The converted enum type.</returns>
 </member>
+<member name="M:Microsoft.FSharp.Core.Operators.ToUInt``1(``0)">
+ <summary>Converts the argument to an unsigned 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using <c>UInt32.Parse()</c>  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.</summary>
+ <param name="value">The input value.</param>
+ <returns>The converted int</returns>
+</member>
 <member name="M:Microsoft.FSharp.Core.Operators.ToInt``1(``0)">
  <summary>Converts the argument to signed 32-bit integer. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using <c>Int32.Parse()</c>  
@@ -10482,6 +10517,314 @@
  <param name="finish4">The end index of the fourth dimension.</param>
  <param name="source">The source array.</param>
 </member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedTriple1``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,System.Int32,``0[])">
+ <summary>Sets a 1D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedTriple2``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,``0[])">
+ <summary>Sets a 1D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedTriple3``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[])">
+ <summary>Sets a 1D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedTriple4``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[])">
+ <summary>Sets a 1D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble6``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble5``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble4``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble3``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble2``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedDouble1``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedSingle4``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[0:, 0:, 0:])">
+ <summary>Sets a 3D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedSingle3``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:, 0:])">
+ <summary>Sets a 3D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedSingle2``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:, 0:])">
+ <summary>Sets a 3D slice of a 4D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice4DFixedSingle1``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:, 0:])">
+ <summary>Gets a 3D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedTriple1``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,System.Int32)">
+ <summary>Gets a 1D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedTriple2``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32)">
+ <summary>Gets a 1D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedTriple3``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 1D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedTriple4``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 1D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble6``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32)">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble5``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble4``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble3``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble2``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedDouble1``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 2D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedSingle4``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 3D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="index4">The fixed index of the fourth dimension.</param>
+ <returns>The three dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedSingle3``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 3D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The three dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedSingle2``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 3D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The three dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4DFixedSingle1``1(``0[0:, 0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 3D slice of a 4D array</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="start4">The start index of the fourth dimension.</param>
+ <param name="finish4">The end index of the fourth dimension.</param>
+ <returns>The three dimensional sub array from the given indices.</returns>
+</member>
 <member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice4D``1(``0[0:, 0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
  <summary>Gets a slice of an array</summary>
  <param name="source">The source array.</param>
@@ -10495,6 +10838,69 @@
  <param name="finish4">The end index of the fourth dimension.</param>
  <returns>The four dimensional sub array from the given indices.</returns>
 </member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedDouble3``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32,``0[])">
+ <summary>Sets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedDouble2``1(``0[0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[])">
+ <summary>Sets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedDouble1``1(``0[0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[])">
+ <summary>Sets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedSingle3``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 3D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedSingle2``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 3D array</summary>
+ <param name="target">The target array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3DFixedSingle1``1(``0[0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:])">
+ <summary>Sets a 2D slice of a 3D array</summary>
+ <param name="target">The target array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <param name="source">The source array.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
 <member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.SetArraySlice3D``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},``0[0:, 0:, 0:])">
  <summary>Sets a slice of an array</summary>
  <param name="target">The target array.</param>
@@ -10505,6 +10911,63 @@
  <param name="start3">The start index of the third dimension.</param>
  <param name="finish3">The end index of the third dimension.</param>
  <param name="source">The source array.</param>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedDouble3``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,System.Int32)">
+ <summary>Gets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedDouble2``1(``0[0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedDouble1``1(``0[0:, 0:, 0:],System.Int32,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 1D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <returns>The one dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedSingle3``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32)">
+ <summary>Gets a 2D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="index3">The fixed index of the third dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedSingle2``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 2D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="start1">The start index of the first dimension.</param>
+ <param name="finish1">The end index of the first dimension.</param>
+ <param name="index2">The fixed index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3DFixedSingle1``1(``0[0:, 0:, 0:],System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+ <summary>Gets a 2D slice of a 3D array.</summary>
+ <param name="source">The source array.</param>
+ <param name="index1">The fixed index of the first dimension.</param>
+ <param name="start2">The start index of the second dimension.</param>
+ <param name="finish2">The end index of the second dimension.</param>
+ <param name="start3">The start index of the third dimension.</param>
+ <param name="finish3">The end index of the third dimension.</param>
+ <returns>The two dimensional sub array from the given indices.</returns>
 </member>
 <member name="M:Microsoft.FSharp.Core.Operators.OperatorIntrinsics.GetArraySlice3D``1(``0[0:, 0:, 0:],Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Int32})">
  <summary>Gets a slice of an array</summary>
@@ -10584,6 +11047,36 @@
 <member name="T:Microsoft.FSharp.Core.Operators.OperatorIntrinsics">
  <summary>A module of compiler intrinsic functions for efficient implementations of F# integer ranges
  and dynamic invocations of other F# operators</summary>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.ArrayExtensions.String.GetReverseIndex(System.String,System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.ArrayExtensions.[]`1.GetReverseIndex``1(``0[],System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.ArrayExtensions.[,]`1.GetReverseIndex``1(``0[0:, 0:],System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index. This refers to the dimension in the 2d array.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.ArrayExtensions.[,,]`1.GetReverseIndex``1(``0[0:, 0:, 0:],System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index. This refers to the dimension in the 3d array.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
+</member>
+<member name="M:Microsoft.FSharp.Core.Operators.ArrayExtensions.[,,,]`1.GetReverseIndex``1(``0[0:, 0:, 0:, 0:],System.Int32,System.Int32)">
+ <summary>Get the index for the element offset elements away from the end of the collection.</summary>
+ <param name="rank">The rank of the index. This refers to the dimension in the 4d array.</param>
+ <param name="offset">The offset from the end.</param>
+ <returns>The corresponding index from the start.</returns>
 </member>
 <member name="T:Microsoft.FSharp.Core.Operators">
  <summary>Basic F# Operators. This module is automatically opened in all F# code.</summary>
