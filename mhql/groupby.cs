@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using MochaDB.Mhql;
 
@@ -65,11 +66,21 @@ namespace MochaDB.mhql {
             if(!int.TryParse(command.Substring(dex),out columndex))
                 throw new MochaException("Item index is cannot processed!");
 
-            var result =
+            var column = table.Columns[columndex];
+            Dictionary<object,MochaRow> rows = new Dictionary<object,MochaRow>();
+            for(int index = 0; index < table.Rows.Length; index++) {
+                object data = column.Datas[index].Data;
+                if(rows.ContainsKey(data))
+                    continue;
+                rows.Add(data,table.Rows[index]);
+            }
+            table.Rows = rows.Values.ToArray();
+            table.SetDatasByRows();
+
+            /*var result =
                 from value in table.Columns[columndex].Datas
                 group value by value.Data into grouped
                 select new { Data = grouped.Key,Count = grouped.Count() };
-
 
             table.Columns = new[] { new MochaColumn("Datas"),new MochaColumn("Count") };
             table.Rows = new MochaRow[result.Count()];
@@ -85,7 +96,7 @@ namespace MochaDB.mhql {
                         data = item.Count
                     });
             }
-            table.SetDatasByRows();
+            table.SetDatasByRows();*/
         }
 
         #endregion
