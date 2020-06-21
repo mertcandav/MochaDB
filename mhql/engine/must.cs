@@ -89,7 +89,7 @@ namespace MochaDB.mhql.engine {
             } else if(command.StartsWith("$ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_ENDW.Pass(command.Substring(6,command.Length-7),table,row,from);
             } else if(command.StartsWith("$CONTAINS(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_CONTAINS.Pass(command.Substring(10,command.Length-11),row);
+                return MhqlFunc_CONTAINS.Pass(command.Substring(10,command.Length-11),table,row,from);
             } else if(command.StartsWith("$NOTCONTAINS(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlFunc_NOTCONTAINS.Pass(command.Substring(13,command.Length-14),row);
             } else
