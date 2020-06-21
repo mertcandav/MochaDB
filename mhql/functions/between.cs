@@ -17,7 +17,7 @@ namespace MochaDB.mhql.functions {
             if(parts.Length < 3 || parts.Length > 3)
                 throw new MochaException("BETWEEN function is cannot processed!");
 
-            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from); ;
+            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
             decimal
                 range1,
                 range2;
