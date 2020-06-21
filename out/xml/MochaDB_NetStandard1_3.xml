@@ -6351,60 +6351,70 @@
             MHQL STARTW function.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_STARTW.Pass(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_STARTW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_ENDW">
             <summary>
             MHQL ENDW function.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_ENDW.Pass(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_ENDW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_NOTEQUAL">
             <summary>
             MHQL NOTEQUAL function.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTEQUAL.Pass(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTEQUAL.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_CONTAINS">
             <summary>
             MHQL CONTAINS function.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_CONTAINS.Pass(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_CONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_NOTCONTAINS">
             <summary>
             MHQL NOTCONTAINS function.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTCONTAINS.Pass(System.String,MochaDB.MochaRow)">
+        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTCONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
             <param name="command">Command.</param>
+            <param name="table">Table.</param>
             <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_AND">
             <summary>
