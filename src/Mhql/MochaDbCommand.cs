@@ -259,7 +259,7 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                         orderby=true;
                         if(groupby)
                             throw new MochaException("GROUPBY keyword must be specified before ORDERBY!");
-                        ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table);
+                        ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Groupby.
                     else if(GROUPBY.IsGROUPBY(lastcommand)) {

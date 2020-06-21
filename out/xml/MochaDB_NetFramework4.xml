@@ -6118,13 +6118,13 @@
             <param name="command">MHQL Command.</param>
             <param name="final">Command of removed orderby commands.</param>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_ORDERBY.OrderBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+        <member name="M:MochaDB.mhql.Mhql_ORDERBY.OrderBy(System.String,MochaDB.Mhql.MochaTableResult@,System.Boolean)">
             <summary>
             Orderby by command.
             </summary>
             <param name="command">Orderby command.</param>
             <param name="table">Table to ordering.</param>
-            <param name="final">Command of removed use commands.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_GROUPBY">
             <summary>
@@ -6276,6 +6276,14 @@
             <summary>
             Grammar of MHQL.
             </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.Mhql.MochaTableResult,System.Boolean)">
+            <summary>
+            Returns column index.
+            </summary>
+            <param name="value">Value.</param>
+            <param name="table">Table.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="P:MochaDB.mhql.Mhql_GRAMMAR.MustFunctions">
             <summary>
