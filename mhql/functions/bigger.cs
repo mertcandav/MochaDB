@@ -1,3 +1,5 @@
+using MochaDB.Mhql;
+
 namespace MochaDB.mhql.functions {
     /// <summary>
     /// MHQL BIGGER function.
@@ -7,8 +9,10 @@ namespace MochaDB.mhql.functions {
         /// Pass command?
         /// </summary>
         /// <param name="command">Command.</param>
+        /// <param name="table">Table.</param>
         /// <param name="row">Row.</param>
-        public static bool Pass(string command,MochaRow row) {
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
             var parts = command.Split(',');
             if(parts.Length < 2 || parts.Length > 2)
                 throw new MochaException("BIGGER function is cannot processed!");
@@ -16,8 +20,7 @@ namespace MochaDB.mhql.functions {
             int dex;
             decimal range;
 
-            if(!int.TryParse(parts[0].Trim(),out dex))
-                throw new MochaException("BIGGER function is cannot processed!");
+            dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
             if(!decimal.TryParse(parts[1].Trim(),out range))
                 throw new MochaException("BIGGER function is cannot processed!");
 
