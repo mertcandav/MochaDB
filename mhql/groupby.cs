@@ -53,18 +53,10 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Orderby command.</param>
         /// <param name="table">Table to ordering.</param>
-        /// <param name="final">Command of removed use commands.</param>
-        public void GroupBy(string command,ref MochaTableResult table) {
+        /// <param name="from">Use state FROM keyword.</param>
+        public void GroupBy(string command,ref MochaTableResult table,bool from) {
             command = command.Trim();
-            int dex =
-                command.StartsWith("ASC",StringComparison.OrdinalIgnoreCase) ?
-                3 :
-                command.StartsWith("DESC",StringComparison.OrdinalIgnoreCase) ?
-                4 : 0;
-
-            int columndex;
-            if(!int.TryParse(command.Substring(dex),out columndex))
-                throw new MochaException("Item index is cannot processed!");
+            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command,table,from);
 
             var column = table.Columns[columndex];
             Dictionary<object,MochaRow> rows = new Dictionary<object,MochaRow>();

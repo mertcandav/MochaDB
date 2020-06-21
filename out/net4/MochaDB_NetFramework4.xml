@@ -6150,13 +6150,13 @@
             <param name="command">MHQL Command.</param>
             <param name="final">Command of removed groupby commands.</param>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_GROUPBY.GroupBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+        <member name="M:MochaDB.mhql.Mhql_GROUPBY.GroupBy(System.String,MochaDB.Mhql.MochaTableResult@,System.Boolean)">
             <summary>
             Groupby by command.
             </summary>
             <param name="command">Orderby command.</param>
             <param name="table">Table to ordering.</param>
-            <param name="final">Command of removed use commands.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_MUST">
             <summary>

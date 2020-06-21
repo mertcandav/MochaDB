@@ -264,7 +264,7 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                     //Groupby.
                     else if(GROUPBY.IsGROUPBY(lastcommand)) {
                         groupby=true;
-                        GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table);
+                        GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Must.
                     else if(MUST.IsMUST(lastcommand)) {
