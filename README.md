@@ -80,15 +80,19 @@ if(value!="3.14")
 ### MHQL
 
 ```java
+@TABLES
 USE
     Id, Name, Surname, Salary
 FROM
     Employees
     
 MUST
-    $BETWEEN(3,1000,10000)
+    $BETWEEN(Salary,1000,10000)
     AND
-    Name(^(M|m|N|n).*)
+        Name(^(M|m|N|n).*) AND
+      Salary == "0"
+        AND
+          $STARTW(Surname,"M")
 END
 
 ORDERBY
@@ -99,7 +103,7 @@ RETURN
 
 <br>
 
-## MochaScript
+# MochaScript
 
 MochaScript is a scripting language for MochaDB databases.<br>
 It is processed by the debugger and executed with C# code.<br>
