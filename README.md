@@ -20,22 +20,19 @@
 ## Featured features
 
 + Open source and free for everyone
-+ Always up to date!
 + High performance
 + Lightweight
-+ Single DLL
-+ Single database file
-+ Small
++ Single DLL and database file
 + Thread-safe
 + Supports LINQ and PLINQ queries
++ OOM(Object Oriented Management)
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
 + RDBMS(Relational Database Management System) features
-+ Restore unwanted changes with logs
++ Log system
 + Embed files into the database with FileSystem
 + Full compatible with .NET Core(1.1 or higher), .NET Standard(1.3 or higher) and .NET Framework(4 or higher)
 + Script build and debug with <a href="https://github.com/mertcandav/MochaDB/wiki/MohaScriptDebugger">MochaScript</a>
-+ Object oriented management
 
 <br>
 
@@ -80,11 +77,13 @@ if(value!="3.14")
 ### MHQL
 
 ```java
-@TABLES
+@TABLES // Command for tables.
 USE
     Id, Name, Surname, Salary
 FROM
-    Employees
+    Employees /* 
+      Get columns from Employees table.
+    */
     
 MUST
     $BETWEEN(Salary,1000,10000)
