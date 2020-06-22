@@ -3,7 +3,8 @@
 ![alt text](https://github.com/mertcandav/MochaDB/blob/master/pdocs/resources/MochaDB_Texted.ico)
 
 [![Gitter](https://badges.gitter.im/mertcandv/MochaDB.svg)](https://gitter.im/mertcandv/MochaDB?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![license](https://img.shields.io/badge/License-MIT-TEAL.svg)](https://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/badge/License-MIT-BLUE.svg)](https://opensource.org/licenses/MIT)
+[![CodeFactor](https://www.codefactor.io/repository/github/mertcandav/mochadb/badge)](https://www.codefactor.io/repository/github/mertcandav/mochadb)
 [![.NET Core](https://github.com/mertcandav/MochaDB/workflows/.NET%20Core/badge.svg)](https://github.com/mertcandav/MochaDB/actions?query=workflow%3A%22.NET+Core%22)
 [![Build Status](https://dev.azure.com/mertcandav/MochaDB/_apis/build/status/mertcandav.MochaDB?branchName=master)](https://dev.azure.com/mertcandav/MochaDB/_build/latest?definitionId=2&branchName=master)
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
@@ -22,17 +23,32 @@
 + Open source and free for everyone
 + High performance
 + Lightweight
-+ Single DLL and database file
 + Thread-safe
-+ Supports LINQ and PLINQ queries
++ Single DLL and database file
 + OOM(Object Oriented Management)
++ RDBMS(Relational Database Management System) features
++ Supports LINQ queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
-+ RDBMS(Relational Database Management System) features
 + Log system
 + Embed files into the database with FileSystem
-+ Full compatible with .NET Core(1.1 or higher), .NET Standard(1.3 or higher) and .NET Framework(4 or higher)
 + Script build and debug with <a href="https://github.com/mertcandav/MochaDB/wiki/MohaScriptDebugger">MochaScript</a>
+
+<br>
+
+## Compatibility
+<table>
+  <tr>
+    <td>.NET Standard</td>
+    <td>.NET Core</td>
+    <td>.NET Framework</td>
+  </tr>
+  <tr>
+    <td>1.3 or higher</td>
+    <td>1.1 or higher</td>
+    <td>4 or higher</td>
+  </tr>
+</table>
 
 <br>
 
@@ -44,7 +60,7 @@ Manage with a powerful management system! Only Windows.
 
 # Querying
 
-### LINQ / PLINQ
+### LINQ
 
 ```c#
   var tables = DB.GetTables();
