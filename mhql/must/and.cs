@@ -19,9 +19,9 @@ namespace MochaDB.mhql {
             var count = 0;
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
-                if(currentChar == 'A' || currentChar == 'a') {
+                if(count == 0 && (currentChar == 'A' || currentChar == 'a')) {
                     if(command.Length - 1 - index >= 3) {
-                        if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
+                        if(pattern.IsMatch(command.Substring(index,3))) {
                             parts.Add(value.ToString().Trim());
                             value.Clear();
                             index+=2;

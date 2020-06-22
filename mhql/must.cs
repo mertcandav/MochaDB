@@ -45,9 +45,9 @@ namespace MochaDB.mhql {
             command = command.Substring(4);
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
-                if(currentChar == 'E' || currentChar == 'e') {
+                if(count == 0 && (currentChar == 'E' || currentChar == 'e')) {
                     if(command.Length - 1 - index >= 3) {
-                        if(count == 0 && pattern.IsMatch(command.Substring(index,3))) {
+                        if(pattern.IsMatch(command.Substring(index,3))) {
                             final = command.Substring(index+3).Trim();
                             return value.ToString().Trim();
                         }
