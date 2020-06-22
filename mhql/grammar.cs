@@ -18,7 +18,7 @@ namespace MochaDB.mhql {
             int returndex() {
                 int columndex;
                 if(!int.TryParse(value,out columndex))
-                    throw new MochaException("Item index is cannot processed!");
+                    throw new MochaException("Column index or name is cannot processed!");
                 return columndex;
             }
 
