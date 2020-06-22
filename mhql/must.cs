@@ -72,7 +72,7 @@ namespace MochaDB.mhql {
         public void MustTable(string command,ref MochaTableResult table,bool from) {
             command = command.Trim();
             var parts = Mhql_AND.GetParts(command);
-            for(int index = 0; index < parts.Length; index++) {
+            for(int index = 0; index < parts.Count; index++) {
                 var partcmd = parts[index];
                 MhqlEng_MUST.ProcessPart(ref partcmd,table,from);
                 var rows = new List<MochaRow>();

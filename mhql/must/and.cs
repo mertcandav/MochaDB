@@ -11,7 +11,7 @@ namespace MochaDB.mhql {
         /// Returns seperated commands by or.
         /// </summary>
         /// <param name="command">Command.</param>
-        public static MochaArray<string> GetParts(string command) {
+        public static List<string> GetParts(string command) {
             var pattern = new Regex("AND",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var parts = new List<string>();
@@ -36,7 +36,7 @@ namespace MochaDB.mhql {
                 value.Append(currentChar);
             }
             parts.Add(value.ToString().Trim());
-            return new MochaArray<string>(parts);
+            return parts;
         }
     }
 }
