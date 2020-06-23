@@ -46,9 +46,14 @@ namespace MochaDB.mhql {
         public MochaTableResult GetTable(string usecommand,bool from) {
             MochaColumn GetColumn(string cmd,MochaTable tbl) {
                 var name = Mhql_AS.GetAS(ref cmd);
-                var column = tbl.Columns[cmd];
-                column.Name = name;
-                return column;
+                /*if(Mhql_GRAMMAR.UseFunctions.ContainsKey(cmd)) {
+                    MochaColumn column = new MochaColumn(name);
+                    Mhql_GRAMMAR.UseFunctions.TryGetValue(cmd,out );
+                } else {*/
+                    MochaColumn column = tbl.Columns[cmd];
+                    column.name = name;
+                    return column;
+                //}
             }
 
             var columns = new List<MochaColumn>();

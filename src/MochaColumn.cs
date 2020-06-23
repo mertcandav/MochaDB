@@ -10,7 +10,7 @@ namespace MochaDB {
         #region Fields
 
         private MochaDataType dataType;
-        private string name;
+        internal string name;
 
         #endregion
 

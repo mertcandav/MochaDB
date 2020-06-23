@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MochaDB.Mhql;
 
@@ -52,6 +53,14 @@ namespace MochaDB.mhql {
                 "ENDW",
                 "CONTAINS",
                 "NOTCONTAINS"
+            };
+
+        /// <summary>
+        /// Functions of use.
+        /// </summary>
+        public static Dictionary<string/* Functions */,string/* Tag */> UseFunctions =>
+            new Dictionary<string,string>() {
+                { "COUNT()", "COUNT" }
             };
 
         #endregion
