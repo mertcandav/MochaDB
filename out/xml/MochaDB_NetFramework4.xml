@@ -6290,6 +6290,11 @@
             Functions of must.
             </summary>
         </member>
+        <member name="P:MochaDB.mhql.Mhql_GRAMMAR.UseFunctions">
+            <summary>
+            Functions of use keyword.
+            </summary>
+        </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
             MHQL BETWEEN function.

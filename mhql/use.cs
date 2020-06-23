@@ -44,6 +44,13 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="usecommand">Use command.</param>
         public MochaTableResult GetTable(string usecommand,bool from) {
+            MochaColumn GetColumn(string cmd,MochaTable tbl) {
+                var name = Mhql_AS.GetAS(ref cmd);
+                var column = tbl.Columns[cmd];
+                column.Name = name;
+                return column;
+            }
+
             var columns = new List<MochaColumn>();
             var resulttable = new MochaTableResult();
 
@@ -57,13 +64,8 @@ namespace MochaDB.mhql {
                 if(parts.Length == 1 && parts[0].Trim() == "*")
                     columns.AddRange(table.Columns);
                 else
-                    for(var index = 0; index < parts.Length; index++) {
-                        var callcmd = parts[index].Trim();
-                        var name = Mhql_AS.GetAS(ref callcmd);
-                        var column = table.Columns[callcmd];
-                        column.Name = name;
-                        columns.Add(column);
-                    }
+                    for(var index = 0; index < parts.Length; index++)
+                        columns.Add(GetColumn(parts[index].Trim(),table));
             } else {
                 var parts = usecommand.Split(',');
                 for(var index = 0; index < parts.Length; index++) {
@@ -81,15 +83,10 @@ namespace MochaDB.mhql {
                     for(byte partindex = 0; partindex < callparts.Length; partindex++)
                         callparts[partindex] = callparts[partindex].Trim();
                     var table = Tdb.GetTable(callparts[0]);
-                    if(callparts.Length==1) {
+                    if(callparts.Length==1)
                         columns.AddRange(table.Columns);
-                    } else {
-                        var callp1 = callparts[1];
-                        var name = Mhql_AS.GetAS(ref callp1);
-                        var column = table.Columns[callp1];
-                        column.Name = name;
-                        columns.Add(column);
-                    }
+                    else
+                        columns.Add(GetColumn(callparts[1],table));
                 }
             }
 
@@ -123,37 +120,11 @@ namespace MochaDB.mhql {
                     var sectors = Tdb.GetSectors();
                     for(int sindex = 0; sindex < sectors.Count; sindex++) {
                         var currentsector = sectors.ElementAt(sindex);
-                        rows.Add(new MochaRow(
-                                new MochaData {
-                                    data = currentsector.Name,
-                                    dataType = MochaDataType.String
-                                },
-                                new MochaData {
-                                    data = currentsector.Description,
-                                    dataType = MochaDataType.String
-                                },
-                                new MochaData {
-                                    data = currentsector.Data,
-                                    dataType = MochaDataType.String
-                                }
-                            ));
+                        rows.Add(new MochaRow(currentsector.Name,currentsector.Description,currentsector.Data));
                     }
                 } else {
                     var sector = Tdb.GetSector(callcmd);
-                    rows.Add(new MochaRow(
-                            new MochaData {
-                                data = sector.Name,
-                                dataType = MochaDataType.String
-                            },
-                            new MochaData {
-                                data = sector.Description,
-                                dataType = MochaDataType.String
-                            },
-                            new MochaData {
-                                data = sector.Data,
-                                dataType = MochaDataType.String
-                            }
-                        ));
+                    rows.Add(new MochaRow(sector.Name,sector.Description,sector.Data));
                 }
             }
             resulttable.Rows = rows.ToArray();
