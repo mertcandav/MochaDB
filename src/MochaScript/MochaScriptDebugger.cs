@@ -126,9 +126,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
         #endregion
 
-        #region Methods
-
-        #region Private
+        #region Private members
 
         /// <summary>
         /// Throw exception.
@@ -145,7 +143,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
 
         #endregion
 
-        #region Internal
+        #region Internal members
 
         /// <summary>
         /// Process range.
@@ -200,76 +198,47 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         /// <param name="startIndex">Process start index.</param>
         internal int Process_if(int startIndex) {
+            void process(ref int index, ref int closedex, ref bool _ok) {
+                //Check argument.
+                string[] elifArg = MochaScriptArray[index].Trim().Split(' ');
+
+                if(elifArg.Length != 4)
+                    throw Throw(index + 1,"|| The if comparison was wrong! There are too many or missing parameters!");
+
+                //Get compare mark.
+                MochaScriptComparisonMark elifMark = GetCompareMark(elifArg[2]);
+
+                if(elifMark == MochaScriptComparisonMark.Undefined)
+                    throw Throw(index + 1,"|| The comparison parameter is not recognized!");
+
+                //Get Value Arguments.
+                object ElifArg1 = GetArgumentValue("Undefined",elifArg[1],index);
+                object ElifArg2 = GetArgumentValue("Undefined",elifArg[3],index);
+
+                //Check arguments.
+                if(ElifArg1 == null || ElifArg2 == null)
+                    throw Throw(index + 1,"|| One of his arguments could not be processed!");
+
+                closedex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
+
+                if(!_ok && CompareArguments(elifMark,ElifArg1,ElifArg2,index)) {
+                    _ok = true;
+                    ProcessRange(index + 2,closedex);
+                    index = closedex;
+                } else {
+                    index = closedex;
+                }
+            }
+
             bool ok = false;
-            int closeIndex;
+            int closeIndex = 0;
 
             for(int index = startIndex; index < MochaScriptArray.Length; index++) {
                 string line = MochaScriptArray[index].Trim();
 
-                if(index == startIndex && line.StartsWith("if ")) {
-                    //Check argument.
-                    string[] elifArg = MochaScriptArray[index].Trim().Split(' ');
-
-                    if(elifArg.Length != 4)
-                        throw Throw(index + 1,"|| The if comparison was wrong! There are too many or missing parameters!");
-
-                    //Get compare mark.
-                    MochaScriptComparisonMark elifMark = GetCompareMark(elifArg[2]);
-
-                    if(elifMark == MochaScriptComparisonMark.Undefined)
-                        throw Throw(index + 1,"|| The comparison parameter is not recognized!");
-
-                    //Get Value Arguments.
-                    object ElifArg1 = GetArgumentValue("Undefined",elifArg[1],index);
-                    object ElifArg2 = GetArgumentValue("Undefined",elifArg[3],index);
-
-                    //Check arguments.
-                    if(ElifArg1 == null || ElifArg2 == null)
-                        throw Throw(index + 1,"|| One of his arguments could not be processed!");
-
-                    closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
-
-                    if(!ok && CompareArguments(elifMark,ElifArg1,ElifArg2,index)) {
-                        ok = true;
-                        ProcessRange(index + 2,closeIndex);
-                        index = closeIndex;
-                        continue;
-                    } else {
-                        index = closeIndex;
-                        continue;
-                    }
-                } else if(line.StartsWith("elif ")) {
-                    //Check argument.
-                    string[] ElifArg = MochaScriptArray[index].Trim().Split(' ');
-
-                    if(ElifArg.Length != 4)
-                        throw Throw(index + 1,"|| The if comparison was wrong! There are too many or missing parameters!");
-
-                    //Get compare mark.
-                    MochaScriptComparisonMark ElifMark = GetCompareMark(ElifArg[2]);
-
-                    if(ElifMark == MochaScriptComparisonMark.Undefined)
-                        throw Throw(index + 1,"The comparison parameter is not recognized!");
-
-                    //Get Value Arguments.
-                    object ElifArg1 = GetArgumentValue("Undefined",ElifArg[1],index);
-                    object ElifArg2 = GetArgumentValue("Undefined",ElifArg[3],index);
-
-                    //Check arguments.
-                    if(ElifArg1 == null || ElifArg2 == null)
-                        throw Throw(index + 1,"|| One of his arguments could not be processed!");
-
-                    closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
-
-                    if(!ok && CompareArguments(ElifMark,ElifArg1,ElifArg2,index)) {
-                        ok = true;
-                        ProcessRange(index + 2,closeIndex);
-                        index = closeIndex;
-                        continue;
-                    } else {
-                        index = closeIndex;
-                        continue;
-                    }
+                if((index == startIndex && line.StartsWith("if ")) || line.StartsWith("elif ")) {
+                    process(ref index,ref closeIndex,ref ok);
+                    continue;
                 } else if(line == "else") {
                     closeIndex = codeProcessor.GetCloseBracketIndex(index + 2,'{','}');
 
@@ -304,7 +273,6 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 from value in varParts
                 where !string.IsNullOrWhiteSpace(value)
                 select value.Trim();
-
 
             if(parts.Count()==1 && varParts.Count() == 2) {
                 if(IsBannedSyntax(varParts.ElementAt(1)))
@@ -410,7 +378,6 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                     GetArgumentValue("DateTime",parts.ElementAt(1),index)));
                 return true;
             }
-
             return false;
         }
 
@@ -485,37 +452,47 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 } else if(arg == bool.TrueString || arg == bool.FalseString) {
                     return bool.Parse(arg);
                 } else if(numberRegex.IsMatch(arg)) {
-                    double doubleOut;
-                    float floatOut;
-                    decimal decimalOut;
-                    long longOut;
-                    int intOut;
                     short shortOut;
-                    ushort uShortOut;
-                    uint uIntOut;
-                    ulong uLongOut;
-                    sbyte sByteOut;
-                    DateTime dateTimeOut;
                     if(short.TryParse(arg,out shortOut))
                         return shortOut;
+
+                    int intOut;
                     if(int.TryParse(arg,out intOut))
                         return intOut;
+
+                    long longOut;
                     if(long.TryParse(arg,out longOut))
                         return longOut;
+
+                    decimal decimalOut;
                     if(decimal.TryParse(arg,out decimalOut))
                         return decimalOut;
+
+                    float floatOut;
                     if(float.TryParse(arg,out floatOut))
                         return floatOut;
+
+                    double doubleOut;
                     if(double.TryParse(arg,out doubleOut))
                         return doubleOut;
+
+                    ushort uShortOut;
                     if(ushort.TryParse(arg,out uShortOut))
                         return uShortOut;
+
+                    uint uIntOut;
                     if(uint.TryParse(arg,out uIntOut))
                         return uIntOut;
+
+                    ulong uLongOut;
                     if(ulong.TryParse(arg,out uLongOut))
                         return uLongOut;
+
+                    sbyte sByteOut;
                     if(sbyte.TryParse(arg,out sByteOut))
                         return sByteOut;
+
+                    DateTime dateTimeOut;
                     if(DateTime.TryParse(arg,out dateTimeOut))
                         return dateTimeOut;
                     else
@@ -687,7 +664,6 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
                 line = MochaScriptArray[index].Trim();
 
                 if(line.StartsWith("compilerevent ")) {
-
                     parts = line.Split(' ');
                     name = parts[1].Substring(0,parts[1].Length-2);
 
@@ -721,6 +697,8 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         }
 
         #endregion
+
+        #region Members
 
         /// <summary>
         /// Debug code and run.

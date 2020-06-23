@@ -141,7 +141,6 @@ namespace MochaDB.Mochaq {
                 parts[2]=parts[2].ToUpperInvariant();
 
                 if(parts[0] == "SELECT") {
-
                     string[] selectedColumns = parts[1].Split(',');
 
                     if(parts[2] == "FROM") {
@@ -154,12 +153,10 @@ namespace MochaDB.Mochaq {
                         }
 
                         return new MochaResult<MochaTable>(table);
-
                     } else
                         throw new MochaException("Table not specified!");
                 } else
                     throw new MochaException("The first syntax is wrong, there is no such function.");
-
             } catch { return null; }
         }
 
