@@ -49,14 +49,14 @@ namespace MochaDB.mhql {
                 string uppercmd = cmd.ToUpperInvariant();
                 if(Mhql_GRAMMAR.UseFunctions.ContainsKey(uppercmd)) {
                     MochaColumn column = new MochaColumn();
-                    column.name = name;
+                    column.MHQLAsText = name;
                     string tag;
                     Mhql_GRAMMAR.UseFunctions.TryGetValue(uppercmd,out tag);
                     column.Tag = tag;
                     return column;
                 } else {
                     MochaColumn column = tbl.Columns[cmd];
-                    column.name = name;
+                    column.MHQLAsText = name;
                     return column;
                 }
             }

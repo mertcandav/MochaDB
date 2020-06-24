@@ -89,15 +89,6 @@ namespace MochaDB {
 
         #endregion
 
-        #region Internal Properties
-
-        /// <summary>
-        /// Tag.
-        /// </summary>
-        internal string Tag { get; set; }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -149,6 +140,16 @@ namespace MochaDB {
         /// Attributes of column.
         /// </summary>
         public MochaAttributeCollection Attributes { get; }
+
+        /// <summary>
+        /// Tag.
+        /// </summary>
+        public string Tag { get; set; }
+
+        /// <summary>
+        /// Text of MHQL AS keyword.
+        /// </summary>
+        public string MHQLAsText { get; set; }
 
         #endregion
     }

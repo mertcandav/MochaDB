@@ -44,7 +44,7 @@ Public Class app
                     datasource.Rows.Clear()
 
                     For index = 0 To result.Columns.Count - 1
-                        datasource.Columns.Add("", result.Columns.ElementAt(index).Name)
+                        datasource.Columns.Add("", result.Columns.ElementAt(index).MHQLAsText)
                     Next
                     For index = 0 To result.Rows.Count - 1
                         datasource.Rows.Add(result.Rows.ElementAt(index).Datas.ToArray)

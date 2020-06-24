@@ -1625,11 +1625,6 @@
             Returns <see cref="P:MochaDB.MochaColumn.Name"/>.
             </summary>
         </member>
-        <member name="P:MochaDB.MochaColumn.Tag">
-            <summary>
-            Tag.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaColumn.Name">
             <summary>
             Name.
@@ -1653,6 +1648,16 @@
         <member name="P:MochaDB.MochaColumn.Attributes">
             <summary>
             Attributes of column.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaColumn.Tag">
+            <summary>
+            Tag.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaColumn.MHQLAsText">
+            <summary>
+            Text of MHQL AS keyword.
             </summary>
         </member>
         <member name="T:MochaDB.MochaColumnCollection">
