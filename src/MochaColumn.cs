@@ -17,12 +17,19 @@ namespace MochaDB {
         #region Constructors
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        internal MochaColumn() {
+            Datas = new MochaColumnDataCollection(MochaDataType.String);
+            Attributes = new MochaAttributeCollection();
+        }
+
+        /// <summary>
         /// Create new MochaColumn.
         /// </summary>
         /// <param name="name">Name.</param>
-        public MochaColumn(string name) {
-            Datas = new MochaColumnDataCollection(MochaDataType.String);
-            Attributes = new MochaAttributeCollection();
+        public MochaColumn(string name) :
+            this() {
             Name = name;
             DataType = MochaDataType.String;
             Description = string.Empty;
@@ -79,6 +86,15 @@ namespace MochaDB {
         public override string ToString() {
             return Name;
         }
+
+        #endregion
+
+        #region Internal Properties
+
+        /// <summary>
+        /// Tag.
+        /// </summary>
+        internal string Tag { get; set; }
 
         #endregion
 

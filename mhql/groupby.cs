@@ -59,36 +59,32 @@ namespace MochaDB.mhql {
             int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command,table,from);
 
             var column = table.Columns[columndex];
+            IEnumerable<MochaColumn> columns =
+                table.Columns.Where(x => Mhql_GRAMMAR.UseFunctions.Values.Contains(x.Tag));
             Dictionary<object,MochaRow> rows = new Dictionary<object,MochaRow>();
             for(int index = 0; index < table.Rows.Length; index++) {
                 object data = column.Datas[index].Data;
-                if(rows.ContainsKey(data))
+                if(rows.ContainsKey(data)) {
+                    MochaRow _row;
+                    rows.TryGetValue(data,out _row);
+                    for(int dex = 0; dex < columns.Count(); dex++) {
+                        MochaColumn col = columns.ElementAt(dex);
+                        MochaData _data = _row.Datas[table.Columns.IndexOf(col)];
+                        Console.WriteLine("'" + _data.Data + "'");
+                        _data.Data = int.Parse(_data.ToString())+1;
+                    }
                     continue;
-                rows.Add(data,table.Rows[index]);
+                }
+                MochaRow row = table.Rows[index];
+                for(int dex = 0; dex < columns.Count(); dex++) {
+                    MochaColumn col = columns.ElementAt(dex);
+                    MochaData _data = row.Datas[table.Columns.IndexOf(col)];
+                    _data.Data = 1;
+                }
+                rows.Add(data,row);
             }
             table.Rows = rows.Values.ToArray();
             table.SetDatasByRows();
-
-            /*var result =
-                from value in table.Columns[columndex].Datas
-                group value by value.Data into grouped
-                select new { Data = grouped.Key,Count = grouped.Count() };
-
-            table.Columns = new[] { new MochaColumn("Datas"),new MochaColumn("Count") };
-            table.Rows = new MochaRow[result.Count()];
-            for(int index = 0; index < table.Rows.Length; index++) {
-                var item = result.ElementAt(index);
-                table.Rows[index] = new MochaRow(
-                    new MochaData {
-                        dataType = MochaDataType.String,
-                        data = item.Data
-                    },
-                    new MochaData {
-                        dataType = MochaDataType.Int32,
-                        data = item.Count
-                    });
-            }
-            table.SetDatasByRows();*/
         }
 
         #endregion

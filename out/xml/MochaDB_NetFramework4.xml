@@ -1590,6 +1590,11 @@
             This is column object for MochaDB.
             </summary>
         </member>
+        <member name="M:MochaDB.MochaColumn.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
         <member name="M:MochaDB.MochaColumn.#ctor(System.String)">
             <summary>
             Create new MochaColumn.
@@ -1618,6 +1623,11 @@
         <member name="M:MochaDB.MochaColumn.ToString">
             <summary>
             Returns <see cref="P:MochaDB.MochaColumn.Name"/>.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaColumn.Tag">
+            <summary>
+            Tag.
             </summary>
         </member>
         <member name="P:MochaDB.MochaColumn.Name">
