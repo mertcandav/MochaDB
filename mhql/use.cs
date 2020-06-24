@@ -117,17 +117,30 @@ namespace MochaDB.mhql {
             if(from)
                 throw new MochaException("FROM keyword is cannot used with @SECTORS marked commands!");
 
-            var resulttable = new MochaTableResult {
-                Columns = new[] {
-                    new MochaColumn("Name") {
-                        MHQLAsText = "Name"
-                    },
-                    new MochaColumn("Data") {
-                        MHQLAsText = "Data"
-                    },
-                    new MochaColumn("Description") {
-                        MHQLAsText = "Description"
-                    }
+            MochaColumn GetColumn(string cmd) {
+                var name = Mhql_AS.GetAS(ref cmd);
+                string uppercmd = cmd.ToUpperInvariant();
+                if(Mhql_GRAMMAR.UseFunctions.ContainsKey(uppercmd)) {
+                    MochaColumn column = new MochaColumn();
+                    column.MHQLAsText = name;
+                    string tag;
+                    Mhql_GRAMMAR.UseFunctions.TryGetValue(uppercmd,out tag);
+                    column.Tag = tag;
+                    return column;
+                }
+                return null;
+            }
+
+            var resulttable = new MochaTableResult();
+            var columns = new List<MochaColumn>() {
+                new MochaColumn("Name") {
+                    MHQLAsText = "Name"
+                },
+                new MochaColumn("Data") {
+                    MHQLAsText = "Data"
+                },
+                new MochaColumn("Description") {
+                    MHQLAsText = "Description"
                 }
             };
             var rows = new List<MochaRow>();
@@ -142,10 +155,16 @@ namespace MochaDB.mhql {
                         rows.Add(new MochaRow(currentsector.Name,currentsector.Data,currentsector.Description));
                     }
                 } else {
+                    MochaColumn col = GetColumn(callcmd);
+                    if(col != null) {
+                        columns.Add(col);
+                        continue;
+                    }
                     var sector = Tdb.GetSector(callcmd);
                     rows.Add(new MochaRow(sector.Name,sector.Data,sector.Description));
                 }
             }
+            resulttable.Columns = columns.ToArray();
             resulttable.Rows = rows.ToArray();
             resulttable.SetDatasByRows();
 

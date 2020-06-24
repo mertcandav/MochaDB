@@ -367,8 +367,6 @@ namespace MochaDB {
             }
 
             if(dataType == MochaDataType.String || dataType == MochaDataType.Unique) {
-                if(data == null)
-                    data = string.Empty;
                 return data.ToString();
             }
 

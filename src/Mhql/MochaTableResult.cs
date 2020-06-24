@@ -51,9 +51,15 @@
 
             for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
                 MochaRow currentRow = Rows[rowIndex];
-
                 for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
-                    Columns[columnIndex].Datas.collection.Add(currentRow.Datas[columnIndex]);
+                    MochaColumn currentColumn = Columns[columnIndex];
+                    if(columnIndex >= currentRow.Datas.Count) {
+                        currentRow.Datas.collection.Add(new MochaData() {
+                            dataType = currentColumn.DataType,
+                            data = MochaData.TryGetData(currentColumn.DataType,null)
+                        });
+                    }
+                    currentColumn.Datas.collection.Add(currentRow.Datas[columnIndex]);
                 }
             }
         }
