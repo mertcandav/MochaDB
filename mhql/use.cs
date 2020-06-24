@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MochaDB.Mhql;
+using MochaDB.Querying;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -44,7 +46,7 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="usecommand">Use command.</param>
         public MochaTableResult GetTable(string usecommand,bool from) {
-            MochaColumn GetColumn(string cmd,MochaTable tbl) {
+            MochaColumn GetColumn(string cmd,MochaCollectionResult<MochaColumn> cols) {
                 var name = Mhql_AS.GetAS(ref cmd);
                 string uppercmd = cmd.ToUpperInvariant();
                 if(Mhql_GRAMMAR.UseFunctions.ContainsKey(uppercmd)) {
@@ -55,7 +57,7 @@ namespace MochaDB.mhql {
                     column.Tag = tag;
                     return column;
                 } else {
-                    MochaColumn column = tbl.Columns[cmd];
+                    MochaColumn column = cols.Where(x => x.Name == cmd).First();
                     column.MHQLAsText = name;
                     return column;
                 }
@@ -69,13 +71,13 @@ namespace MochaDB.mhql {
                 var tablename = usecommand.Substring(dex+4).Trim();
                 var parts = usecommand.Substring(0,dex).Split(',');
 
-                var table = Tdb.GetTable(tablename);
+                var _columns = Tdb.GetColumns(tablename);
 
                 if(parts.Length == 1 && parts[0].Trim() == "*")
-                    columns.AddRange(table.Columns);
+                    columns.AddRange(_columns);
                 else
                     for(var index = 0; index < parts.Length; index++)
-                        columns.Add(GetColumn(parts[index].Trim(),table));
+                        columns.Add(GetColumn(parts[index].Trim(),_columns));
             } else {
                 var parts = usecommand.Split(',');
                 for(var index = 0; index < parts.Length; index++) {
@@ -92,11 +94,11 @@ namespace MochaDB.mhql {
                         throw new MochaException($"'{callcmd}' command is cannot processed!");
                     for(byte partindex = 0; partindex < callparts.Length; partindex++)
                         callparts[partindex] = callparts[partindex].Trim();
-                    var table = Tdb.GetTable(callparts[0]);
+                    var _columns = Tdb.GetColumns(callparts[0]);
                     if(callparts.Length==1)
-                        columns.AddRange(table.Columns);
+                        columns.AddRange(_columns);
                     else
-                        columns.Add(GetColumn(callparts[1],table));
+                        columns.Add(GetColumn(callparts[1],_columns));
                 }
             }
 
