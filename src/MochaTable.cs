@@ -73,9 +73,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Methods
-
-        #region Internal
+        #region Internal Members
 
         /// <summary>
         /// Set datas by row datas.
@@ -113,7 +111,7 @@ namespace MochaDB {
                 Columns[columnIndex].Datas.Changed+=Column_Changed;
             }*/
         }
-
+        
         /// <summary>
         /// Set rows by column datas.
         /// </summary>
@@ -135,8 +133,10 @@ namespace MochaDB {
                 Rows.collection.Add(new MochaRow(datas));
             }
         }
-
+        
         #endregion
+
+        #region Public Members
 
         /// <summary>
         /// Short datas.

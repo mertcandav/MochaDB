@@ -1670,7 +1670,8 @@ namespace MochaDB {
             table.Attributes.collection.AddRange(GetTableAttributes(name));
 
             table.Columns.collection.AddRange(GetColumns(name));
-            table.Rows.collection.AddRange(GetRows(name));
+            table.SetRowsByDatas();
+            //table.Rows.collection.AddRange(GetRows(name));
 
             return table;
         }
@@ -1897,6 +1898,7 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
 
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
+            column.MHQLAsText = name;
             column.Description = GetColumnDescription(tableName,name);
             column.Attributes.collection.AddRange(GetColumnAttributes(tableName,name));
             column.Datas.collection.AddRange(GetDatas(tableName,name));
