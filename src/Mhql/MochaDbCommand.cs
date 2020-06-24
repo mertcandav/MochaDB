@@ -253,6 +253,12 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                         tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
                             USE.GetSector(use,fromkw) :
                             throw new MochaException("@ mark is cannot processed!");
+                
+                fromkw =
+                    tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
+                        true :
+                        fromkw;
+
                 do {
                     //Orderby.
                     if(ORDERBY.IsORDERBY(lastcommand)) {
