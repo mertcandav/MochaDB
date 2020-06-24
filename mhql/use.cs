@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 
@@ -118,9 +119,15 @@ namespace MochaDB.mhql {
 
             var resulttable = new MochaTableResult {
                 Columns = new[] {
-                    new MochaColumn("Name"),
-                    new MochaColumn("Description"),
-                    new MochaColumn("Data")
+                    new MochaColumn("Name") {
+                        MHQLAsText = "Name"
+                    },
+                    new MochaColumn("Data") {
+                        MHQLAsText = "Data"
+                    },
+                    new MochaColumn("Description") {
+                        MHQLAsText = "Description"
+                    }
                 }
             };
             var rows = new List<MochaRow>();
@@ -132,11 +139,11 @@ namespace MochaDB.mhql {
                     var sectors = Tdb.GetSectors();
                     for(int sindex = 0; sindex < sectors.Count; sindex++) {
                         var currentsector = sectors.ElementAt(sindex);
-                        rows.Add(new MochaRow(currentsector.Name,currentsector.Description,currentsector.Data));
+                        rows.Add(new MochaRow(currentsector.Name,currentsector.Data,currentsector.Description));
                     }
                 } else {
                     var sector = Tdb.GetSector(callcmd);
-                    rows.Add(new MochaRow(sector.Name,sector.Description,sector.Data));
+                    rows.Add(new MochaRow(sector.Name,sector.Data,sector.Description));
                 }
             }
             resulttable.Rows = rows.ToArray();
