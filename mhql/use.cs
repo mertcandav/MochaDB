@@ -147,6 +147,7 @@ namespace MochaDB.mhql {
                 }
             }
             resulttable.Rows = rows.ToArray();
+            resulttable.SetDatasByRows();
 
             return resulttable;
         }

@@ -70,7 +70,6 @@ namespace MochaDB.mhql {
                     for(int dex = 0; dex < columns.Count(); dex++) {
                         MochaColumn col = columns.ElementAt(dex);
                         MochaData _data = _row.Datas[table.Columns.IndexOf(col)];
-                        Console.WriteLine("'" + _data.Data + "'");
                         _data.Data = int.Parse(_data.ToString())+1;
                     }
                     continue;
