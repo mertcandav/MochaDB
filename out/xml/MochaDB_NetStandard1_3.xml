@@ -543,7 +543,7 @@
         </member>
         <member name="T:MochaDB.Mhql.MhqlCommand">
             <summary>
-            Mhql command for MochaDB Mhql querys.
+            Mhql command for MochaDB Mhql queries.
             </summary>
         </member>
         <member name="M:MochaDB.Mhql.MhqlCommand.#ctor(System.String)">

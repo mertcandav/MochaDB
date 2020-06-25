@@ -3,7 +3,7 @@ using MochaDB.mhql.engine;
 
 namespace MochaDB.Mhql {
     /// <summary>
-    /// Mhql command for MochaDB Mhql querys.
+    /// Mhql command for MochaDB Mhql queries.
     /// </summary>
     public struct MhqlCommand:IMhqlCommand {
         #region Fields
