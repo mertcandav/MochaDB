@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MochaDB.framework {
     /// <summary>
@@ -15,6 +17,44 @@ namespace MochaDB.framework {
                 dict.Add(array[index,0],array[index,1]);
             }
             return dict;
+        }
+
+        /// <summary>
+        /// Return true if contains matched key, returns false if not.
+        /// </summary>
+        /// <typeparam name="T1">Type 1.</typeparam>
+        /// <typeparam name="T2">Type 2.</typeparam>
+        /// <param name="dict">Dictionary to find.</param>
+        /// <param name="key">Key.</param>
+        public static bool MatchKey<T1,T2>(this Dictionary<T1,T2> dict,string key) {
+            for(int index = 0; index < dict.Keys.Count; index++) {
+                if(
+                    new Regex(dict.Keys.ElementAt(index).ToString(),
+                    RegexOptions.IgnoreCase |
+                    RegexOptions.CultureInvariant).IsMatch(key)
+                    )
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Return value if contains matched key, returns null if not.
+        /// </summary>
+        /// <typeparam name="T1">Type 1.</typeparam>
+        /// <typeparam name="T2">Type 2.</typeparam>
+        /// <param name="dict">Dictionary to find.</param>
+        /// <param name="key">Key.</param>
+        public static object GetValueByMatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
+            for(int index = 0; index < dict.Keys.Count; index++) {
+                if(
+                    new Regex(dict.Keys.ElementAt(index).ToString(),
+                    RegexOptions.IgnoreCase |
+                    RegexOptions.CultureInvariant).IsMatch(key)
+                    )
+                    return dict.Values.ElementAt(index);
+            }
+            return null;
         }
     }
 }

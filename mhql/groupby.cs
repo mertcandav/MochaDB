@@ -70,7 +70,12 @@ namespace MochaDB.mhql {
                     for(int dex = 0; dex < columns.Count(); dex++) {
                         MochaColumn col = columns.ElementAt(dex);
                         MochaData _data = _row.Datas[table.Columns.IndexOf(col)];
-                        _data.Data = int.Parse(_data.ToString())+1;
+                        if(col.Tag == "COUNT")
+                            _data.Data = int.Parse(_data.ToString())+1;
+                        else
+                            _data.Data =
+                                int.Parse(_data.ToString()) +
+                                int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
                     }
                     continue;
                 }
@@ -78,7 +83,10 @@ namespace MochaDB.mhql {
                 for(int dex = 0; dex < columns.Count(); dex++) {
                     MochaColumn col = columns.ElementAt(dex);
                     MochaData _data = row.Datas[table.Columns.IndexOf(col)];
-                    _data.Data = 1;
+                    if(col.Tag == "COUNT")
+                        _data.Data = 1;
+                    else
+                        _data.Data = table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].Data;
                 }
                 rows.Add(data,row);
             }

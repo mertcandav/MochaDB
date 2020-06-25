@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MochaDB.Mhql;
+using MochaDB.Querying;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -35,6 +36,32 @@ namespace MochaDB.mhql {
             return table.Columns.IndexOf(result.First());
         }
 
+        /// <summary>
+        /// Returns column index.
+        /// </summary>
+        /// <param name="value">Value.</param>
+        /// <param name="cols">Columns.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static int GetIndexOfColumn(string value,MochaCollectionResult<MochaColumn> cols,bool from) {
+            int returndex() {
+                int columndex;
+                if(!int.TryParse(value,out columndex))
+                    throw new MochaException("Column index or name is cannot processed!");
+                return columndex;
+            }
+
+            value = value.Trim();
+            if(!from)
+                return returndex();
+
+            var result = cols.Where(x => x.Name == value);
+
+            if(result.Count() == 0)
+                return returndex();
+
+            return cols.IndexOf(result.First());
+        }
+
         #endregion
 
         #region Properties
@@ -58,9 +85,10 @@ namespace MochaDB.mhql {
         /// <summary>
         /// Functions of use.
         /// </summary>
-        public static Dictionary<string/* Functions */,string/* Tag */> UseFunctions =>
+        public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
             new Dictionary<string,string>() {
-                { "COUNT()", "COUNT" }
+                { "COUNT\\(\\)", "COUNT" },
+                { "SUM\\(.*\\)", "SUM" }
             };
 
         #endregion

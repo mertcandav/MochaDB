@@ -245,17 +245,18 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                 if(tag.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
                     throw new MochaException("@STACKS is cannot target if used with USE keyword!");
 
+                bool sectorTag = tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase);
                 var use = USE.GetUSE(out lastcommand);
                 fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
                 var table =
                     string.IsNullOrEmpty(tag) || tag.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
                         USE.GetTable(use,fromkw) :
-                        tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
+                        sectorTag ?
                             USE.GetSector(use,fromkw) :
                             throw new MochaException("@ mark is cannot processed!");
 
                 fromkw =
-                    tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase) ?
+                    sectorTag ?
                         true :
                         fromkw;
 

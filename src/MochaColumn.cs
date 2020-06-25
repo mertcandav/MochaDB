@@ -144,7 +144,7 @@ namespace MochaDB {
         /// <summary>
         /// Tag.
         /// </summary>
-        public string Tag { get; set; }
+        public object Tag { get; set; }
 
         /// <summary>
         /// Text of MHQL AS keyword.

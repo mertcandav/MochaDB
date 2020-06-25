@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MochaDB.framework;
+using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 
@@ -48,13 +50,13 @@ namespace MochaDB.mhql {
         public MochaTableResult GetTable(string usecommand,bool from) {
             MochaColumn GetColumn(string cmd,MochaCollectionResult<MochaColumn> cols) {
                 var name = Mhql_AS.GetAS(ref cmd);
-                string uppercmd = cmd.ToUpperInvariant();
-                if(Mhql_GRAMMAR.UseFunctions.ContainsKey(uppercmd)) {
+                if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
                     MochaColumn column = new MochaColumn();
                     column.MHQLAsText = name;
-                    string tag;
-                    Mhql_GRAMMAR.UseFunctions.TryGetValue(uppercmd,out tag);
-                    column.Tag = tag;
+                    column.Tag = Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
+                    if(column.Tag != "COUNT")
+                        column.Description =
+                            Mhql_GRAMMAR.GetIndexOfColumn(MhqlEng_EDITOR.DecomposeBrackets(cmd),cols,from).ToString();
                     return column;
                 } else {
                     IEnumerable<MochaColumn> result = cols.Where(x => x.Name == cmd);
@@ -121,13 +123,17 @@ namespace MochaDB.mhql {
 
             MochaColumn GetColumn(string cmd) {
                 var name = Mhql_AS.GetAS(ref cmd);
-                string uppercmd = cmd.ToUpperInvariant();
-                if(Mhql_GRAMMAR.UseFunctions.ContainsKey(uppercmd)) {
+                if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
                     MochaColumn column = new MochaColumn();
                     column.MHQLAsText = name;
-                    string tag;
-                    Mhql_GRAMMAR.UseFunctions.TryGetValue(uppercmd,out tag);
-                    column.Tag = tag;
+                    column.Tag = Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
+                    if(column.Tag != "COUNT") {
+                        string colname = MhqlEng_EDITOR.DecomposeBrackets(cmd);
+                        column.Description =
+                            colname == "Name" ?
+                                "0" : colname == "Data" ?
+                                    "1" : "2";
+                    }
                     return column;
                 }
                 return null;

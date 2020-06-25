@@ -5521,6 +5521,24 @@
             </summary>
             <param name="array">Source array.</param>
         </member>
+        <member name="M:MochaDB.framework.Framework_DICTIONARY.MatchKey``2(System.Collections.Generic.Dictionary{``0,``1},System.String)">
+            <summary>
+            Return true if contains matched key, returns false if not.
+            </summary>
+            <typeparam name="T1">Type 1.</typeparam>
+            <typeparam name="T2">Type 2.</typeparam>
+            <param name="dict">Dictionary to find.</param>
+            <param name="key">Key.</param>
+        </member>
+        <member name="M:MochaDB.framework.Framework_DICTIONARY.GetValueByMatchKey``2(System.Collections.Generic.Dictionary{``0,``1},System.String)">
+            <summary>
+            Return value if contains matched key, returns null if not.
+            </summary>
+            <typeparam name="T1">Type 1.</typeparam>
+            <typeparam name="T2">Type 2.</typeparam>
+            <param name="dict">Dictionary to find.</param>
+            <param name="key">Key.</param>
+        </member>
         <member name="T:MochaDB.framework.Framework_XML">
             <summary>
             XML framework of MochaDB.
@@ -5796,6 +5814,14 @@
             <param name="table">Table.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.Querying.MochaCollectionResult{MochaDB.MochaColumn},System.Boolean)">
+            <summary>
+            Returns column index.
+            </summary>
+            <param name="value">Value.</param>
+            <param name="cols">Columns.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="P:MochaDB.mhql.Mhql_GRAMMAR.MustFunctions">
             <summary>
             Functions of must.
@@ -6000,6 +6026,12 @@
             Decompose command ares by brackets.
             </summary>
             <param name="">Command.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.DecomposeBrackets(System.String)">
+            <summary>
+            Returns decompose command ares by brackets.
+            </summary>
+            <param name="value">Value to decompose.</param>
         </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.RemoveComments(System.String@)">
             <summary>

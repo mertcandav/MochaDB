@@ -27,6 +27,18 @@ namespace MochaDB.mhql.engine {
         }
 
         /// <summary>
+        /// Returns decompose command ares by brackets.
+        /// </summary>
+        /// <param name="value">Value to decompose.</param>
+        public static string DecomposeBrackets(string value) {
+            int dex;
+            if((dex = value.IndexOf('(')) != -1) {
+                return value.Substring(dex+1,value.Length-dex-2);
+            }
+            return value;
+        }
+
+        /// <summary>
         /// Remove all comments from code.
         /// </summary>
         /// <param name="command">Command.</param>
