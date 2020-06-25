@@ -423,6 +423,7 @@ namespace MochaDB {
         /// <param name="description">Description of database.</param>
         /// <param name="password">Password of database.</param>
         public static void CreateMochaDB(string path,string description,string password) {
+            Engine_VALUES.PasswordCheckThrow(password);
             string content = Engine_LEXER.EmptyContent;
 
             if(!string.IsNullOrEmpty(password)) {
@@ -544,7 +545,7 @@ namespace MochaDB {
         public void SetPassword(string password) {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
-
+            Engine_VALUES.PasswordCheckThrow(password);
             GetXElement("Root/Password").Value = password;
             Save();
         }

@@ -6211,6 +6211,17 @@
             Value engine of MochaDB.
             </summary>
         </member>
+        <member name="M:MochaDB.engine.Engine_VALUES.PasswordCheck(System.String)">
+            <summary>
+            Returns true if pass but returns false if not.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_VALUES.PasswordCheckThrow(System.String)">
+            <summary>
+            Check name and give exception if not pass.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
         <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheck(System.String)">
             <summary>
             Returns true if pass but returns false if not.
