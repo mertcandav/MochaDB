@@ -53,7 +53,8 @@ namespace MochaDB.mhql {
                 if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
                     MochaColumn column = new MochaColumn();
                     column.MHQLAsText = name;
-                    column.Tag = Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
+                    column.Tag =
+                        Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
                     if(column.Tag != "COUNT")
                         column.Description =
                             Mhql_GRAMMAR.GetIndexOfColumn(MhqlEng_EDITOR.DecomposeBrackets(cmd),cols,from).ToString();

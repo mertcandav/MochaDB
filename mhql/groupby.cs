@@ -74,12 +74,21 @@ namespace MochaDB.mhql {
                             _data.Data = int.Parse(_data.ToString())+1;
                         else if(col.Tag == "SUM")
                             _data.Data =
-                                int.Parse(_data.ToString()) +
-                                int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
+                                decimal.Parse(_data.ToString()) +
+                                decimal.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
+                        else if(col.Tag  == "AVG") {
+                            string[] parts = _data.ToString().Split(';');
+                            string colval = parts[0];
+                            int count = int.Parse(parts[1]) + 1;
+                            _data.Data =
+                                decimal.Parse(colval) +
+                                decimal.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString()) +
+                                ";" + count;
+                        }
                         else {
-                            int
-                                currentValue = int.Parse(_data.ToString()),
-                                value = int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
+                            decimal
+                                currentValue = decimal.Parse(_data.ToString()),
+                                value = decimal.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
                             if(col.Tag == "MAX" && currentValue < value)
                                 _data.Data = value;
                             else if(col.Tag == "MIN" && currentValue > value)
@@ -94,10 +103,25 @@ namespace MochaDB.mhql {
                     MochaData _data = row.Datas[table.Columns.IndexOf(col)];
                     if(col.Tag == "COUNT")
                         _data.Data = 1;
-                    else
-                        _data.Data = table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].Data;
+                    else {
+                        if(col.Tag == "AVG")
+                            _data.Data = table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].Data + ";1";
+                        else
+                            _data.Data = table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].Data;
+                    }
                 }
                 rows.Add(data,row);
+            }
+            IEnumerable<MochaColumn> avgcols = table.Columns.Where(x => x.Tag == "AVG");
+            for(int index = 0; index < avgcols.Count(); index++) {
+                MochaColumn col = avgcols.ElementAt(index);
+                for(int rindex = 0; rindex < rows.Keys.Count; rindex++) {
+                    MochaData data = rows[rows.Keys.ElementAt(rindex)].Datas[table.Columns.IndexOf(col)];
+                    string[] parts = data.ToString().Split(';');
+                    string colval = parts[0];
+                    data.Data = decimal.Parse(colval) / int.Parse(parts[1]);
+                }
+
             }
             table.Rows = rows.Values.ToArray();
             table.SetDatasByRows();

@@ -90,7 +90,8 @@ namespace MochaDB.mhql {
                 { "COUNT(\\s*)\\((\\s*)\\)", "COUNT" },
                 { "SUM(\\s*)\\((\\s*).*(\\s*)\\)", "SUM" },
                 { "MAX(\\s*)\\((\\s*).*(\\s*)\\)", "MAX" },
-                { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" }
+                { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" },
+                { "AVG(\\s*)\\((\\s*).*(\\s*)\\)", "AVG" }
             };
 
         #endregion
