@@ -5512,7 +5512,7 @@
         </member>
         <member name="T:MochaDB.framework.Framework_DICTIONARY">
             <summary>
-            Dictionary for MochaDB.
+            Dictionary framework of MochaDB.
             </summary>
         </member>
         <member name="M:MochaDB.framework.Framework_DICTIONARY.FromArray(System.String[0:,0:])">
@@ -5520,6 +5520,25 @@
             Dictionary from array.
             </summary>
             <param name="array">Source array.</param>
+        </member>
+        <member name="T:MochaDB.framework.Framework_XML">
+            <summary>
+            XML framework of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.framework.Framework_XML.GetXElement(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Return element by path.
+            </summary>
+            <param name="doc">Base XDocument.</param>
+            <param name="path">Path of element.</param>
+        </member>
+        <member name="M:MochaDB.framework.Framework_XML.ExistsElement(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Checks for the presence of the element.
+            </summary>
+            <param name="doc">Base XDocument.</param>
+            <param name="path">Path of element.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_USE">
             <summary>
@@ -6176,28 +6195,6 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <member name="M:MochaDB.engine.Engine_NAMES.DiskCheck(System.String)">
-            <summary>
-            Returns true if pass but returns false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_NAMES.DiskCheckThrow(System.String)">
-            <summary>
-            Check name and give exception if not pass.
-            </summary>
-            <param name="value">Value.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_NAMES.DiskRootCheck(System.String)">
-            <summary>
-            Returns true if pass but returns false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_NAMES.DiskRootCheckThrow(System.String)">
-            <summary>
-            Check name and give exception if not pass.
-            </summary>
-            <param name="value">Value.</param>
-        </member>
         <member name="M:MochaDB.engine.Engine_NAMES.AttributeCheck(System.String)">
             <summary>
             Returns true if pass but returns false if not.
@@ -6211,7 +6208,7 @@
         </member>
         <member name="T:MochaDB.engine.Engine_VALUES">
             <summary>
-            Name engine of MochaDB.
+            Value engine of MochaDB.
             </summary>
         </member>
         <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheck(System.String)">
@@ -6249,6 +6246,17 @@
             <summary>
             The most basic content of the database.
             </summary>
+        </member>
+        <member name="T:MochaDB.engine.Engine_STRUCTURE">
+            <summary>
+            Structure engine of MochaDB.
+            </summary>
+        </member>
+        <member name="M:MochaDB.engine.Engine_STRUCTURE.CheckMochaDB(System.Xml.Linq.XDocument)">
+            <summary>
+            Checks the suitability and robustness of the MochaDB database.
+            </summary>
+            <param name="doc">XDocument object of database.</param>
         </member>
     </members>
 </doc>

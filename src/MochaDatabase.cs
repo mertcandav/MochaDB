@@ -30,6 +30,7 @@ using System.Xml.Linq;
 using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.engine;
+using MochaDB.framework;
 using MochaDB.Logging;
 using MochaDB.Mochaq;
 using MochaDB.Querying;
@@ -366,9 +367,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Static Database
-
-        #region Internal
+        #region Internal Static Database
 
         /// <summary>
         /// Checks for the presence of the element. Example path: MyTable/MyColumn
@@ -398,6 +397,8 @@ namespace MochaDB {
         }
 
         #endregion
+
+        #region Static Database
 
         /// <summary>
         /// Returns true if the file in the path is Mocha DB and false otherwise.
@@ -447,58 +448,21 @@ namespace MochaDB {
                 throw new MochaException("The file shown is not a MochaDB database file!");
 
             try {
-                XDocument Document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
-                if(Document.Root.Name.LocalName != "MochaDB")
-                    return false;
-                else if(!ExistsElement(path,"Root/Password"))
-                    return false;
-                else if(!ExistsElement(path,"Root/Description"))
-                    return false;
-                else if(!ExistsElement(path,"Sectors"))
-                    return false;
-                else if(!ExistsElement(path,"Stacks"))
-                    return false;
-                else if(!ExistsElement(path,"Tables"))
-                    return false;
-                else if(!ExistsElement(path,"FileSystem"))
-                    return false;
-                else if(!ExistsElement(path,"Logs"))
-                    return false;
-                else
-                    return true;
+                XDocument document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
+                return Engine_STRUCTURE.CheckMochaDB(document);
             } catch { return false; }
         }
 
         #endregion
 
-        #region Database
-
-        #region Internal
+        #region Internal Database
 
         /// <summary>
         /// Checks the suitability and robustness of the MochaDB database.
         /// </summary>
         internal bool CheckMochaDB() {
-            try {
-                if(Doc.Root.Name.LocalName != "MochaDB")
-                    return false;
-                else if(!ExistsElement("Root/Password"))
-                    return false;
-                else if(!ExistsElement("Root/Description"))
-                    return false;
-                else if(!ExistsElement("Sectors"))
-                    return false;
-                else if(!ExistsElement("Stacks"))
-                    return false;
-                else if(!ExistsElement("Tables"))
-                    return false;
-                else if(!ExistsElement("FileSystem"))
-                    return false;
-                else if(!ExistsElement("Logs"))
-                    return false;
-                else
-                    return true;
-            } catch { return false; }
+            OnConnectionCheckRequired(this,new EventArgs());
+            return Engine_STRUCTURE.CheckMochaDB(Doc);
         }
 
         /// <summary>
@@ -507,20 +471,7 @@ namespace MochaDB {
         /// <param name="path">Path of element.</param>
         internal XElement GetXElement(string path) {
             OnConnectionCheckRequired(this,new EventArgs());
-            var elementsName = path.Split('/');
-            try {
-                var element = Doc.Root.Element(elementsName[0]);
-
-                if(element==null)
-                    return null;
-
-                for(var i = 1; i < elementsName.Length; i++) {
-                    element = element.Element(elementsName[i]);
-                    if(element == null)
-                        return null;
-                }
-                return element;
-            } catch { return null; }
+            return Framework_XML.GetXElement(Doc,path);
         }
 
         /// <summary>
@@ -574,6 +525,8 @@ namespace MochaDB {
         }
 
         #endregion
+
+        #region Database
 
         /// <summary>
         /// Returns the password of the MochaDB database.

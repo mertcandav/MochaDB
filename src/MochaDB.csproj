@@ -97,6 +97,9 @@
     <Compile Include="..\framework\dictionary.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\framework\xml.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- MochaScript source code files links -->
@@ -238,6 +241,9 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\engine\lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\engine\structure.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>

@@ -69,7 +69,6 @@ namespace MochaDB.Mochaq {
                 command.StartsWith("ROWCOUNT") ||
                 command.StartsWith("DATACOUNT") ||
                 command.StartsWith("EXISTS") ||
-                command.StartsWith("FILESYSTEM_EXISTS") ||
                 command.FirstChar() == '#'))
                 return true;
             else
@@ -91,10 +90,6 @@ namespace MochaDB.Mochaq {
                 command.StartsWith("REMOVE") ||
                 command.StartsWith("RENAME") ||
                 command.StartsWith("UPDATE") ||
-                command.StartsWith("FILESYSTEM_CLEAR") ||
-                command.StartsWith("FILESYSTEM_REMOVE") ||
-                command.StartsWith("FILESYSTEM_UPLOAD") ||
-                command.StartsWith("FILESYSTEM_CREATE") ||
                 command.StartsWith("RESTORE")))
                 return true;
             else

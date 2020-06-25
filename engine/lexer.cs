@@ -35,9 +35,6 @@ $@"<?MochaDB Version=\""{Version}""?>
     </Stacks>
     <Tables Description=""Base of tables."">
     </Tables>
-    <FileSystem Description=""FileSystem of database."">
-        <C Type=""Disk"" Name=""Default"" Description=""Default disk.""></C>
-    </FileSystem>
     <Logs Description=""Logs of database."">
     </Logs>
 </MochaDB>";

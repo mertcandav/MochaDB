@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace MochaDB.framework {
     /// <summary>
-    /// Dictionary for MochaDB.
+    /// Dictionary framework of MochaDB.
     /// </summary>
     internal static class Framework_DICTIONARY {
         /// <summary>

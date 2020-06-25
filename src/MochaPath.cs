@@ -70,8 +70,7 @@ namespace MochaDB {
         public bool IsDatabasePath() =>
             Path.StartsWith("Tables") ||
             Path.StartsWith("Sectors") ||
-            Path.StartsWith("Stacks") ||
-            Path.StartsWith("FileSystem");
+            Path.StartsWith("Stacks");
 
         /// <summary>
         /// Returns MochaPath converted to MochaElement.

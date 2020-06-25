@@ -108,6 +108,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E47
 		engine\attributes.cs = engine\attributes.cs
 		engine\lexer.cs = engine\lexer.cs
 		engine\names.cs = engine\names.cs
+		engine\structure.cs = engine\structure.cs
 		engine\values.cs = engine\values.cs
 	EndProjectSection
 EndProject
@@ -131,6 +132,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{7659F6D6-E07B-47C1-9332-B7C564CE2300}"
 	ProjectSection(SolutionItems) = preProject
 		framework\dictionary.cs = framework\dictionary.cs
+		framework\xml.cs = framework\xml.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{9C28C183-67AC-403D-935D-DD8B02C7EC56}"

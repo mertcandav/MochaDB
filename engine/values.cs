@@ -2,7 +2,7 @@
 
 namespace MochaDB.engine {
     /// <summary>
-    /// Name engine of MochaDB.
+    /// Value engine of MochaDB.
     /// </summary>
     internal static class Engine_VALUES {
         /// <summary>
