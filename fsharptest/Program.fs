@@ -42,7 +42,7 @@ let main argv =
     let path = new MochaPath __SOURCE_DIRECTORY__
     path.ParentDirectory()
     path.ParentDirectory()
-    let path = path.Path + "/testdocs"
+    let path = path.Path + "/tests"
     let dbprovider = "path=" + (path + "/testdb.mhdb") + "; password=; AutoConnect=true"
     let db = GetDbWithProvider dbprovider
     while true do
