@@ -16,5 +16,4 @@ Your best choice in .NET platform.
 + MochaQ for simple and fast queries
 + MHQL(MochaDB Query Language) for advanced queries
 + Log system
-+ Embed files into the database with FileSystem
 + Script build and debug with MochaScript
