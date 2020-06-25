@@ -58,7 +58,10 @@ namespace MochaDB.mhql {
                     column.Tag = tag;
                     return column;
                 } else {
-                    MochaColumn column = cols.Where(x => x.Name == cmd).First();
+                    IEnumerable<MochaColumn> result = cols.Where(x => x.Name == cmd);
+                    if(result.Count() == 0)
+                        throw new MochaException($"Could not find a column with the name '{cmd}'!");
+                    MochaColumn column = result.First();
                     column.MHQLAsText = name;
                     return column;
                 }
