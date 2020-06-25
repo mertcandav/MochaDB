@@ -207,39 +207,6 @@ namespace MochaDB.Mochaq {
             string[] queryPaths = MochaQ.Command.Split(':');
             queryPaths[0]=queryPaths[0].ToUpperInvariant();
 
-            //File system.
-            if(queryPaths[0].StartsWith("FILESYSTEM_")) {
-                if(queryPaths.Length==1) {
-                    if(queryPaths[0] == "FILESYSTEM_CLEARDISKS") {
-                        Database.FileSystem.ClearDisks();
-                        return;
-                    } else
-                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-                } else if(queryPaths.Length==2) {
-                    if(queryPaths[0]=="FILESYSTEM_REMOVEDISK") {
-                        Database.FileSystem.RemoveDisk(queryPaths[1]);
-                        return;
-                    } else if(queryPaths[0] == "FILESYSTEM_REMOVEDIRECTORY") {
-                        Database.FileSystem.RemoveDirectory(queryPaths[1]);
-                        return;
-                    } else if(queryPaths[0] == "FILESYSTEM_REMOVEFILE") {
-                        Database.FileSystem.RemoveFile(queryPaths[1]);
-                        return;
-                    } else
-                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-                } else if(queryPaths.Length==3) {
-                    if(queryPaths[0] == "FILESYSTEM_CREATEDISK") {
-                        Database.FileSystem.CreateDisk(queryPaths[1],queryPaths[2]);
-                        return;
-                    } else if(queryPaths[0] == "FILESYSTEM_CREATEDIRECTORY") {
-                        Database.FileSystem.CreateDirectory(queryPaths[1],queryPaths[2]);
-                        return;
-                    } else
-                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-                } else
-                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-            }
-
             if(queryPaths.Length == 1) {
                 if(queryPaths[0] == "RESETMOCHA") {
                     Database.Reset();
@@ -466,27 +433,6 @@ namespace MochaDB.Mochaq {
 
             string[] queryPaths = MochaQ.Command.Split(':');
             queryPaths[0]=queryPaths[0].ToUpperInvariant();
-
-            //File system.
-            if(queryPaths[0].StartsWith("FILESYSTEM_")) {
-                if(queryPaths.Length==2) {
-                    if(queryPaths[0]=="FILESYSTEM_EXISTSDISK") {
-                        return new MochaResult<bool>(Database.FileSystem.ExistsDisk(queryPaths[1]));
-                    } else if(queryPaths[0] == "FILESYSTEM_EXISTSDIRECTORY") {
-                        return new MochaResult<bool>(Database.FileSystem.ExistsDirectory(queryPaths[1]));
-                    } else if(queryPaths[0] == "FILESYSTEM_EXISTSFILE") {
-                        return new MochaResult<bool>(Database.FileSystem.ExistsFile(queryPaths[1]));
-                    } else if(queryPaths[0]=="#FILESYSTEM_REMOVEDISK") {
-                        return new MochaResult<bool>(Database.FileSystem.RemoveDisk(queryPaths[1]));
-                    } else if(queryPaths[0] == "#FILESYSTEM_REMOVEDIRECTORY") {
-                        return new MochaResult<bool>(Database.FileSystem.RemoveDirectory(queryPaths[1]));
-                    } else if(queryPaths[0] == "#FILESYSTEM_REMOVEFILE") {
-                        return new MochaResult<bool>(Database.FileSystem.RemoveFile(queryPaths[1]));
-                    } else
-                        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-                } else
-                    throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-            }
 
             if(queryPaths.Length == 1) {
                 if(queryPaths[0] == "GETTABLES") {

@@ -30,7 +30,6 @@ using System.Xml.Linq;
 using MochaDB.Connection;
 using MochaDB.Cryptography;
 using MochaDB.engine;
-using MochaDB.FileSystem;
 using MochaDB.Logging;
 using MochaDB.Mochaq;
 using MochaDB.Querying;
@@ -349,7 +348,6 @@ namespace MochaDB {
 
             sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
             Query = new MochaQuery(this,true);
-            FileSystem = new MochaFileSystem(this,true);
         }
 
         /// <summary>
@@ -364,7 +362,6 @@ namespace MochaDB {
             sourceStream.Dispose();
             Doc=null;
             Query=null;
-            FileSystem=null;
         }
 
         #endregion
@@ -2604,9 +2601,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Properties
-
-        #region Static
+        #region Static Properties
 
         /// <summary>
         /// Version of MochaDB.
@@ -2616,7 +2611,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Internal
+        #region Internal Properties
 
         /// <summary>
         /// XML Document.
@@ -2629,6 +2624,8 @@ namespace MochaDB {
         internal bool SuspendChangeEvents { get; set; }
 
         #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// Connection provider.
@@ -2644,11 +2641,6 @@ namespace MochaDB {
         /// Mapped MochaQuery.
         /// </summary>
         public MochaQuery Query { get; private set; }
-
-        /// <summary>
-        /// Mapped MochaFileSystem.
-        /// </summary>
-        public MochaFileSystem FileSystem { get; private set; }
 
         /// <summary>
         /// State of connection.
