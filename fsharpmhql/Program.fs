@@ -41,7 +41,7 @@ let codebox_keydown(e: KeyEventArgs) =
         let path = new MochaPath(__SOURCE_DIRECTORY__)
         path.ParentDirectory()
         path.ParentDirectory()
-        let database = new MochaDatabase("path=" + path.ToString() + "/testdocs/testdb; autoconnect=true")
+        let database = new MochaDatabase("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
         try
         gridview.Columns.Clear()
         let command = new MochaDbCommand(database)
