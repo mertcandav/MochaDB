@@ -257,10 +257,11 @@ namespace MochaDB {
                         func += $"    UpdateLastData:{currentTable.Name}:{column.Name}:{column.Datas[rowIndex]}\n";
                     }
                 }
-                func += "\n\n";
+                if(tableIndex < tables.MaxIndex())
+                    func += "\n\n";
             }
 
-            func += "\n}\n";
+            func += "}\n";
             return func;
         }
 
