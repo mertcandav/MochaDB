@@ -7,7 +7,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
-    <Description>.NET embedded high performance NoSQL database system.</Description>
+    <Description>The next generation .NET NoSQL database system.</Description>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
@@ -85,7 +85,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\pdocs\resources\MochaDB_Logo.png">
+    <None Include="..\res\MochaDB_Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
