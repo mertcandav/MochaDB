@@ -80,7 +80,9 @@ namespace MochaDB.mhql {
                             int
                                 currentValue = int.Parse(_data.ToString()),
                                 value = int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
-                            if(currentValue < value)
+                            if(col.Tag == "MAX" && currentValue < value)
+                                _data.Data = value;
+                            else if(col.Tag == "MIN" && currentValue > value)
                                 _data.Data = value;
                         }
                     }

@@ -89,7 +89,8 @@ namespace MochaDB.mhql {
             new Dictionary<string,string>() {
                 { "COUNT\\(\\)", "COUNT" },
                 { "SUM\\(.*\\)", "SUM" },
-                { "MAX\\(.*\\)", "MAX" }
+                { "MAX\\(.*\\)", "MAX" },
+                { "MIN\\(.*\\)", "MIN" }
             };
 
         #endregion
