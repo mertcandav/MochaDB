@@ -1,6 +1,6 @@
 <div align="center">
   
-![alt text](https://github.com/mertcandav/MochaDB/blob/master/pdocs/resources/MochaDB_Texted.ico)
+![alt text](https://github.com/mertcandav/MochaDB/blob/master/res/MochaDB_Texted.ico)
 
 [![Gitter](https://badges.gitter.im/mertcandv/MochaDB.svg)](https://gitter.im/mertcandv/MochaDB?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![license](https://img.shields.io/badge/License-MIT-BLUE.svg)](https://opensource.org/licenses/MIT)
@@ -12,8 +12,8 @@
 [![Documentation](https://img.shields.io/badge/Documentation-YELLOW.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/wiki)
 [![NuGet Page](https://img.shields.io/badge/NuGet-BLUE.svg?style=flat-square)](https://www.nuget.org/packages/MochaDB/)
 [![Warnings](https://img.shields.io/badge/Warnings-RED.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/wiki/Warnings)
-<br>
-<b>MochaDB is a user-friendly, loving database system that loves to help.</b>
+<br><br>
+<b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice in .NET platform.</b>
 </div>
 
 <br>
@@ -23,7 +23,6 @@
 + Open source and free for everyone
 + High performance
 + Lightweight
-+ Thread-safe
 + Single DLL and database file
 + OOM(Object Oriented Management)
 + RDBMS(Relational Database Management System) features
@@ -113,79 +112,53 @@ END
 ORDERBY
     DESC Salary
 RETURN
-
 ```
 
 <br>
 
-# MochaScript
+## Example use
+```csharp
+using System;
+using System.Windows.Forms;
+using MochaDB;
+using MochaDB.Querying;
 
-MochaScript is a scripting language for MochaDB databases.<br>
-It is processed by the debugger and executed with C# code.<br>
-It operates independently from the database, but no connection should be open to the targeted database when it is run!<br>
-It allows you to work with its own functions and MochaQ commands.
+namespace ExampleUse {
+    public partial class LoginForm:Form {
+        public LoginForm() {
+            InitializeComponent();
+        }
 
-```
-//Author: Mertcan DAVULCU
-
-//Connect.
-//Provider "Path" or "Path" "Password"
-Provider .\bin\Sources\MyDatabase.mochadb 1230
-
-//Start script commands.
-Begin
-
-//Main function.
-func Main()
-{
-    String PiNumber = ""
-    SetPINumber()
-    String PiNumber2 = PiNumber
-    Boolean ExistsState = EXISTSSECTOR:PINumber
-
-    if ExistsState == True
-    {
-        if GETSECTORDATA:PINumber == PiNumber2
-        {
-            DELETESECTOR:PINumber
+        MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
+        private void loginButton_Click(object sender,EventArgs e) {
+            string username = usernameTextBox.Text.Trim(),
+                   password = passwordTextBox.Text;
+            if(username == string.Empty) {
+                MessageBox.Show("Please type your username!");
+                return;
+            }
+            if(password == string.Empty) {
+                MessageBox.Show("Please type your password!");
+                return;
+            }
+            database.Connect();
+            var result = database.ExecuteScalarTable(
+           $@"USE Username, Password
+              FROM Persons
+              MUST
+                Username == ""{username}"" AND
+                Password == ""{password}""
+              END
+              RETURN");
+            database.Disconnect();
+            if(result.IsEmpty()) {
+                MessageBox.Show("Username or password is wrong!");
+                return;
+            }
+            AppWindow wnd = new AppWindow();
+            Hide();
+            wnd.Show();
         }
     }
-    elif ExistsState == False
-    {
-        ADDSECTOR:PINumber:3.14:This is the pi number.
-    }
-    else
-    {
-        //Classical conditioning. "else" does not work because the elif meets "False" status.
-        ADDSECTOR:PINumber:3.14:This is the pi number.
-    }
-}
-
-func SetPINumber()
-{
-    PiNumber = "3.14"
-
-    //Or.
-    //delete PiNumber;
-    //String PiNumber = "3.14"
-}
-
-// ******* COMPILER EVENTS *******
-
-compilerevent OnFunctionInvoked()
-{
-    echo "Function called!"
-}
-
-//End script commands.
-Final
-```
-
-<br>
-
-```c#
-public void Debug(string path) {
-    MochaScriptDebugger debugger = new MochaScriptDebugger(path);
-    debugger.DebugRun();
 }
 ```
