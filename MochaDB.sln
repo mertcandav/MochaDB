@@ -19,17 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pdocs", "pdocs", "{C1D92442-FEE4-41A0-B375-ECEC11BA750A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{A0662273-0273-4D70-BE6B-7DE1EF5AE41A}"
-	ProjectSection(SolutionItems) = preProject
-		pdocs\resources\MochaDB_Logo.ico = pdocs\resources\MochaDB_Logo.ico
-		pdocs\resources\MochaDB_Logo.png = pdocs\resources\MochaDB_Logo.png
-		pdocs\resources\MochaDB_Texted.ico = pdocs\resources\MochaDB_Texted.ico
-		pdocs\resources\MochaDB_Texted.png = pdocs\resources\MochaDB_Texted.png
-		pdocs\resources\MochaDB_Texted.psd = pdocs\resources\MochaDB_Texted.psd
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3AA8059-4CBE-44A1-8792-EDCB236D7361}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06A59BC1-99C3-43FF-A15C-38284C130AF6}"
@@ -65,18 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget-packages", "nuget-packages", "{62116A0C-4ADB-4D6F-9A70-A75B7E70469F}"
-	ProjectSection(SolutionItems) = preProject
-		pdocs\nuget-packages\documentation.md = pdocs\nuget-packages\documentation.md
-	EndProjectSection
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testdocs", "testdocs", "{E91656EB-BAEE-4557-93D2-3B2D58367A95}"
-	ProjectSection(SolutionItems) = preProject
-		testdocs\testdb.mhdb = testdocs\testdb.mhdb
-		testdocs\testscript.mochascript = testdocs\testscript.mochascript
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
 	ProjectSection(SolutionItems) = preProject
@@ -155,6 +133,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{
 		framework\dictionary.cs = framework\dictionary.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{9C28C183-67AC-403D-935D-DD8B02C7EC56}"
+	ProjectSection(SolutionItems) = preProject
+		res\MochaDB_Logo.ico = res\MochaDB_Logo.ico
+		res\MochaDB_Logo.png = res\MochaDB_Logo.png
+		res\MochaDB_Texted.ico = res\MochaDB_Texted.ico
+		res\MochaDB_Texted.png = res\MochaDB_Texted.png
+		res\MochaDB_Texted.psd = res\MochaDB_Texted.psd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{86DB3C19-063F-460A-B4D6-4165452F6429}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\documentation.md = nuget\documentation.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B0B73D5E-AEDA-4F58-B749-8B90A378273B}"
+	ProjectSection(SolutionItems) = preProject
+		tests\testdb.mhdb = tests\testdb.mhdb
+		tests\testscript.mhsc = tests\testscript.mhsc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,8 +183,6 @@ Global
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5} = {A3AA8059-4CBE-44A1-8792-EDCB236D7361}
 		{3C47CF88-E6CB-42A4-A903-15FF3E7836B3} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
-		{A0662273-0273-4D70-BE6B-7DE1EF5AE41A} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
-		{62116A0C-4ADB-4D6F-9A70-A75B7E70469F} = {C1D92442-FEE4-41A0-B375-ECEC11BA750A}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
