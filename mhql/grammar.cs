@@ -88,7 +88,8 @@ namespace MochaDB.mhql {
         public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
             new Dictionary<string,string>() {
                 { "COUNT\\(\\)", "COUNT" },
-                { "SUM\\(.*\\)", "SUM" }
+                { "SUM\\(.*\\)", "SUM" },
+                { "MAX\\(.*\\)", "MAX" }
             };
 
         #endregion

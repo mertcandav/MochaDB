@@ -72,10 +72,17 @@ namespace MochaDB.mhql {
                         MochaData _data = _row.Datas[table.Columns.IndexOf(col)];
                         if(col.Tag == "COUNT")
                             _data.Data = int.Parse(_data.ToString())+1;
-                        else
+                        else if(col.Tag == "SUM")
                             _data.Data =
                                 int.Parse(_data.ToString()) +
                                 int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
+                        else {
+                            int
+                                currentValue = int.Parse(_data.ToString()),
+                                value = int.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());
+                            if(currentValue < value)
+                                _data.Data = value;
+                        }
                     }
                     continue;
                 }
