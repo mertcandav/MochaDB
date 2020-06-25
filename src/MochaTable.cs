@@ -111,7 +111,7 @@ namespace MochaDB {
                 Columns[columnIndex].Datas.Changed+=Column_Changed;
             }*/
         }
-        
+
         /// <summary>
         /// Set rows by column datas.
         /// </summary>
@@ -133,7 +133,7 @@ namespace MochaDB {
                 Rows.collection.Add(new MochaRow(datas));
             }
         }
-        
+
         #endregion
 
         #region Public Members

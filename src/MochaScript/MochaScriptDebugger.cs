@@ -198,7 +198,7 @@ UInteger|UInteger\[*\]|DateTime|DateTime\[*\])\b");
         /// </summary>
         /// <param name="startIndex">Process start index.</param>
         internal int Process_if(int startIndex) {
-            void process(ref int index, ref int closedex, ref bool _ok) {
+            void process(ref int index,ref int closedex,ref bool _ok) {
                 //Check argument.
                 string[] elifArg = MochaScriptArray[index].Trim().Split(' ');
 
