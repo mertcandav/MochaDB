@@ -27,9 +27,9 @@ Imports MochaDB.Mhql
 
 Public Class app
     Private Sub codebox_KeyDown(sender As Object, e As KeyEventArgs) Handles codebox.KeyDown
-        Try
-            Dim db As MochaDatabase
-            If e.KeyCode = Keys.F5 Then
+        If e.KeyCode = Keys.F5 Then
+            Dim db As MochaDatabase = Nothing
+            Try
                 Dim path = New MochaPath(Directory.GetCurrentDirectory)
                 path.ParentDirectory()
                 path.ParentDirectory()
@@ -53,11 +53,17 @@ Public Class app
                     command.ExecuteCommand()
                 End If
                 db.Dispose()
-            End If
-        Catch excep As MochaException
-            MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Catch excep As Exception
-            MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+            Catch excep As MochaException
+                If db IsNot Nothing Then
+                    db.Dispose()
+                End If
+                MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch excep As Exception
+                If db IsNot Nothing Then
+                    db.Dispose()
+                End If
+                MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
 End Class
