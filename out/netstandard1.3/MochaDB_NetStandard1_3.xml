@@ -1601,6 +1601,12 @@
             <param name="dataType">Targeting data type.</param>
             <param name="data">Data to convert.</param>
         </member>
+        <member name="M:MochaDB.MochaData.IsNumericType(MochaDB.MochaDataType)">
+            <summary>
+            Returns true if datatype is numeric, returns false if not.
+            </summary>
+            <param name="type">Datatype to check.</param>
+        </member>
         <member name="M:MochaDB.MochaData.ToString">
             <summary>
             Returns <see cref="P:MochaDB.MochaData.Data"/> as string with UTF8.

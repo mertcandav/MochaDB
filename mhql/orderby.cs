@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql {
@@ -63,11 +66,10 @@ namespace MochaDB.mhql {
                 4 : 0;
 
             int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command.Substring(dex),table,from);
-
             table.Rows.array = (
                 dex == 0 || dex == 3 ?
-                table.Rows.OrderBy(x => x.Datas[columndex].ToString()) :
-                table.Rows.OrderByDescending(x => x.Datas[columndex].ToString())).ToArray();
+                table.Rows.OrderBy(x => x.Datas[columndex].ToString(),new ORDERBYComparer()) :
+                table.Rows.OrderByDescending(x => x.Datas[columndex].ToString(),new ORDERBYComparer())).ToArray();
             table.SetDatasByRows();
         }
 

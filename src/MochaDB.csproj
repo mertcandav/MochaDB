@@ -213,6 +213,9 @@
     <Compile Include="..\mhql\engine\condition_lexer.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\engine\orderbycomparer.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\engine\value -->

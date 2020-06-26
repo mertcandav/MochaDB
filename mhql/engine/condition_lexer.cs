@@ -1,6 +1,6 @@
 namespace MochaDB.mhql.engine {
     /// <summary>
-    /// lexer of MHQL conditions.
+    /// Lexer of MHQL conditions.
     /// </summary>
     internal static class MhqlEng_CONDITION_LEXER {
         /// <summary>

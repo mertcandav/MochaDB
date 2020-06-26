@@ -373,6 +373,24 @@ namespace MochaDB {
             return GetDataFromString(dataType,data.ToString());
         }
 
+        /// <summary>
+        /// Returns true if datatype is numeric, returns false if not.
+        /// </summary>
+        /// <param name="type">Datatype to check.</param>
+        public static bool IsNumericType(MochaDataType type) =>
+            type == MochaDataType.AutoInt ||
+            type == MochaDataType.Bit ||
+            type == MochaDataType.Byte ||
+            type == MochaDataType.Decimal ||
+            type == MochaDataType.Double ||
+            type == MochaDataType.Float ||
+            type == MochaDataType.Int16 ||
+            type == MochaDataType.Int32 ||
+            type == MochaDataType.Int64 ||
+            type == MochaDataType.SByte ||
+            type == MochaDataType.UInt16 ||
+            type == MochaDataType.UInt64;
+
         #endregion
 
         #region Overrides
