@@ -20,16 +20,13 @@ namespace MochaDB.mhql.functions {
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
             decimal
                 range1,
-                range2;
+                range2,
+                value;
 
-            if(!decimal.TryParse(parts[1].Trim(),out range1))
-                throw new MochaException("BETWEEN function is cannot processed!");
-            if(!decimal.TryParse(parts[2].Trim(),out range2))
-                throw new MochaException("BETWEEN function is cannot processed!");
-
-            decimal value;
-            if(!decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("BETWEEN function is cannot processed!");
+            if(!decimal.TryParse(parts[1].Trim(),out range1) ||
+                !decimal.TryParse(parts[2].Trim(),out range2) ||
+                !decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
+                throw new MochaException("The parameter of the BETWEEN command was not a number!");
 
             return
                     range1 <= range2 ?
