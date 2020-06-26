@@ -69,7 +69,7 @@ namespace MochaDB.mhql {
                 int start, count;
                 if(!int.TryParse(parts[0],out start) || !int.TryParse(parts[1],out count))
                     throw new MochaException("The parameter of the SUBROW command was not a number!");
-                if(start < 1)
+                if(start < 1 || count < 1)
                     throw new MochaException("The parameters of the SUBROW command cannot be less than 1!");
                 table.Rows = table.Rows.Skip(start-1).Take(count).ToArray();
             }
