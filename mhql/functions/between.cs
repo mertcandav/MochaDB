@@ -14,8 +14,8 @@ namespace MochaDB.mhql.functions {
         /// <param name="from">Use state FROM keyword.</param>
         public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
             var parts = command.Split(',');
-            if(parts.Length < 3 || parts.Length > 3)
-                throw new MochaException("BETWEEN function is cannot processed!");
+            if(parts.Length != 3)
+                throw new MochaException("The BETWEEN function can only take 3 parameters!");
 
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
             decimal
