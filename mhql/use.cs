@@ -60,7 +60,7 @@ namespace MochaDB.mhql {
                             Mhql_GRAMMAR.GetIndexOfColumn(MhqlEng_EDITOR.DecomposeBrackets(cmd),cols,from).ToString();
                     return column;
                 } else {
-                    string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim(): cmd;
+                    string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim() : cmd;
                     IEnumerable<MochaColumn> result = cols.Where(x => x.Name == colname);
                     if(result.Count() == 0)
                         throw new MochaException($"Could not find a column with the name '{cmd}'!");

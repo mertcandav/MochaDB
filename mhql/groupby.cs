@@ -84,8 +84,7 @@ namespace MochaDB.mhql {
                                 decimal.Parse(colval) +
                                 decimal.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString()) +
                                 ";" + count;
-                        }
-                        else {
+                        } else {
                             decimal
                                 currentValue = decimal.Parse(_data.ToString()),
                                 value = decimal.Parse(table.Columns.ElementAt(int.Parse(col.Description)).Datas[index].ToString());

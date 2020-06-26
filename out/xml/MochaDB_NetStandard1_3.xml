@@ -6102,7 +6102,7 @@
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER">
             <summary>
-            lexer of MHQL conditions.
+            Lexer of MHQL conditions.
             </summary>
         </member>
         <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.Operators">
@@ -6129,6 +6129,25 @@
             <summary>
             Not equal operator.
             </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.ORDERBYComparer">
+            <summary>
+            Comparer for mhql orderby.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.ORDERBYComparer.IsNumeric(System.String)">
+            <summary>
+            Method to determine if a string is a number.
+            </summary>
+            <param name="value">String to test.</param>
+            <returns>True if numeric</returns>
+        </member>
+        <member name="M:MochaDB.mhql.engine.ORDERBYComparer.Compare(System.String,System.String)">
+            <summary>
+            Compare values.
+            </summary>
+            <param name="s1">Value 1.</param>
+            <param name="s2">Value 2.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.value.MhqlEngVal_LEXER">
             <summary>

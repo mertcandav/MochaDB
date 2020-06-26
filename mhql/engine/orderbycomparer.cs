@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace MochaDB.mhql.engine {
     /// <summary>
@@ -46,7 +45,7 @@ namespace MochaDB.mhql.engine {
             if(IsNumeric2)
                 return S1GreaterThanS2;
 
-            return string.Compare(s1,s2,true,CultureInfo.InvariantCulture);
+            return string.Compare(s1,s2,true);
         }
     }
 }

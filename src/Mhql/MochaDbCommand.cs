@@ -288,7 +288,8 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
                         if(cols.Count() != table.Columns.Length) {
                             table.Columns = cols.ToArray();
-                            table.SetRowsByDatas(); }
+                            table.SetRowsByDatas();
+                        }
                         break;
                     } else
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");

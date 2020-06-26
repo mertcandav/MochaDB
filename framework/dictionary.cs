@@ -26,7 +26,7 @@ namespace MochaDB.framework {
         /// <typeparam name="T2">Type 2.</typeparam>
         /// <param name="dict">Dictionary to find.</param>
         /// <param name="key">Key.</param>
-        public static bool MatchKey<T1,T2>(this Dictionary<T1,T2> dict,string key) {
+        public static bool MatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
             for(int index = 0; index < dict.Keys.Count; index++) {
                 if(
                     new Regex(dict.Keys.ElementAt(index).ToString(),
