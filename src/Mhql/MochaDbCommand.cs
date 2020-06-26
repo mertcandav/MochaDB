@@ -18,11 +18,11 @@ namespace MochaDB.Mhql {
 
         internal static Regex fullRegex = new Regex(
 @"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|END|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
-SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
+SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal static Regex mainkeywordRegex = new Regex(
-@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT|REMOVE)\b",
+@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW)\b",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         internal MochaArray<MhqlKeyword> keywords;
@@ -34,6 +34,7 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
         internal Mhql_ORDERBY ORDERBY;
         internal Mhql_MUST MUST;
         internal Mhql_GROUPBY GROUPBY;
+        internal Mhql_SUBROW SUBROW;
 
         #endregion
 
@@ -52,7 +53,8 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
             GROUPBY = new Mhql_GROUPBY(Database);
             MUST = new Mhql_MUST(Database);
             REMOVE = new Mhql_REMOVE(Database);
-            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,RETURN,ORDERBY,GROUPBY,MUST);
+            SUBROW = new Mhql_SUBROW(Database);
+            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,RETURN,ORDERBY,GROUPBY,MUST,SUBROW);
 
             Database=db;
             Command=string.Empty;
@@ -149,6 +151,10 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                     //Groupby.
                     else if(GROUPBY.IsGROUPBY(lastcommand)) {
                         throw new MochaException("GROUPBY keyword is canot used with SELECT keyword!");
+                    }
+                    //Groupby.
+                    else if(SUBROW.IsSUBROW(lastcommand)) {
+                        throw new MochaException("SUBROW keyword is canot used with SELECT keyword!");
                     }
                     //Must.
                     else if(MUST.IsMUST(lastcommand)) {
@@ -283,6 +289,10 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
 
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
                     }
+                    //Subrow.
+                    else if(SUBROW.IsSUBROW(lastcommand)) {
+                        SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
+                    }
                     //Return.
                     else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase)) {
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
@@ -339,6 +349,10 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                     //Orderby.
                     if(ORDERBY.IsORDERBY(lastcommand)) {
                         throw new MochaException("ORDERBY keyword is canot used with SELECT keyword!");
+                    }
+                    //Groupby.
+                    else if(SUBROW.IsSUBROW(lastcommand)) {
+                        throw new MochaException("SUBROW keyword is canot used with SELECT keyword!");
                     }
                     //Groupby.
                     else if(GROUPBY.IsGROUPBY(lastcommand)) {

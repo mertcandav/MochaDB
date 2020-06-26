@@ -51,8 +51,8 @@ namespace MochaDB.mhql {
         /// <summary>
         /// Groupby by command.
         /// </summary>
-        /// <param name="command">Orderby command.</param>
-        /// <param name="table">Table to ordering.</param>
+        /// <param name="command">Command.</param>
+        /// <param name="table">Table to grouping.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public void GroupBy(string command,ref MochaTableResult table,bool from) {
             command = command.Trim();

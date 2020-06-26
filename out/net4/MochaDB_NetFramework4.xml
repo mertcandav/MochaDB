@@ -5689,8 +5689,8 @@
             <summary>
             Groupby by command.
             </summary>
-            <param name="command">Orderby command.</param>
-            <param name="table">Table to ordering.</param>
+            <param name="command">Command.</param>
+            <param name="table">Table to grouping.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_MUST">
@@ -5837,6 +5837,38 @@
             <summary>
             Functions of use.
             </summary>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_SUBROW">
+            <summary>
+            MHQL SUBROW keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBROW.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBROW.IsSUBROW(System.String)">
+            <summary>
+            Returns true if command is SUBROW command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBROW.GetSUBROW(System.String,System.String@)">
+            <summary>
+            Returns subrow command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed subrow commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBROW.Subrow(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Subrow by command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table to subrowing.</param>
+            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
             <summary>
