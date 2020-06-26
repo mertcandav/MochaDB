@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using MochaDB.Connection;
 using MochaDB.mhql;
@@ -283,9 +284,13 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS)\b",
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Return.
-                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
+                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase)) {
+                        IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
+                        if(cols.Count() != table.Columns.Length) {
+                            table.Columns = cols.ToArray();
+                            table.SetRowsByDatas(); }
                         break;
-                    else
+                    } else
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
 
