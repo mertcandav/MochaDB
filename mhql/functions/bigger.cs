@@ -18,14 +18,13 @@ namespace MochaDB.mhql.functions {
                 throw new MochaException("BIGGER function is cannot processed!");
 
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
-            decimal range;
+            decimal
+                range,
+                value;
 
-            if(!decimal.TryParse(parts[1].Trim(),out range))
-                throw new MochaException("BIGGER function is cannot processed!");
-
-            decimal value;
-            if(!decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("BIGGER function is cannot processed!");
+            if(!decimal.TryParse(parts[1].Trim(),out range) ||
+                !decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
+                throw new MochaException("The parameter of the BIGGER command was not a number!");
 
             return value >= range;
         }
