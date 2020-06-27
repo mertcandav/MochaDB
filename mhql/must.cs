@@ -42,10 +42,11 @@ namespace MochaDB.mhql {
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var value = new StringBuilder();
             var count = 0;
+            var function = false;
             command = command.Substring(4);
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
-                if(count == 0 && (currentChar == 'E' || currentChar == 'e')) {
+                if(!function && count == 0 && (currentChar == 'E' || currentChar == 'e')) {
                     if(command.Length - 1 - index >= 3) {
                         if(pattern.IsMatch(command.Substring(index,3))) {
                             final = command.Substring(index+3).Trim();
@@ -54,8 +55,12 @@ namespace MochaDB.mhql {
                     }
                 } else if(currentChar == '(')
                     count++;
-                else if(currentChar == ')')
+                else if(currentChar == '$')
+                    function = true;
+                else if(currentChar == ')') {
+                    function = false;
                     count--;
+                }
 
                 value.Append(currentChar);
             }
