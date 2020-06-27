@@ -5661,6 +5661,21 @@
             <param name="table">Table to ordering.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="T:MochaDB.mhql.MHQLOrderType">
+            <summary>
+            Ordering types of MHQL.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.MHQLOrderType.ASC">
+            <summary>
+            Ascending.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.MHQLOrderType.DESC">
+            <summary>
+            Descending.
+            </summary>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_GROUPBY">
             <summary>
             MHQL GROUPBY keyword.

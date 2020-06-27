@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
@@ -56,30 +57,58 @@ namespace MochaDB.mhql {
         /// <param name="table">Table to ordering.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public void OrderBy(string command,ref MochaTableResult table,bool from) {
+            MHQLOrderType DecomposeOrder(string cmd,ref MochaTableResult tbl,out int coldex) {
+                IEnumerable<string> orderparts = cmd.Trim().Split(' ').Where(x => x != "");
+                if(orderparts.Count() > 2)
+                    throw new MochaException("A single ORDERBY parameter can consist of up to 2 parts!");
+                coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts.First().Trim(),tbl,from);
+
+                if(orderparts.Count() == 1) {
+                    return 0;
+                }
+
+                string order = orderparts.Last().Trim();
+                return order == string.Empty ||
+                    order.StartsWith("ASC",StringComparison.OrdinalIgnoreCase) ?
+                        MHQLOrderType.ASC :
+                        order.StartsWith("DESC",StringComparison.OrdinalIgnoreCase) ?
+                            MHQLOrderType.DESC :
+                            throw new MochaException("ORDERBY could not understand this '" + order + "' sort type!");
+            }
+
             command = command.Trim();
-            int dex =
-                command.StartsWith("ASC",StringComparison.OrdinalIgnoreCase) ?
-                3 :
-                command.StartsWith("DESC",StringComparison.OrdinalIgnoreCase) ?
-                4 : 0;
-            
-            string[] parts = command.Substring(dex).Split(',');
-            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
+            string[] parts = command.Split(',');
+            int columndex;
+
             IOrderedEnumerable<MochaRow> rows =
-                dex == 0 || dex == 3 ?
+                DecomposeOrder(parts[0],ref table,out columndex) == 0 ?
                     table.Rows.OrderBy(x => x.Datas[columndex].ToString(),new ORDERBYComparer()) :
                     table.Rows.OrderByDescending(x => x.Datas[columndex].ToString(),new ORDERBYComparer());
             for(int index = 1; index < parts.Length; index++) {
-                int coldex = Mhql_GRAMMAR.GetIndexOfColumn(parts[index].Trim(),table,from);
-                if(dex == 0 || dex == 3)
-                    rows = rows.ThenBy(x => x.Datas[coldex].ToString(),new ORDERBYComparer());
-                else
-                    rows = rows.ThenByDescending(x => x.Datas[coldex].ToString(),new ORDERBYComparer());
+                int coldex;
+                rows =
+                    DecomposeOrder(parts[index],ref table,out coldex) == 0 ?
+                        rows.ThenBy(x => x.Datas[coldex].ToString(),new ORDERBYComparer()) :
+                        rows.ThenByDescending(x => x.Datas[coldex].ToString(),new ORDERBYComparer());
             }
             table.Rows = rows.ToArray();
             table.SetDatasByRows();
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// Ordering types of MHQL.
+    /// </summary>
+    public enum MHQLOrderType {
+        /// <summary>
+        /// Ascending.
+        /// </summary>
+        ASC = 0,
+        /// <summary>
+        /// Descending.
+        /// </summary>
+        DESC = 1
     }
 }
