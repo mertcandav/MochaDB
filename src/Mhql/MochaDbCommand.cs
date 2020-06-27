@@ -254,7 +254,7 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW|\$NOTSTARTW|\$NOTENDW)\
 
                 bool sectorTag = tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase);
                 var use = USE.GetUSE(out lastcommand);
-                fromkw = use.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
+                fromkw = use.IndexOf(" FROM ",StringComparison.OrdinalIgnoreCase) != -1;
                 var table =
                     string.IsNullOrEmpty(tag) || tag.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
                         USE.GetTable(use,fromkw) :
@@ -308,7 +308,7 @@ SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW|\$NOTSTARTW|\$NOTENDW)\
                 reader.array = new MochaArray<object>(table);
             } else if(lastcommand.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
                 var select = SELECT.GetSELECT(out lastcommand);
-                fromkw = select.IndexOf("FROM",StringComparison.OrdinalIgnoreCase) != -1;
+                fromkw = select.IndexOf(" FROM ",StringComparison.OrdinalIgnoreCase) != -1;
 
                 if(fromkw)
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
