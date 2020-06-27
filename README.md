@@ -93,7 +93,7 @@ if(value!="3.14")
 ```java
 @TABLES // Command for tables.
 USE
-    Id, Name, Surname, $Salary,
+    Name, Surname, $Salary,
     SUM(Salary) AS Total Salary
 FROM
     Employees /* 
