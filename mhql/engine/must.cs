@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using MochaDB.mhql.functions;
+using MochaDB.mhql.must_functions;
 using MochaDB.mhql.must;
 using MochaDB.Mhql;
 using MochaDB.Querying;

@@ -1,6 +1,6 @@
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql.functions {
+namespace MochaDB.mhql.must_functions {
     /// <summary>
     /// MHQL STARTW function of MUST.
     /// </summary>
