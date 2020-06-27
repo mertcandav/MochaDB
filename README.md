@@ -93,7 +93,8 @@ if(value!="3.14")
 ```java
 @TABLES // Command for tables.
 USE
-    Id, Name, Surname, Salary
+    Name, Surname, $Salary,
+    SUM(Salary) AS Total Salary
 FROM
     Employees /* 
       Get columns from Employees table.
@@ -103,13 +104,16 @@ MUST
     $BETWEEN(Salary,1000,10000)
     AND
         Name(^(M|m|N|n).*) AND
-      Salary == "0"
+      Salary != "5000"
         AND
           $STARTW(Surname,"M")
 END
 
 ORDERBY
-    DESC Salary
+    Name ASC, Salary DESC
+GROUPBY
+    Name
+  SUBROW 1000
 RETURN
 ```
 
