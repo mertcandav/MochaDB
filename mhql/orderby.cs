@@ -62,12 +62,21 @@ namespace MochaDB.mhql {
                 3 :
                 command.StartsWith("DESC",StringComparison.OrdinalIgnoreCase) ?
                 4 : 0;
-
-            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command.Substring(dex),table,from);
-            table.Rows.array = (
+            
+            string[] parts = command.Substring(dex).Split(',');
+            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
+            IOrderedEnumerable<MochaRow> rows =
                 dex == 0 || dex == 3 ?
-                table.Rows.OrderBy(x => x.Datas[columndex].ToString(),new ORDERBYComparer()) :
-                table.Rows.OrderByDescending(x => x.Datas[columndex].ToString(),new ORDERBYComparer())).ToArray();
+                    table.Rows.OrderBy(x => x.Datas[columndex].ToString(),new ORDERBYComparer()) :
+                    table.Rows.OrderByDescending(x => x.Datas[columndex].ToString(),new ORDERBYComparer());
+            for(int index = 1; index < parts.Length; index++) {
+                int coldex = Mhql_GRAMMAR.GetIndexOfColumn(parts[index].Trim(),table,from);
+                if(dex == 0 || dex == 3)
+                    rows = rows.ThenBy(x => x.Datas[coldex].ToString(),new ORDERBYComparer());
+                else
+                    rows = rows.ThenByDescending(x => x.Datas[coldex].ToString(),new ORDERBYComparer());
+            }
+            table.Rows = rows.ToArray();
             table.SetDatasByRows();
         }
 
