@@ -159,6 +159,9 @@
     <Compile Include="..\mhql\subrow.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\from.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\must-functions -->

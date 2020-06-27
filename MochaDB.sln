@@ -60,6 +60,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 	ProjectSection(SolutionItems) = preProject
 		mhql\@.cs = mhql\@.cs
 		mhql\as.cs = mhql\as.cs
+		mhql\from.cs = mhql\from.cs
 		mhql\grammar.cs = mhql\grammar.cs
 		mhql\groupby.cs = mhql\groupby.cs
 		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs

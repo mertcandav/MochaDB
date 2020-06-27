@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MochaDB.framework;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
@@ -34,7 +35,8 @@ namespace MochaDB.mhql {
             int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
                 throw new MochaException("USE command is cannot processed!");
-            int finaldex = MochaDbCommand.mainkeywordRegex.Match(Command,usedex+3).Index;
+            string val = new Regex("USE",RegexOptions.IgnoreCase).Replace(Command,"   ");
+            int finaldex = MochaDbCommand.mainkeywordRegex.Match(val,usedex+3).Index;
             if(finaldex==0)
                 throw new MochaException("USE command is cannot processed!");
             var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));
@@ -75,8 +77,9 @@ namespace MochaDB.mhql {
             var resulttable = new MochaTableResult();
 
             if(from) {
-                var dex = usecommand.IndexOf("FROM",StringComparison.OrdinalIgnoreCase);
-                var tablename = usecommand.Substring(dex+4).Trim();
+                var dex = Mhql_FROM.GetIndex(ref usecommand);
+                var tablename = usecommand.Substring(dex+5).Trim();
+
                 var parts = usecommand.Substring(0,dex).Split(',');
 
                 var _columns = Tdb.GetColumns(tablename);
