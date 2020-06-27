@@ -100,6 +100,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must-functions", "must-func
 		mhql\must-functions\lower.cs = mhql\must-functions\lower.cs
 		mhql\must-functions\notcontains.cs = mhql\must-functions\notcontains.cs
 		mhql\must-functions\notequal.cs = mhql\must-functions\notequal.cs
+		mhql\must-functions\notstartw.cs = mhql\must-functions\notstartw.cs
 		mhql\must-functions\startw.cs = mhql\must-functions\startw.cs
 	EndProjectSection
 EndProject
@@ -187,6 +188,7 @@ Global
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5} = {A3AA8059-4CBE-44A1-8792-EDCB236D7361}
 		{3C47CF88-E6CB-42A4-A903-15FF3E7836B3} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
+		{06A59BC1-99C3-43FF-A15C-38284C130AF6} = {86DB3C19-063F-460A-B4D6-4165452F6429}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}

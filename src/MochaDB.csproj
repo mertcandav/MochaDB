@@ -190,6 +190,9 @@
     <Compile Include="..\mhql\must-functions\notcontains.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\must-functions\notstartw.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->
