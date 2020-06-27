@@ -2,9 +2,9 @@ using MochaDB.Mhql;
 
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL ENDW function.
+    /// MHQL ENDW function of MUST.
     /// </summary>
-    internal class MhqlFunc_ENDW {
+    internal class MhqlMustFunc_ENDW {
         /// <summary>
         /// Pass command?
         /// </summary>

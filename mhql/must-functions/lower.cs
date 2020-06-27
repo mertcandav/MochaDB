@@ -2,9 +2,9 @@ using MochaDB.Mhql;
 
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL BETWEEN function.
+    /// MHQL LOWER function of MUST.
     /// </summary>
-    internal class MhqlFunc_BETWEEN {
+    internal class MhqlMustFunc_LOWER {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -14,24 +14,19 @@ namespace MochaDB.mhql.functions {
         /// <param name="from">Use state FROM keyword.</param>
         public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
             var parts = command.Split(',');
-            if(parts.Length != 3)
-                throw new MochaException("The BETWEEN function can only take 3 parameters!");
+            if(parts.Length != 2)
+                throw new MochaException("The LOWER function can only take 2 parameters!");
 
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
             decimal
-                range1,
-                range2,
+                range,
                 value;
 
-            if(!decimal.TryParse(parts[1].Trim(),out range1) ||
-                !decimal.TryParse(parts[2].Trim(),out range2) ||
+            if(!decimal.TryParse(parts[1].Trim(),out range) ||
                 !decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("The parameter of the BETWEEN command was not a number!");
+                throw new MochaException("The parameter of the LOWER command was not a number!");
 
-            return
-                    range1 <= range2 ?
-                    range1 <= value && value <= range2 :
-                    range2 <= value && value <= range1;
+            return value <= range;
         }
     }
 }

@@ -75,23 +75,23 @@ namespace MochaDB.mhql.engine {
                             MhqlMust_REGEX.GetCommand(command),
                             GetDataFromCommand(command,row).ToString());
             } else if(command.StartsWith("$BETWEEN(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_BETWEEN.Pass(command.Substring(9,command.Length-10),table,row,from);
+                return MhqlMustFunc_BETWEEN.Pass(command.Substring(9,command.Length-10),table,row,from);
             } else if(command.StartsWith("$BIGGER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_BIGGER.Pass(command.Substring(8,command.Length-9),table,row,from);
+                return MhqlMustFunc_BIGGER.Pass(command.Substring(8,command.Length-9),table,row,from);
             } else if(command.StartsWith("$LOWER(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_LOWER.Pass(command.Substring(7,command.Length-8),table,row,from);
+                return MhqlMustFunc_LOWER.Pass(command.Substring(7,command.Length-8),table,row,from);
             } else if(command.StartsWith("$EQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_EQUAL.Pass(command.Substring(7,command.Length-8),table,row,from);
+                return MhqlMustFunc_EQUAL.Pass(command.Substring(7,command.Length-8),table,row,from);
             } else if(command.StartsWith("$NOTEQUAL(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_NOTEQUAL.Pass(command.Substring(10,command.Length-11),table,row,from);
+                return MhqlMustFunc_NOTEQUAL.Pass(command.Substring(10,command.Length-11),table,row,from);
             } else if(command.StartsWith("$STARTW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_STARTW.Pass(command.Substring(8,command.Length-9),table,row,from);
+                return MhqlMustFunc_STARTW.Pass(command.Substring(8,command.Length-9),table,row,from);
             } else if(command.StartsWith("$ENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_ENDW.Pass(command.Substring(6,command.Length-7),table,row,from);
+                return MhqlMustFunc_ENDW.Pass(command.Substring(6,command.Length-7),table,row,from);
             } else if(command.StartsWith("$CONTAINS(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_CONTAINS.Pass(command.Substring(10,command.Length-11),table,row,from);
+                return MhqlMustFunc_CONTAINS.Pass(command.Substring(10,command.Length-11),table,row,from);
             } else if(command.StartsWith("$NOTCONTAINS(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
-                return MhqlFunc_NOTCONTAINS.Pass(command.Substring(13,command.Length-14),table,row,from);
+                return MhqlMustFunc_NOTCONTAINS.Pass(command.Substring(13,command.Length-14),table,row,from);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }

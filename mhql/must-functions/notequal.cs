@@ -1,10 +1,10 @@
-using MochaDB.Mhql;
+﻿using MochaDB.Mhql;
 
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL CONTAINS function.
+    /// MHQL NOTEQUAL function of MUST.
     /// </summary>
-    internal class MhqlFunc_CONTAINS {
+    internal class MhqlMustFunc_NOTEQUAL {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -15,11 +15,11 @@ namespace MochaDB.mhql.functions {
         public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
             var parts = command.Split(',');
             if(parts.Length != 2)
-                throw new MochaException("The CONTAINS function can only take 2 parameters!");
+                throw new MochaException("The NOTEQUAL function can only take 2 parameters!");
 
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
 
-            return row.Datas[dex].Data.ToString().Contains(parts[1]);
+            return parts[1] != row.Datas[dex].Data.ToString();
         }
     }
 }

@@ -90,17 +90,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{4D5E482B-6B35-4989-8773-5FA84900E6DA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must-functions", "must-functions", "{4D5E482B-6B35-4989-8773-5FA84900E6DA}"
 	ProjectSection(SolutionItems) = preProject
-		mhql\functions\between.cs = mhql\functions\between.cs
-		mhql\functions\bigger.cs = mhql\functions\bigger.cs
-		mhql\functions\contains.cs = mhql\functions\contains.cs
-		mhql\functions\endw.cs = mhql\functions\endw.cs
-		mhql\functions\equal.cs = mhql\functions\equal.cs
-		mhql\functions\lower.cs = mhql\functions\lower.cs
-		mhql\functions\notcontains.cs = mhql\functions\notcontains.cs
-		mhql\functions\notequal.cs = mhql\functions\notequal.cs
-		mhql\functions\startw.cs = mhql\functions\startw.cs
+		mhql\must-functions\between.cs = mhql\must-functions\between.cs
+		mhql\must-functions\bigger.cs = mhql\must-functions\bigger.cs
+		mhql\must-functions\contains.cs = mhql\must-functions\contains.cs
+		mhql\must-functions\endw.cs = mhql\must-functions\endw.cs
+		mhql\must-functions\equal.cs = mhql\must-functions\equal.cs
+		mhql\must-functions\lower.cs = mhql\must-functions\lower.cs
+		mhql\must-functions\notcontains.cs = mhql\must-functions\notcontains.cs
+		mhql\must-functions\notequal.cs = mhql\must-functions\notequal.cs
+		mhql\must-functions\startw.cs = mhql\must-functions\startw.cs
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fsharpmhql.fsproj", "{F19A9F6D-5CE4-446C-9A70-6094A0056241}"

@@ -161,33 +161,33 @@
     </Compile>
   </ItemGroup>
 
-  <!-- .\functions -->
+  <!-- .\must-functions -->
   <ItemGroup>
-    <Compile Include="..\mhql\functions\between.cs">
+    <Compile Include="..\mhql\must-functions\between.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\bigger.cs">
+    <Compile Include="..\mhql\must-functions\bigger.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\lower.cs">
+    <Compile Include="..\mhql\must-functions\lower.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\equal.cs">
+    <Compile Include="..\mhql\must-functions\equal.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\startw.cs">
+    <Compile Include="..\mhql\must-functions\startw.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\endw.cs">
+    <Compile Include="..\mhql\must-functions\endw.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\notequal.cs">
+    <Compile Include="..\mhql\must-functions\notequal.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\contains.cs">
+    <Compile Include="..\mhql\must-functions\contains.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\functions\notcontains.cs">
+    <Compile Include="..\mhql\must-functions\notcontains.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>

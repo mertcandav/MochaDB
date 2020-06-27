@@ -2,9 +2,9 @@ using MochaDB.Mhql;
 
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL LOWER function.
+    /// MHQL CONTAINS function of MUST.
     /// </summary>
-    internal class MhqlFunc_LOWER {
+    internal class MhqlMustFunc_CONTAINS {
         /// <summary>
         /// Pass command?
         /// </summary>
@@ -15,18 +15,11 @@ namespace MochaDB.mhql.functions {
         public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
             var parts = command.Split(',');
             if(parts.Length != 2)
-                throw new MochaException("The LOWER function can only take 2 parameters!");
+                throw new MochaException("The CONTAINS function can only take 2 parameters!");
 
             int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
-            decimal
-                range,
-                value;
 
-            if(!decimal.TryParse(parts[1].Trim(),out range) ||
-                !decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-                throw new MochaException("The parameter of the LOWER command was not a number!");
-
-            return value <= range;
+            return row.Datas[dex].Data.ToString().Contains(parts[1]);
         }
     }
 }

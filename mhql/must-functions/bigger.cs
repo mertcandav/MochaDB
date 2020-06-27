@@ -2,9 +2,9 @@ using MochaDB.Mhql;
 
 namespace MochaDB.mhql.functions {
     /// <summary>
-    /// MHQL BIGGER function.
+    /// MHQL BIGGER function of MUST.
     /// </summary>
-    internal class MhqlFunc_BIGGER {
+    internal class MhqlMustFunc_BIGGER {
         /// <summary>
         /// Pass command?
         /// </summary>

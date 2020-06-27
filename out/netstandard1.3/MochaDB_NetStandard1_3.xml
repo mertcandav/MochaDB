@@ -5885,26 +5885,12 @@
             <param name="table">Table to subrowing.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_BETWEEN">
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_BETWEEN">
             <summary>
-            MHQL BETWEEN function.
+            MHQL BETWEEN function of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_BETWEEN.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Pass command?
-            </summary>
-            <param name="command">Command.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_BIGGER">
-            <summary>
-            MHQL BIGGER function.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_BIGGER.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_BETWEEN.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
@@ -5913,26 +5899,12 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_LOWER">
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_BIGGER">
             <summary>
-            MHQL LOWER function.
+            MHQL BIGGER function of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_LOWER.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Pass command?
-            </summary>
-            <param name="command">Command.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_EQUAL">
-            <summary>
-            MHQL EQUAL function.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_EQUAL.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_BIGGER.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
@@ -5941,26 +5913,12 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_STARTW">
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_LOWER">
             <summary>
-            MHQL STARTW function.
+            MHQL LOWER function of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_STARTW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Pass command?
-            </summary>
-            <param name="command">Command.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_ENDW">
-            <summary>
-            MHQL ENDW function.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_ENDW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_LOWER.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
@@ -5969,26 +5927,12 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_NOTEQUAL">
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_EQUAL">
             <summary>
-            MHQL NOTEQUAL function.
+            MHQL EQUAL function of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTEQUAL.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Pass command?
-            </summary>
-            <param name="command">Command.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_CONTAINS">
-            <summary>
-            MHQL CONTAINS function.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_CONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_EQUAL.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
@@ -5997,12 +5941,68 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.functions.MhqlFunc_NOTCONTAINS">
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_STARTW">
             <summary>
-            MHQL NOTCONTAINS function.
+            MHQL STARTW function of MUST.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.functions.MhqlFunc_NOTCONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_STARTW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_ENDW">
+            <summary>
+            MHQL ENDW function of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_ENDW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_NOTEQUAL">
+            <summary>
+            MHQL NOTEQUAL function of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_NOTEQUAL.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_CONTAINS">
+            <summary>
+            MHQL CONTAINS function of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_CONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_NOTCONTAINS">
+            <summary>
+            MHQL NOTCONTAINS function of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_NOTCONTAINS.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Pass command?
             </summary>
