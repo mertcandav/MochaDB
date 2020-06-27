@@ -106,7 +106,7 @@ MUST
         Name(^(M|m|N|n).*) AND
       Salary != "5000"
         AND
-          $STARTW(Surname,"M")
+          $STARTW(Surname,M)
 END
 
 ORDERBY
