@@ -6025,6 +6025,20 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="T:MochaDB.mhql.functions.MhqlMustFunc_NOTENDW">
+            <summary>
+            MHQL NOTENDW function of MUST.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.functions.MhqlMustFunc_NOTENDW.Pass(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Pass command?
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_AND">
             <summary>
             MHQL AND keyword.

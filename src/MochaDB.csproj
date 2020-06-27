@@ -193,6 +193,9 @@
     <Compile Include="..\mhql\must-functions\notstartw.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\must-functions\notendw.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
   
   <!-- .\must -->

@@ -80,7 +80,8 @@ namespace MochaDB.mhql {
                 "ENDW",
                 "CONTAINS",
                 "NOTCONTAINS",
-                "NOTSTARTW"
+                "NOTSTARTW",
+                "NOTENDW"
             };
 
         /// <summary>

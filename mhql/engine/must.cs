@@ -94,6 +94,8 @@ namespace MochaDB.mhql.engine {
                 return MhqlMustFunc_NOTCONTAINS.Pass(command.Substring(13,command.Length-14),table,row,from);
             } else if(command.StartsWith("$NOTSTARTW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
                 return MhqlMustFunc_NOTSTARTW.Pass(command.Substring(11,command.Length-12),table,row,from);
+            } else if(command.StartsWith("$NOTENDW(",StringComparison.OrdinalIgnoreCase) && command.LastChar() == ')') {
+                return MhqlMustFunc_NOTENDW.Pass(command.Substring(9,command.Length-10),table,row,from);
             } else
                 throw new MochaException($"'{command}' is cannot processed!");
         }
