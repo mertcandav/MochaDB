@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql {
@@ -20,8 +21,14 @@ namespace MochaDB.mhql {
         /// Returns index of FROM keyword.
         /// </summary>
         /// <param name="command">Command.</param>
-        public static int GetIndex(ref string command) =>
-            command.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
+        public static int GetIndex(ref string command) {
+            string result = new Regex(@"\s").Replace(command," ");
+            int dex;
+            if((dex = result.LastIndexOf(" FROM FROM ",StringComparison.OrdinalIgnoreCase)) == -1) {
+                return result.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
+            }
+            return dex;
+        }
 
         /// <summary>
         /// Returns subrow command.
