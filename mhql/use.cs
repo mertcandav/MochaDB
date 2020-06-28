@@ -36,7 +36,7 @@ namespace MochaDB.mhql {
             if(usedex==-1)
                 throw new MochaException("USE command is cannot processed!");
             string val = new Regex("USE",RegexOptions.IgnoreCase).Replace(Command,"   ");
-            int finaldex = MochaDbCommand.mainkeywordRegex.Match(val,usedex+3).Index;
+            int finaldex = Mhql_GRAMMAR.MainRegex.Match(val,usedex+3).Index;
             if(finaldex==0)
                 throw new MochaException("USE command is cannot processed!");
             var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));

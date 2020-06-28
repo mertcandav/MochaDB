@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using MochaDB.mhql;
 
 namespace MochaDB.Mhql {
     /// <summary>
@@ -10,14 +11,14 @@ namespace MochaDB.Mhql {
         /// </summary>
         /// <param name="value">Value to check.</param>
         public static bool IsObject(string value) =>
-            MochaDbCommand.fullRegex.IsMatch(value);
+            Mhql_GRAMMAR.FullRegex.IsMatch(value);
 
         /// <summary>
         /// Replace Mhql keywords and functions to upper case.
         /// </summary>
         /// <param name="value">The value to targeting.</param>
         public static void UpperCaseObjects(ref string value) {
-            var matches = MochaDbCommand.fullRegex.Matches(value);
+            var matches = Mhql_GRAMMAR.FullRegex.Matches(value);
 
             var valueSB = new StringBuilder(value);
             for(int index = 0; index < matches.Count; index++) {
@@ -44,7 +45,7 @@ namespace MochaDB.Mhql {
         /// </summary>
         /// <param name="value">The value to targeting.</param>
         public static void LowerCaseObjects(ref string value) {
-            var matches = MochaDbCommand.fullRegex.Matches(value);
+            var matches = Mhql_GRAMMAR.FullRegex.Matches(value);
 
             var valueSB = new StringBuilder(value);
             for(int index = 0; index < matches.Count; index++) {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 
@@ -95,6 +96,21 @@ namespace MochaDB.mhql {
                 { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" },
                 { "AVG(\\s*)\\((\\s*).*(\\s*)\\)", "AVG" }
             };
+
+        /// <summary>
+        /// All words.
+        /// </summary>
+        public static Regex FullRegex => new Regex(
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|END|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
+SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW|\$NOTSTARTW|\$NOTENDW)\b",
+RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+
+        /// <summary>
+        /// Main keywrods.
+        /// </summary>
+        public static Regex MainRegex => new Regex(
+@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW)\b",
+    RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         #endregion
     }

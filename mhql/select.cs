@@ -31,7 +31,7 @@ namespace MochaDB.mhql {
             int usedex = Command.IndexOf("SELECT",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
                 throw new MochaException("SELECT command is cannot processed!");
-            int finaldex = MochaDbCommand.mainkeywordRegex.Match(Command,usedex+6).Index;
+            int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+6).Index;
             if(finaldex==0)
                 throw new MochaException("SELECT command is cannot processed!");
             var usecommand = Command.Substring(usedex+6,finaldex-(usedex+6)).Trim();

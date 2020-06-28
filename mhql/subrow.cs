@@ -37,7 +37,7 @@ namespace MochaDB.mhql {
             int groupbydex = command.IndexOf("SUBROW",StringComparison.OrdinalIgnoreCase);
             if(groupbydex==-1)
                 throw new MochaException("SUBROW command is cannot processed!");
-            var match = MochaDbCommand.mainkeywordRegex.Match(command,groupbydex+7);
+            var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
             int finaldex = match.Index;
             if(finaldex==0)
                 throw new MochaException("SUBROW command is cannot processed!");

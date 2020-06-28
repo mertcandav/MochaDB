@@ -40,7 +40,7 @@ namespace MochaDB.mhql {
             int orderbydex = command.IndexOf("ORDERBY",StringComparison.OrdinalIgnoreCase);
             if(orderbydex==-1)
                 throw new MochaException("ORDERBY command is cannot processed!");
-            var match = MochaDbCommand.mainkeywordRegex.Match(command,orderbydex+7);
+            var match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
             int finaldex = match.Index;
             if(finaldex==0)
                 throw new MochaException("ORDERBY command is cannot processed!");

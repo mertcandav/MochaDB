@@ -5853,6 +5853,16 @@
             Functions of use.
             </summary>
         </member>
+        <member name="P:MochaDB.mhql.Mhql_GRAMMAR.FullRegex">
+            <summary>
+            All words.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_GRAMMAR.MainRegex">
+            <summary>
+            Main keywrods.
+            </summary>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_SUBROW">
             <summary>
             MHQL SUBROW keyword.
