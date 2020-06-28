@@ -1,6 +1,5 @@
 using System;
 using System.Text.RegularExpressions;
-using MochaDB.Mhql;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql {
