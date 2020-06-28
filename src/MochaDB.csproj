@@ -12,51 +12,53 @@
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.4.5</Version>
+    <Version>3.4.6</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>MochaDB_Logo.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>+ Performance improvements.
-+ Optimizations.
-+ MochaDatabase ConnectionState property rename to State.
-+ The obligation to write the tags one after the other was removed on MHQL.
-+ Fix column Attributes null bug.
-+ Fix sector Attributes null bug.
-+ Fix stack Attributes null bug.
-+ Fix mhql and keyword bug.
-+ Fix not saving the deleted row.
-+ Fix the error of adding rows as many as the number of columns when adding rows.
-+ Fix MHQL AS keyword column name bug.
-+ Fix MHQL column name bug with FROM keyword.
-+ Fix value type check system wrong check bug.
-+ Fix the indistinguishable from AND or keyword AND, which has condition content in MHQL code.
-+ Fix the indistinguishable from MUST or keyword MUST, which has condition content in MHQL code.
-+ Fix row remove bug.
-+ Fix attribute engine and improvements.
-+ Fix MHQL multiline comment pattern.
-+ Fix the gaps to the error at the start of the MHQL.
-+ Add singleline comments to MHQL.
-+ Add END keyword to MHQL.
-+ Add ClearRows function to MochaDatabase.
-+ Add ClearRows:TableName command to MochaQ.
-+ Add ExecuteScalarTable functions to MochaDbCommand.
-+ Add ExecuteScalarTable extension function to MochaDatabase with Querying namespace.
-+ Add all data types support to MHQL EQUAL function.
-+ Add all data types support to MHQL NOTEQUAL function.
-+ Add NOTEQUAL function to MHQL.
-+ Add IsEmpty function to MochaTable.
-+ Add IsEmpty function to MochaTableResult.
-+ Add UpdateFirstData function to MochaDatabase.
-+ Add UpdateLastData function to MochaDatabase.
-+ Add "*" pattern to only USE keyword use type.
-+ Add casting support for string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime to MochaData.
-+ Add ToMochaData function to MochaConvert.
-+ Add ToMochaData extension function to string, char, int, long, short, uint, ulong, ushort, byte, sbyte, float, decimal, double, bool and DateTime.
-+ Add object params support constructor to MochaRow.
-+ Add object params support constructor to MochaRowCollection.
-+ Add object params support to AddRow fucntion of MochaDatabase.
-+ Add Parse static function to MochaData.
-+ Add TryParse static function to MochaData.</PackageReleaseNotes>
+    <PackageReleaseNotes>+ Optimizations.
++ Remove "FileSystem"
++ Remove "END" and "RETURN" keyword from MHQL.
++ Remove keyword limitation of MHQL.
++ MHQL error messages were detailed.
++ Change file extension to ".mhdb".
++ Change script file extension to ".mhsc".
++ Change "GetElements" function return type.
++ Change end of "MhqlFormatter" functions to "Object(s)".
++ Change "GROUPBY" algorithm of MHQL.
++ Change "USE" keyword table order of sector mode on mhql.
++ The "AS" keyword does not have to follow naming conventions.
++ The requirement for all the keyword "RETURN" to be capitalized was removed.
++ The requirement for all the keyword "REMOVE" to be capitalized was removed.
++ Fix "AutoInt" data type empty bug on row add.
++ Fix MochaScript builder.
++ Fix string parsing bug on MHQL engine.
++ Fix not doing type checking in internal updates.
++ Fix "MhqlFormatter".
++ Fix column name error when using "AS" key word on MHQL.
++ Fix "USE" keyword not containing lines in SECTOR mode on MHQL.
++ Fix "MUST", "FROM", "USE" and "ORDERBY" algorithm of mhql.
++ Add multi column support to "ORDERBY" keyword of MHQL.
++ Add "SUBROW" keyword to MHQL.
++ Add "IsNumericType" static function to "MochaData".
++ Add "$" mark to MHQL(Only table mode).
++ Add "Root" element support to "MochaPath".
++ Add Tag and "MHQLAsText" property to "MochaColumn".
++ Add "Bit" data type.
++ Add "COUNT()", "SUM()", "MAX()", "MIN()" and "AVG()" function to USE keyword on MHQL.
++ Add column name support with "FROM" keyword to "ORDERBY" and "GROUPBY" keyword of MHQL.
++ Add column name support with "FROM" keyword to "BETWEEN", "BIGGER", "LOWER", "EQUAL", "NOTEQUAL", "STARTW", "ENDW", "CONTAINS" and "NOTCONTAINS" functions of MHQL.
++ Add "ReadColumnAttributes" extension function to "MochaDatabase" with "MochaDB.Querying" namespace.
++ Add "IMochaHashEncryptor" interface to "MochaDB.Cryptograhpy".
++ Add "MD5" class to "MochaDB.Cryptograhpy".
++ Add control for invalid names.
++ Add index support to MHQL for all numerical digits.
++ Add "Root", "Sectors", "Stacks", "Tables" and "Logs" static property to "MochaPath".
++ Add "ToXmlTable" function to "MochaConvert" for "MochaTable" and "MochaTableResult".
++ Add column name support with "FROM" keyword in MHQL conditions.
++ Add "CONTAINS", "NOTCONTAINS", "NOTSTARTW" and "NOTENDW" must functions to MHQL.
++ Add "EQUAL" and "NOTEQUAL" operator to MHQL.
++ Add "CHAR" and "STRING" value to MHQL.</PackageReleaseNotes>
     <PackageTags>database,embedded,nosql,nosqldatabase,datastorage</PackageTags>
     <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
     <RepositoryType>Public</RepositoryType>
