@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using MochaDB.mhql;
 
 namespace MochaDB.engine {
     /// <summary>
@@ -11,7 +12,7 @@ namespace MochaDB.engine {
         public static bool Check(string value) {
             var pattern = new Regex(
 "^()$|.*( |\\n|\\r|\\$|#|\\-|<|>|\\?|\\*|\\\\|\\{|\\}|\\[|\\]|\\(|\\)|\\&|`|´|=|%|\\+|'|\"|\\^|!|/|\\.|;|¨|~|:|₺|€|\\||£).*");
-            return !pattern.IsMatch(value);
+            return !pattern.IsMatch(value) && !Mhql_GRAMMAR.FullRegex.IsMatch(value);
         }
 
         /// <summary>

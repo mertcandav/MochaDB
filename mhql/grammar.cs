@@ -101,7 +101,7 @@ namespace MochaDB.mhql {
         /// All words.
         /// </summary>
         public static Regex FullRegex => new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|END|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
+@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
 SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW|\$NOTSTARTW|\$NOTENDW)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 

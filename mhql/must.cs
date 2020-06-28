@@ -38,20 +38,20 @@ namespace MochaDB.mhql {
         /// <param name="command">MHQL Command.</param>
         /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
-            var pattern = new Regex("END",
+            string mainpattern = Mhql_GRAMMAR.MainRegex.ToString().Substring(2);
+            mainpattern = mainpattern.Substring(0,mainpattern.Length-2);
+            var pattern = new Regex($@"\s+{mainpattern}(\s+.*|$)",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-            var value = new StringBuilder();
             var count = 0;
             var function = false;
             command = command.Substring(4);
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
-                if(!function && count == 0 && (currentChar == 'E' || currentChar == 'e')) {
-                    if(command.Length - 1 - index >= 3) {
-                        if(pattern.IsMatch(command.Substring(index,3))) {
-                            final = command.Substring(index+3).Trim();
-                            return value.ToString().Trim();
-                        }
+                if(!function && count == 0) {
+                    Match match = pattern.Match(command.Substring(index));
+                    if(match.Success) {
+                        final = command.Substring(match.Index).Trim();
+                        return command.Substring(0,match.Index).Trim();
                     }
                 } else if(currentChar == '(')
                     count++;
@@ -61,11 +61,9 @@ namespace MochaDB.mhql {
                     function = false;
                     count--;
                 }
-
-                value.Append(currentChar);
             }
             final = command;
-            return value.ToString().Trim();
+            return "";
         }
 
         /// <summary>
