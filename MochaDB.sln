@@ -159,6 +159,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B0B73D5E
 		tests\testscript.mhsc = tests\testscript.mhsc
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B53F1AD2-35F1-4A8D-A3F3-3EB19189FBF8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		azure-pipelines.yml = azure-pipelines.yml
+		CHANGELOG.md = CHANGELOG.md
+		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
+		Compile_fsharpmhql.ps1 = Compile_fsharpmhql.ps1
+		Compile_fsharpmhql.sh = Compile_fsharpmhql.sh
+		Compile_fsharptest.bat = Compile_fsharptest.bat
+		Compile_fsharptest.ps1 = Compile_fsharptest.ps1
+		Compile_fsharptest.sh = Compile_fsharptest.sh
+		Compile_MochaDB.bat = Compile_MochaDB.bat
+		Compile_MochaDB.ps1 = Compile_MochaDB.ps1
+		Compile_MochaDB.sh = Compile_MochaDB.sh
+		Compile_Solution.bat = Compile_Solution.bat
+		Compile_Solution.ps1 = Compile_Solution.ps1
+		Compile_Solution.sh = Compile_Solution.sh
+		Compile_vbnetmhql.bat = Compile_vbnetmhql.bat
+		Compile_vbnetmhql.ps1 = Compile_vbnetmhql.ps1
+		Compile_vbnetmhql.sh = Compile_vbnetmhql.sh
+		Exec_All.bat = Exec_All.bat
+		Exec_All.ps1 = Exec_All.ps1
+		Exec_All.sh = Exec_All.sh
+		LICENSE = LICENSE
+		Make.bat = Make.bat
+		Make.ps1 = Make.ps1
+		Make.sh = Make.sh
+		Makefile = Makefile
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
