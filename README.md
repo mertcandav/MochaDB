@@ -126,21 +126,27 @@ using System.Windows.Forms;
 using MochaDB;
 using MochaDB.Querying;
 
-namespace ExampleUse {
-    public partial class LoginForm:Form {
-        public LoginForm() {
+namespace ExampleUse
+{
+    public partial class LoginForm:Form
+    {
+        public LoginForm()
+        {
             InitializeComponent();
         }
 
         MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
-        private void loginButton_Click(object sender,EventArgs e) {
+        private void loginButton_Click(object sender,EventArgs e)
+        {
             string username = usernameTextBox.Text.Trim(),
                    password = passwordTextBox.Text;
-            if(username == string.Empty) {
+            if(username == string.Empty)
+            {
                 MessageBox.Show("Please type your username!");
                 return;
             }
-            if(password == string.Empty) {
+            if(password == string.Empty)
+            {
                 MessageBox.Show("Please type your password!");
                 return;
             }
@@ -154,7 +160,8 @@ namespace ExampleUse {
               END
               RETURN");
             database.Disconnect();
-            if(result.IsEmpty()) {
+            if(result.IsEmpty())
+            {
                 MessageBox.Show("Username or password is wrong!");
                 return;
             }
