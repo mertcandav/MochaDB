@@ -1,6 +1,51 @@
 CHANGELOGS of MochaDB.
 
-# rlsv 3.4.5 [ 18 May 2020 ]
+# rlsv3.4.6 [ 28 June 2020 ]
++ Optimizations.
++ Remove ``FileSystem``
++ Remove ``END`` and ``RETURN`` keyword from MHQL.
++ Remove keyword limitation of MHQL.
++ MHQL error messages were detailed.
++ Change file extension to ``.mhdb``.
++ Change script file extension to ``.mhsc``.
++ Change ``GetElements`` function return type.
++ Change end of ``MhqlFormatter`` functions to "Object(s)".
++ Change ``GROUPBY`` algorithm of MHQL.
++ Change ``USE`` keyword table order of sector mode on mhql.
++ The ``AS`` keyword does not have to follow naming conventions.
++ The requirement for all the keyword ``RETURN`` to be capitalized was removed.
++ The requirement for all the keyword ``REMOVE`` to be capitalized was removed.
++ Fix ``AutoInt`` data type empty bug on row add.
++ Fix MochaScript builder.
++ Fix string parsing bug on MHQL engine.
++ Fix not doing type checking in internal updates.
++ Fix ``MhqlFormatter``.
++ Fix column name error when using ``AS`` key word on MHQL.
++ Fix ``USE`` keyword not containing lines in SECTOR mode on MHQL.
++ Fix ``MUST``, ``FROM``, ``USE`` and ``ORDERBY`` algorithm of mhql.
++ Add multi column support to ``ORDERBY`` keyword of MHQL.
++ Add ``SUBROW`` keyword to MHQL.
++ Add ``IsNumericType`` static function to ``MochaData``.
++ Add ``$`` mark to MHQL(Only table mode).
++ Add ``Root`` element support to ``MochaPath``.
++ Add Tag and ``MHQLAsText`` property to ``MochaColumn``.
++ Add ``Bit`` data type.
++ Add ``COUNT()``, ``SUM()``, ``MAX()``, ``MIN()`` and ``AVG()`` function to USE keyword on MHQL.
++ Add column name support with ``FROM`` keyword to ``ORDERBY`` and ``GROUPBY`` keyword of MHQL.
++ Add column name support with ``FROM`` keyword to ``BETWEEN``, ``BIGGER``, ``LOWER``, ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of MHQL.
++ Add ``ReadColumnAttributes`` extension function to ``MochaDatabase`` with ``MochaDB.Querying`` namespace.
++ Add ``IMochaHashEncryptor`` interface to ``MochaDB.Cryptograhpy``.
++ Add ``MD5`` class to ``MochaDB.Cryptograhpy``.
++ Add control for invalid names.
++ Add index support to MHQL for all numerical digits.
++ Add ``Root``, ``Sectors``, ``Stacks``, ``Tables`` and ``Logs`` static property to ``MochaPath``.
++ Add ``ToXmlTable`` function to ``MochaConvert`` for ``MochaTable`` and ``MochaTableResult``.
++ Add column name support with ``FROM`` keyword in MHQL conditions.
++ Add ``CONTAINS``, ``NOTCONTAINS``, ``NOTSTARTW`` and ``NOTENDW`` must functions to MHQL.
++ Add ``EQUAL`` and ``NOTEQUAL`` operator to MHQL.
++ Add ``CHAR`` and ``STRING`` value to MHQL.
+
+# rlsv3.4.5 [ 18 May 2020 ]
 
 + Performance improvements.
 + Optimizations.
@@ -44,7 +89,7 @@ CHANGELOGS of MochaDB.
 + Add Parse static function to MochaData.
 + Add TryParse static function to MochaData.
 
-# rlsv 3.4.4 [ 11 April 2020 ]
+# rlsv3.4.4 [ 11 April 2020 ]
 
 + Performance optimizations
 + Fix Mhql RETURN keyword fix "'RETURN' command is cannot processed!" error with used SELECT keyword
