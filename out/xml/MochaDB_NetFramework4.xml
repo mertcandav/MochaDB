@@ -552,6 +552,19 @@
             </summary>
             <param name="command">Mhql command.</param>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible(System.String)" -->
+        <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible(System.String)">
+            <summary>
+            Returns true if command ise reader compatible command, returns false if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.Mhql.MhqlCommand.IsScalarCompatible(System.String)">
+            <summary>
+            Returns true if command ise scalar compatible command, returns false if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
         <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible" -->
         <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible">
             <summary>
@@ -5593,22 +5606,6 @@
             </summary>
             <param name="usecommand">Use command.</param>
         </member>
-        <member name="T:MochaDB.mhql.Mhql_RETURN">
-            <summary>
-            MHQL RETURN keyword.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.Mhql_RETURN.#ctor(MochaDB.MochaDatabase)">
-            <summary>
-            Create a new Mhql_RETURN.
-            </summary>
-            <param name="db">Target database.</param>
-        </member>
-        <member name="M:MochaDB.mhql.Mhql_RETURN.IsReturnableCmd">
-            <summary>
-            Returns true if command is returnable, return false if not.
-            </summary>
-        </member>
         <member name="T:MochaDB.mhql.IMhqlKeyword">
             <summary>
             Interface for Mhql keywords.
@@ -5851,6 +5848,11 @@
         <member name="P:MochaDB.mhql.Mhql_GRAMMAR.UseFunctions">
             <summary>
             Functions of use.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_GRAMMAR.MainKeywords">
+            <summary>
+            Main keywords.
             </summary>
         </member>
         <member name="P:MochaDB.mhql.Mhql_GRAMMAR.FullRegex">

@@ -123,9 +123,6 @@
     <Compile Include="..\mhql\use.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\return.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\IMhqlKeyword.cs">
       <Visible>False</Visible>
     </Compile>

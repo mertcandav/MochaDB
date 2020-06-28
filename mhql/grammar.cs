@@ -98,18 +98,24 @@ namespace MochaDB.mhql {
             };
 
         /// <summary>
+        /// Main keywords.
+        /// </summary>
+        public static string MainKeywords =>
+            "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW";
+
+        /// <summary>
         /// All words.
         /// </summary>
         public static Regex FullRegex => new Regex(
-@"\b(USE|RETURN|ORDERBY|ASC|DESC|MUST|AND|GROUPBY|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
-SELECT|REMOVE|\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|SUBROW|\$NOTSTARTW|\$NOTENDW)\b",
+$@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
+\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Main keywrods.
         /// </summary>
         public static Regex MainRegex => new Regex(
-@"\b(USE|RETURN|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW)\b",
+$@"\b({MainKeywords})\b|\s*$",
     RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         #endregion

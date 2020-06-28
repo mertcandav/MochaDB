@@ -35,13 +35,16 @@ namespace MochaDB.mhql {
             int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
             if(usedex==-1)
                 throw new MochaException("USE command is cannot processed!");
-            string val = new Regex("USE",RegexOptions.IgnoreCase).Replace(Command,"   ");
-            int finaldex = Mhql_GRAMMAR.MainRegex.Match(val,usedex+3).Index;
-            if(finaldex==0)
-                throw new MochaException("USE command is cannot processed!");
-            var usecommand = Command.Substring(usedex+3,finaldex-(usedex+3));
+            int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+3).Index;
+            var usecommand =
+                finaldex == 0 ?
+                    Command.Substring(usedex+3) :
+                    Command.Substring(usedex+3,finaldex-(usedex+3));
 
-            final = Command.Substring(finaldex);
+            final =
+                finaldex == 0 ?
+                string.Empty :
+                Command.Substring(finaldex);
             return usecommand;
         }
 

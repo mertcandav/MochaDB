@@ -35,20 +35,48 @@ namespace MochaDB.Mhql {
 
         #endregion
 
+        #region Static
+
+        /// <summary>
+        /// Returns true if command ise execute compatible command, returns false if not.
+        /// </summary
+        /// <param name="command">Command to check.</param>
+        public static bool IsExecuteCompatible(string command) {
+            return command.TrimEnd().EndsWith("REMOVE",StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Returns true if command ise reader compatible command, returns false if not.
+        /// </summary>
+        /// <param name="command">Command to check.</param>
+        public static bool IsReaderCompatible(string command) {
+            return !IsExecuteCompatible(command);
+        }
+
+        /// <summary>
+        /// Returns true if command ise scalar compatible command, returns false if not.
+        /// </summary>
+        /// <param name="command">Command to check.</param>
+        public static bool IsScalarCompatible(string command) {
+            return IsReaderCompatible(command);
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
         /// Returns true if command ise execute compatible command, returns false if not.
         /// </summary
         public bool IsExecuteCompatible() {
-            return !Command.TrimEnd().EndsWith("RETURN",StringComparison.OrdinalIgnoreCase);
+            return IsExecuteCompatible(Command);
         }
 
         /// <summary>
         /// Returns true if command ise reader compatible command, returns false if not.
         /// </summary>
         public bool IsReaderCompatible() {
-            return Command.TrimEnd().EndsWith("RETURN",StringComparison.OrdinalIgnoreCase);
+            return !IsExecuteCompatible();
         }
 
         /// <summary>

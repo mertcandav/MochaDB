@@ -20,7 +20,6 @@ namespace MochaDB.Mhql {
 
         internal Mhql_USE USE;
         internal Mhql_SELECT SELECT;
-        internal Mhql_RETURN RETURN;
         internal Mhql_REMOVE REMOVE;
         internal Mhql_ORDERBY ORDERBY;
         internal Mhql_MUST MUST;
@@ -39,13 +38,12 @@ namespace MochaDB.Mhql {
             //Load mhql core.
             USE = new Mhql_USE(Database);
             SELECT = new Mhql_SELECT(Database);
-            RETURN = new Mhql_RETURN(Database);
             ORDERBY = new Mhql_ORDERBY(Database);
             GROUPBY = new Mhql_GROUPBY(Database);
             MUST = new Mhql_MUST(Database);
             REMOVE = new Mhql_REMOVE(Database);
             SUBROW = new Mhql_SUBROW(Database);
-            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,RETURN,ORDERBY,GROUPBY,MUST,SUBROW);
+            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW);
 
             Database=db;
             Command=string.Empty;
@@ -93,7 +91,7 @@ namespace MochaDB.Mhql {
         /// </summary>
         public void ExecuteCommand() {
             CheckConnection();
-            if(RETURN.IsReturnableCmd())
+            if(!MhqlCommand.IsExecuteCompatible(Command))
                 return;
 
             string lastcommand;
@@ -222,8 +220,9 @@ namespace MochaDB.Mhql {
         public MochaReader<object> ExecuteReader() {
             CheckConnection();
             var reader = new MochaReader<object>();
-            if(!RETURN.IsReturnableCmd())
+            if(MhqlCommand.IsExecuteCompatible(Command))
                 return reader;
+
             bool
                 fromkw,
                 orderby = false,
@@ -257,7 +256,6 @@ namespace MochaDB.Mhql {
                     sectorTag ?
                         true :
                         fromkw;
-
                 do {
                     //Orderby.
                     if(ORDERBY.IsORDERBY(lastcommand)) {
@@ -285,7 +283,7 @@ namespace MochaDB.Mhql {
                         SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
                     }
                     //Return.
-                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase)) {
+                    else if(lastcommand == string.Empty) {
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
                         if(cols.Count() != table.Columns.Length) {
                             table.Columns = cols.ToArray();
@@ -354,7 +352,7 @@ namespace MochaDB.Mhql {
                         throw new MochaException("MUST keyword is canot used with SELECT keyword!");
                     }
                     //Return.
-                    else if(lastcommand.Equals("RETURN",StringComparison.OrdinalIgnoreCase))
+                    else if(lastcommand == string.Empty)
                         break;
                     else
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");

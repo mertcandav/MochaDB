@@ -38,9 +38,7 @@ namespace MochaDB.mhql {
         /// <param name="command">MHQL Command.</param>
         /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
-            string mainpattern = Mhql_GRAMMAR.MainRegex.ToString().Substring(2);
-            mainpattern = mainpattern.Substring(0,mainpattern.Length-2);
-            var pattern = new Regex($@"\s+{mainpattern}(\s+.*|$)",
+            var pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
             var count = 0;
             var function = false;
@@ -62,8 +60,8 @@ namespace MochaDB.mhql {
                     count--;
                 }
             }
-            final = command;
-            return "";
+            final = string.Empty;
+            return command;
         }
 
         /// <summary>
