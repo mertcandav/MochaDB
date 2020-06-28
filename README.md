@@ -113,7 +113,6 @@ ORDERBY
 GROUPBY
     Name
   SUBROW 1000
-RETURN
 ```
 
 <br>
@@ -155,9 +154,7 @@ namespace ExampleUse
               FROM Persons
               MUST
                 Username == ""{username}"" AND
-                Password == ""{password}""
-              END
-              RETURN");
+                Password == ""{password}""");
             database.Disconnect();
             if(result.IsEmpty())
             {
