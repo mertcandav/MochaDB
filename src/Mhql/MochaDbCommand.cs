@@ -222,12 +222,9 @@ namespace MochaDB.Mhql {
             if(MhqlCommand.IsExecuteCompatible(Command))
                 return reader;
 
-            bool
-                fromkw,
-                orderby = false,
-                groupby = false;
-
+            bool fromkw;
             string lastcommand;
+
             var tags = Mhql_AT.GetATS(Command,out lastcommand);
             if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
                 if(tags.Length > 1)
@@ -258,23 +255,14 @@ namespace MochaDB.Mhql {
                 do {
                     //Orderby.
                     if(ORDERBY.IsORDERBY(lastcommand)) {
-                        orderby=true;
-                        if(groupby)
-                            throw new MochaException("GROUPBY keyword must be specified before ORDERBY!");
                         ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Groupby.
                     else if(GROUPBY.IsGROUPBY(lastcommand)) {
-                        groupby=true;
                         GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Must.
                     else if(MUST.IsMUST(lastcommand)) {
-                        if(orderby)
-                            throw new MochaException("MUST keyword must be specified before ORDERBY!");
-                        else if(groupby)
-                            throw new MochaException("MUST keyword must be specified before GROUPBY!");
-
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
                     }
                     //Subrow.
