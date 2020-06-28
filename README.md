@@ -107,7 +107,6 @@ MUST
       Salary != "5000"
         AND
           $STARTW(Surname,M)
-END
 
 ORDERBY
     Name ASC, Salary DESC
