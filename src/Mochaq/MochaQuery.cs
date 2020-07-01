@@ -349,10 +349,7 @@ namespace MochaDB.Mochaq {
                     return;
                 } else if(queryPaths[0] == "ADDDATA") {
                     if(queryPaths[3] != "")
-                        Database.AddData(queryPaths[1],queryPaths[2],
-                            MochaData.GetDataFromString(
-                                Database.GetColumnDataType(queryPaths[1],queryPaths[2])
-                                ,queryPaths[3]));
+                        Database.AddData(queryPaths[1],queryPaths[2],queryPaths[3]);
                     else
                         Database.AddData(queryPaths[1],queryPaths[2],null);
                     return;
