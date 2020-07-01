@@ -160,13 +160,13 @@ namespace MochaDB {
         /// <summary>
         /// Return xml schema of database.
         /// </summary>
-        public MochaResult<string> GetXML() =>
+        public string GetXML() =>
             GetXMLDocument().ToString();
 
         /// <summary>
         /// Return XDocument of database.
         /// </summary>
-        public MochaResult<XDocument> GetXMLDocument() {
+        public XDocument GetXMLDocument() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             XDocument doc = XDocument.Parse(Doc.ToString());
