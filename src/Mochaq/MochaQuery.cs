@@ -348,7 +348,6 @@ namespace MochaDB.Mochaq {
                     Database.SetColumnDataType(queryPaths[1],queryPaths[2],MochaData.GetDataTypeFromName(queryPaths[3]));
                     return;
                 } else if(queryPaths[0] == "ADDDATA") {
-                    Console.WriteLine((queryPaths[3] != "") + "||'" + queryPaths[3] + "'");
                     if(queryPaths[3] != "")
                         Database.AddData(queryPaths[1],queryPaths[2],
                             MochaData.GetDataFromString(
