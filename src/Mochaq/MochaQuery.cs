@@ -279,7 +279,7 @@ namespace MochaDB.Mochaq {
                     Database.Save();
                     return;
                 } else if(queryPaths[0] == "CREATEMOCHA") {
-                    MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1]) + ".bjay",string.Empty,string.Empty);
+                    MochaDatabase.CreateMochaDB(queryPaths[1],string.Empty,string.Empty);
                     return;
                 } else
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
