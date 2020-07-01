@@ -327,7 +327,7 @@ namespace MochaDB.Mochaq {
                     Database.CreateColumn(queryPaths[1],queryPaths[2]);
                     return;
                 } else if(queryPaths[0] == "CREATEMOCHA") {
-                    MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]) + ".bjay",string.Empty,string.Empty);
+                    MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]),string.Empty,string.Empty);
                     return;
                 } else
                     throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
