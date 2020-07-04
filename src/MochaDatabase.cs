@@ -172,8 +172,7 @@ namespace MochaDB {
         public XDocument GetXMLDocument() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            XDocument doc = XDocument.Parse(Doc.ToString());
-            doc.Root.Element("Root").Remove();
+            XDocument doc = new XDocument(Doc);
             return doc;
         }
 
