@@ -388,13 +388,13 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Double)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Double)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.String)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
         <member name="M:MochaDB.Data.Types.Bit.ToString">
             <summary>
             Returns value as string.
@@ -552,7 +552,7 @@
             </summary>
             <param name="command">Mhql command.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible(System.String)" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible(System.String)" üyesi için yoksayıldı -->
         <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible(System.String)">
             <summary>
             Returns true if command ise reader compatible command, returns false if not.
@@ -565,7 +565,7 @@
             </summary>
             <param name="command">Command to check.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible" üyesi için yoksayıldı -->
         <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible">
             <summary>
             Returns true if command ise reader compatible command, returns false if not.
@@ -576,7 +576,7 @@
             Returns true if command ise scalar compatible command, returns false if not.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Mhql.MhqlCommand.ToString" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.ToString" üyesi için yoksayıldı -->
         <member name="P:MochaDB.Mhql.MhqlCommand.Command">
             <summary>
             Mhql command.
@@ -845,7 +845,7 @@
             Create and return static array from collection.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaArray`1.ToList" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaArray`1.ToList" üyesi için yoksayıldı -->
         <member name="M:MochaDB.MochaArray`1.ToReader">
             <summary>
             Returns values in MochaReader.
@@ -1105,7 +1105,7 @@
             Create and return static array from collection.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaCollection`1.ToList" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaCollection`1.ToList" üyesi için yoksayıldı -->
         <member name="M:MochaDB.MochaCollection`1.ToReader">
             <summary>
             Returns values in MochaReader.
@@ -1854,16 +1854,18 @@
             Checks the suitability and robustness of the MochaDB database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetXElement(System.String)">
+        <member name="M:MochaDB.MochaDatabase.GetXElement(System.Xml.Linq.XDocument,System.String)">
             <summary>
             Return element by path.
             </summary>
+            <param name="doc">XDocument.</param>
             <param name="path">Path of element.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsElement(System.String)">
+        <member name="M:MochaDB.MochaDatabase.ExistsElement(System.Xml.Linq.XDocument,System.String)">
             <summary>
             Checks for the presence of the element.
             </summary>
+            <param name="doc">XDocument.</param>
             <param name="path">Path of element.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.Save">
@@ -3283,7 +3285,7 @@
             Create and return static array from collection.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaReadonlyCollection`1.ToList" -->
+        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaReadonlyCollection`1.ToList" üyesi için yoksayıldı -->
         <member name="M:MochaDB.MochaReadonlyCollection`1.ToReader">
             <summary>
             Returns values in MochaReader.
@@ -3585,13 +3587,13 @@
             '>' operator.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:MochaDB.MochaScript.MochaScriptComparisonMark.Smaller" -->
+        <!-- Kötü biçimli XML yorumu "F:MochaDB.MochaScript.MochaScriptComparisonMark.Smaller" üyesi için yoksayıldı -->
         <member name="F:MochaDB.MochaScript.MochaScriptComparisonMark.EqualBigger">
             <summary>
             '>=' operator.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:MochaDB.MochaScript.MochaScriptComparisonMark.EqualSmaller" -->
+        <!-- Kötü biçimli XML yorumu "F:MochaDB.MochaScript.MochaScriptComparisonMark.EqualSmaller" üyesi için yoksayıldı -->
         <member name="F:MochaDB.MochaScript.MochaScriptComparisonMark.Undefined">
             <summary>
             Undefined operator.

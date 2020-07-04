@@ -213,7 +213,7 @@ namespace MochaDB.Mochaq {
                     return;
                 } else if(queryPaths[0] == "RESETTABLES") {
                     Database.OnChanging(this,new EventArgs());
-                    IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
+                    IEnumerable<XElement> tableRange = Database.CDoc.Root.Element("Tables").Elements();
                     for(int index = 0; index < tableRange.Count(); index++) {
                         tableRange.ElementAt(index).Elements().Remove();
                     }
@@ -275,7 +275,7 @@ namespace MochaDB.Mochaq {
                     if(!Database.ExistsTable(queryPaths[1]))
                         throw new MochaException("Table not found in this name!");
                     Database.OnChanging(this,new EventArgs());
-                    Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
+                    Database.CDoc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
                     Database.Save();
                     return;
                 } else if(queryPaths[0] == "CREATEMOCHA") {

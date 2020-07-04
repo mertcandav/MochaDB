@@ -47,8 +47,9 @@ namespace MochaDB {
             Iv = "MochaDB#$#3{2533",
             Key = "MochaDBM6YxoFsLXu33FpJdjX0R89xGF";
 
-        private FileStream sourceStream;
-        private AES aes256;
+        internal volatile XDocument CDoc = null;
+        private FileStream sourceStream = null;
+        private AES aes256 = null;
 
         #endregion
 
@@ -118,6 +119,8 @@ namespace MochaDB {
         /// </summary>
         public event EventHandler<EventArgs> Changing;
         internal void OnChanging(object sender,EventArgs e) {
+            CDoc = new XDocument(Doc);
+
             if(SuspendChangeEvents)
                 return;
 
@@ -469,18 +472,20 @@ namespace MochaDB {
         /// <summary>
         /// Return element by path.
         /// </summary>
+        /// <param name="doc">XDocument.</param>
         /// <param name="path">Path of element.</param>
-        internal XElement GetXElement(string path) {
+        internal XElement GetXElement(XDocument doc,string path) {
             OnConnectionCheckRequired(this,new EventArgs());
-            return Framework_XML.GetXElement(Doc,path);
+            return Framework_XML.GetXElement(doc,path);
         }
 
         /// <summary>
         /// Checks for the presence of the element.
         /// </summary>
+        /// <param name="doc">XDocument.</param>
         /// <param name="path">Path of element.</param>
-        internal bool ExistsElement(string path) =>
-            GetXElement(path) != null;
+        internal bool ExistsElement(XDocument doc,string path) =>
+            GetXElement(doc,path) != null;
 
         /// <summary>
         /// Save MochaDB database.
@@ -489,7 +494,7 @@ namespace MochaDB {
             if(Provider.Readonly)
                 throw new MochaException("This connection is can read only, cannot task of write!");
 
-            string content = aes256.Encrypt(Doc.ToString());
+            string content = aes256.Encrypt(CDoc.ToString());
             string password = GetPassword();
             Disconnect();
             File.WriteAllText(Provider.Path,content);
@@ -515,7 +520,7 @@ namespace MochaDB {
             xLog.Add(new XAttribute("Time",DateTime.Now));
             string content = aes256.Encrypt(Doc.ToString());
             xLog.Value=content;
-            XElement xLogs = GetXElement("Logs");
+            XElement xLogs = GetXElement(Doc,"Logs");
             IEnumerable<XElement> logElements = xLogs.Elements();
             if(logElements.Count() >= 1000)
                 logElements.Last().Remove();
@@ -535,7 +540,7 @@ namespace MochaDB {
         public string GetPassword() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            return GetXElement("Root/Password").Value;
+            return GetXElement(Doc,"Root/Password").Value;
         }
 
         /// <summary>
@@ -546,7 +551,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
             Engine_VALUES.PasswordCheckThrow(password);
-            GetXElement("Root/Password").Value = password;
+            GetXElement(CDoc,"Root/Password").Value = password;
             Save();
         }
 
@@ -556,7 +561,7 @@ namespace MochaDB {
         public string GetDescription() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            return GetXElement("Root/Description").Value;
+            return GetXElement(Doc,"Root/Description").Value;
         }
 
         /// <summary>
@@ -567,7 +572,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement("Root/Description").Value = Description;
+            GetXElement(CDoc,"Root/Description").Value = Description;
             Save();
         }
 
@@ -578,9 +583,9 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement("Sectors").RemoveNodes();
-            GetXElement("Stacks").RemoveNodes();
-            GetXElement("Tables").RemoveNodes();
+            GetXElement(CDoc,"Sectors").RemoveNodes();
+            GetXElement(CDoc,"Stacks").RemoveNodes();
+            GetXElement(CDoc,"Tables").RemoveNodes();
             Save();
         }
 
@@ -691,7 +696,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement("Sectors").RemoveNodes();
+            GetXElement(CDoc,"Sectors").RemoveNodes();
             Save();
         }
 
@@ -707,7 +712,7 @@ namespace MochaDB {
             XElement xSector = new XElement(sector.Name,sector.Data);
             xSector.Add(new XAttribute("Description",sector.Description));
             xSector.Add(new XAttribute("Attributes",string.Empty));
-            GetXElement("Sectors").Add(xSector);
+            GetXElement(CDoc,"Sectors").Add(xSector);
 
             // Attributes
             for(int index = 0; index < sector.Attributes.Count; index++)
@@ -726,7 +731,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Table not found in this name!");
 
-            var xattr = GetXElement($"Sectors/{name}").Attribute("Attributes");
+            var xattr = GetXElement(CDoc,$"Sectors/{name}").Attribute("Attributes");
             if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
                 throw new MochaException("There is already a attribute with this name!");
 
@@ -743,7 +748,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 return false;
 
-            var xtable = GetXElement($"Sectors/{name}");
+            var xtable = GetXElement(CDoc,$"Sectors/{name}");
             var code = xtable.Attribute("Attributes").Value;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
@@ -764,7 +769,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Table not found in this name!");
 
-            var xtable = GetXElement($"Sectors/{name}");
+            var xtable = GetXElement(Doc,$"Sectors/{name}");
             var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
             return attr;
         }
@@ -793,7 +798,7 @@ namespace MochaDB {
                 return false;
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Sectors/{name}").Remove();
+            GetXElement(CDoc,$"Sectors/{name}").Remove();
             Save();
             return true;
         }
@@ -817,7 +822,7 @@ namespace MochaDB {
 
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Sectors/{name}").Name=newName;
+            GetXElement(CDoc,$"Sectors/{name}").Name=newName;
             Save();
         }
 
@@ -829,7 +834,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
-            return GetXElement($"Sectors/{name}").Value;
+            return GetXElement(Doc,$"Sectors/{name}").Value;
         }
 
         /// <summary>
@@ -842,7 +847,7 @@ namespace MochaDB {
                 throw new MochaException("Sector not found in this name!");
             OnChanging(this,new EventArgs());
 
-            XElement xSector = GetXElement($"Sectors/{name}");
+            XElement xSector = GetXElement(CDoc,$"Sectors/{name}");
             if(xSector.Value==data)
                 return;
 
@@ -858,7 +863,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
-            return GetXElement($"Sectors/{name}").Attribute("Description").Value;
+            return GetXElement(Doc,$"Sectors/{name}").Attribute("Description").Value;
         }
 
         /// <summary>
@@ -871,7 +876,7 @@ namespace MochaDB {
                 throw new MochaException("Sector not found in this name!");
             OnChanging(this,new EventArgs());
 
-            XAttribute xDescription = GetXElement($"Sectors/{name}").Attribute("Description");
+            XAttribute xDescription = GetXElement(CDoc,$"Sectors/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
 
@@ -888,7 +893,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
-            XElement xSector = GetXElement($"Sectors/{name}");
+            XElement xSector = GetXElement(Doc,$"Sectors/{name}");
             MochaSector sector = new MochaSector(xSector.Name.LocalName);
             sector.Data=xSector.Value;
             sector.Description =xSector.Attribute("Description").Value;
@@ -903,7 +908,7 @@ namespace MochaDB {
         public MochaCollectionResult<MochaSector> GetSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            IEnumerable<XElement> sectorRange = GetXElement("Sectors").Elements();
+            IEnumerable<XElement> sectorRange = GetXElement(Doc,"Sectors").Elements();
             MochaArray<MochaSector> sectors = new MochaSector[sectorRange.Count()];
             for(int index = 0; index < sectors.Length; index++)
                 sectors[index] = GetSector(sectorRange.ElementAt(index).Name.LocalName);
@@ -919,7 +924,7 @@ namespace MochaDB {
             if(!ExistsSector(name))
                 throw new MochaException("Sector not found in this name!");
 
-            XElement xSector = GetXElement($"Sectors/{name}");
+            XElement xSector = GetXElement(Doc,$"Sectors/{name}");
             var attrs = Engine_ATTRIBUTES.GetAttributes(xSector.Attribute("Attributes").Value);
 
             return new MochaCollectionResult<IMochaAttribute>(attrs);
@@ -943,7 +948,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement("Stacks").RemoveNodes();
+            GetXElement(CDoc,"Stacks").RemoveNodes();
             Save();
         }
 
@@ -969,7 +974,7 @@ namespace MochaDB {
             for(int index = 0; index < stack.Attributes.Count; index++)
                 AddStackAttribute(stack.Name,stack.Attributes[index]);
 
-            GetXElement("Stacks").Add(xStack);
+            GetXElement(CDoc,"Stacks").Add(xStack);
 
             if(stack.Items.Count==0 && stack.Attributes.Count == 0)
                 Save();
@@ -984,7 +989,7 @@ namespace MochaDB {
                 return false;
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Stacks/{name}").Remove();
+            GetXElement(CDoc,$"Stacks/{name}").Remove();
             Save();
             return true;
         }
@@ -998,7 +1003,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            var xattr = GetXElement($"Stacks/{name}").Attribute("Attributes");
+            var xattr = GetXElement(CDoc,$"Stacks/{name}").Attribute("Attributes");
             if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
                 throw new MochaException("There is already a attribute with this name!");
 
@@ -1015,7 +1020,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 return false;
 
-            var xtable = GetXElement($"Stacks/{name}");
+            var xtable = GetXElement(CDoc,$"Stacks/{name}");
             var code = xtable.Attribute("Attributes").Value;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
@@ -1036,7 +1041,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            var xtable = GetXElement($"Stacks/{name}");
+            var xtable = GetXElement(Doc,$"Stacks/{name}");
             var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
             return attr;
         }
@@ -1049,7 +1054,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            return GetXElement($"Stacks/{name}").Attribute("Description").Value;
+            return GetXElement(Doc,$"Stacks/{name}").Attribute("Description").Value;
         }
 
         /// <summary>
@@ -1062,7 +1067,7 @@ namespace MochaDB {
                 throw new MochaException("Stack not found in this name!");
             OnChanging(this,new EventArgs());
 
-            XAttribute xDescription = GetXElement($"Stacks/{name}").Attribute("Description");
+            XAttribute xDescription = GetXElement(CDoc,$"Stacks/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
 
@@ -1086,7 +1091,7 @@ namespace MochaDB {
 
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Stacks/{name}").Name=newName;
+            GetXElement(CDoc,$"Stacks/{name}").Name=newName;
             Save();
         }
 
@@ -1098,7 +1103,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement xStack = GetXElement($"Stacks/{name}");
+            XElement xStack = GetXElement(Doc,$"Stacks/{name}");
             MochaStack stack = new MochaStack(xStack.Name.LocalName);
             stack.Description=xStack.Attribute("Description").Value;
             stack.Attributes.collection.AddRange(GetStackAttributes(name));
@@ -1118,7 +1123,7 @@ namespace MochaDB {
         public MochaCollectionResult<MochaStack> GetStacks() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            IEnumerable<XElement> stackRange = GetXElement("Stacks").Elements();
+            IEnumerable<XElement> stackRange = GetXElement(Doc,"Stacks").Elements();
             MochaArray<MochaStack> stacks = new MochaStack[stackRange.Count()];
             if(stackRange.Count() > 0)
                 for(int index = 0; index < stacks.Length; index++) {
@@ -1136,7 +1141,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement xstack = GetXElement($"Stacks/{name}");
+            XElement xstack = GetXElement(Doc,$"Stacks/{name}");
             var attrs = Engine_ATTRIBUTES.GetAttributes(xstack.Attribute("Attributes").Value);
 
             return new MochaCollectionResult<IMochaAttribute>(attrs);
@@ -1188,7 +1193,7 @@ namespace MochaDB {
 
             var element =
                 !string.IsNullOrWhiteSpace(path) ?
-                    GetXElement($"Stacks/{name}/{path}") : GetXElement($"Stacks/{name}");
+                    GetXElement(CDoc,$"Stacks/{name}/{path}") : GetXElement(CDoc,$"Stacks/{name}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1207,7 +1212,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            var xattr = GetXElement($"Stacks/{name}/{path}").Attribute("Attributes");
+            var xattr = GetXElement(CDoc,$"Stacks/{name}/{path}").Attribute("Attributes");
             if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
                 throw new MochaException("There is already a attribute with this name!");
 
@@ -1225,7 +1230,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            var xtable = GetXElement($"Stacks/{name}/{path}");
+            var xtable = GetXElement(Doc,$"Stacks/{name}/{path}");
             var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
             return attr;
         }
@@ -1240,7 +1245,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            var xitem = GetXElement($"Stacks/{name}/{path}");
+            var xitem = GetXElement(CDoc,$"Stacks/{name}/{path}");
             var code = xitem.Attribute("Attributes").Value;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
@@ -1263,10 +1268,10 @@ namespace MochaDB {
             OnChanging(this,new EventArgs());
 
             if(path==string.Empty) {
-                GetXElement($"Stacks/{name}").RemoveAll();
+                GetXElement(CDoc,$"Stacks/{name}").RemoveAll();
                 return true;
             } else {
-                XElement element = GetXElement($"Stacks/{name}/{path}");
+                XElement element = GetXElement(CDoc,$"Stacks/{name}/{path}");
                 if(element==null)
                     return false;
 
@@ -1287,7 +1292,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement element = GetXElement($"Stacks/{name}/{path}");
+            XElement element = GetXElement(CDoc,$"Stacks/{name}/{path}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1309,7 +1314,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement element = GetXElement($"Stacks/{name}/{path}");
+            XElement element = GetXElement(Doc,$"Stacks/{name}/{path}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1327,7 +1332,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement element = GetXElement($"Stacks/{name}/{path}");
+            XElement element = GetXElement(CDoc,$"Stacks/{name}/{path}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1349,7 +1354,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement element = GetXElement($"Stacks/{name}/{path}");
+            XElement element = GetXElement(Doc,$"Stacks/{name}/{path}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1367,7 +1372,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement element = GetXElement($"Stacks/{name}/{path}");
+            XElement element = GetXElement(CDoc,$"Stacks/{name}/{path}");
 
             if(element==null)
                 throw new MochaException("The road is wrong, there is no such way!");
@@ -1395,7 +1400,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement xStackItem = GetXElement($"Stacks/{name}/{path}");
+            XElement xStackItem = GetXElement(Doc,$"Stacks/{name}/{path}");
 
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
             item.Value=xStackItem.Value;
@@ -1419,7 +1424,7 @@ namespace MochaDB {
             if(!ExistsStack(name))
                 throw new MochaException("Stack not found in this name!");
 
-            XElement xstackitem = GetXElement($"Stacks/{name}/{path}");
+            XElement xstackitem = GetXElement(Doc,$"Stacks/{name}/{path}");
             var attrs = Engine_ATTRIBUTES.GetAttributes(xstackitem.Attribute("Attributes").Value);
 
             return new MochaCollectionResult<IMochaAttribute>(attrs);
@@ -1444,7 +1449,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement("Tables").RemoveNodes();
+            GetXElement(CDoc,"Tables").RemoveNodes();
             Save();
         }
 
@@ -1460,7 +1465,7 @@ namespace MochaDB {
             XElement xTable = new XElement(table.Name);
             xTable.Add(new XAttribute("Description",table.Description));
             xTable.Add(new XAttribute("Attributes",string.Empty));
-            GetXElement("Tables").Add(xTable);
+            GetXElement(CDoc,"Tables").Add(xTable);
 
             // Columns.
             for(int index = 0; index < table.Columns.Count; index++) {
@@ -1489,7 +1494,7 @@ namespace MochaDB {
         public void AddTableAttribute(string name,IMochaAttribute attr) {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
-            var xattr = GetXElement($"Tables/{name}").Attribute("Attributes");
+            var xattr = GetXElement(CDoc,$"Tables/{name}").Attribute("Attributes");
             if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
                 throw new MochaException("There is already a attribute with this name!");
 
@@ -1506,7 +1511,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 return false;
 
-            var xtable = GetXElement($"Tables/{name}");
+            var xtable = GetXElement(CDoc,$"Tables/{name}");
             var code = xtable.Attribute("Attributes").Value;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
@@ -1527,7 +1532,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
-            var xtable = GetXElement($"Tables/{name}");
+            var xtable = GetXElement(Doc,$"Tables/{name}");
             var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
             return attr;
         }
@@ -1550,7 +1555,7 @@ namespace MochaDB {
                 return false;
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Tables/{name}").Remove();
+            GetXElement(CDoc,$"Tables/{name}").Remove();
             Save();
             return true;
         }
@@ -1574,7 +1579,7 @@ namespace MochaDB {
 
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Tables/{name}").Name=newName;
+            GetXElement(CDoc,$"Tables/{name}").Name=newName;
             Save();
         }
 
@@ -1586,7 +1591,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
-            return GetXElement($"Tables/{name}").Attribute("Description").Value;
+            return GetXElement(Doc,$"Tables/{name}").Attribute("Description").Value;
         }
 
         /// <summary>
@@ -1598,7 +1603,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
-            XAttribute xDescription = GetXElement($"Tables/{name}").Attribute("Description");
+            XAttribute xDescription = GetXElement(CDoc,$"Tables/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
             OnChanging(this,new EventArgs());
@@ -1616,7 +1621,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
-            XElement xTable = GetXElement($"Tables/{name}");
+            XElement xTable = GetXElement(Doc,$"Tables/{name}");
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
             table.Attributes.collection.AddRange(GetTableAttributes(name));
@@ -1634,7 +1639,7 @@ namespace MochaDB {
         public MochaCollectionResult<MochaTable> GetTables() {
             OnConnectionCheckRequired(this,new EventArgs());
 
-            IEnumerable<XElement> tableRange = GetXElement("Tables").Elements();
+            IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
             MochaArray<MochaTable> tables = new MochaTable[tableRange.Count()];
             for(int index = 0; index <tables.Length; index++) {
                 tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
@@ -1651,7 +1656,7 @@ namespace MochaDB {
             if(!ExistsTable(name))
                 throw new MochaException("Table not found in this name!");
 
-            XElement xtable = GetXElement($"Tables/{name}");
+            XElement xtable = GetXElement(Doc,$"Tables/{name}");
             var attrs = Engine_ATTRIBUTES.GetAttributes(xtable.Attribute("Attributes").Value);
 
             return new MochaCollectionResult<IMochaAttribute>(attrs);
@@ -1682,7 +1687,7 @@ namespace MochaDB {
             xColumn.Add(new XAttribute("DataType",column.DataType));
             xColumn.Add(new XAttribute("Description",column.Description));
             xColumn.Add(new XAttribute("Attributes",string.Empty));
-            GetXElement($"Tables/{tableName}").Add(xColumn);
+            GetXElement(CDoc,$"Tables/{tableName}").Add(xColumn);
 
             // Datas.
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
@@ -1716,7 +1721,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            var xattr = GetXElement($"Tables/{tableName}/{name}").Attribute("Attributes");
+            var xattr = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Attributes");
             if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
                 throw new MochaException("There is already a attribute with this name!");
 
@@ -1734,7 +1739,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            var xtable = GetXElement($"Tables/{tableName}/{name}");
+            var xtable = GetXElement(Doc,$"Tables/{tableName}/{name}");
             var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
             return attr;
         }
@@ -1749,7 +1754,7 @@ namespace MochaDB {
             if(ExistsColumn(tableName,name))
                 return false;
 
-            var xcolumn = GetXElement($"Tables/{tableName}/{name}");
+            var xcolumn = GetXElement(CDoc,$"Tables/{tableName}/{name}");
             var code = xcolumn.Attribute("Attributes").Value;
             var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
 
@@ -1780,7 +1785,7 @@ namespace MochaDB {
                 return false;
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Tables/{tableName}/{name}").Remove();
+            GetXElement(CDoc,$"Tables/{tableName}/{name}").Remove();
             Save();
             return true;
         }
@@ -1805,7 +1810,7 @@ namespace MochaDB {
 
             OnChanging(this,new EventArgs());
 
-            GetXElement($"Tables/{tableName}/{name}").Name=newName;
+            GetXElement(CDoc,$"Tables/{tableName}/{name}").Name=newName;
             Save();
         }
 
@@ -1818,7 +1823,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            return GetXElement($"Tables/{tableName}/{name}").Attribute("Description").Value;
+            return GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("Description").Value;
         }
 
         /// <summary>
@@ -1831,7 +1836,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            XAttribute xDescription = GetXElement($"Tables/{tableName}/{name}").Attribute("Description");
+            XAttribute xDescription = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Description");
             if(xDescription.Value==description)
                 return;
             OnChanging(this,new EventArgs());
@@ -1866,7 +1871,7 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
-            IEnumerable<XElement> columnsRange = GetXElement($"Tables/{tableName}").Elements();
+            IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
             MochaArray<MochaColumn> columns = new MochaColumn[columnsRange.Count()];
             for(int index = 0; index < columns.Length; index++) {
                 columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
@@ -1884,7 +1889,7 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
-            return GetXElement($"Tables/{tableName}/{name}") != null;
+            return GetXElement(Doc,$"Tables/{tableName}/{name}") != null;
         }
 
         /// <summary>
@@ -1897,7 +1902,7 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
 
             return (MochaDataType)Enum.Parse(typeof(MochaDataType),
-                GetXElement($"Tables/{tableName}/{name}").Attribute("DataType").Value);
+                GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("DataType").Value);
         }
 
         /// <summary>
@@ -1909,7 +1914,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            var xcolumn = GetXElement($"Tables/{tableName}/{name}");
+            var xcolumn = GetXElement(Doc,$"Tables/{tableName}/{name}");
             var attrs = Engine_ATTRIBUTES.GetAttributes(xcolumn.Attribute("Attributes").Value);
 
             return new MochaCollectionResult<IMochaAttribute>(attrs);
@@ -1926,7 +1931,7 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
             OnChanging(this,new EventArgs());
 
-            XElement xColumn = GetXElement($"Tables/{tableName}/{name}");
+            XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{name}");
             if(xColumn.Attribute("DataType").Value==dataType.ToString())
                 return;
 
@@ -1966,7 +1971,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,name))
                 throw new MochaException("Column not found in this name!");
 
-            XElement lastData = (XElement)GetXElement($"Tables/{tableName}/{name}").LastNode;
+            XElement lastData = (XElement)GetXElement(Doc,$"Tables/{tableName}/{name}").LastNode;
 
             MochaDataType dataType = GetColumnDataType(tableName,name);
 
@@ -1993,7 +1998,7 @@ namespace MochaDB {
                 throw new MochaException("Table not found in this name!");
             OnChanging(this,new EventArgs());
 
-            IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
+            IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
 
             if(columnRange.Count() != row.Datas.Count)
                 throw new MochaException("The data count of the row is not equal to the number of columns!");
@@ -2030,7 +2035,7 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
-            IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
+            IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
             if(columnRange.First().Elements().Count()-1 >= index) {
                 OnChanging(this,new EventArgs());
                 for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
@@ -2085,7 +2090,7 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
-            XElement firstColumn = (XElement)GetXElement($"Tables/{tableName}").FirstNode;
+            XElement firstColumn = (XElement)GetXElement(Doc,$"Tables/{tableName}").FirstNode;
 
             if(firstColumn==null)
                 return new MochaCollectionResult<MochaRow>();
@@ -2107,7 +2112,7 @@ namespace MochaDB {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
-            IEnumerable<XElement> columnRange = GetXElement($"Tables/{tableName}").Elements();
+            IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
             var count = columnRange.First().Elements().Count();
             if(count > 0) {
                 OnChanging(this,new EventArgs());
@@ -2153,7 +2158,7 @@ namespace MochaDB {
                 xData.Value = data.Data.ToString();
             }
 
-            IEnumerable<XElement> columnRange = Doc.Root.Element("Tables").Element(tableName).Elements();
+            IEnumerable<XElement> columnRange = CDoc.Root.Element("Tables").Element(tableName).Elements();
             for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
                 XElement element = columnRange.ElementAt(columnIndex);
 
@@ -2172,7 +2177,7 @@ namespace MochaDB {
                     new XElement("Data",
                     MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
-            GetXElement($"Tables/{tableName}/{columnName}").Add(xData);
+            GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
         }
 
         /// <summary>
@@ -2191,7 +2196,7 @@ namespace MochaDB {
             if(!MochaData.IsType(dataType,data)) {
                 throw new MochaException("The submitted data is not compatible with the targeted data!");
             }
-            XElement xColumn = GetXElement($"Tables/{tableName}/{columnName}");
+            XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{columnName}");
 
             IEnumerable<XElement> dataRange = xColumn.Elements();
             if(dataRange.Count() - 1 < index)
@@ -2308,7 +2313,7 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
 
             string stringData = data.Data.ToString();
-            IEnumerable<XElement> dataRange = GetXElement($"Tables/{tableName}/{columnName}").Elements();
+            IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
             for(int index = 0; index < dataRange.Count(); index++) {
                 if(dataRange.ElementAt(index).Value == stringData)
                     return true;
@@ -2338,7 +2343,7 @@ namespace MochaDB {
 
             string stringData = data.ToString();
 
-            IEnumerable<XElement> dataRange = GetXElement($"Tables/{tableName}/{columnName}").Elements();
+            IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
             for(int index = 0; index < dataRange.Count(); index++) {
                 if(dataRange.ElementAt(index).Value == stringData)
                     return index;
@@ -2362,7 +2367,7 @@ namespace MochaDB {
 
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
 
-            IEnumerable<XElement> dataRange = GetXElement($"Tables/{tableName}/{columnName}").Elements();
+            IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
             if(dataRange.Count() - 1 < index)
                 throw new MochaException("This index is larger than the maximum number of data in the table!");
 
@@ -2377,7 +2382,7 @@ namespace MochaDB {
         public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
-            IEnumerable<XElement> dataRange = GetXElement($"Tables/{tableName}/{columnName}").Elements();
+            IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
             MochaArray<MochaData> datas = new MochaData[dataRange.Count()];
             for(int index = 0; index < datas.Length; index++) {
                 datas[index] = GetData(tableName,columnName,index);
@@ -2394,7 +2399,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
-            return GetXElement($"Tables/{tableName}/{columnName}").Elements().Count();
+            return GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements().Count();
         }
 
         #endregion
@@ -2407,7 +2412,7 @@ namespace MochaDB {
         public void ClearLogs() {
             OnChanging(this,new EventArgs());
 
-            GetXElement("Logs").RemoveNodes();
+            GetXElement(CDoc,"Logs").RemoveNodes();
             Save();
         }
 
@@ -2415,7 +2420,7 @@ namespace MochaDB {
         /// Returns all logs.
         /// </summary>
         public MochaCollectionResult<MochaLog> GetLogs() {
-            IEnumerable<XElement> elements = GetXElement("Logs").Elements();
+            IEnumerable<XElement> elements = GetXElement(Doc,"Logs").Elements();
             MochaArray<MochaLog> logs = new MochaLog[elements.Count()];
             for(int index = 0; index < logs.Length; index++) {
                 XElement currentElement = elements.ElementAt(index);
@@ -2438,7 +2443,7 @@ namespace MochaDB {
         /// Restore database to last keeped log.
         /// </summary>
         public void RestoreToLastLog() {
-            var logs = GetXElement("Logs").Elements();
+            var logs = GetXElement(Doc,"Logs").Elements();
             if(logs.Count() == 0)
                 throw new MochaException("Not exists any log!");
             RestoreToLog(logs.Last().Attribute("ID").Value);
@@ -2448,7 +2453,7 @@ namespace MochaDB {
         /// Restore database to first keeped log.
         /// </summary>
         public void RestoreToFirstLog() {
-            var logs = GetXElement("Logs").Elements();
+            var logs = GetXElement(Doc,"Logs").Elements();
             if(logs.Count() == 0)
                 throw new MochaException("Not exists any log!");
             RestoreToLog(logs.First().Attribute("ID").Value);
@@ -2463,7 +2468,7 @@ namespace MochaDB {
                 throw new MochaException("Log not found in this id!");
             Changing?.Invoke(this,new EventArgs());
 
-            var log = GetXElement("Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
+            var log = GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
             Doc=XDocument.Parse(aes256.Decrypt(log.Value));
             Save();
         }
@@ -2473,7 +2478,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="id">ID of log.</param>
         public bool ExistsLog(string id) =>
-            GetXElement("Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
+            GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
         #endregion
 
@@ -2484,7 +2489,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="path">Path to check.</param>
         public bool ExistsElement(MochaPath path) =>
-            ExistsElement(path.Path);
+            ExistsElement(Doc,path.Path);
 
         /// <summary>
         /// Return element by path.
@@ -2495,7 +2500,7 @@ namespace MochaDB {
                 throw new MochaException("This path is not database compatible path!");
             if(!ExistsElement(path.Path))
                 throw new MochaException("Element is not found!");
-            var element = GetXElement(path.Path);
+            var element = GetXElement(Doc,path.Path);
             var melement = new MochaElement {
                 Name = element.Name.LocalName,
                 Description = element.Attribute("Description") == null ?
@@ -2515,7 +2520,7 @@ namespace MochaDB {
                 throw new MochaException("This path is not database compatible path!");
             if(!ExistsElement(path.Path))
                 throw new MochaException("Element is not found!");
-            var elements = GetXElement(path.Path).Elements();
+            var elements = GetXElement(Doc,path.Path).Elements();
             MochaArray<MochaElement> array = new MochaElement[elements.Count()];
             for(int index = 0; index < array.Length; index++)
                 array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
