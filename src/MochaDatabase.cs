@@ -96,9 +96,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Events
-
-        #region Internal
+        #region Internal Events
 
         /// <summary>
         /// This happens before connection check.
@@ -113,6 +111,8 @@ namespace MochaDB {
         }
 
         #endregion
+
+        #region Events
 
         /// <summary>
         /// This happens before content changed.
@@ -178,9 +178,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region MochaScript
-
-        #region Internal
+        #region Internal MochaScript
 
         /// <summary>
         /// Returns MochaScript build code od stack item.
@@ -192,7 +190,7 @@ namespace MochaDB {
             string code = $"    CreateStackItem:{stackName}:{item.Name}:{path}\n";
             code+=$"    SetStackItemValue:{stackName}:{item.Value}:{(path==string.Empty ? item.Name : path)}\n";
             code+=$"    SetStackItemDescription:{stackName}:{item.Description}:{(path==string.Empty ? item.Name : path)}\n";
-            for(int index = 0; index < item.Items.Count; index++) {
+            for(int index = 0;index < item.Items.Count;index++) {
                 code+=GetBuildStackItem(stackName,$"{(path==string.Empty ? item.Name : $"{path}/{item.Name}")}",item.Items[index]);
             }
             return code;
@@ -200,13 +198,15 @@ namespace MochaDB {
 
         #endregion
 
+        #region MochaScript
+
         /// <summary>
         /// Returns MochaScript build func of sectors.
         /// </summary>
         public string GetBuildFuncSectors() {
             string func = "func BuildSectors()\n{\n";
             IMochaCollectionResult<MochaSector> sectors = GetSectors();
-            for(int index = 0; index < sectors.Count; index++) {
+            for(int index = 0;index < sectors.Count;index++) {
                 MochaSector currentSector = sectors[index];
                 func+=$"    AddSector:{currentSector.Name}:{currentSector.Data}:{currentSector.Description}\n";
             }
@@ -220,11 +220,11 @@ namespace MochaDB {
         public string GetBuildFuncStacks() {
             string func = "func BuildStacks()\n{\n";
             IMochaCollectionResult<MochaStack> stacks = GetStacks();
-            for(int index = 0; index < stacks.Count; index++) {
+            for(int index = 0;index < stacks.Count;index++) {
                 IMochaStack stack = stacks[index];
                 func+=$"    CreateStack:{stack.Name}\n";
                 func+=$"    SetStackDescription:{stack.Name}:{stack.Description}\n";
-                for(int itemIndex = 0; itemIndex< stack.Items.Count; itemIndex++)
+                for(int itemIndex = 0;itemIndex< stack.Items.Count;itemIndex++)
                     func+=$"{GetBuildStackItem(stack.Name,string.Empty,stack.Items[itemIndex])}\n";
             }
             func += "}\n";
@@ -237,20 +237,20 @@ namespace MochaDB {
         public string GetBuildFuncTables() {
             string func = "func BuildTables()\n{\n";
             IMochaCollectionResult<MochaTable> tables = GetTables();
-            for(int tableIndex = 0; tableIndex < tables.Count; tableIndex++) {
+            for(int tableIndex = 0;tableIndex < tables.Count;tableIndex++) {
                 MochaTable currentTable = tables[tableIndex];
                 func += $"    CreateTable:{currentTable.Name}\n" +
                     $"    SetTableDescription:{currentTable.Name}:{currentTable.Description}\n";
-                for(int columnIndex = 0; columnIndex < currentTable.Columns.Count; columnIndex++) {
+                for(int columnIndex = 0;columnIndex < currentTable.Columns.Count;columnIndex++) {
                     MochaColumn currentColumn = currentTable.Columns[columnIndex];
                     func += $"    CreateColumn:{currentTable.Name}:{currentColumn.Name}\n" +
                         $"    SetColumnDescription:{currentTable.Name}:{currentColumn.Name}:{currentTable.Description}\n" +
                         $"    SetColumnDataType:{currentTable.Name}:{currentColumn.Name}:{currentColumn.DataType}\n";
                 }
 
-                for(int rowIndex = 0; rowIndex < currentTable.Rows.Count; rowIndex++) {
+                for(int rowIndex = 0;rowIndex < currentTable.Rows.Count;rowIndex++) {
                     func += $"    AddData:{currentTable.Name}:{currentTable.Columns[0]}:\n";
-                    for(int columnIndex = 0; columnIndex < currentTable.Columns.Count; columnIndex++) {
+                    for(int columnIndex = 0;columnIndex < currentTable.Columns.Count;columnIndex++) {
                         var column = currentTable.Columns[columnIndex];
 
                         if(column.DataType == MochaDataType.AutoInt)
@@ -389,7 +389,7 @@ namespace MochaDB {
                 if(element.Name.LocalName != elementsName[0])
                     return false;
 
-                for(int i = 1; i < elementsName.Length; i++) {
+                for(int i = 1;i < elementsName.Length;i++) {
                     element = element.Element(elementsName[i]);
                     if(element.Name.LocalName != elementsName[i])
                         return false;
@@ -611,11 +611,11 @@ namespace MochaDB {
             ClearSectors();
             ClearStacks();
             ClearTables();
-            for(int index = 0; index < schema.Sectors.Count; index++)
+            for(int index = 0;index < schema.Sectors.Count;index++)
                 AddSector(schema.Sectors[index]);
-            for(int index = 0; index < schema.Stacks.Count; index++)
+            for(int index = 0;index < schema.Stacks.Count;index++)
                 AddStack(schema.Stacks[index]);
-            for(int index = 0; index < schema.Tables.Count; index++)
+            for(int index = 0;index < schema.Tables.Count;index++)
                 AddTable(schema.Tables[index]);
             SuspendChangeEvents=false;
 
@@ -714,7 +714,7 @@ namespace MochaDB {
             GetXElement(CDoc,"Sectors").Add(xSector);
 
             // Attributes
-            for(int index = 0; index < sector.Attributes.Count; index++)
+            for(int index = 0;index < sector.Attributes.Count;index++)
                 AddSectorAttribute(sector.Name,sector.Attributes[index]);
 
             if(sector.Attributes.Count==0)
@@ -909,7 +909,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> sectorRange = GetXElement(Doc,"Sectors").Elements();
             MochaArray<MochaSector> sectors = new MochaSector[sectorRange.Count()];
-            for(int index = 0; index < sectors.Length; index++)
+            for(int index = 0;index < sectors.Length;index++)
                 sectors[index] = GetSector(sectorRange.ElementAt(index).Name.LocalName);
 
             return new MochaCollectionResult<MochaSector>(sectors);
@@ -965,12 +965,12 @@ namespace MochaDB {
             xStack.Add(new XAttribute("Attributes",string.Empty));
 
             // Items
-            for(int index = 0; index < stack.Items.Count; index++) {
+            for(int index = 0;index < stack.Items.Count;index++) {
                 xStack.Add(GetMochaStackItemXML(stack.Items[index]));
             }
 
             // Attributes
-            for(int index = 0; index < stack.Attributes.Count; index++)
+            for(int index = 0;index < stack.Attributes.Count;index++)
                 AddStackAttribute(stack.Name,stack.Attributes[index]);
 
             GetXElement(CDoc,"Stacks").Add(xStack);
@@ -1108,7 +1108,7 @@ namespace MochaDB {
             stack.Attributes.collection.AddRange(GetStackAttributes(name));
 
             IEnumerable<XElement> elementRange = xStack.Elements();
-            for(int index = 0; index < elementRange.Count(); index++) {
+            for(int index = 0;index < elementRange.Count();index++) {
                 stack.Items.collection.Add(GetStackItem(name,elementRange.ElementAt(index).Name.LocalName));
             }
 
@@ -1125,7 +1125,7 @@ namespace MochaDB {
             IEnumerable<XElement> stackRange = GetXElement(Doc,"Stacks").Elements();
             MochaArray<MochaStack> stacks = new MochaStack[stackRange.Count()];
             if(stackRange.Count() > 0)
-                for(int index = 0; index < stacks.Length; index++) {
+                for(int index = 0;index < stacks.Length;index++) {
                     stacks[index] = GetStack(stackRange.ElementAt(index).Name.LocalName);
                 }
 
@@ -1155,9 +1155,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region StackItem
-
-        #region Internal
+        #region Internal StackItem
 
         /// <summary>
         /// Return XElement from MochaStackItem.
@@ -1170,7 +1168,7 @@ namespace MochaDB {
                 Value = Engine_ATTRIBUTES.BuildCode(item.Attributes)
             });
 
-            for(int index = 0; index < item.Items.Count; index++) {
+            for(int index = 0;index < item.Items.Count;index++) {
                 element.Add(GetMochaStackItemXML(item.Items[index]));
             }
 
@@ -1178,6 +1176,8 @@ namespace MochaDB {
         }
 
         #endregion
+
+        #region StackItem
 
         /// <summary>
         /// Add stack item.
@@ -1408,7 +1408,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> elementRange = xStackItem.Elements();
             if(elementRange.Count() >0)
-                for(int index = 0; index < elementRange.Count(); index++)
+                for(int index = 0;index < elementRange.Count();index++)
                     item.Items.collection.Add(GetStackItem(name,path += $"/{elementRange.ElementAt(index).Name.LocalName}"));
 
             return item;
@@ -1467,18 +1467,18 @@ namespace MochaDB {
             GetXElement(CDoc,"Tables").Add(xTable);
 
             // Columns.
-            for(int index = 0; index < table.Columns.Count; index++) {
+            for(int index = 0;index < table.Columns.Count;index++) {
                 var column = table.Columns[index];
                 XElement Xcolumn = new XElement(column.Name);
                 Xcolumn.Add(new XAttribute("DataType",column.DataType));
                 Xcolumn.Add(new XAttribute("Description",column.Description));
-                for(int dindex = 0; dindex < column.Datas.Count; dindex++)
+                for(int dindex = 0;dindex < column.Datas.Count;dindex++)
                     Xcolumn.Add(new XElement("Data",column.Datas[dindex].Data));
                 xTable.Add(Xcolumn);
             }
 
             // Attributes
-            for(int index = 0; index < table.Attributes.Count; index++)
+            for(int index = 0;index < table.Attributes.Count;index++)
                 AddTableAttribute(table.Name,table.Attributes[index]);
 
             if(table.Columns.Count==0 && table.Attributes.Count==0)
@@ -1640,7 +1640,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
             MochaArray<MochaTable> tables = new MochaTable[tableRange.Count()];
-            for(int index = 0; index <tables.Length; index++) {
+            for(int index = 0;index <tables.Length;index++) {
                 tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
             }
 
@@ -1691,19 +1691,19 @@ namespace MochaDB {
             // Datas.
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
             if(column.DataType==MochaDataType.AutoInt) {
-                for(int index = 1; index <= rowCount; index++)
+                for(int index = 1;index <= rowCount;index++)
                     xColumn.Add(new XElement("Data",index));
             } else {
-                for(int index = 0; index < column.Datas.Count; index++)
+                for(int index = 0;index < column.Datas.Count;index++)
                     xColumn.Add(new XElement("Data",column.Datas[index].Data));
 
-                for(int index = column.Datas.Count; index < rowCount; index++) {
+                for(int index = column.Datas.Count;index < rowCount;index++) {
                     xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
                 }
             }
 
             // Attributes
-            for(int index = 0; index < column.Attributes.Count; index++)
+            for(int index = 0;index < column.Attributes.Count;index++)
                 AddColumnAttribute(tableName,column.Name,column.Attributes[index]);
 
             if(column.Attributes.Count==0)
@@ -1872,7 +1872,7 @@ namespace MochaDB {
 
             IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
             MochaArray<MochaColumn> columns = new MochaColumn[columnsRange.Count()];
-            for(int index = 0; index < columns.Length; index++) {
+            for(int index = 0;index < columns.Length;index++) {
                 columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
             }
 
@@ -1938,14 +1938,14 @@ namespace MochaDB {
 
             IEnumerable<XElement> dataRange = xColumn.Elements();
             if(dataType == MochaDataType.AutoInt) {
-                for(int index = 0; index <dataRange.Count(); index++) {
+                for(int index = 0;index <dataRange.Count();index++) {
                     dataRange.ElementAt(index).Value = (index + 1).ToString();
                 }
 
                 Save();
                 return;
             } else if(dataType == MochaDataType.Unique) {
-                for(int index = 0; index <dataRange.Count(); index++) {
+                for(int index = 0;index <dataRange.Count();index++) {
                     dataRange.ElementAt(index).Value = string.Empty;
                 }
 
@@ -1953,7 +1953,7 @@ namespace MochaDB {
                 return;
             }
 
-            for(int index = 0; index < dataRange.Count(); index++) {
+            for(int index = 0;index < dataRange.Count();index++) {
                 if(!MochaData.IsType(dataType,dataRange.ElementAt(index).Value))
                     dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
             }
@@ -2004,7 +2004,7 @@ namespace MochaDB {
 
             var dex = GetDataCount(tableName,columnRange.First().Name.LocalName);
             InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
-            for(int index = 1; index < columnRange.Count(); index++) {
+            for(int index = 1;index < columnRange.Count();index++) {
                 var columnElement = columnRange.ElementAt(index);
                 MochaDataType dataType =
                     GetColumnDataType(tableName,columnElement.Name.LocalName);
@@ -2037,7 +2037,7 @@ namespace MochaDB {
             IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
             if(columnRange.First().Elements().Count()-1 >= index) {
                 OnChanging(this,new EventArgs());
-                for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+                for(int columnIndex = 0;columnIndex < columnRange.Count();columnIndex++) {
                     columnRange.ElementAt(columnIndex).Elements().
                         ElementAt(index).Remove();
                 }
@@ -2072,7 +2072,7 @@ namespace MochaDB {
             MochaRow row = new MochaRow();
             MochaArray<MochaData> datas = new MochaData[columns.Count];
 
-            for(int columnIndex = 0; columnIndex < columns.Count; columnIndex++) {
+            for(int columnIndex = 0;columnIndex < columns.Count;columnIndex++) {
                 datas[columnIndex] = columns[columnIndex].Datas[index];
             }
 
@@ -2096,7 +2096,7 @@ namespace MochaDB {
 
             int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
             MochaArray<MochaRow> rows = new MochaRow[dataCount];
-            for(int index = 0; index < dataCount; index++) {
+            for(int index = 0;index < dataCount;index++) {
                 rows[index] = GetRow(tableName,index);
             }
 
@@ -2115,7 +2115,7 @@ namespace MochaDB {
             var count = columnRange.First().Elements().Count();
             if(count > 0) {
                 OnChanging(this,new EventArgs());
-                for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++)
+                for(int columnIndex = 0;columnIndex < columnRange.Count();columnIndex++)
                     columnRange.ElementAt(columnIndex).RemoveNodes();
                 Save();
             }
@@ -2123,9 +2123,7 @@ namespace MochaDB {
 
         #endregion
 
-        #region Data
-
-        #region Internal
+        #region Internal Data
 
         /// <summary>
         /// Add data.
@@ -2158,7 +2156,7 @@ namespace MochaDB {
             }
 
             IEnumerable<XElement> columnRange = CDoc.Root.Element("Tables").Element(tableName).Elements();
-            for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+            for(int columnIndex = 0;columnIndex < columnRange.Count();columnIndex++) {
                 XElement element = columnRange.ElementAt(columnIndex);
 
                 if(element.Name.LocalName==columnName)
@@ -2230,6 +2228,8 @@ namespace MochaDB {
         }
 
         #endregion
+
+        #region Data
 
         /// <summary>
         /// Add data.
@@ -2313,7 +2313,7 @@ namespace MochaDB {
 
             string stringData = data.Data.ToString();
             IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-            for(int index = 0; index < dataRange.Count(); index++) {
+            for(int index = 0;index < dataRange.Count();index++) {
                 if(dataRange.ElementAt(index).Value == stringData)
                     return true;
             }
@@ -2343,7 +2343,7 @@ namespace MochaDB {
             string stringData = data.ToString();
 
             IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-            for(int index = 0; index < dataRange.Count(); index++) {
+            for(int index = 0;index < dataRange.Count();index++) {
                 if(dataRange.ElementAt(index).Value == stringData)
                     return index;
             }
@@ -2383,7 +2383,7 @@ namespace MochaDB {
                 throw new MochaException("Column not found in this name!");
             IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
             MochaArray<MochaData> datas = new MochaData[dataRange.Count()];
-            for(int index = 0; index < datas.Length; index++) {
+            for(int index = 0;index < datas.Length;index++) {
                 datas[index] = GetData(tableName,columnName,index);
             }
             return new MochaCollectionResult<MochaData>(datas);
@@ -2421,7 +2421,7 @@ namespace MochaDB {
         public MochaCollectionResult<MochaLog> GetLogs() {
             IEnumerable<XElement> elements = GetXElement(Doc,"Logs").Elements();
             MochaArray<MochaLog> logs = new MochaLog[elements.Count()];
-            for(int index = 0; index < logs.Length; index++) {
+            for(int index = 0;index < logs.Length;index++) {
                 XElement currentElement = elements.ElementAt(index);
                 MochaLog log = new MochaLog();
                 log.ID = currentElement.Attribute("ID").Value;
@@ -2521,7 +2521,7 @@ namespace MochaDB {
                 throw new MochaException("Element is not found!");
             var elements = GetXElement(Doc,path.Path).Elements();
             MochaArray<MochaElement> array = new MochaElement[elements.Count()];
-            for(int index = 0; index < array.Length; index++)
+            for(int index = 0;index < array.Length;index++)
                 array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
             return array;
         }
