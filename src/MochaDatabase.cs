@@ -164,12 +164,12 @@ namespace MochaDB {
         /// Return xml schema of database.
         /// </summary>
         public string GetXML() =>
-            GetXMLDocument().ToString();
+            GetXDocument().ToString();
 
         /// <summary>
         /// Return XDocument of database.
         /// </summary>
-        public XDocument GetXMLDocument() {
+        public XDocument GetXDocument() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             XDocument doc = new XDocument(Doc);

@@ -1779,7 +1779,7 @@
             Return xml schema of database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetXMLDocument">
+        <member name="M:MochaDB.MochaDatabase.GetXDocument">
             <summary>
             Return XDocument of database.
             </summary>
