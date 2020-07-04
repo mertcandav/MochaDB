@@ -1873,11 +1873,10 @@
             Save MochaDB database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.KeepLog(System.Boolean)">
+        <member name="M:MochaDB.MochaDatabase.KeepLog">
             <summary>
             Keep log of database.
             </summary>
-            <param name="save">Save after log.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetPassword">
             <summary>

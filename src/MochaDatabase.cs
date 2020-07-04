@@ -128,7 +128,7 @@ namespace MochaDB {
             Changing?.Invoke(sender,e);
 
             if(Logs)
-                KeepLog(false);
+                KeepLog();
         }
 
         /// <summary>
@@ -508,8 +508,7 @@ namespace MochaDB {
         /// <summary>
         /// Keep log of database.
         /// </summary>
-        /// <param name="save">Save after log.</param>
-        internal void KeepLog(bool save) {
+        internal void KeepLog() {
             string id;
             do {
                 id = MochaID.GetID(MochaIDType.Hash16);
@@ -524,9 +523,6 @@ namespace MochaDB {
             if(logElements.Count() >= 1000)
                 logElements.Last().Remove();
             xLogs.Add(xLog);
-
-            if(save)
-                Save();
         }
 
         #endregion
