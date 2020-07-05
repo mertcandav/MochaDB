@@ -1597,13 +1597,6 @@
             Disconnect from database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsElement(System.String,System.String)">
-            <summary>
-            Checks for the presence of the element. Example path: MyTable/MyColumn
-            </summary>
-            <param name="path">The MochaDB database file path to check.</param>
-            <param name="elementPath">Path of element.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.IsMochaDB(System.String)">
             <summary>
             Returns true if the file in the path is Mocha DB and false otherwise.

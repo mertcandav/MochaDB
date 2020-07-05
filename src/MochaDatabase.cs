@@ -365,37 +365,6 @@ namespace MochaDB {
 
         #endregion
 
-        #region Internal Static Database
-
-        /// <summary>
-        /// Checks for the presence of the element. Example path: MyTable/MyColumn
-        /// </summary>
-        /// <param name="path">The MochaDB database file path to check.</param>
-        /// <param name="elementPath">Path of element.</param>
-        internal static bool ExistsElement(string path,string elementPath) {
-            if(!IsMochaDB(path))
-                throw new MochaException("The file shown is not a MochaDB database file!");
-
-            string[] elementsName = elementPath.Split('/');
-
-            try {
-                XDocument document = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(path)));
-                XElement element = document.Root.Element(elementsName[0]);
-
-                if(element.Name.LocalName != elementsName[0])
-                    return false;
-
-                for(int i = 1;i < elementsName.Length;i++) {
-                    element = element.Element(elementsName[i]);
-                    if(element.Name.LocalName != elementsName[i])
-                        return false;
-                }
-                return true;
-            } catch(NullReferenceException) { return false; }
-        }
-
-        #endregion
-
         #region Static Database
 
         /// <summary>
