@@ -18,10 +18,6 @@ namespace MochaDB.engine {
                     return false;
                 else if(!Framework_XML.ExistsElement(doc,"Root/Description"))
                     return false;
-                else if(!Framework_XML.ExistsElement(doc,"Sectors"))
-                    return false;
-                else if(!Framework_XML.ExistsElement(doc,"Stacks"))
-                    return false;
                 else if(!Framework_XML.ExistsElement(doc,"Tables"))
                     return false;
                 else if(!Framework_XML.ExistsElement(doc,"Logs"))
