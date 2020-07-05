@@ -22,10 +22,10 @@
         internal void SetRowsByDatas() {
             if(Columns.Length > 0 && Columns[0].Datas.Count > 0) {
                 var firstcolumn = Columns[0];
-                MochaArray<MochaRow> rows = new MochaRow[firstcolumn.Datas.Count];
+                MochaRow[] rows = new MochaRow[firstcolumn.Datas.Count];
                 //Process rows.
                 for(var dataindex = 0; dataindex < firstcolumn.Datas.Count; dataindex++) {
-                    MochaArray<MochaData> datas = new MochaArray<MochaData>(Columns.Length);
+                    MochaData[] datas = new MochaData[Columns.Length];
                     for(var columnindex = 0; columnindex < Columns.Length; columnindex++) {
                         var column = Columns[columnindex];
                         datas[columnindex] =
@@ -82,12 +82,12 @@
         /// <summary>
         /// Columns.
         /// </summary>
-        public MochaArray<MochaColumn> Columns { get; internal set; }
+        public MochaColumn[] Columns { get; internal set; }
 
         /// <summary>
         /// Rows.
         /// </summary>
-        public MochaArray<MochaRow> Rows { get; internal set; }
+        public MochaRow[] Rows { get; internal set; }
 
         #endregion
     }

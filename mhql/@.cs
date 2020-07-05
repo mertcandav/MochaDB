@@ -35,7 +35,7 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="final">Command of removed tags.</param>
-        public static MochaArray<string> GetATS(string command,out string final) {
+        public static List<string> GetATS(string command,out string final) {
             var tags = new List<string>();
             do {
                 string tag = GetAT(command,out command);
@@ -47,7 +47,7 @@ namespace MochaDB.mhql {
             } while(command.FirstChar() == '@');
 
             final = command;
-            return tags.ToArray();
+            return tags;
         }
     }
 }

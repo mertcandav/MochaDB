@@ -122,7 +122,7 @@ namespace MochaDB.mhql.engine {
                     goto index;
                 }
 
-                return row.Datas[table.Columns.IndexOf(result.First())].ToString();
+                return row.Datas[Array.IndexOf(table.Columns,result.First())].ToString();
             }
 
         index:

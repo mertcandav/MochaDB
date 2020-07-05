@@ -17,7 +17,7 @@ namespace MochaDB.mhql.must_functions {
             if(parts.Length != 2)
                 throw new MochaException("The LOWER function can only take 2 parameters!");
 
-            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
+            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
             decimal
                 range,
                 value;

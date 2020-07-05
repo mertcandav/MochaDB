@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -15,9 +16,9 @@ namespace MochaDB.mhql {
         /// Returns column index.
         /// </summary>
         /// <param name="value">Value.</param>
-        /// <param name="table">Table.</param>
+        /// <param name="columns">Columns.</param>
         /// <param name="from">Use state FROM keyword.</param>
-        public static int GetIndexOfColumn(string value,MochaTableResult table,bool from) {
+        public static int GetIndexOfColumn(string value,MochaColumn[] columns,bool from) {
             int returndex() {
                 int columndex;
                 if(!int.TryParse(value,out columndex))
@@ -29,12 +30,12 @@ namespace MochaDB.mhql {
             if(!from)
                 return returndex();
 
-            var result = table.Columns.Where(x => x.Name == value);
+            var result = columns.Where(x => x.Name == value);
 
             if(result.Count() == 0)
                 return returndex();
 
-            return table.Columns.IndexOf(result.First());
+            return Array.IndexOf(columns,result.First());
         }
 
         /// <summary>

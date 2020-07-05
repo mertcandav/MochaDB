@@ -14,7 +14,7 @@ namespace MochaDB.Mhql {
 
         private string command;
         private MochaDatabase db;
-        internal MochaArray<MhqlKeyword> keywords;
+        internal MhqlKeyword[] keywords;
         internal Mhql_USE USE;
         internal Mhql_SELECT SELECT;
         internal Mhql_REMOVE REMOVE;
@@ -40,7 +40,7 @@ namespace MochaDB.Mhql {
             MUST = new Mhql_MUST(Database);
             REMOVE = new Mhql_REMOVE(Database);
             SUBROW = new Mhql_SUBROW(Database);
-            keywords = new MochaArray<MhqlKeyword>(USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW);
+            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW };
 
             Database=db;
             Command=string.Empty;
@@ -133,13 +133,13 @@ namespace MochaDB.Mhql {
 
             var tags = Mhql_AT.GetATS(Command,out lastcommand);
             if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-                if(tags.Length > 1)
+                if(tags.Count > 1)
                     throw new MochaException("Multi tags is cannot used with USE keyword!");
 
                 string tag =
-                    tags.Length == 0 ?
+                    tags.Count == 0 ?
                         string.Empty :
-                        tags.GetFirst();
+                        tags.First();
 
                 if(tag.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
                     throw new MochaException("@STACKS is cannot target if used with USE keyword!");
@@ -187,7 +187,7 @@ namespace MochaDB.Mhql {
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
 
-                reader.array = new MochaArray<object>(table);
+                reader.array = new[] { table };
             } else if(lastcommand.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
                 var select = SELECT.GetSELECT(out lastcommand);
                 fromkw = Mhql_FROM.IsFROM(command);
@@ -196,14 +196,14 @@ namespace MochaDB.Mhql {
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
 
                 List<object> collection = new List<object>();
-                if(tags.Length == 0)
+                if(tags.Count == 0)
                     collection.AddRange(SELECT.GetTables(select));
                 else {
                     bool
                         tables = false,
                         sectors = false,
                         stacks = false;
-                    for(int index = 0; index < tags.Length; index++) {
+                    for(int index = 0; index < tags.Count; index++) {
                         if(tags.ElementAt(index).Equals("@TABLES",StringComparison.OrdinalIgnoreCase)) {
                             if(tables)
                                 throw new MochaException("@TABLES cannot be targeted more than once!");
@@ -251,7 +251,7 @@ namespace MochaDB.Mhql {
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
 
-                reader.array = new MochaArray<object>(collection);
+                reader.array = collection;
             } else
                 throw new MochaException("MHQL is cannot processed!");
 

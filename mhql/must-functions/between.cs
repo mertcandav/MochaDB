@@ -17,7 +17,7 @@ namespace MochaDB.mhql.must_functions {
             if(parts.Length != 3)
                 throw new MochaException("The BETWEEN function can only take 3 parameters!");
 
-            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
+            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
             decimal
                 range1,
                 range2,

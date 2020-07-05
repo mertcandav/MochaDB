@@ -17,7 +17,7 @@ namespace MochaDB.mhql.must_functions {
             if(parts.Length != 2)
                 throw new MochaException("The NOTCONTAINS function can only take 2 parameters!");
 
-            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table,from);
+            int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
 
             return !row.Datas[dex].Data.ToString().Contains(parts[1]);
         }

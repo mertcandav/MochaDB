@@ -56,7 +56,7 @@ namespace MochaDB.mhql {
         /// <param name="from">Use state FROM keyword.</param>
         public void GroupBy(string command,ref MochaTableResult table,bool from) {
             command = command.Trim();
-            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command,table,from);
+            int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command,table.Columns,from);
 
             var column = table.Columns[columndex];
             IEnumerable<MochaColumn> columns =
@@ -69,7 +69,7 @@ namespace MochaDB.mhql {
                     rows.TryGetValue(data,out _row);
                     for(int dex = 0; dex < columns.Count(); dex++) {
                         MochaColumn col = columns.ElementAt(dex);
-                        MochaData _data = _row.Datas[table.Columns.IndexOf(col)];
+                        MochaData _data = _row.Datas[Array.IndexOf(table.Columns,col)];
                         if(col.Tag == "COUNT")
                             _data.Data = int.Parse(_data.ToString())+1;
                         else if(col.Tag == "SUM")
@@ -99,7 +99,7 @@ namespace MochaDB.mhql {
                 MochaRow row = table.Rows[index];
                 for(int dex = 0; dex < columns.Count(); dex++) {
                     MochaColumn col = columns.ElementAt(dex);
-                    MochaData _data = row.Datas[table.Columns.IndexOf(col)];
+                    MochaData _data = row.Datas[Array.IndexOf(table.Columns,col)];
                     if(col.Tag == "COUNT")
                         _data.Data = 1;
                     else {
@@ -115,7 +115,7 @@ namespace MochaDB.mhql {
             for(int index = 0; index < avgcols.Count(); index++) {
                 MochaColumn col = avgcols.ElementAt(index);
                 for(int rindex = 0; rindex < rows.Keys.Count; rindex++) {
-                    MochaData data = rows[rows.Keys.ElementAt(rindex)].Datas[table.Columns.IndexOf(col)];
+                    MochaData data = rows[rows.Keys.ElementAt(rindex)].Datas[Array.IndexOf(table.Columns,col)];
                     string[] parts = data.ToString().Split(';');
                     string colval = parts[0];
                     data.Data = decimal.Parse(colval) / int.Parse(parts[1]);

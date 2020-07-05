@@ -361,161 +361,6 @@
             Rows.
             </summary>
         </member>
-        <member name="T:MochaDB.MochaArray`1">
-            <summary>
-            Static array for MochaDB.
-            </summary>
-            <typeparam name="T">Type of items.</typeparam>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.#ctor(System.Int32)">
-            <summary>
-            Create a new MochaArray.
-            </summary>
-            <param name="capacity">Capacity of items.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.#ctor(`0[])">
-            <summary>
-            Create a new MochaArray.
-            </summary>
-            <param name="item">Items of array.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Create a new MochaArray.
-            </summary>
-            <param name="item">Items of array.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Select(System.Func{`0,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Select(System.Func{`0,System.Int32,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Where(System.Func{`0,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Where(System.Func{`0,System.Int32,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.OrderByDescending(System.Func{`0,`0})">
-            <summary>
-            Order items descending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.OrderBy(System.Func{`0,`0})">
-            <summary>
-            Order items ascending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.GroupBy(System.Func{`0,`0})">
-            <summary>
-            Group items by query.
-            </summary>
-            <param name="query">Query to use in grouping.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.IndexOf(`0)">
-            <summary>
-            Return index if index is find but return -1 if index is not find.
-            </summary>
-            <param name="item">Item to find index.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Contains(`0)">
-            <summary>
-            Return true if item is exists but return false if item not exists.
-            </summary>
-            <param name="item">Item to exists check.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.MaxIndex">
-            <summary>
-            Return max index of item count.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.IsEmptyCollection">
-            <summary>
-            Return true if is empty collection but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.ElementAt(System.Int32)">
-            <summary>
-            Return element by index.
-            </summary>
-            <param name="index">Index of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.SetElement(System.Int32,`0)">
-            <summary>
-            Set element by index.
-            </summary>
-            <param name="index">Index of element.</param>
-            <param name="item">Item to set.</param>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.Clone">
-            <summary>
-            Create and return copy this collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.ArrayClone">
-            <summary>
-            Create and return static array from collection.
-            </summary>
-        </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaArray`1.ToList" üyesi için yoksayıldı -->
-        <member name="M:MochaDB.MochaArray`1.ToReader">
-            <summary>
-            Returns values in MochaReader.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>
-            Returns enumerator.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.GetEnumerator">
-            <summary>
-            Returns enumerator.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaArray`1.CopyTo(`0[],System.Int32)">
-            <summary>
-            Copy items to array by start index.
-            </summary>
-            <param name="array">Destination array.</param>
-            <param name="arrayIndex">Index to start copying.</param>
-        </member>
-        <member name="P:MochaDB.MochaArray`1.Length">
-            <summary>
-            Count of item.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaArray`1.Item(System.Int32)">
-            <summary>
-            Returns or set item by index.
-            </summary>
-            <param name="index">Index.</param>
-        </member>
         <member name="T:MochaDB.MochaAttribute">
             <summary>
             Attribute for MochaDB.
@@ -1310,34 +1155,6 @@
             Return XDocument of database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetBuildStackItem(System.String,System.String,MochaDB.MochaStackItem)">
-            <summary>
-            Returns MochaScript build code od stack item.
-            </summary>
-            <param name="stackName">Parent stack of StackItem.</param>
-            <param name="path">Path of StackItem.</param>
-            <param name="item">StackItem to get code.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetBuildFuncSectors">
-            <summary>
-            Returns MochaScript build func of sectors.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetBuildFuncStacks">
-            <summary>
-            Returns MochaScript build func of stacks.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetBuildFuncTables">
-            <summary>
-            Returns MochaScript build func of tables.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetMochaScript">
-            <summary>
-            Return MochaScript build code of database.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaDatabase.Connect">
             <summary>
             Connect to database.
@@ -2020,11 +1837,6 @@
             Returns sub elements of element in path.
             </summary>
             <param name="path">Path of base element.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ToString">
-            <summary>
-            Returns result of <see cref="M:MochaDB.MochaDatabase.GetMochaScript"/>
-            </summary>
         </member>
         <member name="P:MochaDB.MochaDatabase.Version">
             <summary>
@@ -3139,53 +2951,6 @@
             </summary>
             <typeparam name="T">Value type.</typeparam>
         </member>
-        <member name="T:MochaDB.Querying.QueryingMochaArray">
-            <summary>
-            Query extension for MochaArrays.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.Select``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.Select``1(MochaDB.MochaArray{``0},System.Func{``0,System.Int32,``0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.Where``1(MochaDB.MochaArray{``0},System.Func{``0,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.Where``1(MochaDB.MochaArray{``0},System.Func{``0,System.Int32,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.OrderByDescending``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
-            <summary>
-            Order items descending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.OrderBy``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
-            <summary>
-            Order items ascending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaArray.GroupBy``1(MochaDB.MochaArray{``0},System.Func{``0,``0})">
-            <summary>
-            Group items by query.
-            </summary>
-            <param name="query">Query to use in grouping.</param>
-        </member>
         <member name="T:MochaDB.Querying.QueryingMochaCollection">
             <summary>
             Query extension for MochaCollections.
@@ -3877,21 +3642,21 @@
         </member>
         <member name="M:MochaDB.mhql.Mhql_SELECT.GetTables(System.String)">
             <summary>
-            Returns tables by select command.
+            Returns tables by select pattern.
             </summary>
-            <param name="selectcommand">Select command.</param>
+            <param name="selectcommand">Select pattern.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_SELECT.GetSectors(System.String)">
             <summary>
-            Returns sectors by select command.
+            Returns sectors by select pattern.
             </summary>
-            <param name="selectcommand">Select command.</param>
+            <param name="selectcommand">Select pattern.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_SELECT.GetStacks(System.String)">
             <summary>
-            Returns stacks by select command.
+            Returns stacks by select pattern.
             </summary>
-            <param name="selectcommand">Select command.</param>
+            <param name="selectcommand">Select pattern.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_REMOVE">
             <summary>
@@ -3914,12 +3679,12 @@
             Grammar of MHQL.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.Mhql.MochaTableResult,System.Boolean)">
+        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.MochaColumn[],System.Boolean)">
             <summary>
             Returns column index.
             </summary>
             <param name="value">Value.</param>
-            <param name="table">Table.</param>
+            <param name="columns">Columns.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.Querying.MochaCollectionResult{MochaDB.MochaColumn},System.Boolean)">

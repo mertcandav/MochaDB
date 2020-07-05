@@ -61,7 +61,7 @@ namespace MochaDB.mhql {
                 IEnumerable<string> orderparts = cmd.Trim().Split(' ').Where(x => x != "");
                 if(orderparts.Count() > 2)
                     throw new MochaException("A single ORDERBY parameter can consist of up to 2 parts!");
-                coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts.First().Trim(),tbl,from);
+                coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts.First().Trim(),tbl.Columns,from);
 
                 if(orderparts.Count() == 1) {
                     return 0;

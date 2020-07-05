@@ -174,143 +174,6 @@ namespace MochaDB {
 
         #endregion
 
-        #region Internal MochaScript
-
-        /// <summary>
-        /// Returns MochaScript build code od stack item.
-        /// </summary>
-        /// <param name="stackName">Parent stack of StackItem.</param>
-        /// <param name="path">Path of StackItem.</param>
-        /// <param name="item">StackItem to get code.</param>
-        internal string GetBuildStackItem(string stackName,string path,MochaStackItem item) {
-            string code = $"    CreateStackItem:{stackName}:{item.Name}:{path}\n";
-            code+=$"    SetStackItemValue:{stackName}:{item.Value}:{(path==string.Empty ? item.Name : path)}\n";
-            code+=$"    SetStackItemDescription:{stackName}:{item.Description}:{(path==string.Empty ? item.Name : path)}\n";
-            for(int index = 0;index < item.Items.Count;index++) {
-                code+=GetBuildStackItem(stackName,$"{(path==string.Empty ? item.Name : $"{path}/{item.Name}")}",item.Items[index]);
-            }
-            return code;
-        }
-
-        #endregion
-
-        #region MochaScript
-
-        /// <summary>
-        /// Returns MochaScript build func of sectors.
-        /// </summary>
-        public string GetBuildFuncSectors() {
-            string func = "func BuildSectors()\n{\n";
-            MochaCollectionResult<MochaSector> sectors = GetSectors();
-            for(int index = 0;index < sectors.Count;index++) {
-                MochaSector currentSector = sectors[index];
-                func+=$"    AddSector:{currentSector.Name}:{currentSector.Data}:{currentSector.Description}\n";
-            }
-            func += "}\n";
-            return func;
-        }
-
-        /// <summary>
-        /// Returns MochaScript build func of stacks.
-        /// </summary>
-        public string GetBuildFuncStacks() {
-            string func = "func BuildStacks()\n{\n";
-            MochaCollectionResult<MochaStack> stacks = GetStacks();
-            for(int index = 0;index < stacks.Count;index++) {
-                MochaStack stack = stacks[index];
-                func+=$"    CreateStack:{stack.Name}\n";
-                func+=$"    SetStackDescription:{stack.Name}:{stack.Description}\n";
-                for(int itemIndex = 0;itemIndex< stack.Items.Count;itemIndex++)
-                    func+=$"{GetBuildStackItem(stack.Name,string.Empty,stack.Items[itemIndex])}\n";
-            }
-            func += "}\n";
-            return func;
-        }
-
-        /// <summary>
-        /// Returns MochaScript build func of tables.
-        /// </summary>
-        public string GetBuildFuncTables() {
-            string func = "func BuildTables()\n{\n";
-            MochaCollectionResult<MochaTable> tables = GetTables();
-            for(int tableIndex = 0;tableIndex < tables.Count;tableIndex++) {
-                MochaTable currentTable = tables[tableIndex];
-                func += $"    CreateTable:{currentTable.Name}\n" +
-                    $"    SetTableDescription:{currentTable.Name}:{currentTable.Description}\n";
-                for(int columnIndex = 0;columnIndex < currentTable.Columns.Count;columnIndex++) {
-                    MochaColumn currentColumn = currentTable.Columns[columnIndex];
-                    func += $"    CreateColumn:{currentTable.Name}:{currentColumn.Name}\n" +
-                        $"    SetColumnDescription:{currentTable.Name}:{currentColumn.Name}:{currentTable.Description}\n" +
-                        $"    SetColumnDataType:{currentTable.Name}:{currentColumn.Name}:{currentColumn.DataType}\n";
-                }
-
-                for(int rowIndex = 0;rowIndex < currentTable.Rows.Count;rowIndex++) {
-                    func += $"    AddData:{currentTable.Name}:{currentTable.Columns[0]}:\n";
-                    for(int columnIndex = 0;columnIndex < currentTable.Columns.Count;columnIndex++) {
-                        var column = currentTable.Columns[columnIndex];
-
-                        if(column.DataType == MochaDataType.AutoInt)
-                            continue;
-
-                        func += $"    UpdateLastData:{currentTable.Name}:{column.Name}:{column.Datas[rowIndex]}\n";
-                    }
-                }
-                if(tableIndex < tables.MaxIndex())
-                    func += "\n\n";
-            }
-
-            func += "}\n";
-            return func;
-        }
-
-        /// <summary>
-        /// Return MochaScript build code of database.
-        /// </summary>
-        public string GetMochaScript() {
-            string code = $"// Created with MochaDB Engine. Version: {Version}";
-            code += $"\n\nProvider {Provider.Path} {Provider.Password}";
-            code += "\n\nBegin\n\n";
-            code += "func Main()\n{\n";
-            code +=
-@"    echo ""Script commands is start.""
-    
-    // Clear content.
-    echo ""Clearing content...""
-    ClearSectors
-    ClearStacks
-    ClearTables
-    echo ""Content is cleared.""
-
-    // Sectors.
-    echo ""Sectors is building...""
-    BuildSectors()
-    echo ""Sectors builded successful.""
-
-    // Stacks.
-    echo ""Stacks is building...""
-    BuildStacks()
-    echo ""Stacks builded successful.""
-
-    // Tables.
-    echo ""Tables is building...""
-    BuildTables()
-    echo ""Tables builded successful.""
-
-    echo ""Script commands is end successful.""
-}
-
-";
-            code +=$"{GetBuildFuncSectors()}\n";
-            code +=$"{GetBuildFuncStacks()}\n";
-            code +=$"{GetBuildFuncTables()}\n";
-
-            code += "Final";
-
-            return code;
-        }
-
-        #endregion
-
         #region Connection
 
         /// <summary>
@@ -807,15 +670,15 @@ namespace MochaDB {
         /// <summary>
         /// Returns all sectors in database.
         /// </summary>
-        public MochaCollectionResult<MochaSector> GetSectors() {
+        public MochaSector[] GetSectors() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             IEnumerable<XElement> sectorRange = GetXElement(Doc,"Sectors").Elements();
-            MochaArray<MochaSector> sectors = new MochaSector[sectorRange.Count()];
+            MochaSector[] sectors = new MochaSector[sectorRange.Count()];
             for(int index = 0;index < sectors.Length;index++)
                 sectors[index] = GetSector(sectorRange.ElementAt(index).Name.LocalName);
 
-            return new MochaCollectionResult<MochaSector>(sectors);
+            return sectors;
         }
 
         /// <summary>
@@ -950,17 +813,17 @@ namespace MochaDB {
         /// Returns all stacks in database.
         /// </summary>
         /// <returns></returns>
-        public MochaCollectionResult<MochaStack> GetStacks() {
+        public MochaStack[] GetStacks() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             IEnumerable<XElement> stackRange = GetXElement(Doc,"Stacks").Elements();
-            MochaArray<MochaStack> stacks = new MochaStack[stackRange.Count()];
+            MochaStack[] stacks = new MochaStack[stackRange.Count()];
             if(stackRange.Count() > 0)
                 for(int index = 0;index < stacks.Length;index++) {
                     stacks[index] = GetStack(stackRange.ElementAt(index).Name.LocalName);
                 }
 
-            return new MochaCollectionResult<MochaStack>(stacks);
+            return stacks;
         }
 
         /// <summary>
@@ -1321,16 +1184,16 @@ namespace MochaDB {
         /// <summary>
         /// Returns all tables in database.
         /// </summary>
-        public MochaCollectionResult<MochaTable> GetTables() {
+        public MochaTable[] GetTables() {
             OnConnectionCheckRequired(this,new EventArgs());
 
             IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
-            MochaArray<MochaTable> tables = new MochaTable[tableRange.Count()];
+            MochaTable[] tables = new MochaTable[tableRange.Count()];
             for(int index = 0;index <tables.Length;index++) {
                 tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
             }
 
-            return new MochaCollectionResult<MochaTable>(tables);
+            return tables;
         }
 
         /// <summary>
@@ -1477,17 +1340,17 @@ namespace MochaDB {
         /// Returns all columns in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public MochaCollectionResult<MochaColumn> GetColumns(string tableName) {
+        public MochaColumn[] GetColumns(string tableName) {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
             IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
-            MochaArray<MochaColumn> columns = new MochaColumn[columnsRange.Count()];
+            MochaColumn[] columns = new MochaColumn[columnsRange.Count()];
             for(int index = 0;index < columns.Length;index++) {
                 columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
             }
 
-            return new MochaCollectionResult<MochaColumn>(columns);
+            return columns;
         }
 
         /// <summary>
@@ -1656,9 +1519,9 @@ namespace MochaDB {
             if(index < 0)
                 throw new MochaException("Index can not lower than 0!");
 
-            MochaCollectionResult<MochaColumn> columns = GetColumns(tableName);
+            MochaColumn[] columns = GetColumns(tableName);
 
-            if(columns.Count == 0)
+            if(columns.Length == 0)
                 return null;
 
             int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
@@ -1666,9 +1529,9 @@ namespace MochaDB {
                 throw new MochaException("Index cat not bigger than row count!");
 
             MochaRow row = new MochaRow();
-            MochaArray<MochaData> datas = new MochaData[columns.Count];
+            MochaData[] datas = new MochaData[columns.Length];
 
-            for(int columnIndex = 0;columnIndex < columns.Count;columnIndex++) {
+            for(int columnIndex = 0;columnIndex < columns.Length;columnIndex++) {
                 datas[columnIndex] = columns[columnIndex].Datas[index];
             }
 
@@ -1681,22 +1544,22 @@ namespace MochaDB {
         /// Returns all rows in table by name.
         /// </summary>
         /// <param name="tableName">Name of table.</param>
-        public MochaCollectionResult<MochaRow> GetRows(string tableName) {
+        public MochaRow[] GetRows(string tableName) {
             if(!ExistsTable(tableName))
                 throw new MochaException("Table not found in this name!");
 
             XElement firstColumn = (XElement)GetXElement(Doc,$"Tables/{tableName}").FirstNode;
 
             if(firstColumn==null)
-                return new MochaCollectionResult<MochaRow>();
+                return new MochaRow[0];
 
             int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
-            MochaArray<MochaRow> rows = new MochaRow[dataCount];
+            MochaRow[] rows = new MochaRow[dataCount];
             for(int index = 0;index < dataCount;index++) {
                 rows[index] = GetRow(tableName,index);
             }
 
-            return new MochaCollectionResult<MochaRow>(rows);
+            return rows;
         }
 
         /// <summary>
@@ -1974,15 +1837,15 @@ namespace MochaDB {
         /// </summary>
         /// <param name="tableName">Name of table.</param>
         /// <param name="columnName">Name of column.</param>
-        public MochaCollectionResult<MochaData> GetDatas(string tableName,string columnName) {
+        public MochaData[] GetDatas(string tableName,string columnName) {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
             IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-            MochaArray<MochaData> datas = new MochaData[dataRange.Count()];
+            MochaData[] datas = new MochaData[dataRange.Count()];
             for(int index = 0;index < datas.Length;index++) {
                 datas[index] = GetData(tableName,columnName,index);
             }
-            return new MochaCollectionResult<MochaData>(datas);
+            return datas;
         }
 
         /// <summary>
@@ -2014,9 +1877,9 @@ namespace MochaDB {
         /// <summary>
         /// Returns all logs.
         /// </summary>
-        public MochaCollectionResult<MochaLog> GetLogs() {
+        public MochaLog[] GetLogs() {
             IEnumerable<XElement> elements = GetXElement(Doc,"Logs").Elements();
-            MochaArray<MochaLog> logs = new MochaLog[elements.Count()];
+            MochaLog[] logs = new MochaLog[elements.Count()];
             for(int index = 0;index < logs.Length;index++) {
                 XElement currentElement = elements.ElementAt(index);
                 MochaLog log = new MochaLog();
@@ -2025,7 +1888,7 @@ namespace MochaDB {
                 log.Log=currentElement.Value;
                 logs[index] = log;
             }
-            return new MochaCollectionResult<MochaLog>(logs);
+            return logs;
         }
 
         /// <summary>
@@ -2110,27 +1973,16 @@ namespace MochaDB {
         /// Returns sub elements of element in path.
         /// </summary>
         /// <param name="path">Path of base element.</param>
-        public MochaArray<MochaElement> GetElements(MochaPath path) {
+        public MochaElement[] GetElements(MochaPath path) {
             if(!path.IsDatabasePath())
                 throw new MochaException("This path is not database compatible path!");
             if(!ExistsElement(path.Path))
                 throw new MochaException("Element is not found!");
             var elements = GetXElement(Doc,path.Path).Elements();
-            MochaArray<MochaElement> array = new MochaElement[elements.Count()];
+            MochaElement[] array = new MochaElement[elements.Count()];
             for(int index = 0;index < array.Length;index++)
                 array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
             return array;
-        }
-
-        #endregion
-
-        #region Overrides
-
-        /// <summary>
-        /// Returns result of <see cref="GetMochaScript()"/>
-        /// </summary>
-        public override string ToString() {
-            return GetMochaScript();
         }
 
         #endregion

@@ -42,30 +42,30 @@ namespace MochaDB.mhql {
         }
 
         /// <summary>
-        /// Returns tables by select command.
+        /// Returns tables by select pattern.
         /// </summary>
-        /// <param name="selectcommand">Select command.</param>
-        public MochaArray<MochaTable> GetTables(string selectcommand) {
+        /// <param name="selectcommand">Select pattern.</param>
+        public MochaCollectionResult<MochaTable> GetTables(string selectcommand) {
             var regex = new Regex(selectcommand);
-            return new MochaArray<MochaTable>(Tdb.GetTables(x => regex.IsMatch(x.Name)));
+            return Tdb.GetTables(x => regex.IsMatch(x.Name));
         }
 
         /// <summary>
-        /// Returns sectors by select command.
+        /// Returns sectors by select pattern.
         /// </summary>
-        /// <param name="selectcommand">Select command.</param>
-        public MochaArray<MochaSector> GetSectors(string selectcommand) {
+        /// <param name="selectcommand">Select pattern.</param>
+        public MochaCollectionResult<MochaSector> GetSectors(string selectcommand) {
             var regex = new Regex(selectcommand);
-            return new MochaArray<MochaSector>(Tdb.GetSectors(x => regex.IsMatch(x.Name)));
+            return Tdb.GetSectors(x => regex.IsMatch(x.Name));
         }
 
         /// <summary>
-        /// Returns stacks by select command.
+        /// Returns stacks by select pattern.
         /// </summary>
-        /// <param name="selectcommand">Select command.</param>
-        public MochaArray<MochaStack> GetStacks(string selectcommand) {
+        /// <param name="selectcommand">Select pattern.</param>
+        public MochaCollectionResult<MochaStack> GetStacks(string selectcommand) {
             var regex = new Regex(selectcommand);
-            return new MochaArray<MochaStack>(Tdb.GetStacks(x => regex.IsMatch(x.Name)));
+            return Tdb.GetStacks(x => regex.IsMatch(x.Name));
         }
 
         #endregion

@@ -52,7 +52,7 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="usecommand">Use command.</param>
         public MochaTableResult GetTable(string usecommand,bool from) {
-            MochaColumn GetColumn(string cmd,MochaCollectionResult<MochaColumn> cols) {
+            MochaColumn GetColumn(string cmd,MochaColumn[] cols) {
                 var name = Mhql_AS.GetAS(ref cmd);
                 if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
                     MochaColumn column = new MochaColumn();
@@ -97,7 +97,7 @@ namespace MochaDB.mhql {
                     var callcmd = parts[index].Trim();
                     if(callcmd == "*") {
                         var tables = Tdb.GetTables();
-                        for(int tindex = 0; tindex < tables.Count; tindex++)
+                        for(int tindex = 0; tindex < tables.Length; tindex++)
                             columns.AddRange(tables[tindex].Columns);
                         continue;
                     }
@@ -166,7 +166,7 @@ namespace MochaDB.mhql {
                 var callcmd = parts[index].Trim();
                 if(callcmd == "*") {
                     var sectors = Tdb.GetSectors();
-                    for(int sindex = 0; sindex < sectors.Count; sindex++) {
+                    for(int sindex = 0; sindex < sectors.Length; sindex++) {
                         var currentsector = sectors.ElementAt(sindex);
                         rows.Add(new MochaRow(currentsector.Name,currentsector.Data,currentsector.Description));
                     }

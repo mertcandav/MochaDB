@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using MochaDB.Logging;
 using MochaDB.Querying;
 
 namespace MochaDB.Mochaq {
@@ -417,13 +418,13 @@ namespace MochaDB.Mochaq {
 
             if(queryPaths.Length == 1) {
                 if(queryPaths[0] == "GETTABLES") {
-                    return Database.GetTables();
+                    return new MochaCollectionResult<MochaTable>(Database.GetTables());
                 } else if(queryPaths[0] == "GETPASSWORD") {
                     return new MochaResult<string>(Database.GetPassword());
                 } else if(queryPaths[0] == "GETDESCRIPTION") {
                     return new MochaResult<string>(Database.GetDescription());
                 } else if(queryPaths[0] == "GETLOGS") {
-                    return Database.GetLogs();
+                    return new MochaCollectionResult<MochaLog>(Database.GetLogs());
                 } else if(queryPaths[0] == "GETDATAS") {
                     List<MochaData> datas = new List<MochaData>();
                     IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
@@ -439,7 +440,7 @@ namespace MochaDB.Mochaq {
                 if(queryPaths[0] == "GETTABLE") {
                     return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
                 } else if(queryPaths[0] == "GETCOLUMNS") {
-                    return Database.GetColumns(queryPaths[1]);
+                    return new MochaCollectionResult<MochaColumn>(Database.GetColumns(queryPaths[1]));
                 } else if(queryPaths[0] == "GETSECTOR") {
                     return new MochaResult<MochaSector>(Database.GetSector(queryPaths[1]));
                 } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
@@ -447,7 +448,7 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "EXISTSLOG") {
                     return new MochaResult<bool>(Database.ExistsLog(queryPaths[1]));
                 } else if(queryPaths[0] == "GETROWS") {
-                    return Database.GetRows(queryPaths[1]);
+                    return new MochaCollectionResult<MochaRow>(Database.GetRows(queryPaths[1]));
                 } else if(queryPaths[0] == "GETDATAS") {
                     return GETDATAS(queryPaths[1]);
                 } else if(queryPaths[0] == "GETSECTORDATA") {
@@ -498,7 +499,7 @@ namespace MochaDB.Mochaq {
                 } else if(queryPaths[0] == "GETSTACKITEMDESCRIPTION") {
                     return new MochaResult<string>(Database.GetStackItemDescription(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETDATAS") {
-                    return Database.GetDatas(queryPaths[1],queryPaths[2]);
+                    return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETSTACKITEM") {
                     return new MochaResult<MochaStackItem>(Database.GetStackItem(queryPaths[1],queryPaths[2]));
                 } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
@@ -552,7 +553,7 @@ namespace MochaDB.Mochaq {
 
             IEnumerable<XElement> columnRange = Database.Doc.Root.Element("Tables").Elements(name).Elements();
             for(int index = 0; index < columnRange.Count(); index++) {
-                datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName).collection);
+                datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
             }
 
             return new MochaCollectionResult<MochaData>(datas);

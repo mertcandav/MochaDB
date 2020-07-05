@@ -35,7 +35,7 @@ namespace MochaDB.mhql.engine {
             if(result.Count() == 0)
                 return;
 
-            value = table.Columns.IndexOf(result.First()) + value.Substring(dex);
+            value = Array.IndexOf(table.Columns,result.First()) + value.Substring(dex);
         }
 
         /// <summary>

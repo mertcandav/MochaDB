@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MochaDB.Mhql;
 using MochaDB.Streams;
 

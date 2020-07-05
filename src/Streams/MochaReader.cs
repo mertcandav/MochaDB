@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 
 namespace MochaDB.Streams {
     /// <summary>
@@ -8,7 +9,7 @@ namespace MochaDB.Streams {
     public class MochaReader<T> {
         #region Fields
 
-        internal MochaArray<T> array;
+        internal IEnumerable<T> array;
 
         #endregion
 
@@ -29,10 +30,11 @@ namespace MochaDB.Streams {
         /// </summary>
         /// <param name="values">Values of stream.</param>
         public MochaReader(IEnumerable<T> values) {
-            array = new MochaArray<T>(values);
+            array = values.ToArray();
             Value=null;
             Position=-1;
         }
+
 
         #endregion
 
@@ -51,7 +53,7 @@ namespace MochaDB.Streams {
         public bool Read() {
             if(Position+1 < Count) {
                 Position++;
-                Value = array[Position];
+                Value = array.ElementAt(Position);
                 return true;
             }
 
@@ -108,7 +110,7 @@ namespace MochaDB.Streams {
         /// Count of value.
         /// </summary>
         public int Count =>
-            array.Length;
+            array.Count();
 
         #endregion
     }
