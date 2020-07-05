@@ -5,7 +5,7 @@ namespace MochaDB.Streams {
     /// Stream reader for MochaDB.
     /// </summary>
     /// <typeparam name="T">Value type of stream reader.</typeparam>
-    public class MochaReader<T>:IMochaReader<T> {
+    public class MochaReader<T> {
         #region Fields
 
         internal MochaArray<T> array;

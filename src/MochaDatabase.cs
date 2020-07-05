@@ -39,7 +39,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaDatabase provides management of a MochaDB database.
     /// </summary>
-    public class MochaDatabase:IMochaDatabase {
+    public class MochaDatabase {
         #region Fields
 
         private static string
@@ -182,7 +182,7 @@ namespace MochaDB {
         /// <param name="stackName">Parent stack of StackItem.</param>
         /// <param name="path">Path of StackItem.</param>
         /// <param name="item">StackItem to get code.</param>
-        internal string GetBuildStackItem(string stackName,string path,IMochaStackItem item) {
+        internal string GetBuildStackItem(string stackName,string path,MochaStackItem item) {
             string code = $"    CreateStackItem:{stackName}:{item.Name}:{path}\n";
             code+=$"    SetStackItemValue:{stackName}:{item.Value}:{(path==string.Empty ? item.Name : path)}\n";
             code+=$"    SetStackItemDescription:{stackName}:{item.Description}:{(path==string.Empty ? item.Name : path)}\n";
@@ -201,7 +201,7 @@ namespace MochaDB {
         /// </summary>
         public string GetBuildFuncSectors() {
             string func = "func BuildSectors()\n{\n";
-            IMochaCollectionResult<MochaSector> sectors = GetSectors();
+            MochaCollectionResult<MochaSector> sectors = GetSectors();
             for(int index = 0;index < sectors.Count;index++) {
                 MochaSector currentSector = sectors[index];
                 func+=$"    AddSector:{currentSector.Name}:{currentSector.Data}:{currentSector.Description}\n";
@@ -215,9 +215,9 @@ namespace MochaDB {
         /// </summary>
         public string GetBuildFuncStacks() {
             string func = "func BuildStacks()\n{\n";
-            IMochaCollectionResult<MochaStack> stacks = GetStacks();
+            MochaCollectionResult<MochaStack> stacks = GetStacks();
             for(int index = 0;index < stacks.Count;index++) {
-                IMochaStack stack = stacks[index];
+                MochaStack stack = stacks[index];
                 func+=$"    CreateStack:{stack.Name}\n";
                 func+=$"    SetStackDescription:{stack.Name}:{stack.Description}\n";
                 for(int itemIndex = 0;itemIndex< stack.Items.Count;itemIndex++)
@@ -232,7 +232,7 @@ namespace MochaDB {
         /// </summary>
         public string GetBuildFuncTables() {
             string func = "func BuildTables()\n{\n";
-            IMochaCollectionResult<MochaTable> tables = GetTables();
+            MochaCollectionResult<MochaTable> tables = GetTables();
             for(int tableIndex = 0;tableIndex < tables.Count;tableIndex++) {
                 MochaTable currentTable = tables[tableIndex];
                 func += $"    CreateTable:{currentTable.Name}\n" +
@@ -2485,26 +2485,6 @@ namespace MochaDB {
             for(int index = 0;index < array.Length;index++)
                 array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
             return array;
-        }
-
-        #endregion
-
-        #region DatabaseItem
-
-        /// <summary>
-        /// Remove database item by type.
-        /// </summary>
-        /// <param name="item">DatabaseItem object.</param>
-        public bool RemoveDatabaseItem(IMochaDatabaseItem item) {
-            var type = item.GetType();
-            if(type == typeof(MochaTable))
-                return RemoveTable(item.Name);
-            else if(type == typeof(MochaSector))
-                return RemoveSector(item.Name);
-            else if(type == typeof(MochaStack))
-                return RemoveStack(item.Name);
-            else
-                return false;
         }
 
         #endregion

@@ -3,7 +3,7 @@
     /// Base for MochaDB value results.
     /// </summary>
     /// <typeparam name="T">Type of result value.</typeparam>
-    public struct MochaResult<T>:IMochaResult<T> {
+    public struct MochaResult<T>:IMochaResult {
         #region Constructors
 
         /// <summary>

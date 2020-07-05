@@ -7,7 +7,7 @@ namespace MochaDB.Streams {
     /// Writer for MochaDB.
     /// </summary>
     /// <typeparam name="T">Value type of writer.</typeparam>
-    public class MochaWriter<T>:IMochaWriter<T> {
+    public class MochaWriter<T> {
         #region Fields
 
         private List<T> collection;

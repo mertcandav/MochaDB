@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// Database schema for MochaDB.
     /// </summary>
-    public class MochaDatabaseSchema:IMochaDatabaseSchema {
+    public class MochaDatabaseSchema {
         #region Constructors
 
         /// <summary>

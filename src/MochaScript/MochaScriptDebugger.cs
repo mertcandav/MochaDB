@@ -11,7 +11,7 @@ namespace MochaDB.MochaScript {
     /// <summary>
     /// Process, debug and run MochaScript codes.
     /// </summary>
-    public class MochaScriptDebugger:IMochaScriptDebugger {
+    public class MochaScriptDebugger {
         #region Fields
 
         //Regexes.

@@ -5,7 +5,7 @@ namespace MochaDB {
     /// <summary>
     /// This is sector object for MochaDB.
     /// </summary>
-    public class MochaSector:IMochaSector {
+    public class MochaSector {
         #region Fields
 
         private string name;

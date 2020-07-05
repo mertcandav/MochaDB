@@ -2,7 +2,7 @@
     /// <summary>
     /// Element for MochaDB.
     /// </summary>
-    public struct MochaElement:IMochaElement {
+    public struct MochaElement {
         #region Constructors
 
         /// <summary>

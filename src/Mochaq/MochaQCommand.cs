@@ -4,7 +4,7 @@ namespace MochaDB.Mochaq {
     /// <summary>
     /// MochaQ query for MochaDB.
     /// </summary>
-    public struct MochaQCommand:IMochaQCommand {
+    public struct MochaQCommand {
         #region Fields
 
         private string command;

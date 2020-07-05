@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// This is column object for MochaDB.
     /// </summary>
-    public class MochaColumn:IMochaColumn {
+    public class MochaColumn {
         #region Fields
 
         private MochaDataType dataType;

@@ -8,7 +8,7 @@ namespace MochaDB {
     /// Interface for MochaDB static arrays.
     /// </summary>
     /// <typeparam name="T">Type of array items.</typeparam>
-    public interface IMochaArray<T>:IEnumerable<T>, IEnumerable, IMochaQueryableCollection<T> {
+    public interface IMochaArray<T>:IEnumerable<T>, IEnumerable {
         #region Methods
 
         int IndexOf(T item);

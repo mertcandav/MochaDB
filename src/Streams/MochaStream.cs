@@ -8,7 +8,7 @@ namespace MochaDB.Streams {
     /// <summary>
     /// Stream for MochaDB.
     /// </summary>
-    public class MochaStream:Stream, IMochaStream {
+    public class MochaStream:Stream {
         #region Fields
 
         private MemoryStream baseStream;

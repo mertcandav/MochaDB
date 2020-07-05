@@ -36,9 +36,7 @@ Public Class app
                 path.ParentDirectory()
                 db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
                 Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
-                Dim mhqlcommand As MhqlCommand = codebox.Text
-                If mhqlcommand.IsReaderCompatible Then
-                    Dim result As MochaTableResult = command.ExecuteScalar
+                Dim result As MochaTableResult = command.ExecuteScalar
 
                     datasource.Columns.Clear()
                     datasource.Rows.Clear()
@@ -49,10 +47,7 @@ Public Class app
                     For index = 0 To result.Rows.Count - 1
                         datasource.Rows.Add(result.Rows.ElementAt(index).Datas.ToArray)
                     Next
-                Else
-                    command.ExecuteCommand()
-                End If
-                db.Dispose()
+                    db.Dispose()
             Catch excep As MochaException
                 If db IsNot Nothing Then
                     db.Dispose()

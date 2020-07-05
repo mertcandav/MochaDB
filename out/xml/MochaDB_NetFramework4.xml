@@ -4,16 +4,6 @@
         <name>MochaDB</name>
     </assembly>
     <members>
-        <member name="T:MochaDB.Connection.IMochaProvider">
-            <summary>
-            Provider interface for MochaDB providers.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Connection.IMochaProviderAttribute">
-            <summary>
-            Provider attribute interface for MochaDB provider attributes.
-            </summary>
-        </member>
         <member name="T:MochaDB.Connection.MochaProvider">
             <summary>
             Provider for MochaDB connections.
@@ -192,76 +182,11 @@
             </summary>
             <typeparam name="T">Item type of collector.</typeparam>
         </member>
-        <member name="T:MochaDB.IMochaColumn">
-            <summary>
-            Column interface for MochaDB columns.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaData">
-            <summary>
-            Data interface for MochaDB datas.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaDatabase">
-            <summary>
-            Interface for MochaDB database managers.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaDatabaseItem">
-            <summary>
-            Interface for MochaDB database data items.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaDatabaseSchema">
-            <summary>
-            Interface for MochaDB database schemas.
-            </summary>    
-        </member>
-        <member name="T:MochaDB.IMochaElement">
-            <summary>
-            Interface for MochaDB elements.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaPath">
-            <summary>
-            Interface for MochaDB path definers.
-            </summary>
-        </member>
         <member name="T:MochaDB.IMochaReadonlyCollection`1">
             <summary>
             Readonly collection interface for MochaDB.
             </summary>
             <typeparam name="T">Item type of collector.</typeparam>
-        </member>
-        <member name="T:MochaDB.IMochaRow">
-            <summary>
-            Row interface for MochaDB rows.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaSector">
-            <summary>
-            Sector interface for MochaDB sectors.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaStack">
-            <summary>
-            Stack interface for MochaDB stacks.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaStackItem">
-            <summary>
-            StackItem interface for MochaDB stack items.
-            </summary>
-        </member>
-        <member name="T:MochaDB.IMochaTable">
-            <summary>
-            Table interface for MochaDB tables.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Logging.IMochaLog">
-            <summary>
-            Interface for MochaDB logs.
-            </summary>
         </member>
         <member name="T:MochaDB.Logging.MochaLog">
             <summary>
@@ -304,57 +229,6 @@
         <member name="P:MochaDB.Logging.MochaLog.Time">
             <summary>
             Log time.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mhql.IMhqlCommand">
-            <summary>
-            Interface for MochaDB Mhql commands.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mhql.IMochaDbCommand">
-            <summary>
-            Interface for MHQL commands processors.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mhql.MhqlCommand">
-            <summary>
-            Mhql command for MochaDB Mhql queries.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlCommand.#ctor(System.String)">
-            <summary>
-            Create a new MhqlCommand.
-            </summary>
-            <param name="command">Mhql command.</param>
-        </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible(System.String)" üyesi için yoksayıldı -->
-        <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible(System.String)">
-            <summary>
-            Returns true if command ise reader compatible command, returns false if not.
-            </summary>
-            <param name="command">Command to check.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlCommand.IsScalarCompatible(System.String)">
-            <summary>
-            Returns true if command ise scalar compatible command, returns false if not.
-            </summary>
-            <param name="command">Command to check.</param>
-        </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.IsExecuteCompatible" üyesi için yoksayıldı -->
-        <member name="M:MochaDB.Mhql.MhqlCommand.IsReaderCompatible">
-            <summary>
-            Returns true if command ise reader compatible command, returns false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlCommand.IsScalarCompatible">
-            <summary>
-            Returns true if command ise scalar compatible command, returns false if not.
-            </summary>
-        </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Mhql.MhqlCommand.ToString" üyesi için yoksayıldı -->
-        <member name="P:MochaDB.Mhql.MhqlCommand.Command">
-            <summary>
-            Mhql command.
             </summary>
         </member>
         <member name="T:MochaDB.Mhql.MhqlFormatter">
@@ -413,17 +287,6 @@
         <member name="M:MochaDB.Mhql.MochaDbCommand.CheckConnection">
             <summary>
             Check connection and database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand(System.String)">
-            <summary>
-            Run command.
-            </summary>
-            <param name="command">MQL Command to set.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand">
-            <summary>
-            Run command.
             </summary>
         </member>
         <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable">
@@ -1559,7 +1422,7 @@
             Return XDocument of database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetBuildStackItem(System.String,System.String,MochaDB.IMochaStackItem)">
+        <member name="M:MochaDB.MochaDatabase.GetBuildStackItem(System.String,System.String,MochaDB.MochaStackItem)">
             <summary>
             Returns MochaScript build code od stack item.
             </summary>
@@ -2413,12 +2276,6 @@
             </summary>
             <param name="path">Path of base element.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveDatabaseItem(MochaDB.IMochaDatabaseItem)">
-            <summary>
-            Remove database item by type.
-            </summary>
-            <param name="item">DatabaseItem object.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ToString">
             <summary>
             Returns result of <see cref="M:MochaDB.MochaDatabase.GetMochaScript"/>
@@ -2782,16 +2639,6 @@
             Path.
             </summary>
         </member>
-        <member name="T:MochaDB.Mochaq.IMochaQCommand">
-            <summary>
-            Interface for MochaQ commands.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.IMochaQuery">
-            <summary>
-            Interface for MochaDB query handlers.
-            </summary>
-        </member>
         <member name="T:MochaDB.Mochaq.MochaQCommand">
             <summary>
             MochaQ query for MochaDB.
@@ -2833,41 +2680,6 @@
             <summary>
             MochaQ command.
             </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.MochaQFormatter">
-            <summary>
-            Formatter for MochaQ commands.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQFormatter.IsKeyword(System.String)">
-            <summary>
-            Return true if value is MochaQ keyword but return false if not.
-            </summary>
-            <param name="value">Value to check.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQFormatter.UpperCaseKeywords(System.String@)">
-            <summary>
-            Replace MochaQ keywords to upper case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQFormatter.UpperCaseKeywords(System.String)">
-            <summary>
-            Replace MochaQ keywords to upper case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQFormatter.LowerCaseKeywords(System.String@)">
-            <summary>
-            Replace MochaQ keywords to lower case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQFormatter.LowerCaseKeywords(System.String)">
-            <summary>
-            Replace MochaQ keywords to lower case.
-            </summary>
-            <param name="value">The value to targeting.</param>
         </member>
         <member name="T:MochaDB.Mochaq.MochaQuery">
             <summary>
@@ -3156,16 +2968,6 @@
             Add item.
             </summary>
             <param name="datas">Datas of item.</param>
-        </member>
-        <member name="T:MochaDB.MochaScript.IMochaScriptCodeProcessor">
-            <summary>
-            Interface for MochaScript code processors.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaScript.IMochaScriptDebugger">
-            <summary>
-            MochaScript code debugger interface for MochaDB MochaScript.
-            </summary>
         </member>
         <member name="T:MochaDB.MochaScript.Keywords.Keyword_Begin">
             <summary>
@@ -4039,18 +3841,6 @@
             </summary>
             <param name="name">Name of item.</param>
         </member>
-        <member name="T:MochaDB.Querying.IMochaCollectionResult`1">
-            <summary>
-            Interface for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaQueryableCollection`1">
-            <summary>
-            Interface for queryable collections.
-            </summary>
-            <typeparam name="T">Type of collection value type.</typeparam>
-        </member>
         <member name="T:MochaDB.Querying.IMochaResult">
             <summary>
             Interface for MochaDB results.
@@ -4252,13 +4042,6 @@
         <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteScalarTable(MochaDB.MochaDatabase,System.String)">
             <summary>
             Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable"/> function.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="mhql">MHQL Command.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteCommand"/> function.
             </summary>
             <param name="db">Target database.</param>
             <param name="mhql">MHQL Command.</param>
@@ -4620,22 +4403,6 @@
             Returns last char.
             </summary>
             <param name="value">String.</param>
-        </member>
-        <member name="T:MochaDB.Streams.IMochaReader`1">
-            <summary>
-            Interface for MochaDB readers.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Streams.IMochaStream">
-            <summary>
-            Interface for MochaDB streams.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Streams.IMochaWriter`1">
-            <summary>
-            Interface for MochaDB writers.
-            </summary>
-            <typeparam name="T">Value type of writer.</typeparam>
         </member>
         <member name="T:MochaDB.Streams.MochaReader`1">
             <summary>

@@ -32,14 +32,6 @@ namespace MochaDB.Querying {
             new MochaDbCommand(mhql,db).ExecuteScalarTable();
 
         /// <summary>
-        /// Execute <see cref="MochaDbCommand.ExecuteCommand()"/> function.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="mhql">MHQL Command.</param>
-        public static void ExecuteCommand(this MochaDatabase db,string mhql) =>
-            new MochaDbCommand(mhql,db).ExecuteCommand();
-
-        /// <summary>
         /// Returns all sectors in database.
         /// </summary>
         /// <param name="db">Target database.</param>

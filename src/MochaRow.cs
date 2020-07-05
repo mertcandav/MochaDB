@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// This is row object for MochaDB.
     /// </summary>
-    public class MochaRow:IMochaRow {
+    public class MochaRow {
         #region Construcors
 
         /// <summary>

@@ -9,14 +9,12 @@ namespace MochaDB.Mhql {
     /// <summary>
     /// MHQL Command processor for MochaDB.
     /// </summary>
-    public class MochaDbCommand:IMochaDbCommand {
+    public class MochaDbCommand {
         #region Fields
 
-        private MhqlCommand command;
+        private string command;
         private MochaDatabase db;
-
         internal MochaArray<MhqlKeyword> keywords;
-
         internal Mhql_USE USE;
         internal Mhql_SELECT SELECT;
         internal Mhql_REMOVE REMOVE;
@@ -70,96 +68,6 @@ namespace MochaDB.Mhql {
                 throw new MochaException("Target database is cannot null!");
             if(Database.State!=MochaConnectionState.Connected)
                 throw new MochaException("Connection is not open!");
-        }
-
-        #endregion
-
-        #region ExecuteCommand
-
-        /// <summary>
-        /// Run command.
-        /// </summary>
-        /// <param name="command">MQL Command to set.</param>
-        public void ExecuteCommand(string command) {
-            Command=command;
-            ExecuteCommand();
-        }
-
-        /// <summary>
-        /// Run command.
-        /// </summary>
-        public void ExecuteCommand() {
-            CheckConnection();
-            if(!MhqlCommand.IsExecuteCompatible(Command))
-                return;
-
-            string lastcommand;
-            var tags = Mhql_AT.GetATS(Command,out lastcommand);
-            if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-                throw new MochaException("USE keyword is not supported by execute command!");
-            } else if(lastcommand.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
-                var select = SELECT.GetSELECT(out lastcommand);
-                List<object> collection = new List<object>();
-                if(tags.Length == 0)
-                    collection.AddRange(SELECT.GetTables(select));
-                else {
-                    bool
-                        tables = false,
-                        sectors = false,
-                        stacks = false;
-                    for(int index = 0; index < tags.Length; index++) {
-                        if(tags.ElementAt(index).Equals("@TABLES",StringComparison.OrdinalIgnoreCase)) {
-                            if(tables)
-                                throw new MochaException("@TABLES cannot be targeted more than once!");
-
-                            tables = true;
-                            collection.AddRange(SELECT.GetTables(select));
-                        } else if(tags.ElementAt(index).Equals("@SECTORS",StringComparison.OrdinalIgnoreCase)) {
-                            if(sectors)
-                                throw new MochaException("@SECTORS cannot be targeted more than once!");
-
-                            sectors = true;
-                            collection.AddRange(SELECT.GetSectors(select));
-                        } else if(tags.ElementAt(index).Equals("@STACKS",StringComparison.OrdinalIgnoreCase)) {
-                            if(stacks)
-                                throw new MochaException("@STACKS cannot be targeted more than once!");
-
-                            stacks = true;
-                            collection.AddRange(SELECT.GetStacks(select));
-                        } else
-                            throw new MochaException("@ mark is cannot processed!");
-                    }
-                }
-
-                do {
-                    //Orderby.
-                    if(ORDERBY.IsORDERBY(lastcommand)) {
-                        throw new MochaException("ORDERBY keyword is canot used with SELECT keyword!");
-                    }
-                    //Groupby.
-                    else if(GROUPBY.IsGROUPBY(lastcommand)) {
-                        throw new MochaException("GROUPBY keyword is canot used with SELECT keyword!");
-                    }
-                    //Groupby.
-                    else if(SUBROW.IsSUBROW(lastcommand)) {
-                        throw new MochaException("SUBROW keyword is canot used with SELECT keyword!");
-                    }
-                    //Must.
-                    else if(MUST.IsMUST(lastcommand)) {
-                        throw new MochaException("MUST keyword is canot used with SELECT keyword!");
-                    }
-                    //Remove.
-                    else if(lastcommand.Equals("REMOVE",StringComparison.OrdinalIgnoreCase)) {
-                        for(int index = 0; index < collection.Count; index++) {
-                            var item = (IMochaDatabaseItem)collection[index];
-                            Database.RemoveDatabaseItem(item);
-                        }
-                        return;
-                    } else
-                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
-                } while(true);
-            } else
-                throw new MochaException("MHQL is cannot processed!");
         }
 
         #endregion
@@ -219,8 +127,6 @@ namespace MochaDB.Mhql {
         public MochaReader<object> ExecuteReader() {
             CheckConnection();
             var reader = new MochaReader<object>();
-            if(MhqlCommand.IsExecuteCompatible(Command))
-                return reader;
 
             bool fromkw;
             string lastcommand;
@@ -370,7 +276,7 @@ namespace MochaDB.Mhql {
         /// <summary>
         /// Current MQL command.
         /// </summary>
-        public MhqlCommand Command {
+        public string Command {
             get =>
                 command;
             set {

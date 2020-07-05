@@ -4,7 +4,7 @@ namespace MochaDB.Logging {
     /// <summary>
     /// Log for MochaDB.
     /// </summary>
-    public struct MochaLog:IMochaLog {
+    public struct MochaLog {
         #region Constructors
 
         /// <summary>

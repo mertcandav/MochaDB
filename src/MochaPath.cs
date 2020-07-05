@@ -4,7 +4,7 @@ namespace MochaDB {
     /// <summary>
     /// MochaDB path definer.
     /// </summary>
-    public struct MochaPath:IMochaPath {
+    public struct MochaPath {
         #region Fields
 
         private string path;

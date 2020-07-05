@@ -5,7 +5,7 @@ namespace MochaDB.MochaScript {
     /// <summary>
     /// MochaScript code processor.
     /// </summary>
-    public class MochaScriptCodeProcessor:IMochaScriptCodeProcessor {
+    public class MochaScriptCodeProcessor {
         #region Constructors
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace MochaDB {
     /// <summary>
     /// This is stack object for MochaDB.
     /// </summary>
-    public class MochaStack:IMochaStack {
+    public class MochaStack {
         #region Fields
 
         private string name;

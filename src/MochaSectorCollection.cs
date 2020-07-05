@@ -34,7 +34,7 @@ namespace MochaDB {
         #region Item Events
 
         private void Item_NameChanged(object sender,EventArgs e) {
-            var result = collection.Where(x => x.Name==(sender as IMochaStackItem).Name);
+            var result = collection.Where(x => x.Name==(sender as MochaStackItem).Name);
             if(result.Count()>1)
                 throw new MochaException("There is already a sector with this name!");
 

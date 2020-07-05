@@ -9,7 +9,7 @@ namespace MochaDB.Mochaq {
     /// <summary>
     /// It offers query usage and management with MochaQ.
     /// </summary>
-    public class MochaQuery:IMochaQuery {
+    public class MochaQuery {
         #region Fields
 
         private MochaDatabase database;

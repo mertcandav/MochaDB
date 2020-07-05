@@ -45,19 +45,13 @@ let codebox_keydown(e: KeyEventArgs) =
         try
         gridview.Columns.Clear()
         let command = new MochaDbCommand(database)
-        let mhqlcommand = new MhqlCommand(codebox.Text)
-        if mhqlcommand.IsReaderCompatible() then
-        let result = command.ExecuteScalar(mhqlcommand.ToString()) :?> MochaTableResult
+        let result = command.ExecuteScalar(codebox.Text) :?> MochaTableResult
         let table = System.Data.DataTable()
         for column in result.Columns do
             table.Columns.Add(column.Name)
         for row in result.Rows do
             table.Rows.Add([| for data in row.Datas -> data.Data |])
             gridview.DataSource <- table
-        else if mhqlcommand.IsExecuteCompatible() then
-            command.ExecuteCommand(mhqlcommand.ToString())
-        else
-            Console.WriteLine("ERROR: Command is not defined!");
         with
             | :? MochaException as excep ->
                 Console.WriteLine("ERROR: " + excep.Message)

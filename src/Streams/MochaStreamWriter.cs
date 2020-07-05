@@ -7,7 +7,7 @@ namespace MochaDB.Streams {
     /// <summary>
     /// Stream writer for MochaDB.
     /// </summary>
-    public class MochaStreamWriter:IMochaWriter<byte> {
+    public class MochaStreamWriter {
         #region Fields
 
         private List<byte> collection;

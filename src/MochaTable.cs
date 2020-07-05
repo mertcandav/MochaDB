@@ -5,7 +5,7 @@ namespace MochaDB {
     /// <summary>
     /// This is table object for MochaDB.
     /// </summary>
-    public class MochaTable:IMochaTable {
+    public class MochaTable {
         #region Fields
 
         private string name;
