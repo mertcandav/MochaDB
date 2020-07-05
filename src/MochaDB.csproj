@@ -102,6 +102,9 @@
     <Compile Include="..\framework\xml.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\framework\aes.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- MochaScript source code files links -->

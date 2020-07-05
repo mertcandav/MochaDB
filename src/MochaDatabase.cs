@@ -28,7 +28,6 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using MochaDB.Connection;
-using MochaDB.Cryptography;
 using MochaDB.engine;
 using MochaDB.framework;
 using MochaDB.Logging;
@@ -49,7 +48,6 @@ namespace MochaDB {
 
         internal volatile XDocument CDoc = null;
         private FileStream sourceStream = null;
-        private AES aes256 = null;
 
         #endregion
 
@@ -78,7 +76,6 @@ namespace MochaDB {
             provider.EnableConstant();
             SuspendChangeEvents=false;
             Provider=provider;
-            aes256=new AES(Iv,Key);
             State=MochaConnectionState.Disconnected;
             Logs = Provider.GetBoolAttributeState("Logs");
 
@@ -152,7 +149,6 @@ namespace MochaDB {
         /// </summary>
         public void Dispose() {
             Disconnect();
-            aes256=null;
             Provider=null;
         }
 
@@ -336,7 +332,7 @@ namespace MochaDB {
                     throw new MochaException("The file shown is not a MochaDB database file!");
             }
 
-            Doc = XDocument.Parse(aes256.Decrypt(File.ReadAllText(Provider.Path,Encoding.UTF8)));
+            Doc = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(Provider.Path,Encoding.UTF8)));
 
             if(!CheckMochaDB())
                 throw new MochaException("The MochaDB database is corrupt!");
@@ -383,7 +379,7 @@ namespace MochaDB {
             string[] elementsName = elementPath.Split('/');
 
             try {
-                XDocument document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
+                XDocument document = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(path)));
                 XElement element = document.Root.Element(elementsName[0]);
 
                 if(element.Name.LocalName != elementsName[0])
@@ -439,7 +435,7 @@ namespace MochaDB {
 
             File.WriteAllText(path.EndsWith(Engine_LEXER.Extension) ?
                 path :
-                path + Engine_LEXER.Extension,new AES(Iv,Key).Encrypt(content));
+                path + Engine_LEXER.Extension,aes.Encrypt(Iv,Key,content));
         }
 
         /// <summary>
@@ -451,7 +447,7 @@ namespace MochaDB {
                 throw new MochaException("The file shown is not a MochaDB database file!");
 
             try {
-                XDocument document = XDocument.Parse(new AES(Iv,Key).Decrypt(File.ReadAllText(path)));
+                XDocument document = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(path)));
                 return Engine_STRUCTURE.CheckMochaDB(document);
             } catch { return false; }
         }
@@ -493,7 +489,7 @@ namespace MochaDB {
             if(Provider.Readonly)
                 throw new MochaException("This connection is can read only, cannot task of write!");
 
-            string content = aes256.Encrypt(CDoc.ToString());
+            string content = aes.Encrypt(Iv,Key,CDoc.ToString());
             string password = GetPassword();
             Disconnect();
             File.WriteAllText(Provider.Path,content);
@@ -516,7 +512,7 @@ namespace MochaDB {
             XElement xLog = new XElement("Log");
             xLog.Add(new XAttribute("ID",id));
             xLog.Add(new XAttribute("Time",DateTime.Now));
-            string content = aes256.Encrypt(Doc.ToString());
+            string content = aes.Encrypt(Iv,Key,Doc.ToString());
             xLog.Value=content;
             XElement xLogs = GetXElement(Doc,"Logs");
             IEnumerable<XElement> logElements = xLogs.Elements();
@@ -2464,7 +2460,7 @@ namespace MochaDB {
             Changing?.Invoke(this,new EventArgs());
 
             var log = GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
-            Doc=XDocument.Parse(aes256.Decrypt(log.Value));
+            Doc=XDocument.Parse(aes.Decrypt(Iv,Key,log.Value));
             Save();
         }
 
