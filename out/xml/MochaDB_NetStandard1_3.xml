@@ -220,41 +220,6 @@
             Log time.
             </summary>
         </member>
-        <member name="T:MochaDB.Mhql.MhqlFormatter">
-            <summary>
-            Formatter for Mhql commands.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.IsObject(System.String)">
-            <summary>
-            Returns true if value is Mhql keyword or function but return false if not.
-            </summary>
-            <param name="value">Value to check.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseObjects(System.String@)">
-            <summary>
-            Replace Mhql keywords and functions to upper case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.UpperCaseObjects(System.String)">
-            <summary>
-            Replace Mhql keywords and functions to upper case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseObjects(System.String@)">
-            <summary>
-            Replace Mhql keywords and functions to lower case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
-        <member name="M:MochaDB.Mhql.MhqlFormatter.LowerCaseObjects(System.String)">
-            <summary>
-            Replace Mhql keywords and functions to lower case.
-            </summary>
-            <param name="value">The value to targeting.</param>
-        </member>
         <member name="T:MochaDB.Mhql.MochaDbCommand">
             <summary>
             MHQL Command processor for MochaDB.
