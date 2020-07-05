@@ -51,13 +51,6 @@ namespace MochaDB {
             Convert.ToBase64String(bytes.ToArray());
 
         /// <summary>
-        /// Returns Base64 string from stream of bytes.
-        /// </summary>
-        /// <param name="stream">Stream.</param>
-        public static string ToBase64String(MochaStream stream) =>
-            Convert.ToBase64String(stream.Bytes);
-
-        /// <summary>
         /// Returns Base64 bytes from Base64 string.
         /// </summary>
         /// <param name="value">Bytes.</param>

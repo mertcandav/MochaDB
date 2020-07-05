@@ -183,13 +183,6 @@ namespace MochaDB {
             new MochaReader<T>(array);
 
         /// <summary>
-        /// Returns values in MochaWriter.
-        /// </summary>
-        public MochaWriter<T> ToWriter() {
-            return new MochaWriter<T>(array);
-        }
-
-        /// <summary>
         /// Return first element in collection.
         /// </summary>
         public T GetFirst() =>
