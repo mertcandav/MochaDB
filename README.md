@@ -30,7 +30,6 @@
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
 + Log system
-+ Script build and debug with <a href="https://github.com/mertcandav/MochaDB/wiki/MohaScriptDebugger">MochaScript</a>
 
 <br>
 
@@ -80,10 +79,7 @@ var tables = DB.GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
 
 ```c#
 MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
-string value = db.Query.GetRun("GETSECTORDATA:PiNumber").ToString();
-
-if(value!="3.14")
-    db.Query.Run("SETSECTORDATA:PiNumber:3.14");
+db.Query.Run("CreateTable:Personels");
 ```
 
 # 
@@ -91,7 +87,6 @@ if(value!="3.14")
 ### MHQL
 
 ```java
-@TABLES // Command for tables.
 USE
     Name, Surname, $Salary,
     SUM(Salary) AS Total Salary
