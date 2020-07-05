@@ -29,10 +29,6 @@ $@"<?MochaDB Version=\""{Version}""?>
         <Password DataType=""String"" Description=""Password of database.""></Password>
         <Description DataType=""String"" Description=""Description of database.""></Description>
     </Root>
-    <Sectors Description=""Base of sectors."">>
-    </Sectors>
-    <Stacks Description=""Base of stacks."">>
-    </Stacks>
     <Tables Description=""Base of tables."">
     </Tables>
     <Logs Description=""Logs of database."">
