@@ -9,7 +9,7 @@ namespace MochaDB {
     /// Static array for MochaDB.
     /// </summary>
     /// <typeparam name="T">Type of items.</typeparam>
-    public class MochaArray<T>:IMochaArray<T> {
+    public class MochaArray<T>:IEnumerable,IEnumerable<T> {
         #region Fields
 
         internal T[] array;

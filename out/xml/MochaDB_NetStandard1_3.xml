@@ -165,12 +165,6 @@
             Returns value as string.
             </summary>
         </member>
-        <member name="T:MochaDB.IMochaArray`1">
-            <summary>
-            Interface for MochaDB static arrays.
-            </summary>
-            <typeparam name="T">Type of array items.</typeparam>
-        </member>
         <member name="T:MochaDB.IMochaCollection`1">
             <summary>
             Collection interface for MochaDB.
