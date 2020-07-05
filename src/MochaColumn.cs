@@ -21,7 +21,6 @@ namespace MochaDB {
         /// </summary>
         internal MochaColumn() {
             Datas = new MochaColumnDataCollection(MochaDataType.String);
-            Attributes = new MochaAttributeCollection();
         }
 
         /// <summary>
@@ -135,11 +134,6 @@ namespace MochaDB {
                 Datas.DataType=value;
             }
         }
-
-        /// <summary>
-        /// Attributes of column.
-        /// </summary>
-        public MochaAttributeCollection Attributes { get; }
 
         /// <summary>
         /// Tag.

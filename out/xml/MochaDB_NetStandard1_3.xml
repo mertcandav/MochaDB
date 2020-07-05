@@ -171,11 +171,6 @@
             </summary>
             <typeparam name="T">Type of array items.</typeparam>
         </member>
-        <member name="T:MochaDB.IMochaAttribute">
-            <summary>
-            Interface for MochaDB attributes.
-            </summary>
-        </member>
         <member name="T:MochaDB.IMochaCollection`1">
             <summary>
             Collection interface for MochaDB.
@@ -575,91 +570,6 @@
             Value.
             </summary>
         </member>
-        <member name="T:MochaDB.MochaAttributeCollection">
-            <summary>
-            MochaAttribute collector.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.#ctor">
-            <summary>
-            Create new MochaAttributeCollection.
-            </summary>
-        </member>
-        <member name="E:MochaDB.MochaAttributeCollection.AttributeNameChanged">
-            <summary>
-            This happens after NameChanged event of any item in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Clear">
-            <summary>
-            Remove all items.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Add(MochaDB.IMochaAttribute)">
-            <summary>
-            Add item.
-            </summary>
-            <param name="item">Item to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Add(System.String,System.String)">
-            <summary>
-            Add item.
-            </summary>
-            <param name="name">Name of item.</param>
-            <param name="value">Value of item.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.AddRange(System.Collections.Generic.IEnumerable{MochaDB.IMochaAttribute})">
-            <summary>
-            Add item from range.
-            </summary>
-            <param name="items">Range to add items.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Remove(MochaDB.IMochaAttribute)">
-            <summary>
-            Remove item.
-            </summary>
-            <param name="item">Item to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Remove(System.String)">
-            <summary>
-            Remove item by name.
-            </summary>
-            <param name="name">Name of item to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.RemoveAt(System.Int32)">
-            <summary>
-            Remove item by index.
-            </summary>
-            <param name="index">Index of item to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.IndexOf(System.String)">
-            <summary>
-            Return index if index is find but return -1 if index is not find.
-            </summary>
-            <param name="name">Name of item to find index.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.Contains(System.String)">
-            <summary>
-            Return true if item is exists but return false if item not exists.
-            </summary>
-            <param name="name">Name of item to exists check.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttributeCollection.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaAttributeCollection.Item(System.String)">
-            <summary>
-            Return item by name.
-            </summary>
-            <param name="name">Name of item.</param>
-        </member>
         <member name="T:MochaDB.MochaCollection`1">
             <summary>
             Base class for MochaDB collections.
@@ -846,11 +756,6 @@
         <member name="P:MochaDB.MochaColumn.DataType">
             <summary>
             Data type of datas.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaColumn.Attributes">
-            <summary>
-            Attributes of column.
             </summary>
         </member>
         <member name="P:MochaDB.MochaColumn.Tag">
@@ -1575,27 +1480,6 @@
             </summary>
             <param name="sector">MochaSector object to add.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.AddSectorAttribute(System.String,MochaDB.IMochaAttribute)">
-            <summary>
-            Add attribute to sector.
-            </summary>
-            <param name="name">Name of sector.</param>
-            <param name="attr">Attribute to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveSectorAttribute(System.String,System.String)">
-            <summary>
-            Remove attribute from sector by name.
-            </summary>
-            <param name="name">Name of sector.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetSectorAttribute(System.String,System.String)">
-            <summary>
-            Returns attribute from sector by name.
-            </summary>
-            <param name="name">Name of sector.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.AddSector(System.String)">
             <summary>
             Add sector.
@@ -1659,12 +1543,6 @@
             Returns all sectors in database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetSectorAttributes(System.String)">
-            <summary>
-            Returns all attributes from sector.
-            </summary>
-            <param name="name">Name of sector.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsSector(System.String)">
             <summary>
             Returns whether there is a sector with the specified name.
@@ -1687,27 +1565,6 @@
             Remove stack by name. Returns stack if table is exists and removed.
             </summary>
             <param name="name">Name of stack to remove.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddStackAttribute(System.String,MochaDB.IMochaAttribute)">
-            <summary>
-            Add attribute to stack.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="attr">Attribute to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveStackAttribute(System.String,System.String)">
-            <summary>
-            Remove attribute from stack by name.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetStackAttribute(System.String,System.String)">
-            <summary>
-            Returns attribute from stack by name.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetStackDescription(System.String)">
             <summary>
@@ -1741,12 +1598,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetStackAttributes(System.String)">
-            <summary>
-            Returns all attributes from stack.
-            </summary>
-            <param name="name">Name of stack.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsStack(System.String)">
             <summary>
             Returns whether there is a stack with the specified name.
@@ -1766,30 +1617,6 @@
             <param name="name">Name of stack.</param>
             <param name="path">Path of stack item.</param>
             <param name="item">MochaStackItem object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddStackItemAttribute(System.String,System.String,MochaDB.IMochaAttribute)">
-            <summary>
-            Add attribute to stackitem.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-            <param name="attr">Attribute to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetStackItemAttribute(System.String,System.String,System.String)">
-            <summary>
-            Returns attribute from stackitem by name.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveStackItemAttribute(System.String,System.String,System.String)">
-            <summary>
-            Remove attribute from stackitem by name.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.RemoveStackItem(System.String,System.String)">
             <summary>
@@ -1843,13 +1670,6 @@
             <param name="name">Name of stack.</param>
             <param name="path">Path of stack item.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetStackItemAttributes(System.String,System.String)">
-            <summary>
-            Returns all attributes from stackitem.
-            </summary>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsStackItem(System.String,System.String)">
             <summary>
             Returns whether there is a stack item with the specified name.
@@ -1867,27 +1687,6 @@
             Add table.
             </summary>
             <param name="table">MochaTable object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddTableAttribute(System.String,MochaDB.IMochaAttribute)">
-            <summary>
-            Add attribute to table.
-            </summary>
-            <param name="name">Name of table.</param>
-            <param name="attr">Attribute to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveTableAttribute(System.String,System.String)">
-            <summary>
-            Remove attribute from table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTableAttribute(System.String,System.String)">
-            <summary>
-            Returns attribute from table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
             <summary>
@@ -1932,12 +1731,6 @@
             Returns all tables in database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.GetTableAttributes(System.String)">
-            <summary>
-            Returns all attributes from table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
             <summary>
             Returns whether there is a table with the specified name.
@@ -1950,30 +1743,6 @@
             </summary>
             <param name="tableName">Name of column.</param>
             <param name="column">MochaColumn object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddColumnAttribute(System.String,System.String,MochaDB.IMochaAttribute)">
-            <summary>
-            Add attribute to column.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="name">Name of column.</param>
-            <param name="attr">Attribute to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetColumnAttribute(System.String,System.String,System.String)">
-            <summary>
-            Returns attribute from column by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="name">Name of column.</param>
-            <param name="attrname">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveColumnAttribute(System.String,System.String,System.String)">
-            <summary>
-            Remove attribute from column by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="name">Name of column.</param>
-            <param name="attrname">Name of attribute.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.CreateColumn(System.String,System.String)">
             <summary>
@@ -2035,13 +1804,6 @@
         <member name="M:MochaDB.MochaDatabase.GetColumnDataType(System.String,System.String)">
             <summary>
             Returns column datatype by name.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="name">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetColumnAttributes(System.String,System.String)">
-            <summary>
-            Returns all attributes from column.
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
@@ -3463,11 +3225,6 @@
             Description.
             </summary>
         </member>
-        <member name="P:MochaDB.MochaSector.Attributes">
-            <summary>
-            Attributes of sector.
-            </summary>
-        </member>
         <member name="T:MochaDB.MochaSectorCollection">
             <summary>
             MochaSector collector.
@@ -3554,11 +3311,6 @@
         <member name="P:MochaDB.MochaStack.Items">
             <summary>
             Items of stack.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaStack.Attributes">
-            <summary>
-            Attributes of stack.
             </summary>
         </member>
         <member name="T:MochaDB.MochaStackCollection">
@@ -3665,11 +3417,6 @@
         <member name="P:MochaDB.MochaStackItem.Items">
             <summary>
             Items of item.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaStackItem.Attributes">
-            <summary>
-            Attributes of item.
             </summary>
         </member>
         <member name="T:MochaDB.MochaStackItemCollection">
@@ -3789,11 +3536,6 @@
         <member name="P:MochaDB.MochaTable.Rows">
             <summary>
             Rows of table.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaTable.Attributes">
-            <summary>
-            Attributes of table.
             </summary>
         </member>
         <member name="T:MochaDB.MochaTableCollection">
@@ -4176,157 +3918,6 @@
             <param name="db">Target database.</param>
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetSectorAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Returns all attributes from sector.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of sector.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectorAttributes(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Read all attributes from sector.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of sector.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadSectorAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Read all attributes from sector.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of sector.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackAttributes(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Returns all attributes from stack.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Returns all attributes from stack.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackAttributes(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Read all attributes from stack.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Read all attributes from stack.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String)">
-            <summary>
-            Returns all attributes from stackitem.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Returns all attributes from stackitem.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="query">Query for filtering.</param>
-            <param name="path">Path of stack item.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String)">
-            <summary>
-            Read all attributes from stackitem.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="path">Path of stack item.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadStackItemAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Read all attributes from stackitem.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of stack.</param>
-            <param name="query">Query for filtering.</param>
-            <param name="path">Path of stack item.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTableAttributes(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Returns all attributes from table.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTableAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Returns all attributes from table.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of table.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTableAttributes(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Read all attributes from table.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadTableAttributes(MochaDB.MochaDatabase,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Read all attributes from table.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="name">Name of table.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetColumnAttributes(MochaDB.MochaDatabase,System.String,System.String)">
-            <summary>
-            Returns all attributes from column.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="tableName">Name of column.</param>
-            <param name="name">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetColumnAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Returns all attributes from column.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="tableName">Name of column.</param>
-            <param name="name">Name of column.</param>
-            <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,System.String,System.String)">
-            <summary>
-            Read all attributes from column.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="tableName">Name of column.</param>
-            <param name="name">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,System.String,System.String,System.Func{MochaDB.IMochaAttribute,System.Boolean})">
-            <summary>
-            Read all attributes from column.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="tableName">Name of column.</param>
-            <param name="name">Name of column.</param>
             <param name="query">Query for filtering.</param>
         </member>
         <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetElements(MochaDB.MochaDatabase,MochaDB.MochaPath,System.Func{MochaDB.MochaElement,System.Boolean})">
@@ -5853,56 +5444,6 @@
             Process value.
             </summary>
             <param name="val">Value.</param>
-        </member>
-        <member name="T:MochaDB.engine.Engine_ATTRIBUTES">
-            <summary>
-            Attribute engine of MochaDB.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributeCode(MochaDB.IMochaAttribute@)">
-            <summary>
-            Returns attribute as code.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.BuildCode(MochaDB.IMochaCollection{MochaDB.IMochaAttribute})">
-            <summary>
-            Returns builded attributes code by attributes.
-            </summary>
-            <param name="attrs">Attributes.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.AppendAttribute(System.String@,MochaDB.IMochaAttribute@)">
-            <summary>
-            Append attribute code to code.
-            </summary>
-            <param name="code">Code.</param>
-            <param name="attr">Attribute to add code.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttribute(System.String,System.String)">
-            <summary>
-            Returns attribute from code by name.
-            </summary>
-            <param name="code">Code.</param>
-            <param name="name">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.RemoveAttribute(System.String@,System.String)">
-            <summary>
-            Remove attribute from code by name.
-            </summary>
-            <param name="code">Code.</param>
-            <param name="name">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.GetAttributes(System.String)">
-            <summary>
-            Return attributes from code.
-            </summary>
-            <param name="code">Code.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_ATTRIBUTES.ExistsAttribute(System.String,System.String)">
-            <summary>
-            Return true if attribute is exists this name, returns false if not.
-            </summary>
-            <param name="code">Code.</param>
-            <param name="name">Name of attribute.</param>
         </member>
         <member name="T:MochaDB.engine.Engine_NAMES">
             <summary>

@@ -674,64 +674,7 @@ namespace MochaDB {
             xSector.Add(new XAttribute("Attributes",string.Empty));
             GetXElement(CDoc,"Sectors").Add(xSector);
 
-            // Attributes
-            for(int index = 0;index < sector.Attributes.Count;index++)
-                AddSectorAttribute(sector.Name,sector.Attributes[index]);
-
-            if(sector.Attributes.Count==0)
-                Save();
-        }
-
-        /// <summary>
-        /// Add attribute to sector.
-        /// </summary>
-        /// <param name="name">Name of sector.</param>
-        /// <param name="attr">Attribute to add.</param>
-        public void AddSectorAttribute(string name,IMochaAttribute attr) {
-            if(!ExistsSector(name))
-                throw new MochaException("Table not found in this name!");
-
-            var xattr = GetXElement(CDoc,$"Sectors/{name}").Attribute("Attributes");
-            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
-                throw new MochaException("There is already a attribute with this name!");
-
-            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
             Save();
-        }
-
-        /// <summary>
-        /// Remove attribute from sector by name.
-        /// </summary>
-        /// <param name="name">Name of sector.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public bool RemoveSectorAttribute(string name,string attrname) {
-            if(!ExistsSector(name))
-                return false;
-
-            var xtable = GetXElement(CDoc,$"Sectors/{name}");
-            var code = xtable.Attribute("Attributes").Value;
-            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
-
-            if(result) {
-                xtable.Attribute("Attributes").Value = code;
-                Save();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns attribute from sector by name.
-        /// </summary>
-        /// <param name="name">Name of sector.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public IMochaAttribute GetSectorAttribute(string name,string attrname) {
-            if(!ExistsSector(name))
-                throw new MochaException("Table not found in this name!");
-
-            var xtable = GetXElement(Doc,$"Sectors/{name}");
-            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
-            return attr;
         }
 
         /// <summary>
@@ -857,7 +800,6 @@ namespace MochaDB {
             MochaSector sector = new MochaSector(xSector.Name.LocalName);
             sector.Data=xSector.Value;
             sector.Description =xSector.Attribute("Description").Value;
-            sector.Attributes.collection.AddRange(GetSectorAttributes(name));
 
             return sector;
         }
@@ -874,20 +816,6 @@ namespace MochaDB {
                 sectors[index] = GetSector(sectorRange.ElementAt(index).Name.LocalName);
 
             return new MochaCollectionResult<MochaSector>(sectors);
-        }
-
-        /// <summary>
-        /// Returns all attributes from sector.
-        /// </summary>
-        /// <param name="name">Name of sector.</param>
-        public MochaCollectionResult<IMochaAttribute> GetSectorAttributes(string name) {
-            if(!ExistsSector(name))
-                throw new MochaException("Sector not found in this name!");
-
-            XElement xSector = GetXElement(Doc,$"Sectors/{name}");
-            var attrs = Engine_ATTRIBUTES.GetAttributes(xSector.Attribute("Attributes").Value);
-
-            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>
@@ -930,14 +858,9 @@ namespace MochaDB {
                 xStack.Add(GetMochaStackItemXML(stack.Items[index]));
             }
 
-            // Attributes
-            for(int index = 0;index < stack.Attributes.Count;index++)
-                AddStackAttribute(stack.Name,stack.Attributes[index]);
-
             GetXElement(CDoc,"Stacks").Add(xStack);
 
-            if(stack.Items.Count==0 && stack.Attributes.Count == 0)
-                Save();
+            Save();
         }
 
         /// <summary>
@@ -952,58 +875,6 @@ namespace MochaDB {
             GetXElement(CDoc,$"Stacks/{name}").Remove();
             Save();
             return true;
-        }
-
-        /// <summary>
-        /// Add attribute to stack.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="attr">Attribute to add.</param>
-        public void AddStackAttribute(string name,IMochaAttribute attr) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            var xattr = GetXElement(CDoc,$"Stacks/{name}").Attribute("Attributes");
-            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
-                throw new MochaException("There is already a attribute with this name!");
-
-            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
-            Save();
-        }
-
-        /// <summary>
-        /// Remove attribute from stack by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public bool RemoveStackAttribute(string name,string attrname) {
-            if(!ExistsStack(name))
-                return false;
-
-            var xtable = GetXElement(CDoc,$"Stacks/{name}");
-            var code = xtable.Attribute("Attributes").Value;
-            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
-
-            if(result) {
-                xtable.Attribute("Attributes").Value = code;
-                Save();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns attribute from stack by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public IMochaAttribute GetStackAttribute(string name,string attrname) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            var xtable = GetXElement(Doc,$"Stacks/{name}");
-            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
-            return attr;
         }
 
         /// <summary>
@@ -1066,7 +937,6 @@ namespace MochaDB {
             XElement xStack = GetXElement(Doc,$"Stacks/{name}");
             MochaStack stack = new MochaStack(xStack.Name.LocalName);
             stack.Description=xStack.Attribute("Description").Value;
-            stack.Attributes.collection.AddRange(GetStackAttributes(name));
 
             IEnumerable<XElement> elementRange = xStack.Elements();
             for(int index = 0;index < elementRange.Count();index++) {
@@ -1094,20 +964,6 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Returns all attributes from stack.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        public MochaCollectionResult<IMochaAttribute> GetStackAttributes(string name) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            XElement xstack = GetXElement(Doc,$"Stacks/{name}");
-            var attrs = Engine_ATTRIBUTES.GetAttributes(xstack.Attribute("Attributes").Value);
-
-            return new MochaCollectionResult<IMochaAttribute>(attrs);
-        }
-
-        /// <summary>
         /// Returns whether there is a stack with the specified name.
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
@@ -1125,9 +981,6 @@ namespace MochaDB {
         internal XElement GetMochaStackItemXML(MochaStackItem item) {
             XElement element = new XElement(item.Name,item.Value);
             element.Add(new XAttribute("Description",item.Description));
-            element.Add(new XAttribute("Attributes",string.Empty) {
-                Value = Engine_ATTRIBUTES.BuildCode(item.Attributes)
-            });
 
             for(int index = 0;index < item.Items.Count;index++) {
                 element.Add(GetMochaStackItemXML(item.Items[index]));
@@ -1160,61 +1013,6 @@ namespace MochaDB {
 
             element.Add(GetMochaStackItemXML(item));
             Save();
-        }
-
-        /// <summary>
-        /// Add attribute to stackitem.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item.</param>
-        /// <param name="attr">Attribute to add.</param>
-        public void AddStackItemAttribute(string name,string path,IMochaAttribute attr) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            var xattr = GetXElement(CDoc,$"Stacks/{name}/{path}").Attribute("Attributes");
-            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
-                throw new MochaException("There is already a attribute with this name!");
-
-            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
-            Save();
-        }
-
-        /// <summary>
-        /// Returns attribute from stackitem by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public IMochaAttribute GetStackItemAttribute(string name,string path,string attrname) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            var xtable = GetXElement(Doc,$"Stacks/{name}/{path}");
-            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
-            return attr;
-        }
-
-        /// <summary>
-        /// Remove attribute from stackitem by name.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public bool RemoveStackItemAttribute(string name,string path,string attrname) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            var xitem = GetXElement(CDoc,$"Stacks/{name}/{path}");
-            var code = xitem.Attribute("Attributes").Value;
-            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
-
-            if(result) {
-                xitem.Attribute("Attributes").Value = code;
-                Save();
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -1365,7 +1163,6 @@ namespace MochaDB {
             MochaStackItem item = new MochaStackItem(xStackItem.Name.LocalName);
             item.Value=xStackItem.Value;
             item.Description=xStackItem.Attribute("Description").Value;
-            item.Attributes.collection.AddRange(GetStackItemAttributes(name,path));
 
             IEnumerable<XElement> elementRange = xStackItem.Elements();
             if(elementRange.Count() >0)
@@ -1373,21 +1170,6 @@ namespace MochaDB {
                     item.Items.collection.Add(GetStackItem(name,path += $"/{elementRange.ElementAt(index).Name.LocalName}"));
 
             return item;
-        }
-
-        /// <summary>
-        /// Returns all attributes from stackitem.
-        /// </summary>
-        /// <param name="name">Name of stack.</param>
-        /// <param name="path">Path of stack item.</param>
-        public MochaCollectionResult<IMochaAttribute> GetStackItemAttributes(string name,string path) {
-            if(!ExistsStack(name))
-                throw new MochaException("Stack not found in this name!");
-
-            XElement xstackitem = GetXElement(Doc,$"Stacks/{name}/{path}");
-            var attrs = Engine_ATTRIBUTES.GetAttributes(xstackitem.Attribute("Attributes").Value);
-
-            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>
@@ -1438,63 +1220,7 @@ namespace MochaDB {
                 xTable.Add(Xcolumn);
             }
 
-            // Attributes
-            for(int index = 0;index < table.Attributes.Count;index++)
-                AddTableAttribute(table.Name,table.Attributes[index]);
-
-            if(table.Columns.Count==0 && table.Attributes.Count==0)
-                Save();
-        }
-
-        /// <summary>
-        /// Add attribute to table.
-        /// </summary>
-        /// <param name="name">Name of table.</param>
-        /// <param name="attr">Attribute to add.</param>
-        public void AddTableAttribute(string name,IMochaAttribute attr) {
-            if(!ExistsTable(name))
-                throw new MochaException("Table not found in this name!");
-            var xattr = GetXElement(CDoc,$"Tables/{name}").Attribute("Attributes");
-            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
-                throw new MochaException("There is already a attribute with this name!");
-
-            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
             Save();
-        }
-
-        /// <summary>
-        /// Remove attribute from table by name.
-        /// </summary>
-        /// <param name="name">Name of table.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public bool RemoveTableAttribute(string name,string attrname) {
-            if(!ExistsTable(name))
-                return false;
-
-            var xtable = GetXElement(CDoc,$"Tables/{name}");
-            var code = xtable.Attribute("Attributes").Value;
-            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
-
-            if(result) {
-                xtable.Attribute("Attributes").Value = code;
-                Save();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns attribute from table by name.
-        /// </summary>
-        /// <param name="name">Name of table.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public IMochaAttribute GetTableAttribute(string name,string attrname) {
-            if(!ExistsTable(name))
-                throw new MochaException("Table not found in this name!");
-
-            var xtable = GetXElement(Doc,$"Tables/{name}");
-            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
-            return attr;
         }
 
         /// <summary>
@@ -1584,7 +1310,6 @@ namespace MochaDB {
             XElement xTable = GetXElement(Doc,$"Tables/{name}");
             MochaTable table = new MochaTable(name);
             table.Description=xTable.Attribute("Description").Value;
-            table.Attributes.collection.AddRange(GetTableAttributes(name));
 
             table.Columns.collection.AddRange(GetColumns(name));
             table.SetRowsByDatas();
@@ -1606,20 +1331,6 @@ namespace MochaDB {
             }
 
             return new MochaCollectionResult<MochaTable>(tables);
-        }
-
-        /// <summary>
-        /// Returns all attributes from table.
-        /// </summary>
-        /// <param name="name">Name of table.</param>
-        public MochaCollectionResult<IMochaAttribute> GetTableAttributes(string name) {
-            if(!ExistsTable(name))
-                throw new MochaException("Table not found in this name!");
-
-            XElement xtable = GetXElement(Doc,$"Tables/{name}");
-            var attrs = Engine_ATTRIBUTES.GetAttributes(xtable.Attribute("Attributes").Value);
-
-            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>
@@ -1663,67 +1374,7 @@ namespace MochaDB {
                 }
             }
 
-            // Attributes
-            for(int index = 0;index < column.Attributes.Count;index++)
-                AddColumnAttribute(tableName,column.Name,column.Attributes[index]);
-
-            if(column.Attributes.Count==0)
-                Save();
-        }
-
-        /// <summary>
-        /// Add attribute to column.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="name">Name of column.</param>
-        /// <param name="attr">Attribute to add.</param>
-        public void AddColumnAttribute(string tableName,string name,IMochaAttribute attr) {
-            if(!ExistsColumn(tableName,name))
-                throw new MochaException("Column not found in this name!");
-
-            var xattr = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Attributes");
-            if(Engine_ATTRIBUTES.ExistsAttribute(xattr.Value,attr.Name))
-                throw new MochaException("There is already a attribute with this name!");
-
-            xattr.Value += Engine_ATTRIBUTES.GetAttributeCode(ref attr);
             Save();
-        }
-
-        /// <summary>
-        /// Returns attribute from column by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="name">Name of column.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public IMochaAttribute GetColumnAttribute(string tableName,string name,string attrname) {
-            if(!ExistsColumn(tableName,name))
-                throw new MochaException("Column not found in this name!");
-
-            var xtable = GetXElement(Doc,$"Tables/{tableName}/{name}");
-            var attr = Engine_ATTRIBUTES.GetAttribute(xtable.Attribute("Attributes").Value,attrname);
-            return attr;
-        }
-
-        /// <summary>
-        /// Remove attribute from column by name.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="name">Name of column.</param>
-        /// <param name="attrname">Name of attribute.</param>
-        public bool RemoveColumnAttribute(string tableName,string name,string attrname) {
-            if(ExistsColumn(tableName,name))
-                return false;
-
-            var xcolumn = GetXElement(CDoc,$"Tables/{tableName}/{name}");
-            var code = xcolumn.Attribute("Attributes").Value;
-            var result = Engine_ATTRIBUTES.RemoveAttribute(ref code,attrname);
-
-            if(result) {
-                xcolumn.Attribute("Attributes").Value = code;
-                Save();
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -1817,7 +1468,6 @@ namespace MochaDB {
             MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
             column.MHQLAsText = name;
             column.Description = GetColumnDescription(tableName,name);
-            column.Attributes.collection.AddRange(GetColumnAttributes(tableName,name));
             column.Datas.collection.AddRange(GetDatas(tableName,name));
 
             return column;
@@ -1863,21 +1513,6 @@ namespace MochaDB {
 
             return (MochaDataType)Enum.Parse(typeof(MochaDataType),
                 GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("DataType").Value);
-        }
-
-        /// <summary>
-        /// Returns all attributes from column.
-        /// </summary>
-        /// <param name="tableName">Name of table.</param>
-        /// <param name="name">Name of column.</param>
-        public MochaCollectionResult<IMochaAttribute> GetColumnAttributes(string tableName,string name) {
-            if(!ExistsColumn(tableName,name))
-                throw new MochaException("Column not found in this name!");
-
-            var xcolumn = GetXElement(Doc,$"Tables/{tableName}/{name}");
-            var attrs = Engine_ATTRIBUTES.GetAttributes(xcolumn.Attribute("Attributes").Value);
-
-            return new MochaCollectionResult<IMochaAttribute>(attrs);
         }
 
         /// <summary>

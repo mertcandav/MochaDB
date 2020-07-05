@@ -6,7 +6,7 @@ namespace MochaDB {
     /// <summary>
     /// Attribute for MochaDB.
     /// </summary>
-    public class MochaAttribute:IMochaAttribute {
+    public class MochaAttribute {
         #region Fields
 
         private Regex bannedNamesRegex = new Regex(

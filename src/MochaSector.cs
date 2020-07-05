@@ -19,7 +19,6 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector.</param>
         public MochaSector(string name) {
-            Attributes = new MochaAttributeCollection();
             Name = name;
             Description = string.Empty;
             Data = string.Empty;
@@ -124,11 +123,6 @@ namespace MochaDB {
         /// Description.
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Attributes of sector.
-        /// </summary>
-        public MochaAttributeCollection Attributes { get; }
 
         #endregion
     }

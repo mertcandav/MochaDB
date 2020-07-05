@@ -248,9 +248,6 @@
   <!-- Engine source code files links -->
   <!-- General -->
   <ItemGroup>
-    <Compile Include="..\engine\attributes.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\engine\names.cs">
       <Visible>False</Visible>
     </Compile>

@@ -20,7 +20,6 @@ namespace MochaDB {
         /// <param name="name">Name of item.</param>
         public MochaStackItem(string name) {
             Items= new MochaStackItemCollection();
-            Attributes = new MochaAttributeCollection();
             Name=name;
             Description=string.Empty;
             Value=string.Empty;
@@ -130,11 +129,6 @@ namespace MochaDB {
         /// Items of item.
         /// </summary>
         public MochaStackItemCollection Items { get; }
-
-        /// <summary>
-        /// Attributes of item.
-        /// </summary>
-        public MochaAttributeCollection Attributes { get; }
 
         #endregion
     }
