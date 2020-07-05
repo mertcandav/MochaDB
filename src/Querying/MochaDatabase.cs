@@ -33,52 +33,6 @@ namespace MochaDB.Querying {
             new MochaDbCommand(mhql,db).ExecuteScalarTable();
 
         /// <summary>
-        /// Returns all sectors in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="query">Query for filtering.</param>
-        public static MochaCollectionResult<MochaSector> GetSectors(this MochaDatabase db,Func<MochaSector,bool> query) =>
-            new MochaCollectionResult<MochaSector>(db.GetSectors().Where(query));
-
-        /// <summary>
-        /// Read all sectors in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        public static MochaReader<MochaSector> ReadSectors(this MochaDatabase db) =>
-            new MochaReader<MochaSector>(db.GetSectors());
-
-        /// <summary>
-        /// Read all sectors in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="query">Query for filtering.</param>
-        public static MochaReader<MochaSector> ReadSectors(this MochaDatabase db,Func<MochaSector,bool> query) =>
-            new MochaReader<MochaSector>(db.GetSectors(query));
-
-        /// <summary>
-        /// Returns all stacks in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="query">Query for filtering.</param>
-        public static MochaCollectionResult<MochaStack> GetStacks(this MochaDatabase db,Func<MochaStack,bool> query) =>
-            new MochaCollectionResult<MochaStack>(db.GetStacks().Where(query));
-
-        /// <summary>
-        /// Read all stacks in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        public static MochaReader<MochaStack> ReadStacks(this MochaDatabase db) =>
-            new MochaReader<MochaStack>(db.GetStacks());
-
-        /// <summary>
-        /// Read all stacks in database.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="query">Query for filtering.</param>
-        public static MochaReader<MochaStack> ReadStacks(this MochaDatabase db,Func<MochaStack,bool> query) =>
-            new MochaReader<MochaStack>(db.GetStacks(query));
-
-        /// <summary>
         /// Returns all tables in database.
         /// </summary>
         /// <param name="db">Target database.</param>

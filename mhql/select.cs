@@ -50,24 +50,6 @@ namespace MochaDB.mhql {
             return Tdb.GetTables(x => regex.IsMatch(x.Name));
         }
 
-        /// <summary>
-        /// Returns sectors by select pattern.
-        /// </summary>
-        /// <param name="selectcommand">Select pattern.</param>
-        public MochaCollectionResult<MochaSector> GetSectors(string selectcommand) {
-            var regex = new Regex(selectcommand);
-            return Tdb.GetSectors(x => regex.IsMatch(x.Name));
-        }
-
-        /// <summary>
-        /// Returns stacks by select pattern.
-        /// </summary>
-        /// <param name="selectcommand">Select pattern.</param>
-        public MochaCollectionResult<MochaStack> GetStacks(string selectcommand) {
-            var regex = new Regex(selectcommand);
-            return Tdb.GetStacks(x => regex.IsMatch(x.Name));
-        }
-
         #endregion
     }
 }

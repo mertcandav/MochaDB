@@ -131,33 +131,11 @@ namespace MochaDB.Mhql {
             bool fromkw;
             string lastcommand;
 
-            var tags = Mhql_AT.GetATS(Command,out lastcommand);
-            if(lastcommand.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-                if(tags.Count > 1)
-                    throw new MochaException("Multi tags is cannot used with USE keyword!");
-
-                string tag =
-                    tags.Count == 0 ?
-                        string.Empty :
-                        tags.First();
-
-                if(tag.Equals("@STACKS",StringComparison.OrdinalIgnoreCase))
-                    throw new MochaException("@STACKS is cannot target if used with USE keyword!");
-
-                bool sectorTag = tag.Equals("@SECTORS",StringComparison.OrdinalIgnoreCase);
+            if(Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
                 var use = USE.GetUSE(out lastcommand);
                 fromkw = Mhql_FROM.IsFROM(use);
-                var table =
-                    string.IsNullOrEmpty(tag) || tag.Equals("@TABLES",StringComparison.OrdinalIgnoreCase) ?
-                        USE.GetTable(use,fromkw) :
-                        sectorTag ?
-                            USE.GetSector(use,fromkw) :
-                            throw new MochaException("@ mark is cannot processed!");
+                var table = USE.GetTable(use,fromkw);
 
-                fromkw =
-                    sectorTag ?
-                        true :
-                        fromkw;
                 do {
                     //Orderby.
                     if(ORDERBY.IsORDERBY(lastcommand)) {
@@ -188,7 +166,7 @@ namespace MochaDB.Mhql {
                 } while(true);
 
                 reader.array = new[] { table };
-            } else if(lastcommand.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
+            } else if(Command.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
                 var select = SELECT.GetSELECT(out lastcommand);
                 fromkw = Mhql_FROM.IsFROM(command);
 
@@ -196,36 +174,6 @@ namespace MochaDB.Mhql {
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
 
                 List<object> collection = new List<object>();
-                if(tags.Count == 0)
-                    collection.AddRange(SELECT.GetTables(select));
-                else {
-                    bool
-                        tables = false,
-                        sectors = false,
-                        stacks = false;
-                    for(int index = 0; index < tags.Count; index++) {
-                        if(tags.ElementAt(index).Equals("@TABLES",StringComparison.OrdinalIgnoreCase)) {
-                            if(tables)
-                                throw new MochaException("@TABLES cannot be targeted more than once!");
-
-                            tables = true;
-                            collection.AddRange(SELECT.GetTables(select));
-                        } else if(tags.ElementAt(index).Equals("@SECTORS",StringComparison.OrdinalIgnoreCase)) {
-                            if(sectors)
-                                throw new MochaException("@SECTORS cannot be targeted more than once!");
-
-                            sectors = true;
-                            collection.AddRange(SELECT.GetSectors(select));
-                        } else if(tags.ElementAt(index).Equals("@STACKS",StringComparison.OrdinalIgnoreCase)) {
-                            if(stacks)
-                                throw new MochaException("@STACKS cannot be targeted more than once!");
-
-                            stacks = true;
-                            collection.AddRange(SELECT.GetStacks(select));
-                        } else
-                            throw new MochaException(tags.ElementAt(index));
-                    }
-                }
 
                 do {
                     //Orderby.
