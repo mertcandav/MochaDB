@@ -106,21 +106,6 @@
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
-
-  <!-- MochaScript source code files links -->
-  <!-- General -->
-  <ItemGroup>
-    <Compile Include="..\mochascript\variables.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
-
-  <!-- .\keywords -->
-  <ItemGroup>
-    <Compile Include="..\mochascript\keywords\func.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
   
   <!-- MHQL source code files links -->
   <!-- General -->

@@ -3,7 +3,6 @@
 //Libraries
 open System
 open MochaDB
-open MochaDB.MochaScript
 
 //Returns database by path.
 //path: Path of database.
@@ -24,12 +23,6 @@ let GetDbWithConnection(path: string,connect: bool) : MochaDatabase =
 let GetDbWithProvider(provider: string) : MochaDatabase =
     let db = new MochaDatabase(provider)
     db
-
-//Returns script debugger by path.
-//path: Path of MochaScript command file.
-let GetScriptDebugger(path: string) : MochaScriptDebugger =
-    let debugger = new MochaScriptDebugger(path)
-    debugger
 
 //Execute MochaQ command.
 //db: Database.

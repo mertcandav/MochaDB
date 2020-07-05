@@ -29,11 +29,6 @@ open MhqlStress
 open FileEngine
 open MochaDB
 open MochaDB.Connection
-open MochaDB.MochaScript
-
-//OnEcho event of script debugger.
-let OnEcho(e: MochaScriptEchoEventArgs) =
-    Console.WriteLine(e.Message)
 
 //Entry function.
 [<EntryPoint>]
@@ -92,15 +87,6 @@ let main argv =
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
                 StartMhqlTableGetStressWithTick(db,Int32.Parse(input.Split(' ').[1]))
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
-            elif input.Equals("runscript",StringComparison.InvariantCultureIgnoreCase) then
-                let debugger = GetScriptDebugger(path + "/testscript.mochascript")
-                debugger.Echo.Add(OnEcho)
-                Console.WriteLine "\n\n------ Script Debug Output ------\n\n"
-                db.Disconnect()
-                debugger.DebugRun()
-                Console.WriteLine "\n\n------ Script Debug Output ------\n\n"
-                debugger.Dispose()
-                db.Connect()
             else
                 db.Query.MochaQ.SetCommand(input);
                 ExecuteCommand(db)

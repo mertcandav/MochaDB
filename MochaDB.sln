@@ -115,16 +115,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E47
 		engine\values.cs = engine\values.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mochascript", "mochascript", "{5006D10C-9DFB-45A3-B98E-6A6B07505E34}"
-	ProjectSection(SolutionItems) = preProject
-		mochascript\variables.cs = mochascript\variables.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{594ED776-9400-4916-9581-3C813FD4AC7C}"
-	ProjectSection(SolutionItems) = preProject
-		mochascript\keywords\func.cs = mochascript\keywords\func.cs
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "value", "value", "{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8}"
 	ProjectSection(SolutionItems) = preProject
 		mhql\engine\value\char.cs = mhql\engine\value\char.cs
@@ -156,7 +146,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B0B73D5E-AEDA-4F58-B749-8B90A378273B}"
 	ProjectSection(SolutionItems) = preProject
 		tests\testdb.mhdb = tests\testdb.mhdb
-		tests\testscript.mhsc = tests\testscript.mhsc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B53F1AD2-35F1-4A8D-A3F3-3EB19189FBF8}"
@@ -226,7 +215,6 @@ Global
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
-		{594ED776-9400-4916-9581-3C813FD4AC7C} = {5006D10C-9DFB-45A3-B98E-6A6B07505E34}
 		{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8} = {A74FA287-C416-43F8-A401-B3A598C27655}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
