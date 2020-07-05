@@ -31,9 +31,6 @@ namespace MochaDB {
         public static implicit operator string(MochaPath value) =>
             value.ToString();
 
-        public static explicit operator MochaElement(MochaPath value) =>
-            value.ToElement();
-
         #endregion
 
         #region Methods
@@ -72,12 +69,6 @@ namespace MochaDB {
             Path.StartsWith("Tables") ||
             Path.StartsWith("Sectors") ||
             Path.StartsWith("Stacks");
-
-        /// <summary>
-        /// Returns MochaPath converted to MochaElement.
-        /// </summary>
-        public MochaElement ToElement() =>
-            new MochaElement(new System.IO.FileInfo(Path).Name,string.Empty,Path);
 
         #endregion
 

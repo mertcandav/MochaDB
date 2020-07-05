@@ -686,7 +686,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of sector to check.</param>
         public bool ExistsSector(string name) =>
-            ExistsElement($"Sectors/{name}");
+            ExistsElement(Doc,$"Sectors/{name}");
 
         #endregion
 
@@ -831,7 +831,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of stack to check.</param>
         public bool ExistsStack(string name) =>
-            ExistsElement($"Stacks/{name}");
+            ExistsElement(Doc,$"Stacks/{name}");
 
         #endregion
 
@@ -1041,7 +1041,7 @@ namespace MochaDB {
         /// <param name="name">Name of stack.</param>
         /// <param name="path">Path of stack item.</param>
         public bool ExistsStackItem(string name,string path) =>
-            ExistsElement($"Stacks/{name}/{path}");
+            ExistsElement(Doc,$"Stacks/{name}/{path}");
 
         #endregion
 
@@ -1201,7 +1201,7 @@ namespace MochaDB {
         /// </summary>
         /// <param name="name">Name of table.</param>
         public bool ExistsTable(string name) =>
-            ExistsElement($"Tables/{name}");
+            ExistsElement(Doc,$"Tables/{name}");
 
         #endregion
 
@@ -1937,53 +1937,6 @@ namespace MochaDB {
         /// <param name="id">ID of log.</param>
         public bool ExistsLog(string id) =>
             GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
-
-        #endregion
-
-        #region Element
-
-        /// <summary>
-        /// Returns whether there is a path with the specified path.
-        /// </summary>
-        /// <param name="path">Path to check.</param>
-        public bool ExistsElement(MochaPath path) =>
-            ExistsElement(Doc,path.Path);
-
-        /// <summary>
-        /// Return element by path.
-        /// </summary>
-        /// <param name="path">Path of element.</param>
-        public MochaElement GetElement(MochaPath path) {
-            if(!path.IsDatabasePath())
-                throw new MochaException("This path is not database compatible path!");
-            if(!ExistsElement(path.Path))
-                throw new MochaException("Element is not found!");
-            var element = GetXElement(Doc,path.Path);
-            var melement = new MochaElement {
-                Name = element.Name.LocalName,
-                Description = element.Attribute("Description") == null ?
-                    string.Empty :
-                    element.Attribute("Description").Value,
-                Value = element.Value
-            };
-            return melement;
-        }
-
-        /// <summary>
-        /// Returns sub elements of element in path.
-        /// </summary>
-        /// <param name="path">Path of base element.</param>
-        public MochaElement[] GetElements(MochaPath path) {
-            if(!path.IsDatabasePath())
-                throw new MochaException("This path is not database compatible path!");
-            if(!ExistsElement(path.Path))
-                throw new MochaException("Element is not found!");
-            var elements = GetXElement(Doc,path.Path).Elements();
-            MochaElement[] array = new MochaElement[elements.Count()];
-            for(int index = 0;index < array.Length;index++)
-                array[index] = GetElement($"{path.Path}/{elements.ElementAt(index).Name.LocalName}");
-            return array;
-        }
 
         #endregion
 

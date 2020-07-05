@@ -1820,24 +1820,6 @@
             </summary>
             <param name="id">ID of log.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsElement(MochaDB.MochaPath)">
-            <summary>
-            Returns whether there is a path with the specified path.
-            </summary>
-            <param name="path">Path to check.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetElement(MochaDB.MochaPath)">
-            <summary>
-            Return element by path.
-            </summary>
-            <param name="path">Path of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetElements(MochaDB.MochaPath)">
-            <summary>
-            Returns sub elements of element in path.
-            </summary>
-            <param name="path">Path of base element.</param>
-        </member>
         <member name="P:MochaDB.MochaDatabase.Version">
             <summary>
             Version of MochaDB.
@@ -1933,50 +1915,6 @@
             Removes all data equal to sample data.
             </summary>
             <param name="data">Sample data.</param>
-        </member>
-        <member name="T:MochaDB.MochaElement">
-            <summary>
-            Element for MochaDB.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaElement.#ctor(System.String)">
-            <summary>
-            Create a new MochaElement.
-            </summary>
-            <param name="name">Name of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaElement.#ctor(System.String,System.String)">
-            <summary>
-            Create a new MochaElement.
-            </summary>
-            <param name="name">Name of element.</param>
-            <param name="description">Description of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaElement.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Create a new MochaElement.
-            </summary>
-            <param name="name">Name of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaElement.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaElement.Value"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaElement.Name">
-            <summary>
-            Name of element.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaElement.Description">
-            <summary>
-            Description of element.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaElement.Value">
-            <summary>
-            Value of element.
-            </summary>
         </member>
         <member name="T:MochaDB.MochaException">
             <summary>
@@ -2154,11 +2092,6 @@
         <member name="M:MochaDB.MochaPath.IsDatabasePath">
             <summary>
             Returns true if the path is compatible with database paths, false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaPath.ToElement">
-            <summary>
-            Returns MochaPath converted to MochaElement.
             </summary>
         </member>
         <member name="M:MochaDB.MochaPath.ToString">
@@ -2557,11 +2490,6 @@
             This happens after name changed;
             </summary>
         </member>
-        <member name="M:MochaDB.MochaSector.ToElement">
-            <summary>
-            Returns MochaSector converted to MochaElement.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaSector.ToString">
             <summary>
             Returns <see cref="P:MochaDB.MochaSector.Data"/>.
@@ -2744,11 +2672,6 @@
         <member name="E:MochaDB.MochaStackItem.NameChanged">
             <summary>
             This happens before name changed.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaStackItem.ToElement">
-            <summary>
-            Returns MochaSector converted to MochaElement.
             </summary>
         </member>
         <member name="M:MochaDB.MochaStackItem.ToString">
@@ -3229,22 +3152,6 @@
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
             <param name="query">Query for filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetElements(MochaDB.MochaDatabase,MochaDB.MochaPath,System.Func{MochaDB.MochaElement,System.Boolean})">
-            <summary>
-            Returns sub elements of element in path.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="path">Path of base element.</param>
-            <param name="query">Path of base element.</param>
-        </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ReadColumnAttributes(MochaDB.MochaDatabase,MochaDB.MochaPath,System.Func{MochaDB.MochaElement,System.Boolean})">
-            <summary>
-            Read all sub elements of element in path.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="path">Path of base element.</param>
-            <param name="query">Path of base element.</param>
         </member>
         <member name="T:MochaDB.Querying.MochaResult`1">
             <summary>

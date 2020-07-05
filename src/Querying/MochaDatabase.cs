@@ -181,25 +181,5 @@ namespace MochaDB.Querying {
         /// <param name="query">Query for filtering.</param>
         public static MochaReader<MochaData> ReadDatas(this MochaDatabase db,string tableName,string columnName,Func<MochaData,bool> query) =>
             new MochaReader<MochaData>(db.GetDatas(tableName,columnName,query));
-
-        /// <summary>
-        /// Returns sub elements of element in path.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="path">Path of base element.</param>
-        /// <param name="query">Path of base element.</param>
-        public static MochaCollectionResult<MochaElement> GetElements(
-            this MochaDatabase db,MochaPath path,Func<MochaElement,bool> query) =>
-            new MochaCollectionResult<MochaElement>(db.GetElements(path).Where(query));
-
-        /// <summary>
-        /// Read all sub elements of element in path.
-        /// </summary>
-        /// <param name="db">Target database.</param>
-        /// <param name="path">Path of base element.</param>
-        /// <param name="query">Path of base element.</param>
-        public static MochaReader<MochaElement> ReadColumnAttributes(
-            this MochaDatabase db,MochaPath path,Func<MochaElement,bool> query) =>
-            new MochaReader<MochaElement>(db.GetElements(path).Where(query));
     }
 }
