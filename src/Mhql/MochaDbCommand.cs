@@ -231,9 +231,9 @@ namespace MochaDB.Mhql {
                 if(value==command)
                     return;
 
-                command = value;
+                command = value.Trim();
                 for(int index = 0; index < keywords.Length; index++)
-                    keywords[index].Command = value;
+                    keywords[index].Command = command;
             }
         }
 
