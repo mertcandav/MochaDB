@@ -185,39 +185,14 @@ namespace MochaDB.Mhql {
 
                 reader.array = new[] { table };
             } else if(Command.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
-                var select = SELECT.GetSELECT(out lastcommand);
                 fromkw = Mhql_FROM.IsFROM(command);
-
                 if(fromkw)
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
 
-                List<object> collection = new List<object>();
-
-                do {
-                    //Orderby.
-                    if(ORDERBY.IsORDERBY(lastcommand)) {
-                        throw new MochaException("ORDERBY keyword is canot used with SELECT keyword!");
-                    }
-                    //Subrow.
-                    else if(SUBROW.IsSUBROW(lastcommand)) {
-                        throw new MochaException("SUBROW keyword is canot used with SELECT keyword!");
-                    }
-                    //Groupby.
-                    else if(GROUPBY.IsGROUPBY(lastcommand)) {
-                        throw new MochaException("GROUPBY keyword is canot used with SELECT keyword!");
-                    }
-                    //Must.
-                    else if(MUST.IsMUST(lastcommand)) {
-                        throw new MochaException("MUST keyword is canot used with SELECT keyword!");
-                    }
-                    //Return.
-                    else if(lastcommand == string.Empty)
-                        break;
-                    else
-                        throw new MochaException($"'{lastcommand}' command is cannot processed!");
-                } while(true);
-
-                reader.array = collection;
+                var select = SELECT.GetSELECT(out lastcommand);
+                if(!string.IsNullOrWhiteSpace(lastcommand))
+                    throw new MochaException($"'{lastcommand}' command is cannot processed!");
+                reader.array = SELECT.GetTables(select);
             } else
                 throw new MochaException("MHQL is cannot processed!");
 
