@@ -52,7 +52,6 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="table">Table to subrowing.</param>
-        /// <param name="from">Use state FROM keyword.</param>
         public void Subrow(string command,ref MochaTableResult table) {
             command = command.Trim();
             string[] parts = command.Split(',');

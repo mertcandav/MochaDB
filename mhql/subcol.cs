@@ -52,7 +52,6 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="table">Table to subcoluming.</param>
-        /// <param name="from">Use state FROM keyword.</param>
         public void Subcol(string command,ref MochaTableResult table) {
             command = command.Trim();
             string[] parts = command.Split(',');
@@ -72,8 +71,8 @@ namespace MochaDB.mhql {
                 if(start < 1 || count < 1)
                     throw new MochaException("The parameters of the SUBCOL command cannot be less than 1!");
                 table.Columns = table.Columns.Skip(start-1).Take(count).ToArray();
-                table.SetRowsByDatas();
             }
+            table.SetRowsByDatas();
         }
 
         #endregion

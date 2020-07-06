@@ -146,10 +146,13 @@
     <Compile Include="..\mhql\subrow.cs">
       <Visible>False</Visible>
     </Compile>
-        <Compile Include="..\mhql\delrow.cs">
+    <Compile Include="..\mhql\delrow.cs">
       <Visible>False</Visible>
     </Compile>
-        <Compile Include="..\mhql\subcol.cs">
+        <Compile Include="..\mhql\delcol.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\subcol.cs">
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\from.cs">

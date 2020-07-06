@@ -2963,7 +2963,6 @@
             </summary>
             <param name="command">Command.</param>
             <param name="table">Table to subrowing.</param>
-            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_DELROW">
             <summary>
@@ -2978,16 +2977,16 @@
         </member>
         <member name="M:MochaDB.mhql.Mhql_DELROW.IsDELROW(System.String)">
             <summary>
-            Returns true if command is SUBROW command, returns if not.
+            Returns true if command is DELROW command, returns if not.
             </summary>
             <param name="command">Command to check.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_DELROW.GetDELROW(System.String,System.String@)">
             <summary>
-            Returns subrow command.
+            Returns delrow command.
             </summary>
             <param name="command">MHQL Command.</param>
-            <param name="final">Command of removed subrow commands.</param>
+            <param name="final">Command of removed delrow commands.</param>
         </member>
         <member name="M:MochaDB.mhql.Mhql_DELROW.Delrow(System.String,MochaDB.Mhql.MochaTableResult@)">
             <summary>
@@ -2995,7 +2994,37 @@
             </summary>
             <param name="command">Command.</param>
             <param name="table">Table to delrowing.</param>
-            <param name="from">Use state FROM keyword.</param>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_DELCOL">
+            <summary>
+            MHQL DELCOL keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_DELCOL.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_DELCOL.IsDELCOL(System.String)">
+            <summary>
+            Returns true if command is DELCOL command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_DELCOL.GetDELCOL(System.String,System.String@)">
+            <summary>
+            Returns delcol command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed delcol commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_DELCOL.Delcol(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Delcol by command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table to delcoluming.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_SUBCOL">
             <summary>
@@ -3027,7 +3056,6 @@
             </summary>
             <param name="command">Command.</param>
             <param name="table">Table to subcoluming.</param>
-            <param name="from">Use state FROM keyword.</param>
         </member>
         <member name="T:MochaDB.mhql.Mhql_FROM">
             <summary>

@@ -22,17 +22,17 @@ namespace MochaDB.mhql {
         #region Methods
 
         /// <summary>
-        /// Returns true if command is SUBROW command, returns if not.
+        /// Returns true if command is DELROW command, returns if not.
         /// </summary>
         /// <param name="command">Command to check.</param>
         public bool IsDELROW(string command) =>
             command.StartsWith("DELROW",StringComparison.OrdinalIgnoreCase);
 
         /// <summary>
-        /// Returns subrow command.
+        /// Returns delrow command.
         /// </summary>
         /// <param name="command">MHQL Command.</param>
-        /// <param name="final">Command of removed subrow commands.</param>
+        /// <param name="final">Command of removed delrow commands.</param>
         public string GetDELROW(string command,out string final) {
             int groupbydex = command.IndexOf("DELROW",StringComparison.OrdinalIgnoreCase);
             if(groupbydex==-1)
@@ -52,7 +52,6 @@ namespace MochaDB.mhql {
         /// </summary>
         /// <param name="command">Command.</param>
         /// <param name="table">Table to delrowing.</param>
-        /// <param name="from">Use state FROM keyword.</param>
         public void Delrow(string command,ref MochaTableResult table) {
             command = command.Trim();
             string[] parts = command.Split(',');

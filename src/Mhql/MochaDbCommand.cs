@@ -24,6 +24,7 @@ namespace MochaDB.Mhql {
         internal Mhql_SUBROW SUBROW;
         internal Mhql_SUBCOL SUBCOL;
         internal Mhql_DELROW DELROW;
+        internal Mhql_DELCOL DELCOL;
 
         #endregion
 
@@ -44,7 +45,8 @@ namespace MochaDB.Mhql {
             SUBROW = new Mhql_SUBROW(Database);
             SUBCOL = new Mhql_SUBCOL(Database);
             DELROW = new Mhql_DELROW(Database);
-            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL,DELROW };
+            DELCOL = new Mhql_DELCOL(Database);
+            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL,DELROW,DELCOL };
 
             Database=db;
             Command=string.Empty;
@@ -164,6 +166,10 @@ namespace MochaDB.Mhql {
                     //Delrow.
                     else if(DELROW.IsDELROW(lastcommand)) {
                         DELROW.Delrow(DELROW.GetDELROW(lastcommand,out lastcommand),ref table);
+                    }
+                    //Delcol.
+                    else if(DELCOL.IsDELCOL(lastcommand)) {
+                        DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
                     }
                     //Return.
                     else if(lastcommand == string.Empty) {
