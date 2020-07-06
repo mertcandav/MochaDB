@@ -13,7 +13,7 @@
 [![NuGet Page](https://img.shields.io/badge/NuGet-BLUE.svg?style=flat-square)](https://www.nuget.org/packages/MochaDB/)
 [![Warnings](https://img.shields.io/badge/Warnings-RED.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/wiki/Warnings)
 <br><br>
-<b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice in .NET platform.</b>
+<b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice local database in .NET platform.</b>
 </div>
 
 <br>
