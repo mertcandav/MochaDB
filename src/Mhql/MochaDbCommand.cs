@@ -23,6 +23,7 @@ namespace MochaDB.Mhql {
         internal Mhql_GROUPBY GROUPBY;
         internal Mhql_SUBROW SUBROW;
         internal Mhql_SUBCOL SUBCOL;
+        internal Mhql_DELROW DELROW;
 
         #endregion
 
@@ -42,7 +43,8 @@ namespace MochaDB.Mhql {
             REMOVE = new Mhql_REMOVE(Database);
             SUBROW = new Mhql_SUBROW(Database);
             SUBCOL = new Mhql_SUBCOL(Database);
-            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL };
+            DELROW = new Mhql_DELROW(Database);
+            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL,DELROW };
 
             Database=db;
             Command=string.Empty;
@@ -159,6 +161,10 @@ namespace MochaDB.Mhql {
                     else if(SUBCOL.IsSUBCOL(lastcommand)) {
                         SUBCOL.Subcol(SUBCOL.GetSUBCOL(lastcommand,out lastcommand),ref table);
                     }
+                    //Delrow.
+                    else if(DELROW.IsDELROW(lastcommand)) {
+                        DELROW.Delrow(DELROW.GetDELROW(lastcommand,out lastcommand),ref table);
+                    }
                     //Return.
                     else if(lastcommand == string.Empty) {
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
@@ -186,7 +192,7 @@ namespace MochaDB.Mhql {
                     if(ORDERBY.IsORDERBY(lastcommand)) {
                         throw new MochaException("ORDERBY keyword is canot used with SELECT keyword!");
                     }
-                    //Groupby.
+                    //Subrow.
                     else if(SUBROW.IsSUBROW(lastcommand)) {
                         throw new MochaException("SUBROW keyword is canot used with SELECT keyword!");
                     }
