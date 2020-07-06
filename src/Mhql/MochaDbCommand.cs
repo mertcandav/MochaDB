@@ -22,6 +22,7 @@ namespace MochaDB.Mhql {
         internal Mhql_MUST MUST;
         internal Mhql_GROUPBY GROUPBY;
         internal Mhql_SUBROW SUBROW;
+        internal Mhql_SUBCOL SUBCOL;
 
         #endregion
 
@@ -40,7 +41,8 @@ namespace MochaDB.Mhql {
             MUST = new Mhql_MUST(Database);
             REMOVE = new Mhql_REMOVE(Database);
             SUBROW = new Mhql_SUBROW(Database);
-            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW };
+            SUBCOL = new Mhql_SUBCOL(Database);
+            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL };
 
             Database=db;
             Command=string.Empty;
@@ -152,6 +154,10 @@ namespace MochaDB.Mhql {
                     //Subrow.
                     else if(SUBROW.IsSUBROW(lastcommand)) {
                         SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
+                    }
+                    //Subcol.
+                    else if(SUBCOL.IsSUBCOL(lastcommand)) {
+                        SUBCOL.Subcol(SUBCOL.GetSUBCOL(lastcommand,out lastcommand),ref table);
                     }
                     //Return.
                     else if(lastcommand == string.Empty) {

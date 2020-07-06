@@ -146,6 +146,9 @@
     <Compile Include="..\mhql\subrow.cs">
       <Visible>False</Visible>
     </Compile>
+        <Compile Include="..\mhql\subcol.cs">
+      <Visible>False</Visible>
+    </Compile>
     <Compile Include="..\mhql\from.cs">
       <Visible>False</Visible>
     </Compile>

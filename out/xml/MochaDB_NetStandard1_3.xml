@@ -2965,6 +2965,38 @@
             <param name="table">Table to subrowing.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_SUBCOL">
+            <summary>
+            MHQL SUBCOL keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBCOL.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBCOL.IsSUBCOL(System.String)">
+            <summary>
+            Returns true if command is SUBCOL command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBCOL.GetSUBCOL(System.String,System.String@)">
+            <summary>
+            Returns subcol command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed subcol commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_SUBCOL.Subcol(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Subcol by command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table to subcoluming.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="T:MochaDB.mhql.Mhql_FROM">
             <summary>
             MHQL FROM keyword.
