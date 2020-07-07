@@ -144,8 +144,8 @@ namespace ExampleUse
                 return;
             }
             database.Connect();
-            var result = database.ExecuteScalarTable(
-           $@"USE Username, Password
+            MochaTable result = database.ExecuteScalarTable(
+            $@"USE Username, Password
               FROM Persons
               MUST
                 Username == ""{username}"" AND
