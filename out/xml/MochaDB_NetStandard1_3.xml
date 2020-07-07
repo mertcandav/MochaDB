@@ -1203,7 +1203,7 @@
         </member>
         <member name="M:MochaDB.MochaDatabase.ClearAll">
             <summary>
-            Remove all sectors, stacks, tables and others.
+            Remove all tables and others.
             </summary>
         </member>
         <member name="M:MochaDB.MochaDatabase.Reset">

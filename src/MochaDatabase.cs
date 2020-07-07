@@ -400,14 +400,12 @@ namespace MochaDB {
         }
 
         /// <summary>
-        /// Remove all sectors, stacks, tables and others.
+        /// Remove all tables and others.
         /// </summary>
         public void ClearAll() {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            GetXElement(CDoc,"Sectors").RemoveNodes();
-            GetXElement(CDoc,"Stacks").RemoveNodes();
             GetXElement(CDoc,"Tables").RemoveNodes();
             Save();
         }
