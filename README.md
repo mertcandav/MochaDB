@@ -25,11 +25,11 @@
 + Lightweight
 + Single DLL and database file
 + OOM(Object Oriented Management)
++ ACID support
 + RDBMS(Relational Database Management System) features
 + Supports LINQ queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
 + <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
-+ Log system
 
 <br>
 
