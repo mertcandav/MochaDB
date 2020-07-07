@@ -7,7 +7,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
-    <Description>A .NET local NoSQL RDBMS database.</Description>
+    <Description>A .NET local NoSQL ACID RDBMS database.</Description>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
