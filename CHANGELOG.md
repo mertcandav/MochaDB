@@ -1,5 +1,22 @@
 CHANGELOGS of MochaDB.
 
+# rlsv3.4.7 [ 7 July 2020 ]
++ Optimizations.
++ Fix ``CREATEMOCHA`` command of MochaQ.
++ Rename ``GetXMLDocument`` function to ``GetXDocument``.
++ Remove Attributes.
++ Remove interfaces.
++ Remove elements.
++ Remove MochaScript.
++ Remove Stacks.
++ Remove Sectors.
++ Remove ``REMOVE`` keyword from MHQL.
++ Remove ``MochaDB.Cryptography`` namespace.
++ Remove ``MochaResult`` return type from ``GetXML`` and ``GetXDocument`` functions.
++ Add ACID support.
++ Add ``Root`` element support to ``GetXDocument`` function of MochaDatabase.
++ Add ``SUBCOL``, ``DELROW`` and ``DELCOL`` keyword to MHQL.
+
 # rlsv3.4.6 [ 28 June 2020 ]
 + Optimizations.
 + Remove ``FileSystem``
