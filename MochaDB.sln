@@ -209,6 +209,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{2E74
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "querying", "querying", "{275C5454-453C-4256-A818-BEADA092BDE2}"
 	ProjectSection(SolutionItems) = preProject
+		docs\querying\linq.md = docs\querying\linq.md
 		docs\querying\mhql.md = docs\querying\mhql.md
 		docs\querying\MochaDbCommand.md = docs\querying\MochaDbCommand.md
 		docs\querying\MochaQ.md = docs\querying\MochaQ.md
