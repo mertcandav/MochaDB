@@ -188,6 +188,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8409E719-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connection and management", "connection and management", "{9B0C5AD2-9DE5-45F9-9770-A500205122A9}"
 	ProjectSection(SolutionItems) = preProject
+		docs\connection and management\connection strings.md = docs\connection and management\connection strings.md
 		docs\connection and management\MochaDatabase.md = docs\connection and management\MochaDatabase.md
 	EndProjectSection
 EndProject
