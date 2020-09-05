@@ -211,6 +211,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "querying", "querying", "{27
 	ProjectSection(SolutionItems) = preProject
 		docs\querying\mhql.md = docs\querying\mhql.md
 		docs\querying\MochaDbCommand.md = docs\querying\MochaDbCommand.md
+		docs\querying\MochaQuery.md = docs\querying\MochaQuery.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{197BAC1F-72CB-4062-B362-652B397C9602}"
