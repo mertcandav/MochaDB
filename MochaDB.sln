@@ -197,6 +197,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data modeling", "{874A356F-EBE9-4E2F-A31D-AB9A61ADF58C}"
 	ProjectSection(SolutionItems) = preProject
 		docs\data modeling\data types.md = docs\data modeling\data types.md
+		docs\data modeling\MochaColumn.md = docs\data modeling\MochaColumn.md
 		docs\data modeling\MochaTable.md = docs\data modeling\MochaTable.md
 	EndProjectSection
 EndProject
