@@ -223,6 +223,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{197BAC1F-72CB-4062-B362-652B397C9602}"
 	ProjectSection(SolutionItems) = preProject
 		docs\rules\naming conventions.md = docs\rules\naming conventions.md
+		docs\rules\value conventions.md = docs\rules\value conventions.md
 	EndProjectSection
 EndProject
 Global
