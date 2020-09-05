@@ -191,6 +191,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connection and management",
 		docs\connection and management\connection strings.md = docs\connection and management\connection strings.md
 		docs\connection and management\MochaDatabase.md = docs\connection and management\MochaDatabase.md
 		docs\connection and management\MochaProvider.md = docs\connection and management\MochaProvider.md
+		docs\connection and management\MochaProviderAttribute.md = docs\connection and management\MochaProviderAttribute.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data modeling", "{874A356F-EBE9-4E2F-A31D-AB9A61ADF58C}"
