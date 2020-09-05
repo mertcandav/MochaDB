@@ -1,0 +1,3 @@
+If there is a change in the database and it is desired to undo it, the logging system can be used. If you know the record's ID in the log system, you can restore it with the ```RestoreToLog(string id)``` function by specifying the ID.<br>
+If you are not sure of your identity, you can find out if there is a log with this ID with the function ```ExistsLog(string id)```.<br>
+You can use the ```RestoreToFistLog()``` function if you want to return to the first log or the ```RestoreToLastLog()``` function if you want to return to the last record.
