@@ -204,6 +204,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data model
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "getting started", "getting started", "{1F659810-FA9F-465E-94C4-0CDBBF93F05F}"
+	ProjectSection(SolutionItems) = preProject
+		docs\getting started\nuget package installing.md = docs\getting started\nuget package installing.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{2E740C2F-B904-4D56-9C9D-A65A3AD5E6A6}"
 EndProject
