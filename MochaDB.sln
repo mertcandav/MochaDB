@@ -198,6 +198,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data model
 	ProjectSection(SolutionItems) = preProject
 		docs\data modeling\data types.md = docs\data modeling\data types.md
 		docs\data modeling\MochaColumn.md = docs\data modeling\MochaColumn.md
+		docs\data modeling\MochaData.md = docs\data modeling\MochaData.md
 		docs\data modeling\MochaRow.md = docs\data modeling\MochaRow.md
 		docs\data modeling\MochaTable.md = docs\data modeling\MochaTable.md
 	EndProjectSection
