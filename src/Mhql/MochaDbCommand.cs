@@ -25,6 +25,7 @@ namespace MochaDB.Mhql {
         internal Mhql_SUBCOL SUBCOL;
         internal Mhql_DELROW DELROW;
         internal Mhql_DELCOL DELCOL;
+        internal Mhql_ADDROW ADDROW;
 
         #endregion
 
@@ -46,7 +47,20 @@ namespace MochaDB.Mhql {
             SUBCOL = new Mhql_SUBCOL(Database);
             DELROW = new Mhql_DELROW(Database);
             DELCOL = new Mhql_DELCOL(Database);
-            keywords = new MhqlKeyword[] { USE,SELECT,REMOVE,ORDERBY,GROUPBY,MUST,SUBROW,SUBCOL,DELROW,DELCOL };
+            ADDROW = new Mhql_ADDROW(Database);
+            keywords = new MhqlKeyword[] {
+                USE,
+                SELECT,
+                REMOVE,
+                ORDERBY,
+                GROUPBY,
+                MUST,
+                SUBROW,
+                SUBCOL,
+                DELROW,
+                DELCOL,
+                ADDROW
+            };
 
             Database=db;
             Command=string.Empty;
@@ -171,6 +185,10 @@ namespace MochaDB.Mhql {
                     else if(DELCOL.IsDELCOL(lastcommand)) {
                         DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
                     }
+                    //Addrow
+                    else if(ADDROW.IsADDROW(lastcommand)) {
+                        ADDROW.Addrow(ADDROW.GetADDROW(lastcommand,out lastcommand),ref table);
+                    }
                     //Return.
                     else if(lastcommand == string.Empty) {
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
@@ -182,20 +200,17 @@ namespace MochaDB.Mhql {
                     } else
                         throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 } while(true);
-
                 reader.array = new[] { table };
             } else if(Command.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
                 fromkw = Mhql_FROM.IsFROM(command);
                 if(fromkw)
                     throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
-
                 var select = SELECT.GetSELECT(out lastcommand);
                 if(!string.IsNullOrWhiteSpace(lastcommand))
                     throw new MochaException($"'{lastcommand}' command is cannot processed!");
                 reader.array = SELECT.GetTables(select);
             } else
                 throw new MochaException("MHQL is cannot processed!");
-
             return reader;
         }
 

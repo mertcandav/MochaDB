@@ -153,13 +153,13 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.Double)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.Parse(System.String)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" üyesi için yoksayıldı -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Double)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" -->
         <member name="M:MochaDB.Data.Types.Bit.ToString">
             <summary>
             Returns value as string.
@@ -452,7 +452,7 @@
             Create and return static array from collection.
             </summary>
         </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaCollection`1.ToList" üyesi için yoksayıldı -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaCollection`1.ToList" -->
         <member name="M:MochaDB.MochaCollection`1.ToReader">
             <summary>
             Returns values in MochaReader.
@@ -2048,7 +2048,7 @@
             Create and return static array from collection.
             </summary>
         </member>
-        <!-- Kötü biçimli XML yorumu "M:MochaDB.MochaReadonlyCollection`1.ToList" üyesi için yoksayıldı -->
+        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaReadonlyCollection`1.ToList" -->
         <member name="M:MochaDB.MochaReadonlyCollection`1.ToReader">
             <summary>
             Returns values in MochaReader.
@@ -3080,6 +3080,37 @@
             </summary>
             <param name="command">MHQL Command.</param>
             <param name="final">Command of removed subrow commands.</param>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_ADDROW">
+            <summary>
+            MHQL ADDROW keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_ADDROW.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Initialize a new instance.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_ADDROW.IsADDROW(System.String)">
+            <summary>
+            Returns true if command is ADDROW command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_ADDROW.GetADDROW(System.String,System.String@)">
+            <summary>
+            Returns addrow command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed addrow commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_ADDROW.Addrow(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            Addrow by command.
+            </summary>
+            <param name="command">Command.</param>
+            <param name="table">Table to add rowing.</param>
         </member>
         <member name="T:MochaDB.mhql.must_functions.MhqlMustFunc_BETWEEN">
             <summary>

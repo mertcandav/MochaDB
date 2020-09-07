@@ -2,6 +2,7 @@ CHANGELOGS of MochaDB.
 
 # rlsv3.4.8 [ Current ]
 + Added ``XDocument`` explicit conversion support to ``MochaDatabase``.
++ Added ``ADDROW`` keyword to MHQL.
 
 # rlsv3.4.7 [ 7 July 2020 ]
 + Optimizations.

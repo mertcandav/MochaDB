@@ -1336,7 +1336,7 @@ namespace MochaDB {
         /// <summary>
         /// XML Document.
         /// </summary>
-        internal static XDocument Doc { get; set; }
+        internal XDocument Doc { get; set; }
 
         /// <summary>
         /// Suspend the changeds events.

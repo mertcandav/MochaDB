@@ -130,6 +130,9 @@
     <Compile Include="..\mhql\from.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\addrow.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\must-functions -->
