@@ -91,6 +91,9 @@ namespace MochaDB {
         public static explicit operator string(MochaDatabase value) =>
             value.ToString();
 
+        public static explicit operator XDocument(MochaDatabase value) =>
+            value.GetXDocument();
+
         #endregion
 
         #region Internal Events
@@ -1333,7 +1336,7 @@ namespace MochaDB {
         /// <summary>
         /// XML Document.
         /// </summary>
-        internal XDocument Doc { get; set; }
+        internal static XDocument Doc { get; set; }
 
         /// <summary>
         /// Suspend the changeds events.

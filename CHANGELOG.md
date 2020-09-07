@@ -1,5 +1,8 @@
 CHANGELOGS of MochaDB.
 
+# rlsv3.4.8 [ Current ]
++ Added ``XDocument`` explicit conversion support to ``MochaDatabase``.
+
 # rlsv3.4.7 [ 7 July 2020 ]
 + Optimizations.
 + Fix ``CREATEMOCHA`` command of MochaQ.
