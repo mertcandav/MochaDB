@@ -65,6 +65,13 @@ Some special characters are indicated by escape sequences. Just like chars.<br>
 For example, to add double quotes into the array. As: ``"My name is \"Mertcan Davulcu\""``<br>
 Result: ``My name is "Mertcan Davulcu"``
 
+#### Boolean
+Boolean values ​​are written directly. See: ``TRUE`` and ``FALSE``.
+
+#### Arithmetic
+Arithmetic values ​​must be written with hashtags before them.<br>
+See: ``#1``, ``#5.3331``.
+
 # 
 
 ### Keywords
@@ -351,6 +358,42 @@ Checks for inequality. It is written between two values.<br>
 ```USE ID, Name FROM Persons MUST ID != '1'```<br>
 ```USE ID, Name FROM Persons MUST ID != Name```<br>
 
+<br>
+
+#### Bigger</b> ( ``>`` )<br>
+Check bigger then "x". Cannot be used on string values. It is written between two values.<br>
+<b>Examples</b><br>
+```USE Persons.Name,Persons.Age MUST 1 > #18```<br>
+```USE ID, Name FROM Persons MUST ID > #1```<br>
+```USE ID, Name FROM Persons MUST ID > 1```<br>
+
+<br>
+
+#### Lower</b> ( ``<`` )<br>
+Check lower then "x". Cannot be used on string values. It is written between two values.<br>
+<b>Examples</b><br>
+```USE Persons.Name,Persons.Age MUST 1 < #18```<br>
+```USE ID, Name FROM Persons MUST ID < #1```<br>
+```USE ID, Name FROM Persons MUST ID < 1```<br>
+
+<br>
+
+#### BiggerEq</b> ( ``>=`` )<br>
+Check bigger then or equal to "x". Cannot be used on string values. It is written between two values.<br>
+<b>Examples</b><br>
+```USE Persons.Name,Persons.Age MUST 1 >= #18```<br>
+```USE ID, Name FROM Persons MUST ID >= #1```<br>
+```USE ID, Name FROM Persons MUST ID >= 1```<br>
+
+<br>
+
+#### LowerEq</b> ( ``<=`` )<br>
+Check lower then or equal to "x". Cannot be used on string values. It is written between two values.<br>
+<b>Examples</b><br>
+```USE Persons.Name,Persons.Age MUST 1 <= #18```<br>
+```USE ID, Name FROM Persons MUST ID <= #1```<br>
+```USE ID, Name FROM Persons MUST ID <= 1```<br>
+
 # 
 
 ### Example codes
@@ -363,10 +406,16 @@ USE Name,Gender,Age
 FROM Persons
 ```
 ```java
+USE *
+FROM Persons
+MUST
+    IsAdmin == TRUE
+```
+```java
 USE Name,$Gender,Age
 FROM Persons
 MUST
-    $BIGGER(2, 18) AND
+    2 > #18 AND
     Gender == "Female"
 ```
 ```java
