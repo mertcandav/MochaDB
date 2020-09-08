@@ -99,7 +99,7 @@ MUST
     $BETWEEN(Salary,1000,10000)
     AND
         Name(^(M|m|N|n).*) AND
-      Salary != "5000"
+      Salary != 5000
         AND
           $STARTW(Surname,M)
 
