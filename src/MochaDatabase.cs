@@ -1014,6 +1014,12 @@ namespace MochaDB {
                     new XElement("Data",
                     MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
+
+            if(
+                dataType == MochaDataType.Decimal ||
+                dataType == MochaDataType.Double ||
+                dataType == MochaDataType.Float)
+                xData.Value = xData.Value.Replace('.',',');
             GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
         }
 
@@ -1028,7 +1034,7 @@ namespace MochaDB {
             if(!ExistsColumn(tableName,columnName))
                 throw new MochaException("Column not found in this name!");
 
-            data = data == null ? "" : data;
+            data = data ?? string.Empty;
             MochaDataType dataType = GetColumnDataType(tableName,columnName);
             if(!MochaData.IsType(dataType,data)) {
                 throw new MochaException("The submitted data is not compatible with the targeted data!");
@@ -1040,10 +1046,16 @@ namespace MochaDB {
                 throw new MochaException("This index is larger than the maximum number of data in the table!");
 
             XElement dataElement = dataRange.ElementAt(index);
-            if(dataElement.Value==data.ToString())
+            string ddata = data.ToString();
+            if(
+                dataType == MochaDataType.Decimal ||
+                dataType == MochaDataType.Double ||
+                dataType == MochaDataType.Float)
+                ddata = ddata.Replace('.',',');
+            if(dataElement.Value==ddata)
                 return;
 
-            dataElement.Value=data.ToString();
+            dataElement.Value=ddata;
         }
 
         /// <summary>
