@@ -2623,6 +2623,15 @@
             <param name="dict">Dictionary to find.</param>
             <param name="key">Key.</param>
         </member>
+        <member name="M:MochaDB.framework.Framework_DICTIONARY.GetValue``2(System.Collections.Generic.Dictionary{``0,``1},``0)">
+            <summary>
+            Returns value by key.
+            </summary>
+            <typeparam name="T1">Key type..</typeparam>
+            <typeparam name="T2">Value type.</typeparam>
+            <param name="dict">Dictionary.</param>
+            <param name="key">Key.</param>
+        </member>
         <member name="T:MochaDB.framework.Framework_XML">
             <summary>
             XML framework of MochaDB.
@@ -3369,6 +3378,12 @@
             </summary>
             <param name="v">Value to compare.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__BIGGER__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+            <summary>
+            Returns true if bigger, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
         <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.VALUE">
             <summary>
             Value.
@@ -3438,6 +3453,15 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_BIGGER(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process bigger condition and returns result.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetConditionParts(System.String,System.String)">
             <summary>
             Returns condition parts.
@@ -3466,7 +3490,7 @@
             Lexer of MHQL conditions.
             </summary>
         </member>
-        <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.Operators">
+        <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.__OPERATORS__">
             <summary>
             Operators.
             </summary>
@@ -3489,6 +3513,11 @@
         <member name="F:MochaDB.mhql.engine.ConditionType.NOTEQUAL">
             <summary>
             Not equal operator.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.ConditionType.BIGGER">
+            <summary>
+            Bigger operator.
             </summary>
         </member>
         <member name="T:MochaDB.mhql.engine.ORDERBYComparer">

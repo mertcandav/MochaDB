@@ -56,5 +56,18 @@ namespace MochaDB.framework {
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns value by key.
+        /// </summary>
+        /// <typeparam name="T1">Key type..</typeparam>
+        /// <typeparam name="T2">Value type.</typeparam>
+        /// <param name="dict">Dictionary.</param>
+        /// <param name="key">Key.</param>
+        public static T2 GetValue<T1,T2>(this Dictionary<T1,T2> dict,T1 key) {
+            T2 @out;
+            dict.TryGetValue(key,out @out);
+            return @out;
+        }
     }
 }

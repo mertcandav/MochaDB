@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MochaDB.framework;
 using MochaDB.mhql.engine.value;
 using MochaDB.Mhql;
 using MochaDB.Querying;
@@ -29,6 +30,21 @@ namespace MochaDB.mhql.engine {
             /// <param name="v">Value to compare.</param>
             public bool __NEQUALS__(CONDITIONVAL v) =>
                 VALUE.ToString() != v.VALUE.ToString();
+
+            /// <summary>
+            /// Returns true if bigger, returns false if not.
+            /// </summary>
+            /// <param name="v">Value to compare.</param>
+            public bool __BIGGER__(CONDITIONVAL v) {
+                if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
+                    return VALUE.ToString() == "True" && v.VALUE.ToString() == "False";
+                else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
+                    return (int)VALUE > (int)v.VALUE;
+                else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+                    return decimal.Parse(VALUE.ToString()) > decimal.Parse(v.VALUE.ToString());
+                }
+                throw new MochaException("BIGGER operator is cannot compatible this data type!");
+            }
 
             /// <summary>
             /// Value.
@@ -80,6 +96,8 @@ namespace MochaDB.mhql.engine {
                 return Process_EQUAL(command,table,row,from);
             else if(type == ConditionType.NOTEQUAL)
                 return Process_NOTEQUAL(command,table,row,from);
+            else if(type == ConditionType.BIGGER)
+                return Process_BIGGER(command,table,row,from);
             return false;
         }
 
@@ -94,15 +112,15 @@ namespace MochaDB.mhql.engine {
                 return false;
             }
 
-            for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Length/2; index++) {
+            for(int index = 0; index < MhqlEng_CONDITION_LEXER.__OPERATORS__.Count; index++) {
                 string
                     key,
                     value;
-                value = MhqlEng_CONDITION_LEXER.Operators[index,1];
+                value = MhqlEng_CONDITION_LEXER.__OPERATORS__.Values.ElementAt(index);
                 if(!command.Contains(value))
                     continue;
 
-                key = MhqlEng_CONDITION_LEXER.Operators[index,0];
+                key = MhqlEng_CONDITION_LEXER.__OPERATORS__.Keys.ElementAt(index);
                 type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
                 return true;
             }
@@ -119,7 +137,7 @@ namespace MochaDB.mhql.engine {
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public static bool Process_EQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-            var parts = GetConditionParts(command,"==");
+            var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("EQUAL"));
             var value0 = GetValue(parts[0],table,row,from);
             var value1 = GetValue(parts[1],table,row,from);
             CHKVAL(value0,value1);
@@ -134,11 +152,26 @@ namespace MochaDB.mhql.engine {
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-            var parts = GetConditionParts(command,"!=");
+            var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("NOTEQUAL"));
             var value0 = GetValue(parts[0],table,row,from);
             var value1 = GetValue(parts[1],table,row,from);
             CHKVAL(value0,value1);
             return value0.__NEQUALS__(value1);
+        }
+
+        /// <summary>
+        /// Process bigger condition and returns result.
+        /// </summary>
+        /// <param name="command">Condition.</param>
+        /// <param name="table">Table.</param>
+        /// <param name="row">Row.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool Process_BIGGER(string command,MochaTableResult table,MochaRow row,bool from) {
+            var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGER"));
+            var value0 = GetValue(parts[0],table,row,from);
+            var value1 = GetValue(parts[1],table,row,from);
+            CHKVAL(value0,value1);
+            return value0.__BIGGER__(value1);
         }
 
         /// <summary>

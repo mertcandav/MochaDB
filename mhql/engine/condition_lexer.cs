@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MochaDB.mhql.engine {
     /// <summary>
     /// Lexer of MHQL conditions.
@@ -6,11 +8,12 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Operators.
         /// </summary>
-        public static string[,] Operators =>
-            new[,] {
+        public static Dictionary<string,string> __OPERATORS__ =>
+            new Dictionary<string,string> {
                 { "EQUAL", "==" },
-                { "NOTEQUAL", "!=" }
-        };
+                { "NOTEQUAL", "!=" },
+                { "BIGGER", ">" }
+            };
     }
 
     /// <summary>
@@ -28,6 +31,10 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Not equal operator.
         /// </summary>
-        NOTEQUAL = 2
+        NOTEQUAL = 2,
+        /// <summary>
+        /// Bigger operator.
+        /// </summary>
+        BIGGER = 3,
     }
 }
