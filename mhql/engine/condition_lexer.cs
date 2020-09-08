@@ -14,6 +14,7 @@ namespace MochaDB.mhql.engine {
                 { "NOTEQUAL", "!=" },
                 { "BIGGEREQ", ">=" },
                 { "BIGGER", ">" },
+                { "LOWEREQ", "<=" },
                 { "LOWER", "<" }
             };
     }
@@ -45,6 +46,10 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Bigger or equal operator.
         /// </summary>
-        BIGGEREQ = 5
+        BIGGEREQ = 5,
+        /// <summary>
+        /// Lower or equal operator.
+        /// </summary>
+        LOWEREQ = 6
     }
 }
