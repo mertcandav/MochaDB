@@ -47,6 +47,21 @@ namespace MochaDB.mhql.engine {
             }
 
             /// <summary>
+            /// Returns true if lower, returns false if not.
+            /// </summary>
+            /// <param name="v">Value to compare.</param>
+            public bool __LOWER__(CONDITIONVAL v) {
+                if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
+                    return VALUE.ToString() == "False" && v.VALUE.ToString() == "True";
+                else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
+                    return (int)VALUE < (int)v.VALUE;
+                else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+                    return decimal.Parse(VALUE.ToString()) < decimal.Parse(v.VALUE.ToString());
+                }
+                throw new MochaException("LOWER operator is cannot compatible this data type!");
+            }
+
+            /// <summary>
             /// Value.
             /// </summary>
             public object VALUE;
@@ -98,6 +113,8 @@ namespace MochaDB.mhql.engine {
                 return Process_NOTEQUAL(command,table,row,from);
             else if(type == ConditionType.BIGGER)
                 return Process_BIGGER(command,table,row,from);
+            else if(type == ConditionType.LOWER)
+                return Process_LOWER(command,table,row,from);
             return false;
         }
 
@@ -175,6 +192,21 @@ namespace MochaDB.mhql.engine {
         }
 
         /// <summary>
+        /// Process lower condition and returns result.
+        /// </summary>
+        /// <param name="command">Condition.</param>
+        /// <param name="table">Table.</param>
+        /// <param name="row">Row.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool Process_LOWER(string command,MochaTableResult table,MochaRow row,bool from) {
+            var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWER"));
+            var value0 = GetValue(parts[0],table,row,from);
+            var value1 = GetValue(parts[1],table,row,from);
+            CHKVAL(value0,value1);
+            return value0.__LOWER__(value1);
+        }
+
+        /// <summary>
         /// Returns condition parts.
         /// </summary>
         /// <param name="command">Condition.</param>
@@ -194,8 +226,6 @@ namespace MochaDB.mhql.engine {
         /// <param name="v1">Value 1.</param>
         /// <param name="v2">Value 2.</param>
         public static void CHKVAL(CONDITIONVAL v1,CONDITIONVAL v2) {
-            Console.WriteLine(v1.VALUE);
-            Console.WriteLine(v2.VALUE);
             if(v1.TYPE != v2.TYPE)
                 throw new MochaException("Value types is are not compatible!");
         }
