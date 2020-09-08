@@ -12,6 +12,7 @@ namespace MochaDB.mhql.engine {
             new Dictionary<string,string> {
                 { "EQUAL", "==" },
                 { "NOTEQUAL", "!=" },
+                { "BIGGEREQ", ">=" },
                 { "BIGGER", ">" },
                 { "LOWER", "<" }
             };
@@ -40,6 +41,10 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Lower operator.
         /// </summary>
-        LOWER = 4
+        LOWER = 4,
+        /// <summary>
+        /// Bigger or equal operator.
+        /// </summary>
+        BIGGEREQ = 5
     }
 }

@@ -3390,6 +3390,12 @@
             </summary>
             <param name="v">Value to compare.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__BIGGEREQ__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+            <summary>
+            Returns true if biggereq, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
         <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.VALUE">
             <summary>
             Value.
@@ -3477,6 +3483,15 @@
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_BIGGEREQ(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process biggereq condition and returns result.
+            </summary>
+            <param name="command">Condition.</param>
+            <param name="table">Table.</param>
+            <param name="row">Row.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetConditionParts(System.String,System.String)">
             <summary>
             Returns condition parts.
@@ -3538,6 +3553,11 @@
         <member name="F:MochaDB.mhql.engine.ConditionType.LOWER">
             <summary>
             Lower operator.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.ConditionType.BIGGEREQ">
+            <summary>
+            Bigger or equal operator.
             </summary>
         </member>
         <member name="T:MochaDB.mhql.engine.ORDERBYComparer">

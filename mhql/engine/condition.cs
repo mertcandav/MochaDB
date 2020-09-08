@@ -62,6 +62,23 @@ namespace MochaDB.mhql.engine {
             }
 
             /// <summary>
+            /// Returns true if biggereq, returns false if not.
+            /// </summary>
+            /// <param name="v">Value to compare.</param>
+            public bool __BIGGEREQ__(CONDITIONVAL v) {
+                if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
+                    return
+                        (VALUE.ToString() == "True" && v.VALUE.ToString() == "False") ||
+                        (VALUE.ToString() == v.VALUE.ToString());
+                else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
+                    return (int)VALUE >= (int)v.VALUE;
+                else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+                    return decimal.Parse(VALUE.ToString()) >= decimal.Parse(v.VALUE.ToString());
+                }
+                throw new MochaException("BIGGEREQ operator is cannot compatible this data type!");
+            }
+
+            /// <summary>
             /// Value.
             /// </summary>
             public object VALUE;
@@ -115,6 +132,8 @@ namespace MochaDB.mhql.engine {
                 return Process_BIGGER(command,table,row,from);
             else if(type == ConditionType.LOWER)
                 return Process_LOWER(command,table,row,from);
+            else if(type == ConditionType.BIGGEREQ)
+                return Process_BIGGEREQ(command,table,row,from);
             return false;
         }
 
@@ -207,11 +226,27 @@ namespace MochaDB.mhql.engine {
         }
 
         /// <summary>
+        /// Process biggereq condition and returns result.
+        /// </summary>
+        /// <param name="command">Condition.</param>
+        /// <param name="table">Table.</param>
+        /// <param name="row">Row.</param>
+        /// <param name="from">Use state FROM keyword.</param>
+        public static bool Process_BIGGEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
+            var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGEREQ"));
+            var value0 = GetValue(parts[0],table,row,from);
+            var value1 = GetValue(parts[1],table,row,from);
+            CHKVAL(value0,value1);
+            return value0.__BIGGEREQ__(value1);
+        }
+
+        /// <summary>
         /// Returns condition parts.
         /// </summary>
         /// <param name="command">Condition.</param>
         /// <param name="operator">Operator.</param>
         public static string[] GetConditionParts(string command,string @operator) {
+            Console.WriteLine(@operator);
             var parts = command.Split(new[] { @operator },2,0);
             if(parts.Length < 2)
                 throw new MochaException("Condition is cannot processed!");
