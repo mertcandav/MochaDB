@@ -7,6 +7,7 @@ CHANGELOGS of MochaDB.
 + Added ``TRUE`` and ``FALSE`` keywords to MHQL.
 + Added ``ADDROW`` keyword to MHQL.
 + Added type check system to conditions of MHQL
++ Adeed BIGGER, LOWER, BIGGER_EQUAL and LOEWR_EQUAL operators to MHQL.
 
 # rlsv3.4.7 [ 7 July 2020 ]
 + Optimizations.
