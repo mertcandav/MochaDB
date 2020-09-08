@@ -10,6 +10,60 @@ namespace MochaDB.mhql.engine {
     /// Condition engine for MHQL.
     /// </summary>
     internal static class MhqlEng_CONDITION {
+        #region PRIVITE
+
+        /// <summary>
+        /// Value output for conditions.
+        /// </summary>
+        public struct CONDITIONVAL {
+            /// <summary>
+            /// Returns true if equals, returns false if not.
+            /// </summary>
+            /// <param name="v">Value to compare.</param>
+            public bool __EQUALS__(CONDITIONVAL v) =>
+                VALUE.ToString() == v.VALUE.ToString();
+
+            /// <summary>
+            /// Returns true if not equals, returns false if not.
+            /// </summary>
+            /// <param name="v">Value to compare.</param>
+            public bool __NEQUALS__(CONDITIONVAL v) =>
+                VALUE.ToString() != v.VALUE.ToString();
+
+            /// <summary>
+            /// Value.
+            /// </summary>
+            public object VALUE;
+            /// <summary>
+            /// Type of value.
+            /// </summary>
+            public CONDITIONVAL_TYPE TYPE;
+        }
+
+        /// <summary>
+        /// Types for values of <see cref="CONDITIONVAL"/>.
+        /// </summary>
+        public enum CONDITIONVAL_TYPE:short {
+            /// <summary>
+            /// String.
+            /// </summary>
+            __STRING__ = 0x1,
+            /// <summary>
+            /// Char.
+            /// </summary>
+            __CHAR__ = 0x2,
+            /// <summary>
+            /// Boolean.
+            /// </summary>
+            __BOOLEAN__ = 0x3,
+            /// <summary>
+            /// Integer.
+            /// </summary>
+            __ARITHMETIC__ = 0x4,
+        }
+
+        #endregion PRIVITE
+
         /// <summary>
         /// Process condition and returns condition result.
         /// </summary>
@@ -18,7 +72,7 @@ namespace MochaDB.mhql.engine {
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
         public static bool Process(string command,MochaTableResult table,MochaRow row,bool from) {
-            ConditionType type = ConditionType.None;
+            ConditionType type;
             if(!IsCondition(command,out type))
                 return false;
 
@@ -68,7 +122,8 @@ namespace MochaDB.mhql.engine {
             var parts = GetConditionParts(command,"==");
             var value0 = GetValue(parts[0],table,row,from);
             var value1 = GetValue(parts[1],table,row,from);
-            return value0 == value1;
+            CHKVAL(value0,value1);
+            return value0.__EQUALS__(value1);
         }
 
         /// <summary>
@@ -82,7 +137,8 @@ namespace MochaDB.mhql.engine {
             var parts = GetConditionParts(command,"!=");
             var value0 = GetValue(parts[0],table,row,from);
             var value1 = GetValue(parts[1],table,row,from);
-            return value0 != value1;
+            CHKVAL(value0,value1);
+            return value0.__NEQUALS__(value1);
         }
 
         /// <summary>
@@ -100,20 +156,55 @@ namespace MochaDB.mhql.engine {
         }
 
         /// <summary>
+        /// Check <see cref="CONDITIONVAL"/>.
+        /// </summary>
+        /// <param name="v1">Value 1.</param>
+        /// <param name="v2">Value 2.</param>
+        public static void CHKVAL(CONDITIONVAL v1,CONDITIONVAL v2) {
+            Console.WriteLine(v1.VALUE);
+            Console.WriteLine(v2.VALUE);
+            if(v1.TYPE != v2.TYPE)
+                throw new MochaException("Value types is are not compatible!");
+        }
+
+        /// <summary>
         /// Returns value.
         /// </summary>
         /// <param name="value">Value.</param>
         /// <param name="table">Table.</param>
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
-        public static string GetValue(string value,MochaTableResult table,MochaRow row,bool from) {
+        public static CONDITIONVAL GetValue(string value,MochaTableResult table,MochaRow row,bool from) {
             if(value.StartsWith("'")) {
                 MhqlEngVal_CHAR.Process(ref value);
-                return value;
+                return new CONDITIONVAL {
+                    TYPE = CONDITIONVAL_TYPE.__CHAR__,
+                    VALUE = value
+                };
             } else if(value.StartsWith("\"")) {
                 MhqlEngVal_STRING.Process(ref value);
-                return value;
-            }
+                return new CONDITIONVAL {
+                    TYPE = CONDITIONVAL_TYPE.__STRING__,
+                    VALUE = value
+                };
+            } else if(value.StartsWith("#")) {
+                decimal val;
+                if(!decimal.TryParse(value.Substring(1).Replace('.',','),out val))
+                    throw new MochaException("Value is not arithmetic value!");
+                return new CONDITIONVAL {
+                    TYPE = CONDITIONVAL_TYPE.__ARITHMETIC__,
+                    VALUE = val
+                };
+            } else if(value == "TRUE")
+                return new CONDITIONVAL {
+                    TYPE = CONDITIONVAL_TYPE.__BOOLEAN__,
+                    VALUE = true
+                };
+            else if(value == "FALSE")
+                return new CONDITIONVAL {
+                    TYPE = CONDITIONVAL_TYPE.__BOOLEAN__,
+                    VALUE = false
+                };
 
             if(from) {
                 var result = table.Columns.Where(x => x.Name == value);
@@ -122,7 +213,20 @@ namespace MochaDB.mhql.engine {
                     goto index;
                 }
 
-                return row.Datas[Array.IndexOf(table.Columns,result.First())].ToString();
+                var data = row.Datas[Array.IndexOf(table.Columns,result.First())];
+                return new CONDITIONVAL {
+                    TYPE =
+                        data.dataType == MochaDataType.Unique ||
+                        data.dataType == MochaDataType.String ||
+                        data.dataType == MochaDataType.DateTime ?
+                            CONDITIONVAL_TYPE.__STRING__ :
+                                data.dataType == MochaDataType.Char ?
+                                CONDITIONVAL_TYPE.__CHAR__ :
+                                    data.dataType == MochaDataType.Boolean ?
+                                    CONDITIONVAL_TYPE.__BOOLEAN__ :
+                                        CONDITIONVAL_TYPE.__ARITHMETIC__,
+                    VALUE = data.data
+                };
             }
 
         index:
@@ -134,7 +238,20 @@ namespace MochaDB.mhql.engine {
                 throw new MochaException("Index is cannot lower than zero!");
             else if(dex > row.Datas.MaxIndex())
                 throw new MochaException("The specified index is more than the number of columns!");
-            return row.Datas[dex].ToString();
+            var _data = row.Datas[dex];
+            return new CONDITIONVAL {
+                TYPE =
+                    _data.dataType == MochaDataType.Unique ||
+                    _data.dataType == MochaDataType.String ||
+                    _data.dataType == MochaDataType.DateTime ?
+                    CONDITIONVAL_TYPE.__STRING__ :
+                        _data.dataType == MochaDataType.Char ?
+                        CONDITIONVAL_TYPE.__CHAR__ :
+                            _data.dataType == MochaDataType.Boolean ?
+                            CONDITIONVAL_TYPE.__BOOLEAN__ :
+                                CONDITIONVAL_TYPE.__ARITHMETIC__,
+                VALUE = _data.data
+            };
         }
     }
 }

@@ -3352,6 +3352,58 @@
             Condition engine for MHQL.
             </summary>
         </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL">
+            <summary>
+            Value output for conditions.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__EQUALS__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+            <summary>
+            Returns true if equals, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__NEQUALS__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+            <summary>
+            Returns true if not equals, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.VALUE">
+            <summary>
+            Value.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.TYPE">
+            <summary>
+            Type of value.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE">
+            <summary>
+            Types for values of <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL"/>.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__STRING__">
+            <summary>
+            String.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__CHAR__">
+            <summary>
+            Char.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__BOOLEAN__">
+            <summary>
+            Boolean.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__ARITHMETIC__">
+            <summary>
+            Integer.
+            </summary>
+        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Process condition and returns condition result.
@@ -3392,6 +3444,13 @@
             </summary>
             <param name="command">Condition.</param>
             <param name="operator">Operator.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CHKVAL(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL,MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+            <summary>
+            Check <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL"/>.
+            </summary>
+            <param name="v1">Value 1.</param>
+            <param name="v2">Value 2.</param>
         </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetValue(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>

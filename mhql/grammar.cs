@@ -109,7 +109,7 @@ namespace MochaDB.mhql {
         /// </summary>
         public static Regex FullRegex => new Regex(
 $@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
-\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW)\b",
+\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW|TRUE|FALSE)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         /// <summary>
