@@ -3601,6 +3601,13 @@
             </summary>
             <param name="value">Value.</param>
         </member>
+        <member name="M:MochaDB.engine.Engine_VALUES.__CHK_FLOAT__(MochaDB.MochaDataType,System.String@)">
+            <summary>
+            Check and process float value.
+            </summary>
+            <param name="type">DataType.</param>
+            <param name="value">Value.</param>
+        </member>
         <member name="T:MochaDB.engine.Engine_LEXER">
             <summary>
             Lexer of MochaDB.

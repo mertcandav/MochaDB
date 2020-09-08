@@ -1014,12 +1014,9 @@ namespace MochaDB {
                     new XElement("Data",
                     MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
             }
-
-            if(
-                dataType == MochaDataType.Decimal ||
-                dataType == MochaDataType.Double ||
-                dataType == MochaDataType.Float)
-                xData.Value = xData.Value.Replace('.',',');
+            string val = xData.Value;
+            Engine_VALUES.__CHK_FLOAT__(dataType,ref val);
+            xData.Value = val;
             GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
         }
 
@@ -1047,11 +1044,7 @@ namespace MochaDB {
 
             XElement dataElement = dataRange.ElementAt(index);
             string ddata = data.ToString();
-            if(
-                dataType == MochaDataType.Decimal ||
-                dataType == MochaDataType.Double ||
-                dataType == MochaDataType.Float)
-                ddata = ddata.Replace('.',',');
+            Engine_VALUES.__CHK_FLOAT__(dataType,ref ddata);
             if(dataElement.Value==ddata)
                 return;
 
