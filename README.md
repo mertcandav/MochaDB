@@ -9,9 +9,8 @@
 [![Build Status](https://dev.azure.com/mertcandav/MochaDB/_apis/build/status/mertcandav.MochaDB?branchName=master)](https://dev.azure.com/mertcandav/MochaDB/_build/latest?definitionId=2&branchName=master)
 [![Build Status](https://travis-ci.com/mertcandav/MochaDB.svg?branch=master)](https://travis-ci.com/mertcandav/MochaDB)
 <br>
-[![Documentation](https://img.shields.io/badge/Documentation-YELLOW.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/wiki)
+[![Documentation](https://img.shields.io/badge/Documentation-YELLOW.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/tree/master/docs)
 [![NuGet Page](https://img.shields.io/badge/NuGet-BLUE.svg?style=flat-square)](https://www.nuget.org/packages/MochaDB/)
-[![Warnings](https://img.shields.io/badge/Warnings-RED.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/wiki/Warnings)
 <br><br>
 <b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice local database in .NET platform.</b>
 </div>
@@ -28,8 +27,8 @@
 + ACID support
 + RDBMS(Relational Database Management System) features
 + Supports LINQ queries
-+ <a href="https://github.com/mertcandav/MochaDB/wiki/MochaQ">MochaQ</a> for simple and fast queries
-+ <a href="https://github.com/mertcandav/MochaDB/wiki/MHQL">MHQL(MochaDB Query Language)</a> for advanced queries
++ <a href="https://github.com/mertcandav/MochaDB/blob/master/docs/querying/MochaQ.md">MochaQ</a> for simple and fast queries
++ <a href="https://github.com/mertcandav/MochaDB/blob/master/docs/querying/mhql.md">MHQL(MochaDB Query Language)</a> for advanced queries
 
 <br>
 
