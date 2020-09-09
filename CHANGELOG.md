@@ -1,6 +1,6 @@
 CHANGELOGS of MochaDB.
 
-# rlsv3.4.8 [ Current ]
+# rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
 + Added ``XDocument`` explicit conversion support to ``MochaDatabase``.
 + Added arihmetic support to MHQL.
