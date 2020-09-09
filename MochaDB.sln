@@ -177,6 +177,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 		Exec_All.bat = Exec_All.bat
 		Exec_All.ps1 = Exec_All.ps1
 		Exec_All.sh = Exec_All.sh
+		webst\index.html = webst\index.html
 		LICENSE = LICENSE
 		Make.bat = Make.bat
 		Make.ps1 = Make.ps1
@@ -232,9 +233,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{197BAC1F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webst", "webst", "{9D41F585-7E51-4846-A37C-CBEFFB0DC1A9}"
-	ProjectSection(SolutionItems) = preProject
-		webst\index.html = webst\index.html
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
