@@ -154,10 +154,10 @@ namespace MochaDB.Connection {
                     pathAttribute.Value :
                     throw new MochaException("'Path' attribute is not defined!");
                 Path =
-                    !Path.EndsWith(Engine_LEXER.Extension) ?
+                    !Path.EndsWith(Engine_LEXER.__EXTENSION__) ?
                     Path.Last() != '.' ?
-                    Path + Engine_LEXER.Extension :
-                    Path + Engine_LEXER.Extension : Path;
+                    Path + Engine_LEXER.__EXTENSION__ :
+                    Path + Engine_LEXER.__EXTENSION__ : Path;
                 int index;
                 var keyword = ">SOURCEDIR<";
                 var currentdir = Directory.GetCurrentDirectory();

@@ -3702,22 +3702,22 @@
             Lexer of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.Extension">
+        <member name="P:MochaDB.engine.Engine_LEXER.__EXTENSION__">
             <summary>
             File extension of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.ScriptExtension">
+        <member name="P:MochaDB.engine.Engine_LEXER.__SCRIPT_EXTENSION__">
             <summary>
             MochaScript file extension of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.Version">
+        <member name="P:MochaDB.engine.Engine_LEXER.__VERSION__">
             <summary>
             Version of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.EmptyContent">
+        <member name="P:MochaDB.engine.Engine_LEXER.__EMPTY__">
             <summary>
             The most basic content of the database.
             </summary>

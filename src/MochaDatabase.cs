@@ -243,7 +243,7 @@ namespace MochaDB {
 
             FileInfo fInfo = new FileInfo(path);
 
-            if(fInfo.Extension != Engine_LEXER.Extension)
+            if(fInfo.Extension != Engine_LEXER.__EXTENSION__)
                 return false;
 
             return true;
@@ -257,7 +257,7 @@ namespace MochaDB {
         /// <param name="password">Password of database.</param>
         public static void CreateMochaDB(string path,string description,string password) {
             Engine_VALUES.PasswordCheckThrow(password);
-            string content = Engine_LEXER.EmptyContent;
+            string content = Engine_LEXER.__EMPTY__;
 
             if(!string.IsNullOrEmpty(password)) {
                 int dex = content.IndexOf("</Password>");
@@ -268,9 +268,9 @@ namespace MochaDB {
                 content = content.Insert(dex,description);
             }
 
-            File.WriteAllText(path.EndsWith(Engine_LEXER.Extension) ?
+            File.WriteAllText(path.EndsWith(Engine_LEXER.__EXTENSION__) ?
                 path :
-                path + Engine_LEXER.Extension,aes.Encrypt(Iv,Key,content));
+                path + Engine_LEXER.__EXTENSION__,aes.Encrypt(Iv,Key,content));
         }
 
         /// <summary>
@@ -420,7 +420,7 @@ namespace MochaDB {
             OnConnectionCheckRequired(this,new EventArgs());
             OnChanging(this,new EventArgs());
 
-            Doc = XDocument.Parse(Engine_LEXER.EmptyContent);
+            Doc = XDocument.Parse(Engine_LEXER.__EMPTY__);
             Save();
         }
 
@@ -1332,7 +1332,7 @@ namespace MochaDB {
         /// Version of MochaDB.
         /// </summary>
         public static string Version =>
-            Engine_LEXER.Version;
+            Engine_LEXER.__VERSION__;
 
         #endregion
 
