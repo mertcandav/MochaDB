@@ -186,9 +186,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8409E719-6CB2-4F40-96D7-3C3E39F72E7B}"
-	ProjectSection(SolutionItems) = preProject
-		docs\index.html = docs\index.html
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connection and management", "connection and management", "{9B0C5AD2-9DE5-45F9-9770-A500205122A9}"
 	ProjectSection(SolutionItems) = preProject
