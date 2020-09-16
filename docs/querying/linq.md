@@ -9,8 +9,6 @@ var datas =
     select value;
 ```
 
-<br>
-
 It takes records between the ages of 18 and 30 and ranks from small to large.
 ```C#
 MochaDatabase db = new MochaDatabase("path=.\\mydb.mhdb");
