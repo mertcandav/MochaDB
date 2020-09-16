@@ -5,4 +5,4 @@ Click "Browse" button and select MochaDB.dll file. After click "OK" button.
 
 When the process is finished, it will be automatically added to your project and ready for use.
 
-Also; <a href="https://github.com/MertcanDavulcu/MochaDB/releases">Releases.</a>
+> <a href="https://github.com/MertcanDavulcu/MochaDB/releases">Releases.</a>
