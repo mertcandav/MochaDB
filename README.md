@@ -15,8 +15,6 @@
 <b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice local database in .NET platform.</b>
 </div>
 
-<br>
-
 ## Featured features
 
 + Open source and free for everyone
@@ -29,8 +27,6 @@
 + Supports LINQ queries
 + <a href="https://github.com/mertcandav/MochaDB/blob/master/docs/querying/MochaQ.md">MochaQ</a> for simple and fast queries
 + <a href="https://github.com/mertcandav/MochaDB/blob/master/docs/querying/mhql.md">MHQL(MochaDB Query Language)</a> for advanced queries
-
-<br>
 
 ## Compatibility
 <table>
@@ -51,8 +47,6 @@
 # MochaDB Studio
 Manage with a powerful management system! Only Windows.
 [![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
-
-<br>
 
 # Querying
 
@@ -108,8 +102,6 @@ GROUPBY
     Name
   SUBROW 1000
 ```
-
-<br>
 
 ## Example use
 ```csharp
