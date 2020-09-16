@@ -42,113 +42,35 @@
   </tr>
 </table>
 
-# MochaDB Studio
+## MochaDB Studio
 Manage with a powerful management system! Only Windows.
 [![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
 
-# Querying
-
-### LINQ
-
-```c#
-  var tables = DB.GetTables();
-  var result =
-    from table in tables
-    where table.Name.StartsWith("A") && table.Columns.Count > 0
-    select table;
-  
-  return result;
-```
-Or
-```c#
-var tables = DB.GetTables(x=> x.Name.StartsWith("A") && x.Columns.Count > 0);
-```
-
-# 
-
-### MochaQ
-
-```c#
-MochaDatabase db = new MochaDatabase("path=.\\Databases\\Math.mochadb; AutoConnect=True");
-db.Query.Run("CreateTable:Personels");
-```
-
-# 
-
-### MHQL
-
-```java
-USE
-    Name, Surname, $Salary,
-    SUM(Salary) AS Total Salary
-FROM
-    Employees /* 
-      Get columns from Employees table.
-    */
-    
-MUST
-    $BETWEEN(Salary,1000,10000)
-    AND
-        Name(^(M|m|N|n).*) AND
-      Salary != #5000
-        AND
-          $STARTW(Surname,M)
-
-ORDERBY
-    Name ASC, Salary DESC
-GROUPBY
-    Name
-  SUBROW 1000
-```
-
 ## Example use
 ```csharp
-using System;
-using System.Windows.Forms;
-using MochaDB;
-using MochaDB.Querying;
-
-namespace ExampleUse
+MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
+string username = usernameTextBox.Text.Trim(),
+                  password = passwordTextBox.Text;
+if(username == string.Empty)
 {
-    public partial class LoginForm:Form
-    {
-        public LoginForm()
-        {
-            InitializeComponent();
-        }
-
-        MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
-        private void loginButton_Click(object sender,EventArgs e)
-        {
-            string username = usernameTextBox.Text.Trim(),
-                   password = passwordTextBox.Text;
-            if(username == string.Empty)
-            {
-                MessageBox.Show("Please type your username!");
-                return;
-            }
-            if(password == string.Empty)
-            {
-                MessageBox.Show("Please type your password!");
-                return;
-            }
-            database.Connect();
-            MochaTable result = database.ExecuteScalarTable(
-            $@"USE Username, Password
-              FROM Persons
-              MUST
-                Username == ""{username}"" AND
-                Password == ""{password}""");
-            database.Disconnect();
-            if(result.IsEmpty())
-            {
-                MessageBox.Show("Username or password is wrong!");
-                return;
-            }
-            AppWindow wnd = new AppWindow();
-            Hide();
-            wnd.Show();
-        }
-    }
+    MessageBox.Show("Please type your username!");
+    return;
 }
+if(password == string.Empty)
+{
+    MessageBox.Show("Please type your password!");
+    return;
+}
+database.Connect();
+MochaTableResult result = database.ExecuteScalarTable(
+    $@"USE Username, Password FROM Persons MUST Username == ""{username}"" AND Password == ""{password}""");
+database.Disconnect();
+if(result.IsEmpty())
+{
+    MessageBox.Show("Username or password is wrong!");
+    return;
+}
+AppWindow wnd = new AppWindow();
+Hide();
+wnd.Show();
 ```
