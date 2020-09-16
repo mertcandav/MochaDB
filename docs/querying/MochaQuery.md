@@ -6,13 +6,10 @@ Creates a new ``MochaQuery`` and creates a ``MochaDatabase`` and adds a referenc
 ```C#
 MochaQuery query = new MochaQuery(new MochaDatabase("path=.\\mydb.mhdb"));
 ```
-<br>
 
 <strong>WARNING</strong><br>
 It can be dangerous when it is not necessary to create it normally.<br>
 It requires you to have the ``MochaDatabase`` object, but remember, the ``Query`` property of the ``MochaDatabase`` object already returns a ``MochaQuery`` object that is mapped to it.
-
-<br>
 
 ### Favorite Functions
 <table border="1">
