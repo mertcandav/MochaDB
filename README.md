@@ -63,7 +63,9 @@ if(password == string.Empty)
 }
 database.Connect();
 MochaTableResult result = database.ExecuteScalarTable(
-    $@"USE Username, Password FROM Persons MUST Username == ""{username}"" AND Password == ""{password}""");
+    $@"USE Username, Password
+       FROM Persons
+       MUST Username == ""{username}"" AND Password == ""{password}""");
 database.Disconnect();
 if(result.IsEmpty())
 {
