@@ -42,8 +42,6 @@
   </tr>
 </table>
 
-<br>
-
 # MochaDB Studio
 Manage with a powerful management system! Only Windows.
 [![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
