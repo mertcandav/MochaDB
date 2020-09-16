@@ -40,7 +40,7 @@ They are written in single quotes. As: ``'M'``
 They can only be single characters.<br><br>
 Some special characters are indicated by escape sequences.<br>
 For example, to add single quote into the array. As: ``'\''``<br>
-Result: ``'``<br>
+Result: ``'``
 
 ```
 || Escape Sequences ||
@@ -84,14 +84,10 @@ Allows you to get the areas to be used. To get the table itself completely, it i
 ```USE Persons.ID, Persons.Name```: Returns 'ID' and 'Name' columns content from 'Persons' tables. <br>
 ```USE Persons, Persons```: Returns the 'Persons' table by integrating it twice in the same table.
 
-<br>
-
 - ```AS``` <br>
 Equal to ``AS`` command of SQL.<br>
 <b>Examples</b><br>
 ```USE Name AS Name of persons, Age AS Age of persons FROM Persons```
-
-<br>
 
 - ```FROM``` <br>
     > If ``FROM`` is used, column name can be used instead of index in regex queries.
@@ -101,15 +97,11 @@ Equal to ``AS`` command of SQL.<br>
     ```USE * FROM Persons``` <br>
     ```USE Name,Age FROM Persons```
 
-<br>
-
 - ```SELECT``` <br>
 Unlike the ``USE`` keyword, it is used to get content carriers, not content. It realizes the selection not with direct names but with Regex queries. Regex queries are written in parentheses.<br>
 <b>Examples</b><br>
 ```SELECT ()```: Returns all tables. <br>
 ```SELECT (P.*)```: Returns only tables if name of starts with 'P'. <br>
-
-<br>
 
 - ```ORDERBY``` <br>
 Reports that there will be data sorting, like ``ORDERBY`` command of SQL.<br>
@@ -117,21 +109,15 @@ First the column index or name is given, then the order type. If the order type 
 ``USE Names, Salary FROM Persons ORDERBY Names, Salary DESC`` <br>
 ``USE Persons.Name, Persons.Age ORDERBY 1 ASC``
 
-<br>
-
 - ```ASC``` <br>
 It can only be used next to the ``ORDERBY`` keyword. It means increasing order from small to large.<br>
 <b>Examples</b><br>
 ```USE Persons ORDERBY 1 ASC```
 
-<br>
-
 - ```DESC``` <br>
 Can only be used next to the keyword ``ORDERBY``. It means the descending order from large to small.<br>
 <b>Examples</b><br>
 ```USE Persons ORDERBY 1 DESC```
-
-<br>
 
 - ```MUST``` <br>
 Like ``WHERE`` command of SQL. The style of writing is different.
@@ -140,15 +126,11 @@ Like ``WHERE`` command of SQL. The style of writing is different.
 ```USE Persons MUST 0 == "Mike"``` <br>
 ```USE Persons.Name, Persons.Age MUST 1(18|19|20) ORDERBY 1```
 
-<br>
-
 - ```AND``` <br>
 It can only be used alongside ``MUST``. Indicates that there is another condition.<br>
 <b>Examples</b><br>
 ```USE Persons MUST 0(Mike) AND 3(Male|Female)``` <br>
 ```USE Persons.Name, Persons.Age MUST 0(M.*) AND 1(^(18|19|20)$) ORDERBY 1```
-
-<br>
 
 - ```GROUPBY``` <br>
 Like ``GROUPBY`` command of SQL. The style of writing is different.<br>
@@ -156,15 +138,11 @@ After writing column index or name is given.<br>
 <b>Examples</b><br>
 ```USE Name, $Salary, AVG(Salary) AS Avarage Salary FROM Persons GROUPBY Name```
 
-<br>
-
 - ```SUBCOL``` <br>
 When written alone, it takes the columns from the first column to the highest number given. When two values ​​are specified, it starts from the first value and takes the column as many as the second value. Returns 0 column if greater than the starting number of columns.<br>
 <b>Examples</b><br>
 ```USE Persons SUBCOL 100``` - It starts from the first column and takes the first 100 columns. <br>
 ```USE Persons SUBCOL 10, 5``` - It starts at column 10 and takes the next 5 column after column 10.
-
-<br>
 
 - ```DELCOL``` <br>
 When written alone, it deletes the columns from the first line to the highest number given. When two values ​​are specified, it starts from the first value and deletes the column as many as the second value.<br>
@@ -172,23 +150,17 @@ When written alone, it deletes the columns from the first line to the highest nu
 ```USE Persons DELCOL 100``` - Deletes the first 100 column and returns the rest. <br>
 ```USE Persons DELCOL 10, 5``` - It starts at column 10 and deleted the next 5 column after column 10.
 
-<br>
-
 - ```SUBROW``` <br>
 When written alone, it takes the rows from the first line to the highest number given. When two values ​​are specified, it starts from the first value and takes the row as many as the second value. Returns 0 rows if greater than the starting number of rows.<br>
 <b>Examples</b><br>
 ```USE Persons SUBROW 100``` - It starts from the first line and takes the first 100 lines. <br>
 ```USE Persons SUBROW 10, 5``` - It starts at line 10 and takes the next 5 lines after line 10.
 
-<br>
-
 - ```DELROW``` <br>
 When written alone, it deletes the rows from the first line to the highest number given. When two values ​​are specified, it starts from the first value and deletes the row as many as the second value.<br>
 <b>Examples</b><br>
 ```USE Persons DELROW 100``` - Deletes the first 100 lines and returns the rest. <br>
 ```USE Persons DELROW 10, 5``` - It starts at line 10 and deleted the next 5 lines after line 10.
-
-<br>
 
 - ```ADDROW``` <br>
 Adds a specified number of new lines and sets the default value of the data type.
@@ -218,21 +190,15 @@ Equal to ``COUNT()`` command of SQL. Returns the number of data grouped.<br>
 <b>Examples</b><br>
 ```USE Name, COUNT() FROM Persons GROUPBY Name```
 
-<br>
-
 - ```MAX(column)``` <br>
 Equal to ``MAX()`` command of SQL. Returns the greatest value among grouped data.<br>
 <b>Examples</b><br>
 ```USE Name, Salary, MAX(Salary) FROM Persons GROUPBY Name```
 
-<br>
-
 - ```MIN(column)``` <br>
 Equal to ``MIN()`` command of SQL. Returns the minimum value among grouped data.<br>
 <b>Examples</b><br>
 ```USE Name, Salary, MIN(Salary) FROM Persons GROUPBY Name```
-
-<br>
 
 - ```AVG(column)``` <br>
 Equal to ``AVG()`` command of SQL. Returns the average value grouped data.<br>
@@ -251,15 +217,11 @@ Returns a specified numerical range condition. The data of the column in which i
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $BETWEEN(1,18,35)```
 
-<br>
-
 - ```BIGGER``` <br>
 Returns a specified numerical bigger and equal condition. The data of the column in which it is used must contain a numerical value.<br>
 It is written as ``$BIGGER(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $BIGGER(1,18)```
-
-<br>
 
 - ```LOWER``` <br>
 Returns a specified numerical lower and equal condition. The data of the column in which it is used must contain a numerical value.<br>
@@ -267,15 +229,11 @@ It is written as ``$LOWER(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $LOWER(1,17)```
 
-<br>
-
 - ```EQUAL``` <br>
 "Is it equal?" Returns the condition.<br>
 It is written as ``$EQUAL(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $EQUAL(1,18)```
-
-<br>
 
 - ```NOTEQUAL``` <br>
 "Is it not equal?" Returns the condition.<br>
@@ -283,15 +241,11 @@ It is written as ``$NOTEQUAL(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $NOTEQUAL(0,Mike)```
 
-<br>
-
 - ```STARTW``` <br>
 "Does it start with ...?" Returns the condition.<br>
 It is written as ``$STARTW(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $STARTW(0,M)```
-
-<br>
 
 - ```NOTSTARTW``` <br>
 "Does it not start with ...?" Returns the condition.<br>
@@ -299,15 +253,11 @@ It is written as ``$NOTSTARTW(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $NOTSTARTW(0,M)```
 
-<br>
-
 - ```ENDW``` <br>
 "Does it end with ...?" Returns the condition.<br>
 It is written as ``$ENDW(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $ENDW(0,lia)```
-
-<br>
 
 - ```NOTENDW``` <br>
 "Does it not end with ...?" Returns the condition.<br>
@@ -315,15 +265,11 @@ It is written as ``$NOTENDW(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $NOTENDW(0,lia)```
 
-<br>
-
 - ```CONTAINS``` <br>
 "Does it include?" Returns the condition.<br>
 It is written as ``$CONTAINS(columnindex,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST $CONTAINS(0,il)```
-
-<br>
 
 - ```NOTCONTAINS``` <br>
 "Doesn't it include?" Returns the condition.<br>
@@ -336,8 +282,6 @@ It is written as ``$NOTCONTAINS(columnindex,value)``.<br>
 ### Operators
 > Column names or indexes, and columns can also be compared.
 
-<br>
-
 > The first pattern cannot contain the same operator, but the second pattern can contain.<br>
   True: ``0 == "=="``<br>
   False: ``"==" == "Hello"``
@@ -347,52 +291,42 @@ It controls equality. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 == "18"```<br>
 ```USE ID, Name FROM Persons MUST ID == '1'```<br>
-```USE ID, Name FROM Persons MUST ID == Name```<br>
-
-<br>
+```USE ID, Name FROM Persons MUST ID == Name```
 
 #### NotEqual</b> ( ``!=`` )<br>
 Checks for inequality. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 != "18"```<br>
 ```USE ID, Name FROM Persons MUST ID != '1'```<br>
-```USE ID, Name FROM Persons MUST ID != Name```<br>
-
-<br>
+```USE ID, Name FROM Persons MUST ID != Name```
 
 #### Bigger</b> ( ``>`` )<br>
 Check bigger then "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 > #18```<br>
 ```USE ID, Name FROM Persons MUST ID > #1```<br>
-```USE ID, Name FROM Persons MUST ID > 1```<br>
-
-<br>
+```USE ID, Name FROM Persons MUST ID > 1```
 
 #### Lower</b> ( ``<`` )<br>
 Check lower then "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 < #18```<br>
 ```USE ID, Name FROM Persons MUST ID < #1```<br>
-```USE ID, Name FROM Persons MUST ID < 1```<br>
-
-<br>
+```USE ID, Name FROM Persons MUST ID < 1```
 
 #### BiggerEq</b> ( ``>=`` )<br>
 Check bigger then or equal to "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 >= #18```<br>
 ```USE ID, Name FROM Persons MUST ID >= #1```<br>
-```USE ID, Name FROM Persons MUST ID >= 1```<br>
-
-<br>
+```USE ID, Name FROM Persons MUST ID >= 1```
 
 #### LowerEq</b> ( ``<=`` )<br>
 Check lower then or equal to "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 <= #18```<br>
 ```USE ID, Name FROM Persons MUST ID <= #1```<br>
-```USE ID, Name FROM Persons MUST ID <= 1```<br>
+```USE ID, Name FROM Persons MUST ID <= 1```
 
 # 
 
