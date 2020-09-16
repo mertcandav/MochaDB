@@ -49,18 +49,8 @@ Manage with a powerful management system! Only Windows.
 ## Example use
 ```csharp
 MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
-string username = usernameTextBox.Text.Trim(),
-                  password = passwordTextBox.Text;
-if(username == string.Empty)
-{
-    MessageBox.Show("Please type your username!");
-    return;
-}
-if(password == string.Empty)
-{
-    MessageBox.Show("Please type your password!");
-    return;
-}
+string username = Console.ReadLine();
+string password = Console.ReadLine();
 database.Connect();
 MochaTableResult result = database.ExecuteScalarTable(
     $@"USE Username, Password
@@ -68,11 +58,7 @@ MochaTableResult result = database.ExecuteScalarTable(
        MUST Username == ""{username}"" AND Password == ""{password}""");
 database.Disconnect();
 if(result.IsEmpty())
-{
-    MessageBox.Show("Username or password is wrong!");
-    return;
-}
-AppWindow wnd = new AppWindow();
-Hide();
-wnd.Show();
+    Console.WriteLine("Username or password is wrong!");
+else
+    Console.WriteLine("Success!");
 ```
