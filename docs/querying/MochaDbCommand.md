@@ -8,15 +8,11 @@ MochaDatabase db = new MochaDatabase("path=.\\mydb.mhdb");
 MochaDbCommand query = new MochaDbCommand("USE *",db);
 ```
 
-<br>
-
 It processes the query in the database and pulls single data with ``ExecuteScalar``. ``ExecuteScalar`` is the most logical choice because the keyword ``USE`` always returns a table. Since the rotator always returns ``object`` type, we need to specify what type it is. The table returned from ``USE`` MHQL queries is always MochaTableResult.
 ```C#
 MochaDbCommand command = new MochaDbCommand("USE *",db);
 MochaTableResult table = command.ExecuteScalar() as MochaTableResult;
 ```
-
-<br>
 
 It attracts all objects and gets them with ``ExecuteReader``. It then returns the ``while`` loop as if the data was read and takes its value as ``IMochaDatabaseItem`` and returns its name as a message.
 ```C#
@@ -27,8 +23,6 @@ while(results.Read()) {
     Console.WriteLine(item.Name);
 }
 ```
-
-<br>
 
 ### Favorite Functions
 <table border="1">
