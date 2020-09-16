@@ -8,14 +8,10 @@ Creates new empty row.
 MochaRow myRow = new MochaRow();
 ```
 
-<br>
-
 Creates a MochaData object of the "String" data type and sets its value to "Mertcan" and adds it to the row data. Since the data type is "String", the data type of that column also means "String".
 ```C#
 myRow.Add(new MochaData(MochaDataType.String,"Mertcan"));
 ```
-
-<br>
 
 Deletes the data in index "0".
 ```C#
