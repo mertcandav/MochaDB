@@ -316,6 +316,18 @@
             Returns table empty state.
             </summary>
         </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.fcon(System.Func{MochaDB.MochaRow,System.Boolean})">
+            <summary>
+            Filter rows by condition.
+            <param name="filter">Condition for filtering.</param>
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhql.MochaTableResult.fcon(System.Func{MochaDB.MochaColumn,System.Boolean})">
+            <summary>
+            Filter columns by condition.
+            <param name="filter">Condition for filtering.</param>
+            </summary>
+        </member>
         <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
             <summary>
             Columns.
@@ -2200,6 +2212,18 @@
         <member name="M:MochaDB.MochaTable.IsEmpty">
             <summary>
             Returns table empty state.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaTable.fcon(System.Func{MochaDB.MochaRow,System.Boolean})">
+            <summary>
+            Filter rows by condition.
+            <param name="filter">Condition for filtering.</param>
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaTable.fcon(System.Func{MochaDB.MochaColumn,System.Boolean})">
+            <summary>
+            Filter columns by condition.
+            <param name="filter">Condition for filtering.</param>
             </summary>
         </member>
         <member name="M:MochaDB.MochaTable.ToString">

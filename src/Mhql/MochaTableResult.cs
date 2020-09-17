@@ -1,4 +1,7 @@
-﻿namespace MochaDB.Mhql {
+﻿using System;
+using System.Linq;
+
+namespace MochaDB.Mhql {
     /// <summary>
     /// Table result for Mhql query results.
     /// </summary>
@@ -73,6 +76,22 @@
         /// </summary>
         public bool IsEmpty() {
             return Rows.Length == 0;
+        }
+
+        /// <summary>
+        /// Filter rows by condition.
+        /// <param name="filter">Condition for filtering.</param>
+        /// </summary>
+        public void fcon(Func<MochaRow,bool> filter) {
+            Rows = Rows.Where(filter).ToArray();
+        }
+
+        /// <summary>
+        /// Filter columns by condition.
+        /// <param name="filter">Condition for filtering.</param>
+        /// </summary>
+        public void fcon(Func<MochaColumn,bool> filter) {
+            Columns = Columns.Where(filter).ToArray();
         }
 
         #endregion
