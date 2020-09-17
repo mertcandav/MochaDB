@@ -6,7 +6,6 @@ Connection strings are used for connections. They are processed by ``MochaProvid
 "Path = .\\Databases\\Personels; Password=1234"
 "Password= 1234;Path =.\\Databases\\Personels.mhdb; AutoConnect= True"
 ```
-<br>
 
 ### Attributes
 Attributes are features within the connection string.<br>
@@ -51,8 +50,6 @@ If more than one attribute is defined, the attributes are ';' should be separate
         <td>True/False</td>
     </tr>
 </table>
-
-<br>
 
 ### Functions
 Functions are simple and easy-to-use alternatives that you can use to make your job easier.<br>

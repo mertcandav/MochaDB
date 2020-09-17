@@ -136,8 +136,6 @@ Commands that can be run only. they are not commands that return values.
     </tr>
 </table>
 
-<br>
-
 #### GetRun
 They are commands that return a value. They are returned as "object", Dynamic commands are not executed.
 <table border="1">
@@ -274,8 +272,6 @@ They are commands that return a value. They are returned as "object", Dynamic co
        <td width="100%">Remove attribute from column by name and returns result.</td>
     </tr>
 </table>
-
-<br>
 
 #### Dynamic
 More functional commands without simplicity.<br>

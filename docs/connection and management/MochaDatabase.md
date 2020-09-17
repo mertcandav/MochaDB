@@ -8,22 +8,16 @@ Use connection string to connect to the MochaDB database.
 MochaDatabase db = new MochaDatabase("connection string");
 ```
 
-<br>
-
 Connect only by specifying the file path and password.
 ```C#
 MochaDatabase db = new MochaDatabase("path","password");
 ```
-
-<br>
 
 Trying to take any action with the connection closed will result in an error. The connection must be open during the operations.
 ```C#
 db.Connect(); // For open connection.
 db.Disconnect(); // For close connection.
 ```
-
-<br>
 
 ### Favorite Functions
 #### General
@@ -54,8 +48,6 @@ db.Disconnect(); // For close connection.
     </tr>
 </table>
 
-<br>
-
 #### Tables
 <table border="1">
     <tr>
@@ -84,8 +76,6 @@ db.Disconnect(); // For close connection.
     </tr>
 </table>
 
-<br>
-
 #### Columns
 <table border="1">
     <tr>
@@ -110,8 +100,6 @@ db.Disconnect(); // For close connection.
     </tr>
 </table>
 
-<br>
-
 #### Rows
 <table border="1">
     <tr>
@@ -131,8 +119,6 @@ db.Disconnect(); // For close connection.
         <td width="100%">Return rows from table.</td>
     </tr>
 </table>
-
-<br>
 
 #### Datas
 <table border="1">

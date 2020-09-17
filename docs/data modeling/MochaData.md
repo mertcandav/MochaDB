@@ -9,8 +9,6 @@ Creates a data with "Mertcan" value in "String" data type.
 MochaData myData = new MochaData(MochaDataType.String,"Mertcan");
 ```
 
-<br>
-
 The data is "Hello World!" set to.
 ```C#
 myData.Data = "Hello World!";
@@ -19,8 +17,6 @@ However, if you try to enter data other than the data type, you will get Excepti
 ```C#
 myData.Data = 18;
 ```
-
-<br>
 
 Sets the data type to "Int32". if the data is compatible with the new data type, it will remain the same, if not, it will be reset to the compatible default value.
 ```C#

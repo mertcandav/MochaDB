@@ -7,8 +7,6 @@ MochaProvider provider =
     new MochaProvider("Path=.\\Databases\\Personels.mhdb; Password=MyDb045089");
 ```
 
-<br>
-
 This code returns the attribute specified on the specified connection string.
 ```C#
 MochaProviderAttribute password =
