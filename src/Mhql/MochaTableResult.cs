@@ -82,7 +82,7 @@ namespace MochaDB.Mhql {
         /// Filter rows by condition.
         /// <param name="filter">Condition for filtering.</param>
         /// </summary>
-        public void fcon(Func<MochaRow,bool> filter) {
+        public void FCon(Func<MochaRow,bool> filter) {
             Rows = Rows.Where(filter).ToArray();
         }
 
@@ -90,7 +90,7 @@ namespace MochaDB.Mhql {
         /// Filter columns by condition.
         /// <param name="filter">Condition for filtering.</param>
         /// </summary>
-        public void fcon(Func<MochaColumn,bool> filter) {
+        public void FCon(Func<MochaColumn,bool> filter) {
             Columns = Columns.Where(filter).ToArray();
         }
 

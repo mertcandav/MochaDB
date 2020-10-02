@@ -316,13 +316,13 @@
             Returns table empty state.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaTableResult.fcon(System.Func{MochaDB.MochaRow,System.Boolean})">
+        <member name="M:MochaDB.Mhql.MochaTableResult.FCon(System.Func{MochaDB.MochaRow,System.Boolean})">
             <summary>
             Filter rows by condition.
             <param name="filter">Condition for filtering.</param>
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaTableResult.fcon(System.Func{MochaDB.MochaColumn,System.Boolean})">
+        <member name="M:MochaDB.Mhql.MochaTableResult.FCon(System.Func{MochaDB.MochaColumn,System.Boolean})">
             <summary>
             Filter columns by condition.
             <param name="filter">Condition for filtering.</param>
@@ -2214,13 +2214,13 @@
             Returns table empty state.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaTable.fcon(System.Func{MochaDB.MochaRow,System.Boolean})">
+        <member name="M:MochaDB.MochaTable.FCon(System.Func{MochaDB.MochaRow,System.Boolean})">
             <summary>
             Filter rows by condition.
             <param name="filter">Condition for filtering.</param>
             </summary>
         </member>
-        <member name="M:MochaDB.MochaTable.fcon(System.Func{MochaDB.MochaColumn,System.Boolean})">
+        <member name="M:MochaDB.MochaTable.FCon(System.Func{MochaDB.MochaColumn,System.Boolean})">
             <summary>
             Filter columns by condition.
             <param name="filter">Condition for filtering.</param>

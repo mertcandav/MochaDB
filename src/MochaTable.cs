@@ -166,7 +166,7 @@ namespace MochaDB {
         /// Filter rows by condition.
         /// <param name="filter">Condition for filtering.</param>
         /// </summary>
-        public void fcon(Func<MochaRow,bool> filter) {
+        public void FCon(Func<MochaRow,bool> filter) {
             Rows.collection = Rows.collection.Where(filter).ToList();
         }
 
@@ -174,7 +174,7 @@ namespace MochaDB {
         /// Filter columns by condition.
         /// <param name="filter">Condition for filtering.</param>
         /// </summary>
-        public void fcon(Func<MochaColumn,bool> filter) {
+        public void FCon(Func<MochaColumn,bool> filter) {
             Columns.collection = Columns.collection.Where(filter).ToList();
         }
 
