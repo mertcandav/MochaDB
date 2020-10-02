@@ -31,10 +31,9 @@ Public Class app
             Dim db As MochaDatabase = Nothing
             Try
                 Dim path = New MochaPath(Directory.GetCurrentDirectory)
-                'path.ParentDirectory()
-                'path.ParentDirectory()
-                'path.ParentDirectory()
-                MessageBox.Show(path)
+                path.ParentDirectory()
+                path.ParentDirectory()
+                path.ParentDirectory()
                 db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
                 Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
                 Dim result As MochaTableResult = command.ExecuteScalar
@@ -43,8 +42,8 @@ Public Class app
                     datasource.Rows.Clear()
 
                     For index = 0 To result.Columns.Count - 1
-                        datasource.Columns.Add(System.String.Empty, result.Columns.ElementAt(index).MHQLAsText)
-                    Next
+                    datasource.Columns.Add(String.Empty, result.Columns.ElementAt(index).MHQLAsText)
+                Next
                     For index = 0 To result.Rows.Count - 1
                         datasource.Rows.Add(result.Rows.ElementAt(index).Datas.ToArray)
                     Next
