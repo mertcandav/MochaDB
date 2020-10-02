@@ -174,7 +174,7 @@ Adds a specified number of new lines and sets the default value of the data type
 - ```$``` <br>
 It is used in the functions of MUST conditions. It is also used to specify a temporary column only in TABLE mode. The marked columns are available throughout the query but are not found in the returned table as a result of the query.<br>
 <b>Examples</b><br>
-```USE Persons.Age MUST $BIGGER(0,18)```<br>
+```USE Persons.Age MUST BIGGER(0,18)```<br>
 ```USE Name, $Salary, AVG(Salary) FROM Persons GROUPBY Name``` - Result columns: ``Name``, ``AVG(Salary)`` <br>
 ```USE Persons.Name, Persons.$Salary ORDERBY 1 DESC``` - Result columns: ``Persons.Name``
 
@@ -209,73 +209,71 @@ Equal to ``AVG()`` command of SQL. Returns the average value grouped data.<br>
 
 ### Functions of MUST
 
-> When writing functions, ``$`` should be put in front of them.
-
 - ```BETWEEN``` <br>
 Equal to ``BETWEEN`` command of SQL. The style of writing is different.<br>
-Returns a specified numerical range condition. The data of the column in which it is used must contain a numerical value.<br>It is written as ``$BETWEEN(columnindex,range1,range2)``.<br>
+Returns a specified numerical range condition. The data of the column in which it is used must contain a numerical value.<br>It is written as ``BETWEEN(columnindex,range1,range2)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $BETWEEN(1,18,35)```
+```USE Persons.Name,Persons.Age MUST BETWEEN(1,18,35)```
 
 - ```BIGGER``` <br>
 Returns a specified numerical bigger and equal condition. The data of the column in which it is used must contain a numerical value.<br>
-It is written as ``$BIGGER(columnindex,value)``.<br>
+It is written as ``BIGGER(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $BIGGER(1,18)```
+```USE Persons.Name,Persons.Age MUST BIGGER(1,18)```
 
 - ```LOWER``` <br>
 Returns a specified numerical lower and equal condition. The data of the column in which it is used must contain a numerical value.<br>
-It is written as ``$LOWER(columnindex,value)``.<br>
+It is written as ``LOWER(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $LOWER(1,17)```
+```USE Persons.Name,Persons.Age MUST LOWER(1,17)```
 
 - ```EQUAL``` <br>
 "Is it equal?" Returns the condition.<br>
-It is written as ``$EQUAL(columnindex,value)``.<br>
+It is written as ``EQUAL(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $EQUAL(1,18)```
+```USE Persons.Name,Persons.Age MUST EQUAL(1,18)```
 
 - ```NOTEQUAL``` <br>
 "Is it not equal?" Returns the condition.<br>
-It is written as ``$NOTEQUAL(columnindex,value)``.<br>
+It is written as ``NOTEQUAL(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $NOTEQUAL(0,Mike)```
+```USE Persons.Name,Persons.Age MUST NOTEQUAL(0,Mike)```
 
 - ```STARTW``` <br>
 "Does it start with ...?" Returns the condition.<br>
-It is written as ``$STARTW(columnindex,value)``.<br>
+It is written as ``STARTW(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $STARTW(0,M)```
+```USE Persons.Name,Persons.Age MUST STARTW(0,M)```
 
 - ```NOTSTARTW``` <br>
 "Does it not start with ...?" Returns the condition.<br>
-It is written as ``$NOTSTARTW(columnindex,value)``.<br>
+It is written as ``NOTSTARTW(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $NOTSTARTW(0,M)```
+```USE Persons.Name,Persons.Age MUST NOTSTARTW(0,M)```
 
 - ```ENDW``` <br>
 "Does it end with ...?" Returns the condition.<br>
-It is written as ``$ENDW(columnindex,value)``.<br>
+It is written as ``ENDW(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $ENDW(0,lia)```
+```USE Persons.Name,Persons.Age MUST ENDW(0,lia)```
 
 - ```NOTENDW``` <br>
 "Does it not end with ...?" Returns the condition.<br>
-It is written as ``$NOTENDW(columnindex,value)``.<br>
+It is written as ``NOTENDW(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $NOTENDW(0,lia)```
+```USE Persons.Name,Persons.Age MUST NOTENDW(0,lia)```
 
 - ```CONTAINS``` <br>
 "Does it include?" Returns the condition.<br>
-It is written as ``$CONTAINS(columnindex,value)``.<br>
+It is written as ``CONTAINS(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $CONTAINS(0,il)```
+```USE Persons.Name,Persons.Age MUST CONTAINS(0,il)```
 
 - ```NOTCONTAINS``` <br>
 "Doesn't it include?" Returns the condition.<br>
-It is written as ``$NOTCONTAINS(columnindex,value)``.<br>
+It is written as ``NOTCONTAINS(columnindex,value)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST $NOTCONTAINS(0,a)```
+```USE Persons.Name,Persons.Age MUST NOTCONTAINS(0,a)```
 
 # 
 
@@ -354,7 +352,7 @@ MUST
 ```
 ```java
 USE * FROM Persons
-MUST $BETWEEN(3,18,45) AND 0(*.ale)
+MUST BETWEEN(3,18,45) AND 0(*.ale)
 ```
 ```java
 USE Persons, Persons, Persons
