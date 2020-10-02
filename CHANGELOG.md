@@ -8,7 +8,8 @@ CHANGELOGS of MochaDB.
 + Added ``ADDROW`` keyword to MHQL.
 + Added type check system to conditions of MHQL
 + Added BIGGER, LOWER, BIGGER_EQUAL and LOWER_EQUAL operators to MHQL.
-+ Added ``fcon``function to MochaTable and MochaTableResult.
++ Added ``FCon``function to MochaTable and MochaTableResult.
++ Mandatory mark for functions removed from MHQL.
 
 # rlsv3.4.7 [ 7 July 2020 ]
 + Optimizations.
