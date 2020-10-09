@@ -37,11 +37,14 @@ namespace MochaDB.mhql {
         /// <param name="command">MHQL Command.</param>
         /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
-            Regex pattern = new Regex($@"\s+/\|(?![^{{{Mhql_GRAMMAR.MainKeywords}]*}})/g(\s+.*|$)",
+            Regex pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-            int count = 0;
             command = command.Substring(4);
-            for(int index = 0; index < command.Length; index++) {
+            int index = command.IndexOf(Mhql_LEXER.LBRACE);
+            index = index == -1 ? command.IndexOf(Mhql_LEXER.RBRACE) : index;
+            index = index == -1 ? 0 : index;
+            int count = index == 0 ? 0 : 1;
+            for(; index < command.Length; index++) {
                 char currentChar = command[index];
                 if(count == 0) {
                     Match match = pattern.Match(command.Substring(index));
