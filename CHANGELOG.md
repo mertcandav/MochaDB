@@ -1,8 +1,10 @@
 CHANGELOGS of MochaDB.
 
 # rlsv3.4.9 [ current ]
-+ Added ``FCon``function to MochaTable and MochaTableResult.
 + Mandatory mark for functions removed from MHQL.
++ Add subquery support to MHQL.
++ Add ``FCon``function to MochaTable and MochaTableResult.
++ Fix ``ContainsData`` function.
 
 # rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
