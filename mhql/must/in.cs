@@ -38,9 +38,8 @@ namespace MochaDB.mhql {
             else if(column.DataType != result.Columns[0].DataType)
                 throw new MochaException("Column data type is not same of subquery result!");
             for(int index = 0; index < column.Datas.Count; index++) {
-                for(int rindex = 0; rindex < result.Columns[0].Datas.Count; rindex++)
-                    if(result.Columns[0].Datas[rindex].Data == column.Datas[index].Data)
-                        return true;
+                if(result.Columns[0].Datas.ContainsData(column.Datas[index].Data))
+                    return true;
             }
             return false;
         }

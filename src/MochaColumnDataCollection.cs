@@ -134,7 +134,7 @@ namespace MochaDB {
         /// <param name="data">Data to check.</param>
         public bool ContainsData(object data) {
             for(int index = 0; index < Count; index++)
-                if(data.Equals(this[index]))
+                if(data.Equals(this[index].Data))
                     return true;
 
             return false;
