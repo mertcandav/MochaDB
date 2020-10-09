@@ -62,15 +62,18 @@ namespace MochaDB.mhql.engine {
         /// <summary>
         /// Returns command must result.
         /// </summary>
+        /// <param name="tdb">Target database.</param>
         /// <param name="command">Command.</param>
         /// <param name="table">Table.</param>
         /// <param name="row">Row.</param>
         /// <param name="from">Use state FROM keyword.</param>
-        public static bool IsPassTable(ref string command,MochaTableResult table,MochaRow row,bool from) {
-            command=command.Trim();
-            if(MhqlEng_CONDITION.IsCondition(command,out _))
+        public static bool IsPassTable(MochaDatabase tdb,ref string command,MochaTableResult table,MochaRow row,bool from) {
+            command = command.Trim();
+            if(Mhql_IN.IsIN(command)) {
+                return Mhql_IN.Process(tdb,command,table,from);
+            } else if(MhqlEng_CONDITION.IsCondition(command,out _)) {
                 return MhqlEng_CONDITION.Process(command,table,row,from);
-            else if(char.IsNumber(command.FirstChar())) {
+            } else if(char.IsNumber(command.FirstChar())) {
                 return MhqlMust_REGEX.Match(
                             MhqlMust_REGEX.GetCommand(command),
                             GetDataFromCommand(command,row).ToString());

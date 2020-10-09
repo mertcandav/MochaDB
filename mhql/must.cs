@@ -37,27 +37,22 @@ namespace MochaDB.mhql {
         /// <param name="command">MHQL Command.</param>
         /// <param name="final">Command of removed must commands.</param>
         public string GetMUST(string command,out string final) {
-            var pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
+            Regex pattern = new Regex($@"\s+/\|(?![^{{{Mhql_GRAMMAR.MainKeywords}]*}})/g(\s+.*|$)",
                 RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-            var count = 0;
-            var function = false;
+            int count = 0;
             command = command.Substring(4);
             for(int index = 0; index < command.Length; index++) {
-                var currentChar = command[index];
-                if(!function && count == 0) {
+                char currentChar = command[index];
+                if(count == 0) {
                     Match match = pattern.Match(command.Substring(index));
                     if(match.Success) {
                         final = command.Substring(match.Index).Trim();
                         return command.Substring(0,match.Index).Trim();
                     }
-                } else if(currentChar == '(')
+                } else if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
                     count++;
-                else if(currentChar == '$')
-                    function = true;
-                else if(currentChar == ')') {
-                    function = false;
+                else if(currentChar == Mhql_LEXER.RPARANT || currentChar == Mhql_LEXER.RBRACE)
                     count--;
-                }
             }
             final = string.Empty;
             return command;
@@ -78,7 +73,7 @@ namespace MochaDB.mhql {
                 var rows = new List<MochaRow>();
                 for(int dex = 0; dex < table.Rows.Length; dex++) {
                     var row = table.Rows[dex];
-                    if(MhqlEng_MUST.IsPassTable(ref partcmd,table,row,@from))
+                    if(MhqlEng_MUST.IsPassTable(Tdb,ref partcmd,table,row,@from))
                         rows.Add(row);
                 }
                 table.Rows = rows.ToArray();

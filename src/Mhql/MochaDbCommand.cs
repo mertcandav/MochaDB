@@ -23,8 +23,8 @@ namespace MochaDB.Mhql {
         internal Mhql_GROUPBY GROUPBY;
         internal Mhql_SUBROW SUBROW;
         internal Mhql_SUBCOL SUBCOL;
-        internal Mhql_DELROW DELROW;
         internal Mhql_DELCOL DELCOL;
+        internal Mhql_DELROW DELROW;
         internal Mhql_ADDROW ADDROW;
 
         #endregion
@@ -49,16 +49,8 @@ namespace MochaDB.Mhql {
             DELCOL = new Mhql_DELCOL(Database);
             ADDROW = new Mhql_ADDROW(Database);
             keywords = new MhqlKeyword[] {
-                USE,
-                SELECT,
-                REMOVE,
-                ORDERBY,
-                GROUPBY,
-                MUST,
-                SUBROW,
-                SUBCOL,
-                DELROW,
-                DELCOL,
+                USE, SELECT, REMOVE, ORDERBY, GROUPBY,
+                MUST, SUBROW, SUBCOL, DELROW, DELCOL,
                 ADDROW
             };
 
@@ -157,40 +149,23 @@ namespace MochaDB.Mhql {
                 var table = USE.GetTable(use,fromkw);
 
                 do {
-                    //Orderby.
-                    if(ORDERBY.IsORDERBY(lastcommand)) {
+                    if(ORDERBY.IsORDERBY(lastcommand)) //Orderby
                         ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table,fromkw);
-                    }
-                    //Groupby.
-                    else if(GROUPBY.IsGROUPBY(lastcommand)) {
+                    else if(GROUPBY.IsGROUPBY(lastcommand)) //Groupby
                         GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table,fromkw);
-                    }
-                    //Must.
-                    else if(MUST.IsMUST(lastcommand)) {
+                    else if(MUST.IsMUST(lastcommand)) //Must
                         MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
-                    }
-                    //Subrow.
-                    else if(SUBROW.IsSUBROW(lastcommand)) {
+                    else if(SUBROW.IsSUBROW(lastcommand)) //Subrow
                         SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
-                    }
-                    //Subcol.
-                    else if(SUBCOL.IsSUBCOL(lastcommand)) {
+                    else if(SUBCOL.IsSUBCOL(lastcommand)) //Subcol.
                         SUBCOL.Subcol(SUBCOL.GetSUBCOL(lastcommand,out lastcommand),ref table);
-                    }
-                    //Delrow.
-                    else if(DELROW.IsDELROW(lastcommand)) {
+                    else if(DELROW.IsDELROW(lastcommand)) //Delrow
                         DELROW.Delrow(DELROW.GetDELROW(lastcommand,out lastcommand),ref table);
-                    }
-                    //Delcol.
-                    else if(DELCOL.IsDELCOL(lastcommand)) {
+                    else if(DELCOL.IsDELCOL(lastcommand)) //Delcol
                         DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
-                    }
-                    //Addrow
-                    else if(ADDROW.IsADDROW(lastcommand)) {
+                    else if(ADDROW.IsADDROW(lastcommand)) //Addrow
                         ADDROW.Addrow(ADDROW.GetADDROW(lastcommand,out lastcommand),ref table);
-                    }
-                    //Return.
-                    else if(lastcommand == string.Empty) {
+                    else if(lastcommand == string.Empty) { //Return.
                         IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
                         if(cols.Count() != table.Columns.Length) {
                             table.Columns = cols.ToArray();

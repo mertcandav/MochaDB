@@ -21,39 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3AA8059-4CBE-44A1-8792-EDCB236D7361}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{06A59BC1-99C3-43FF-A15C-38284C130AF6}"
-	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		.travis.yml = .travis.yml
-		azure-pipelines.yml = azure-pipelines.yml
-		CHANGELOG.md = CHANGELOG.md
-		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
-		Compile_fsharpmhql.ps1 = Compile_fsharpmhql.ps1
-		Compile_fsharpmhql.sh = Compile_fsharpmhql.sh
-		Compile_fsharptest.bat = Compile_fsharptest.bat
-		Compile_fsharptest.ps1 = Compile_fsharptest.ps1
-		Compile_fsharptest.sh = Compile_fsharptest.sh
-		Compile_MochaDB.bat = Compile_MochaDB.bat
-		Compile_MochaDB.ps1 = Compile_MochaDB.ps1
-		Compile_MochaDB.sh = Compile_MochaDB.sh
-		Compile_Solution.bat = Compile_Solution.bat
-		Compile_Solution.ps1 = Compile_Solution.ps1
-		Compile_Solution.sh = Compile_Solution.sh
-		Compile_vbnetmhql.bat = Compile_vbnetmhql.bat
-		Compile_vbnetmhql.ps1 = Compile_vbnetmhql.ps1
-		Compile_vbnetmhql.sh = Compile_vbnetmhql.sh
-		Exec_All.bat = Exec_All.bat
-		Exec_All.ps1 = Exec_All.ps1
-		Exec_All.sh = Exec_All.sh
-		LICENSE = LICENSE
-		Make.bat = Make.bat
-		Make.ps1 = Make.ps1
-		Make.sh = Make.sh
-		Makefile = Makefile
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "fsharptest", "fsharptest\fsharptest.fsproj", "{1AA9084E-DE6E-41E1-89C9-7CE24B8464F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
@@ -67,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 		mhql\grammar.cs = mhql\grammar.cs
 		mhql\groupby.cs = mhql\groupby.cs
 		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
+		mhql\lexer.cs = mhql\lexer.cs
 		mhql\MhqlKeyword.cs = mhql\MhqlKeyword.cs
 		mhql\must.cs = mhql\must.cs
 		mhql\orderby.cs = mhql\orderby.cs
@@ -89,6 +57,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
 	ProjectSection(SolutionItems) = preProject
 		mhql\must\and.cs = mhql\must\and.cs
+		mhql\must\in.cs = mhql\must\in.cs
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
@@ -261,7 +230,6 @@ Global
 		{1EEBFFBA-F1CA-49D0-94F5-29B19A1AC6F5} = {A3AA8059-4CBE-44A1-8792-EDCB236D7361}
 		{3C47CF88-E6CB-42A4-A903-15FF3E7836B3} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
-		{06A59BC1-99C3-43FF-A15C-38284C130AF6} = {86DB3C19-063F-460A-B4D6-4165452F6429}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}

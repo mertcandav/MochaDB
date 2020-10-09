@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using MochaDB.Mhql;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql {
@@ -109,7 +108,7 @@ namespace MochaDB.mhql {
         /// </summary>
         public static Regex FullRegex => new Regex(
 $@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
-\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW|TRUE|FALSE)\b",
+\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW|TRUE|FALSE|IN)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
         /// <summary>

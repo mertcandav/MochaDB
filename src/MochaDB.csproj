@@ -113,7 +113,7 @@
     <Compile Include="..\mhql\delrow.cs">
       <Visible>False</Visible>
     </Compile>
-        <Compile Include="..\mhql\delcol.cs">
+    <Compile Include="..\mhql\delcol.cs">
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\subcol.cs">
@@ -123,6 +123,9 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\addrow.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\lexer.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
@@ -170,6 +173,9 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\must\regex.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\must\in.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>

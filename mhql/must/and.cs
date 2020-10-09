@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using MochaDB.mhql;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -20,17 +21,20 @@ namespace MochaDB.mhql {
             for(int index = 0; index < command.Length; index++) {
                 var currentChar = command[index];
                 if(count == 0 && (currentChar == 'A' || currentChar == 'a')) {
-                    if(command.Length - 1 - index >= 3) {
+                    if(command.Length - 1 - index >= 3)
                         if(pattern.IsMatch(command.Substring(index,3))) {
                             parts.Add(value.ToString().Trim());
                             value.Clear();
                             index+=2;
                             continue;
                         }
-                    }
-                } else if(currentChar == '(')
+                } else if(currentChar == Mhql_LEXER.LPARANT)
                     count++;
-                else if(currentChar == ')')
+                else if(currentChar == Mhql_LEXER.RPARANT)
+                    count--;
+                else if(currentChar == Mhql_LEXER.LBRACE)
+                    count++;
+                else if(currentChar == Mhql_LEXER.RBRACE)
                     count--;
 
                 value.Append(currentChar);

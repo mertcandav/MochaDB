@@ -3145,6 +3145,40 @@
             <param name="command">Command.</param>
             <param name="table">Table to add rowing.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_LEXER">
+            <summary>
+            Lexer of MHQL.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.RangeBrace(System.String,System.Char,System.Char)">
+            <summary>
+            Get range by brackets.
+            </summary>
+            <param name="value">Value.</param>
+            <param name="open">Open bracket.</param>
+            <param name="close">Close bracket.</param>
+            <returns>Range of brackets.</returns>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.LBRACE">
+            <summary>
+            Left curly bracket.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.RBRACE">
+            <summary>
+            Right curly bracket.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.LPARANT">
+            <summary>
+            Left parentheses.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.RPARANT">
+            <summary>
+            Right parentheses.
+            </summary>
+        </member>
         <member name="T:MochaDB.mhql.must_functions.MhqlMustFunc_BETWEEN">
             <summary>
             MHQL BETWEEN function of MUST.
@@ -3328,6 +3362,27 @@
             <param name="pattern">Regex pattern.</param>
             <param name="value">Value.</param>
         </member>
+        <member name="T:MochaDB.mhql.Mhql_IN">
+            <summary>
+            MHQL IN keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_IN.IsIN(System.String)">
+            <summary>
+            Returns true if command is IN command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_IN.Process(MochaDB.MochaDatabase,System.String,MochaDB.Mhql.MochaTableResult,System.Boolean)">
+            <summary>
+            Process in keyword.
+            </summary>
+            <param name="tdb">Target database.</param>
+            <param name="command">Command.</param>
+            <param name="table">Destination table.</param>
+            <param name="from">use state of FROM keyword.</param>
+            <returns>True if subquery is success, false if not.</returns>
+        </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">
             <summary>
             MHQL MUST core.
@@ -3348,10 +3403,11 @@
             <param name="command">Command.</param>
             <param name="row">Base row.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.IsPassTable(System.String@,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_MUST.IsPassTable(MochaDB.MochaDatabase,System.String@,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Returns command must result.
             </summary>
+            <param name="tdb">Target database.</param>
             <param name="command">Command.</param>
             <param name="table">Table.</param>
             <param name="row">Row.</param>
