@@ -5,73 +5,73 @@ using System.Text.RegularExpressions;
 using MochaDB.Querying;
 
 namespace MochaDB.mhql {
+  /// <summary>
+  /// Grammar of MHQL.
+  /// </summary>
+  internal static class Mhql_GRAMMAR {
+    #region Members
+
     /// <summary>
-    /// Grammar of MHQL.
+    /// Returns column index.
     /// </summary>
-    internal static class Mhql_GRAMMAR {
-        #region Members
+    /// <param name="value">Value.</param>
+    /// <param name="columns">Columns.</param>
+    /// <param name="from">Use state FROM keyword.</param>
+    public static int GetIndexOfColumn(string value,MochaColumn[] columns,bool from) {
+      int returndex() {
+        int columndex;
+        if(!int.TryParse(value,out columndex))
+          throw new MochaException("Column index or name is cannot processed!");
+        return columndex;
+      }
 
-        /// <summary>
-        /// Returns column index.
-        /// </summary>
-        /// <param name="value">Value.</param>
-        /// <param name="columns">Columns.</param>
-        /// <param name="from">Use state FROM keyword.</param>
-        public static int GetIndexOfColumn(string value,MochaColumn[] columns,bool from) {
-            int returndex() {
-                int columndex;
-                if(!int.TryParse(value,out columndex))
-                    throw new MochaException("Column index or name is cannot processed!");
-                return columndex;
-            }
+      value = value.Trim();
+      if(!from)
+        return returndex();
 
-            value = value.Trim();
-            if(!from)
-                return returndex();
+      var result = columns.Where(x => x.Name == value);
 
-            var result = columns.Where(x => x.Name == value);
+      if(result.Count() == 0)
+        return returndex();
 
-            if(result.Count() == 0)
-                return returndex();
+      return Array.IndexOf(columns,result.First());
+    }
 
-            return Array.IndexOf(columns,result.First());
-        }
+    /// <summary>
+    /// Returns column index.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    /// <param name="cols">Columns.</param>
+    /// <param name="from">Use state FROM keyword.</param>
+    public static int GetIndexOfColumn(string value,MochaCollectionResult<MochaColumn> cols,bool from) {
+      int returndex() {
+        int columndex;
+        if(!int.TryParse(value,out columndex))
+          throw new MochaException("Column index or name is cannot processed!");
+        return columndex;
+      }
 
-        /// <summary>
-        /// Returns column index.
-        /// </summary>
-        /// <param name="value">Value.</param>
-        /// <param name="cols">Columns.</param>
-        /// <param name="from">Use state FROM keyword.</param>
-        public static int GetIndexOfColumn(string value,MochaCollectionResult<MochaColumn> cols,bool from) {
-            int returndex() {
-                int columndex;
-                if(!int.TryParse(value,out columndex))
-                    throw new MochaException("Column index or name is cannot processed!");
-                return columndex;
-            }
+      value = value.Trim();
+      if(!from)
+        return returndex();
 
-            value = value.Trim();
-            if(!from)
-                return returndex();
+      var result = cols.Where(x => x.Name == value);
 
-            var result = cols.Where(x => x.Name == value);
+      if(result.Count() == 0)
+        return returndex();
 
-            if(result.Count() == 0)
-                return returndex();
+      return cols.IndexOf(result.First());
+    }
 
-            return cols.IndexOf(result.First());
-        }
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Properties
-
-        /// <summary>
-        /// Functions of must.
-        /// </summary>
-        public static string[] MustFunctions =>
-            new[] {
+    /// <summary>
+    /// Functions of must.
+    /// </summary>
+    public static string[] MustFunctions =>
+        new[] {
                 "BETWEEN",
                 "BIGGER",
                 "LOWER",
@@ -83,41 +83,41 @@ namespace MochaDB.mhql {
                 "NOTCONTAINS",
                 "NOTSTARTW",
                 "NOTENDW"
-            };
+        };
 
-        /// <summary>
-        /// Functions of use.
-        /// </summary>
-        public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
-            new Dictionary<string,string>() {
+    /// <summary>
+    /// Functions of use.
+    /// </summary>
+    public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
+        new Dictionary<string,string>() {
                 { "COUNT(\\s*)\\((\\s*)\\)", "COUNT" },
                 { "SUM(\\s*)\\((\\s*).*(\\s*)\\)", "SUM" },
                 { "MAX(\\s*)\\((\\s*).*(\\s*)\\)", "MAX" },
                 { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" },
                 { "AVG(\\s*)\\((\\s*).*(\\s*)\\)", "AVG" }
-            };
+        };
 
-        /// <summary>
-        /// Main keywords.
-        /// </summary>
-        public static string MainKeywords =>
-            "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW";
+    /// <summary>
+    /// Main keywords.
+    /// </summary>
+    public static string MainKeywords =>
+        "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW";
 
-        /// <summary>
-        /// All words.
-        /// </summary>
-        public static Regex FullRegex => new Regex(
+    /// <summary>
+    /// All words.
+    /// </summary>
+    public static Regex FullRegex => new Regex(
 $@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
 \$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW|TRUE|FALSE|IN)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
-        /// <summary>
-        /// Main keywrods.
-        /// </summary>
-        public static Regex MainRegex => new Regex(
+    /// <summary>
+    /// Main keywrods.
+    /// </summary>
+    public static Regex MainRegex => new Regex(
 $@"\b({MainKeywords})\b|\s*$",
-    RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
+RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
-        #endregion
-    }
+    #endregion
+  }
 }

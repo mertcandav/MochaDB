@@ -1,20 +1,20 @@
 namespace MochaDB.mhql {
+  /// <summary>
+  /// Interface for Mhql keywords.
+  /// </summary>
+  internal interface IMhqlKeyword {
+    #region Properties
+
     /// <summary>
-    /// Interface for Mhql keywords.
+    /// Target database.
     /// </summary>
-    internal interface IMhqlKeyword {
-        #region Properties
+    MochaDatabase Tdb { get; set; }
 
-        /// <summary>
-        /// Target database.
-        /// </summary>
-        MochaDatabase Tdb { get; set; }
+    /// <summary>
+    /// MHQL Command.
+    /// </summary>
+    string Command { get; set; }
 
-        /// <summary>
-        /// MHQL Command.
-        /// </summary>
-        string Command { get; set; }
-
-        #endregion
-    }
+    #endregion
+  }
 }

@@ -2,112 +2,112 @@
 using System.Linq;
 
 namespace MochaDB.Mhql {
+  /// <summary>
+  /// Table result for Mhql query results.
+  /// </summary>
+  public class MochaTableResult {
+    #region Constructors
+
     /// <summary>
-    /// Table result for Mhql query results.
+    /// Create a new MochaTableResult.
     /// </summary>
-    public class MochaTableResult {
-        #region Constructors
+    internal MochaTableResult() {
 
-        /// <summary>
-        /// Create a new MochaTableResult.
-        /// </summary>
-        internal MochaTableResult() {
-
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        /// <summary>
-        /// Set rows by datas of columns.
-        /// </summary>
-        internal void SetRowsByDatas() {
-            if(Columns.Length > 0 && Columns[0].Datas.Count > 0) {
-                var firstcolumn = Columns[0];
-                MochaRow[] rows = new MochaRow[firstcolumn.Datas.Count];
-                //Process rows.
-                for(var dataindex = 0; dataindex < firstcolumn.Datas.Count; dataindex++) {
-                    MochaData[] datas = new MochaData[Columns.Length];
-                    for(var columnindex = 0; columnindex < Columns.Length; columnindex++) {
-                        var column = Columns[columnindex];
-                        datas[columnindex] =
-                            column.Datas.Count < dataindex+1 ?
-                            new MochaData { data =string.Empty,dataType=MochaDataType.String } :
-                            column.Datas[dataindex];
-                    }
-                    rows[dataindex] = new MochaRow(datas);
-                }
-                Rows = rows;
-                return;
-            } else
-                Rows = new MochaRow[0];
-        }
-
-        /// <summary>
-        /// Set datas by row datas.
-        /// </summary>
-        internal void SetDatasByRows() {
-            for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
-                Columns[columnIndex].Datas.collection.Clear();
-            }
-
-            for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
-                MochaRow currentRow = Rows[rowIndex];
-                for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
-                    MochaColumn currentColumn = Columns[columnIndex];
-                    if(columnIndex >= currentRow.Datas.Count) {
-                        currentRow.Datas.collection.Add(new MochaData() {
-                            dataType = currentColumn.DataType,
-                            data = MochaData.TryGetData(currentColumn.DataType,null)
-                        });
-                    }
-                    currentColumn.Datas.collection.Add(currentRow.Datas[columnIndex]);
-                }
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Returns table empty state.
-        /// </summary>
-        public bool IsEmpty() {
-            return Rows.Length == 0;
-        }
-
-        /// <summary>
-        /// Filter rows by condition.
-        /// <param name="filter">Condition for filtering.</param>
-        /// </summary>
-        public void FCon(Func<MochaRow,bool> filter) {
-            Rows = Rows.Where(filter).ToArray();
-        }
-
-        /// <summary>
-        /// Filter columns by condition.
-        /// <param name="filter">Condition for filtering.</param>
-        /// </summary>
-        public void FCon(Func<MochaColumn,bool> filter) {
-            Columns = Columns.Where(filter).ToArray();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Columns.
-        /// </summary>
-        public MochaColumn[] Columns { get; internal set; }
-
-        /// <summary>
-        /// Rows.
-        /// </summary>
-        public MochaRow[] Rows { get; internal set; }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Internal Methods
+
+    /// <summary>
+    /// Set rows by datas of columns.
+    /// </summary>
+    internal void SetRowsByDatas() {
+      if(Columns.Length > 0 && Columns[0].Datas.Count > 0) {
+        var firstcolumn = Columns[0];
+        MochaRow[] rows = new MochaRow[firstcolumn.Datas.Count];
+        //Process rows.
+        for(var dataindex = 0; dataindex < firstcolumn.Datas.Count; dataindex++) {
+          MochaData[] datas = new MochaData[Columns.Length];
+          for(var columnindex = 0; columnindex < Columns.Length; columnindex++) {
+            var column = Columns[columnindex];
+            datas[columnindex] =
+                column.Datas.Count < dataindex+1 ?
+                new MochaData { data =string.Empty,dataType=MochaDataType.String } :
+                column.Datas[dataindex];
+          }
+          rows[dataindex] = new MochaRow(datas);
+        }
+        Rows = rows;
+        return;
+      } else
+        Rows = new MochaRow[0];
+    }
+
+    /// <summary>
+    /// Set datas by row datas.
+    /// </summary>
+    internal void SetDatasByRows() {
+      for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+        Columns[columnIndex].Datas.collection.Clear();
+      }
+
+      for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
+        MochaRow currentRow = Rows[rowIndex];
+        for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+          MochaColumn currentColumn = Columns[columnIndex];
+          if(columnIndex >= currentRow.Datas.Count) {
+            currentRow.Datas.collection.Add(new MochaData() {
+              dataType = currentColumn.DataType,
+              data = MochaData.TryGetData(currentColumn.DataType,null)
+            });
+          }
+          currentColumn.Datas.collection.Add(currentRow.Datas[columnIndex]);
+        }
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Returns table empty state.
+    /// </summary>
+    public bool IsEmpty() {
+      return Rows.Length == 0;
+    }
+
+    /// <summary>
+    /// Filter rows by condition.
+    /// <param name="filter">Condition for filtering.</param>
+    /// </summary>
+    public void FCon(Func<MochaRow,bool> filter) {
+      Rows = Rows.Where(filter).ToArray();
+    }
+
+    /// <summary>
+    /// Filter columns by condition.
+    /// <param name="filter">Condition for filtering.</param>
+    /// </summary>
+    public void FCon(Func<MochaColumn,bool> filter) {
+      Columns = Columns.Where(filter).ToArray();
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Columns.
+    /// </summary>
+    public MochaColumn[] Columns { get; internal set; }
+
+    /// <summary>
+    /// Rows.
+    /// </summary>
+    public MochaRow[] Rows { get; internal set; }
+
+    #endregion
+  }
 }

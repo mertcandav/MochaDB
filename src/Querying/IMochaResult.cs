@@ -1,31 +1,31 @@
 ﻿namespace MochaDB.Querying {
-    /// <summary>
-    /// Interface for MochaDB results.
-    /// </summary>
-    public interface IMochaResult {
-        #region Properties
+  /// <summary>
+  /// Interface for MochaDB results.
+  /// </summary>
+  public interface IMochaResult {
+    #region Properties
 
-        bool IsCollectionResult { get; }
+    bool IsCollectionResult { get; }
 
-        #endregion
-    }
+    #endregion
+  }
 
-    /// <summary>
-    /// Iterface for MochaDB value results.
-    /// </summary>
-    /// <typeparam name="T">Value type.</typeparam>
-    public interface IMochaResult<T>:IMochaResult {
-        #region Methods
+  /// <summary>
+  /// Iterface for MochaDB value results.
+  /// </summary>
+  /// <typeparam name="T">Value type.</typeparam>
+  public interface IMochaResult<T>:IMochaResult {
+    #region Methods
 
-        object GetObject();
-        int GetHash();
+    object GetObject();
+    int GetHash();
 
-        #endregion
+    #endregion
 
-        #region Properties
+    #region Properties
 
-        T Value { get; }
+    T Value { get; }
 
-        #endregion
-    }
+    #endregion
+  }
 }

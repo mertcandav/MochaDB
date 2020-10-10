@@ -1,13 +1,13 @@
 namespace MochaDB.mhql.engine.value {
+  /// <summary>
+  /// Lexer of MHQL values.
+  /// </summary>
+  internal static class MhqlEngVal_LEXER {
     /// <summary>
-    /// Lexer of MHQL values.
+    /// Escape characters of char.
     /// </summary>
-    internal static class MhqlEngVal_LEXER {
-        /// <summary>
-        /// Escape characters of char.
-        /// </summary>
-        public static string[,] Escapes =>
-            new[,] {
+    public static string[,] Escapes =>
+        new[,] {
                 { "\"", "\\\\\"" },
                 { "\'", "\\\\\'" },
                 { "\n", "\\\\n" },
@@ -17,15 +17,15 @@ namespace MochaDB.mhql.engine.value {
                 { "\f", "\\\\f" },
                 { "\a", "\\\\a" },
                 { "\v", "\\\\v" }
-        };
+    };
 
-        /// <summary>
-        /// Check escape characters for escape character processor(s).
-        /// </summary>
-        public static string[] EscapeCheck =>
-            new[] {
+    /// <summary>
+    /// Check escape characters for escape character processor(s).
+    /// </summary>
+    public static string[] EscapeCheck =>
+        new[] {
                 "\\",
                 "\""
-        };
-    }
+    };
+  }
 }
