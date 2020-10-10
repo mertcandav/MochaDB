@@ -22,9 +22,10 @@ namespace MochaDB.mhql {
     /// <param name="tdb">Target database.</param>
     /// <param name="command">Command.</param>
     /// <param name="table">Destination table.</param>
+    /// <param name="row">Destination row.</param>
     /// <param name="from">use state of FROM keyword.</param>
     /// <returns>True if subquery is success, false if not.</returns>
-    public static bool Process(MochaDatabase tdb,string command,MochaTableResult table,bool from) {
+    public static bool Process(MochaDatabase tdb,string command,MochaTableResult table, MochaRow row,bool from) {
       command = command.Substring(2).TrimStart();
       int obrace = command.IndexOf(Mhql_LEXER.LBRACE);
       if(obrace == -1)
@@ -37,9 +38,10 @@ namespace MochaDB.mhql {
         throw new MochaException("Subqueries should only return one column!");
       else if(column.DataType != result.Columns[0].DataType)
         throw new MochaException("Column data type is not same of subquery result!");
-      for(int index = 0; index < column.Datas.Count; index++) {
-        if(result.Columns[0].Datas.ContainsData(column.Datas[index].Data))
-          return true;
+      for(int index = 0; index < row.Datas.Count; index++) {
+        for(int rindex = 0; rindex < result.Columns[0].Datas.Count; rindex++)
+          if(row.Datas[index].Data == result.Columns[0].Datas[rindex].Data)
+            return true;
       }
       return false;
     }

@@ -70,7 +70,7 @@ namespace MochaDB.mhql.engine {
     public static bool IsPassTable(MochaDatabase tdb,ref string command,MochaTableResult table,MochaRow row,bool from) {
       command = command.Trim();
       if(Mhql_IN.IsIN(command)) {
-        return Mhql_IN.Process(tdb,command,table,from);
+        return Mhql_IN.Process(tdb,command,table,row,from);
       } else if(MhqlEng_CONDITION.IsCondition(command,out _)) {
         return MhqlEng_CONDITION.Process(command,table,row,from);
       } else if(char.IsNumber(command.FirstChar())) {
