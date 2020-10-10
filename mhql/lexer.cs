@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using MochaDB.Querying;
 
 namespace MochaDB.mhql {
     /// <summary>
@@ -18,7 +14,7 @@ namespace MochaDB.mhql {
         /// <param name="open">Open bracket.</param>
         /// <param name="close">Close bracket.</param>
         /// <returns>Range of brackets.</returns>
-        public static string RangeBrace(string value, char open, char close) {
+        public static string RangeBrace(string value,char open,char close) {
             if(open == close)
                 throw new InvalidOperationException("Open and close brackets are same!");
 

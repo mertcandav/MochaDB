@@ -350,7 +350,7 @@ namespace MochaDB.Mochaq {
 
             //Check null.
             if(string.IsNullOrEmpty(MochaQ))
-                throw new MochaException("This MochaQ query is empty, invalid!"); 
+                throw new MochaException("This MochaQ query is empty, invalid!");
 
             string[] queryPaths = MochaQ.Command.Split(':');
             queryPaths[0]=queryPaths[0].ToUpperInvariant();

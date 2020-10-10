@@ -7,7 +7,7 @@ namespace MochaDB.Querying {
     /// Base for MochaDB collection results.
     /// </summary>
     /// <typeparam name="T">Type of result value.</typeparam>
-    public class MochaCollectionResult<T>:MochaReadonlyCollection<T>,IMochaResult {
+    public class MochaCollectionResult<T>:MochaReadonlyCollection<T>, IMochaResult {
         #region Constructors
 
         /// <summary>

@@ -64,7 +64,7 @@ namespace MochaDB.framework {
         /// <typeparam name="T2">Value type.</typeparam>
         /// <param name="dict">Dictionary.</param>
         /// <param name="key">Key.</param>
-        public static T2 GetValue<T1,T2>(this Dictionary<T1,T2> dict,T1 key) {
+        public static T2 GetValue<T1, T2>(this Dictionary<T1,T2> dict,T1 key) {
             T2 @out;
             dict.TryGetValue(key,out @out);
             return @out;
