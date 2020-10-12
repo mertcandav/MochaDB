@@ -132,6 +132,11 @@ It can only be used alongside ``MUST``. Indicates that there is another conditio
 ```USE Persons MUST 0(Mike) AND 3(Male|Female)``` <br>
 ```USE Persons.Name, Persons.Age MUST 0(M.*) AND 1(^(18|19|20)$) ORDERBY 1```
 
+- ```IN``` <br>
+It can only be used alongside ``MUST``. Subquery declare, [go details]().<br>
+<b>Examples</b><br>
+```USE Name, $Country Persons MUST IN Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
+
 - ```GROUPBY``` <br>
 Like ``GROUPBY`` command of SQL. The style of writing is different.<br>
 After writing column index or name is given.<br>
@@ -325,6 +330,27 @@ Check lower then or equal to "x". Cannot be used on string values. It is written
 ```USE Persons.Name,Persons.Age MUST 1 <= #18```<br>
 ```USE ID, Name FROM Persons MUST ID <= #1```<br>
 ```USE ID, Name FROM Persons MUST ID <= 1```
+
+# 
+
+### Subqueries
+Subqueries allow you to query different tables at the same time and query the tables as a whole with each other. Subqueries can be nested. The subquery should return only one column compatible with the data type of the query column. Logic is such that if the query data is found in the data of the column returned from the subquery, it will be ``false`` if ``true`` is not found.
+<br><br>
+It is a query that brings the names of people whose salary is higher than 5000 and who are affiliated with Microsoft. 
+```java
+USE *
+FROM Persons
+MUST IN Name {
+  USE $Salary, $Company, Name
+  FROM Salaries
+  MUST Salary > #5000 AND IN Company {
+    USE Name
+    FROM Companies
+    MUST
+        Name == "Microsoft"
+  }
+}
+```
 
 # 
 
