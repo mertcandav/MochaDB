@@ -135,7 +135,7 @@ It can only be used alongside ``MUST``. Indicates that there is another conditio
 - ```IN``` <br>
 It can only be used alongside ``MUST``. Subquery declare, [go details]().<br>
 <b>Examples</b><br>
-```USE Name, $Country Persons MUST IN Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
+```USE Name, $Country FROM Persons MUST IN Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
 
 - ```GROUPBY``` <br>
 Like ``GROUPBY`` command of SQL. The style of writing is different.<br>
