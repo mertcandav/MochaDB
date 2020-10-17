@@ -23,7 +23,7 @@ namespace MochaDB.mhql {
     /// <param name="command">Command.</param>
     /// <param name="table">Destination table.</param>
     /// <param name="row">Destination row.</param>
-    /// <param name="from">use state of FROM keyword.</param>
+    /// <param name="from">Use state of FROM keyword.</param>
     /// <returns>True if subquery is success, false if not.</returns>
     public static bool Process(MochaDatabase tdb,string command,MochaTableResult table, MochaRow row,bool from) {
       command = command.Substring(2).TrimStart();

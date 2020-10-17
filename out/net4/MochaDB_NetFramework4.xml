@@ -3381,7 +3381,29 @@
             <param name="command">Command.</param>
             <param name="table">Destination table.</param>
             <param name="row">Destination row.</param>
-            <param name="from">use state of FROM keyword.</param>
+            <param name="from">Use state of FROM keyword.</param>
+            <returns>True if subquery is success, false if not.</returns>
+        </member>
+        <member name="T:MochaDB.mhql.Mhql_INEQ">
+            <summary>
+            MHQL INEQ keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_INEQ.IsINEQ(System.String)">
+            <summary>
+            Returns true if command is INEQ command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_INEQ.Process(MochaDB.MochaDatabase,System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+            <summary>
+            Process in keyword.
+            </summary>
+            <param name="tdb">Target database.</param>
+            <param name="command">Command.</param>
+            <param name="table">Destination table.</param>
+            <param name="row">Destination row.</param>
+            <param name="from">Use state of FROM keyword.</param>
             <returns>True if subquery is success, false if not.</returns>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">

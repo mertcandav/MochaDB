@@ -178,6 +178,9 @@
     <Compile Include="..\mhql\must\in.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\must\ineq.cs">
+      <Visible>False</Visible>
+    </Compile>
   </ItemGroup>
 
   <!-- .\engine -->

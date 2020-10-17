@@ -58,6 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5
 	ProjectSection(SolutionItems) = preProject
 		mhql\must\and.cs = mhql\must\and.cs
 		mhql\must\in.cs = mhql\must\in.cs
+		mhql\must\ineq.cs = mhql\must\ineq.cs
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
