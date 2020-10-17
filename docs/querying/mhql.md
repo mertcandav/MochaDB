@@ -133,9 +133,14 @@ It can only be used alongside ``MUST``. Indicates that there is another conditio
 ```USE Persons.Name, Persons.Age MUST 0(M.*) AND 1(^(18|19|20)$) ORDERBY 1```
 
 - ```IN``` <br>
-It can only be used alongside ``MUST``. Subquery declare, [go details]().<br>
+It can only be used alongside ``MUST``. Subquery declare.<br>
 <b>Examples</b><br>
 ```USE Name, $Country FROM Persons MUST IN Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
+
+- ```INEQ``` <br>
+It can only be used alongside ``MUST``. Subquery declare. It is exactly the same as ``IN`` but with one extra requirement, the returned table must have only one row.<br>
+<b>Examples</b><br>
+```USE Name, $Country FROM Persons MUST INEQ Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
 
 - ```GROUPBY``` <br>
 Like ``GROUPBY`` command of SQL. The style of writing is different.<br>
