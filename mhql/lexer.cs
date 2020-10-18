@@ -39,6 +39,15 @@ namespace MochaDB.mhql {
         throw new MochaException("Brackets is opened but not close!");
     }
 
+    /// <summary>
+    /// Split must function parameters.
+    /// </summary>
+    /// <param name="statement">Statement of function.</param>
+    /// <returns>Params.</returns>
+    public static string[] SplitMustFunctionParameters(string statement) {
+      return statement.Split(FUNC_PARAM_DELIMITER);
+    }
+
     #endregion
 
     #region Properties
@@ -62,6 +71,11 @@ namespace MochaDB.mhql {
     /// Right parentheses.
     /// </summary>
     public static char RPARANT => ')';
+
+    /// <summary>
+    /// Delimiter of function parameters.
+    /// </summary>
+    public static char FUNC_PARAM_DELIMITER => ',';
 
     #endregion
   }

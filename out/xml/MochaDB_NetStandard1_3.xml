@@ -3159,6 +3159,13 @@
             <param name="close">Close bracket.</param>
             <returns>Range of brackets.</returns>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitMustFunctionParameters(System.String)">
+            <summary>
+            Split must function parameters.
+            </summary>
+            <param name="statement">Statement of function.</param>
+            <returns>Params.</returns>
+        </member>
         <member name="P:MochaDB.mhql.Mhql_LEXER.LBRACE">
             <summary>
             Left curly bracket.
@@ -3177,6 +3184,11 @@
         <member name="P:MochaDB.mhql.Mhql_LEXER.RPARANT">
             <summary>
             Right parentheses.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.FUNC_PARAM_DELIMITER">
+            <summary>
+            Delimiter of function parameters.
             </summary>
         </member>
         <member name="T:MochaDB.mhql.Mhql_AND">

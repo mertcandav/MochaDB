@@ -13,7 +13,7 @@ namespace MochaDB.mhql.must.functions {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = command.Split(',');
+      string[] parts = Mhql_LEXER.SplitMustFunctionParameters(command);
       if(parts.Length != 2)
         throw new MochaException("The LOWER function can only take 2 parameters!");
 

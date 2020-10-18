@@ -13,7 +13,7 @@ namespace MochaDB.mhql.must.functions {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = command.Split(',');
+      string[] parts = Mhql_LEXER.SplitMustFunctionParameters(command);
       int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
       for(int index = 1; index < parts.Length; index++)
         if(row.Datas[dex].Data.ToString().Contains(parts[index]))
