@@ -58,7 +58,7 @@ Result: ``'``
 ```
 
 #### String
-String values ​​are formed by combining more than one char. It does not differ from programming languages.<br>
+String values are formed by combining more than one char. It does not differ from programming languages.<br>
 They are written in double quotes. As: ``"Hello, my name is Mertcan Davulcu"``
 
 Some special characters are indicated by escape sequences. Just like chars.<br>
@@ -66,10 +66,10 @@ For example, to add double quotes into the array. As: ``"My name is \"Mertcan Da
 Result: ``My name is "Mertcan Davulcu"``
 
 #### Boolean
-Boolean values ​​are written directly. See: ``TRUE`` and ``FALSE``.
+Boolean values are written directly. See: ``TRUE`` and ``FALSE``.
 
 #### Arithmetic
-Arithmetic values ​​must be written with hashtags before them.<br>
+Arithmetic values must be written with hashtags before them.<br>
 See: ``#1``, ``#5.3331``.
 
 # 
