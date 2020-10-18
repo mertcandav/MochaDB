@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL ADDROW keyword.
   /// </summary>

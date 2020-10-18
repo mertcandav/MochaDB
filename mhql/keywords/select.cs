@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using MochaDB.Querying;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL SELECT keyword.
   /// </summary>

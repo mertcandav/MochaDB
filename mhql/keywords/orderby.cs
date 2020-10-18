@@ -4,7 +4,7 @@ using System.Linq;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL ORDERBY keyword.
   /// </summary>

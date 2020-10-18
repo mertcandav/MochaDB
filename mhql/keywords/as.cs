@@ -1,6 +1,6 @@
 using System;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL AS keyword.
   /// </summary>

@@ -1,4 +1,4 @@
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// Interface for Mhql keywords.
   /// </summary>

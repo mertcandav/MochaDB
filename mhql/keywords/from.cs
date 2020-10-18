@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL FROM keyword.
   /// </summary>

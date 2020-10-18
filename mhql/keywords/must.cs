@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL ORDERBY must.
   /// </summary>

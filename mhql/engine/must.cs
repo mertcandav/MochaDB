@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using MochaDB.mhql.must;
 using MochaDB.mhql.must.functions;
+using MochaDB.mhql.keywords;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 

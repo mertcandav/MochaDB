@@ -2,7 +2,7 @@ using System;
 using MochaDB.Mhql;
 using MochaDB.Querying;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL INEQ keyword.
   /// </summary>

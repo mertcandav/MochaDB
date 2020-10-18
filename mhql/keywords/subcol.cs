@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql {
+namespace MochaDB.mhql.keywords {
   /// <summary>
   /// MHQL SUBCOL keyword.
   /// </summary>

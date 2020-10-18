@@ -26,23 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5E9E-40D2-B6F7-C63A74E915CB}"
 	ProjectSection(SolutionItems) = preProject
 		mhql\@.cs = mhql\@.cs
-		mhql\addrow.cs = mhql\addrow.cs
-		mhql\as.cs = mhql\as.cs
-		mhql\delcol.cs = mhql\delcol.cs
-		mhql\delrow.cs = mhql\delrow.cs
-		mhql\from.cs = mhql\from.cs
 		mhql\grammar.cs = mhql\grammar.cs
-		mhql\groupby.cs = mhql\groupby.cs
-		mhql\IMhqlKeyword.cs = mhql\IMhqlKeyword.cs
 		mhql\lexer.cs = mhql\lexer.cs
-		mhql\MhqlKeyword.cs = mhql\MhqlKeyword.cs
-		mhql\must.cs = mhql\must.cs
-		mhql\orderby.cs = mhql\orderby.cs
-		mhql\remove.cs = mhql\remove.cs
-		mhql\select.cs = mhql\select.cs
-		mhql\subcol.cs = mhql\subcol.cs
-		mhql\subrow.cs = mhql\subrow.cs
-		mhql\use.cs = mhql\use.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA287-C416-43F8-A401-B3A598C27655}"
@@ -56,9 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
 	ProjectSection(SolutionItems) = preProject
-		mhql\must\and.cs = mhql\must\and.cs
-		mhql\must\in.cs = mhql\must\in.cs
-		mhql\must\ineq.cs = mhql\must\ineq.cs
 		mhql\must\regex.cs = mhql\must\regex.cs
 	EndProjectSection
 EndProject
@@ -202,6 +184,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{
 		mhql\must\functions\startw.cs = mhql\must\functions\startw.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{1EE17690-39CD-4098-A017-126AD9BD7C2D}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\keywords\addrow.cs = mhql\keywords\addrow.cs
+		mhql\keywords\and.cs = mhql\keywords\and.cs
+		mhql\keywords\as.cs = mhql\keywords\as.cs
+		mhql\keywords\delcol.cs = mhql\keywords\delcol.cs
+		mhql\keywords\delrow.cs = mhql\keywords\delrow.cs
+		mhql\keywords\from.cs = mhql\keywords\from.cs
+		mhql\keywords\groupby.cs = mhql\keywords\groupby.cs
+		mhql\keywords\IMhqlKeyword.cs = mhql\keywords\IMhqlKeyword.cs
+		mhql\keywords\in.cs = mhql\keywords\in.cs
+		mhql\keywords\ineq.cs = mhql\keywords\ineq.cs
+		mhql\keywords\MhqlKeyword.cs = mhql\keywords\MhqlKeyword.cs
+		mhql\keywords\must.cs = mhql\keywords\must.cs
+		mhql\keywords\orderby.cs = mhql\keywords\orderby.cs
+		mhql\keywords\remove.cs = mhql\keywords\remove.cs
+		mhql\keywords\select.cs = mhql\keywords\select.cs
+		mhql\keywords\subcol.cs = mhql\keywords\subcol.cs
+		mhql\keywords\subrow.cs = mhql\keywords\subrow.cs
+		mhql\keywords\use.cs = mhql\keywords\use.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +246,7 @@ Global
 		{275C5454-453C-4256-A818-BEADA092BDE2} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{197BAC1F-72CB-4062-B362-652B397C9602} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{C6862802-12F4-446E-B026-BF8518B8D131} = {0974BB66-5011-48C3-8A56-AA67A8CD2127}
+		{1EE17690-39CD-4098-A017-126AD9BD7C2D} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

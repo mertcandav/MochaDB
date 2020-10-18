@@ -74,55 +74,10 @@
   <!-- MHQL source code files links -->
   <!-- General -->
   <ItemGroup>
-    <Compile Include="..\mhql\use.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\IMhqlKeyword.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\MhqlKeyword.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\orderby.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\groupby.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\must.cs">
-      <Visible>False</Visible>
-    </Compile>
-      <Compile Include="..\mhql\as.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\@.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\select.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\remove.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\grammar.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\subrow.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\delrow.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\delcol.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\subcol.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\from.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\addrow.cs">
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\lexer.cs">
@@ -130,18 +85,99 @@
     </Compile>
   </ItemGroup>
 
+  <!-- .\engine -->
+  <ItemGroup>
+    <Compile Include="..\mhql\engine\must.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\editor.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\condition.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\condition_lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\orderbycomparer.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+
+  <!-- .\engine\value -->
+  <ItemGroup>
+    <Compile Include="..\mhql\engine\value\lexer.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\value\char.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\value\string.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+
+  <!-- .\keywords -->
+  <ItemGroup>
+    <Compile Include="..\mhql\keywords\addrow.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\and.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\as.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\delcol.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\delrow.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\from.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\groupby.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\IMhqlKeyword.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\in.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\ineq.cs">
+      <Visible>False</Visible>
+    </Compile>    
+    <Compile Include="..\mhql\keywords\MhqlKeyword.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\must.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\orderby.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\remove.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\select.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\subcol.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\subrow.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\keywords\use.cs">
+      <Visible>False</Visible>
+    </Compile>
+  </ItemGroup>
+
   <!-- .\must -->
   <ItemGroup>
-    <Compile Include="..\mhql\must\and.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\must\regex.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\must\in.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\must\ineq.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
@@ -179,38 +215,6 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\must\functions\notendw.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
-
-  <!-- .\engine -->
-  <ItemGroup>
-    <Compile Include="..\mhql\engine\must.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\editor.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\condition.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\condition_lexer.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\orderbycomparer.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
-
-  <!-- .\engine\value -->
-  <ItemGroup>
-    <Compile Include="..\mhql\engine\value\lexer.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\value\char.cs">
-      <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\engine\value\string.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>
