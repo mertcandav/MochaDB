@@ -251,9 +251,9 @@ It is written as ``NOTEQUAL(column,value0,value1,...)``.<br>
 
 - ```STARTW``` <br>
 "Does it start with ...?" Returns the condition.<br>
-It is written as ``STARTW(column,value)``.<br>
+It is written as ``STARTW(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST STARTW(0,M)```
+```USE Persons.Name,Persons.Age MUST STARTW(0,M,C,A)```
 
 - ```NOTSTARTW``` <br>
 "Does it not start with ...?" Returns the condition.<br>
