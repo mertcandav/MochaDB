@@ -221,67 +221,67 @@ Equal to ``AVG()`` command of SQL. Returns the average value grouped data.<br>
 
 - ```BETWEEN``` <br>
 Equal to ``BETWEEN`` command of SQL. The style of writing is different.<br>
-Returns a specified numerical range condition. The data of the column in which it is used must contain a numerical value.<br>It is written as ``BETWEEN(columnindex,range1,range2)``.<br>
+Returns a specified numerical range condition. The data of the column in which it is used must contain a numerical value.<br>It is written as ``BETWEEN(column,range1,range2)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST BETWEEN(1,18,35)```
 
 - ```BIGGER``` <br>
 Returns a specified numerical bigger and equal condition. The data of the column in which it is used must contain a numerical value.<br>
-It is written as ``BIGGER(columnindex,value)``.<br>
+It is written as ``BIGGER(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST BIGGER(1,18)```
 
 - ```LOWER``` <br>
 Returns a specified numerical lower and equal condition. The data of the column in which it is used must contain a numerical value.<br>
-It is written as ``LOWER(columnindex,value)``.<br>
+It is written as ``LOWER(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST LOWER(1,17)```
 
 - ```EQUAL``` <br>
 "Is it equal any value?" Returns the condition.<br>
-It is written as ``EQUAL(columnindex,value0,value1,...)``.<br>
+It is written as ``EQUAL(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST EQUAL(1,18,19,20)```
 
 - ```NOTEQUAL``` <br>
 "Is it not equal all values?" Returns the condition.<br>
-It is written as ``NOTEQUAL(columnindex,value0,value1,...)``.<br>
+It is written as ``NOTEQUAL(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST NOTEQUAL(0,Mike,Ashley)```
 
 - ```STARTW``` <br>
 "Does it start with ...?" Returns the condition.<br>
-It is written as ``STARTW(columnindex,value)``.<br>
+It is written as ``STARTW(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST STARTW(0,M)```
 
 - ```NOTSTARTW``` <br>
 "Does it not start with ...?" Returns the condition.<br>
-It is written as ``NOTSTARTW(columnindex,value)``.<br>
+It is written as ``NOTSTARTW(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST NOTSTARTW(0,M)```
 
 - ```ENDW``` <br>
 "Does it end with ...?" Returns the condition.<br>
-It is written as ``ENDW(columnindex,value)``.<br>
+It is written as ``ENDW(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST ENDW(0,lia)```
 
 - ```NOTENDW``` <br>
 "Does it not end with ...?" Returns the condition.<br>
-It is written as ``NOTENDW(columnindex,value)``.<br>
+It is written as ``NOTENDW(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST NOTENDW(0,lia)```
 
 - ```CONTAINS``` <br>
 "Does it include?" Returns the condition.<br>
-It is written as ``CONTAINS(columnindex,value)``.<br>
+It is written as ``CONTAINS(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST CONTAINS(0,il)```
 
 - ```NOTCONTAINS``` <br>
 "Doesn't it include?" Returns the condition.<br>
-It is written as ``NOTCONTAINS(columnindex,value)``.<br>
+It is written as ``NOTCONTAINS(column,value)``.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST NOTCONTAINS(0,a)```
 
