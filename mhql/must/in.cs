@@ -25,7 +25,7 @@ namespace MochaDB.mhql {
     /// <param name="row">Destination row.</param>
     /// <param name="from">Use state of FROM keyword.</param>
     /// <returns>True if subquery is success, false if not.</returns>
-    public static bool Process(MochaDatabase tdb,string command,MochaTableResult table, MochaRow row,bool from) {
+    public static bool Process(MochaDatabase tdb,string command,MochaTableResult table,MochaRow row,bool from) {
       command = command.Substring(2).TrimStart();
       int obrace = command.IndexOf(Mhql_LEXER.LBRACE);
       if(obrace == -1)
