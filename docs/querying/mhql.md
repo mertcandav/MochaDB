@@ -275,9 +275,9 @@ It is written as ``NOTENDW(column,value0,value1,...)``.<br>
 
 - ```CONTAINS``` <br>
 "Does it include?" Returns the condition.<br>
-It is written as ``CONTAINS(column,value)``.<br>
+It is written as ``CONTAINS(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST CONTAINS(0,il)```
+```USE Persons.Name,Persons.Age MUST CONTAINS(0,as,is)```
 
 - ```NOTCONTAINS``` <br>
 "Doesn't it include?" Returns the condition.<br>
