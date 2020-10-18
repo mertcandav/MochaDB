@@ -15,10 +15,9 @@ namespace MochaDB.mhql.must.functions {
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
       string[] parts = command.Split(',');
       int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
-      for(int index = 0; index < parts.Length; index++) {
+      for(int index = 0; index < parts.Length; index++)
         if(parts[index] == row.Datas[dex].Data.ToString())
           return true;
-      }
       return false;
     }
   }
