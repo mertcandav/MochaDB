@@ -238,16 +238,16 @@ It is written as ``LOWER(columnindex,value)``.<br>
 ```USE Persons.Name,Persons.Age MUST LOWER(1,17)```
 
 - ```EQUAL``` <br>
-"Is it equal?" Returns the condition.<br>
-It is written as ``EQUAL(columnindex,value)``.<br>
+"Is it equal any value?" Returns the condition.<br>
+It is written as ``EQUAL(columnindex,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST EQUAL(1,18)```
+```USE Persons.Name,Persons.Age MUST EQUAL(1,18,19,20)```
 
 - ```NOTEQUAL``` <br>
-"Is it not equal?" Returns the condition.<br>
-It is written as ``NOTEQUAL(columnindex,value)``.<br>
+"Is it not equal all values?" Returns the condition.<br>
+It is written as ``NOTEQUAL(columnindex,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST NOTEQUAL(0,Mike)```
+```USE Persons.Name,Persons.Age MUST NOTEQUAL(0,Mike,Ashley)```
 
 - ```STARTW``` <br>
 "Does it start with ...?" Returns the condition.<br>
