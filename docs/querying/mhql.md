@@ -281,9 +281,9 @@ It is written as ``CONTAINS(column,value)``.<br>
 
 - ```NOTCONTAINS``` <br>
 "Doesn't it include?" Returns the condition.<br>
-It is written as ``NOTCONTAINS(column,value)``.<br>
+It is written as ``NOTCONTAINS(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST NOTCONTAINS(0,a)```
+```USE Persons.Name,Persons.Age MUST NOTCONTAINS(0,as,is)```
 
 # 
 
