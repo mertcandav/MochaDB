@@ -64,21 +64,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must-functions", "must-functions", "{4D5E482B-6B35-4989-8773-5FA84900E6DA}"
-	ProjectSection(SolutionItems) = preProject
-		mhql\must-functions\between.cs = mhql\must-functions\between.cs
-		mhql\must-functions\bigger.cs = mhql\must-functions\bigger.cs
-		mhql\must-functions\contains.cs = mhql\must-functions\contains.cs
-		mhql\must-functions\endw.cs = mhql\must-functions\endw.cs
-		mhql\must-functions\equal.cs = mhql\must-functions\equal.cs
-		mhql\must-functions\lower.cs = mhql\must-functions\lower.cs
-		mhql\must-functions\notcontains.cs = mhql\must-functions\notcontains.cs
-		mhql\must-functions\notendw.cs = mhql\must-functions\notendw.cs
-		mhql\must-functions\notequal.cs = mhql\must-functions\notequal.cs
-		mhql\must-functions\notstartw.cs = mhql\must-functions\notstartw.cs
-		mhql\must-functions\startw.cs = mhql\must-functions\startw.cs
-	EndProjectSection
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fsharpmhql.fsproj", "{F19A9F6D-5CE4-446C-9A70-6094A0056241}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E4792-5216-44C2-AB5B-E15DFD534A88}"
@@ -202,6 +187,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{197BAC1F
 		docs\rules\value conventions.md = docs\rules\value conventions.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "functions", "functions", "{C6862802-12F4-446E-B026-BF8518B8D131}"
+	ProjectSection(SolutionItems) = preProject
+		mhql\must\functions\between.cs = mhql\must\functions\between.cs
+		mhql\must\functions\bigger.cs = mhql\must\functions\bigger.cs
+		mhql\must\functions\contains.cs = mhql\must\functions\contains.cs
+		mhql\must\functions\endw.cs = mhql\must\functions\endw.cs
+		mhql\must\functions\equal.cs = mhql\must\functions\equal.cs
+		mhql\must\functions\lower.cs = mhql\must\functions\lower.cs
+		mhql\must\functions\notcontains.cs = mhql\must\functions\notcontains.cs
+		mhql\must\functions\notendw.cs = mhql\must\functions\notendw.cs
+		mhql\must\functions\notequal.cs = mhql\must\functions\notequal.cs
+		mhql\must\functions\notstartw.cs = mhql\must\functions\notstartw.cs
+		mhql\must\functions\startw.cs = mhql\must\functions\startw.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,7 +234,6 @@ Global
 		{F47449D2-7577-4B2D-8482-232639DCE51D} = {5084388D-962A-4461-8B5C-175446A2CBEE}
 		{A74FA287-C416-43F8-A401-B3A598C27655} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{0974BB66-5011-48C3-8A56-AA67A8CD2127} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
-		{4D5E482B-6B35-4989-8773-5FA84900E6DA} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
 		{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8} = {A74FA287-C416-43F8-A401-B3A598C27655}
 		{9B0C5AD2-9DE5-45F9-9770-A500205122A9} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{874A356F-EBE9-4E2F-A31D-AB9A61ADF58C} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
@@ -242,6 +241,7 @@ Global
 		{2E740C2F-B904-4D56-9C9D-A65A3AD5E6A6} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{275C5454-453C-4256-A818-BEADA092BDE2} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{197BAC1F-72CB-4062-B362-652B397C9602} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
+		{C6862802-12F4-446E-B026-BF8518B8D131} = {0974BB66-5011-48C3-8A56-AA67A8CD2127}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

@@ -1,6 +1,6 @@
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql.must_functions {
+namespace MochaDB.mhql.must.functions {
   /// <summary>
   /// MHQL BETWEEN function of MUST.
   /// </summary>

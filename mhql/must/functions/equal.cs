@@ -1,10 +1,10 @@
 using MochaDB.Mhql;
 
-namespace MochaDB.mhql.must_functions {
+namespace MochaDB.mhql.must.functions {
   /// <summary>
-  /// MHQL ENDW function of MUST.
+  /// MHQL EQUAL function of MUST.
   /// </summary>
-  internal class MhqlMustFunc_ENDW {
+  internal class MhqlMustFunc_EQUAL {
     /// <summary>
     /// Pass command?
     /// </summary>
@@ -15,12 +15,11 @@ namespace MochaDB.mhql.must_functions {
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
       var parts = command.Split(',');
       if(parts.Length != 2)
-        throw new MochaException("The ENDW function can only take 2 parameters!");
+        throw new MochaException("The EQUAL function can only take 2 parameters!");
 
       int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
 
-      return
-          row.Datas[dex].Data.ToString().EndsWith(parts[1]);
+      return parts[1] == row.Datas[dex].Data.ToString();
     }
   }
 }
