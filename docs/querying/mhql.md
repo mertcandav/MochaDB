@@ -263,9 +263,9 @@ It is written as ``NOTSTARTW(column,value)``.<br>
 
 - ```ENDW``` <br>
 "Does it end with ...?" Returns the condition.<br>
-It is written as ``ENDW(column,value)``.<br>
+It is written as ``ENDW(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST ENDW(0,lia)```
+```USE Persons.Name,Persons.Age MUST ENDW(0,lia,can)```
 
 - ```NOTENDW``` <br>
 "Does it not end with ...?" Returns the condition.<br>
