@@ -257,9 +257,9 @@ It is written as ``STARTW(column,value0,value1,...)``.<br>
 
 - ```NOTSTARTW``` <br>
 "Does it not start with ...?" Returns the condition.<br>
-It is written as ``NOTSTARTW(column,value)``.<br>
+It is written as ``NOTSTARTW(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST NOTSTARTW(0,M)```
+```USE Persons.Name,Persons.Age MUST NOTSTARTW(0,M,C,A)```
 
 - ```ENDW``` <br>
 "Does it end with ...?" Returns the condition.<br>
