@@ -269,9 +269,9 @@ It is written as ``ENDW(column,value0,value1,...)``.<br>
 
 - ```NOTENDW``` <br>
 "Does it not end with ...?" Returns the condition.<br>
-It is written as ``NOTENDW(column,value)``.<br>
+It is written as ``NOTENDW(column,value0,value1,...)``.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST NOTENDW(0,lia)```
+```USE Persons.Name,Persons.Age MUST NOTENDW(0,lia,can)```
 
 - ```CONTAINS``` <br>
 "Does it include?" Returns the condition.<br>
