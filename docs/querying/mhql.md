@@ -192,8 +192,8 @@ It is used in the functions of MUST conditions. It is also used to specify a tem
 
 ### Functions of USE
 
-> These functions only work properly when used with GROUPBY, such as SQL.<br>
-  These functions can only be used with FROM.
+> These functions only work properly when used with ``GROUPBY``, such as SQL.<br>
+  These functions can only be used with ``FROM``.
 
 - ```COUNT()``` <br>
 Equal to ``COUNT()`` command of SQL. Returns the number of data grouped.<br>
