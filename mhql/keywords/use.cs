@@ -31,9 +31,12 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="final">Command of removed use commands.</param>
     public string GetUSE(out string final) {
-      int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
-      if(usedex==-1)
-        throw new MochaException("USE command is cannot processed!");
+      int usedex = Command.IndexOf("USE*",StringComparison.OrdinalIgnoreCase);
+      if(usedex == -1) {
+        usedex = Command.IndexOf("USE ",StringComparison.OrdinalIgnoreCase);
+        if(usedex == -1)
+          throw new MochaException("USE command is cannot processed!");
+      }
       int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+3).Index;
       var usecommand =
           finaldex == 0 ?
