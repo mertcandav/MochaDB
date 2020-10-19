@@ -3273,13 +3273,6 @@
             </summary>
             <param name="command">Command.</param>
         </member>
-        <member name="M:MochaDB.mhql.keywords.Mhql_FROM.GetSUBROW(System.String,System.String@)">
-            <summary>
-            Returns subrow command.
-            </summary>
-            <param name="command">MHQL Command.</param>
-            <param name="final">Command of removed subrow commands.</param>
-        </member>
         <member name="T:MochaDB.mhql.keywords.Mhql_GROUPBY">
             <summary>
             MHQL GROUPBY keyword.

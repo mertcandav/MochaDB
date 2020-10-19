@@ -28,25 +28,6 @@ namespace MochaDB.mhql.keywords {
       return dex;
     }
 
-    /// <summary>
-    /// Returns subrow command.
-    /// </summary>
-    /// <param name="command">MHQL Command.</param>
-    /// <param name="final">Command of removed subrow commands.</param>
-    public static string GetSUBROW(string command,out string final) {
-      int groupbydex = command.IndexOf("SUBROW",StringComparison.OrdinalIgnoreCase);
-      if(groupbydex==-1)
-        throw new MochaException("SUBROW command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
-      int finaldex = match.Index;
-      if(finaldex==0)
-        throw new MochaException("SUBROW command is cannot processed!");
-      var groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
-
-      final = command.Substring(finaldex);
-      return groupbycommand;
-    }
-
     #endregion
   }
 }
