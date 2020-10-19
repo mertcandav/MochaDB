@@ -4,6 +4,7 @@ CHANGELOGS of MochaDB.
 + Mandatory mark for functions removed from MHQL.
 + Add subquery support to MHQL.
 + Add ``FCon``function to MochaTable and MochaTableResult.
++ Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Fix ``ContainsData`` function.
 
 # rlsv3.4.8 [ 9 September 2020 ]
