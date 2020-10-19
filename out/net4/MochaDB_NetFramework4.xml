@@ -2775,11 +2775,25 @@
             <param name="close">Close bracket.</param>
             <returns>Range of brackets.</returns>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitMustFunctionParameters(System.String)">
+        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitFunctionParameters(System.String)">
             <summary>
-            Split must function parameters.
+            Split function parameters.
             </summary>
             <param name="statement">Statement of function.</param>
+            <returns>Params.</returns>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitParameters(System.String)">
+            <summary>
+            Split parameters.
+            </summary>
+            <param name="statement">Statement.</param>
+            <returns>Params.</returns>
+        </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitSubCalls(System.String)">
+            <summary>
+            Split sub calls.
+            </summary>
+            <param name="statement">Statement.</param>
             <returns>Params.</returns>
         </member>
         <member name="P:MochaDB.mhql.Mhql_LEXER.LBRACE">
@@ -2805,6 +2819,21 @@
         <member name="P:MochaDB.mhql.Mhql_LEXER.FUNC_PARAM_DELIMITER">
             <summary>
             Delimiter of function parameters.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.PARAM_DELIMITER">
+            <summary>
+            Delimiter of parameters.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.SUBCALL_DELIMITER">
+            <summary>
+            Delimiter of sub object call.
+            </summary>
+        </member>
+        <member name="P:MochaDB.mhql.Mhql_LEXER.ALL_OPERATOR">
+            <summary>
+            Match with all operator.
             </summary>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_MUST">

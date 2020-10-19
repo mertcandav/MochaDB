@@ -22,7 +22,7 @@ namespace MochaDB.mhql.keywords {
     public static int GetIndex(ref string command) {
       string result = new Regex(@"\s").Replace(command," ");
       int dex =
-        command.StartsWith("*FROM",StringComparison.OrdinalIgnoreCase) ?
+        command.StartsWith($"{Mhql_LEXER.ALL_OPERATOR}FROM",StringComparison.OrdinalIgnoreCase) ?
           1 : result.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
       return dex;
     }

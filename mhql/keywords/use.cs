@@ -31,7 +31,7 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="final">Command of removed use commands.</param>
     public string GetUSE(out string final) {
-      int usedex = Command.IndexOf("USE*",StringComparison.OrdinalIgnoreCase);
+      int usedex = Command.IndexOf($"USE{Mhql_LEXER.ALL_OPERATOR}",StringComparison.OrdinalIgnoreCase);
       if(usedex == -1) {
         usedex = Command.IndexOf("USE ",StringComparison.OrdinalIgnoreCase);
         if(usedex == -1)
@@ -84,18 +84,15 @@ namespace MochaDB.mhql.keywords {
       if(from) {
         var dex = Mhql_FROM.GetIndex(ref usecommand);
         var tablename = usecommand.Substring(dex+5).Trim();
-
-        var parts = usecommand.Substring(0,dex).Split(',');
-
+        var parts = Mhql_LEXER.SplitParameters(usecommand.Substring(0,dex));
         var _columns = Tdb.GetColumns(tablename);
-
         if(parts.Length == 1 && parts[0].Trim() == "*")
           columns.AddRange(_columns);
         else
           for(var index = 0; index < parts.Length; index++)
             columns.Add(GetColumn(parts[index].Trim(),_columns));
       } else {
-        var parts = usecommand.Split(',');
+        var parts = Mhql_LEXER.SplitParameters(usecommand);
         for(var index = 0; index < parts.Length; index++) {
           var callcmd = parts[index].Trim();
           if(callcmd == "*") {
@@ -105,7 +102,7 @@ namespace MochaDB.mhql.keywords {
             continue;
           }
 
-          var callparts = callcmd.Split('.');
+          var callparts = Mhql_LEXER.SplitSubCalls(callcmd);
           if(callparts.Length>2)
             throw new MochaException($"'{callcmd}' command is cannot processed!");
           for(byte partindex = 0; partindex < callparts.Length; partindex++)

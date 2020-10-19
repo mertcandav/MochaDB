@@ -40,12 +40,30 @@ namespace MochaDB.mhql {
     }
 
     /// <summary>
-    /// Split must function parameters.
+    /// Split function parameters.
     /// </summary>
     /// <param name="statement">Statement of function.</param>
     /// <returns>Params.</returns>
-    public static string[] SplitMustFunctionParameters(string statement) {
+    public static string[] SplitFunctionParameters(string statement) {
       return statement.Split(FUNC_PARAM_DELIMITER);
+    }
+
+    /// <summary>
+    /// Split parameters.
+    /// </summary>
+    /// <param name="statement">Statement.</param>
+    /// <returns>Params.</returns>
+    public static string[] SplitParameters(string statement) {
+      return statement.Split(PARAM_DELIMITER);
+    }
+
+    /// <summary>
+    /// Split sub calls.
+    /// </summary>
+    /// <param name="statement">Statement.</param>
+    /// <returns>Params.</returns>
+    public static string[] SplitSubCalls(string statement) {
+      return statement.Split(SUBCALL_DELIMITER);
     }
 
     #endregion
@@ -76,6 +94,21 @@ namespace MochaDB.mhql {
     /// Delimiter of function parameters.
     /// </summary>
     public static char FUNC_PARAM_DELIMITER => ',';
+
+    /// <summary>
+    /// Delimiter of parameters.
+    /// </summary>
+    public static char PARAM_DELIMITER => ',';
+
+    /// <summary>
+    /// Delimiter of sub object call.
+    /// </summary>
+    public static char SUBCALL_DELIMITER => '.';
+
+    /// <summary>
+    /// Match with all operator.
+    /// </summary>
+    public static char ALL_OPERATOR => '*';
 
     #endregion
   }
