@@ -21,10 +21,9 @@ namespace MochaDB.mhql.keywords {
     /// <param name="command">Command.</param>
     public static int GetIndex(ref string command) {
       string result = new Regex(@"\s").Replace(command," ");
-      int dex;
-      if((dex = result.LastIndexOf(" FROM FROM ",StringComparison.OrdinalIgnoreCase)) == -1) {
-        return result.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
-      }
+      int dex =
+        command.StartsWith("*FROM",StringComparison.OrdinalIgnoreCase) ?
+          1 : result.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
       return dex;
     }
 
