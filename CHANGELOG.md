@@ -1,11 +1,13 @@
 CHANGELOGS of MochaDB.
 
 # rlsv3.4.9 [ current ]
++ Optimizations
 + Mandatory mark for functions removed from MHQL.
 + Add subquery support to MHQL.
 + Add ``FCon``function to MochaTable and MochaTableResult.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Fix ``ContainsData`` function.
++ Fix bugs ``USE`` and ``FROM`` keywords of mhql.
 
 # rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
