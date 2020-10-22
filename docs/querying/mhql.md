@@ -186,7 +186,8 @@ It is used in the functions of MUST conditions. It is also used to specify a tem
 <b>Examples</b><br>
 ```USE Persons.Age MUST BIGGER(0,18)```<br>
 ```USE Name, $Salary, AVG(Salary) FROM Persons GROUPBY Name``` - Result columns: ``Name``, ``AVG(Salary)`` <br>
-```USE Persons.Name, Persons.$Salary ORDERBY 1 DESC``` - Result columns: ``Persons.Name``
+```USE Persons.Name, Persons.$Salary ORDERBY 1 DESC``` - Result columns: ``Persons.Name`` <br>
+```USE $Persons``` - Result columns: Empty table
 
 # 
 
