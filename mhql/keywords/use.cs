@@ -88,9 +88,14 @@ namespace MochaDB.mhql.keywords {
         var _columns = Tdb.GetColumns(tablename);
         if(parts.Length == 1 && parts[0].Trim() == "*")
           columns.AddRange(_columns);
-        else
+        else {
+          if(parts[0].TrimStart().StartsWith("$")) {
+            if(parts[0].TrimStart().Substring(1).TrimStart().StartsWith($"{Mhql_LEXER.LBRACE}"))
+              throw new MochaException("Cannot be used with subquery FROM keyword!");
+          }
           for(var index = 0; index < parts.Length; index++)
             columns.Add(GetColumn(parts[index].Trim(),_columns));
+        }
       } else {
         var parts = Mhql_LEXER.SplitParameters(usecommand);
         for(var index = 0; index < parts.Length; index++) {
@@ -101,6 +106,13 @@ namespace MochaDB.mhql.keywords {
               columns.AddRange(tables[tindex].Columns);
             continue;
           }
+          if(callcmd.StartsWith("$")) {
+            callcmd = callcmd.Substring(1).Trim();
+            MochaColumn[] _cols = Tdb.GetColumns(callcmd);
+            for(int cindex = 0; cindex < _cols.Length; cindex++)
+              columns.Add(GetColumn($"${_cols[cindex].Name}", _cols));
+            continue;
+          }
 
           var callparts = Mhql_LEXER.SplitSubCalls(callcmd);
           if(callparts.Length>2)
@@ -108,7 +120,7 @@ namespace MochaDB.mhql.keywords {
           for(byte partindex = 0; partindex < callparts.Length; partindex++)
             callparts[partindex] = callparts[partindex].Trim();
           var _columns = Tdb.GetColumns(callparts[0]);
-          if(callparts.Length==1)
+          if(callparts.Length == 1)
             columns.AddRange(_columns);
           else
             columns.Add(GetColumn(callparts[1],_columns));
