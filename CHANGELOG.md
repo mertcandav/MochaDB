@@ -6,6 +6,7 @@ CHANGELOGS of MochaDB.
 + Add subquery support to MHQL.
 + Add ``FCon``function to MochaTable and MochaTableResult.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
++ Add temp table support with ``$`` to MHQL.
 + Fix ``ContainsData`` function.
 + Fix bugs ``USE`` and ``FROM`` keywords of mhql.
 
