@@ -85,9 +85,9 @@ Allows you to get the areas to be used. To get the table itself completely, it i
 ```USE Persons, Persons```: Returns the 'Persons' table by integrating it twice in the same table.
 
 - ```AS``` <br>
-Equal to ``AS`` command of SQL.<br>
+Rename column.<br>
 <b>Examples</b><br>
-```USE Name AS Name of persons, Age AS Age of persons FROM Persons```
+```USE Name AS Name of person, Age AS Age of person FROM Persons```
 
 - ```FROM``` <br>
     > If ``FROM`` is used, column name can be used instead of index in regex queries.
@@ -355,6 +355,19 @@ MUST IN Name {
     MUST
         Name == "Microsoft"
   }
+}
+```
+<br>
+
+Add the Name column from the Persons table and the Password column that contains only the passwords of people over 60 years old.
+
+> Cannot be used with ``FROM`` keyword!
+
+```java
+USE Persons.Name, {
+  USE Password, $Age
+  FROM Persons
+  MUST BIGGER(Age, 60)
 }
 ```
 
