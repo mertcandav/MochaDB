@@ -396,6 +396,17 @@ MUST
     Gender == "Female"
 ```
 ```java
+USE {
+  USE Name, Password
+  FROM Persons MUST
+    Name == "mertcandav"
+}, ${
+  USE Id, $Name
+  FROM Idenditities MUST
+    Name == "mertcandav"
+} MUST 2 > #20
+```
+```java
 USE * FROM Persons
 MUST BETWEEN(3,18,45) AND 0(*.ale)
 ```
