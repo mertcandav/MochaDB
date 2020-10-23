@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MochaDB.mhql {
   /// <summary>
@@ -55,6 +56,35 @@ namespace MochaDB.mhql {
     /// <returns>Params.</returns>
     public static string[] SplitParameters(string statement) {
       return statement.Split(PARAM_DELIMITER);
+    }
+
+    /// <summary>
+    /// Split use parameters.
+    /// </summary>
+    /// <param name="statement">Statement.</param>
+    /// <returns>Params.</returns>
+    public static string[] SplitUseParameters(string statement) {
+      List<string> parts = new List<string>();
+      int count = 0, last = 0;
+      for(int index = 0; index < statement.Length; index++) {
+        char current = statement[index];
+        if(current == LPARANT)
+          count++;
+        else if(current == RPARANT)
+          count--;
+
+        if(count != 0)
+          continue;
+
+        if(current != PARAM_DELIMITER)
+          continue;
+
+        parts.Add(statement.Substring(last, index - last));
+        last = index + 1;
+      }
+      if(last < statement.Length)
+        parts.Add(statement.Substring(last));
+      return parts.ToArray();
     }
 
     /// <summary>

@@ -2789,6 +2789,13 @@
             <param name="statement">Statement.</param>
             <returns>Params.</returns>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.SplitUseParameters(System.String)">
+            <summary>
+            Split use parameters.
+            </summary>
+            <param name="statement">Statement.</param>
+            <returns>Params.</returns>
+        </member>
         <member name="M:MochaDB.mhql.Mhql_LEXER.SplitSubCalls(System.String)">
             <summary>
             Split sub calls.

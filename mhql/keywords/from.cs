@@ -20,11 +20,25 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="command">Command.</param>
     public static int GetIndex(ref string command) {
-      string result = new Regex(@"\s").Replace(command," ");
-      int dex =
-        command.StartsWith($"{Mhql_LEXER.ALL_OPERATOR}FROM",StringComparison.OrdinalIgnoreCase) ?
-          1 : result.LastIndexOf(" FROM ",StringComparison.OrdinalIgnoreCase);
-      return dex;
+      Regex pattern = new Regex($@"(\*| |\n)FROM(\s+.*|$)",
+        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+      int index = command.IndexOf(Mhql_LEXER.LBRACE);
+      index = index == -1 ? command.IndexOf(Mhql_LEXER.RBRACE) : index;
+      index = index == -1 ? 0 : index;
+      int count = index == 0 ? 0 : 1;
+      for(; index < command.Length; index++) {
+        char currentChar = command[index];
+        if(count == 0) {
+          Match match = pattern.Match(command.Substring(index));
+          if(match.Success)
+            return command[match.Index] == Mhql_LEXER.ALL_OPERATOR ?
+              match.Index + 1 : match.Index;
+        } else if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
+          count++;
+        else if(currentChar == Mhql_LEXER.RPARANT || currentChar == Mhql_LEXER.RBRACE)
+          count--;
+      }
+      return -1;
     }
 
     #endregion
