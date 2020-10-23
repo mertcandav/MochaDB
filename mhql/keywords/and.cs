@@ -18,7 +18,7 @@ namespace MochaDB.mhql.keywords {
       var value = new StringBuilder();
       var count = 0;
       for(int index = 0; index < command.Length; index++) {
-        var currentChar = command[index];
+        char? currentChar = command[index];
         if(count == 0 && (currentChar == 'A' || currentChar == 'a')) {
           if(command.Length - 1 - index >= 3)
             if(pattern.IsMatch(command.Substring(index,3))) {
@@ -35,6 +35,21 @@ namespace MochaDB.mhql.keywords {
           count++;
         else if(currentChar == Mhql_LEXER.RBRACE)
           count--;
+        else if(currentChar == '\'' || currentChar == '"') {
+          ++index;
+          value.Append(currentChar);
+          for(; index < command.Length; index++) {
+            char currentCh = command[index];
+            value.Append(currentCh);
+            if(currentCh == currentChar && command[index - 1] != '\\') {
+              currentChar = null;
+              break;
+            }
+          }
+          if(currentChar != null)
+            throw new MochaException("Error in char/string declaration!");
+          continue;
+        }
 
         value.Append(currentChar);
       }

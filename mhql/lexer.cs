@@ -66,11 +66,12 @@ namespace MochaDB.mhql {
     public static string[] SplitUseParameters(string statement) {
       List<string> parts = new List<string>();
       int count = 0, last = 0;
+      statement = statement.TrimStart();
       for(int index = 0; index < statement.Length; index++) {
         char current = statement[index];
-        if(current == LPARANT)
+        if(current == LBRACE)
           count++;
-        else if(current == RPARANT)
+        else if(current == RBRACE)
           count--;
 
         if(count != 0)
