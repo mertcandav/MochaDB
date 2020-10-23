@@ -8,7 +8,8 @@ CHANGELOGS of MochaDB.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Add temp table support with ``$`` to MHQL.
 + Fix ``ContainsData`` function.
-+ Fix bugs ``USE`` and ``FROM`` keywords of mhql.
++ Fix bugs ``USE`` and ``FROM`` keywords of MHQL.
++ Fix string and char conditions of MHQL.
 
 # rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
