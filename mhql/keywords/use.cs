@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MochaDB.framework;
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
@@ -23,9 +23,9 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns use command.
@@ -120,7 +120,7 @@ namespace MochaDB.mhql.keywords {
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
             string mode =
-              callcmd.Substring(0, obrace).TrimStart().StartsWith("$") ?
+              callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;
             MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeBrace(
               callcmd.Substring(obrace).Trim(),Mhql_LEXER.LBRACE,Mhql_LEXER.RBRACE)).Columns;
@@ -132,7 +132,7 @@ namespace MochaDB.mhql.keywords {
             callcmd = callcmd.Substring(1).Trim();
             MochaColumn[] _cols = Tdb.GetColumns(callcmd);
             for(int cindex = 0; cindex < _cols.Length; cindex++)
-              columns.Add(GetColumn($"${_cols[cindex].Name}", _cols));
+              columns.Add(GetColumn($"${_cols[cindex].Name}",_cols));
             continue;
           }
 
@@ -155,6 +155,6 @@ namespace MochaDB.mhql.keywords {
       return resulttable;
     }
 
-    #endregion
+    #endregion Members
   }
 }

@@ -18,9 +18,9 @@ namespace MochaDB.mhql.keywords {
       Tdb=db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if command is GROUPBY command, returns if not.
@@ -126,6 +126,6 @@ namespace MochaDB.mhql.keywords {
       table.SetDatasByRows();
     }
 
-    #endregion
+    #endregion Members
   }
 }

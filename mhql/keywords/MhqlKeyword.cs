@@ -8,6 +8,6 @@ namespace MochaDB.mhql.keywords {
     public MochaDatabase Tdb { get; set; }
     public string Command { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

@@ -7,7 +7,7 @@ namespace MochaDB {
   /// </summary>
   /// <typeparam name="T">Item type of collector.</typeparam>
   public interface IMochaReadonlyCollection<T>:IEnumerable<T>, IEnumerable {
-    #region Methods
+    #region Members
 
     int IndexOf(T item);
     bool Contains(T item);
@@ -20,7 +20,7 @@ namespace MochaDB {
     T GetFirst();
     T GetLast();
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -28,6 +28,6 @@ namespace MochaDB {
     int Count { get; }
     T this[int index] { get; }
 
-    #endregion
+    #endregion Properties
   }
 }

@@ -46,6 +46,6 @@ namespace MochaDB.mhql.keywords {
       return false;
     }
 
-    #endregion
+    #endregion Members
   }
 }

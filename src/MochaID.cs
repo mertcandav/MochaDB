@@ -11,19 +11,17 @@ namespace MochaDB {
     /// Create a new MochaID.
     /// </summary>
     /// <param name="id">ID Value.</param>
-    public MochaID(string id) {
+    public MochaID(string id) =>
       Value = id;
-    }
 
     /// <summary>
     /// Create a new MochaID.
     /// </summary>
     /// <param name="type">ID type.</param>
-    public MochaID(MochaIDType type) {
+    public MochaID(MochaIDType type) =>
       Value = GetID(type);
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -33,11 +31,9 @@ namespace MochaDB {
     public static implicit operator MochaID(string value) =>
         new MochaID(value);
 
-    #endregion
+    #endregion Operators
 
-    #region Static
-
-    #region Internal
+    #region Internal Static Members
 
     /// <summary>
     /// Flat ID algorithm.
@@ -103,7 +99,9 @@ namespace MochaDB {
       return value;
     }
 
-    #endregion
+    #endregion Internal Static Members
+
+    #region Static Members
 
     /// <summary>
     /// Get ID by ID Type.
@@ -121,28 +119,26 @@ namespace MochaDB {
 
     #endregion
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Set id value by ID type.
     /// </summary>
     /// <param name="type">Type of ID.</param>
-    public void SetValue(MochaIDType type) {
+    public void SetValue(MochaIDType type) =>
       Value = GetID(type);
-    }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Value"/>.
     /// </summary>
-    public override string ToString() {
-      return Value;
-    }
+    public override string ToString() =>
+      Value;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -151,7 +147,7 @@ namespace MochaDB {
     /// </summary>
     public string Value { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 
   /// <summary>

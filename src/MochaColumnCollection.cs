@@ -12,11 +12,10 @@ namespace MochaDB {
     /// <summary>
     /// Create new MochaColumnCollection.
     /// </summary>
-    public MochaColumnCollection() {
+    public MochaColumnCollection() =>
       collection =new List<MochaColumn>();
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Events
 
@@ -29,13 +28,9 @@ namespace MochaDB {
       ColumnNameChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
     #region Item Events
-
-    private void Item_Changed(object sender,EventArgs e) {
-      //OnColumnChanged(sender,e);
-    }
 
     private void Item_NameChanged(object sender,EventArgs e) {
       var result = collection.Where(x => x.Name==(sender as MochaColumn).Name);
@@ -45,9 +40,9 @@ namespace MochaDB {
       OnColumnNameChanged(sender,e);
     }
 
-    #endregion
+    #endregion Item Events
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Remove all items.
@@ -105,9 +100,8 @@ namespace MochaDB {
     /// Remove item.
     /// </summary>
     /// <param name="item">Item to remove.</param>
-    public override void Remove(MochaColumn item) {
+    public override void Remove(MochaColumn item) =>
       Remove(item.Name);
-    }
 
     /// <summary>
     /// Remove item by name.
@@ -128,9 +122,8 @@ namespace MochaDB {
     /// Remove item by index.
     /// </summary>
     /// <param name="index">Index of item to remove.</param>
-    public override void RemoveAt(int index) {
+    public override void RemoveAt(int index) =>
       Remove(collection[index].Name);
-    }
 
     /// <summary>
     /// Return index if index is find but return -1 if index is not find.
@@ -147,9 +140,8 @@ namespace MochaDB {
     /// Return true if item is exists but return false if item not exists.
     /// </summary>
     /// <param name="name">Name of item to exists check.</param>
-    public bool Contains(string name) {
-      return IndexOf(name) != -1;
-    }
+    public bool Contains(string name) =>
+      IndexOf(name) != -1;
 
     /// <summary>
     /// Return first element in collection.
@@ -163,7 +155,7 @@ namespace MochaDB {
     public override MochaColumn GetLast() =>
         IsEmptyCollection() ? null : this[MaxIndex()];
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -180,6 +172,6 @@ namespace MochaDB {
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

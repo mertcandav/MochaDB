@@ -19,7 +19,7 @@ script:
   - dotnet restore ./src/MochaDB.csproj
   - dotnet build ./src/MochaDB.csproj -f netstandard1.3
   - dotnet test ./src/MochaDB.csproj --logger:console --verbosity=minimal
-  # fsharp
+  # fsharptest
   - dotnet restore ./fsharptest/fsharptest.fsproj
   - dotnet build ./fsharptest/fsharptest.fsproj
   - dotnet test ./fsharptest/fsharptest.fsproj

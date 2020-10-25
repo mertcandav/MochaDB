@@ -11,15 +11,18 @@ namespace MochaDB {
     internal object data;
     internal MochaDataType dataType;
 
-    #endregion
+    #endregion Fields
 
-    #region Constructors
+    #region Internal Constructors
 
     /// <summary>
     /// Create new MochaData.
     /// </summary>
-    internal MochaData() {
-    }
+    internal MochaData() { }
+
+    #endregion Internal Constructors
+
+    #region Constructors
 
     /// <summary>
     /// Create new MochaData.
@@ -31,7 +34,7 @@ namespace MochaDB {
       DataType = dataType;
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -170,9 +173,9 @@ namespace MochaDB {
           data = value
         };
 
-    #endregion
+    #endregion Operators
 
-    #region Static
+    #region Static Members
 
     /// <summary>
     /// Convert value to MochaData.
@@ -366,9 +369,8 @@ namespace MochaDB {
           return 0;
       }
 
-      if(dataType == MochaDataType.String || dataType == MochaDataType.Unique) {
+      if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
         return data.ToString();
-      }
 
       return GetDataFromString(dataType,data.ToString());
     }
@@ -391,18 +393,17 @@ namespace MochaDB {
         type == MochaDataType.UInt16 ||
         type == MochaDataType.UInt64;
 
-    #endregion
+    #endregion Static Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Data"/> as string with UTF8.
     /// </summary>
-    public override string ToString() {
-      return DataType != MochaDataType.String ? Data.ToString() : Data as string;
-    }
+    public override string ToString() =>
+      DataType != MochaDataType.String ? Data.ToString() : Data as string;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -432,12 +433,11 @@ namespace MochaDB {
           return;
 
         dataType = value;
-
         Data = TryGetData(DataType,Data);
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 
   /// <summary>

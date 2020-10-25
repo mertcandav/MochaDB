@@ -12,16 +12,19 @@ namespace MochaDB {
     private MochaDataType dataType;
     internal string name;
 
-    #endregion
+    #endregion Fields
 
-    #region Constructors
+    #region Internal Constructors
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    internal MochaColumn() {
+    internal MochaColumn() =>
       Datas = new MochaColumnDataCollection(MochaDataType.String);
-    }
+
+    #endregion Internal Constructors
+
+    #region Constructors
 
     /// <summary>
     /// Create new MochaColumn.
@@ -51,18 +54,16 @@ namespace MochaDB {
     /// <param name="name">Name of column.</param>
     /// <param name="dataType">Data type of column.</param>
     public MochaColumn(string name,MochaDataType dataType,IEnumerable<MochaData> datas) :
-        this(name,dataType) {
-      Datas.AddRange(datas);
-    }
+        this(name,dataType) => Datas.AddRange(datas);
 
-    #endregion
+    #endregion Cosntructors
 
     #region Operators
 
     public static explicit operator string(MochaColumn value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
     #region Events
 
@@ -75,18 +76,17 @@ namespace MochaDB {
       NameChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Name"/>.
     /// </summary>
-    public override string ToString() {
-      return Name;
-    }
+    public override string ToString() =>
+      Name;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -94,8 +94,7 @@ namespace MochaDB {
     /// Name.
     /// </summary>
     public string Name {
-      get =>
-          name;
+      get => name;
       set {
         value=value.Trim();
         if(string.IsNullOrWhiteSpace(value))
@@ -145,6 +144,6 @@ namespace MochaDB {
     /// </summary>
     public string MHQLAsText { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

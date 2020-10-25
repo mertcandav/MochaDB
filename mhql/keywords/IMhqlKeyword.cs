@@ -15,6 +15,6 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     string Command { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

@@ -23,40 +23,36 @@ namespace MochaDB.Logging {
     /// <param name="log">Log content.</param>
     /// <param name="time">Log time.</param>
     public MochaLog(string log,DateTime time) :
-        this(log) {
-      Time=time;
-    }
+        this(log) => Time=time;
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static implicit operator string(MochaLog value) =>
         value.Log;
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Take a new MochaID by default algorithm.
     /// </summary>
-    public void TakeID() {
+    public void TakeID() =>
       ID.SetValue(MochaIDType.Hash16);
-    }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Log"/>.
     /// </summary>
-    public override string ToString() {
-      return Log;
-    }
+    public override string ToString() =>
+      Log;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -75,6 +71,6 @@ namespace MochaDB.Logging {
     /// </summary>
     public DateTime Time { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

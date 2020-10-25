@@ -12,9 +12,9 @@ namespace MochaDB {
 
     event EventHandler<EventArgs> Changed;
 
-    #endregion
+    #endregion Events
 
-    #region Methods
+    #region Members
 
     void AddRange(IEnumerable<T> items);
     int MaxIndex();
@@ -25,12 +25,12 @@ namespace MochaDB {
     T GetFirst();
     T GetLast();
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
     T this[int index] { get; }
 
-    #endregion
+    #endregion Properties
   }
 }

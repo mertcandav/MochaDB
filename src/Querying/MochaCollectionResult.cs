@@ -13,19 +13,19 @@ namespace MochaDB.Querying {
     /// <summary>
     /// Create new MochaCollectionResult.
     /// </summary>
-    public MochaCollectionResult() {
+    public MochaCollectionResult() =>
       collection=new List<T>();
-    }
 
     /// <summary>
     /// Create new MochaCollectionResult.
     /// </summary>
     /// <param name="collection">Items.</param>
-    public MochaCollectionResult(IEnumerable<T> collection) {
+    public MochaCollectionResult(IEnumerable<T> collection) =>
       this.collection=new List<T>(collection);
-    }
 
-    #endregion
+    #endregion Constructors
+
+    #region Members
 
     #region Queryable
 
@@ -78,9 +78,7 @@ namespace MochaDB.Querying {
     public IEnumerable<IGrouping<T,T>> GroupBy(Func<T,T> query) =>
         collection.GroupBy(query);
 
-    #endregion
-
-    #region Methods
+    #endregion Queryable
 
     /// <summary>
     /// Return first element in collection.
@@ -94,7 +92,7 @@ namespace MochaDB.Querying {
     public override T GetLast() =>
         IsEmptyCollection() ? throw new MochaException("Collection is empty!") : this[MaxIndex()];
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -104,6 +102,6 @@ namespace MochaDB.Querying {
     public bool IsCollectionResult =>
         true;
 
-    #endregion
+    #endregion Properties
   }
 }

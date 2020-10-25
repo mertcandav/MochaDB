@@ -80,7 +80,7 @@ namespace MochaDB.mhql {
         if(current != PARAM_DELIMITER)
           continue;
 
-        parts.Add(statement.Substring(last, index - last));
+        parts.Add(statement.Substring(last,index - last));
         last = index + 1;
       }
       if(last < statement.Length)
@@ -97,7 +97,7 @@ namespace MochaDB.mhql {
       return statement.Split(SUBCALL_DELIMITER);
     }
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -141,6 +141,6 @@ namespace MochaDB.mhql {
     /// </summary>
     public static char ALL_OPERATOR => '*';
 
-    #endregion
+    #endregion Properties
   }
 }

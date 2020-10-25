@@ -38,19 +38,19 @@ let gridview = new DataGridView()
 //e: Key arguments
 let codebox_keydown(e: KeyEventArgs) =
     if e.KeyData = Keys.F5 then
-        let path = new MochaPath(__SOURCE_DIRECTORY__)
-        path.ParentDirectory()
-        path.ParentDirectory()
-        let database = new MochaDatabase("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
+        let path = new MochaPath __SOURCE_DIRECTORY__
+        path.ParentDirectory
+        path.ParentDirectory
+        let database = new MochaDatabase ("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
         try
-        gridview.Columns.Clear()
+        gridview.Columns.Clear
         let command = new MochaDbCommand(database)
-        let result = command.ExecuteScalar(codebox.Text) :?> MochaTableResult
+        let result = command.ExecuteScalar codebox.Text :?> MochaTableResult
         let table = System.Data.DataTable()
         for column in result.Columns do
-            table.Columns.Add(column.Name)
+            table.Columns.Add column.Name
         for row in result.Rows do
-            table.Rows.Add([| for data in row.Datas -> data.Data |])
+            table.Rows.Add [| for data in row.Datas -> data.Data |]
             gridview.DataSource <- table
         with
             | :? MochaException as excep ->

@@ -11,7 +11,7 @@ namespace MochaDB {
 
     private string name;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -35,18 +35,16 @@ namespace MochaDB {
     /// <param name="name">Name of table.</param>
     /// <param name="description">Description of table.</param>
     public MochaTable(string name,string description) :
-        this(name) {
-      Description=description;
-    }
+        this(name) => Description=description;
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaTable value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
     #region Events
 
@@ -59,19 +57,17 @@ namespace MochaDB {
       NameChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
     #region Content Events
 
-    private void Column_Changed(object sender,EventArgs e) {
+    private void Column_Changed(object sender,EventArgs e) =>
       SetRowsByDatas();
-    }
 
-    private void Row_Changed(object sender,EventArgs e) {
+    private void Row_Changed(object sender,EventArgs e) =>
       SetDatasByRows();
-    }
 
-    #endregion
+    #endregion Content Events
 
     #region Internal Members
 
@@ -117,7 +113,6 @@ namespace MochaDB {
     /// </summary>
     internal void SetRowsByDatas() {
       Rows.collection.Clear();
-
       MochaData[] datas = new MochaData[Columns.Count];
       for(int dataIndex = 0; dataIndex < Columns[0].Datas.Count; dataIndex++) {
         for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
@@ -134,9 +129,9 @@ namespace MochaDB {
       }
     }
 
-    #endregion
+    #endregion Internal Members
 
-    #region Public Members
+    #region Members
 
     /// <summary>
     /// Short datas.
@@ -158,38 +153,34 @@ namespace MochaDB {
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public bool IsEmpty() {
-      return Rows.Count == 0;
-    }
+    public bool IsEmpty() =>
+      Rows.Count == 0;
 
     /// <summary>
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaRow,bool> filter) {
+    public void FCon(Func<MochaRow,bool> filter) =>
       Rows.collection = Rows.collection.Where(filter).ToList();
-    }
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaColumn,bool> filter) {
+    public void FCon(Func<MochaColumn,bool> filter) =>
       Columns.collection = Columns.collection.Where(filter).ToList();
-    }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Name"/>.
     /// </summary>
-    public override string ToString() {
-      return Name;
-    }
+    public override string ToString() =>
+      Name;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -197,8 +188,7 @@ namespace MochaDB {
     /// Name.
     /// </summary>
     public string Name {
-      get =>
-          name;
+      get => name;
       set {
         value=value.Trim();
         if(string.IsNullOrWhiteSpace(value))
@@ -229,6 +219,6 @@ namespace MochaDB {
     /// </summary>
     public MochaRowCollection Rows { get; }
 
-    #endregion
+    #endregion Properties
   }
 }

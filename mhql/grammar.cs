@@ -63,7 +63,7 @@ namespace MochaDB.mhql {
       return cols.IndexOf(result.First());
     }
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -118,6 +118,6 @@ RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 $@"\b({MainKeywords})\b|\s*$",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
-    #endregion
+    #endregion Properties
   }
 }

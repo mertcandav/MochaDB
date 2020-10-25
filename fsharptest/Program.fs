@@ -63,7 +63,7 @@ let main argv =
                     Console.WriteLine "Disconnected!"
             elif input.Equals("getscript",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine "\n\n------ Script Content ------\n\n"
-                let content = GetFileContent(path + "/testscript.mochascript")
+                let content = GetFileContent path + "/testscript.mochascript"
                 Console.Write content
                 Console.WriteLine "\n\n------ Script Content ------\n\n"
             elif input.StartsWith("reader ",StringComparison.InvariantCultureIgnoreCase) then
@@ -77,7 +77,7 @@ let main argv =
                 StartMhqlTableGetStressCmd(db,input.Split(' ').[1])
             elif input.StartsWith("mhqlstresst",StringComparison.InvariantCultureIgnoreCase) then
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
-                let parts = input.Split(' ');
+                let parts = input.Split ' ';
                 StartMhqlTableGetStressWithTickCmd(db,Int32.Parse(parts.[1]),input.Substring(13 + parts.[1].Length))
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
             elif input.Equals("mhqlstress",StringComparison.InvariantCultureIgnoreCase) then
@@ -88,8 +88,8 @@ let main argv =
                 StartMhqlTableGetStressWithTick(db,Int32.Parse(input.Split(' ').[1]))
                 Console.WriteLine "\n\n------ MHQL Stress Test -----\n\n"
             else
-                db.Query.MochaQ.SetCommand(input);
-                ExecuteCommand(db)
+                db.Query.MochaQ.SetCommand input
+                ExecuteCommand db
         else
             Console.WriteLine "ERROR: Empty command!"
 

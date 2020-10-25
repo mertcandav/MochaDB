@@ -1117,31 +1117,6 @@
             This happens after content changed.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.Dispose">
-            <summary>
-            Dispose.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetXML">
-            <summary>
-            Return xml schema of database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetXDocument">
-            <summary>
-            Return XDocument of database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.Connect">
-            <summary>
-            Connect to database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.Disconnect">
-            <summary>
-            Disconnect from database.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaDatabase.IsMochaDB(System.String)">
             <summary>
             Returns true if the file in the path is Mocha DB and false otherwise.
@@ -1191,6 +1166,49 @@
             Keep log of database.
             </summary>
         </member>
+        <member name="M:MochaDB.MochaDatabase.InternalAddData(System.String,System.String,MochaDB.MochaData)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">MochaData object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateData(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            Update data by index.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="index">Index of data.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateFirstData(System.String,System.String,System.Object)">
+            <summary>
+            Update first data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.InternalUpdateLastData(System.String,System.String,System.Object)">
+            <summary>
+            Update last data.
+            </summary>
+            <param name="tableName">Name of table.</param>
+            <param name="columnName">Name of column.</param>
+            <param name="data">Data to replace.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.Connect">
+            <summary>
+            Connect to database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.Disconnect">
+            <summary>
+            Disconnect from database.
+            </summary>
+        </member>
         <member name="M:MochaDB.MochaDatabase.GetPassword">
             <summary>
             Returns the password of the MochaDB database.
@@ -1222,66 +1240,6 @@
             <summary>
             MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
             </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ClearTables">
-            <summary>
-            Remove all tables.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddTable(MochaDB.MochaTable)">
-            <summary>
-            Add table.
-            </summary>
-            <param name="table">MochaTable object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
-            <summary>
-            Create new table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveTable(System.String)">
-            <summary>
-            Remove table by name. Returns true if table is exists and removed.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RenameTable(System.String,System.String)">
-            <summary>
-            Rename table.
-            </summary>
-            <param name="name">Name of table to rename.</param>
-            <param name="newName">New name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTableDescription(System.String)">
-            <summary>
-            Returns description of table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.SetTableDescription(System.String,System.String)">
-            <summary>
-            Set description of table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-            <param name="description">Description to set.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTable(System.String)">
-            <summary>
-            Returns table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTables">
-            <summary>
-            Returns all tables in database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
-            <summary>
-            Returns whether there is a table with the specified name.
-            </summary>
-            <param name="name">Name of table.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.AddColumn(System.String,MochaDB.MochaColumn)">
             <summary>
@@ -1369,6 +1327,66 @@
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
         </member>
+        <member name="M:MochaDB.MochaDatabase.ClearTables">
+            <summary>
+            Remove all tables.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.AddTable(MochaDB.MochaTable)">
+            <summary>
+            Add table.
+            </summary>
+            <param name="table">MochaTable object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
+            <summary>
+            Create new table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveTable(System.String)">
+            <summary>
+            Remove table by name. Returns true if table is exists and removed.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RenameTable(System.String,System.String)">
+            <summary>
+            Rename table.
+            </summary>
+            <param name="name">Name of table to rename.</param>
+            <param name="newName">New name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTableDescription(System.String)">
+            <summary>
+            Returns description of table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.SetTableDescription(System.String,System.String)">
+            <summary>
+            Set description of table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="description">Description to set.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTable(System.String)">
+            <summary>
+            Returns table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTables">
+            <summary>
+            Returns all tables in database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
+            <summary>
+            Returns whether there is a table with the specified name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.AddRow(System.String,MochaDB.MochaRow)">
             <summary>
             Add row in table.
@@ -1408,39 +1426,6 @@
             Clear all rows of table.
             </summary>
             <param name="tableName">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.InternalAddData(System.String,System.String,MochaDB.MochaData)">
-            <summary>
-            Add data.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="data">MochaData object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.InternalUpdateData(System.String,System.String,System.Int32,System.Object)">
-            <summary>
-            Update data by index.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="index">Index of data.</param>
-            <param name="data">Data to replace.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.InternalUpdateFirstData(System.String,System.String,System.Object)">
-            <summary>
-            Update first data.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="data">Data to replace.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.InternalUpdateLastData(System.String,System.String,System.Object)">
-            <summary>
-            Update last data.
-            </summary>
-            <param name="tableName">Name of table.</param>
-            <param name="columnName">Name of column.</param>
-            <param name="data">Data to replace.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.AddData(System.String,System.String,MochaDB.MochaData)">
             <summary>
@@ -1565,6 +1550,21 @@
             Returns whether there is a log with the specified id.
             </summary>
             <param name="id">ID of log.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetXML">
+            <summary>
+            Return xml schema of database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetXDocument">
+            <summary>
+            Return XDocument of database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.Dispose">
+            <summary>
+            Dispose.
+            </summary>
         </member>
         <member name="P:MochaDB.MochaDatabase.Version">
             <summary>
@@ -1808,16 +1808,6 @@
         <member name="P:MochaDB.MochaPath.Root">
             <summary>
             Root path.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Sectors">
-            <summary>
-            Sectors path.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Stacks">
-            <summary>
-            Stacks path.
             </summary>
         </member>
         <member name="P:MochaDB.MochaPath.Tables">

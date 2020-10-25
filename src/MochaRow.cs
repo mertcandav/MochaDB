@@ -10,27 +10,22 @@ namespace MochaDB {
     /// <summary>
     /// Create new MochaRow.
     /// </summary>
-    public MochaRow() {
+    public MochaRow() =>
       Datas = new MochaDataCollection();
-    }
 
     /// <summary>
     /// Create new MochaRow.
     /// </summary>
     /// <param name="datas">Datas of row.</param>
     public MochaRow(params MochaData[] datas) :
-        this() {
-      Datas.collection.AddRange(datas);
-    }
+        this() => Datas.collection.AddRange(datas);
 
     /// <summary>
     /// Create new MochaRow.
     /// </summary>
     /// <param name="datas">Datas of row.</param>
     public MochaRow(IEnumerable<MochaData> datas)
-        : this() {
-      Datas.collection.AddRange(datas);
-    }
+        : this() => Datas.collection.AddRange(datas);
 
     /// <summary>
     /// Create new MochaRow.
@@ -50,7 +45,7 @@ namespace MochaDB {
       }
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Properties
 
@@ -59,6 +54,6 @@ namespace MochaDB {
     /// </summary>
     public MochaDataCollection Datas { get; }
 
-    #endregion
+    #endregion Properties
   }
 }

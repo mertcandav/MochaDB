@@ -16,7 +16,7 @@ namespace MochaDB {
         name,
         value;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -35,18 +35,16 @@ namespace MochaDB {
     /// <param name="name">Name of attribute.</param>
     /// <param name="value">Value of attribute.</param>
     public MochaAttribute(string name,string value) :
-        this(name) {
-      Value=value;
-    }
+        this(name) => Value=value;
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaAttribute value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
     #region Events
 
@@ -68,18 +66,17 @@ namespace MochaDB {
       ValueChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Value"/>.
     /// </summary>
-    public override string ToString() {
-      return Value;
-    }
+    public override string ToString() =>
+      Value;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -87,13 +84,11 @@ namespace MochaDB {
     /// Name.
     /// </summary>
     public string Name {
-      get =>
-          name;
+      get => name;
       set {
         value=value.Trim();
         if(value==name)
           return;
-
         if(string.IsNullOrWhiteSpace(value))
           throw new MochaException("Name is cannot null or whitespace!");
 
@@ -111,20 +106,17 @@ namespace MochaDB {
     /// Value.
     /// </summary>
     public string Value {
-      get =>
-          value;
+      get => value;
       set {
         if(this.value==value)
           return;
 
         Engine_VALUES.AttributeCheckThrow(value);
-
         this.value=value;
-
         OnValueChanged(this,new EventArgs());
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

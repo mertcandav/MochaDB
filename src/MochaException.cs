@@ -10,28 +10,26 @@ namespace MochaDB {
     /// <summary>
     /// Create a new MochaException.
     /// </summary>
-    public MochaException() {
+    public MochaException() =>
       Message=string.Empty;
-    }
 
     /// <summary>
     /// Create a new MochaException.
     /// </summary>
     /// <param name="msg">Message of exception.</param>
-    public MochaException(string msg) {
+    public MochaException(string msg) =>
       Message=msg;
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaException value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Set exception message.
@@ -40,16 +38,15 @@ namespace MochaDB {
     public void SetMessage(string msg) =>
         Message = msg;
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Message"/>
     /// </summary>
-    public override string ToString() {
-      return Message;
-    }
+    public override string ToString() =>
+      Message;
 
     #endregion
 
@@ -60,6 +57,6 @@ namespace MochaDB {
     /// </summary>
     public new string Message { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

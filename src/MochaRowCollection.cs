@@ -12,11 +12,10 @@ namespace MochaDB {
     /// <summary>
     /// Create new MochaRowCollection.
     /// </summary>
-    public MochaRowCollection() {
+    public MochaRowCollection() =>
       collection=new List<MochaRow>();
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Events
 
@@ -29,7 +28,7 @@ namespace MochaDB {
       RowChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
     #region Item Events
 
@@ -37,14 +36,13 @@ namespace MochaDB {
       OnRowChanged(sender,e);
     }
 
-    #endregion
+    #endregion Item Events
 
-    #region Methods
+    #region Members
 
     public override void Clear() {
-      for(int index = 0; index < Count; index++) {
+      for(int index = 0; index < Count; index++)
         collection[index].Datas.Changed-=Item_Changed;
-      }
       collection.Clear();
     }
 
@@ -101,6 +99,6 @@ namespace MochaDB {
     public override MochaRow GetLast() =>
         IsEmptyCollection() ? null : this[MaxIndex()];
 
-    #endregion
+    #endregion Members
   }
 }

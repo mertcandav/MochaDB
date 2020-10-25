@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace MochaDB.mhql.keywords {
@@ -6,7 +5,7 @@ namespace MochaDB.mhql.keywords {
   /// MHQL FROM keyword.
   /// </summary>
   internal class Mhql_FROM:MhqlKeyword {
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if command is FROM style, returns if not.
@@ -41,6 +40,6 @@ namespace MochaDB.mhql.keywords {
       return -1;
     }
 
-    #endregion
+    #endregion Members
   }
 }

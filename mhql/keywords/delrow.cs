@@ -17,9 +17,9 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if command is DELROW command, returns if not.
@@ -75,6 +75,6 @@ namespace MochaDB.mhql.keywords {
       }
     }
 
-    #endregion
+    #endregion Members
   }
 }

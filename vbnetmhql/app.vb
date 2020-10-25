@@ -37,11 +37,9 @@ Public Class app
                 db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
                 Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
                 Dim result As MochaTableResult = command.ExecuteScalar
-                    
-                    datasource.Columns.Clear()
-                    datasource.Rows.Clear()
-
-                    For index = 0 To result.Columns.Count - 1
+                datasource.Columns.Clear()
+                datasource.Rows.Clear()
+                For index = 0 To result.Columns.Count - 1
                     datasource.Columns.Add(String.Empty, result.Columns.ElementAt(index).MHQLAsText)
                 Next
                     For index = 0 To result.Rows.Count - 1

@@ -6,18 +6,16 @@ namespace MochaDB.Mhql {
   /// Table result for Mhql query results.
   /// </summary>
   public class MochaTableResult {
-    #region Constructors
+    #region Internal Constructors
 
     /// <summary>
     /// Create a new MochaTableResult.
     /// </summary>
-    internal MochaTableResult() {
+    internal MochaTableResult() { }
 
-    }
+    #endregion Internal Constructors
 
-    #endregion
-
-    #region Internal Methods
+    #region Internal Members
 
     /// <summary>
     /// Set rows by datas of columns.
@@ -67,34 +65,31 @@ namespace MochaDB.Mhql {
       }
     }
 
-    #endregion
+    #endregion Internal Members
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public bool IsEmpty() {
-      return Rows.Length == 0;
-    }
+    public bool IsEmpty() =>
+      Rows.Length == 0;
 
     /// <summary>
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaRow,bool> filter) {
+    public void FCon(Func<MochaRow,bool> filter) =>
       Rows = Rows.Where(filter).ToArray();
-    }
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaColumn,bool> filter) {
+    public void FCon(Func<MochaColumn,bool> filter) =>
       Columns = Columns.Where(filter).ToArray();
-    }
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -108,6 +103,6 @@ namespace MochaDB.Mhql {
     /// </summary>
     public MochaRow[] Rows { get; internal set; }
 
-    #endregion
+    #endregion Properties
   }
 }

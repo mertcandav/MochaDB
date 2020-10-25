@@ -9,7 +9,7 @@ namespace MochaDB.Mochaq {
 
     private string command;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -18,11 +18,9 @@ namespace MochaDB.Mochaq {
     /// </summary>
     /// <param name="command">MochaQ command.</param>
     public MochaQCommand(string command) :
-        this() {
-      Command=command;
-    }
+        this() => Command=command;
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -32,9 +30,9 @@ namespace MochaDB.Mochaq {
     public static implicit operator MochaQCommand(string value) =>
         new MochaQCommand(value);
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Set command.
@@ -96,18 +94,17 @@ namespace MochaDB.Mochaq {
         return false;
     }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Command"/>.
     /// </summary>
-    public override string ToString() {
-      return Command;
-    }
+    public override string ToString() =>
+      Command;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -115,8 +112,7 @@ namespace MochaDB.Mochaq {
     /// MochaQ command.
     /// </summary>
     public string Command {
-      get =>
-          command;
+      get => command;
       set {
         value=value.Trim();
 
@@ -127,6 +123,6 @@ namespace MochaDB.Mochaq {
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

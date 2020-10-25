@@ -18,9 +18,9 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns select command.
@@ -50,6 +50,6 @@ namespace MochaDB.mhql.keywords {
       return Tdb.GetTables(x => regex.IsMatch(x.Name));
     }
 
-    #endregion
+    #endregion Members
   }
 }

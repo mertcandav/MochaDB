@@ -49,7 +49,7 @@ namespace MochaDB {
     internal volatile XDocument CDoc = null;
     private FileStream sourceStream = null;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -79,12 +79,11 @@ namespace MochaDB {
       State=MochaConnectionState.Disconnected;
       Logs = Provider.GetBoolAttributeState("Logs");
 
-      if(Provider.GetBoolAttributeState("AutoConnect")) {
+      if(Provider.GetBoolAttributeState("AutoConnect"))
         Connect();
-      }
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -94,7 +93,7 @@ namespace MochaDB {
     public static explicit operator XDocument(MochaDatabase value) =>
         value.GetXDocument();
 
-    #endregion
+    #endregion Operators
 
     #region Internal Events
 
@@ -110,7 +109,7 @@ namespace MochaDB {
         throw new MochaException("Connection is not open!");
     }
 
-    #endregion
+    #endregion Internal Events
 
     #region Events
 
@@ -143,95 +142,11 @@ namespace MochaDB {
       Changed?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
-    #region General
+    #region Static Members
 
-    /// <summary>
-    /// Dispose.
-    /// </summary>
-    public void Dispose() {
-      Disconnect();
-      Provider=null;
-    }
-
-    #endregion
-
-    #region Xml
-
-    /// <summary>
-    /// Return xml schema of database.
-    /// </summary>
-    public string GetXML() =>
-        GetXDocument().ToString();
-
-    /// <summary>
-    /// Return XDocument of database.
-    /// </summary>
-    public XDocument GetXDocument() {
-      OnConnectionCheckRequired(this,new EventArgs());
-
-      XDocument doc = new XDocument(Doc);
-      return doc;
-    }
-
-    #endregion
-
-    #region Connection
-
-    /// <summary>
-    /// Connect to database.
-    /// </summary>
-    public void Connect() {
-      if(State==MochaConnectionState.Connected)
-        return;
-
-      State=MochaConnectionState.Connected;
-
-      if(!File.Exists(Provider.Path)) {
-        if(Provider.GetBoolAttributeState("AutoCreate"))
-          CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
-        else
-          throw new MochaException("There is no MochaDB database file in the specified path!");
-      } else {
-        if(!IsMochaDB(Provider.Path))
-          throw new MochaException("The file shown is not a MochaDB database file!");
-      }
-
-      Doc = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(Provider.Path,Encoding.UTF8)));
-
-      if(!CheckMochaDB())
-        throw new MochaException("The MochaDB database is corrupt!");
-      if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
-        throw new MochaException("The MochaDB database is password protected!");
-      else if(Provider.Password != GetPassword())
-        throw new MochaException("MochaDB database password does not match the password specified!");
-
-      FileInfo fInfo = new FileInfo(Provider.Path);
-
-      Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-
-      sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
-      Query = new MochaQuery(this,true);
-    }
-
-    /// <summary>
-    /// Disconnect from database.
-    /// </summary>
-    public void Disconnect() {
-      if(State==MochaConnectionState.Disconnected)
-        return;
-
-      State=MochaConnectionState.Disconnected;
-
-      sourceStream.Dispose();
-      Doc=null;
-      Query=null;
-    }
-
-    #endregion
-
-    #region Static Database
+    #region Database
 
     /// <summary>
     /// Returns true if the file in the path is Mocha DB and false otherwise.
@@ -240,12 +155,9 @@ namespace MochaDB {
     public static bool IsMochaDB(string path) {
       if(!File.Exists(path))
         return false;
-
       FileInfo fInfo = new FileInfo(path);
-
       if(fInfo.Extension != Engine_LEXER.__EXTENSION__)
         return false;
-
       return true;
     }
 
@@ -287,9 +199,13 @@ namespace MochaDB {
       } catch { return false; }
     }
 
-    #endregion
+    #endregion Database
 
-    #region Internal Database
+    #endregion Static Members
+
+    #region Internal Members
+
+    #region Database
 
     /// <summary>
     /// Checks the suitability and robustness of the MochaDB database.
@@ -356,7 +272,170 @@ namespace MochaDB {
       xLogs.Add(xLog);
     }
 
-    #endregion
+    #endregion Database
+
+    #region Data
+
+    /// <summary>
+    /// Add data.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="columnName">Name of column.</param>
+    /// <param name="data">MochaData object to add.</param>
+    internal void InternalAddData(string tableName,string columnName,MochaData data) {
+      if(!ExistsColumn(tableName,columnName))
+        throw new MochaException("Column not found in this name!");
+
+      XElement xData = new XElement("Data");
+
+      MochaDataType dataType = GetColumnDataType(tableName,columnName);
+      if(dataType == MochaDataType.AutoInt)
+        xData.Value = (1 + GetColumnAutoIntState(tableName,columnName)).ToString();
+      else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.Data.ToString())) {
+        if(ExistsData(tableName,columnName,data))
+          throw new MochaException("Any value can be added to a unique column only once!");
+        if(!MochaData.IsType(dataType,data.Data))
+          throw new MochaException("The submitted data is not compatible with the targeted data!");
+        xData.Value = data.Data.ToString();
+      } else {
+        if(!MochaData.IsType(dataType,data.Data))
+          throw new MochaException("The submitted data is not compatible with the targeted data!");
+        xData.Value = data.Data.ToString();
+      }
+
+      IEnumerable<XElement> columnRange = CDoc.Root.Element("Tables").Element(tableName).Elements();
+      for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+        XElement element = columnRange.ElementAt(columnIndex);
+
+        if(element.Name.LocalName==columnName)
+          continue;
+
+        MochaDataType _dataType = GetColumnDataType(tableName,element.Name.LocalName);
+        if(_dataType == MochaDataType.AutoInt) {
+          element.Add(
+              new XElement("Data",
+              1 + GetColumnAutoIntState(tableName,element.Name.LocalName)));
+          continue;
+        }
+
+        element.Add(
+            new XElement("Data",
+            MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
+      }
+      string val = xData.Value;
+      Engine_VALUES.__CHK_FLOAT__(dataType,ref val);
+      xData.Value = val;
+      GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
+    }
+
+    /// <summary>
+    /// Update data by index.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="columnName">Name of column.</param>
+    /// <param name="index">Index of data.</param>
+    /// <param name="data">Data to replace.</param>
+    internal void InternalUpdateData(string tableName,string columnName,int index,object data) {
+      if(!ExistsColumn(tableName,columnName))
+        throw new MochaException("Column not found in this name!");
+
+      data = data ?? string.Empty;
+      MochaDataType dataType = GetColumnDataType(tableName,columnName);
+      if(!MochaData.IsType(dataType,data))
+        throw new MochaException("The submitted data is not compatible with the targeted data!");
+
+      XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{columnName}");
+      IEnumerable<XElement> dataRange = xColumn.Elements();
+      if(dataRange.Count() - 1 < index)
+        throw new MochaException("This index is larger than the maximum number of data in the table!");
+
+      XElement dataElement = dataRange.ElementAt(index);
+      string ddata = data.ToString();
+      Engine_VALUES.__CHK_FLOAT__(dataType,ref ddata);
+      if(dataElement.Value==ddata)
+        return;
+
+      dataElement.Value=ddata;
+    }
+
+    /// <summary>
+    /// Update first data.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="columnName">Name of column.</param>
+    /// <param name="data">Data to replace.</param>
+    internal void InternalUpdateFirstData(string tableName,string columnName,object data) =>
+      InternalUpdateData(tableName,columnName,0,data);
+
+    /// <summary>
+    /// Update last data.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="columnName">Name of column.</param>
+    /// <param name="data">Data to replace.</param>
+    internal void InternalUpdateLastData(string tableName,string columnName,object data) =>
+      InternalUpdateData(tableName,columnName,
+          GetDataCount(tableName,columnName) - 1,data);
+
+    #endregion Data
+
+    #endregion Internal Members
+
+    #region Members
+
+    #region Connection
+
+    /// <summary>
+    /// Connect to database.
+    /// </summary>
+    public void Connect() {
+      if(State==MochaConnectionState.Connected)
+        return;
+
+      State=MochaConnectionState.Connected;
+
+      if(!File.Exists(Provider.Path)) {
+        if(Provider.GetBoolAttributeState("AutoCreate"))
+          CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
+        else
+          throw new MochaException("There is no MochaDB database file in the specified path!");
+      } else {
+        if(!IsMochaDB(Provider.Path))
+          throw new MochaException("The file shown is not a MochaDB database file!");
+      }
+
+      Doc = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(Provider.Path,Encoding.UTF8)));
+
+      if(!CheckMochaDB())
+        throw new MochaException("The MochaDB database is corrupt!");
+      if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
+        throw new MochaException("The MochaDB database is password protected!");
+      else if(Provider.Password != GetPassword())
+        throw new MochaException("MochaDB database password does not match the password specified!");
+
+      FileInfo fInfo = new FileInfo(Provider.Path);
+
+      Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
+
+      sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
+      Query = new MochaQuery(this,true);
+    }
+
+    /// <summary>
+    /// Disconnect from database.
+    /// </summary>
+    public void Disconnect() {
+      if(State==MochaConnectionState.Disconnected)
+        return;
+
+      State=MochaConnectionState.Disconnected;
+
+      sourceStream.Dispose();
+      Doc=null;
+      Query=null;
+    }
+
+    #endregion Connection
 
     #region Database
 
@@ -365,7 +444,6 @@ namespace MochaDB {
     /// </summary>
     public string GetPassword() {
       OnConnectionCheckRequired(this,new EventArgs());
-
       return GetXElement(Doc,"Root/Password").Value;
     }
 
@@ -386,7 +464,6 @@ namespace MochaDB {
     /// </summary>
     public string GetDescription() {
       OnConnectionCheckRequired(this,new EventArgs());
-
       return GetXElement(Doc,"Root/Description").Value;
     }
 
@@ -424,7 +501,221 @@ namespace MochaDB {
       Save();
     }
 
-    #endregion
+    #endregion Database
+
+    #region Column
+
+    /// <summary>
+    /// Add colum in table.
+    /// </summary>
+    /// <param name="tableName">Name of column.</param>
+    /// <param name="column">MochaColumn object to add.</param>
+    public void AddColumn(string tableName,MochaColumn column) {
+      if(ExistsColumn(tableName,column.Name))
+        throw new MochaException("There is already a column with this name!");
+      OnChanging(this,new EventArgs());
+
+      XElement xColumn = new XElement(column.Name);
+      xColumn.Add(new XAttribute("DataType",column.DataType));
+      xColumn.Add(new XAttribute("Description",column.Description));
+      xColumn.Add(new XAttribute("Attributes",string.Empty));
+      GetXElement(CDoc,$"Tables/{tableName}").Add(xColumn);
+
+      // Datas.
+      int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
+      if(column.DataType==MochaDataType.AutoInt)
+        for(int index = 1; index <= rowCount; index++)
+          xColumn.Add(new XElement("Data",index));
+      else {
+        for(int index = 0; index < column.Datas.Count; index++)
+          xColumn.Add(new XElement("Data",column.Datas[index].Data));
+
+        for(int index = column.Datas.Count; index < rowCount; index++)
+          xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
+      }
+      Save();
+    }
+
+    /// <summary>
+    /// Create column in table.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public void CreateColumn(string tableName,string name) =>
+      AddColumn(tableName,new MochaColumn(name,MochaDataType.String));
+
+    /// <summary>
+    /// Remove column from table by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public bool RemoveColumn(string tableName,string name) {
+      if(!ExistsColumn(tableName,name))
+        return false;
+      OnChanging(this,new EventArgs());
+
+      GetXElement(CDoc,$"Tables/{tableName}/{name}").Remove();
+      Save();
+      return true;
+    }
+
+    /// <summary>
+    /// Rename column.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column to rename.</param>
+    /// <param name="newName">New name of column.</param>
+    public void RenameColumn(string tableName,string name,string newName) {
+      if(!ExistsColumn(tableName,name))
+        throw new MochaException("Column not found in this name!");
+      if(name == newName)
+        return;
+      if(ExistsColumn(tableName,newName))
+        throw new MochaException("There is already a column with this name!");
+
+      Engine_NAMES.CheckThrow(newName);
+      OnChanging(this,new EventArgs());
+
+      GetXElement(CDoc,$"Tables/{tableName}/{name}").Name=newName;
+      Save();
+    }
+
+    /// <summary>
+    /// Returns description of column by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public string GetColumnDescription(string tableName,string name) =>
+      !ExistsColumn(tableName,name) ?
+        throw new MochaException("Column not found in this name!") :
+        GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("Description").Value;
+
+    /// <summary>
+    /// Set description of column by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    /// <param name="description">Description to set.</param>
+    public void SetColumnDescription(string tableName,string name,string description) {
+      if(!ExistsColumn(tableName,name))
+        throw new MochaException("Column not found in this name!");
+
+      XAttribute xDescription = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Description");
+      if(xDescription.Value==description)
+        return;
+      OnChanging(this,new EventArgs());
+
+      xDescription.Value = description;
+      Save();
+    }
+
+    /// <summary>
+    /// Returns column from table by name
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public MochaColumn GetColumn(string tableName,string name) {
+      if(!ExistsColumn(tableName,name))
+        throw new MochaException("Column not found in this name!");
+
+      MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
+      column.MHQLAsText = name;
+      column.Description = GetColumnDescription(tableName,name);
+      column.Datas.collection.AddRange(GetDatas(tableName,name));
+      return column;
+    }
+
+    /// <summary>
+    /// Returns all columns in table by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    public MochaColumn[] GetColumns(string tableName) {
+      if(!ExistsTable(tableName))
+        throw new MochaException("Table not found in this name!");
+
+      IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
+      MochaColumn[] columns = new MochaColumn[columnsRange.Count()];
+      for(int index = 0; index < columns.Length; index++)
+        columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
+      return columns;
+    }
+
+    /// <summary>
+    /// Returns whether there is a column with the specified name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public bool ExistsColumn(string tableName,string name) =>
+      !ExistsTable(tableName) ?
+        throw new MochaException("Table not found in this name!") :
+        GetXElement(Doc,$"Tables/{tableName}/{name}") != null;
+
+    /// <summary>
+    /// Returns column datatype by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public MochaDataType GetColumnDataType(string tableName,string name) =>
+      !ExistsColumn(tableName,name) ?
+        throw new MochaException("Column not found in this name!") :
+        (MochaDataType)Enum.Parse(typeof(MochaDataType),
+          GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("DataType").Value);
+
+    /// <summary>
+    /// Set column datatype by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    /// <param name="dataType">MochaDataType to set.</param>
+    public void SetColumnDataType(string tableName,string name,MochaDataType dataType) {
+      if(!ExistsColumn(tableName,name))
+        throw new MochaException("Column not found in this name!");
+      OnChanging(this,new EventArgs());
+
+      XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{name}");
+      if(xColumn.Attribute("DataType").Value==dataType.ToString())
+        return;
+
+      xColumn.Attribute("DataType").Value = dataType.ToString();
+      IEnumerable<XElement> dataRange = xColumn.Elements();
+      if(dataType == MochaDataType.AutoInt) {
+        for(int index = 0; index <dataRange.Count(); index++)
+          dataRange.ElementAt(index).Value = (index + 1).ToString();
+        Save();
+        return;
+      } else if(dataType == MochaDataType.Unique) {
+        for(int index = 0; index <dataRange.Count(); index++)
+          dataRange.ElementAt(index).Value = string.Empty;
+        Save();
+        return;
+      }
+      for(int index = 0; index < dataRange.Count(); index++)
+        if(!MochaData.IsType(dataType,dataRange.ElementAt(index).Value))
+          dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
+      Save();
+    }
+
+    /// <summary>
+    /// Returns column's last AutoInt value by name.
+    /// </summary>
+    /// <param name="tableName">Name of table.</param>
+    /// <param name="name">Name of column.</param>
+    public int GetColumnAutoIntState(string tableName,string name) {
+      if(!ExistsColumn(tableName,name))
+        throw new MochaException("Column not found in this name!");
+
+      XElement lastData = (XElement)GetXElement(Doc,$"Tables/{tableName}/{name}").LastNode;
+      MochaDataType dataType = GetColumnDataType(tableName,name);
+
+      if(dataType != MochaDataType.AutoInt)
+        throw new MochaException("This column's datatype is not AutoInt!");
+      if(lastData != null)
+        return int.Parse(lastData.Value);
+      else
+        return 0;
+    }
+
+    #endregion Column
 
     #region Table
 
@@ -463,7 +754,6 @@ namespace MochaDB {
           Xcolumn.Add(new XElement("Data",column.Datas[dindex].Data));
         xTable.Add(Xcolumn);
       }
-
       Save();
     }
 
@@ -517,12 +807,10 @@ namespace MochaDB {
     /// Returns description of table by name.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    public string GetTableDescription(string name) {
-      if(!ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
-
-      return GetXElement(Doc,$"Tables/{name}").Attribute("Description").Value;
-    }
+    public string GetTableDescription(string name) =>
+      !ExistsTable(name) ?
+        throw new MochaException("Table not found in this name!") :
+        GetXElement(Doc,$"Tables/{name}").Attribute("Description").Value;
 
     /// <summary>
     /// Set description of table by name.
@@ -539,7 +827,6 @@ namespace MochaDB {
       OnChanging(this,new EventArgs());
 
       xDescription.Value=description;
-
       Save();
     }
 
@@ -554,11 +841,9 @@ namespace MochaDB {
       XElement xTable = GetXElement(Doc,$"Tables/{name}");
       MochaTable table = new MochaTable(name);
       table.Description=xTable.Attribute("Description").Value;
-
       table.Columns.collection.AddRange(GetColumns(name));
       table.SetRowsByDatas();
       //table.Rows.collection.AddRange(GetRows(name));
-
       return table;
     }
 
@@ -570,10 +855,8 @@ namespace MochaDB {
 
       IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
       MochaTable[] tables = new MochaTable[tableRange.Count()];
-      for(int index = 0; index <tables.Length; index++) {
+      for(int index = 0; index <tables.Length; index++)
         tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
-      }
-
       return tables;
     }
 
@@ -584,246 +867,7 @@ namespace MochaDB {
     public bool ExistsTable(string name) =>
         ExistsElement(Doc,$"Tables/{name}");
 
-    #endregion
-
-    #region Column
-
-    /// <summary>
-    /// Add colum in table.
-    /// </summary>
-    /// <param name="tableName">Name of column.</param>
-    /// <param name="column">MochaColumn object to add.</param>
-    public void AddColumn(string tableName,MochaColumn column) {
-      if(ExistsColumn(tableName,column.Name))
-        throw new MochaException("There is already a column with this name!");
-      OnChanging(this,new EventArgs());
-
-      XElement xColumn = new XElement(column.Name);
-      xColumn.Add(new XAttribute("DataType",column.DataType));
-      xColumn.Add(new XAttribute("Description",column.Description));
-      xColumn.Add(new XAttribute("Attributes",string.Empty));
-      GetXElement(CDoc,$"Tables/{tableName}").Add(xColumn);
-
-      // Datas.
-      int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
-      if(column.DataType==MochaDataType.AutoInt) {
-        for(int index = 1; index <= rowCount; index++)
-          xColumn.Add(new XElement("Data",index));
-      } else {
-        for(int index = 0; index < column.Datas.Count; index++)
-          xColumn.Add(new XElement("Data",column.Datas[index].Data));
-
-        for(int index = column.Datas.Count; index < rowCount; index++) {
-          xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
-        }
-      }
-
-      Save();
-    }
-
-    /// <summary>
-    /// Create column in table.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public void CreateColumn(string tableName,string name) {
-      AddColumn(tableName,new MochaColumn(name,MochaDataType.String));
-    }
-
-    /// <summary>
-    /// Remove column from table by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public bool RemoveColumn(string tableName,string name) {
-      if(!ExistsColumn(tableName,name))
-        return false;
-      OnChanging(this,new EventArgs());
-
-      GetXElement(CDoc,$"Tables/{tableName}/{name}").Remove();
-      Save();
-      return true;
-    }
-
-    /// <summary>
-    /// Rename column.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column to rename.</param>
-    /// <param name="newName">New name of column.</param>
-    public void RenameColumn(string tableName,string name,string newName) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      if(name == newName)
-        return;
-
-      if(ExistsColumn(tableName,newName))
-        throw new MochaException("There is already a column with this name!");
-
-      Engine_NAMES.CheckThrow(newName);
-
-      OnChanging(this,new EventArgs());
-
-      GetXElement(CDoc,$"Tables/{tableName}/{name}").Name=newName;
-      Save();
-    }
-
-    /// <summary>
-    /// Returns description of column by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public string GetColumnDescription(string tableName,string name) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      return GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("Description").Value;
-    }
-
-    /// <summary>
-    /// Set description of column by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    /// <param name="description">Description to set.</param>
-    public void SetColumnDescription(string tableName,string name,string description) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      XAttribute xDescription = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Description");
-      if(xDescription.Value==description)
-        return;
-      OnChanging(this,new EventArgs());
-
-      xDescription.Value = description;
-      Save();
-    }
-
-    /// <summary>
-    /// Returns column from table by name
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public MochaColumn GetColumn(string tableName,string name) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
-      column.MHQLAsText = name;
-      column.Description = GetColumnDescription(tableName,name);
-      column.Datas.collection.AddRange(GetDatas(tableName,name));
-
-      return column;
-    }
-
-    /// <summary>
-    /// Returns all columns in table by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    public MochaColumn[] GetColumns(string tableName) {
-      if(!ExistsTable(tableName))
-        throw new MochaException("Table not found in this name!");
-
-      IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
-      MochaColumn[] columns = new MochaColumn[columnsRange.Count()];
-      for(int index = 0; index < columns.Length; index++) {
-        columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
-      }
-
-      return columns;
-    }
-
-    /// <summary>
-    /// Returns whether there is a column with the specified name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public bool ExistsColumn(string tableName,string name) {
-      if(!ExistsTable(tableName))
-        throw new MochaException("Table not found in this name!");
-
-      return GetXElement(Doc,$"Tables/{tableName}/{name}") != null;
-    }
-
-    /// <summary>
-    /// Returns column datatype by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public MochaDataType GetColumnDataType(string tableName,string name) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      return (MochaDataType)Enum.Parse(typeof(MochaDataType),
-          GetXElement(Doc,$"Tables/{tableName}/{name}").Attribute("DataType").Value);
-    }
-
-    /// <summary>
-    /// Set column datatype by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    /// <param name="dataType">MochaDataType to set.</param>
-    public void SetColumnDataType(string tableName,string name,MochaDataType dataType) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-      OnChanging(this,new EventArgs());
-
-      XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{name}");
-      if(xColumn.Attribute("DataType").Value==dataType.ToString())
-        return;
-
-      xColumn.Attribute("DataType").Value = dataType.ToString();
-
-      IEnumerable<XElement> dataRange = xColumn.Elements();
-      if(dataType == MochaDataType.AutoInt) {
-        for(int index = 0; index <dataRange.Count(); index++) {
-          dataRange.ElementAt(index).Value = (index + 1).ToString();
-        }
-
-        Save();
-        return;
-      } else if(dataType == MochaDataType.Unique) {
-        for(int index = 0; index <dataRange.Count(); index++) {
-          dataRange.ElementAt(index).Value = string.Empty;
-        }
-
-        Save();
-        return;
-      }
-
-      for(int index = 0; index < dataRange.Count(); index++) {
-        if(!MochaData.IsType(dataType,dataRange.ElementAt(index).Value))
-          dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
-      }
-
-      Save();
-    }
-
-    /// <summary>
-    /// Returns column's last AutoInt value by name.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="name">Name of column.</param>
-    public int GetColumnAutoIntState(string tableName,string name) {
-      if(!ExistsColumn(tableName,name))
-        throw new MochaException("Column not found in this name!");
-
-      XElement lastData = (XElement)GetXElement(Doc,$"Tables/{tableName}/{name}").LastNode;
-
-      MochaDataType dataType = GetColumnDataType(tableName,name);
-
-      if(dataType != MochaDataType.AutoInt)
-        throw new MochaException("This column's datatype is not AutoInt!");
-
-      if(lastData != null)
-        return int.Parse(lastData.Value);
-      else
-        return 0;
-    }
-
-    #endregion
+    #endregion Table
 
     #region Row
 
@@ -850,7 +894,6 @@ namespace MochaDB {
             GetColumnDataType(tableName,columnElement.Name.LocalName);
         if(dataType == MochaDataType.AutoInt)
           continue;
-
         InternalUpdateData(tableName,columnElement.Name.LocalName,dex,row.Datas[index].Data);
       }
       Save();
@@ -861,9 +904,8 @@ namespace MochaDB {
     /// </summary>
     /// <param name="tableName">Name of table.</param>
     /// <param name="datas">Datas of row.</param>
-    public void AddRow(string tableName,params object[] datas) {
+    public void AddRow(string tableName,params object[] datas) =>
       AddRow(tableName,new MochaRow(datas));
-    }
 
     /// <summary>
     /// Remove row from table by index.
@@ -877,14 +919,12 @@ namespace MochaDB {
       IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
       if(columnRange.First().Elements().Count()-1 >= index) {
         OnChanging(this,new EventArgs());
-        for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
+        for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++)
           columnRange.ElementAt(columnIndex).Elements().
               ElementAt(index).Remove();
-        }
         Save();
         return true;
       }
-
       return false;
     }
 
@@ -896,7 +936,6 @@ namespace MochaDB {
     public MochaRow GetRow(string tableName,int index) {
       if(!ExistsTable(tableName))
         throw new MochaException("Table not found in this name!");
-
       if(index < 0)
         throw new MochaException("Index can not lower than 0!");
 
@@ -911,13 +950,9 @@ namespace MochaDB {
 
       MochaRow row = new MochaRow();
       MochaData[] datas = new MochaData[columns.Length];
-
-      for(int columnIndex = 0; columnIndex < columns.Length; columnIndex++) {
+      for(int columnIndex = 0; columnIndex < columns.Length; columnIndex++)
         datas[columnIndex] = columns[columnIndex].Datas[index];
-      }
-
       row.Datas.collection.AddRange(datas);
-
       return row;
     }
 
@@ -936,10 +971,8 @@ namespace MochaDB {
 
       int dataCount = GetDataCount(tableName,firstColumn.Name.LocalName);
       MochaRow[] rows = new MochaRow[dataCount];
-      for(int index = 0; index < dataCount; index++) {
+      for(int index = 0; index < dataCount; index++)
         rows[index] = GetRow(tableName,index);
-      }
-
       return rows;
     }
 
@@ -961,118 +994,7 @@ namespace MochaDB {
       }
     }
 
-    #endregion
-
-    #region Internal Data
-
-    /// <summary>
-    /// Add data.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="columnName">Name of column.</param>
-    /// <param name="data">MochaData object to add.</param>
-    internal void InternalAddData(string tableName,string columnName,MochaData data) {
-      if(!ExistsColumn(tableName,columnName))
-        throw new MochaException("Column not found in this name!");
-
-      XElement xData = new XElement("Data");
-
-      MochaDataType dataType = GetColumnDataType(tableName,columnName);
-      if(dataType == MochaDataType.AutoInt) {
-        xData.Value = (1 + GetColumnAutoIntState(tableName,columnName)).ToString();
-      } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.Data.ToString())) {
-        if(ExistsData(tableName,columnName,data))
-          throw new MochaException("Any value can be added to a unique column only once!");
-
-        if(!MochaData.IsType(dataType,data.Data))
-          throw new MochaException("The submitted data is not compatible with the targeted data!");
-
-        xData.Value = data.Data.ToString();
-      } else {
-        if(!MochaData.IsType(dataType,data.Data))
-          throw new MochaException("The submitted data is not compatible with the targeted data!");
-
-        xData.Value = data.Data.ToString();
-      }
-
-      IEnumerable<XElement> columnRange = CDoc.Root.Element("Tables").Element(tableName).Elements();
-      for(int columnIndex = 0; columnIndex < columnRange.Count(); columnIndex++) {
-        XElement element = columnRange.ElementAt(columnIndex);
-
-        if(element.Name.LocalName==columnName)
-          continue;
-
-        MochaDataType _dataType = GetColumnDataType(tableName,element.Name.LocalName);
-        if(_dataType == MochaDataType.AutoInt) {
-          element.Add(
-              new XElement("Data",
-              1 + GetColumnAutoIntState(tableName,element.Name.LocalName)));
-          continue;
-        }
-
-        element.Add(
-            new XElement("Data",
-            MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
-      }
-      string val = xData.Value;
-      Engine_VALUES.__CHK_FLOAT__(dataType,ref val);
-      xData.Value = val;
-      GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
-    }
-
-    /// <summary>
-    /// Update data by index.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="columnName">Name of column.</param>
-    /// <param name="index">Index of data.</param>
-    /// <param name="data">Data to replace.</param>
-    internal void InternalUpdateData(string tableName,string columnName,int index,object data) {
-      if(!ExistsColumn(tableName,columnName))
-        throw new MochaException("Column not found in this name!");
-
-      data = data ?? string.Empty;
-      MochaDataType dataType = GetColumnDataType(tableName,columnName);
-      if(!MochaData.IsType(dataType,data)) {
-        throw new MochaException("The submitted data is not compatible with the targeted data!");
-      }
-      XElement xColumn = GetXElement(CDoc,$"Tables/{tableName}/{columnName}");
-
-      IEnumerable<XElement> dataRange = xColumn.Elements();
-      if(dataRange.Count() - 1 < index)
-        throw new MochaException("This index is larger than the maximum number of data in the table!");
-
-      XElement dataElement = dataRange.ElementAt(index);
-      string ddata = data.ToString();
-      Engine_VALUES.__CHK_FLOAT__(dataType,ref ddata);
-      if(dataElement.Value==ddata)
-        return;
-
-      dataElement.Value=ddata;
-    }
-
-    /// <summary>
-    /// Update first data.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="columnName">Name of column.</param>
-    /// <param name="data">Data to replace.</param>
-    internal void InternalUpdateFirstData(string tableName,string columnName,object data) {
-      InternalUpdateData(tableName,columnName,0,data);
-    }
-
-    /// <summary>
-    /// Update last data.
-    /// </summary>
-    /// <param name="tableName">Name of table.</param>
-    /// <param name="columnName">Name of column.</param>
-    /// <param name="data">Data to replace.</param>
-    internal void InternalUpdateLastData(string tableName,string columnName,object data) {
-      InternalUpdateData(tableName,columnName,
-          GetDataCount(tableName,columnName) - 1,data);
-    }
-
-    #endregion
+    #endregion Row
 
     #region Data
 
@@ -1094,9 +1016,8 @@ namespace MochaDB {
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
     /// <param name="data">Data to add.</param>
-    public void AddData(string tableName,string columnName,object data) {
+    public void AddData(string tableName,string columnName,object data) =>
       AddData(tableName,columnName,new MochaData(GetColumnDataType(tableName,columnName),data));
-    }
 
     /// <summary>
     /// Update data by index.
@@ -1110,9 +1031,9 @@ namespace MochaDB {
         throw new MochaException("Column not found in this name!");
 
       MochaDataType dataType = GetColumnDataType(tableName,columnName);
-      if(dataType == MochaDataType.AutoInt) {
+      if(dataType == MochaDataType.AutoInt)
         throw new MochaException("The data type of this column is AutoInt, so data update cannot be done!");
-      } else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.ToString())) {
+      else if(dataType == MochaDataType.Unique && !string.IsNullOrEmpty(data.ToString())) {
         var dex = GetDataIndex(tableName,columnName,data.ToString());
         if(dex != -1 && dex != index)
           throw new MochaException("Any value can be added to a unique column only once!");
@@ -1131,9 +1052,8 @@ namespace MochaDB {
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
     /// <param name="data">Data to replace.</param>
-    public void UpdateFirstData(string tableName,string columnName,object data) {
+    public void UpdateFirstData(string tableName,string columnName,object data) =>
       UpdateData(tableName,columnName,0,data);
-    }
 
     /// <summary>
     /// Update last data.
@@ -1141,10 +1061,9 @@ namespace MochaDB {
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
     /// <param name="data">Data to replace.</param>
-    public void UpdateLastData(string tableName,string columnName,object data) {
+    public void UpdateLastData(string tableName,string columnName,object data) =>
       UpdateData(tableName,columnName,
           GetDataCount(tableName,columnName) - 1,data);
-    }
 
     /// <summary>
     /// Returns whether there is a data with the specified.
@@ -1158,10 +1077,9 @@ namespace MochaDB {
 
       string stringData = data.Data.ToString();
       IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-      for(int index = 0; index < dataRange.Count(); index++) {
+      for(int index = 0; index < dataRange.Count(); index++)
         if(dataRange.ElementAt(index).Value == stringData)
           return true;
-      }
       return false;
     }
 
@@ -1171,9 +1089,8 @@ namespace MochaDB {
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
     /// <param name="data">Data to check.</param>
-    public bool ExistsData(string tableName,string columnName,object data) {
-      return ExistsData(tableName,columnName,new MochaData() { data = data });
-    }
+    public bool ExistsData(string tableName,string columnName,object data) =>
+      ExistsData(tableName,columnName,new MochaData { data = data });
 
     /// <summary>
     /// Returns data index. If there are two of the same data, it returns the index of the one you found first!
@@ -1186,13 +1103,10 @@ namespace MochaDB {
         throw new MochaException("Column not found in this name!");
 
       string stringData = data.ToString();
-
       IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-      for(int index = 0; index < dataRange.Count(); index++) {
+      for(int index = 0; index < dataRange.Count(); index++)
         if(dataRange.ElementAt(index).Value == stringData)
           return index;
-      }
-
       return -1;
     }
 
@@ -1210,12 +1124,11 @@ namespace MochaDB {
         throw new MochaException("Index can not lower than 0!");
 
       MochaDataType dataType = GetColumnDataType(tableName,columnName);
-
       IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
       if(dataRange.Count() - 1 < index)
         throw new MochaException("This index is larger than the maximum number of data in the table!");
 
-      return new MochaData() { dataType = dataType,data = dataRange.ElementAt(index).Value };
+      return new MochaData { dataType = dataType,data = dataRange.ElementAt(index).Value };
     }
 
     /// <summary>
@@ -1228,9 +1141,8 @@ namespace MochaDB {
         throw new MochaException("Column not found in this name!");
       IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
       MochaData[] datas = new MochaData[dataRange.Count()];
-      for(int index = 0; index < datas.Length; index++) {
+      for(int index = 0; index < datas.Length; index++)
         datas[index] = GetData(tableName,columnName,index);
-      }
       return datas;
     }
 
@@ -1239,14 +1151,12 @@ namespace MochaDB {
     /// </summary>
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
-    public int GetDataCount(string tableName,string columnName) {
-      if(!ExistsColumn(tableName,columnName))
-        throw new MochaException("Column not found in this name!");
+    public int GetDataCount(string tableName,string columnName) =>
+      !ExistsColumn(tableName,columnName) ?
+        throw new MochaException("Column not found in this name!") :
+        GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements().Count();
 
-      return GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements().Count();
-    }
-
-    #endregion
+    #endregion Data
 
     #region Log
 
@@ -1324,7 +1234,37 @@ namespace MochaDB {
     public bool ExistsLog(string id) =>
         GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
 
-    #endregion
+    #endregion Log
+
+    #region XML
+
+    /// <summary>
+    /// Return xml schema of database.
+    /// </summary>
+    public string GetXML() =>
+        GetXDocument().ToString();
+
+    /// <summary>
+    /// Return XDocument of database.
+    /// </summary>
+    public XDocument GetXDocument() {
+      OnConnectionCheckRequired(this,new EventArgs());
+
+      XDocument doc = new XDocument(Doc);
+      return doc;
+    }
+
+    #endregion XML
+
+    /// <summary>
+    /// Dispose.
+    /// </summary>
+    public void Dispose() {
+      Disconnect();
+      Provider=null;
+    }
+
+    #endregion Members
 
     #region Static Properties
 
@@ -1334,7 +1274,7 @@ namespace MochaDB {
     public static string Version =>
         Engine_LEXER.__VERSION__;
 
-    #endregion
+    #endregion Static Properties
 
     #region Internal Properties
 
@@ -1348,9 +1288,9 @@ namespace MochaDB {
     /// </summary>
     internal bool SuspendChangeEvents { get; set; }
 
-    #endregion
+    #endregion Internal Properties
 
-    #region Public Properties
+    #region Properties
 
     /// <summary>
     /// Connection provider.
@@ -1377,6 +1317,6 @@ namespace MochaDB {
     /// </summary>
     public string Name { get; private set; }
 
-    #endregion
+    #endregion Properties
   }
 }

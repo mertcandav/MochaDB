@@ -27,7 +27,7 @@ namespace MochaDB.Mhql {
     internal Mhql_DELROW DELROW;
     internal Mhql_ADDROW ADDROW;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -64,13 +64,11 @@ namespace MochaDB.Mhql {
     /// <param name="command">MQL Command.</param>
     /// <param name="db">Target MochaDatabase.</param>
     public MochaDbCommand(string command,MochaDatabase db) :
-        this(db) {
-      Command=command;
-    }
+        this(db) => Command=command;
 
-    #endregion
+    #endregion Constructors
 
-    #region Internal Methods
+    #region Internal Members
 
     /// <summary>
     /// Check connection and database.
@@ -82,24 +80,22 @@ namespace MochaDB.Mhql {
         throw new MochaException("Connection is not open!");
     }
 
-    #endregion
+    #endregion Internal Members
 
-    #region ExecuteScalar
+    #region Members
 
     /// <summary>
     /// Returns first data as MochaTableResult.
     /// </summary>
-    public MochaTableResult ExecuteScalarTable() {
-      return ExecuteScalar() as MochaTableResult;
-    }
+    public MochaTableResult ExecuteScalarTable() =>
+      ExecuteScalar() as MochaTableResult;
 
     /// <summary>
     /// Returns first data as MochaTableResult.
     /// </summary>
     /// <param name="command">MHQL Command to set.</param>
-    public MochaTableResult ExecuteScalarTable(string command) {
-      return ExecuteScalar(command) as MochaTableResult;
-    }
+    public MochaTableResult ExecuteScalarTable(string command) =>
+      ExecuteScalar(command) as MochaTableResult;
 
     /// <summary>
     /// Returns first result or null.
@@ -119,10 +115,6 @@ namespace MochaDB.Mhql {
         return reader.Value;
       return null;
     }
-
-    #endregion
-
-    #region ExecuteReader
 
     /// <summary>
     /// Read returned results.
@@ -189,18 +181,16 @@ namespace MochaDB.Mhql {
       return reader;
     }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns command.
     /// </summary>
-    public override string ToString() {
-      return Command;
-    }
+    public override string ToString() => Command;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -208,8 +198,7 @@ namespace MochaDB.Mhql {
     /// Current MQL command.
     /// </summary>
     public string Command {
-      get =>
-          command;
+      get => command;
       set {
         if(value==command)
           return;
@@ -224,8 +213,7 @@ namespace MochaDB.Mhql {
     /// Target database.
     /// </summary>
     public MochaDatabase Database {
-      get =>
-          db;
+      get => db;
       set {
         if(value==null)
           throw new MochaException("This MochaDatabase is not affiliated with a database!");
@@ -238,6 +226,6 @@ namespace MochaDB.Mhql {
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

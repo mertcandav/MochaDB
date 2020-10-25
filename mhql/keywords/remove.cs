@@ -16,9 +16,9 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if command is remove, return false if not.
@@ -26,6 +26,6 @@ namespace MochaDB.mhql.keywords {
     public bool IsRemoveCmd() =>
         Command.EndsWith("REMOVE",StringComparison.OrdinalIgnoreCase);
 
-    #endregion
+    #endregion Members
   }
 }

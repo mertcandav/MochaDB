@@ -15,7 +15,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
         name,
         value;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -37,14 +37,14 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
       Name=name;
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaProviderAttribute value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
     #region Events
 
@@ -66,11 +66,9 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
       ValueChanged?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
-    #region Methods
-
-    #region Internal
+    #region Internal Members
 
     /// <summary>
     /// Check value by name.
@@ -90,13 +88,15 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
 
     #endregion
 
+    #region Members
+
     /// <summary>
     /// Returns string as in provider.
     /// </summary>
     public string GetProviderString() =>
         $"{Name}={Value};";
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
@@ -107,7 +107,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
       return GetProviderString();
     }
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -143,6 +143,6 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

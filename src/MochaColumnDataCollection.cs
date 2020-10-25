@@ -11,7 +11,7 @@ namespace MochaDB {
 
     private MochaDataType dataType;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -24,7 +24,7 @@ namespace MochaDB {
       this.dataType=dataType;
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Events
 
@@ -37,11 +37,9 @@ namespace MochaDB {
       Changed?.Invoke(this,e);
     }
 
-    #endregion
+    #endregion Events
 
-    #region Methods
-
-    #region Internal
+    #region Internal Members
 
     /// <summary>
     /// Remove all items.
@@ -126,7 +124,9 @@ namespace MochaDB {
       //OnChanged(this,new EventArgs());
     }
 
-    #endregion
+    #endregion Internal Members
+
+    #region Members
 
     /// <summary>
     /// Return true if data is contained but return false if not exists.
@@ -152,7 +152,7 @@ namespace MochaDB {
     public override MochaData GetLast() =>
         IsEmptyCollection() ? null : this[MaxIndex()];
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -160,23 +160,21 @@ namespace MochaDB {
     /// Data type of column.
     /// </summary>
     public MochaDataType DataType {
-      get =>
-          dataType;
+      get => dataType;
       internal set {
         if(value == dataType)
           return;
 
         dataType = value;
 
-        if(value == MochaDataType.AutoInt) {
+        if(value == MochaDataType.AutoInt)
           return;
-        }
 
         for(int index = 0; index < Count; index++)
           collection[index].DataType = dataType;
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

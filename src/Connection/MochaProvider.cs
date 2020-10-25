@@ -14,7 +14,7 @@ namespace MochaDB.Connection {
 
     private string connectionString;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -22,20 +22,19 @@ namespace MochaDB.Connection {
     /// Create new MochaProvider.
     /// </summary>
     /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
-    public MochaProvider(string connectionString) {
+    public MochaProvider(string connectionString) =>
       ConnectionString=connectionString;
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaProvider value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
-    #region Static
+    #region Static Members
 
     /// <summary>
     /// Return attribute by name.
@@ -88,16 +87,15 @@ namespace MochaDB.Connection {
       return cstring;
     }
 
-    #endregion
+    #endregion Static Members
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Enable constant property of provider. It cannot be undone!
     /// </summary>
-    public void EnableConstant() {
+    public void EnableConstant() =>
       Constant=true;
-    }
 
     /// <summary>
     /// Returns attribute by name.
@@ -117,18 +115,17 @@ namespace MochaDB.Connection {
       return false;
     }
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="ConnectionString"/>.
     /// </summary>
-    public override string ToString() {
-      return ConnectionString;
-    }
+    public override string ToString() =>
+      ConnectionString;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -136,8 +133,7 @@ namespace MochaDB.Connection {
     /// Connection string of provider.
     /// </summary>
     public string ConnectionString {
-      get =>
-          connectionString;
+      get => connectionString;
       set {
         if(Constant)
           throw new MochaException("This provider is constant, can only be read!");
@@ -205,7 +201,7 @@ namespace MochaDB.Connection {
     /// </summary>
     public bool Constant { get; internal set; }
 
-    #endregion
+    #endregion Properties
   }
 
   /// <summary>

@@ -15,9 +15,9 @@ namespace MochaDB.Mochaq {
 
     private MochaDatabase database;
 
-    #endregion
+    #endregion Fields
 
-    #region Constructors
+    #region Internal Constructors
 
     /// <summary>
     /// Create new MochaQuery.
@@ -26,9 +26,13 @@ namespace MochaDB.Mochaq {
     /// <param name="embedded">Is embedded query in database.</param>
     internal MochaQuery(MochaDatabase database,bool embedded) {
       this.database = database;
-      MochaQ = "BREAKQUERY";
+      MochaQ = string.Empty;
       IsDatabaseEmbedded=embedded;
     }
+
+    #endregion Internal Constructors
+
+    #region Constructors
 
     /// <summary>
     /// Create new MochaQuery.
@@ -37,7 +41,7 @@ namespace MochaDB.Mochaq {
     public MochaQuery(MochaDatabase database) {
       IsDatabaseEmbedded=false;
       Database = database;
-      MochaQ = "BREAKQUERY";
+      MochaQ = string.Empty;
     }
 
     /// <summary>
@@ -46,18 +50,18 @@ namespace MochaDB.Mochaq {
     /// <param name="database">MochaDatabase object to use querying.</param>
     /// <param name="mochaQ">MochaQuery to use.</param>
     public MochaQuery(MochaDatabase database,string mochaQ)
-        : this(database) {
-      MochaQ = mochaQ;
-    }
+      : this(database) => MochaQ = mochaQ;
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaQuery value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
+
+    #region Members
 
     #region ExecuteCommand
 
@@ -95,7 +99,7 @@ namespace MochaDB.Mochaq {
         throw new MochaException("This command is a not valid MochaQ command!");
     }
 
-    #endregion
+    #endregion ExecuteCommands
 
     #region Dynamic
 
@@ -157,7 +161,7 @@ namespace MochaDB.Mochaq {
       } catch { return null; }
     }
 
-    #endregion
+    #endregion Dynamic
 
     #region Run
 
@@ -315,7 +319,7 @@ namespace MochaDB.Mochaq {
       }
     }
 
-    #endregion
+    #endregion Run
 
     #region GetRun
 
@@ -438,9 +442,11 @@ namespace MochaDB.Mochaq {
         throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
     }
 
-    #endregion
+    #endregion GetRun
 
-    #region Private Methods
+    #endregion Members
+
+    #region Private Members
 
     /// <summary>
     /// Return column count of table.
@@ -484,18 +490,17 @@ namespace MochaDB.Mochaq {
       return firstColumn == null ? null : firstColumn.Name.LocalName;
     }
 
-    #endregion
+    #endregion Private Members
 
     #region Overrides
 
     /// <summary>
     /// Returns command property value of <see cref="MochaQ"/>.
     /// </summary>
-    public override string ToString() {
-      return MochaQ.Command;
-    }
+    public override string ToString() =>
+      MochaQ.Command;
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -508,8 +513,7 @@ namespace MochaDB.Mochaq {
     /// MochaDatabase object to use querying.
     /// </summary>
     public MochaDatabase Database {
-      get =>
-          database;
+      get => database;
       set {
         if(IsDatabaseEmbedded)
           throw new MochaException("This is embedded in database, can not set database!");
@@ -529,6 +533,6 @@ namespace MochaDB.Mochaq {
     /// </summary>
     public MochaQCommand MochaQ { get; set; }
 
-    #endregion
+    #endregion Properties
   }
 }

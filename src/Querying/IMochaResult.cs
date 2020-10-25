@@ -7,7 +7,7 @@
 
     bool IsCollectionResult { get; }
 
-    #endregion
+    #endregion Properties
   }
 
   /// <summary>
@@ -15,17 +15,17 @@
   /// </summary>
   /// <typeparam name="T">Value type.</typeparam>
   public interface IMochaResult<T>:IMochaResult {
-    #region Methods
+    #region Members
 
     object GetObject();
     int GetHash();
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
     T Value { get; }
 
-    #endregion
+    #endregion Properties
   }
 }

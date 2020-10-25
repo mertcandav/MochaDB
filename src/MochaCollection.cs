@@ -14,7 +14,7 @@ namespace MochaDB {
 
     internal protected List<T> collection;
 
-    #endregion
+    #endregion Fields
 
     #region Events
 
@@ -27,9 +27,9 @@ namespace MochaDB {
       Changed?.Invoke(sender,e);
     }
 
-    #endregion
+    #endregion Events
 
-    #region Abstact Methods
+    #region Abstract Members
 
     /// <summary>
     /// Remove all items.
@@ -70,25 +70,23 @@ namespace MochaDB {
     /// </summary>
     public abstract T GetLast();
 
-    #endregion
+    #endregion Abstract Members
 
-    #region Virtual Methods
+    #region Virtual Members
 
     /// <summary>
     /// Return index if index is find but return -1 if index is not find.
     /// </summary>
     /// <param name="item">Item to find index.</param>
-    public virtual int IndexOf(T item) {
-      return collection.IndexOf(item);
-    }
+    public virtual int IndexOf(T item) =>
+      collection.IndexOf(item);
 
     /// <summary>
     /// Return true if item is exists but return false if item not exists.
     /// </summary>
     /// <param name="item">Item to exists check.</param>
-    public virtual bool Contains(T item) {
-      return collection.Contains(item);
-    }
+    public virtual bool Contains(T item) =>
+      collection.Contains(item);
 
     /// <summary>
     /// Return max index of item count.
@@ -138,13 +136,12 @@ namespace MochaDB {
     /// </summary>
     /// <param name="array">Destination array.</param>
     /// <param name="arrayIndex">Index to start copying.</param>
-    public virtual void CopyTo(T[] array,int arrayIndex) {
+    public virtual void CopyTo(T[] array,int arrayIndex) =>
       collection.CopyTo(array,arrayIndex);
-    }
 
-    #endregion
+    #endregion Virtual Members
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns enumerator.
@@ -162,7 +159,7 @@ namespace MochaDB {
       return state;
     }
 
-    #endregion
+    #endregion Members
 
     #region Properties
 
@@ -185,6 +182,6 @@ namespace MochaDB {
     public virtual bool IsReadOnly =>
         false;
 
-    #endregion
+    #endregion Properties
   }
 }

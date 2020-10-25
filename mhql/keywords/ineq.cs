@@ -43,6 +43,6 @@ namespace MochaDB.mhql.keywords {
       return row.Datas[0].Data == result.Columns[0].Datas[0].Data;
     }
 
-    #endregion
+    #endregion Members
   }
 }

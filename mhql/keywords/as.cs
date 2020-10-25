@@ -14,10 +14,8 @@ namespace MochaDB.mhql.keywords {
       var dex = command.IndexOf(" AS ",StringComparison.OrdinalIgnoreCase);
       if(dex==-1)
         return command;
-
-      var name = command.Substring(dex+3).Trim();
-      command = command.Substring(0,dex).Trim();
-      return name;
+      return
+        command.Substring(dex+3).TrimStart().Substring(0,dex).Trim();
     }
   }
 }

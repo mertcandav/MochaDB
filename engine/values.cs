@@ -8,11 +8,8 @@ namespace MochaDB.engine {
     /// <summary>
     /// Returns true if pass but returns false if not.
     /// </summary>
-    public static bool PasswordCheck(string value) {
-      var pattern = new Regex(
-".*(;|=).*");
-      return !pattern.IsMatch(value);
-    }
+    public static bool PasswordCheck(string value) =>
+      !new Regex(".*(;|=).*").IsMatch(value);
 
     /// <summary>
     /// Check name and give exception if not pass.
@@ -26,11 +23,8 @@ namespace MochaDB.engine {
     /// <summary>
     /// Returns true if pass but returns false if not.
     /// </summary>
-    public static bool AttributeCheck(string value) {
-      var pattern = new Regex(
-".*(;|:).*");
-      return !pattern.IsMatch(value);
-    }
+    public static bool AttributeCheck(string value) =>
+      !new Regex(".*(;|:).*").IsMatch(value);
 
     /// <summary>
     /// Check name and give exception if not pass.

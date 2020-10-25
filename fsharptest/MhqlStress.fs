@@ -27,13 +27,11 @@ let StartMhqlTableGetStress(db: MochaDatabase) =
             0(Mertcan|Emirhan)
                 AND
                     1()
-                    END
         ORDERBY
             DESC
                 3
         GROUPBY
                                  0
-        RETURN
         ")
         let readed = reader.Read()
         timing.Stop()
@@ -68,13 +66,11 @@ let StartMhqlTableGetStressWithTick(db: MochaDatabase, tick: int) =
             0(Mertcan|Emirhan)
                 AND
                     1()
-                    END
         ORDERBY
             DESC
                 3
         GROUPBY
                                 0
-        RETURN
         ")
         let readed = reader.Read()
         timing.Stop()

@@ -10,11 +10,10 @@
     /// Create new MochaResult.
     /// </summary>
     /// <param name="value">Result value.</param>
-    public MochaResult(T value) {
+    public MochaResult(T value) =>
       Value=value;
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -24,9 +23,9 @@
     public static implicit operator T(MochaResult<T> value) =>
         value.Value;
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns value as object.
@@ -48,7 +47,7 @@
 
     #endregion
 
-    #region Override
+    #region Overrides
 
     /// <summary>
     /// Returns result of <see cref="GetString()"/>.
@@ -56,7 +55,7 @@
     public override string ToString() =>
         GetString();
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -71,6 +70,6 @@
     public bool IsCollectionResult =>
         false;
 
-    #endregion
+    #endregion Properties
   }
 }

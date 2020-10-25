@@ -9,11 +9,10 @@ namespace MochaDB.engine {
     /// <summary>
     /// Returns true if pass but returns false if not.
     /// </summary>
-    public static bool Check(string value) {
-      var pattern = new Regex(
-"^()$|.*( |\\n|\\r|\\$|#|\\-|<|>|\\?|\\*|\\\\|\\{|\\}|\\[|\\]|\\(|\\)|\\&|`|´|=|%|\\+|'|\"|\\^|!|/|\\.|;|¨|~|:|₺|€|\\||£).*");
-      return !pattern.IsMatch(value) && !Mhql_GRAMMAR.FullRegex.IsMatch(value);
-    }
+    public static bool Check(string value) =>
+      !new Regex(
+"^()$|.*( |\\n|\\r|\\$|#|\\-|<|>|\\?|\\*|\\\\|\\{|\\}|\\[|\\]|\\(|\\)|\\&|`|´|=|%|\\+|'|\"|\\^|!|/|\\.|;|¨|~|:|₺|€|\\||£).*").
+      IsMatch(value) && !Mhql_GRAMMAR.FullRegex.IsMatch(value);
 
     /// <summary>
     /// Check name and give exception if not pass.
@@ -27,11 +26,10 @@ namespace MochaDB.engine {
     /// <summary>
     /// Returns true if pass but returns false if not.
     /// </summary>
-    public static bool AttributeCheck(string value) {
-      var pattern = new Regex(
-"^()$|.*(\\n|\\r|\\$|#|\\-|<|>|\\?|\\*|\\\\|\\{|\\}|\\[|\\]|\\(|\\)|\\&|`|´|=|%|\\+|'|\"|\\^|!|/|\\.|;|¨|~|:|₺|€|\\||£).*");
-      return !pattern.IsMatch(value);
-    }
+    public static bool AttributeCheck(string value) =>
+      !new Regex(
+"^()$|.*(\\n|\\r|\\$|#|\\-|<|>|\\?|\\*|\\\\|\\{|\\}|\\[|\\]|\\(|\\)|\\&|`|´|=|%|\\+|'|\"|\\^|!|/|\\.|;|¨|~|:|₺|€|\\||£).*").
+      IsMatch(value);
 
     /// <summary>
     /// Check name and give exception if not pass.

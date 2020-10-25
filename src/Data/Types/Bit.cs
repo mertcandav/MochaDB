@@ -9,7 +9,7 @@ namespace MochaDB.Data.Types {
 
     private char value;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -17,11 +17,10 @@ namespace MochaDB.Data.Types {
     /// Constructor.
     /// </summary>
     /// <param name="value">Value.</param>
-    public Bit(bool value) {
+    public Bit(bool value) =>
       this.value = value ? '1' : '0';
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -91,9 +90,9 @@ namespace MochaDB.Data.Types {
     public static implicit operator ushort(Bit value) =>
         value.value == '1' ? (ushort)1 : (ushort)0;
 
-    #endregion
+    #endregion Operators
 
-    #region Static
+    #region Static Members
 
     /// <summary>
     /// Returns bit from value.
@@ -169,17 +168,16 @@ namespace MochaDB.Data.Types {
       }
     }
 
-    #endregion
+    #endregion Static Members
 
     #region Overrides
 
     /// <summary>
     /// Returns value as string.
     /// </summary>
-    public override string ToString() {
-      return value.ToString();
-    }
+    public override string ToString() =>
+      value.ToString();
 
-    #endregion
+    #endregion Overrides
   }
 }

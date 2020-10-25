@@ -12,13 +12,12 @@ namespace MochaDB {
     /// <summary>
     /// Create new MochaDataCollection.
     /// </summary>
-    public MochaDataCollection() {
+    public MochaDataCollection() =>
       collection=new List<MochaData>();
-    }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     public override void Clear() {
       if(collection.Count==0)
@@ -69,6 +68,6 @@ namespace MochaDB {
     public override MochaData GetLast() =>
         IsEmptyCollection() ? null : this[MaxIndex()];
 
-    #endregion
+    #endregion Members
   }
 }

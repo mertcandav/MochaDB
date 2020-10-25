@@ -17,9 +17,9 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if command is DELCOL command, returns if not.
@@ -76,6 +76,6 @@ namespace MochaDB.mhql.keywords {
       table.SetRowsByDatas();
     }
 
-    #endregion
+    #endregion Members
   }
 }

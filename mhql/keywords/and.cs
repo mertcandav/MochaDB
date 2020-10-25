@@ -50,7 +50,6 @@ namespace MochaDB.mhql.keywords {
             throw new MochaException("Error in char/string declaration!");
           continue;
         }
-
         value.Append(currentChar);
       }
       parts.Add(value.ToString().Trim());

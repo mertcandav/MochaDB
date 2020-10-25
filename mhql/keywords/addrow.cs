@@ -18,7 +18,7 @@ namespace MochaDB.mhql.keywords {
       Tdb = db;
     }
 
-    #endregion
+    #endregion Constructors
 
     #region Members
 
@@ -73,6 +73,6 @@ namespace MochaDB.mhql.keywords {
       table.Rows = rows.ToArray();
     }
 
-    #endregion
+    #endregion Members
   }
 }

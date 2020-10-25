@@ -9,7 +9,7 @@ namespace MochaDB {
 
     private string path;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -17,11 +17,10 @@ namespace MochaDB {
     /// Create a new MochaPath.
     /// </summary>
     /// <param name="path">Path.</param>
-    public MochaPath(string path) {
+    public MochaPath(string path) =>
       this.path=path;
-    }
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
@@ -31,9 +30,9 @@ namespace MochaDB {
     public static implicit operator string(MochaPath value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Go to the parent directory.
@@ -67,21 +66,19 @@ namespace MochaDB {
     public bool IsDatabasePath() =>
         Path.StartsWith("Root") ||
         Path.StartsWith("Tables") ||
-        Path.StartsWith("Sectors") ||
-        Path.StartsWith("Stacks");
+        Path.StartsWith("Logs");
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns <see cref="Path"/>.
     /// </summary>
-    public override string ToString() {
-      return Path;
-    }
+    public override string ToString() =>
+      Path;
 
-    #endregion
+    #endregion Overrides
 
     #region Static Properties
 
@@ -90,18 +87,6 @@ namespace MochaDB {
     /// </summary>
     public static MochaPath Root =>
         "Root";
-
-    /// <summary>
-    /// Sectors path.
-    /// </summary>
-    public static MochaPath Sectors =>
-        "Sectors";
-
-    /// <summary>
-    /// Stacks path.
-    /// </summary>
-    public static MochaPath Stacks =>
-        "Stacks";
 
     /// <summary>
     /// Tables path.
@@ -115,7 +100,7 @@ namespace MochaDB {
     public static MochaPath Logs =>
         "Logs";
 
-    #endregion
+    #endregion Static Properties
 
     #region Properties
 
@@ -123,8 +108,7 @@ namespace MochaDB {
     /// Path.
     /// </summary>
     public string Path {
-      get =>
-          path;
+      get => path;
       set {
         value=value.Trim();
         if(string.IsNullOrEmpty(value))
@@ -139,6 +123,6 @@ namespace MochaDB {
       }
     }
 
-    #endregion
+    #endregion Properties
   }
 }

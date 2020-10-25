@@ -11,7 +11,7 @@ namespace MochaDB.Streams {
 
     internal IEnumerable<T> array;
 
-    #endregion
+    #endregion Fields
 
     #region Constructors
 
@@ -36,16 +36,16 @@ namespace MochaDB.Streams {
     }
 
 
-    #endregion
+    #endregion Constructors
 
     #region Operators
 
     public static explicit operator string(MochaReader<T> value) =>
         value.ToString();
 
-    #endregion
+    #endregion Operators
 
-    #region Methods
+    #region Members
 
     /// <summary>
     /// Returns true if value is exists in next position but returns if not.
@@ -64,10 +64,8 @@ namespace MochaDB.Streams {
     /// <summary>
     /// Go to previous position.
     /// </summary>
-    public void GoBack() {
-      if(Position!=-1)
-        Position--;
-    }
+    public void GoBack() =>
+      Position = Position != -1 ? Position - 1 : Position;
 
     /// <summary>
     /// Go to first position.
@@ -81,18 +79,17 @@ namespace MochaDB.Streams {
     public void GoLast() =>
         Position=Count-2 < -1 ? -1 : Count-2;
 
-    #endregion
+    #endregion Members
 
     #region Overrides
 
     /// <summary>
     /// Returns converted to string result of <see cref="Value"/>.
     /// </summary>
-    public override string ToString() {
-      return Value.ToString();
-    }
+    public override string ToString() =>
+      Value.ToString();
 
-    #endregion
+    #endregion Overrides
 
     #region Properties
 
@@ -112,6 +109,6 @@ namespace MochaDB.Streams {
     public int Count =>
         array.Count();
 
-    #endregion
+    #endregion Properties
   }
 }
