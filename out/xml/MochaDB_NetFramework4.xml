@@ -2872,7 +2872,7 @@
             <summary>
             Decompose command ares by brackets.
             </summary>
-            <param name="">Command.</param>
+            <param name="command">Command.</param>
         </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.DecomposeBrackets(System.String)">
             <summary>

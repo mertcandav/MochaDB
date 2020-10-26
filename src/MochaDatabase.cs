@@ -396,7 +396,7 @@ namespace MochaDB {
 
       if(!File.Exists(Provider.Path)) {
         if(Provider.GetBoolAttributeState("AutoCreate"))
-          CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),"","");
+          CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),string.Empty,string.Empty);
         else
           throw new MochaException("There is no MochaDB database file in the specified path!");
       } else {
@@ -531,7 +531,7 @@ namespace MochaDB {
           xColumn.Add(new XElement("Data",column.Datas[index].Data));
 
         for(int index = column.Datas.Count; index < rowCount; index++)
-          xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,"")));
+          xColumn.Add(new XElement("Data",MochaData.TryGetData(column.DataType,string.Empty)));
       }
       Save();
     }

@@ -120,7 +120,7 @@ namespace MochaDB {
           if(currentColumn.Datas.Count < dataIndex + 1)
             datas[columnIndex] = new MochaData {
               dataType = currentColumn.DataType,
-              data = MochaData.TryGetData(currentColumn.DataType,"")
+              data = MochaData.TryGetData(currentColumn.DataType,string.Empty)
             };
           else
             datas[columnIndex] = currentColumn.Datas[dataIndex];

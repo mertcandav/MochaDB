@@ -9,7 +9,7 @@ namespace MochaDB.mhql.engine {
     /// <summary>
     /// Decompose command ares by brackets.
     /// </summary>
-    /// <param name="">Command.</param>
+    /// <param name="command">Command.</param>
     public static void DecomposeBrackets(ref string command) {
       if(command.FirstChar() == '(') {
         /*var dex = command.IndexOf('&');
