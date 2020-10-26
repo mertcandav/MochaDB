@@ -109,6 +109,11 @@ First the column index or name is given, then the order type. If the order type 
 ``USE Names, Salary FROM Persons ORDERBY Names, Salary DESC`` <br>
 ``USE Persons.Name, Persons.Age ORDERBY 1 ASC``
 
+- ```CORDERBY``` <br>
+Reports that there will be column sorting.<br>
+``USE * FROM Persons CORDERBY ASC``<br>
+``USE * FROM Persons CORDERBY DESC``
+
 - ```ASC``` <br>
 It can only be used next to the ``ORDERBY`` keyword. It means increasing order from small to large.<br>
 <b>Examples</b><br>
@@ -313,29 +318,25 @@ Checks for inequality. It is written between two values.<br>
 Check bigger then "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 > #18```<br>
-```USE ID, Name FROM Persons MUST ID > #1```<br>
-```USE ID, Name FROM Persons MUST ID > 1```
+```USE ID, Name FROM Persons MUST ID > #1```
 
 #### Lower</b> ( ``<`` )<br>
 Check lower then "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 < #18```<br>
-```USE ID, Name FROM Persons MUST ID < #1```<br>
-```USE ID, Name FROM Persons MUST ID < 1```
+```USE ID, Name FROM Persons MUST ID < #1```
 
 #### BiggerEq</b> ( ``>=`` )<br>
 Check bigger then or equal to "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 >= #18```<br>
-```USE ID, Name FROM Persons MUST ID >= #1```<br>
-```USE ID, Name FROM Persons MUST ID >= 1```
+```USE ID, Name FROM Persons MUST ID >= #1```
 
 #### LowerEq</b> ( ``<=`` )<br>
 Check lower then or equal to "x". Cannot be used on string values. It is written between two values.<br>
 <b>Examples</b><br>
 ```USE Persons.Name,Persons.Age MUST 1 <= #18```<br>
-```USE ID, Name FROM Persons MUST ID <= #1```<br>
-```USE ID, Name FROM Persons MUST ID <= 1```
+```USE ID, Name FROM Persons MUST ID <= #1```
 
 # 
 
