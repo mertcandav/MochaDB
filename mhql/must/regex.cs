@@ -20,10 +20,7 @@ namespace MochaDB.mhql.must {
     /// </summary>
     /// <param name="pattern">Regex pattern.</param>
     /// <param name="value">Value.</param>
-    public static bool Match(string pattern,string value) {
-      var regex = new Regex(pattern);
-      var result = regex.IsMatch(value);
-      return result;
-    }
+    public static bool Match(string pattern,string value) =>
+      new Regex(pattern).IsMatch(value);
   }
 }

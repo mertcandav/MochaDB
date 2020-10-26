@@ -27,14 +27,10 @@ namespace MochaDB.mhql.keywords {
               index+=2;
               continue;
             }
-        } else if(currentChar == Mhql_LEXER.LPARANT)
-          count++;
-        else if(currentChar == Mhql_LEXER.RPARANT)
-          count--;
-        else if(currentChar == Mhql_LEXER.LBRACE)
-          count++;
-        else if(currentChar == Mhql_LEXER.RBRACE)
-          count--;
+        } else if(currentChar == Mhql_LEXER.LPARANT) count++;
+        else if(currentChar == Mhql_LEXER.RPARANT) count--;
+        else if(currentChar == Mhql_LEXER.LBRACE) count++;
+        else if(currentChar == Mhql_LEXER.RBRACE) count--;
         else if(currentChar == '\'' || currentChar == '"') {
           ++index;
           value.Append(currentChar);

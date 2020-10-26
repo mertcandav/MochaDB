@@ -26,8 +26,7 @@ namespace MochaDB.mhql {
 
       var atcommand = command.Substring(0,finaldex).Trim();
       final = command.Substring(finaldex).Trim();
-      return
-          atcommand;
+      return atcommand;
     }
 
     /// <summary>
