@@ -46,6 +46,27 @@
 Manage with a powerful management system! Only Windows.
 [![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
 
+## Work with MHQL
+```java
+USE {
+  USE Id, Name, Password
+  FROM Persons MUST
+  Name == "mertcandav"
+}, {
+  USE $Id, Name AS Company FROM Companies
+  MUST IN Id {
+    USE CompanyId, $Name
+    FROM Persons MUST
+    Name == "mertcandav"
+  }
+}
+MUST
+  3 == "Microsoft"
+CORDERBY ASC
+ORDERBY Name
+SUBROW 100
+```
+
 ## Example use
 ```csharp
 MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
