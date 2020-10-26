@@ -58,14 +58,13 @@ namespace MochaDB.mhql.keywords {
     /// <param name="from">Use state FROM keyword.</param>
     public void OrderBy(string command,ref MochaTableResult table,bool from) {
       MHQLOrderType DecomposeOrder(string cmd,ref MochaTableResult tbl,out int coldex) {
-        IEnumerable<string> orderparts = cmd.Trim().Split(' ').Where(x => x != "");
+        IEnumerable<string> orderparts = cmd.Trim().Split(' ').Where(x => x != string.Empty);
         if(orderparts.Count() > 2)
           throw new MochaException("A single ORDERBY parameter can consist of up to 2 parts!");
         coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts.First().Trim(),tbl.Columns,from);
 
-        if(orderparts.Count() == 1) {
+        if(orderparts.Count() == 1)
           return 0;
-        }
 
         string order = orderparts.Last().Trim();
         return order == string.Empty ||
@@ -75,9 +74,8 @@ namespace MochaDB.mhql.keywords {
                     MHQLOrderType.DESC :
                     throw new MochaException("ORDERBY could not understand this '" + order + "' sort type!");
       }
-
       command = command.Trim();
-      string[] parts = command.Split(',');
+      string[] parts = Mhql_LEXER.SplitParameters(command);
       int columndex;
 
       IOrderedEnumerable<MochaRow> rows =
