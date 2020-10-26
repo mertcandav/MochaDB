@@ -189,6 +189,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{1E
 		mhql\keywords\addrow.cs = mhql\keywords\addrow.cs
 		mhql\keywords\and.cs = mhql\keywords\and.cs
 		mhql\keywords\as.cs = mhql\keywords\as.cs
+		mhql\keywords\corderby.cs = mhql\keywords\corderby.cs
 		mhql\keywords\delcol.cs = mhql\keywords\delcol.cs
 		mhql\keywords\delrow.cs = mhql\keywords\delrow.cs
 		mhql\keywords\from.cs = mhql\keywords\from.cs

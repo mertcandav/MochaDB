@@ -101,7 +101,7 @@ namespace MochaDB.mhql {
     /// Main keywords.
     /// </summary>
     public static string MainKeywords =>
-        "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW";
+        "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW|CORDERBY";
 
     /// <summary>
     /// All words.

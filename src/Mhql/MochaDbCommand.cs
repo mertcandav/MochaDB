@@ -26,6 +26,7 @@ namespace MochaDB.Mhql {
     internal Mhql_DELCOL DELCOL;
     internal Mhql_DELROW DELROW;
     internal Mhql_ADDROW ADDROW;
+    internal Mhql_CORDERBY CORDERBY;
 
     #endregion Fields
 
@@ -48,10 +49,11 @@ namespace MochaDB.Mhql {
       DELROW = new Mhql_DELROW(Database);
       DELCOL = new Mhql_DELCOL(Database);
       ADDROW = new Mhql_ADDROW(Database);
+      CORDERBY = new Mhql_CORDERBY(Database);
       keywords = new MhqlKeyword[] {
                 USE, SELECT, REMOVE, ORDERBY, GROUPBY,
                 MUST, SUBROW, SUBCOL, DELROW, DELCOL,
-                ADDROW
+                ADDROW, CORDERBY
             };
 
       Database=db;
@@ -157,6 +159,8 @@ namespace MochaDB.Mhql {
             DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
           else if(ADDROW.IsADDROW(lastcommand)) //Addrow
             ADDROW.Addrow(ADDROW.GetADDROW(lastcommand,out lastcommand),ref table);
+          else if(CORDERBY.IsCORDERBY(lastcommand)) // Corderby
+            CORDERBY.COrderBy(CORDERBY.GetCORDERBY(lastcommand,out lastcommand),ref table);
           else if(lastcommand == string.Empty) { //Return.
             IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
             if(cols.Count() != table.Columns.Length) {

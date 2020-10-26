@@ -3220,6 +3220,38 @@
             <param name="command">Command</param>
             <param name="final">As removed command.</param>
         </member>
+        <member name="T:MochaDB.mhql.keywords.Mhql_CORDERBY">
+            <summary>
+            MHQL CORDERBY keyword.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.keywords.Mhql_CORDERBY.#ctor(MochaDB.MochaDatabase)">
+            <summary>
+            Create a new Mhql_CORDERBY.
+            </summary>
+            <param name="db">Target database.</param>
+        </member>
+        <member name="M:MochaDB.mhql.keywords.Mhql_CORDERBY.IsCORDERBY(System.String)">
+            <summary>
+            Returns true if command is CORDERBY command, returns if not.
+            </summary>
+            <param name="command">Command to check.</param>
+        </member>
+        <member name="M:MochaDB.mhql.keywords.Mhql_CORDERBY.GetCORDERBY(System.String,System.String@)">
+            <summary>
+            Returns corderby command.
+            </summary>
+            <param name="command">MHQL Command.</param>
+            <param name="final">Command of removed corderby commands.</param>
+        </member>
+        <member name="M:MochaDB.mhql.keywords.Mhql_CORDERBY.COrderBy(System.String,MochaDB.Mhql.MochaTableResult@)">
+            <summary>
+            COrderby by command.
+            </summary>
+            <param name="command">COrderby command.</param>
+            <param name="table">Table to ordering.</param>
+            <param name="from">Use state FROM keyword.</param>
+        </member>
         <member name="T:MochaDB.mhql.keywords.Mhql_DELCOL">
             <summary>
             MHQL DELCOL keyword.
