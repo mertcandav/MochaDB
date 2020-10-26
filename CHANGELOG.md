@@ -5,6 +5,7 @@ CHANGELOGS of MochaDB.
 + Mandatory mark for functions removed from MHQL.
 + Add subquery support to MHQL.
 + Add ``FCon``function to MochaTable and MochaTableResult.
++ Add ``CORDERBY`` keyword to MHQL.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Add temp table support with ``$`` to MHQL.
 + Fix ``ContainsData`` function.
