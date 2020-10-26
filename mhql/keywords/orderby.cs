@@ -99,7 +99,7 @@ namespace MochaDB.mhql.keywords {
   /// <summary>
   /// Ordering types of MHQL.
   /// </summary>
-  public enum MHQLOrderType {
+  internal enum MHQLOrderType {
     /// <summary>
     /// Ascending.
     /// </summary>
