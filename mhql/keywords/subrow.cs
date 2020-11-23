@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql.keywords {
@@ -13,9 +14,8 @@ namespace MochaDB.mhql.keywords {
     /// Constructor.
     /// </summary>
     /// <param name="db">Target database.</param>
-    public Mhql_SUBROW(MochaDatabase db) {
+    public Mhql_SUBROW(MochaDatabase db) =>
       Tdb = db;
-    }
 
     #endregion Constructors
 
@@ -37,12 +37,11 @@ namespace MochaDB.mhql.keywords {
       int groupbydex = command.IndexOf("SUBROW",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
         throw new MochaException("SUBROW command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("SUBROW command is cannot processed!");
-      var groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
-
+      string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;
     }

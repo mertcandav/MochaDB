@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using MochaDB.Querying;
 
 namespace MochaDB.mhql {
@@ -24,16 +25,12 @@ namespace MochaDB.mhql {
           throw new MochaException("Column index or name is cannot processed!");
         return columndex;
       }
-
       value = value.Trim();
       if(!from)
         return returndex();
-
-      var result = columns.Where(x => x.Name == value);
-
+      IEnumerable<MochaColumn> result = columns.Where(x => x.Name == value);
       if(result.Count() == 0)
         return returndex();
-
       return Array.IndexOf(columns,result.First());
     }
 
@@ -50,16 +47,12 @@ namespace MochaDB.mhql {
           throw new MochaException("Column index or name is cannot processed!");
         return columndex;
       }
-
       value = value.Trim();
       if(!from)
         return returndex();
-
-      var result = cols.Where(x => x.Name == value);
-
+      IEnumerable<MochaColumn> result = cols.Where(x => x.Name == value);
       if(result.Count() == 0)
         return returndex();
-
       return cols.IndexOf(result.First());
     }
 
@@ -71,37 +64,37 @@ namespace MochaDB.mhql {
     /// Functions of must.
     /// </summary>
     public static string[] MustFunctions =>
-        new[] {
-                "BETWEEN",
-                "BIGGER",
-                "LOWER",
-                "EQUAL",
-                "NOTEQUAL",
-                "STARTW",
-                "ENDW",
-                "CONTAINS",
-                "NOTCONTAINS",
-                "NOTSTARTW",
-                "NOTENDW"
-        };
+      new[] {
+        "BETWEEN",
+        "BIGGER",
+        "LOWER",
+        "EQUAL",
+        "NOTEQUAL",
+        "STARTW",
+        "ENDW",
+        "CONTAINS",
+        "NOTCONTAINS",
+        "NOTSTARTW",
+        "NOTENDW"
+      };
 
     /// <summary>
     /// Functions of use.
     /// </summary>
     public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
-        new Dictionary<string,string>() {
-                { "COUNT(\\s*)\\((\\s*)\\)", "COUNT" },
-                { "SUM(\\s*)\\((\\s*).*(\\s*)\\)", "SUM" },
-                { "MAX(\\s*)\\((\\s*).*(\\s*)\\)", "MAX" },
-                { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" },
-                { "AVG(\\s*)\\((\\s*).*(\\s*)\\)", "AVG" }
-        };
+      new Dictionary<string,string>() {
+        { "COUNT(\\s*)\\((\\s*)\\)", "COUNT" },
+        { "SUM(\\s*)\\((\\s*).*(\\s*)\\)", "SUM" },
+        { "MAX(\\s*)\\((\\s*).*(\\s*)\\)", "MAX" },
+        { "MIN(\\s*)\\((\\s*).*(\\s*)\\)", "MIN" },
+        { "AVG(\\s*)\\((\\s*).*(\\s*)\\)", "AVG" }
+      };
 
     /// <summary>
     /// Main keywords.
     /// </summary>
     public static string MainKeywords =>
-        "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW|CORDERBY";
+      "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW|CORDERBY";
 
     /// <summary>
     /// All words.

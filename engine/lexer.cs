@@ -16,8 +16,7 @@ namespace MochaDB.engine {
     /// <summary>
     /// Version of MochaDB.
     /// </summary>
-    public static string __VERSION__ =>
-        "3.4.8";
+    public static string __VERSION__ => "3.4.8";
 
     /// <summary>
     /// The most basic content of the database.

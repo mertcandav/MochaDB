@@ -12,10 +12,9 @@ namespace MochaDB.framework {
     /// </summary>
     /// <param name="array">Source array.</param>
     public static Dictionary<string,string> FromArray(string[,] array) {
-      var dict = new Dictionary<string,string>();
-      for(int index = 0; index < array.Length; index++) {
+      Dictionary<string,string> dict = new Dictionary<string,string>();
+      for(int index = 0; index < array.Length; ++index)
         dict.Add(array[index,0],array[index,1]);
-      }
       return dict;
     }
 
@@ -27,14 +26,13 @@ namespace MochaDB.framework {
     /// <param name="dict">Dictionary to find.</param>
     /// <param name="key">Key.</param>
     public static bool MatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
-      for(int index = 0; index < dict.Keys.Count; index++) {
+      for(int index = 0; index < dict.Keys.Count; ++index)
         if(
             new Regex(dict.Keys.ElementAt(index).ToString(),
             RegexOptions.IgnoreCase |
             RegexOptions.CultureInvariant).IsMatch(key)
             )
           return true;
-      }
       return false;
     }
 
@@ -46,14 +44,13 @@ namespace MochaDB.framework {
     /// <param name="dict">Dictionary to find.</param>
     /// <param name="key">Key.</param>
     public static object GetValueByMatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
-      for(int index = 0; index < dict.Keys.Count; index++) {
+      for(int index = 0; index < dict.Keys.Count; ++index)
         if(
             new Regex(dict.Keys.ElementAt(index).ToString(),
             RegexOptions.IgnoreCase |
             RegexOptions.CultureInvariant).IsMatch(key)
             )
           return dict.Values.ElementAt(index);
-      }
       return null;
     }
 

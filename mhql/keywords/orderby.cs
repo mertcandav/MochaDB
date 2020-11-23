@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
@@ -40,12 +41,11 @@ namespace MochaDB.mhql.keywords {
       int orderbydex = command.IndexOf("ORDERBY",StringComparison.OrdinalIgnoreCase);
       if(orderbydex==-1)
         throw new MochaException("ORDERBY command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("ORDERBY command is cannot processed!");
-      var orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
-
+      string orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
       final = command.Substring(finaldex);
       return orderbycommand;
     }
@@ -82,7 +82,7 @@ namespace MochaDB.mhql.keywords {
           DecomposeOrder(parts[0],ref table,out columndex) == 0 ?
               table.Rows.OrderBy(x => x.Datas[columndex].ToString(),new ORDERBYComparer()) :
               table.Rows.OrderByDescending(x => x.Datas[columndex].ToString(),new ORDERBYComparer());
-      for(int index = 1; index < parts.Length; index++) {
+      for(int index = 1; index < parts.Length; ++index) {
         int coldex;
         rows =
             DecomposeOrder(parts[index],ref table,out coldex) == 0 ?

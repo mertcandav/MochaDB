@@ -41,7 +41,7 @@ namespace MochaDB {
     internal static string Flat() {
       Random rnd = new Random();
       string value = string.Empty;
-      for(int counter = 1; counter <= 10; counter++)
+      for(int counter = 1; counter <= 10; ++counter)
         value += (char)rnd.Next('a','z');
       return value;
     }
@@ -52,7 +52,7 @@ namespace MochaDB {
     internal static string Bit() {
       Random rnd = new Random();
       string value = string.Empty;
-      for(int counter = 0; counter <= 9; counter++)
+      for(int counter = 0; counter <= 9; ++counter)
         value += rnd.Next(0,9);
       return value;
     }
@@ -68,7 +68,7 @@ namespace MochaDB {
           bit = Bit(),
           value = string.Empty;
 
-      for(int counter = 1; counter <= 10; counter++)
+      for(int counter = 1; counter <= 10; ++counter)
         value += counter%2==1 ? flat[rnd.Next(0,9)] : bit[rnd.Next(0,9)];
       return value;
     }
@@ -79,7 +79,7 @@ namespace MochaDB {
     internal static string Hexabitx() {
       Random rnd = new Random();
       string value = string.Empty;
-      for(int counter = 1; counter <= 20; counter++) {
+      for(int counter = 1; counter <= 20; ++counter) {
         int dex = rnd.Next(0,2);
         value +=
             dex == 0 ? ((char)rnd.Next('a','z')) :
@@ -94,7 +94,7 @@ namespace MochaDB {
     internal static string Hash(int rate) {
       Random rnd = new Random();
       string value = string.Empty;
-      for(int counter = 1; counter <= rate; counter++)
+      for(int counter = 1; counter <= rate; ++counter)
         value += $"{rnd.Next(0,9).GetHashCode()}";
       return value;
     }

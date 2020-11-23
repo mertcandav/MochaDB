@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.Connection;
 using MochaDB.mhql.keywords;
 using MochaDB.Streams;
@@ -55,7 +56,6 @@ namespace MochaDB.Mhql {
                 MUST, SUBROW, SUBCOL, DELROW, DELCOL,
                 ADDROW, CORDERBY
             };
-
       Database=db;
       Command=string.Empty;
     }
@@ -112,7 +112,7 @@ namespace MochaDB.Mhql {
     /// Returns first result or null.
     /// </summary>
     public object ExecuteScalar() {
-      var reader = ExecuteReader();
+      MochaReader<object> reader = ExecuteReader();
       if(reader.Read())
         return reader.Value;
       return null;
@@ -132,15 +132,15 @@ namespace MochaDB.Mhql {
     /// </summary>
     public MochaReader<object> ExecuteReader() {
       CheckConnection();
-      var reader = new MochaReader<object>();
+      MochaReader<object> reader = new MochaReader<object>();
 
       bool fromkw;
       string lastcommand;
 
       if(Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-        var use = USE.GetUSE(out lastcommand);
+        string use = USE.GetUSE(out lastcommand);
         fromkw = Mhql_FROM.IsFROM(use);
-        var table = USE.GetTable(use,fromkw);
+        MochaTableResult table = USE.GetTable(use,fromkw);
 
         do {
           if(ORDERBY.IsORDERBY(lastcommand)) //Orderby
@@ -176,7 +176,7 @@ namespace MochaDB.Mhql {
         fromkw = Mhql_FROM.IsFROM(command);
         if(fromkw)
           throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
-        var select = SELECT.GetSELECT(out lastcommand);
+        string select = SELECT.GetSELECT(out lastcommand);
         if(!string.IsNullOrWhiteSpace(lastcommand))
           throw new MochaException($"'{lastcommand}' command is cannot processed!");
         reader.array = SELECT.GetTables(select);
@@ -208,7 +208,7 @@ namespace MochaDB.Mhql {
           return;
 
         command = value.Trim();
-        for(int index = 0; index < keywords.Length; index++)
+        for(int index = 0; index < keywords.Length; ++index)
           keywords[index].Command = command;
       }
     }
@@ -225,7 +225,7 @@ namespace MochaDB.Mhql {
           return;
 
         db = value;
-        for(int index = 0; index < keywords.Length; index++)
+        for(int index = 0; index < keywords.Length; ++index)
           keywords[index].Tdb = value;
       }
     }

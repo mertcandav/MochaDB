@@ -33,14 +33,12 @@ namespace MochaDB {
     /// <param name="datas">Datas of row.</param>
     public MochaRow(params object[] datas) :
         this() {
-      for(int dex = 0; dex < datas.Length; dex++) {
-        var data = datas[dex];
+      for(int dex = 0; dex < datas.Length; ++dex) {
+        object data = datas[dex];
         Datas.collection.Add(
             new MochaData() {
-              dataType =
-                    MochaData.GetDataTypeFromType(data.GetType()),
-              data =
-                    data
+              dataType = MochaData.GetDataTypeFromType(data.GetType()),
+              data = data
             });
       }
     }

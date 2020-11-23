@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
@@ -44,7 +45,7 @@ namespace MochaDB.mhql.keywords {
       index = index == -1 ? command.IndexOf(Mhql_LEXER.RBRACE) : index;
       index = index == -1 ? 0 : index;
       int count = index == 0 ? 0 : 1;
-      for(; index < command.Length; index++) {
+      for(; index < command.Length; ++index) {
         char currentChar = command[index];
         if(count == 0) {
           Match match = pattern.Match(command.Substring(index));
@@ -53,9 +54,9 @@ namespace MochaDB.mhql.keywords {
             return command.Substring(0,match.Index).Trim();
           }
         } else if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
-          count++;
+          ++count;
         else if(currentChar == Mhql_LEXER.RPARANT || currentChar == Mhql_LEXER.RBRACE)
-          count--;
+          --count;
       }
       final = string.Empty;
       return command;
@@ -69,13 +70,13 @@ namespace MochaDB.mhql.keywords {
     /// <param name="from">Use state FROM keyword.</param>
     public void MustTable(string command,ref MochaTableResult table,bool from) {
       command = command.Trim();
-      var parts = Mhql_AND.GetParts(command);
-      for(int index = 0; index < parts.Count; index++) {
-        var partcmd = parts[index];
+      List<string> parts = Mhql_AND.GetParts(command);
+      for(int index = 0; index < parts.Count; ++index) {
+        string partcmd = parts[index];
         MhqlEng_MUST.ProcessPart(ref partcmd,table,from);
-        var rows = new List<MochaRow>();
-        for(int dex = 0; dex < table.Rows.Length; dex++) {
-          var row = table.Rows[dex];
+        List<MochaRow> rows = new List<MochaRow>();
+        for(int dex = 0; dex < table.Rows.Length; ++dex) {
+          MochaRow row = table.Rows[dex];
           if(MhqlEng_MUST.IsPassTable(Tdb,ref partcmd,table,row,@from))
             rows.Add(row);
         }

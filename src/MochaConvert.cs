@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+
 using MochaDB.Mhql;
 
 namespace MochaDB {
@@ -167,20 +168,20 @@ namespace MochaDB {
     /// <param name="table">Table to convert.</param>
     public static XmlReader ToXmlTable(MochaTable table) {
       if(table.Columns.Count == 0) {
-        var val =
+        string val =
 $@"<Root>
     <{table.Name}></{table.Name}>
 </Root>";
         return XmlReader.Create(new StringReader(val));
       }
 
-      var doc = XDocument.Parse(
+      XDocument doc = XDocument.Parse(
 @"<Root>
 </Root>");
-      for(int dex = 0; dex < table.Rows.Count; dex++) {
+      for(int dex = 0; dex < table.Rows.Count; ++dex) {
         XElement row = new XElement(table.Name);
-        for(int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++) {
-          var column = table.Columns[columnIndex];
+        for(int columnIndex = 0; columnIndex < table.Columns.Count; ++columnIndex) {
+          MochaColumn column = table.Columns[columnIndex];
           XElement value = new XElement(column.Name);
           value.Value = column.Datas[dex].Data.ToString();
           row.Add(value);
@@ -197,20 +198,20 @@ $@"<Root>
     /// <param name="table">Table to convert.</param>
     public static XmlReader ToXmlTable(MochaTableResult table) {
       if(table.Columns.Length == 0) {
-        var val =
+        string val =
 $@"<Root>
     <Table></Table>
 </Root>";
         return XmlReader.Create(new StringReader(val));
       }
 
-      var doc = XDocument.Parse(
+      XDocument doc = XDocument.Parse(
 @"<Root>
 </Root>");
-      for(int dex = 0; dex < table.Rows.Length; dex++) {
+      for(int dex = 0; dex < table.Rows.Length; ++dex) {
         XElement row = new XElement("Table");
-        for(int columnIndex = 0; columnIndex < table.Columns.Length; columnIndex++) {
-          var column = table.Columns[columnIndex];
+        for(int columnIndex = 0; columnIndex < table.Columns.Length; ++columnIndex) {
+          MochaColumn column = table.Columns[columnIndex];
           XElement value = new XElement(column.Name);
           value.Value = column.Datas[dex].Data.ToString();
           row.Add(value);

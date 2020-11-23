@@ -1,4 +1,5 @@
 ﻿using System;
+
 using MochaDB.Data.Types;
 
 namespace MochaDB {
@@ -182,7 +183,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="value">Value.</param>
     public static MochaData Parse(object value) {
-      var type = GetDataTypeFromType(value.GetType());
+      MochaDataType type = GetDataTypeFromType(value.GetType());
       return new MochaData(
           type,
           GetDataFromString(type,value.ToString()));

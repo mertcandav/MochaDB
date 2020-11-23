@@ -22,13 +22,13 @@ namespace MochaDB.Mhql {
     /// </summary>
     internal void SetRowsByDatas() {
       if(Columns.Length > 0 && Columns[0].Datas.Count > 0) {
-        var firstcolumn = Columns[0];
+        MochaColumn firstcolumn = Columns[0];
         MochaRow[] rows = new MochaRow[firstcolumn.Datas.Count];
         //Process rows.
-        for(var dataindex = 0; dataindex < firstcolumn.Datas.Count; dataindex++) {
+        for(int dataindex = 0; dataindex < firstcolumn.Datas.Count; ++dataindex) {
           MochaData[] datas = new MochaData[Columns.Length];
-          for(var columnindex = 0; columnindex < Columns.Length; columnindex++) {
-            var column = Columns[columnindex];
+          for(int columnindex = 0; columnindex < Columns.Length; ++columnindex) {
+            MochaColumn column = Columns[columnindex];
             datas[columnindex] =
                 column.Datas.Count < dataindex+1 ?
                 new MochaData { data =string.Empty,dataType=MochaDataType.String } :
@@ -46,13 +46,12 @@ namespace MochaDB.Mhql {
     /// Set datas by row datas.
     /// </summary>
     internal void SetDatasByRows() {
-      for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+      for(int columnIndex = 0; columnIndex < Columns.Length; ++columnIndex)
         Columns[columnIndex].Datas.collection.Clear();
-      }
 
-      for(int rowIndex = 0; rowIndex < Rows.Length; rowIndex++) {
+      for(int rowIndex = 0; rowIndex < Rows.Length; ++rowIndex) {
         MochaRow currentRow = Rows[rowIndex];
-        for(int columnIndex = 0; columnIndex < Columns.Length; columnIndex++) {
+        for(int columnIndex = 0; columnIndex < Columns.Length; ++columnIndex) {
           MochaColumn currentColumn = Columns[columnIndex];
           if(columnIndex >= currentRow.Datas.Count) {
             currentRow.Datas.collection.Add(new MochaData() {

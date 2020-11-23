@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.engine {
@@ -32,9 +33,8 @@ namespace MochaDB.mhql.engine {
     /// <param name="value">Value to decompose.</param>
     public static string DecomposeBrackets(string value) {
       int dex;
-      if((dex = value.IndexOf('(')) != -1) {
+      if((dex = value.IndexOf('(')) != -1)
         return value.Substring(dex+1,value.Length-dex-2);
-      }
       return value;
     }
 
@@ -43,9 +43,9 @@ namespace MochaDB.mhql.engine {
     /// </summary>
     /// <param name="command">Command.</param>
     public static void RemoveComments(ref string command) {
-      var multiline = new Regex(@"/\*.*?\*/",RegexOptions.Singleline);
+      Regex multiline = new Regex(@"/\*.*?\*/",RegexOptions.Singleline);
       command = multiline.Replace(command,string.Empty);
-      var singleline = new Regex(@"//.*$",RegexOptions.Multiline);
+      Regex singleline = new Regex(@"//.*$",RegexOptions.Multiline);
       command = singleline.Replace(command,string.Empty);
       command = command.Trim();
     }

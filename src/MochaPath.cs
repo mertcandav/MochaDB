@@ -38,7 +38,7 @@ namespace MochaDB {
     /// Go to the parent directory.
     /// </summary>
     public void ParentDirectory() {
-      var dex = Path.LastIndexOf('/');
+      int dex = Path.LastIndexOf('/');
       Path=dex!=-1 ? Path.Substring(0,dex) : Path;
     }
 
@@ -46,8 +46,8 @@ namespace MochaDB {
     /// Return parent directory's MochaPath object.
     /// </summary>
     public MochaPath ParentPath() {
-      var dex = Path.LastIndexOf('/');
-      var path = dex!=-1 ? Path.Substring(0,dex) : Path;
+      int dex = Path.LastIndexOf('/');
+      string path = dex!=-1 ? Path.Substring(0,dex) : Path;
       return path;
     }
 
@@ -56,7 +56,7 @@ namespace MochaDB {
     /// </summary>
     /// <returns></returns>
     public string Name() {
-      var dex = Path.LastIndexOf('/');
+      int dex = Path.LastIndexOf('/');
       return dex!=-1 ? Path.Remove(0,dex+1) : Path;
     }
 

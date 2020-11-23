@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql.keywords {
@@ -13,9 +15,8 @@ namespace MochaDB.mhql.keywords {
     /// Constructor.
     /// </summary>
     /// <param name="db">Target database.</param>
-    public Mhql_DELROW(MochaDatabase db) {
+    public Mhql_DELROW(MochaDatabase db) =>
       Tdb = db;
-    }
 
     #endregion Constructors
 
@@ -37,12 +38,11 @@ namespace MochaDB.mhql.keywords {
       int groupbydex = command.IndexOf("DELROW",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
         throw new MochaException("DELROW command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("DELROW command is cannot processed!");
-      var groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
-
+      string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;
     }
@@ -70,7 +70,7 @@ namespace MochaDB.mhql.keywords {
           throw new MochaException("The parameter of the DELROW command was not a number!");
         if(start < 1 || count < 1)
           throw new MochaException("The parameters of the DELROW command cannot be less than 1!");
-        var deleted = table.Rows.Skip(start-1).Take(count);
+        IEnumerable<MochaRow> deleted = table.Rows.Skip(start-1).Take(count);
         table.Rows = table.Rows.Where(x => !deleted.Contains(x)).ToArray();
       }
     }

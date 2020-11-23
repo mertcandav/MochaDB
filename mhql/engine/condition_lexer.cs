@@ -9,14 +9,14 @@ namespace MochaDB.mhql.engine {
     /// Operators.
     /// </summary>
     public static Dictionary<string,string> __OPERATORS__ =>
-        new Dictionary<string,string> {
-                { "EQUAL", "==" },
-                { "NOTEQUAL", "!=" },
-                { "BIGGEREQ", ">=" },
-                { "BIGGER", ">" },
-                { "LOWEREQ", "<=" },
-                { "LOWER", "<" }
-        };
+      new Dictionary<string,string> {
+        { "EQUAL", "==" },
+        { "NOTEQUAL", "!=" },
+        { "BIGGEREQ", ">=" },
+        { "BIGGER", ">" },
+        { "LOWEREQ", "<=" },
+        { "LOWER", "<" }
+      };
   }
 
   /// <summary>

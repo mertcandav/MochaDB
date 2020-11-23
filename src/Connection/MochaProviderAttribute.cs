@@ -103,9 +103,8 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Returns result of <see cref="GetProviderString()"/>.
     /// </summary>
-    public override string ToString() {
-      return GetProviderString();
-    }
+    public override string ToString() =>
+      GetProviderString();
 
     #endregion Overrides
 
@@ -115,8 +114,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// Name.
     /// </summary>
     public string Name {
-      get =>
-          name;
+      get => name;
       set {
         if(string.IsNullOrWhiteSpace(value))
           throw new MochaException("Attribute name is can not empty or white space!");
@@ -134,8 +132,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// Value.
     /// </summary>
     public string Value {
-      get =>
-          value;
+      get => value;
       set {
         this.value=value;
         OnValueChanged(this,new EventArgs());

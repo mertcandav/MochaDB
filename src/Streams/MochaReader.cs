@@ -52,8 +52,7 @@ namespace MochaDB.Streams {
     /// </summary>
     public bool Read() {
       if(Position+1 < Count) {
-        Position++;
-        Value = array.ElementAt(Position);
+        Value = array.ElementAt(++Position);
         return true;
       }
 

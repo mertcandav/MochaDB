@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.mhql.keywords;
 using MochaDB.mhql.must;
 using MochaDB.mhql.must.functions;
@@ -19,23 +21,21 @@ namespace MochaDB.mhql.engine {
     /// <param name="from">Use state FROM keyword.</param>
     public static void ProcessPart(ref string value,MochaTableResult table,bool from) {
       if(!from) {
-        var _dex = value.IndexOf('(');
+        int _dex = value.IndexOf('(');
         if(_dex == -1)
           return;
-        var _val = value.Substring(0,_dex).Trim();
+        string _val = value.Substring(0,_dex).Trim();
         value = _val + value.Substring(_dex);
         return;
       }
 
-      var dex = value.IndexOf('(');
+      int dex = value.IndexOf('(');
       if(dex == -1)
         return;
-      var val = value.Substring(0,dex).Trim();
-      var result = table.Columns.Where(x => x.Name == val);
-
+      string val = value.Substring(0,dex).Trim();
+      IEnumerable<MochaColumn> result = table.Columns.Where(x => x.Name == val);
       if(result.Count() == 0)
         return;
-
       value = Array.IndexOf(table.Columns,result.First()) + value.Substring(dex);
     }
 
@@ -48,10 +48,10 @@ namespace MochaDB.mhql.engine {
       command = command.Trim();
       if(!char.IsNumber(command.FirstChar()))
         throw new MochaException("Column is not defined!");
-      var bracketdex = command.IndexOf('(');
+      int bracketdex = command.IndexOf('(');
       if(bracketdex == -1)
         throw new MochaException("Pattern is not defined!");
-      var dex = int.Parse(command.Substring(0,bracketdex));
+      int dex = int.Parse(command.Substring(0,bracketdex));
 
       if(dex < 0)
         throw new MochaException("Index is cannot lower than zero!");

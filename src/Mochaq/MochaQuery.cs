@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+
 using MochaDB.Logging;
 using MochaDB.Querying;
 
@@ -146,13 +147,9 @@ namespace MochaDB.Mochaq {
 
           if(parts[2] == "FROM") {
             string tableName = parts[3];
-
             MochaTable table = new MochaTable(tableName);
-
-            for(int index = 0; index < selectedColumns.Length; index++) {
+            for(int index = 0; index < selectedColumns.Length; ++index)
               table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
-            }
-
             return new MochaResult<MochaTable>(table);
           } else
             throw new MochaException("Table not specified!");
@@ -211,10 +208,8 @@ namespace MochaDB.Mochaq {
         } else if(queryPaths[0] == "RESETTABLES") {
           Database.OnChanging(this,new EventArgs());
           IEnumerable<XElement> tableRange = Database.CDoc.Root.Element("Tables").Elements();
-          for(int index = 0; index < tableRange.Count(); index++) {
+          for(int index = 0; index < tableRange.Count(); ++index)
             tableRange.ElementAt(index).Elements().Remove();
-          }
-
           Database.Save();
           return;
         } else if(queryPaths[0] == "CLEARTABLES") {
@@ -371,9 +366,8 @@ namespace MochaDB.Mochaq {
         } else if(queryPaths[0] == "GETDATAS") {
           List<MochaData> datas = new List<MochaData>();
           IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
-          for(int index = 0; index < tableRange.Count(); index++) {
+          for(int index = 0; index < tableRange.Count(); ++index)
             datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName).collection);
-          }
           return new MochaCollectionResult<MochaData>(datas);
         } else if(queryPaths[0] == "TABLECOUNT") {
           return new MochaResult<int>(Database.Doc.Root.Elements().Count());
@@ -471,9 +465,8 @@ namespace MochaDB.Mochaq {
       List<MochaData> datas = new List<MochaData>();
 
       IEnumerable<XElement> columnRange = Database.Doc.Root.Element("Tables").Elements(name).Elements();
-      for(int index = 0; index < columnRange.Count(); index++) {
+      for(int index = 0; index < columnRange.Count(); ++index)
         datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
-      }
 
       return new MochaCollectionResult<MochaData>(datas);
     }

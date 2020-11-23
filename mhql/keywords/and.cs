@@ -12,12 +12,12 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="command">Command.</param>
     public static List<string> GetParts(string command) {
-      var pattern = new Regex("AND",
+      Regex pattern = new Regex("AND",
           RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-      var parts = new List<string>();
-      var value = new StringBuilder();
-      var count = 0;
-      for(int index = 0; index < command.Length; index++) {
+      List<string> parts = new List<string>();
+      StringBuilder value = new StringBuilder();
+      int count = 0;
+      for(int index = 0; index < command.Length; ++index) {
         char? currentChar = command[index];
         if(count == 0 && (currentChar == 'A' || currentChar == 'a')) {
           if(command.Length - 1 - index >= 3)
@@ -27,14 +27,14 @@ namespace MochaDB.mhql.keywords {
               index+=2;
               continue;
             }
-        } else if(currentChar == Mhql_LEXER.LPARANT) count++;
-        else if(currentChar == Mhql_LEXER.RPARANT) count--;
-        else if(currentChar == Mhql_LEXER.LBRACE) count++;
-        else if(currentChar == Mhql_LEXER.RBRACE) count--;
+        } else if(currentChar == Mhql_LEXER.LPARANT) ++count;
+        else if(currentChar == Mhql_LEXER.RPARANT) --count;
+        else if(currentChar == Mhql_LEXER.LBRACE) ++count;
+        else if(currentChar == Mhql_LEXER.RBRACE) --count;
         else if(currentChar == '\'' || currentChar == '"') {
           ++index;
           value.Append(currentChar);
-          for(; index < command.Length; index++) {
+          for(; index < command.Length; ++index) {
             char currentCh = command[index];
             value.Append(currentCh);
             if(currentCh == currentChar && command[index - 1] != '\\') {

@@ -15,7 +15,7 @@ namespace MochaDB.mhql.must.functions {
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
       string[] parts = Mhql_LEXER.SplitFunctionParameters(command);
       int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
-      for(int index = 1; index < parts.Length; index++)
+      for(int index = 1; index < parts.Length; ++index)
         if(row.Datas[dex].Data.ToString().EndsWith(parts[index]))
           return true;
       return false;

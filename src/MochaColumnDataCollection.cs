@@ -47,9 +47,7 @@ namespace MochaDB {
     internal void Clear() {
       if(collection.Count ==0)
         return;
-
       collection.Clear();
-      //OnChanged(this,new EventArgs());
     }
 
     /// <summary>
@@ -63,10 +61,9 @@ namespace MochaDB {
         if(ContainsData(item.Data))
           throw new MochaException("Any value can be added to a unique column only once!");
 
-      if(item.DataType == DataType) {
+      if(item.DataType == DataType)
         collection.Add(item);
-        //Changed?.Invoke(this,new EventArgs());
-      } else
+      else
         throw new MochaException("This data's datatype not compatible column datatype.");
     }
 
@@ -86,7 +83,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="items">Range to add items.</param>
     internal void AddRange(IEnumerable<MochaData> items) {
-      for(int index = 0; index < items.Count(); index++)
+      for(int index = 0; index < items.Count(); ++index)
         Add(items.ElementAt(index));
     }
 
@@ -94,11 +91,8 @@ namespace MochaDB {
     /// Remove item.
     /// </summary>
     /// <param name="item">Item to remove.</param>
-    internal void Remove(MochaData item) {
+    internal void Remove(MochaData item) =>
       collection.Remove(item);
-      /*if(collection.Remove(item))
-          OnChanged(this,new EventArgs());*/
-    }
 
     /// <summary>
     /// Removes all data equal to sample data.
@@ -110,19 +104,14 @@ namespace MochaDB {
           from currentdata in collection
           where currentdata.Data != data
           select currentdata).ToList();
-
-      /*if(collection.Count != count)
-          OnChanged(this,new EventArgs());*/
     }
 
     /// <summary>
     /// Remove item by index.
     /// </summary>
     /// <param name="index">Index of item to remove.</param>
-    internal void RemoveAt(int index) {
+    internal void RemoveAt(int index) =>
       collection.RemoveAt(index);
-      //OnChanged(this,new EventArgs());
-    }
 
     #endregion Internal Members
 
@@ -133,10 +122,9 @@ namespace MochaDB {
     /// </summary>
     /// <param name="data">Data to check.</param>
     public bool ContainsData(object data) {
-      for(int index = 0; index < Count; index++)
+      for(int index = 0; index < Count; ++index)
         if(data.Equals(this[index].Data))
           return true;
-
       return false;
     }
 
@@ -170,7 +158,7 @@ namespace MochaDB {
         if(value == MochaDataType.AutoInt)
           return;
 
-        for(int index = 0; index < Count; index++)
+        for(int index = 0; index < Count; ++index)
           collection[index].DataType = dataType;
       }
     }

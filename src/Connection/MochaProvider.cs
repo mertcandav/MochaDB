@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using MochaDB.engine;
 
 namespace MochaDB.Connection {
@@ -80,10 +81,8 @@ namespace MochaDB.Connection {
     /// <param name="attributes">Attribtutes of connection string.</param>
     public static string GetConnectionString(IEnumerable<MochaProviderAttribute> attributes) {
       string cstring = string.Empty;
-      for(int index = 0; index < attributes.Count(); index++) {
-        MochaProviderAttribute attribtue = attributes.ElementAt(index);
-        cstring+=attribtue.GetProviderString();
-      }
+      for(int index = 0; index < attributes.Count(); ++index)
+        cstring+=attributes.ElementAt(index).GetProviderString();
       return cstring;
     }
 
@@ -155,15 +154,15 @@ namespace MochaDB.Connection {
             Path + Engine_LEXER.__EXTENSION__ :
             Path + Engine_LEXER.__EXTENSION__ : Path;
         int index;
-        var keyword = ">SOURCEDIR<";
-        var currentdir = Directory.GetCurrentDirectory();
+        string keyword = ">SOURCEDIR<";
+        string currentdir = Directory.GetCurrentDirectory();
         currentdir.Substring(0,currentdir.Length-1);
         while((index = Path.IndexOf(keyword)) != -1) {
-          var path = new MochaPath(currentdir);
-          var digit = Path.Substring(index+keyword.Length,1);
+          MochaPath path = new MochaPath(currentdir);
+          string digit = Path.Substring(index+keyword.Length,1);
           int subcount;
           if(int.TryParse(digit,out subcount)) {
-            for(int pathcounter = 0; pathcounter <= subcount; pathcounter++)
+            for(int pathcounter = 0; pathcounter <= subcount; ++pathcounter)
               path.ParentDirectory();
             Path=Path.Replace($">SOURCEDIR<{subcount}",path.Path);
           }

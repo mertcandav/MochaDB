@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using MochaDB.framework;
 using MochaDB.mhql.engine.value;
 using MochaDB.Mhql;
@@ -22,14 +24,14 @@ namespace MochaDB.mhql.engine {
       /// </summary>
       /// <param name="v">Value to compare.</param>
       public bool __EQUALS__(CONDITIONVAL v) =>
-          VALUE.ToString() == v.VALUE.ToString();
+        VALUE.ToString() == v.VALUE.ToString();
 
       /// <summary>
       /// Returns true if not equals, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
       public bool __NEQUALS__(CONDITIONVAL v) =>
-          VALUE.ToString() != v.VALUE.ToString();
+        VALUE.ToString() != v.VALUE.ToString();
 
       /// <summary>
       /// Returns true if bigger, returns false if not.
@@ -40,9 +42,8 @@ namespace MochaDB.mhql.engine {
           return VALUE.ToString() == "True" && v.VALUE.ToString() == "False";
         else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
           return (int)VALUE > (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
           return decimal.Parse(VALUE.ToString()) > decimal.Parse(v.VALUE.ToString());
-        }
         throw new MochaException("BIGGER operator is cannot compatible this data type!");
       }
 
@@ -55,9 +56,8 @@ namespace MochaDB.mhql.engine {
           return VALUE.ToString() == "False" && v.VALUE.ToString() == "True";
         else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
           return (int)VALUE < (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
           return decimal.Parse(VALUE.ToString()) < decimal.Parse(v.VALUE.ToString());
-        }
         throw new MochaException("LOWER operator is cannot compatible this data type!");
       }
 
@@ -72,9 +72,8 @@ namespace MochaDB.mhql.engine {
               (VALUE.ToString() == v.VALUE.ToString());
         else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
           return (int)VALUE >= (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
           return decimal.Parse(VALUE.ToString()) >= decimal.Parse(v.VALUE.ToString());
-        }
         throw new MochaException("BIGGEREQ operator is cannot compatible this data type!");
       }
 
@@ -89,9 +88,8 @@ namespace MochaDB.mhql.engine {
               (VALUE.ToString() == v.VALUE.ToString());
         else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
           return (int)VALUE <= (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__) {
+        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
           return decimal.Parse(VALUE.ToString()) <= decimal.Parse(v.VALUE.ToString());
-        }
         throw new MochaException("LOWEREQ operator is cannot compatible this data type!");
       }
 
@@ -99,6 +97,7 @@ namespace MochaDB.mhql.engine {
       /// Value.
       /// </summary>
       public object VALUE;
+
       /// <summary>
       /// Type of value.
       /// </summary>
@@ -167,15 +166,10 @@ namespace MochaDB.mhql.engine {
         return false;
       }
 
-      for(int index = 0; index < MhqlEng_CONDITION_LEXER.__OPERATORS__.Count; index++) {
-        string
-            key,
-            value;
-        value = MhqlEng_CONDITION_LEXER.__OPERATORS__.Values.ElementAt(index);
-        if(!command.Contains(value))
+      for(int index = 0; index < MhqlEng_CONDITION_LEXER.__OPERATORS__.Count; ++index) {
+        if(!command.Contains(MhqlEng_CONDITION_LEXER.__OPERATORS__.Values.ElementAt(index)))
           continue;
-
-        key = MhqlEng_CONDITION_LEXER.__OPERATORS__.Keys.ElementAt(index);
+        string key = MhqlEng_CONDITION_LEXER.__OPERATORS__.Keys.ElementAt(index);
         type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
         return true;
       }
@@ -192,9 +186,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_EQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("EQUAL"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("EQUAL"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__EQUALS__(value1);
     }
@@ -207,9 +201,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("NOTEQUAL"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("NOTEQUAL"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__NEQUALS__(value1);
     }
@@ -222,9 +216,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGER(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGER"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGER"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__BIGGER__(value1);
     }
@@ -237,9 +231,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWER(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWER"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWER"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__LOWER__(value1);
     }
@@ -252,9 +246,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGEREQ"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGEREQ"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__BIGGEREQ__(value1);
     }
@@ -267,9 +261,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      var parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWEREQ"));
-      var value0 = GetValue(parts[0],table,row,from);
-      var value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWEREQ"));
+      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
+      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
       return value0.__LOWEREQ__(value1);
     }
@@ -280,7 +274,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="command">Condition.</param>
     /// <param name="operator">Operator.</param>
     public static string[] GetConditionParts(string command,string @operator) {
-      var parts = command.Split(new[] { @operator },2,0);
+      string[] parts = command.Split(new[] { @operator },2,0);
       if(parts.Length < 2)
         throw new MochaException("Condition is cannot processed!");
       parts[0] = parts[0].Trim();
@@ -338,13 +332,12 @@ namespace MochaDB.mhql.engine {
         };
 
       if(from) {
-        var result = table.Columns.Where(x => x.Name == value);
+        IEnumerable<MochaColumn> result = table.Columns.Where(x => x.Name == value);
 
-        if(result.Count() == 0) {
+        if(result.Count() == 0)
           goto index;
-        }
 
-        var data = row.Datas[Array.IndexOf(table.Columns,result.First())];
+        MochaData data = row.Datas[Array.IndexOf(table.Columns,result.First())];
         return new CONDITIONVAL {
           TYPE =
                 data.dataType == MochaDataType.Unique ||
@@ -364,12 +357,12 @@ namespace MochaDB.mhql.engine {
 
       if(!char.IsNumber(value.FirstChar()))
         throw new MochaException("Column is not defined!");
-      var dex = int.Parse(value);
+      int dex = int.Parse(value);
       if(dex < 0)
         throw new MochaException("Index is cannot lower than zero!");
       else if(dex > row.Datas.MaxIndex())
         throw new MochaException("The specified index is more than the number of columns!");
-      var _data = row.Datas[dex];
+      MochaData _data = row.Datas[dex];
       return new CONDITIONVAL {
         TYPE =
               _data.dataType == MochaDataType.Unique ||

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql.keywords {
@@ -14,9 +15,8 @@ namespace MochaDB.mhql.keywords {
     /// Create a new Mhql_GROUPBY.
     /// </summary>
     /// <param name="db">Target database.</param>
-    public Mhql_GROUPBY(MochaDatabase db) {
+    public Mhql_GROUPBY(MochaDatabase db) =>
       Tdb=db;
-    }
 
     #endregion Constructors
 
@@ -38,12 +38,11 @@ namespace MochaDB.mhql.keywords {
       int groupbydex = command.IndexOf("GROUPBY",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
         throw new MochaException("GROUPBY command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("GROUPBY command is cannot processed!");
-      var groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
-
+      string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;
     }
@@ -58,16 +57,16 @@ namespace MochaDB.mhql.keywords {
       command = command.Trim();
       int columndex = Mhql_GRAMMAR.GetIndexOfColumn(command,table.Columns,from);
 
-      var column = table.Columns[columndex];
+      MochaColumn column = table.Columns[columndex];
       IEnumerable<MochaColumn> columns =
           table.Columns.Where(x => Mhql_GRAMMAR.UseFunctions.Values.Contains(x.Tag));
       Dictionary<object,MochaRow> rows = new Dictionary<object,MochaRow>();
-      for(int index = 0; index < table.Rows.Length; index++) {
+      for(int index = 0; index < table.Rows.Length; ++index) {
         object data = column.Datas[index].Data;
         if(rows.ContainsKey(data)) {
           MochaRow _row;
           rows.TryGetValue(data,out _row);
-          for(int dex = 0; dex < columns.Count(); dex++) {
+          for(int dex = 0; dex < columns.Count(); ++dex) {
             MochaColumn col = columns.ElementAt(dex);
             MochaData _data = _row.Datas[Array.IndexOf(table.Columns,col)];
             if(col.Tag == "COUNT")
@@ -97,7 +96,7 @@ namespace MochaDB.mhql.keywords {
           continue;
         }
         MochaRow row = table.Rows[index];
-        for(int dex = 0; dex < columns.Count(); dex++) {
+        for(int dex = 0; dex < columns.Count(); ++dex) {
           MochaColumn col = columns.ElementAt(dex);
           MochaData _data = row.Datas[Array.IndexOf(table.Columns,col)];
           if(col.Tag == "COUNT")
@@ -112,9 +111,9 @@ namespace MochaDB.mhql.keywords {
         rows.Add(data,row);
       }
       IEnumerable<MochaColumn> avgcols = table.Columns.Where(x => x.Tag == "AVG");
-      for(int index = 0; index < avgcols.Count(); index++) {
+      for(int index = 0; index < avgcols.Count(); ++index) {
         MochaColumn col = avgcols.ElementAt(index);
-        for(int rindex = 0; rindex < rows.Keys.Count; rindex++) {
+        for(int rindex = 0; rindex < rows.Keys.Count; ++rindex) {
           MochaData data = rows[rows.Keys.ElementAt(rindex)].Datas[Array.IndexOf(table.Columns,col)];
           string[] parts = data.ToString().Split(';');
           string colval = parts[0];

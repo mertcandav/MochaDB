@@ -24,15 +24,15 @@ namespace MochaDB.mhql {
         return string.Empty;
 
       int openCount = 1;
-      for(int index = 1; index < value.Length; index++) {
+      for(int index = 1; index < value.Length; ++index) {
         if(openCount == 0)
           return value.Substring(1,index);
 
         char current = value[index];
         if(current == open)
-          openCount++;
+          ++openCount;
         else if(current == close)
-          openCount--;
+          --openCount;
       }
       if(openCount == 0)
         return value.Substring(1,value.Length-2).Trim();
@@ -45,18 +45,16 @@ namespace MochaDB.mhql {
     /// </summary>
     /// <param name="statement">Statement of function.</param>
     /// <returns>Params.</returns>
-    public static string[] SplitFunctionParameters(string statement) {
-      return statement.Split(FUNC_PARAM_DELIMITER);
-    }
+    public static string[] SplitFunctionParameters(string statement) =>
+      statement.Split(FUNC_PARAM_DELIMITER);
 
     /// <summary>
     /// Split parameters.
     /// </summary>
     /// <param name="statement">Statement.</param>
     /// <returns>Params.</returns>
-    public static string[] SplitParameters(string statement) {
-      return statement.Split(PARAM_DELIMITER);
-    }
+    public static string[] SplitParameters(string statement) =>
+      statement.Split(PARAM_DELIMITER);
 
     /// <summary>
     /// Split use parameters.
@@ -67,12 +65,12 @@ namespace MochaDB.mhql {
       List<string> parts = new List<string>();
       int count = 0, last = 0;
       statement = statement.TrimStart();
-      for(int index = 0; index < statement.Length; index++) {
+      for(int index = 0; index < statement.Length; ++index) {
         char current = statement[index];
         if(current == LBRACE)
-          count++;
+          ++count;
         else if(current == RBRACE)
-          count--;
+          --count;
 
         if(count != 0)
           continue;
@@ -93,9 +91,8 @@ namespace MochaDB.mhql {
     /// </summary>
     /// <param name="statement">Statement.</param>
     /// <returns>Params.</returns>
-    public static string[] SplitSubCalls(string statement) {
-      return statement.Split(SUBCALL_DELIMITER);
-    }
+    public static string[] SplitSubCalls(string statement) =>
+      statement.Split(SUBCALL_DELIMITER);
 
     #endregion Members
 

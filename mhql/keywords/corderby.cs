@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.mhql.engine;
 using MochaDB.Mhql;
 
@@ -40,12 +40,11 @@ namespace MochaDB.mhql.keywords {
       int orderbydex = command.IndexOf("CORDERBY",StringComparison.OrdinalIgnoreCase);
       if(orderbydex==-1)
         throw new MochaException("CORDERBY command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("CORDERBY command is cannot processed!");
-      var orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
-
+      string orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
       final = command.Substring(finaldex);
       return orderbycommand;
     }

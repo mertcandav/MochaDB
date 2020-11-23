@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using MochaDB.Mhql;
 
 namespace MochaDB.mhql.keywords {
@@ -14,9 +15,8 @@ namespace MochaDB.mhql.keywords {
     /// Initialize a new instance.
     /// </summary>
     /// <param name="db">Target database.</param>
-    public Mhql_ADDROW(MochaDatabase db) {
+    public Mhql_ADDROW(MochaDatabase db) =>
       Tdb = db;
-    }
 
     #endregion Constructors
 
@@ -38,12 +38,11 @@ namespace MochaDB.mhql.keywords {
       int groupbydex = command.IndexOf("ADDROW",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
         throw new MochaException("ADDROW command is cannot processed!");
-      var match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
+      System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
         throw new MochaException("ADDROW command is cannot processed!");
-      var groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
-
+      string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;
     }
@@ -61,9 +60,9 @@ namespace MochaDB.mhql.keywords {
       if(count < 1)
         throw new MochaException("The parameters of the ADDROW command cannot be less than 1!");
       IList<MochaRow> rows = new List<MochaRow>(table.Rows);
-      for(int counter = 0; counter < count; counter++) {
+      for(int counter = 0; counter < count; ++counter) {
         MochaRow row = new MochaRow();
-        for(int index = 0; index < table.Columns.Length; index++)
+        for(int index = 0; index < table.Columns.Length; ++index)
           row.Datas.Add(new MochaData() {
             dataType = table.Columns[index].DataType,
             data = MochaData.TryGetData(table.Columns[index].DataType,null)

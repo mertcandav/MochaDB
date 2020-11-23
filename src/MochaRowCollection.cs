@@ -32,16 +32,15 @@ namespace MochaDB {
 
     #region Item Events
 
-    private void Item_Changed(object sender,EventArgs e) {
+    private void Item_Changed(object sender,EventArgs e) =>
       OnRowChanged(sender,e);
-    }
 
     #endregion Item Events
 
     #region Members
 
     public override void Clear() {
-      for(int index = 0; index < Count; index++)
+      for(int index = 0; index < Count; ++index)
         collection[index].Datas.Changed-=Item_Changed;
       collection.Clear();
     }
@@ -77,7 +76,7 @@ namespace MochaDB {
         Add(new MochaRow(datas));
 
     public override void AddRange(IEnumerable<MochaRow> items) {
-      for(int index = 0; index < items.Count(); index++)
+      for(int index = 0; index < items.Count(); ++index)
         Add(items.ElementAt(index));
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+
 using MochaDB.Querying;
 
 namespace MochaDB.mhql.keywords {
@@ -33,10 +34,9 @@ namespace MochaDB.mhql.keywords {
       int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+6).Index;
       if(finaldex==0)
         throw new MochaException("SELECT command is cannot processed!");
-      var usecommand = Command.Substring(usedex+6,finaldex-(usedex+6)).Trim();
+      string usecommand = Command.Substring(usedex+6,finaldex-(usedex+6)).Trim();
       if(!usecommand.StartsWith("(") || !usecommand.EndsWith(")"))
         throw new MochaException("Regex query is cannot processed!");
-
       final = Command.Substring(finaldex);
       return usecommand.Substring(1,usecommand.Length-2);
     }
@@ -46,7 +46,7 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="selectcommand">Select pattern.</param>
     public MochaCollectionResult<MochaTable> GetTables(string selectcommand) {
-      var regex = new Regex(selectcommand);
+      Regex regex = new Regex(selectcommand);
       return Tdb.GetTables(x => regex.IsMatch(x.Name));
     }
 

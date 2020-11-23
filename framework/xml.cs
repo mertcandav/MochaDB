@@ -11,14 +11,14 @@ namespace MochaDB.framework {
     /// <param name="doc">Base XDocument.</param>
     /// <param name="path">Path of element.</param>
     public static XElement GetXElement(XDocument doc,string path) {
-      var elementsName = path.Split('/');
+      string[] elementsName = path.Split('/');
       try {
-        var element = doc.Root.Element(elementsName[0]);
+        XElement element = doc.Root.Element(elementsName[0]);
 
         if(element==null)
           return null;
 
-        for(var i = 1; i < elementsName.Length; i++) {
+        for(int i = 1; i < elementsName.Length; ++i) {
           element = element.Element(elementsName[i]);
           if(element == null)
             return null;

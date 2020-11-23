@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using MochaDB.engine;
 
 namespace MochaDB {
@@ -75,18 +76,16 @@ namespace MochaDB {
     /// Set datas by row datas.
     /// </summary>
     internal void SetDatasByRows() {
-      for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
-        //Columns[columnIndex].Datas.Changed-=Column_Changed;
+      for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex)
         Columns[columnIndex].Datas.collection.Clear();
-      }
 
-      for(int rowIndex = 0; rowIndex < Rows.Count; rowIndex++) {
+      for(int rowIndex = 0; rowIndex < Rows.Count; ++rowIndex) {
         MochaRow currentRow = Rows[rowIndex];
 
         if(currentRow.Datas.Count!=Columns.Count)
           throw new MochaException("The number of data must be equal to the number of columns!");
 
-        for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
+        for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex) {
           MochaColumn currentColumn = Columns[columnIndex];
 
           if(currentColumn.DataType!=MochaDataType.AutoInt)
@@ -102,10 +101,6 @@ namespace MochaDB {
           }
         }
       }
-      /*
-      for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
-          Columns[columnIndex].Datas.Changed+=Column_Changed;
-      }*/
     }
 
     /// <summary>
@@ -114,8 +109,8 @@ namespace MochaDB {
     internal void SetRowsByDatas() {
       Rows.collection.Clear();
       MochaData[] datas = new MochaData[Columns.Count];
-      for(int dataIndex = 0; dataIndex < Columns[0].Datas.Count; dataIndex++) {
-        for(int columnIndex = 0; columnIndex < Columns.Count; columnIndex++) {
+      for(int dataIndex = 0; dataIndex < Columns[0].Datas.Count; ++dataIndex) {
+        for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex) {
           MochaColumn currentColumn = Columns[columnIndex];
           if(currentColumn.Datas.Count < dataIndex + 1)
             datas[columnIndex] = new MochaData {

@@ -33,7 +33,7 @@ namespace MochaDB {
     #region Item Events
 
     private void Item_NameChanged(object sender,EventArgs e) {
-      var result = collection.Where(x => x.Name==(sender as MochaColumn).Name);
+      IEnumerable<MochaColumn> result = collection.Where(x => x.Name==(sender as MochaColumn).Name);
       if(result.Count() >1)
         throw new MochaException("There is already a column with this name!");
 
@@ -48,10 +48,8 @@ namespace MochaDB {
     /// Remove all items.
     /// </summary>
     public override void Clear() {
-      for(int index = 0; index < Count; index++) {
+      for(int index = 0; index < Count; ++index)
         collection[index].NameChanged-=Item_NameChanged;
-        //collection[index].Datas.Changed-=Item_Changed;
-      }
       collection.Clear();
       OnChanged(this,new EventArgs());
     }
@@ -67,7 +65,6 @@ namespace MochaDB {
         throw new MochaException("There is already a column with this name!");
 
       item.NameChanged+=Item_NameChanged;
-      //item.Datas.Changed+=Item_Changed;
       collection.Add(item);
       OnChanged(this,new EventArgs());
     }
@@ -92,7 +89,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="items">Range to add items.</param>
     public override void AddRange(IEnumerable<MochaColumn> items) {
-      for(int index = 0; index < items.Count(); index++)
+      for(int index = 0; index < items.Count(); ++index)
         Add(items.ElementAt(index));
     }
 
@@ -108,10 +105,9 @@ namespace MochaDB {
     /// </summary>
     /// <param name="name">Name of item to remove.</param>
     public void Remove(string name) {
-      for(int index = 0; index < Count; index++)
+      for(int index = 0; index < Count; ++index)
         if(collection[index].Name == name) {
           collection[index].NameChanged-=Item_NameChanged;
-          //collection[index].Datas.Changed-=Item_Changed;
           collection.RemoveAt(index);
           OnChanged(this,new EventArgs());
           break;
@@ -130,7 +126,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="name">Name of item to find index.</param>
     public int IndexOf(string name) {
-      for(int index = 0; index < Count; index++)
+      for(int index = 0; index < Count; ++index)
         if(this[index].Name==name)
           return index;
       return -1;

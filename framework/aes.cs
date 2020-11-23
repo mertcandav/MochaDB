@@ -23,11 +23,9 @@ namespace MochaDB.framework {
 
       ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key,aes.IV);
       using(MemoryStream ms = new MemoryStream()) {
-        using(CryptoStream cs = new CryptoStream(ms,encryptor,CryptoStreamMode.Write)) {
-          using(StreamWriter sw = new StreamWriter(cs)) {
-            sw.Write(content);
-          }
-        }
+        using(CryptoStream cs = new CryptoStream(ms,encryptor,CryptoStreamMode.Write))
+        using(StreamWriter sw = new StreamWriter(cs))
+          sw.Write(content);
         buffer = ms.ToArray();
       }
       aes.Dispose();
@@ -50,13 +48,10 @@ namespace MochaDB.framework {
       aes.Key = Encoding.UTF8.GetBytes(key);
 
       ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key,aes.IV);
-      using(MemoryStream ms = new MemoryStream(buffer)) {
-        using(CryptoStream cs = new CryptoStream(ms,decryptor,CryptoStreamMode.Read)) {
-          using(StreamReader sr = new StreamReader(cs)) {
-            result = sr.ReadToEnd();
-          }
-        }
-      }
+      using(MemoryStream ms = new MemoryStream(buffer))
+      using(CryptoStream cs = new CryptoStream(ms,decryptor,CryptoStreamMode.Read))
+      using(StreamReader sr = new StreamReader(cs))
+        result = sr.ReadToEnd();
       aes.Dispose();
       decryptor.Dispose();
       return result;

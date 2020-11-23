@@ -19,16 +19,12 @@ namespace MochaDB.mhql.engine.value {
       if(!val.EndsWith("\""))
         throw new MochaException("String end is not declared!");
 
-      void control(ref string cval) {
-        cval = cval.Substring(1,cval.Length-2);
-        for(int dex = 0; dex < MhqlEngVal_LEXER.Escapes.Length/2; dex++) {
-          var pattern = new Regex(MhqlEngVal_LEXER.Escapes[dex,1],
-              RegexOptions.Multiline);
-          cval = pattern.Replace(cval,MhqlEngVal_LEXER.Escapes[dex,0]);
-        }
+      val = val.Substring(1,val.Length-2);
+      for(int index = 0; index < MhqlEngVal_LEXER.Escapes.Length/2; ++index) {
+        Regex pattern = new Regex(MhqlEngVal_LEXER.Escapes[index,1],
+            RegexOptions.Multiline);
+        val = pattern.Replace(val,MhqlEngVal_LEXER.Escapes[index,0]);
       }
-
-      control(ref val);
     }
   }
 }
