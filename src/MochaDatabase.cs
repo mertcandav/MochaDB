@@ -855,7 +855,7 @@ namespace MochaDB {
 
       IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
       MochaTable[] tables = new MochaTable[tableRange.Count()];
-      for(int index = 0; index <tables.Length; ++index)
+      for(int index = 0; index < tables.Length; index++)
         tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
       return tables;
     }

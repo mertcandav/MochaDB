@@ -26,37 +26,37 @@ Imports MochaDB
 Imports MochaDB.Mhql
 
 Public Class app
-    Private Sub codebox_KeyDown(sender As Object, e As KeyEventArgs) Handles codebox.KeyDown
-        If e.KeyCode = Keys.F5 Then
-            Dim db As MochaDatabase = Nothing
-            Try
-                Dim path = New MochaPath(Directory.GetCurrentDirectory)
-                path.ParentDirectory()
-                path.ParentDirectory()
-                path.ParentDirectory()
-                db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
-                Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
-                Dim result As MochaTableResult = command.ExecuteScalar
-                datasource.Columns.Clear()
-                datasource.Rows.Clear()
-                For index = 0 To result.Columns.Count - 1
-                    datasource.Columns.Add(String.Empty, result.Columns.ElementAt(index).MHQLAsText)
-                Next
-                    For index = 0 To result.Rows.Count - 1
-                        datasource.Rows.Add(result.Rows.ElementAt(index).Datas.ToArray)
-                    Next
-                    db.Dispose()
-            Catch excep As MochaException
-                If db IsNot Nothing Then
-                    db.Dispose()
-                End If
-                MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Catch excep As Exception
-                If db IsNot Nothing Then
-                    db.Dispose()
-                End If
-                MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
+  Private Sub codebox_KeyDown(sender As Object, e As KeyEventArgs) Handles codebox.KeyDown
+    If e.KeyCode = Keys.F5 Then
+      Dim db As MochaDatabase = Nothing
+      Try
+        Dim path = New MochaPath(Directory.GetCurrentDirectory)
+        path.ParentDirectory()
+        path.ParentDirectory()
+        path.ParentDirectory()
+        db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
+        Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
+        Dim result As MochaTableResult = command.ExecuteScalar
+        datasource.Columns.Clear()
+        datasource.Rows.Clear()
+        For index = 0 To result.Columns.Count - 1
+          datasource.Columns.Add(String.Empty, result.Columns.ElementAt(index).MHQLAsText)
+        Next
+        For index = 0 To result.Rows.Count - 1
+          datasource.Rows.Add(result.Rows.ElementAt(index).Datas.ToArray)
+        Next
+        db.Dispose()
+      Catch excep As MochaException
+        If db IsNot Nothing Then
+          db.Dispose()
         End If
-    End Sub
+        MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
+      Catch excep As Exception
+        If db IsNot Nothing Then
+          db.Dispose()
+        End If
+        MessageBox.Show(excep.Message, "VB.NET MHQL Test App", MessageBoxButtons.OK, MessageBoxIcon.Error)
+      End Try
+    End If
+  End Sub
 End Class

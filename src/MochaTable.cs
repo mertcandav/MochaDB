@@ -108,6 +108,8 @@ namespace MochaDB {
     /// </summary>
     internal void SetRowsByDatas() {
       Rows.collection.Clear();
+      if(Columns.Count == 0)
+        return;
       MochaData[] datas = new MochaData[Columns.Count];
       for(int dataIndex = 0; dataIndex < Columns[0].Datas.Count; ++dataIndex) {
         for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex) {
