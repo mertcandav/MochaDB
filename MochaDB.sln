@@ -214,6 +214,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kurallar", "kurallar", "{02857904-4480-49F9-993D-0FC522BF1989}"
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\kurallar\değer kuralları.md = docs\turkish\kurallar\değer kuralları.md
+		docs\turkish\kurallar\isimlendirme kuralları.md = docs\turkish\kurallar\isimlendirme kuralları.md
 	EndProjectSection
 EndProject
 Global
