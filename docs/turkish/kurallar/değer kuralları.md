@@ -1,0 +1,4 @@
+Veritabanı şifresi bunları içeremez:
+```
+= ;
+```

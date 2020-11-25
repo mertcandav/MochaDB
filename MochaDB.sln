@@ -209,6 +209,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{056DCC48
 		docs\english\rules\value conventions.md = docs\english\rules\value conventions.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "turkish", "turkish", "{8E59A299-89FF-4F57-943D-528B6F852212}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kurallar", "kurallar", "{02857904-4480-49F9-993D-0FC522BF1989}"
+	ProjectSection(SolutionItems) = preProject
+		docs\turkish\kurallar\değer kuralları.md = docs\turkish\kurallar\değer kuralları.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +258,8 @@ Global
 		{710AD2C7-5163-4245-834A-9D2F81F72F50} = {AE7A8BEE-67CF-4957-B2A7-69E5E5F95233}
 		{8FC31E1C-8930-48FD-A030-8908E60C36EC} = {AE7A8BEE-67CF-4957-B2A7-69E5E5F95233}
 		{056DCC48-93F3-4BE4-8DC0-4D1846DBA28C} = {AE7A8BEE-67CF-4957-B2A7-69E5E5F95233}
+		{8E59A299-89FF-4F57-943D-528B6F852212} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
+		{02857904-4480-49F9-993D-0FC522BF1989} = {8E59A299-89FF-4F57-943D-528B6F852212}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
