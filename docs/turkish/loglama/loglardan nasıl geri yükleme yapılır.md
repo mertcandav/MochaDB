@@ -1,0 +1,3 @@
+Veritabanýnda bir deðiþiklik varsa ve geri alýnmasý isteniyorsa loglama sistemi kullanýlabilir. Kayýt sistemindeki kaydýn kimliðini biliyorsanýz, kimliði belirterek ``RestoreToLog(string id)`` iþlevi ile kaydý geri yükleyebilirsiniz.
+Kimliðinizden emin deðilseniz, bu kimliðe sahip bir günlük olup olmadýðýný ``ExistsLog(string id)`` iþleviyle öðrenebilirsiniz. <br>
+Ýlk günlüðe dönmek istiyorsanýz ``RestoreToFistLog()'' iþlevini veya son kayda dönmek istiyorsanýz ``RestoreToLastLog()`` iþlevini kullanabilirsiniz.
