@@ -223,6 +223,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loglama", "loglama", "{89F3
 		docs\turkish\loglama\loglardan nasıl geri yükleme yapılır.md = docs\turkish\loglama\loglardan nasıl geri yükleme yapılır.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "başlarken", "başlarken", "{4C51E935-D77B-4437-9C71-BC7D57A25994}"
+	ProjectSection(SolutionItems) = preProject
+		docs\turkish\başlarken\nuget paketi kurulumu.md = docs\turkish\başlarken\nuget paketi kurulumu.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -268,6 +273,7 @@ Global
 		{8E59A299-89FF-4F57-943D-528B6F852212} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{02857904-4480-49F9-993D-0FC522BF1989} = {8E59A299-89FF-4F57-943D-528B6F852212}
 		{89F3D3DA-D685-4927-B3B5-4289FB1224D9} = {8E59A299-89FF-4F57-943D-528B6F852212}
+		{4C51E935-D77B-4437-9C71-BC7D57A25994} = {8E59A299-89FF-4F57-943D-528B6F852212}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
