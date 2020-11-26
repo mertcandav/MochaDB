@@ -1,3 +1,3 @@
-Veritabanında bir değişiklik varsa ve geri alınması isteniyorsa loglama sistemi kullanılabilir. Kayıt sistemindeki kaydın kimliğini biliyorsanız, kimliği belirterek ``RestoreToLog(string id)`` işlevi ile kaydı geri yükleyebilirsiniz.
-Kimliğinizden emin değilseniz, bu kimliğe sahip bir günlük olup olmadığını ``ExistsLog(string id)`` işleviyle öğrenebilirsiniz. <br>
-İlk günlüğe dönmek istiyorsanız ``RestoreToFistLog()'' işlevini veya son kayda dönmek istiyorsanız ``RestoreToLastLog()`` işlevini kullanabilirsiniz.
+VeritabanÄ±nda bir deÄŸiÅŸiklik varsa ve geri alÄ±nmasÄ± isteniyorsa loglama sistemi kullanÄ±labilir. KayÄ±t sistemindeki kaydÄ±n kimliÄŸini biliyorsanÄ±z, kimliÄŸi belirterek ``RestoreToLog(string id)`` iÅŸlevi ile kaydÄ± geri yÃ¼kleyebilirsiniz.
+KimliÄŸinizden emin deÄŸilseniz, bu kimliÄŸe sahip bir gÃ¼nlÃ¼k olup olmadÄ±ÄŸÄ±nÄ± ``ExistsLog(string id)`` iÅŸleviyle Ã¶ÄŸrenebilirsiniz. <br>
+Ä°lk gÃ¼nlÃ¼ÄŸe dÃ¶nmek istiyorsanÄ±z ``RestoreToFistLog()`` iÅŸlevini veya son kayda dÃ¶nmek istiyorsanÄ±z ``RestoreToLastLog()`` iÅŸlevini kullanabilirsiniz.
