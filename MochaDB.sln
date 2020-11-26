@@ -241,6 +241,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bağlantı ve yönetim", "bağlantı ve yönetim", "{3A1EAB1B-1B1F-4998-8B9F-09061181D532}"
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\bağlantı ve yönetim\bağlantı dizeleri.md = docs\turkish\bağlantı ve yönetim\bağlantı dizeleri.md
+		docs\turkish\bağlantı ve yönetim\MochaProvider.md = docs\turkish\bağlantı ve yönetim\MochaProvider.md
 	EndProjectSection
 EndProject
 Global
