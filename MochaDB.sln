@@ -233,6 +233,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "veri modelleme", "veri mode
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\veri modelleme\MochaColumn.md = docs\turkish\veri modelleme\MochaColumn.md
 		docs\turkish\veri modelleme\MochaData.md = docs\turkish\veri modelleme\MochaData.md
+		docs\turkish\veri modelleme\MochaRow.md = docs\turkish\veri modelleme\MochaRow.md
 		docs\turkish\veri modelleme\veri tipleri.md = docs\turkish\veri modelleme\veri tipleri.md
 	EndProjectSection
 EndProject

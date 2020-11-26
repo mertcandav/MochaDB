@@ -1,4 +1,4 @@
-Represents a row in the table. Each data shows the data of a column in that row.
+Represents a row in the table. Each data shows the data of a column in that row. <br>
 It is an object to use in code.
 
 ### Examples
@@ -13,7 +13,7 @@ Creates a MochaData object of the "String" data type and sets its value to "Mert
 myRow.Add(new MochaData(MochaDataType.String,"Mertcan"));
 ```
 
-Deletes the data in index "0".
+Delete the data in index "0".
 ```C#
 myRow.RemoveDataAt(0);
 ```
