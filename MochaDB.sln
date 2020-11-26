@@ -226,6 +226,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "başlarken", "başlarken", "{4C51E935-D77B-4437-9C71-BC7D57A25994}"
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\başlarken\nuget paketi kurulumu.md = docs\turkish\başlarken\nuget paketi kurulumu.md
+		docs\turkish\başlarken\projenize referans ekleyin.md = docs\turkish\başlarken\projenize referans ekleyin.md
 	EndProjectSection
 EndProject
 Global
