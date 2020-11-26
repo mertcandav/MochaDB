@@ -59,10 +59,6 @@ db.Disconnect(); // For close connection.
         <td width="100%">Remove table by name.</td>
     </tr>
     <tr>
-        <td><strong>RemoveTable(string)</strong></td>
-        <td width="100%">Remove table by name.</td>
-    </tr>
-    <tr>
         <td><strong>GetTable(string)</strong></td>
         <td width="100%">Return table by name.</td>
     </tr>
@@ -81,10 +77,6 @@ db.Disconnect(); // For close connection.
     <tr>
         <td><strong>AddColumn(string,MochaColumn)</strong></td>
         <td width="100%">Add colum in table.</td>
-    </tr>
-    <tr>
-        <td><strong>RemoveColumn(string,string)</strong></td>
-        <td width="100%">Remove column from table by name.</td>
     </tr>
     <tr>
         <td><strong>RemoveColumn(string,string)</strong></td>
