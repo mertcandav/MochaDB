@@ -1,4 +1,4 @@
-Represents a table in the database. It consists of columns and rows.
+Represents a table in the database. It consists of columns and rows. <br>
 It is an object to use in code.
 
 ### Examples
