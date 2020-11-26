@@ -238,6 +238,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "veri modelleme", "veri mode
 		docs\turkish\veri modelleme\veri tipleri.md = docs\turkish\veri modelleme\veri tipleri.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bağlantı ve yönetim", "bağlantı ve yönetim", "{3A1EAB1B-1B1F-4998-8B9F-09061181D532}"
+	ProjectSection(SolutionItems) = preProject
+		docs\turkish\bağlantı ve yönetim\bağlantı dizeleri.md = docs\turkish\bağlantı ve yönetim\bağlantı dizeleri.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -285,6 +290,7 @@ Global
 		{89F3D3DA-D685-4927-B3B5-4289FB1224D9} = {8E59A299-89FF-4F57-943D-528B6F852212}
 		{4C51E935-D77B-4437-9C71-BC7D57A25994} = {8E59A299-89FF-4F57-943D-528B6F852212}
 		{BF0F7442-68D4-4609-AA6C-ECCE187374E5} = {8E59A299-89FF-4F57-943D-528B6F852212}
+		{3A1EAB1B-1B1F-4998-8B9F-09061181D532} = {8E59A299-89FF-4F57-943D-528B6F852212}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}

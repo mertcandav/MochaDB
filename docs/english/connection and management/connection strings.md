@@ -12,11 +12,11 @@ Attributes are features within the connection string.<br>
 They are the main elements that allow the connection string to be created, and they all have their own unique functions.<br>
 An attribute can be defined at most once in the connection string. A connection string must have defined the "Path" attribute.<br>
 If an attribute is not defined or incorrectly defined, its default value is assigned.<br>
-If more than one attribute is defined, the attributes are ';' should be separated by.
+If more than one attribute is defined, the attributes are ``;`` should be separated by.
 <table border="1">
     <tr>
         <td width="15%"><strong>Name</strong></td>
-        <td width="75%"><strong>Function</strong></td>
+        <td width="75%"><strong>Attribute</strong></td>
         <td width="20%"><strong>Value Type</strong></td>
     </tr>
     <tr>
