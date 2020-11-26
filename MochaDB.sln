@@ -219,6 +219,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kurallar", "kurallar", "{02
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loglama", "loglama", "{89F3D3DA-D685-4927-B3B5-4289FB1224D9}"
 	ProjectSection(SolutionItems) = preProject
+		docs\turkish\loglama\log sistemi nasıl çalışır.md = docs\turkish\loglama\log sistemi nasıl çalışır.md
 		docs\turkish\loglama\loglardan nasıl geri yükleme yapılır.md = docs\turkish\loglama\loglardan nasıl geri yükleme yapılır.md
 	EndProjectSection
 EndProject
