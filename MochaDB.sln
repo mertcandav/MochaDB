@@ -249,6 +249,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sorgulama", "sorgulama", "{E495EB1A-65FA-41B0-9CC0-5CD2A6957892}"
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\sorgulama\linq.md = docs\turkish\sorgulama\linq.md
+		docs\turkish\sorgulama\MochaDbCommand.md = docs\turkish\sorgulama\MochaDbCommand.md
 		docs\turkish\sorgulama\MochaQuery.md = docs\turkish\sorgulama\MochaQuery.md
 	EndProjectSection
 EndProject

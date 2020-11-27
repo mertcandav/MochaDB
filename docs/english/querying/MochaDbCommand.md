@@ -1,4 +1,4 @@
-MochaDbCommand Allows you to process MHQL queries.
+MochaDbCommand Allows you to process MHQL queries. <br>
 The database must be set as the base and the MochaDatabase must be connected to a database.
 
 ### Examples
@@ -14,7 +14,7 @@ MochaDbCommand command = new MochaDbCommand("USE *",db);
 MochaTableResult table = command.ExecuteScalar() as MochaTableResult;
 ```
 
-It attracts all objects and gets them with ``ExecuteReader``. It then returns the ``while`` loop as if the data was read and takes its value as ``IMochaDatabaseItem`` and returns its name as a message.
+It attracts all objects and gets them with ``ExecuteReader``. It then returns the ``while`` loop as if the data was read and takes its value as ``MochaTable`` and returns its name as a message.
 ```C#
 MochaDbCommand command = new MochaDbCommand("SELECT ()",db);
 MochaReader<object> results = command.ExecuteReader();
