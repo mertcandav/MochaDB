@@ -1,9 +1,9 @@
 MochaQ can be called an inquiry language that you can use for simple and basic operations.
 
-### Commands
+### Komutlar
 
 #### Run
-Yalnýzca çalýþtýrýlabilen komutlar, deðer döndüren komutlar deðillerdir.
+Commands that can be run only. They are not commands that return values.
 <table border="1">
     <tr>
        <td><strong>RESETMOCHA</strong></td>
@@ -128,7 +128,7 @@ Yalnýzca çalýþtýrýlabilen komutlar, deðer döndüren komutlar deðillerdir.
 </table>
 
 #### GetRun
-Bir deðer döndüren komutlardýr. ``object`` olarak döndürülürler, Dinamik komutlar çalýþtýrýlmaz.
+They are commands that return a value. They are returned as ``object``, Dynamic commands are not executed.
 <table border="1">
     <tr>
        <td><strong>GETPASSWORD</strong></td>
@@ -265,8 +265,8 @@ Bir deðer döndüren komutlardýr. ``object`` olarak döndürülürler, Dinamik komutla
 </table>
 
 #### Dynamic
-Kolaylýk olmadan daha iþlevsel komutlar. <br>
-Deðer döndürülecekse, deðer döner, yoksa ``null`` döndürür.
+More functional commands without simplicity.<br>
+If the value is to be returned, it returns but if not, it returns ``null``. Either way, it returns.
 <table border="1">
     <tr>
        <td><strong>SELECT</strong> ColumnName,ColumnName0... <strong>FROM</strong> TableName</td>

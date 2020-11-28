@@ -250,6 +250,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sorgulama", "sorgulama", "{
 	ProjectSection(SolutionItems) = preProject
 		docs\turkish\sorgulama\linq.md = docs\turkish\sorgulama\linq.md
 		docs\turkish\sorgulama\MochaDbCommand.md = docs\turkish\sorgulama\MochaDbCommand.md
+		docs\turkish\sorgulama\MochaQ.md = docs\turkish\sorgulama\MochaQ.md
 		docs\turkish\sorgulama\MochaQuery.md = docs\turkish\sorgulama\MochaQuery.md
 	EndProjectSection
 EndProject
