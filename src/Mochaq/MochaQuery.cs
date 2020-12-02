@@ -201,115 +201,128 @@ namespace MochaDB.Mochaq {
       string[] queryPaths = MochaQ.Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
 
-      if(queryPaths.Length == 1) {
-        if(queryPaths[0] == "RESETMOCHA") {
-          Database.Reset();
-          return;
-        } else if(queryPaths[0] == "RESETTABLES") {
-          Database.OnChanging(this,new EventArgs());
-          IEnumerable<XElement> tableRange = Database.CDoc.Root.Element("Tables").Elements();
-          for(int index = 0; index < tableRange.Count(); ++index)
-            tableRange.ElementAt(index).Elements().Remove();
-          Database.Save();
-          return;
-        } else if(queryPaths[0] == "CLEARTABLES") {
-          Database.ClearTables();
-          return;
-        } else if(queryPaths[0] == "CLEARALL") {
-          Database.ClearAll();
-          return;
-        } else if(queryPaths[0] == "CLEARLOGS") {
-          Database.ClearLogs();
-          return;
-        } else if(queryPaths[0] == "RESTORETOFIRSTLOG") {
-          Database.RestoreToFirstLog();
-          return;
-        } else if(queryPaths[0] == "RESTORETOLASTLOG") {
-          Database.RestoreToLastLog();
-          return;
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 2) {
-        if(queryPaths[0] == "REMOVETABLE") {
-          Database.RemoveTable(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "CREATETABLE") {
-          Database.CreateTable(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "SETPASSWORD") {
-          Database.SetPassword(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "SETDESCRIPTION") {
-          Database.SetDescription(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "RESTORETOLOG") {
-          Database.RestoreToLog(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "CLEARROWS") {
-          Database.ClearRows(queryPaths[1]);
-          return;
-        } else if(queryPaths[0] == "RESETTABLE") {
-          if(!Database.ExistsTable(queryPaths[1]))
-            throw new MochaException("Table not found in this name!");
-          Database.OnChanging(this,new EventArgs());
-          Database.CDoc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
-          Database.Save();
-          return;
-        } else if(queryPaths[0] == "CREATEMOCHA") {
-          MochaDatabase.CreateMochaDB(queryPaths[1],string.Empty,string.Empty);
-          return;
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 3) {
-        if(queryPaths[0] == "REMOVECOLUMN") {
-          Database.RemoveColumn(queryPaths[1],queryPaths[2]);
-          return;
-        } else if(queryPaths[0] == "SETTABLEDESCRIPTION") {
-          Database.SetTableDescription(queryPaths[1],queryPaths[2]);
-          return;
-        } else if(queryPaths[0] == "REMOVEROW") {
-          Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2]));
-          return;
-        } else if(queryPaths[0] == "RENAMETABLE") {
-          Database.RenameTable(queryPaths[1],queryPaths[2]);
-          return;
-        } else if(queryPaths[0] == "CREATECOLUMN") {
-          Database.CreateColumn(queryPaths[1],queryPaths[2]);
-          return;
-        } else if(queryPaths[0] == "CREATEMOCHA") {
-          MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]),string.Empty,string.Empty);
-          return;
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 4) {
-        if(queryPaths[0] == "RENAMECOLUMN") {
-          Database.RenameColumn(queryPaths[1],queryPaths[2],queryPaths[3]);
-          return;
-        } else if(queryPaths[0] == "SETCOLUMNDESCRIPTION") {
-          Database.SetColumnDescription(queryPaths[1],queryPaths[2],queryPaths[3]);
-          return;
-        } else if(queryPaths[0] == "SETCOLUMNDATATYPE") {
-          Database.SetColumnDataType(queryPaths[1],queryPaths[2],MochaData.GetDataTypeFromName(queryPaths[3]));
-          return;
-        } else if(queryPaths[0] == "ADDDATA") {
-          if(queryPaths[3] != string.Empty)
-            Database.AddData(queryPaths[1],queryPaths[2],queryPaths[3]);
-          else
-            Database.AddData(queryPaths[1],queryPaths[2],null);
-          return;
-        } else if(queryPaths[0] == "UPDATEFIRSTDATA") {
-          Database.UpdateFirstData(queryPaths[1],queryPaths[2],queryPaths[3]);
-          return;
-        } else if(queryPaths[0] == "UPDATELASTDATA") {
-          Database.UpdateLastData(queryPaths[1],queryPaths[2],queryPaths[3]);
-          return;
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 5) {
-        if(queryPaths[0] == "UPDATEDATA") {
-          Database.UpdateData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]),queryPaths[4]);
-          return;
-        } else
+      switch(queryPaths.Length) {
+        case 1:
+          switch(queryPaths[0]) {
+            case "RESETMOCHA":
+              Database.Reset();
+              return;
+            case "RESETTABLES":
+              Database.OnChanging(this,new EventArgs());
+              IEnumerable<XElement> tableRange = Database.CDoc.Root.Element("Tables").Elements();
+              for(int index = 0; index < tableRange.Count(); ++index)
+                tableRange.ElementAt(index).Elements().Remove();
+              Database.Save();
+              return;
+            case "CLEARTABLES":
+              Database.ClearTables();
+              return;
+            case "CLEARALL":
+              Database.ClearAll();
+              return;
+            case "CLEARLOGS":
+              Database.ClearLogs();
+              return;
+            case "RESTORETOFIRSTLOG":
+              Database.RestoreToFirstLog();
+              return;
+            case "RESTORETOLASTLOG":
+              Database.RestoreToLastLog();
+              return;
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        case 2:
+          switch(queryPaths[0]) {
+            case "REMOVETABLE":
+              Database.RemoveTable(queryPaths[1]);
+              return;
+            case "CREATETABLE":
+              Database.CreateTable(queryPaths[1]);
+              return;
+            case "SETPASSWORD":
+              Database.SetPassword(queryPaths[1]);
+              return;
+            case "SETDESCRIPTION":
+              Database.SetDescription(queryPaths[1]);
+              return;
+            case "RESTORETOLOG":
+              Database.RestoreToLog(queryPaths[1]);
+              return;
+            case "CLEARROWS":
+              Database.ClearRows(queryPaths[1]);
+              return;
+            case "RESETTABLE":
+              if(!Database.ExistsTable(queryPaths[1]))
+                throw new MochaException("Table not found in this name!");
+              Database.OnChanging(this,new EventArgs());
+              Database.CDoc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
+              Database.Save();
+              return;
+            case "CREATEMOCHA":
+              MochaDatabase.CreateMochaDB(queryPaths[1],string.Empty,string.Empty);
+              return;
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        case 3:
+          switch(queryPaths[0]) {
+            case "REMOVECOLUMN":
+              Database.RemoveColumn(queryPaths[1],queryPaths[2]);
+              return;
+            case "SETTABLEDESCRIPTION":
+              Database.SetTableDescription(queryPaths[1],queryPaths[2]);
+              return;
+            case "REMOVEROW":
+              Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2]));
+              return;
+            case "RENAMETABLE":
+              Database.RenameTable(queryPaths[1],queryPaths[2]);
+              return;
+            case "CREATECOLUMN":
+              Database.CreateColumn(queryPaths[1],queryPaths[2]);
+              return;
+            case "CREATEMOCHA":
+              MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]),string.Empty,string.Empty);
+              return;
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        case 4:
+          switch(queryPaths[0]) {
+            case "RENAMECOLUMN":
+              Database.RenameColumn(queryPaths[1],queryPaths[2],queryPaths[3]);
+              return;
+            case "SETCOLUMNDESCRIPTION":
+              Database.SetColumnDescription(queryPaths[1],queryPaths[2],queryPaths[3]);
+              return;
+            case "SETCOLUMNDATATYPE":
+              Database.SetColumnDataType(queryPaths[1],queryPaths[2],MochaData.GetDataTypeFromName(queryPaths[3]));
+              return;
+            case "ADDDATA":
+              if(queryPaths[3] != string.Empty)
+                Database.AddData(queryPaths[1],queryPaths[2],queryPaths[3]);
+              else
+                Database.AddData(queryPaths[1],queryPaths[2],null);
+              return;
+            case "UPDATEFIRSTDATA":
+              Database.UpdateFirstData(queryPaths[1],queryPaths[2],queryPaths[3]);
+              return;
+            case "UPDATELASTDATA":
+              Database.UpdateLastData(queryPaths[1],queryPaths[2],queryPaths[3]);
+              return;
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        case 5:
+          switch(queryPaths[0]) {
+            case "UPDATEDATA":
+              Database.UpdateData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]),queryPaths[4]);
+              return;
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        default:
           throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
       }
     }
@@ -354,86 +367,94 @@ namespace MochaDB.Mochaq {
       string[] queryPaths = MochaQ.Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
 
-      if(queryPaths.Length == 1) {
-        if(queryPaths[0] == "GETTABLES") {
-          return new MochaCollectionResult<MochaTable>(Database.GetTables());
-        } else if(queryPaths[0] == "GETPASSWORD") {
-          return new MochaResult<string>(Database.GetPassword());
-        } else if(queryPaths[0] == "GETDESCRIPTION") {
-          return new MochaResult<string>(Database.GetDescription());
-        } else if(queryPaths[0] == "GETLOGS") {
-          return new MochaCollectionResult<MochaLog>(Database.GetLogs());
-        } else if(queryPaths[0] == "GETDATAS") {
-          List<MochaData> datas = new List<MochaData>();
-          IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
-          for(int index = 0; index < tableRange.Count(); ++index)
-            datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName).collection);
-          return new MochaCollectionResult<MochaData>(datas);
-        } else if(queryPaths[0] == "TABLECOUNT") {
-          return new MochaResult<int>(Database.Doc.Root.Elements().Count());
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 2) {
-        if(queryPaths[0] == "GETTABLE") {
-          return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
-        } else if(queryPaths[0] == "GETCOLUMNS") {
-          return new MochaCollectionResult<MochaColumn>(Database.GetColumns(queryPaths[1]));
-        } else if(queryPaths[0] == "GETFIRSTCOLUMN_NAME") {
-          return GETFIRSTCOLUMN_NAME(queryPaths[1]);
-        } else if(queryPaths[0] == "EXISTSLOG") {
-          return new MochaResult<bool>(Database.ExistsLog(queryPaths[1]));
-        } else if(queryPaths[0] == "GETROWS") {
-          return new MochaCollectionResult<MochaRow>(Database.GetRows(queryPaths[1]));
-        } else if(queryPaths[0] == "GETDATAS") {
-          return GETDATAS(queryPaths[1]);
-        } else if(queryPaths[0] == "GETTABLEDESCRIPTION") {
-          return new MochaResult<string>(Database.GetTableDescription(queryPaths[1]));
-        } else if(queryPaths[0] == "COLUMNCOUNT") {
-          return COLUMNCOUNT(queryPaths[1]);
-        } else if(queryPaths[0] == "ROWCOUNT") {
-          try {
-            return new MochaResult<int>(Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements(
-                GETFIRSTCOLUMN_NAME(queryPaths[1]).Value).Elements().Count());
-          } catch(Exception excep) {
-            throw excep;
+      switch(queryPaths.Length) {
+        case 1:
+          switch(queryPaths[0]) {
+            case "GETTABLES":
+              return new MochaCollectionResult<MochaTable>(Database.GetTables());
+            case "GETPASSWORD":
+              return new MochaResult<string>(Database.GetPassword());
+            case "GETDESCRIPTION":
+              return new MochaResult<string>(Database.GetDescription());
+            case "GETLOGS":
+              return new MochaCollectionResult<MochaLog>(Database.GetLogs());
+            case "GETDATAS":
+              List<MochaData> datas = new List<MochaData>();
+              IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
+              for(int index = 0; index < tableRange.Count(); ++index)
+                datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName).collection);
+              return new MochaCollectionResult<MochaData>(datas);
+            case "TABLECOUNT":
+              return new MochaResult<int>(Database.Doc.Root.Elements().Count());
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
-        } else if(queryPaths[0] == "DATACOUNT") {
-          return new MochaResult<int>(Database.GetDataCount(queryPaths[1],GETFIRSTCOLUMN_NAME(queryPaths[1]))
-              * COLUMNCOUNT(queryPaths[1]));
-        } else if(queryPaths[0] == "EXISTSTABLE") {
-          return new MochaResult<bool>(Database.ExistsTable(queryPaths[1]));
-        } else if(queryPaths[0] == "#REMOVETABLE") {
-          return new MochaResult<bool>(Database.RemoveTable(queryPaths[1]));
-        } else
+        case 2:
+          switch(queryPaths[0]) {
+            case "GETTABLE":
+              return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
+            case "GETCOLUMNS":
+              return new MochaCollectionResult<MochaColumn>(Database.GetColumns(queryPaths[1]));
+            case "GETFIRSTCOLUMN_NAME":
+              return GETFIRSTCOLUMN_NAME(queryPaths[1]);
+            case "EXISTSLOG":
+              return new MochaResult<bool>(Database.ExistsLog(queryPaths[1]));
+            case "GETROWS":
+              return new MochaCollectionResult<MochaRow>(Database.GetRows(queryPaths[1]));
+            case "GETDATAS":
+              return GETDATAS(queryPaths[1]);
+            case "GETTABLEDESCRIPTION":
+              return new MochaResult<string>(Database.GetTableDescription(queryPaths[1]));
+            case "COLUMNCOUNT":
+              return COLUMNCOUNT(queryPaths[1]);
+            case "ROWCOUNT":
+              try {
+                return new MochaResult<int>(Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements(
+                    GETFIRSTCOLUMN_NAME(queryPaths[1]).Value).Elements().Count());
+              } catch(Exception excep) {
+                throw excep;
+              }
+            case "DATACOUNT":
+              return new MochaResult<int>(Database.GetDataCount(queryPaths[1],GETFIRSTCOLUMN_NAME(queryPaths[1]))
+                * COLUMNCOUNT(queryPaths[1]));
+            case "EXISTSTABLE":
+              return new MochaResult<bool>(Database.ExistsTable(queryPaths[1]));
+            case "#REMOVETABLE":
+              return new MochaResult<bool>(Database.RemoveTable(queryPaths[1]));
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        case 3:
+          if(queryPaths[0] == "GETCOLUMN") {
+            return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "DATACOUNT") {
+            return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "EXISTSCOLUMN") {
+            return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "GETDATAS") {
+            return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
+            return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
+            return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "#REMOVECOLUMN") {
+            return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
+          } else if(queryPaths[0] == "#REMOVEROW") {
+            return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
+          } else
+            throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+        case 4:
+          switch(queryPaths[0]) {
+            case "EXISTSDATA":
+              return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
+            case "GETDATA":
+              return new MochaResult<MochaData>(Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3])));
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
+        default:
           throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 3) {
-        if(queryPaths[0] == "GETCOLUMN") {
-          return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "DATACOUNT") {
-          return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "EXISTSCOLUMN") {
-          return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "GETDATAS") {
-          return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
-          return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
-          return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "#REMOVECOLUMN") {
-          return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
-        } else if(queryPaths[0] == "#REMOVEROW") {
-          return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else if(queryPaths.Length == 4) {
-        if(queryPaths[0] == "EXISTSDATA") {
-          return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
-        } else if(queryPaths[0] == "GETDATA") {
-          return new MochaResult<MochaData>(Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3])));
-        } else
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
-      } else
-        throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+      }
     }
 
     #endregion GetRun
