@@ -1,9 +1,9 @@
-using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-
 namespace MochaDB.framework {
+  using System;
+  using System.IO;
+  using System.Security.Cryptography;
+  using System.Text;
+
   /// <summary>
   /// AES encryptor of MochaDB.
   /// </summary>

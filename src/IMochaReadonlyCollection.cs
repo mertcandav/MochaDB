@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿namespace MochaDB {
+  using System.Collections;
+  using System.Collections.Generic;
 
-namespace MochaDB {
   /// <summary>
   /// Readonly collection interface for MochaDB.
   /// </summary>

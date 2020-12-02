@@ -1,6 +1,6 @@
-using MochaDB.Mhql;
-
 namespace MochaDB.mhql.must.functions {
+  using MochaDB.Mhql;
+
   /// <summary>
   /// MHQL BETWEEN function of MUST.
   /// </summary>

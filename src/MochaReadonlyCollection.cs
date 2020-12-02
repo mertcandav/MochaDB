@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace MochaDB {
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Linq;
 
-using MochaDB.Streams;
+  using MochaDB.Streams;
 
-namespace MochaDB {
   /// <summary>
   /// Base class for MochaDB readonly collections.
   /// </summary>    

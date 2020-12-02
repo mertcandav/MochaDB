@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Linq;
+﻿namespace MochaDB.Mochaq {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Linq;
+  using System.Xml.Linq;
 
-using MochaDB.Logging;
-using MochaDB.Querying;
+  using MochaDB.Logging;
+  using MochaDB.Querying;
 
-namespace MochaDB.Mochaq {
   /// <summary>
   /// It offers query usage and management with MochaQ.
   /// </summary>

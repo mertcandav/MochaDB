@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace MochaDB.mhql.keywords {
+  using System.Collections.Generic;
+  using System.Text;
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// MHQL AND keyword.
   /// </summary>

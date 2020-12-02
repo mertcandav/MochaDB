@@ -1,6 +1,6 @@
-using System.Xml.Linq;
-
 namespace MochaDB.framework {
+  using System.Xml.Linq;
+
   /// <summary>
   /// XML framework of MochaDB.
   /// </summary>

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace MochaDB {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
 
-namespace MochaDB {
   /// <summary>
   /// MochaData collector for MochaColumns.
   /// </summary>

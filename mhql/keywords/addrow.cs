@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using MochaDB.Mhql;
-
 namespace MochaDB.mhql.keywords {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using MochaDB.Mhql;
+
   /// <summary>
   /// MHQL ADDROW keyword.
   /// </summary>

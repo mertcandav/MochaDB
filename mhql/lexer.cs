@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 namespace MochaDB.mhql {
+  using System;
+  using System.Collections.Generic;
+
   /// <summary>
   /// Lexer of MHQL.
   /// </summary>

@@ -1,6 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace MochaDB.engine {
+  using System.Text.RegularExpressions;
 
-namespace MochaDB.engine {
   /// <summary>
   /// Value engine of MochaDB.
   /// </summary>

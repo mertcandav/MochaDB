@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-using MochaDB.Querying;
-
 namespace MochaDB.mhql {
+  using System.Collections.Generic;
+  using System.Text.RegularExpressions;
+
+  using MochaDB.Querying;
+
   /// <summary>
   /// MHQL @ mark.
   /// </summary>

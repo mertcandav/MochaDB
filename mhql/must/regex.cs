@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
-
 namespace MochaDB.mhql.must {
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// REGEX functions of MUST.
   /// </summary>

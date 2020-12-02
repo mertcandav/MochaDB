@@ -1,9 +1,9 @@
-using System;
-using System.Linq;
-
-using MochaDB.Mhql;
-
 namespace MochaDB.mhql.keywords {
+  using System;
+  using System.Linq;
+
+  using MochaDB.Mhql;
+
   /// <summary>
   /// MHQL SUBROW keyword.
   /// </summary>

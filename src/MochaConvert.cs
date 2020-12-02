@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
+﻿namespace MochaDB {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Linq;
+  using System.Text;
+  using System.Xml;
+  using System.Xml.Linq;
 
-using MochaDB.Mhql;
+  using MochaDB.Mhql;
 
-namespace MochaDB {
   /// <summary>
   /// Converter for MochaDB.
   /// </summary>

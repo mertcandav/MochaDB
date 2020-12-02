@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿namespace MochaDB {
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
 
-namespace MochaDB {
   /// <summary>
   /// Collection interface for MochaDB.
   /// </summary>

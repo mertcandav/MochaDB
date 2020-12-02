@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-
 namespace MochaDB.mhql.engine {
+  using System.Collections.Generic;
+
   /// <summary>
   /// Lexer of MHQL conditions.
   /// </summary>

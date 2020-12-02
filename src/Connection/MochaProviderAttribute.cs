@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿namespace MochaDB.Connection {
+  using System;
+  using System.Text.RegularExpressions;
 
-namespace MochaDB.Connection {
   /// <summary>
   /// Attributes for MochaProviders.
   /// </summary>

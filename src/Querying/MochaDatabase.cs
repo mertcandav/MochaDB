@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿namespace MochaDB.Querying {
+  using System;
+  using System.Linq;
 
-using MochaDB.Mhql;
-using MochaDB.Streams;
+  using MochaDB.Mhql;
+  using MochaDB.Streams;
 
-namespace MochaDB.Querying {
   /// <summary>
   /// Query extension for MochaDatabases.
   /// </summary>

@@ -1,8 +1,8 @@
-﻿using System;
+﻿namespace MochaDB {
+  using System;
 
-using MochaDB.Data.Types;
+  using MochaDB.Data.Types;
 
-namespace MochaDB {
   /// <summary>
   /// This is data object for MochaDB.
   /// </summary>

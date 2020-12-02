@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿namespace MochaDB {
+  using System;
+  using System.Linq;
 
-using MochaDB.engine;
+  using MochaDB.engine;
 
-namespace MochaDB {
   /// <summary>
   /// This is table object for MochaDB.
   /// </summary>

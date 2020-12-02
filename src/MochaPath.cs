@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿namespace MochaDB {
+  using System.Linq;
 
-namespace MochaDB {
   /// <summary>
   /// MochaDB path definer.
   /// </summary>

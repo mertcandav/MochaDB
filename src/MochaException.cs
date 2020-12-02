@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace MochaDB {
+  using System;
 
-namespace MochaDB {
   /// <summary>
   /// Exception for MochaDB.
   /// </summary>

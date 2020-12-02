@@ -1,8 +1,8 @@
-using System.Xml.Linq;
-
-using MochaDB.framework;
-
 namespace MochaDB.engine {
+  using System.Xml.Linq;
+
+  using MochaDB.framework;
+
   /// <summary>
   /// Structure engine of MochaDB.
   /// </summary>

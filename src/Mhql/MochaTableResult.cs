@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿namespace MochaDB.Mhql {
+  using System;
+  using System.Linq;
 
-namespace MochaDB.Mhql {
   /// <summary>
   /// Table result for Mhql query results.
   /// </summary>

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace MochaDB {
+  using System.Collections.Generic;
 
-namespace MochaDB {
   /// <summary>
   /// This is row object for MochaDB.
   /// </summary>

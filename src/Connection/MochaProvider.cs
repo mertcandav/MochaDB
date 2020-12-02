@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿namespace MochaDB.Connection {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Linq;
+  using System.Text.RegularExpressions;
 
-using MochaDB.engine;
+  using MochaDB.engine;
 
-namespace MochaDB.Connection {
   /// <summary>
   /// Provider for MochaDB connections.
   /// </summary>

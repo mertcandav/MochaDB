@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
 namespace MochaDB.framework {
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// Dictionary framework of MochaDB.
   /// </summary>

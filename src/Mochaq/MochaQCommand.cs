@@ -1,6 +1,6 @@
-﻿using MochaDB.Querying;
+﻿namespace MochaDB.Mochaq {
+  using MochaDB.Querying;
 
-namespace MochaDB.Mochaq {
   /// <summary>
   /// MochaQ query for MochaDB.
   /// </summary>

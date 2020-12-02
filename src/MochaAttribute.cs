@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿namespace MochaDB {
+  using System;
+  using System.Text.RegularExpressions;
 
-using MochaDB.engine;
+  using MochaDB.engine;
 
-namespace MochaDB {
   /// <summary>
   /// Attribute for MochaDB.
   /// </summary>

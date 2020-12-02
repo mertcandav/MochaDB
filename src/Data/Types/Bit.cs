@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace MochaDB.Data.Types {
+  using System;
 
-namespace MochaDB.Data.Types {
   /// <summary>
   /// Bit data type of MochaDB.
   /// </summary>

@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
-
 namespace MochaDB.mhql.keywords {
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// MHQL FROM keyword.
   /// </summary>

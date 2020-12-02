@@ -1,9 +1,9 @@
-using System;
-using System.Text.RegularExpressions;
-
-using MochaDB.Querying;
-
 namespace MochaDB.mhql.keywords {
+  using System;
+  using System.Text.RegularExpressions;
+
+  using MochaDB.Querying;
+
   /// <summary>
   /// MHQL SELECT keyword.
   /// </summary>

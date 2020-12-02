@@ -1,6 +1,6 @@
-using System;
-
 namespace MochaDB.mhql.keywords {
+  using System;
+
   /// <summary>
   /// MHQL REMOVE keyword.
   /// </summary>

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace MochaDB.Mhql {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
 
-using MochaDB.Connection;
-using MochaDB.mhql.keywords;
-using MochaDB.Streams;
+  using MochaDB.Connection;
+  using MochaDB.mhql.keywords;
+  using MochaDB.Streams;
 
-namespace MochaDB.Mhql {
   /// <summary>
   /// MHQL Command processor for MochaDB.
   /// </summary>

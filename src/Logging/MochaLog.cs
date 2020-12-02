@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace MochaDB.Logging {
+  using System;
 
-namespace MochaDB.Logging {
   /// <summary>
   /// Log for MochaDB.
   /// </summary>

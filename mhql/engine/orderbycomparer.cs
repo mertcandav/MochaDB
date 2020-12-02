@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 namespace MochaDB.mhql.engine {
+  using System;
+  using System.Collections.Generic;
+
   /// <summary>
   /// Comparer for mhql orderby.
   /// </summary>

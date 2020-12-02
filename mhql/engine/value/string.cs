@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
-
 namespace MochaDB.mhql.engine.value {
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// Char value engine of MHQL.
   /// </summary>

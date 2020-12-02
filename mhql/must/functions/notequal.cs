@@ -1,6 +1,6 @@
-﻿using MochaDB.Mhql;
+﻿namespace MochaDB.mhql.must.functions {
+  using MochaDB.Mhql;
 
-namespace MochaDB.mhql.must.functions {
   /// <summary>
   /// MHQL NOTEQUAL function of MUST.
   /// </summary>

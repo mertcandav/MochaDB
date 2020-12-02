@@ -1,9 +1,9 @@
-using System;
-
-using MochaDB.Mhql;
-using MochaDB.Querying;
-
 namespace MochaDB.mhql.keywords {
+  using System;
+
+  using MochaDB.Mhql;
+  using MochaDB.Querying;
+
   /// <summary>
   /// MHQL INEQ keyword.
   /// </summary>

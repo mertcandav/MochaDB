@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace MochaDB {
+  using System;
 
-namespace MochaDB {
   /// <summary>
   /// ID for MochaID.
   /// </summary>

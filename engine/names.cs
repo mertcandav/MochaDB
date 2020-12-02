@@ -1,8 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace MochaDB.engine {
+  using System.Text.RegularExpressions;
 
-using MochaDB.mhql;
+  using MochaDB.mhql;
 
-namespace MochaDB.engine {
   /// <summary>
   /// Name engine of MochaDB.
   /// </summary>

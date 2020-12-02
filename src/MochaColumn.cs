@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace MochaDB {
+  using System;
+  using System.Collections.Generic;
 
-using MochaDB.engine;
+  using MochaDB.engine;
 
-namespace MochaDB {
   /// <summary>
   /// This is column object for MochaDB.
   /// </summary>

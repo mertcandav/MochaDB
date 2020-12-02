@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace MochaDB.Streams {
+  using System.Collections.Generic;
+  using System.Linq;
 
-namespace MochaDB.Streams {
   /// <summary>
   /// Stream reader for MochaDB.
   /// </summary>
