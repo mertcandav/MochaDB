@@ -78,14 +78,14 @@
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaRow,bool> filter) =>
+    public void Filter(Func<MochaRow,bool> filter) =>
       Rows = Rows.Where(filter).ToArray();
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaColumn,bool> filter) =>
+    public void Filter(Func<MochaColumn,bool> filter) =>
       Columns = Columns.Where(filter).ToArray();
 
     #endregion Members

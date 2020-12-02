@@ -157,14 +157,14 @@
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaRow,bool> filter) =>
+    public void Filter(Func<MochaRow,bool> filter) =>
       Rows.collection = Rows.collection.Where(filter).ToList();
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void FCon(Func<MochaColumn,bool> filter) =>
+    public void Filter(Func<MochaColumn,bool> filter) =>
       Columns.collection = Columns.collection.Where(filter).ToList();
 
     #endregion Members
