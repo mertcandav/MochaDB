@@ -94,14 +94,14 @@ namespace MochaDB.mhql {
     /// Main keywords.
     /// </summary>
     public static string MainKeywords =>
-      "USE|ORDERBY|MUST|GROUPBY|SELECT|REMOVE|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW|CORDERBY";
+      "USE|ORDERBY|MUST|GROUPBY|SELECT|SUBROW|SUBCOL|DELROW|DELCOL|ADDROW|CORDERBY";
 
     /// <summary>
     /// All words.
     /// </summary>
     public static Regex FullRegex => new Regex(
-$@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
-\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW|TRUE|FALSE|IN|INEQ)\b",
+$@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|TRUE|FALSE|IN|INEQ|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|
+\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
     /// <summary>
