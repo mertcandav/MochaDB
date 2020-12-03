@@ -178,7 +178,7 @@ When written alone, it deletes the rows from the first line to the highest numbe
 ```USE Persons DELROW 10, 5``` - It starts at line 10 and deleted the next 5 lines after line 10.
 
 - ```ADDROW``` <br>
-Adds a specified number of new lines and sets the default value of the data type.
+Adds a specified number of new lines and sets the default value of the data type. <br>
 <b>Examples</b><br>
 ```USE Persons ADDROW 100``` - Get full table content and add new 100 row with default values.
 
