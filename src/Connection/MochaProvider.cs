@@ -109,9 +109,7 @@
     /// <param name="name">Name of attribute.</param>
     public bool GetBoolAttributeState(string name) {
       MochaProviderAttribute attribute = GetAttribute(name);
-      if(attribute!=null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase))
-        return true;
-      return false;
+      return attribute != null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion Members

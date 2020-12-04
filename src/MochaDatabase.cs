@@ -267,7 +267,7 @@ namespace MochaDB {
       xLog.Add(new XAttribute("Time",DateTime.Now));
       string content = aes.Encrypt(Iv,Key,Doc.ToString());
       xLog.Value=content;
-      XElement xLogs = GetXElement(Doc,"Logs");
+      XElement xLogs = GetXElement(CDoc,"Logs");
       IEnumerable<XElement> logElements = xLogs.Elements();
       if(logElements.Count() >= 1000)
         logElements.Last().Remove();
@@ -1225,7 +1225,7 @@ namespace MochaDB {
       Changing?.Invoke(this,new EventArgs());
 
       XElement log = GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
-      Doc=XDocument.Parse(aes.Decrypt(Iv,Key,log.Value));
+      CDoc = XDocument.Parse(aes.Decrypt(Iv,Key,log.Value));
       Save();
     }
 
