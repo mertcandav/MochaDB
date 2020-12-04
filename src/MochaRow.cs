@@ -37,7 +37,7 @@
         object data = datas[dex];
         Datas.collection.Add(
             new MochaData() {
-              dataType = MochaData.GetDataTypeFromType(data.GetType()),
+              dataType = data == null ? MochaDataType.String : MochaData.GetDataTypeFromType(data.GetType()),
               data = data
             });
       }
