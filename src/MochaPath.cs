@@ -1,4 +1,5 @@
 ﻿namespace MochaDB {
+  using IOPath = System.IO.Path;
   using System.Linq;
 
   /// <summary>
@@ -38,7 +39,7 @@
     /// Go to the parent directory.
     /// </summary>
     public void ParentDirectory() {
-      int dex = Path.LastIndexOf('/');
+      int dex = Path.LastIndexOf(IOPath.DirectorySeparatorChar);
       Path=dex!=-1 ? Path.Substring(0,dex) : Path;
     }
 
@@ -46,7 +47,7 @@
     /// Return parent directory's MochaPath object.
     /// </summary>
     public MochaPath ParentPath() {
-      int dex = Path.LastIndexOf('/');
+      int dex = Path.LastIndexOf(IOPath.DirectorySeparatorChar);
       string path = dex!=-1 ? Path.Substring(0,dex) : Path;
       return path;
     }
@@ -56,7 +57,7 @@
     /// </summary>
     /// <returns></returns>
     public string Name() {
-      int dex = Path.LastIndexOf('/');
+      int dex = Path.LastIndexOf(IOPath.DirectorySeparatorChar);
       return dex!=-1 ? Path.Remove(0,dex+1) : Path;
     }
 
@@ -114,8 +115,8 @@
         if(string.IsNullOrEmpty(value))
           throw new MochaException("Path is cannot null or whitespace!");
 
-        value=value.Replace('\\','/');
-        value = value.Last()=='/' ? value.Remove(value.Length-1,1) : value;
+        value=value.Replace('\\',IOPath.DirectorySeparatorChar);
+        value = value.Last() == IOPath.DirectorySeparatorChar ? value.Remove(value.Length-1,1) : value;
         if(value==path)
           return;
 
