@@ -137,6 +137,8 @@ namespace MochaDB {
     /// </summary>
     public event EventHandler<EventArgs> Changed;
     internal void OnChanged(object sender,EventArgs e) {
+      CDoc = null;
+
       if(SuspendChangeEvents)
         return;
 
@@ -425,14 +427,14 @@ namespace MochaDB {
     /// Disconnect from database.
     /// </summary>
     public void Disconnect() {
-      if(State==MochaConnectionState.Disconnected)
+      if(State == MochaConnectionState.Disconnected)
         return;
 
-      State=MochaConnectionState.Disconnected;
+      State = MochaConnectionState.Disconnected;
 
       sourceStream.Dispose();
-      Doc=null;
-      Query=null;
+      Doc = null;
+      Query = null;
     }
 
     #endregion Connection
