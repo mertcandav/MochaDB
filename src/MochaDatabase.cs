@@ -118,8 +118,9 @@ namespace MochaDB {
     /// This happens before content changed.
     /// </summary>
     public event EventHandler<EventArgs> Changing;
-    internal void OnChanging(object sender,EventArgs e) {
-      CDoc = new XDocument(Doc);
+    internal void OnChanging(object sender,EventArgs e,bool updateCDoc = true) {
+      if(updateCDoc)
+        CDoc = new XDocument(Doc);
 
       if(SuspendChangeEvents)
         return;
@@ -914,9 +915,10 @@ namespace MochaDB {
       if(!ExistsTable(tableName))
         throw new MochaException("Table not found in this name!");
 
-      IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
+      IEnumerable<XElement> columnRange = GetXElement(CDoc = new XDocument(Doc),
+        $"Tables/{tableName}").Elements();
       if(columnRange.First().Elements().Count()-1 >= index) {
-        OnChanging(this,new EventArgs());
+        OnChanging(this,new EventArgs(),false);
         for(int columnIndex = 0; columnIndex < columnRange.Count(); ++columnIndex)
           columnRange.ElementAt(columnIndex).Elements().
               ElementAt(index).Remove();
