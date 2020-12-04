@@ -11,7 +11,8 @@ CHANGELOGS of MochaDB.
 + Fix ``ContainsData`` function.
 + Fix bugs ``USE`` and ``FROM`` keywords of MHQL.
 + Fix string and char conditions of MHQL.
-+ Fix index out of range error of ``MochaDatabase.GetTables()`` function.
++ Fix index out of range error of ``MochaDatabase.GetTables`` function.
++ Fix ``MochaDatabse.RemoveRow`` function.
 
 # rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
