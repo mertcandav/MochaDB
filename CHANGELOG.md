@@ -14,6 +14,7 @@ CHANGELOGS of MochaDB.
 + Fix index out of range error of ``MochaDatabase.GetTables`` function.
 + Fix ``MochaDatabse.RemoveRow`` function.
 + Fix MochaRow null data problem.
++ Fix broken log system.
 
 # rlsv3.4.8 [ 9 September 2020 ]
 + Added check system for float datas.
