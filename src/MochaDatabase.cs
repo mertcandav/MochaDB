@@ -245,9 +245,7 @@ namespace MochaDB {
       string password = GetPassword();
       Disconnect();
       File.WriteAllText(Provider.Path,content);
-      Provider.Constant=false;
-      Provider.ConnectionString=$"path={Provider.Path};password={password}";
-      Provider.EnableConstant();
+      Provider.Password = password;
       Connect();
 
       OnChanged(this,new EventArgs());
