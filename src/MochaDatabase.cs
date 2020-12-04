@@ -1178,11 +1178,11 @@ namespace MochaDB {
       MochaLog[] logs = new MochaLog[elements.Count()];
       for(int index = 0; index < logs.Length; ++index) {
         XElement currentElement = elements.ElementAt(index);
-        MochaLog log = new MochaLog();
-        log.ID = currentElement.Attribute("ID").Value;
-        log.Time = DateTime.Parse(currentElement.Attribute("Time").Value);
-        log.Log=currentElement.Value;
-        logs[index] = log;
+        logs[index] = new MochaLog {
+          ID = currentElement.Attribute("ID").Value,
+          Time = DateTime.Parse(currentElement.Attribute("Time").Value),
+          Log= currentElement.Value
+        };
       }
       return logs;
     }
