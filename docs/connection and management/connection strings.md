@@ -33,21 +33,25 @@ If more than one attribute is defined, the attributes are ``;`` should be separa
         <td>AutoConnect</td>
         <td">If true, it is automatically connected to the database.</td>
         <td>True/False</td>
+        <td>Boolean</td>
     </tr>
     <tr>
         <td>Readonly</td>
         <td">If true, cannot task of write in database.</td>
         <td>True/False</td>
+        <td>Boolean</td>
     </tr>
     <tr>
         <td>AutoCreate</td>
         <td">If True, a new database will be created if there is no database every time a connection is opened.</td>
         <td>True/False</td>
+        <td>Boolean</td>
     </tr>
     <tr>
         <td>Logs</td>
         <td">If true, a copy of the database is kept in database whenever the content changes.</td>
         <td>True/False</td>
+        <td>Boolean</td>
     </tr>
 </table>
 
