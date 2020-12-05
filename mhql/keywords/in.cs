@@ -41,7 +41,7 @@ namespace MochaDB.mhql.keywords {
         throw new MochaException("Column data type is not same of subquery result!");
       for(int index = 0; index < row.Datas.Count; ++index)
         for(int rindex = 0; rindex < result.Columns[0].Datas.Count; ++rindex)
-          if(row.Datas[index].Data == result.Columns[0].Datas[rindex].Data)
+          if(row.Datas[index].Data.ToString() == result.Columns[0].Datas[rindex].Data.ToString())
             return true;
       return false;
     }

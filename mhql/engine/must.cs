@@ -73,6 +73,7 @@ namespace MochaDB.mhql.engine {
       if(Mhql_INEQ.IsINEQ(command)) {
         return Mhql_INEQ.Process(tdb,command,table,row,from);
       } else if(Mhql_IN.IsIN(command)) {
+        Console.WriteLine(Mhql_IN.Process(tdb,command,table,row,from));
         return Mhql_IN.Process(tdb,command,table,row,from);
       } else if(MhqlEng_CONDITION.IsCondition(command,out _)) {
         return MhqlEng_CONDITION.Process(command,table,row,from);
