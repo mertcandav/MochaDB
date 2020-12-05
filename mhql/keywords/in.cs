@@ -37,7 +37,8 @@ namespace MochaDB.mhql.keywords {
           command.Substring(obrace).Trim(),Mhql_LEXER.LBRACE,Mhql_LEXER.RBRACE));
       if(result.Columns.Length != 1)
         throw new MochaException("Subqueries should only return one column!");
-      else if(column.DataType != result.Columns[0].DataType)
+      else if(MochaData.IsNumericType(column.DataType) != MochaData.IsNumericType(result.Columns[0].DataType)
+        && column.DataType != result.Columns[0].DataType)
         throw new MochaException("Column data type is not same of subquery result!");
       for(int index = 0; index < row.Datas.Count; ++index)
         for(int rindex = 0; rindex < result.Columns[0].Datas.Count; ++rindex)
