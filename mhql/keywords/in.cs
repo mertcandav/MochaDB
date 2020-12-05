@@ -15,7 +15,7 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="command">Command to check.</param>
     public static bool IsIN(string command) =>
-        command.StartsWith("IN",StringComparison.OrdinalIgnoreCase);
+      command.StartsWith("IN",StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Process in keyword.

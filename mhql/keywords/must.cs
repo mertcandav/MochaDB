@@ -30,7 +30,7 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="command">Command to check.</param>
     public bool IsMUST(string command) =>
-        command.StartsWith("MUST",StringComparison.OrdinalIgnoreCase);
+      command.StartsWith("MUST",StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Returns must command.

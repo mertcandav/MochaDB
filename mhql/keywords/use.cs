@@ -39,14 +39,11 @@ namespace MochaDB.mhql.keywords {
         if(usedex == -1)
           throw new MochaException("USE command is cannot processed!");
       }
-      Regex pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
+      Regex pattern = new Regex($@"(\s+){Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
       string command = Command.Substring(3);
-      int index = command.IndexOf(Mhql_LEXER.LBRACE);
-      index = index == -1 ? command.IndexOf(Mhql_LEXER.RBRACE) : index;
-      index = index == -1 ? 0 : index;
-      int count = index == 0 ? 0 : 1;
-      for(; index < command.Length; ++index) {
+      int count = 0;
+      for(int index = 0; index < command.Length; ++index) {
         char currentChar = command[index];
         if(count == 0) {
           Match match = pattern.Match(command.Substring(index));
