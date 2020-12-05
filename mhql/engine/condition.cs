@@ -161,10 +161,9 @@ namespace MochaDB.mhql.engine {
     /// <param name="command">Command to check.</param>
     /// <param name="type">Type of condition.</param>
     public static bool IsCondition(string command,out ConditionType type) {
-      if(new Regex(".*\\(").IsMatch(command)) {
-        type = ConditionType.None;
+      type = ConditionType.None;
+      if(new Regex(".*\\(").IsMatch(command))
         return false;
-      }
 
       for(int index = 0; index < MhqlEng_CONDITION_LEXER.__OPERATORS__.Count; ++index) {
         if(!command.Contains(MhqlEng_CONDITION_LEXER.__OPERATORS__.Values.ElementAt(index)))
@@ -173,8 +172,6 @@ namespace MochaDB.mhql.engine {
         type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
         return true;
       }
-
-      type = ConditionType.None;
       return false;
     }
 
