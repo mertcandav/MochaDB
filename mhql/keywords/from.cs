@@ -21,21 +21,18 @@ namespace MochaDB.mhql.keywords {
     public static int GetIndex(ref string command) {
       Regex pattern = new Regex($@"(\*| |\n)FROM(\s+.*|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-      int index = command.IndexOf(Mhql_LEXER.LBRACE);
-      index = index == -1 ? command.IndexOf(Mhql_LEXER.RBRACE) : index;
-      index = index == -1 ? 0 : index;
-      int count = index == 0 ? 0 : 1;
-      for(; index < command.Length; ++index) {
+      int count = command.StartsWith($"{Mhql_LEXER.LBRACE}") ? 1 : 0;
+      for(int index = count; index < command.Length; ++index) {
         char currentChar = command[index];
-        if(count == 0) {
-          Match match = pattern.Match(command.Substring(index));
-          if(match.Success)
-            return command[match.Index] == Mhql_LEXER.ALL_OPERATOR ?
-              match.Index + 1 : match.Index;
-        } else if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
+        if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
           ++count;
         else if(currentChar == Mhql_LEXER.RPARANT || currentChar == Mhql_LEXER.RBRACE)
           --count;
+        if(count == 0) {
+          Match match = pattern.Match(command.Substring(index));
+          if(match.Success && match.Index == 0)
+            return command[0] == Mhql_LEXER.ALL_OPERATOR ? index + 1 : index;
+        }
       }
       return -1;
     }

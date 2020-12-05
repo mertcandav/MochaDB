@@ -136,7 +136,6 @@
 
       bool fromkw;
       string lastcommand;
-
       if(Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
         string use = USE.GetUSE(out lastcommand);
         fromkw = Mhql_FROM.IsFROM(use);

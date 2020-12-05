@@ -41,20 +41,21 @@ namespace MochaDB.mhql.keywords {
       }
       Regex pattern = new Regex($@"(\s+){Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-      string command = Command.Substring(3);
-      int count = 0;
-      for(int index = 0; index < command.Length; ++index) {
+      string command = Command.Substring(3).TrimStart();
+      int count = command.StartsWith($"{Mhql_LEXER.LBRACE}") ? 1 : 0;
+      for(int index = count; index < command.Length; ++index) {
         char currentChar = command[index];
-        if(count == 0) {
-          Match match = pattern.Match(command.Substring(index));
-          if(match.Success) {
-            final = command.Substring(match.Index).Trim();
-            return command.Substring(0,match.Index).Trim();
-          }
-        } else if(currentChar == Mhql_LEXER.LBRACE)
+        if(currentChar == Mhql_LEXER.LBRACE)
           ++count;
         else if(currentChar == Mhql_LEXER.RBRACE)
           --count;
+        if(count == 0) {
+          Match match = pattern.Match(command.Substring(index));
+          if(match.Success && match.Index == 0) {
+            final = command.Substring(index).Trim();
+            return command.Substring(0,match.Index).Trim();
+          }
+        }
       }
       final = string.Empty;
       return command;
@@ -93,7 +94,7 @@ namespace MochaDB.mhql.keywords {
 
       if(from) {
         int dex = Mhql_FROM.GetIndex(ref usecommand);
-        string tablename = usecommand.Substring(dex+5).Trim();
+        string tablename = usecommand.Substring(dex + 5).Trim();
         string[] parts = Mhql_LEXER.SplitUseParameters(usecommand.Substring(0,dex));
         MochaColumn[] _columns = Tdb.GetColumns(tablename);
         if(parts.Length == 1 && parts[0].Trim() == "*")
