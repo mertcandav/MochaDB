@@ -8,6 +8,7 @@ CHANGELOGS of MochaDB.
 + Add ``CORDERBY`` keyword to MHQL.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Add temp table support with ``$`` to MHQL.
++ Add empty table compatibility to XmlTable converters.
 + Fix ``ContainsData`` function.
 + Fix bugs ``USE`` and ``FROM`` keywords of MHQL.
 + Fix string and char conditions of MHQL.
