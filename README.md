@@ -48,20 +48,13 @@ Manage with a powerful management system! Only Windows.
 
 ## Work with MHQL
 ```java
-USE {
-  USE Id, Name, Password
-  FROM Persons MUST
-  Name == "mertcandav"
-}, {
-  USE $Id, Name AS Company FROM Companies
-  MUST IN Id {
-    USE CompanyId, $Name
-    FROM Persons MUST
-    Name == "mertcandav"
+USE Id, Name, Password, CompanyId
+FROM Persons MUST
+Name == "mertcandav" AND
+  IN CompanyId {
+    USE Id, $Name FROM Companies MUST
+    Name == "Microsoft"
   }
-}
-MUST
-  3 == "Microsoft"
 CORDERBY ASC
 ORDERBY Name
 SUBROW 100
