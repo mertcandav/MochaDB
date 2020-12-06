@@ -178,6 +178,13 @@ $@"<Root>
       XDocument doc = XDocument.Parse(
 @"<Root>
 </Root>");
+      if(table.Rows.Count == 0) {
+        XElement element = new XElement(table.Name);
+        for(int index = 0; index < table.Columns.Count; ++index)
+          element.Add(new XElement(table.Columns[index].Name));
+        doc.Root.Add(element);
+        goto ret;
+      }
       for(int dex = 0; dex < table.Rows.Count; ++dex) {
         XElement row = new XElement(table.Name);
         for(int columnIndex = 0; columnIndex < table.Columns.Count; ++columnIndex) {
@@ -188,7 +195,7 @@ $@"<Root>
         }
         doc.Root.Add(row);
       }
-
+    ret:
       return doc.CreateReader();
     }
 
@@ -208,6 +215,13 @@ $@"<Root>
       XDocument doc = XDocument.Parse(
 @"<Root>
 </Root>");
+      if(table.Rows.Length == 0) {
+        XElement element = new XElement("Table");
+        for(int index = 0; index < table.Columns.Length; ++index)
+          element.Add(new XElement(table.Columns[index].Name));
+        doc.Root.Add(element);
+        goto ret;
+      }
       for(int dex = 0; dex < table.Rows.Length; ++dex) {
         XElement row = new XElement("Table");
         for(int columnIndex = 0; columnIndex < table.Columns.Length; ++columnIndex) {
@@ -218,7 +232,7 @@ $@"<Root>
         }
         doc.Root.Add(row);
       }
-
+    ret:
       return doc.CreateReader();
     }
   }
