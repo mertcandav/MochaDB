@@ -245,7 +245,7 @@ namespace MochaDB {
         throw new MochaException("This connection is can read only, cannot task of write!");
 
       string content = aes.Encrypt(Iv,Key,CDoc.ToString());
-      string password = GetPassword();
+      string password = CDoc.Root.Element("Root").Element("Password").Value;
       Disconnect();
       File.WriteAllText(Provider.Path,content);
       Provider.Password = password;
