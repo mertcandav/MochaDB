@@ -2,7 +2,6 @@ namespace MochaDB.mhql.keywords {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using System.Text.RegularExpressions;
 
   using MochaDB.framework;
   using MochaDB.mhql.engine;
@@ -33,32 +32,20 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="final">Command of removed use commands.</param>
     public string GetUSE(out string final) {
-      int usedex = Command.IndexOf($"USE{Mhql_LEXER.ALL_OPERATOR}",StringComparison.OrdinalIgnoreCase);
-      if(usedex == -1) {
-        usedex = Command.IndexOf("USE ",StringComparison.OrdinalIgnoreCase);
-        if(usedex == -1)
-          throw new MochaException("USE command is cannot processed!");
-      }
-      Regex pattern = new Regex($@"(\s+){Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
-        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-      string command = Command.Substring(3).TrimStart();
-      int count = command.StartsWith($"{Mhql_LEXER.LBRACE}") ? 1 : 0;
-      for(int index = count; index < command.Length; ++index) {
-        char currentChar = command[index];
-        if(currentChar == Mhql_LEXER.LBRACE)
-          ++count;
-        else if(currentChar == Mhql_LEXER.RBRACE)
-          --count;
-        if(count == 0) {
-          Match match = pattern.Match(command.Substring(index));
-          if(match.Success && match.Index == 0) {
-            final = command.Substring(index).Trim();
-            return command.Substring(0,match.Index).Trim();
-          }
-        }
-      }
-      final = string.Empty;
-      return command;
+      int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
+      if(usedex==-1)
+        throw new MochaException("USE command is cannot processed!");
+      int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+3).Index;
+      var usecommand =
+          finaldex == 0 ?
+              Command.Substring(usedex+3) :
+              Command.Substring(usedex+3,finaldex-(usedex+3));
+
+      final =
+          finaldex == 0 ?
+          string.Empty :
+          Command.Substring(finaldex);
+      return usecommand;
     }
 
     /// <summary>
