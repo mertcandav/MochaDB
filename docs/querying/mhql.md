@@ -358,19 +358,6 @@ MUST IN Name {
   }
 }
 ```
-<br>
-
-Add the Name column from the Persons table and the Password column that contains only the passwords of people over 60 years old.
-
-> Cannot be used with ``FROM`` keyword!
-
-```java
-USE Persons.Name, {
-  USE Password, $Age
-  FROM Persons
-  MUST BIGGER(Age, 60)
-}
-```
 
 # 
 
@@ -395,17 +382,6 @@ FROM Persons
 MUST
     2 > #18 AND
     Gender == "Female"
-```
-```java
-USE {
-  USE Name, Password
-  FROM Persons MUST
-    Name == "mertcandav"
-}, ${
-  USE Id, $Name
-  FROM Idenditities MUST
-    Name == "mertcandav"
-} MUST 2 > #20
 ```
 ```java
 USE * FROM Persons
