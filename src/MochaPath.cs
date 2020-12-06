@@ -1,6 +1,7 @@
 ﻿namespace MochaDB {
-  using IOPath = System.IO.Path;
   using System.Linq;
+
+  using IOPath = System.IO.Path;
 
   /// <summary>
   /// MochaDB path definer.
