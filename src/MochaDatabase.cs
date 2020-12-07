@@ -1197,22 +1197,26 @@ namespace MochaDB {
 
     /// <summary>
     /// Restore database to last keeped log.
+    /// Returns false if not exists any log, true if not.
     /// </summary>
-    public void RestoreToLastLog() {
+    public bool RestoreToLastLog() {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
       if(logs.Count() == 0)
-        throw new MochaException("Not exists any log!");
+        return false;//throw new MochaException("Not exists any log!");
       RestoreToLog(logs.Last().Attribute("ID").Value);
+      return true;
     }
 
     /// <summary>
     /// Restore database to first keeped log.
+    /// Returns false if not exists any log, true if not.
     /// </summary>
-    public void RestoreToFirstLog() {
+    public bool RestoreToFirstLog() {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
       if(logs.Count() == 0)
-        throw new MochaException("Not exists any log!");
+        return false;// throw new MochaException("Not exists any log!");
       RestoreToLog(logs.First().Attribute("ID").Value);
+      return true;
     }
 
     /// <summary>

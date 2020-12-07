@@ -1532,11 +1532,13 @@
         <member name="M:MochaDB.MochaDatabase.RestoreToLastLog">
             <summary>
             Restore database to last keeped log.
+            Returns false if not exists any log, true if not.
             </summary>
         </member>
         <member name="M:MochaDB.MochaDatabase.RestoreToFirstLog">
             <summary>
             Restore database to first keeped log.
+            Returns false if not exists any log, true if not.
             </summary>
         </member>
         <member name="M:MochaDB.MochaDatabase.RestoreToLog(System.String)">
