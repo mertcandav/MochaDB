@@ -104,7 +104,7 @@ Unlike the ``USE`` keyword, it is used to get content carriers, not content. It 
 ```SELECT (P.*)```: Returns only tables if name of starts with 'P'. <br>
 
 - ```ORDERBY``` <br>
-Reports that there will be data sorting, like ``ORDER BY`` command of SQL.<br>
+Reports that there will be data sorting.<br>
 First the column index or name is given, then the order type. If the order type is not given, ``ASC`` is set by default.<br>
 ``USE Names, Salary FROM Persons ORDERBY Names, Salary DESC`` <br>
 ``USE Persons.Name, Persons.Age ORDERBY 1 ASC``
@@ -125,7 +125,7 @@ Can only be used next to the keyword ``ORDERBY``. It means the descending order 
 ```USE Persons ORDERBY 1 DESC```
 
 - ```MUST``` <br>
-Like ``WHERE`` command of SQL. The style of writing is different.
+Notifies the condition.<br>
 <br>The column is specified and a regex query is written in parentheses.<br>
 <b>Examples</b><br>
 ```USE Persons MUST 0 == "Mike"``` <br>
@@ -148,7 +148,7 @@ It can only be used alongside ``MUST``. Subquery declare. It is exactly the same
 ```USE Name, $Country FROM Persons MUST INEQ Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
 
 - ```GROUPBY``` <br>
-Like ``GROUP BY`` command of SQL. The style of writing is different.<br>
+Groups the data.<br>
 After writing column index or name is given.<br>
 <b>Examples</b><br>
 ```USE Name, $Salary, AVG(Salary) AS Avarage Salary FROM Persons GROUPBY Name```
