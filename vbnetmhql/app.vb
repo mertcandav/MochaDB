@@ -33,7 +33,6 @@ Public Class app
         Dim path = New MochaPath(Directory.GetCurrentDirectory)
         path.ParentDirectory()
         path.ParentDirectory()
-        path.ParentDirectory()
         db = New MochaDatabase($"Path={path.Path}/tests/testdb; Password=; AutoConnect=True")
         Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
         Dim result As MochaTableResult = command.ExecuteScalar

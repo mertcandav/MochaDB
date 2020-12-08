@@ -1,5 +1,6 @@
 namespace MochaDB.mhql.keywords {
   using System;
+  using System.Text.RegularExpressions;
   using System.Collections.Generic;
   using System.Linq;
 
@@ -32,20 +33,32 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="final">Command of removed use commands.</param>
     public string GetUSE(out string final) {
-      int usedex = Command.IndexOf("USE",StringComparison.OrdinalIgnoreCase);
-      if(usedex==-1)
-        throw new MochaException("USE command is cannot processed!");
-      int finaldex = Mhql_GRAMMAR.MainRegex.Match(Command,usedex+3).Index;
-      var usecommand =
-          finaldex == 0 ?
-              Command.Substring(usedex+3) :
-              Command.Substring(usedex+3,finaldex-(usedex+3));
-
-      final =
-          finaldex == 0 ?
-          string.Empty :
-          Command.Substring(finaldex);
-      return usecommand;
+      int usedex = Command.IndexOf($"USE{Mhql_LEXER.ALL_OPERATOR}",StringComparison.OrdinalIgnoreCase);
+      if(usedex == -1) {
+        usedex = Command.IndexOf("USE ",StringComparison.OrdinalIgnoreCase);
+        if(usedex == -1)
+          throw new MochaException("USE command is cannot processed!");
+      }
+      Regex pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
+        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+      string command = Command.Substring(3).TrimStart();
+      int count = 0;
+      for(int index = 0; index < command.Length; ++index) {
+        char currentChar = command[index];
+        if(count == 0) {
+          Match match = pattern.Match(command.Substring(index));
+          if(match.Success && match.Index == 0) {
+            final = command.Substring(index).Trim();
+            return command.Substring(0,index).Trim();
+          }
+        }
+        if(currentChar == Mhql_LEXER.LBRACE)
+          ++count;
+        else if(currentChar == Mhql_LEXER.RBRACE)
+          --count;
+      }
+      final = string.Empty;
+      return command;
     }
 
     /// <summary>
@@ -82,20 +95,20 @@ namespace MochaDB.mhql.keywords {
       if(from) {
         int dex = Mhql_FROM.GetIndex(ref usecommand);
         string tablename = usecommand.Substring(dex + 5).Trim();
-        string[] parts = Mhql_LEXER.SplitUseParameters(usecommand.Substring(0,dex));
+        List<string> parts = Mhql_LEXER.SplitUseParameters(usecommand.Substring(0,dex));
         MochaColumn[] _columns = Tdb.GetColumns(tablename);
-        if(parts.Length == 1 && parts[0].Trim() == "*")
+        if(parts.Count == 1 && parts[0].Trim() == "*")
           columns.AddRange(_columns);
         else {
           if(parts[0].TrimStart().StartsWith("$") &&
              parts[0].TrimStart().Substring(1).TrimStart().StartsWith($"{Mhql_LEXER.LBRACE}"))
             throw new MochaException("Cannot be used with subquery FROM keyword!");
-          for(int index = 0; index < parts.Length; ++index)
+          for(int index = 0; index < parts.Count; ++index)
             columns.Add(GetColumn(parts[index].Trim(),_columns));
         }
       } else {
-        string[] parts = Mhql_LEXER.SplitUseParameters(usecommand);
-        for(int index = 0; index < parts.Length; ++index) {
+        List<string> parts = Mhql_LEXER.SplitUseParameters(usecommand);
+        for(int index = 0; index < parts.Count; ++index) {
           string callcmd = parts[index].Trim();
           if(callcmd == "*") {
             MochaTable[] tables = Tdb.GetTables();
@@ -105,11 +118,11 @@ namespace MochaDB.mhql.keywords {
           }
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
+            MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeBrace(
+              callcmd.Substring(obrace).Trim(),Mhql_LEXER.LBRACE,Mhql_LEXER.RBRACE)).Columns;
             string mode =
               callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;
-            MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeBrace(
-              callcmd.Substring(obrace).Trim(),Mhql_LEXER.LBRACE,Mhql_LEXER.RBRACE)).Columns;
             for(int cindex = 0; cindex < _cols.Length; ++cindex)
               columns.Add(GetColumn($"{mode}{_cols[cindex].Name}",_cols));
             continue;

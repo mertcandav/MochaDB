@@ -1,5 +1,6 @@
 namespace MochaDB.mhql {
   using System;
+  using System.Collections.Generic;
 
   /// <summary>
   /// Lexer of MHQL.
@@ -60,8 +61,30 @@ namespace MochaDB.mhql {
     /// </summary>
     /// <param name="statement">Statement.</param>
     /// <returns>Params.</returns>
-    public static string[] SplitUseParameters(string statement) =>
-      SplitParameters(statement);
+    public static List<string> SplitUseParameters(string statement) {
+      List<string> parts = new List<string>();
+      int count = 0, last = 0;
+      statement = statement.TrimStart();
+      for(int index = 0; index < statement.Length; ++index) {
+        char current = statement[index];
+        if(current == LBRACE)
+          ++count;
+        else if(current == RBRACE)
+          --count;
+
+        if(count != 0)
+          continue;
+
+        if(current != PARAM_DELIMITER)
+          continue;
+
+        parts.Add(statement.Substring(last,index - last));
+        last = index + 1;
+      }
+      if(last < statement.Length)
+        parts.Add(statement.Substring(last));
+      return parts;
+    }
 
     /// <summary>
     /// Split sub calls.
