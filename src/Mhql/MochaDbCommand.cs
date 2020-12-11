@@ -75,7 +75,7 @@
     /// <summary>
     /// Check connection and database.
     /// </summary>
-    internal void CheckConnection() {
+    internal virtual void CheckConnection() {
       if(Database==null)
         throw new MochaException("Target database is cannot null!");
       if(Database.State!=MochaConnectionState.Connected)
@@ -89,21 +89,21 @@
     /// <summary>
     /// Returns first data as MochaTableResult.
     /// </summary>
-    public MochaTableResult ExecuteScalarTable() =>
+    public virtual MochaTableResult ExecuteScalarTable() =>
       ExecuteScalar() as MochaTableResult;
 
     /// <summary>
     /// Returns first data as MochaTableResult.
     /// </summary>
     /// <param name="command">MHQL Command to set.</param>
-    public MochaTableResult ExecuteScalarTable(string command) =>
+    public virtual MochaTableResult ExecuteScalarTable(string command) =>
       ExecuteScalar(command) as MochaTableResult;
 
     /// <summary>
     /// Returns first result or null.
     /// </summary>
     /// <param name="command">MQL Command to set.</param>
-    public object ExecuteScalar(string command) {
+    public virtual object ExecuteScalar(string command) {
       Command=command;
       return ExecuteScalar();
     }
@@ -111,7 +111,7 @@
     /// <summary>
     /// Returns first result or null.
     /// </summary>
-    public object ExecuteScalar() {
+    public virtual object ExecuteScalar() {
       MochaReader<object> reader = ExecuteReader();
       if(reader.Read())
         return reader.Value;
@@ -122,7 +122,7 @@
     /// Read returned results.
     /// </summary>
     /// <param name="command">MQL Command to set.</param>
-    public MochaReader<object> ExecuteReader(string command) {
+    public virtual MochaReader<object> ExecuteReader(string command) {
       Command=command;
       return ExecuteReader();
     }
@@ -130,7 +130,7 @@
     /// <summary>
     /// Read returned results.
     /// </summary>
-    public MochaReader<object> ExecuteReader() {
+    public virtual MochaReader<object> ExecuteReader() {
       CheckConnection();
       MochaReader<object> reader = new MochaReader<object>();
 
@@ -200,7 +200,7 @@
     /// <summary>
     /// Current MQL command.
     /// </summary>
-    public string Command {
+    public virtual string Command {
       get => command;
       set {
         if(value==command)
@@ -215,7 +215,7 @@
     /// <summary>
     /// Target database.
     /// </summary>
-    public MochaDatabase Database {
+    public virtual MochaDatabase Database {
       get => db;
       set {
         if(value==null)
