@@ -127,7 +127,6 @@ namespace MochaDB {
 
       //Invoke.
       Changing?.Invoke(sender,e);
-
       if(Logs)
         KeepLog();
     }
@@ -244,8 +243,9 @@ namespace MochaDB {
       if(Provider.Readonly)
         throw new MochaException("This connection is can read only, cannot task of write!");
 
-      string content = aes.Encrypt(Iv,Key,CDoc.ToString());
-      string password = CDoc.Root.Element("Root").Element("Password").Value;
+      string
+        content = aes.Encrypt(Iv,Key,CDoc.ToString()),
+        password = CDoc.Root.Element("Root").Element("Password").Value;
       Disconnect();
       File.WriteAllText(Provider.Path,content);
       Provider.Password = password;
@@ -391,10 +391,10 @@ namespace MochaDB {
     /// Connect to database.
     /// </summary>
     public void Connect() {
-      if(State==MochaConnectionState.Connected)
+      if(State == MochaConnectionState.Connected)
         return;
 
-      State=MochaConnectionState.Connected;
+      State = MochaConnectionState.Connected;
 
       if(!File.Exists(Provider.Path)) {
         if(Provider.GetBoolAttributeState("AutoCreate"))
@@ -416,9 +416,7 @@ namespace MochaDB {
         throw new MochaException("MochaDB database password does not match the password specified!");
 
       FileInfo fInfo = new FileInfo(Provider.Path);
-
       Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-
       sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
       Query = new MochaQuery(this,true);
     }
@@ -602,10 +600,11 @@ namespace MochaDB {
       if(!ExistsColumn(tableName,name))
         throw new MochaException("Column not found in this name!");
 
-      XAttribute xDescription = GetXElement(CDoc,$"Tables/{tableName}/{name}").Attribute("Description");
+      XAttribute xDescription = GetXElement(CDoc = new XDocument(Doc),$"Tables/{tableName}/{name}").Attribute("Description");
       if(xDescription.Value==description)
         return;
-      OnChanging(this,new EventArgs());
+
+      OnChanging(this,new EventArgs(),false);
 
       xDescription.Value = description;
       Save();
@@ -823,10 +822,10 @@ namespace MochaDB {
       if(!ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
-      XAttribute xDescription = GetXElement(CDoc,$"Tables/{name}").Attribute("Description");
+      XAttribute xDescription = GetXElement(CDoc = new XDocument(Doc),$"Tables/{name}").Attribute("Description");
       if(xDescription.Value==description)
         return;
-      OnChanging(this,new EventArgs());
+      OnChanging(this,new EventArgs(),false);
 
       xDescription.Value=description;
       Save();
