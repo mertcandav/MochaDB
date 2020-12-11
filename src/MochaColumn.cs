@@ -20,7 +20,7 @@
     /// <summary>
     /// Constructor.
     /// </summary>
-    internal MochaColumn() =>
+    internal protected MochaColumn() =>
       Datas = new MochaColumnDataCollection(MochaDataType.String);
 
     #endregion Internal Constructors
@@ -72,7 +72,7 @@
     /// This happens after name changed;
     /// </summary>
     public event EventHandler<EventArgs> NameChanged;
-    private void OnNameChanged(object sender,EventArgs e) {
+    protected virtual void OnNameChanged(object sender,EventArgs e) {
       //Invoke.
       NameChanged?.Invoke(sender,e);
     }
@@ -94,7 +94,7 @@
     /// <summary>
     /// Name.
     /// </summary>
-    public string Name {
+    public virtual string Name {
       get => name;
       set {
         value=value.Trim();
@@ -114,17 +114,17 @@
     /// <summary>
     /// Description.
     /// </summary>
-    public string Description { get; set; }
+    public virtual string Description { get; set; }
 
     /// <summary>
     /// Datas of column.
     /// </summary>
-    public MochaColumnDataCollection Datas { get; }
+    public virtual MochaColumnDataCollection Datas { get; }
 
     /// <summary>
     /// Data type of datas.
     /// </summary>
-    public MochaDataType DataType {
+    public virtual MochaDataType DataType {
       get => dataType;
       set {
         if(value == dataType)
@@ -138,12 +138,12 @@
     /// <summary>
     /// Tag.
     /// </summary>
-    public object Tag { get; set; }
+    public virtual object Tag { get; set; }
 
     /// <summary>
     /// Text of MHQL AS keyword.
     /// </summary>
-    public string MHQLAsText { get; set; }
+    public virtual string MHQLAsText { get; set; }
 
     #endregion Properties
   }
