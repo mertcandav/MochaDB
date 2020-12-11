@@ -53,7 +53,7 @@
     /// This happens after name changed.
     /// </summary>
     public event EventHandler<EventArgs> NameChanged;
-    private void OnNameChanged(object sender,EventArgs e) {
+    protected virtual void OnNameChanged(object sender,EventArgs e) {
       //Invoke.
       NameChanged?.Invoke(sender,e);
     }
@@ -62,7 +62,7 @@
     /// This happens after value changed.
     /// </summary>
     public event EventHandler<EventArgs> ValueChanged;
-    private void OnValueChanged(object sender,EventArgs e) {
+    protected virtual void OnValueChanged(object sender,EventArgs e) {
       //Invoke.
       ValueChanged?.Invoke(sender,e);
     }
@@ -84,7 +84,7 @@
     /// <summary>
     /// Name.
     /// </summary>
-    public string Name {
+    public virtual string Name {
       get => name;
       set {
         value=value.Trim();
@@ -106,7 +106,7 @@
     /// <summary>
     /// Value.
     /// </summary>
-    public string Value {
+    public virtual string Value {
       get => value;
       set {
         if(this.value==value)
