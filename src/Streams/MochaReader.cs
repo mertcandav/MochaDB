@@ -35,7 +35,6 @@
       Position=-1;
     }
 
-
     #endregion Constructors
 
     #region Operators
@@ -50,7 +49,7 @@
     /// <summary>
     /// Returns true if value is exists in next position but returns if not.
     /// </summary>
-    public bool Read() {
+    public virtual bool Read() {
       if(Position+1 < Count) {
         Value = array.ElementAt(++Position);
         return true;
@@ -63,19 +62,19 @@
     /// <summary>
     /// Go to previous position.
     /// </summary>
-    public void GoBack() =>
+    public virtual void GoBack() =>
       Position = Position != -1 ? Position - 1 : Position;
 
     /// <summary>
     /// Go to first position.
     /// </summary>
-    public void GoFirst() =>
+    public virtual void GoFirst() =>
         Position=-1;
 
     /// <summary>
     /// Go to last position.
     /// </summary>
-    public void GoLast() =>
+    public virtual void GoLast() =>
         Position=Count-2 < -1 ? -1 : Count-2;
 
     #endregion Members
@@ -95,17 +94,17 @@
     /// <summary>
     /// Current value.
     /// </summary>
-    public object Value { get; internal set; }
+    public virtual object Value { get; internal protected set; }
 
     /// <summary>
     /// Current value index of reader.
     /// </summary>
-    public int Position { get; internal set; }
+    public virtual int Position { get; internal protected set; }
 
     /// <summary>
     /// Count of value.
     /// </summary>
-    public int Count =>
+    public virtual int Count =>
         array.Count();
 
     #endregion Properties
