@@ -22,9 +22,9 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Create new MochaProviderAttribute.
     /// </summary>
-    internal MochaProviderAttribute() {
-      name=string.Empty;
-      value=string.Empty;
+    internal protected MochaProviderAttribute() {
+      name = string.Empty;
+      value = string.Empty;
     }
 
     /// <summary>
@@ -33,8 +33,8 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <param name="name">Name of attribute.</param>
     /// <param name="value">Value of attribute.</param>
     public MochaProviderAttribute(string name,string value) {
-      this.value=value;
-      Name=name;
+      this.value = value;
+      Name = name;
     }
 
     #endregion Constructors
@@ -52,7 +52,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// This happens after name changed.
     /// </summary>
     public event EventHandler<EventArgs> NameChanged;
-    private void OnNameChanged(object sender,EventArgs e) {
+    protected virtual void OnNameChanged(object sender,EventArgs e) {
       //Invoke.
       NameChanged?.Invoke(sender,e);
     }
@@ -61,7 +61,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// This happens after value changed.
     /// </summary>
     public event EventHandler<EventArgs> ValueChanged;
-    private void OnValueChanged(object sender,EventArgs e) {
+    protected virtual void OnValueChanged(object sender,EventArgs e) {
       //Invoke.
       ValueChanged?.Invoke(sender,e);
     }
@@ -73,7 +73,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Check value by name.
     /// </summary>
-    internal void CheckValue() {
+    internal protected virtual void CheckValue() {
       if(string.IsNullOrWhiteSpace(value)) {
         if(Name.Equals("Path"))
           throw new MochaException("File path cannot be empty!");
@@ -93,7 +93,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Returns string as in provider.
     /// </summary>
-    public string GetProviderString() =>
+    public virtual string GetProviderString() =>
         $"{Name}={Value};";
 
     #endregion Members
@@ -113,7 +113,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Name.
     /// </summary>
-    public string Name {
+    public virtual string Name {
       get => name;
       set {
         if(string.IsNullOrWhiteSpace(value))
@@ -131,7 +131,7 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
     /// <summary>
     /// Value.
     /// </summary>
-    public string Value {
+    public virtual string Value {
       get => value;
       set {
         this.value=value;
