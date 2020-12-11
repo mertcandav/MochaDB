@@ -11,7 +11,7 @@
     /// <summary>
     /// Create a new MochaTableResult.
     /// </summary>
-    internal MochaTableResult() { }
+    internal protected MochaTableResult() { }
 
     #endregion Internal Constructors
 
@@ -20,7 +20,7 @@
     /// <summary>
     /// Set rows by datas of columns.
     /// </summary>
-    internal void SetRowsByDatas() {
+    internal protected virtual void SetRowsByDatas() {
       if(Columns.Length > 0 && Columns[0].Datas.Count > 0) {
         MochaColumn firstcolumn = Columns[0];
         MochaRow[] rows = new MochaRow[firstcolumn.Datas.Count];
@@ -45,7 +45,7 @@
     /// <summary>
     /// Set datas by row datas.
     /// </summary>
-    internal void SetDatasByRows() {
+    internal protected virtual void SetDatasByRows() {
       for(int columnIndex = 0; columnIndex < Columns.Length; ++columnIndex)
         Columns[columnIndex].Datas.collection.Clear();
 
@@ -71,21 +71,21 @@
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public bool IsEmpty() =>
+    public virtual bool IsEmpty() =>
       Rows.Length == 0;
 
     /// <summary>
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void Filter(Func<MochaRow,bool> filter) =>
+    public virtual void Filter(Func<MochaRow,bool> filter) =>
       Rows = Rows.Where(filter).ToArray();
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void Filter(Func<MochaColumn,bool> filter) =>
+    public virtual void Filter(Func<MochaColumn,bool> filter) =>
       Columns = Columns.Where(filter).ToArray();
 
     #endregion Members
@@ -95,12 +95,12 @@
     /// <summary>
     /// Columns.
     /// </summary>
-    public MochaColumn[] Columns { get; internal set; }
+    public virtual MochaColumn[] Columns { get; internal protected set; }
 
     /// <summary>
     /// Rows.
     /// </summary>
-    public MochaRow[] Rows { get; internal set; }
+    public virtual MochaRow[] Rows { get; internal protected set; }
 
     #endregion Properties
   }
