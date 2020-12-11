@@ -25,7 +25,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object to use querying.</param>
     /// <param name="embedded">Is embedded query in database.</param>
-    internal MochaQuery(MochaDatabase database,bool embedded) {
+    internal protected MochaQuery(MochaDatabase database,bool embedded) {
       this.database = database;
       MochaQ = string.Empty;
       IsDatabaseEmbedded=embedded;
@@ -70,7 +70,7 @@
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult ExecuteCommand(string mochaQ) {
+    public virtual IMochaResult ExecuteCommand(string mochaQ) {
       MochaQ=mochaQ;
       return ExecuteCommand();
     }
@@ -79,7 +79,7 @@
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult ExecuteCommand(MochaDatabase database,string mochaQ) {
+    public virtual IMochaResult ExecuteCommand(MochaDatabase database,string mochaQ) {
       Database=database;
       MochaQ=mochaQ;
       return ExecuteCommand();
@@ -88,7 +88,7 @@
     /// <summary>
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
-    public IMochaResult ExecuteCommand() {
+    public virtual IMochaResult ExecuteCommand() {
       if(MochaQ.IsRunQuery()) {
         Run();
         return null;
@@ -108,7 +108,7 @@
     /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult Dynamic(string mochaQ) {
+    public virtual IMochaResult Dynamic(string mochaQ) {
       MochaQ=mochaQ;
       return Dynamic();
     }
@@ -118,7 +118,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult Dynamic(MochaDatabase database,string mochaQ) {
+    public virtual IMochaResult Dynamic(MochaDatabase database,string mochaQ) {
       Database = database;
       MochaQ=mochaQ;
       return Dynamic();
@@ -127,7 +127,7 @@
     /// <summary>
     /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
     /// </summary>
-    public IMochaResult Dynamic() {
+    public virtual IMochaResult Dynamic() {
       if(!MochaQ.IsDynamicQuery())
         throw new MochaException(@"This MochaQ command is not ""Dynamic"" type command.");
 
@@ -166,7 +166,7 @@
     /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public void Run(string mochaQ) {
+    public virtual void Run(string mochaQ) {
       MochaQ=mochaQ;
       Run();
     }
@@ -176,7 +176,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public void Run(MochaDatabase database,string mochaQ) {
+    public virtual void Run(MochaDatabase database,string mochaQ) {
       Database = database;
       MochaQ=mochaQ;
       Run();
@@ -185,7 +185,7 @@
     /// <summary>
     /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
     /// </summary>
-    public void Run() {
+    public virtual void Run() {
       if(!MochaQ.IsRunQuery())
         throw new MochaException(@"This MochaQ command is not ""Run"" type command.");
 
@@ -335,7 +335,7 @@
     /// Runs the active MochaQ query. Returns the incoming value.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult GetRun(string mochaQ) {
+    public virtual IMochaResult GetRun(string mochaQ) {
       MochaQ=mochaQ;
       return GetRun();
     }
@@ -345,7 +345,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public IMochaResult GetRun(MochaDatabase database,string mochaQ) {
+    public virtual IMochaResult GetRun(MochaDatabase database,string mochaQ) {
       Database = database;
       MochaQ=mochaQ;
       return GetRun();
@@ -354,7 +354,7 @@
     /// <summary>
     /// Runs the active MochaQ query. Returns the incoming value.
     /// </summary>
-    public IMochaResult GetRun() {
+    public virtual IMochaResult GetRun() {
       if(!MochaQ.IsGetRunQuery())
         throw new MochaException(@"This MochaQ command is not ""GetRun"" type command.");
 
@@ -467,7 +467,7 @@
     /// Return column count of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    private MochaResult<int> COLUMNCOUNT(string name) {
+    protected virtual MochaResult<int> COLUMNCOUNT(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
@@ -479,7 +479,7 @@
     /// Return all datas of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    private MochaCollectionResult<MochaData> GETDATAS(string name) {
+    protected virtual MochaCollectionResult<MochaData> GETDATAS(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
@@ -496,7 +496,7 @@
     /// Return first column name of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    private MochaResult<string> GETFIRSTCOLUMN_NAME(string name) {
+    protected virtual MochaResult<string> GETFIRSTCOLUMN_NAME(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
@@ -521,12 +521,12 @@
     /// <summary>
     /// Is embedded query in database.
     /// </summary>
-    public bool IsDatabaseEmbedded { get; private set; }
+    public virtual bool IsDatabaseEmbedded { get; protected set; }
 
     /// <summary>
     /// MochaDatabase object to use querying.
     /// </summary>
-    public MochaDatabase Database {
+    public virtual MochaDatabase Database {
       get => database;
       set {
         if(IsDatabaseEmbedded)
@@ -545,7 +545,7 @@
     /// <summary>
     /// Active MochaQ query.
     /// </summary>
-    public MochaQCommand MochaQ { get; set; }
+    public virtual MochaQCommand MochaQ { get; set; }
 
     #endregion Properties
   }
