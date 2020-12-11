@@ -93,21 +93,21 @@
     /// <summary>
     /// Enable constant property of provider. It cannot be undone!
     /// </summary>
-    public void EnableConstant() =>
-      Constant=true;
+    public virtual void EnableConstant() =>
+      Constant = true;
 
     /// <summary>
     /// Returns attribute by name.
     /// </summary>
     /// <param name="name">Name of attribute.</param>
-    public MochaProviderAttribute GetAttribute(string name) =>
-        GetAttribute(name,ConnectionString);
+    public virtual MochaProviderAttribute GetAttribute(string name) =>
+      GetAttribute(name,ConnectionString);
 
     /// <summary>
     /// Returns boolean provider attribute value by name.
     /// </summary>
     /// <param name="name">Name of attribute.</param>
-    public bool GetBoolAttributeState(string name) {
+    public virtual bool GetBoolAttributeState(string name) {
       MochaProviderAttribute attribute = GetAttribute(name);
       return attribute != null && attribute.value.Equals("True",StringComparison.OrdinalIgnoreCase);
     }
@@ -129,7 +129,7 @@
     /// <summary>
     /// Connection string of provider.
     /// </summary>
-    public string ConnectionString {
+    public virtual string ConnectionString {
       get => connectionString;
       set {
         if(Constant)
@@ -181,22 +181,22 @@
     /// <summary>
     /// Path of database.
     /// </summary>
-    public string Path { get; internal set; }
+    public virtual string Path { get; internal protected set; }
 
     /// <summary>
     /// Password of database.
     /// </summary>
-    public string Password { get; internal set; }
+    public virtual string Password { get; internal protected set; }
 
     /// <summary>
     /// Readonly state of connection.
     /// </summary>
-    public bool Readonly { get; internal set; }
+    public virtual bool Readonly { get; internal protected set; }
 
     /// <summary>
     /// Is readonly provider.
     /// </summary>
-    public bool Constant { get; internal set; }
+    public virtual bool Constant { get; internal protected set; }
 
     #endregion Properties
   }
