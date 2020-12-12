@@ -316,18 +316,6 @@
             Returns table empty state.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaTableResult.Filter(System.Func{MochaDB.MochaRow,System.Boolean})">
-            <summary>
-            Filter rows by condition.
-            <param name="filter">Condition for filtering.</param>
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MochaTableResult.Filter(System.Func{MochaDB.MochaColumn,System.Boolean})">
-            <summary>
-            Filter columns by condition.
-            <param name="filter">Condition for filtering.</param>
-            </summary>
-        </member>
         <member name="P:MochaDB.Mhql.MochaTableResult.Columns">
             <summary>
             Columns.
@@ -900,12 +888,12 @@
         </member>
         <member name="M:MochaDB.MochaData.#ctor">
             <summary>
-            Create new MochaData.
+            Create new instance of <see cref="T:MochaDB.MochaData"/>.
             </summary>
         </member>
         <member name="M:MochaDB.MochaData.#ctor(MochaDB.MochaDataType,System.Object)">
             <summary>
-            Create new MochaData.
+            Create new instance of <see cref="T:MochaDB.MochaData"/>.
             </summary>
             <param name="dataType">Data type of data.</param>
             <param name="data">Data value.</param>
@@ -2204,18 +2192,6 @@
         <member name="M:MochaDB.MochaTable.IsEmpty">
             <summary>
             Returns table empty state.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaTable.Filter(System.Func{MochaDB.MochaRow,System.Boolean})">
-            <summary>
-            Filter rows by condition.
-            <param name="filter">Condition for filtering.</param>
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaTable.Filter(System.Func{MochaDB.MochaColumn,System.Boolean})">
-            <summary>
-            Filter columns by condition.
-            <param name="filter">Condition for filtering.</param>
             </summary>
         </member>
         <member name="M:MochaDB.MochaTable.ToString">

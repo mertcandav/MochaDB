@@ -425,24 +425,26 @@
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 3:
-          if(queryPaths[0] == "GETCOLUMN") {
-            return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "DATACOUNT") {
-            return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "EXISTSCOLUMN") {
-            return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "GETDATAS") {
-            return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "GETCOLUMNDESCRIPTION") {
-            return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "GETCOLUMNDATATYPE") {
-            return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "#REMOVECOLUMN") {
-            return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
-          } else if(queryPaths[0] == "#REMOVEROW") {
-            return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
-          } else
-            throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          switch(queryPaths[0]) {
+            case "GETCOLUMN":
+              return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
+            case "DATACOUNT":
+              return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
+            case "EXISTSCOLUMN":
+              return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
+            case "GETDATAS":
+              return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
+            case "GETCOLUMNDESCRIPTION":
+              return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
+            case "GETCOLUMNDATATYPE":
+              return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
+            case "#REMOVECOLUMN":
+              return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
+            case "#REMOVEROW":
+              return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
+            default:
+              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          }
         case 4:
           switch(queryPaths[0]) {
             case "EXISTSDATA":
