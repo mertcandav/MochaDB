@@ -46,7 +46,7 @@
     /// Removes all data equal to sample data.
     /// </summary>
     /// <param name="data">Sample data.</param>
-    public void RemoveAllData(object data) {
+    public virtual void RemoveAllData(object data) {
       int count = collection.Count;
       collection = (
           from currentdata in collection
