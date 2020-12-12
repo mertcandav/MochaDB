@@ -44,7 +44,7 @@
     /// <summary>
     /// Remove all items.
     /// </summary>
-    internal void Clear() {
+    internal protected virtual void Clear() {
       if(collection.Count ==0)
         return;
       collection.Clear();
@@ -54,7 +54,7 @@
     /// Add item.
     /// </summary>
     /// <param name="item">Item to add.</param>
-    internal void Add(MochaData item) {
+    internal protected virtual void Add(MochaData item) {
       if(DataType==MochaDataType.AutoInt)
         throw new MochaException("Data cannot be added directly to a column with AutoInt!");
       if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
@@ -71,7 +71,7 @@
     /// Add data.
     /// </summary>
     /// <param name="data">Data to add.</param>
-    internal void AddData(object data) {
+    internal protected virtual void AddData(object data) {
       if(MochaData.IsType(DataType,data))
         Add(new MochaData(DataType,data));
       else
@@ -82,7 +82,7 @@
     /// Add item from range.
     /// </summary>
     /// <param name="items">Range to add items.</param>
-    internal void AddRange(IEnumerable<MochaData> items) {
+    internal protected virtual void AddRange(IEnumerable<MochaData> items) {
       for(int index = 0; index < items.Count(); ++index)
         Add(items.ElementAt(index));
     }
@@ -91,14 +91,14 @@
     /// Remove item.
     /// </summary>
     /// <param name="item">Item to remove.</param>
-    internal void Remove(MochaData item) =>
+    internal protected virtual void Remove(MochaData item) =>
       collection.Remove(item);
 
     /// <summary>
     /// Removes all data equal to sample data.
     /// </summary>
     /// <param name="data">Sample data.</param>
-    internal void RemoveAllData(object data) {
+    internal protected virtual void RemoveAllData(object data) {
       int count = collection.Count;
       collection = (
           from currentdata in collection
@@ -110,7 +110,7 @@
     /// Remove item by index.
     /// </summary>
     /// <param name="index">Index of item to remove.</param>
-    internal void RemoveAt(int index) =>
+    internal protected virtual void RemoveAt(int index) =>
       collection.RemoveAt(index);
 
     #endregion Internal Members
@@ -121,7 +121,7 @@
     /// Return true if data is contained but return false if not exists.
     /// </summary>
     /// <param name="data">Data to check.</param>
-    public bool ContainsData(object data) {
+    public virtual bool ContainsData(object data) {
       for(int index = 0; index < Count; ++index)
         if(data.Equals(this[index].Data))
           return true;
@@ -147,9 +147,9 @@
     /// <summary>
     /// Data type of column.
     /// </summary>
-    public MochaDataType DataType {
+    public virtual MochaDataType DataType {
       get => dataType;
-      internal set {
+      internal protected set {
         if(value == dataType)
           return;
 
