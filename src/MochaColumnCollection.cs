@@ -23,7 +23,7 @@
     /// This happens after NameChanged event of any item in collection.
     /// </summary>
     public event EventHandler<EventArgs> ColumnNameChanged;
-    private void OnColumnNameChanged(object sender,EventArgs e) {
+    protected virtual void OnColumnNameChanged(object sender,EventArgs e) {
       //Invoke.
       ColumnNameChanged?.Invoke(sender,e);
     }
@@ -73,7 +73,7 @@
     /// Add item.
     /// </summary>
     /// <param name="name">Name of item.</param>
-    public void Add(string name) =>
+    public virtual void Add(string name) =>
         Add(new MochaColumn(name));
 
     /// <summary>
@@ -81,7 +81,7 @@
     /// </summary>
     /// <param name="name">Name of item.</param>
     /// <param name="datatype">Datatype of item.</param>
-    public void Add(string name,MochaDataType datatype) =>
+    public virtual void Add(string name,MochaDataType datatype) =>
         Add(new MochaColumn(name,datatype));
 
     /// <summary>
@@ -104,7 +104,7 @@
     /// Remove item by name.
     /// </summary>
     /// <param name="name">Name of item to remove.</param>
-    public void Remove(string name) {
+    public virtual void Remove(string name) {
       for(int index = 0; index < Count; ++index)
         if(collection[index].Name == name) {
           collection[index].NameChanged-=Item_NameChanged;
@@ -125,7 +125,7 @@
     /// Return index if index is find but return -1 if index is not find.
     /// </summary>
     /// <param name="name">Name of item to find index.</param>
-    public int IndexOf(string name) {
+    public virtual int IndexOf(string name) {
       for(int index = 0; index < Count; ++index)
         if(this[index].Name==name)
           return index;
@@ -136,7 +136,7 @@
     /// Return true if item is exists but return false if item not exists.
     /// </summary>
     /// <param name="name">Name of item to exists check.</param>
-    public bool Contains(string name) =>
+    public virtual bool Contains(string name) =>
       IndexOf(name) != -1;
 
     /// <summary>
@@ -159,7 +159,7 @@
     /// Return item by name.
     /// </summary>
     /// <param name="name">Name of item.</param>
-    public MochaColumn this[string name] {
+    public virtual MochaColumn this[string name] {
       get {
         int dex = IndexOf(name);
         if(dex!=-1)
