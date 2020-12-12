@@ -5,7 +5,7 @@
   /// This is row object for MochaDB.
   /// </summary>
   public class MochaRow {
-    #region Construcors
+    #region Constructors
 
     /// <summary>
     /// Create new MochaRow.
@@ -50,7 +50,7 @@
     /// <summary>
     /// Datas of row.
     /// </summary>
-    public MochaDataCollection Datas { get; }
+    public virtual MochaDataCollection Datas { get; }
 
     #endregion Properties
   }
