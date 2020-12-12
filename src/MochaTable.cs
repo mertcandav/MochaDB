@@ -53,7 +53,7 @@
     /// This happens after name changed;
     /// </summary>
     public event EventHandler<EventArgs> NameChanged;
-    private void OnNameChanged(object sender,EventArgs e) {
+    protected virtual void OnNameChanged(object sender,EventArgs e) {
       //Invoke.
       NameChanged?.Invoke(sender,e);
     }
@@ -75,7 +75,7 @@
     /// <summary>
     /// Set datas by row datas.
     /// </summary>
-    internal void SetDatasByRows() {
+    internal protected virtual void SetDatasByRows() {
       for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex)
         Columns[columnIndex].Datas.collection.Clear();
 
@@ -106,7 +106,7 @@
     /// <summary>
     /// Set rows by column datas.
     /// </summary>
-    internal void SetRowsByDatas() {
+    internal protected virtual void SetRowsByDatas() {
       Rows.collection.Clear();
       if(Columns.Count == 0)
         return;
@@ -134,7 +134,7 @@
     /// Short datas.
     /// </summary>
     /// <param name="index">Index of column.</param>
-    public void ShortDatas(int index) {
+    public virtual void ShortDatas(int index) {
       Rows.collection.Sort((x,y) => x.Datas[index].ToString().CompareTo(y.Datas[index].ToString()));
       SetDatasByRows();
     }
@@ -142,7 +142,7 @@
     /// <summary>
     /// Sort columns by name.
     /// </summary>
-    public void ShortColumns() {
+    public virtual void ShortColumns() {
       Columns.collection.Sort((X,Y) => X.Name.CompareTo(Y.Name));
       SetRowsByDatas();
     }
@@ -150,21 +150,21 @@
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public bool IsEmpty() =>
+    public virtual bool IsEmpty() =>
       Rows.Count == 0;
 
     /// <summary>
     /// Filter rows by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void Filter(Func<MochaRow,bool> filter) =>
+    public virtual void Filter(Func<MochaRow,bool> filter) =>
       Rows.collection = Rows.collection.Where(filter).ToList();
 
     /// <summary>
     /// Filter columns by condition.
     /// <param name="filter">Condition for filtering.</param>
     /// </summary>
-    public void Filter(Func<MochaColumn,bool> filter) =>
+    public virtual void Filter(Func<MochaColumn,bool> filter) =>
       Columns.collection = Columns.collection.Where(filter).ToList();
 
     #endregion Members
@@ -184,7 +184,7 @@
     /// <summary>
     /// Name.
     /// </summary>
-    public string Name {
+    public virtual string Name {
       get => name;
       set {
         value=value.Trim();
@@ -204,17 +204,17 @@
     /// <summary>
     /// Description.
     /// </summary>
-    public string Description { get; set; }
+    public virtual string Description { get; set; }
 
     /// <summary>
     /// Columns of table.
     /// </summary>
-    public MochaColumnCollection Columns { get; }
+    public virtual MochaColumnCollection Columns { get; }
 
     /// <summary>
     /// Rows of table.
     /// </summary>
-    public MochaRowCollection Rows { get; }
+    public virtual MochaRowCollection Rows { get; }
 
     #endregion Properties
   }
