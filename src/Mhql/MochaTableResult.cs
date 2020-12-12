@@ -74,20 +74,6 @@
     public virtual bool IsEmpty() =>
       Rows.Length == 0;
 
-    /// <summary>
-    /// Filter rows by condition.
-    /// <param name="filter">Condition for filtering.</param>
-    /// </summary>
-    public virtual void Filter(Func<MochaRow,bool> filter) =>
-      Rows = Rows.Where(filter).ToArray();
-
-    /// <summary>
-    /// Filter columns by condition.
-    /// <param name="filter">Condition for filtering.</param>
-    /// </summary>
-    public virtual void Filter(Func<MochaColumn,bool> filter) =>
-      Columns = Columns.Where(filter).ToArray();
-
     #endregion Members
 
     #region Properties

@@ -153,20 +153,6 @@
     public virtual bool IsEmpty() =>
       Rows.Count == 0;
 
-    /// <summary>
-    /// Filter rows by condition.
-    /// <param name="filter">Condition for filtering.</param>
-    /// </summary>
-    public virtual void Filter(Func<MochaRow,bool> filter) =>
-      Rows.collection = Rows.collection.Where(filter).ToList();
-
-    /// <summary>
-    /// Filter columns by condition.
-    /// <param name="filter">Condition for filtering.</param>
-    /// </summary>
-    public virtual void Filter(Func<MochaColumn,bool> filter) =>
-      Columns.collection = Columns.collection.Where(filter).ToList();
-
     #endregion Members
 
     #region Overrides
