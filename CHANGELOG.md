@@ -3,8 +3,8 @@ CHANGELOGS of MochaDB.
 # rlsv3.4.9 [ current ]
 + Optimizations
 + Mandatory mark for functions removed from MHQL.
++ Add mod support.
 + Add subquery support to MHQL.
-+ Add ``Filter``function to MochaTable and MochaTableResult.
 + Add ``CORDERBY`` keyword to MHQL.
 + Add multi param support to ``EQUAL``, ``NOTEQUAL``, ``STARTW``, ``ENDW``, ``NOTSTARTW``, ``NOTENDW``, ``CONTAINS`` and ``NOTCONTAINS`` functions of mhql.
 + Add temp table support with ``$`` to MHQL.
