@@ -17,16 +17,16 @@
     #region Internal Constructors
 
     /// <summary>
-    /// Create new MochaData.
+    /// Create new instance of <see cref="MochaData"/>.
     /// </summary>
-    internal MochaData() { }
+    internal protected MochaData() { }
 
     #endregion Internal Constructors
 
     #region Constructors
 
     /// <summary>
-    /// Create new MochaData.
+    /// Create new instance of <see cref="MochaData"/>.
     /// </summary>
     /// <param name="dataType">Data type of data.</param>
     /// <param name="data">Data value.</param>
@@ -411,7 +411,7 @@
     /// <summary>
     /// Data value.
     /// </summary>
-    public object Data {
+    public virtual object Data {
       get => data;
       set {
         if(DataType==MochaDataType.AutoInt)
@@ -427,7 +427,7 @@
     /// <summary>
     /// Data type of this data
     /// </summary>
-    public MochaDataType DataType {
+    public virtual MochaDataType DataType {
       get => dataType;
       set {
         if(value == dataType)
