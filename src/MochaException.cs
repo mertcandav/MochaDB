@@ -35,7 +35,7 @@
     /// Set exception message.
     /// </summary>
     /// <param name="msg">Message to set.</param>
-    public void SetMessage(string msg) =>
+    public virtual void SetMessage(string msg) =>
         Message = msg;
 
     #endregion Members
@@ -55,7 +55,7 @@
     /// <summary>
     /// Message of exception.
     /// </summary>
-    public new string Message { get; set; }
+    public new virtual string Message { get; set; }
 
     #endregion Properties
   }
