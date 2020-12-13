@@ -118,8 +118,8 @@ namespace MochaDB.mhql.keywords {
           }
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
-            MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeBrace(
-              callcmd.Substring(obrace).Trim(),Mhql_LEXER.LBRACE,Mhql_LEXER.RBRACE)).Columns;
+            MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeSubqueryBrace(
+              callcmd.Substring(obrace).Trim())).Columns;
             string mode =
               callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;

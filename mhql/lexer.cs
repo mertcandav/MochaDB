@@ -41,6 +41,16 @@ namespace MochaDB.mhql {
     }
 
     /// <summary>
+    /// Get range by subquery standards.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    /// <returns>Subquery.</returns>
+    public static string RangeSubqueryBrace(string value) =>
+      value.Substring(1,
+        RangeBrace($"{LBRACE}{value.Substring(1,value.Length - 1).Replace(LBRACE,' ').Replace(RBRACE,' ')}{RBRACE}",
+          LBRACE,RBRACE).Length + 3);
+
+    /// <summary>
     /// Split function parameters.
     /// </summary>
     /// <param name="statement">Statement of function.</param>

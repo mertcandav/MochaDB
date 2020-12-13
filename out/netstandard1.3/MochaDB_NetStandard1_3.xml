@@ -2743,6 +2743,13 @@
             <param name="close">Close bracket.</param>
             <returns>Range of brackets.</returns>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.RangeSubqueryBrace(System.String)">
+            <summary>
+            Get range by subquery standards.
+            </summary>
+            <param name="value">Value.</param>
+            <returns>Subquery.</returns>
+        </member>
         <member name="M:MochaDB.mhql.Mhql_LEXER.SplitFunctionParameters(System.String)">
             <summary>
             Split function parameters.
