@@ -73,7 +73,7 @@
     /// </summary>
     /// <param name="datas">Datas of item.</param>
     public virtual void Add(params object[] datas) =>
-        Add(new MochaRow(datas));
+        Add(item: new MochaRow(datas));
 
     public override void AddRange(IEnumerable<MochaRow> items) {
       for(int index = 0; index < items.Count(); ++index)
