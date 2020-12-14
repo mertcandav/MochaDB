@@ -7,7 +7,16 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
-    <Description>+ Optimizations.
+    <Description>A .NET ACID RDBMS and NoSQL(with mods/tools) database.</Description>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
+    <Authors>Mertcan Davulcu</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>3.4.9</Version>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageIcon>MochaDB_Logo.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageReleaseNotes>+ Optimizations.
 + Mandatory mark for functions removed from MHQL.
 + Add mod support.
 + Add subquery support to MHQL.
@@ -22,22 +31,7 @@
 + Fix MochaDatabse.RemoveRow function.
 + Fix MochaRow null data problem.
 + Fix broken log system.
-+ Fix set description bug.</Description>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
-    <Authors>Mertcan Davulcu</Authors>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.4.9</Version>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageIcon>MochaDB_Logo.png</PackageIcon>
-    <PackageIconUrl />
-    <PackageReleaseNotes>+ Added check system for float datas.
-+ Added ``XDocument`` explicit conversion support to ``MochaDatabase``.
-+ Added arihmetic support to MHQL.
-+ Added ``TRUE`` and ``FALSE`` keywords to MHQL.
-+ Added ``ADDROW`` keyword to MHQL.
-+ Added type check system to conditions of MHQL
-+ Adeed BIGGER, LOWER, BIGGER_EQUAL and LOWER_EQUAL operators to MHQL.</PackageReleaseNotes>
++ Fix set description bug.</PackageReleaseNotes>
     <PackageTags>database,embedded,nosql,nosqldatabase,datastorage</PackageTags>
     <RepositoryUrl>https://github.com/mertcandav/MochaDB</RepositoryUrl>
     <RepositoryType>Public</RepositoryType>
