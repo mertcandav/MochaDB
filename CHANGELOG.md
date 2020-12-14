@@ -1,5 +1,8 @@
 CHANGELOGS of MochaDB.
 
+# Release 3.4.9.1 [ 14 Dec 2020 ]
++ Fix ``MochaRowCollection.Add`` function.
+
 # rlsv3.4.9 [ 14 Dec 2020 ]
 + Optimizations.
 + Mandatory mark for functions removed from MHQL.
