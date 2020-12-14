@@ -121,6 +121,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 		Make.sh = Make.sh
 		Makefile = Makefile
 		README.md = README.md
+		TERMINAL_CHANGELOG.md = TERMINAL_CHANGELOG.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8409E719-6CB2-4F40-96D7-3C3E39F72E7B}"
@@ -207,7 +208,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{F5844D25
 		docs\rules\value conventions.md = docs\rules\value conventions.md
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "terminal", "terminal\terminal.fsproj", "{E7421A8C-2965-4B8D-9275-7EF5ADB08353}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "terminal", "terminal\terminal.fsproj", "{E7421A8C-2965-4B8D-9275-7EF5ADB08353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
