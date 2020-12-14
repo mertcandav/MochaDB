@@ -21,7 +21,13 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
+open System
+
 [<EntryPoint>]
 let main argv =
-    printfn "MochaDB Terminal"
-    0
+  let term = new terminal.terminal()
+  term.pwd <- Environment.CurrentDirectory
+  while true do
+    let input = term.getInput()
+    Console.WriteLine input
+  0
