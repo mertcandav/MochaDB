@@ -23,11 +23,15 @@
 
 open System
 
+open terminal
+open utils
+
 [<EntryPoint>]
 let main argv =
-  let term = new terminal.terminal()
+  let term = new terminal()
   term.pwd <- Environment.CurrentDirectory
   while true do
-    let input = term.getInput()
+    let mutable input = term.getInput()
+    input <- commandProcessor.splitNamespace(input)
     Console.WriteLine input
   0

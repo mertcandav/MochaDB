@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="utils\commandProcessor.fs" />
     <Compile Include="terminal.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

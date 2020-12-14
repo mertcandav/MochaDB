@@ -1,4 +1,4 @@
-﻿module terminal
+﻿namespace terminal
 
 open System
 
