@@ -1,7 +1,7 @@
 CHANGELOGS of MochaDB.
 
 # rlsv3.4.9 [ 14 Dec 2020 ]
-+ Optimizations
++ Optimizations.
 + Mandatory mark for functions removed from MHQL.
 + Add mod support.
 + Add subquery support to MHQL.

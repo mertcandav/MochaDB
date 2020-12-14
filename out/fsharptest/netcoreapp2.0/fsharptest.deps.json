@@ -9,7 +9,7 @@
       "fsharptest/1.0.0": {
         "dependencies": {
           "FSharp.Core": "4.7.2",
-          "MochaDB": "3.4.8"
+          "MochaDB": "3.4.9"
         },
         "runtime": {
           "fsharptest.dll": {}
@@ -64,7 +64,7 @@
           }
         }
       },
-      "MochaDB/3.4.8": {
+      "MochaDB/3.4.9": {
         "runtime": {
           "MochaDB.dll": {}
         }
@@ -84,7 +84,7 @@
       "path": "fsharp.core/4.7.2",
       "hashPath": "fsharp.core.4.7.2.nupkg.sha512"
     },
-    "MochaDB/3.4.8": {
+    "MochaDB/3.4.9": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

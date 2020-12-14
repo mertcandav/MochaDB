@@ -7,12 +7,27 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Company>Mertcan Davulcu</Company>
-    <Description>A .NET ACID RDBMS and NoSQL(with mods/tools) database.</Description>
+    <Description>+ Optimizations.
++ Mandatory mark for functions removed from MHQL.
++ Add mod support.
++ Add subquery support to MHQL.
++ Add CORDERBY keyword to MHQL.
++ Add multi param support to EQUAL, NOTEQUAL, STARTW, ENDW, NOTSTARTW, NOTENDW, CONTAINS and NOTCONTAINS functions of mhql.
++ Add temp table support with $ to MHQL.
++ Add empty table compatibility to XmlTable converters.
++ Fix ContainsData function.
++ Fix bugs USE and FROM keywords of MHQL.
++ Fix string and char conditions of MHQL.
++ Fix index out of range error of MochaDatabase.GetTables function.
++ Fix MochaDatabse.RemoveRow function.
++ Fix MochaRow null data problem.
++ Fix broken log system.
++ Fix set description bug.</Description>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MochaDB.snk</AssemblyOriginatorKeyFile>
     <Authors>Mertcan Davulcu</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.4.8</Version>
+    <Version>3.4.9</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageIcon>MochaDB_Logo.png</PackageIcon>
     <PackageIconUrl />
