@@ -32,6 +32,7 @@ let main argv =
   term.pwd <- Environment.CurrentDirectory
   while true do
     let mutable input = term.getInput()
-    input <- commandProcessor.splitNamespace(input)
-    Console.WriteLine input
+    if input <> String.Empty then
+      input <- commandProcessor.splitNamespace(input)
+      Console.WriteLine input
   0
