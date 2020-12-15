@@ -4,13 +4,19 @@ open System
 
 // Terminal declare
 type terminal() =
+  // Print error message
+  static member printError(msg:string) =
+    Console.ForegroundColor <- ConsoleColor.Red
+    Console.WriteLine(msg)
+    Console.ResetColor()
+
   // Return input
-  member this.getInput() =
+  static member getInput() =
     Console.ForegroundColor <- ConsoleColor.White
-    Console.Write(this.pwd + " ")
+    Console.Write(terminal.pwd + " ")
     Console.ResetColor()
     let input = Console.ReadLine().TrimStart()
     input
 
   // Working directory.
-  member val pwd = "" with get, set
+  static member val pwd = Environment.CurrentDirectory with get, set

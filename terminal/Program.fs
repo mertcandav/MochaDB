@@ -25,14 +25,31 @@ open System
 
 open terminal
 open utils
+open modules
+
+// Help content.
+let _help_ = dict[
+  "cd", "Change directory.";
+  "help", "Show help.";
+  "exit", "Exit from terminal.";
+]
+
+// Show help.
+let showHelp() =
+  Console.WriteLine("TEST")
+
+let processCommand(ns:string, cmd:string) =
+  match ns with
+  | "cd" -> cd.proc(cmd)
+  | "help" -> showHelp()
+  | "exit" -> exit(0x0)
+  | _ -> terminal.printError("There is no such command!")
 
 [<EntryPoint>]
-let main argv =
-  let term = new terminal()
-  term.pwd <- Environment.CurrentDirectory
+let main(argv:string[]) =
   while true do
-    let mutable input = term.getInput()
+    let mutable input = terminal.getInput()
     if input <> String.Empty then
-      input <- commandProcessor.splitNamespace(input)
-      Console.WriteLine input
+      processCommand(commandProcessor.splitNamespace(input).ToLower(),
+                     commandProcessor.removeNamespace(input))
   0
