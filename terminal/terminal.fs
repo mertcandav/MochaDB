@@ -9,7 +9,7 @@ type terminal() =
     Console.ForegroundColor <- ConsoleColor.White
     Console.Write(this.pwd + " ")
     Console.ResetColor()
-    let input = Console.ReadLine()
+    let input = Console.ReadLine().TrimStart()
     input
 
   // Working directory.
