@@ -72,6 +72,7 @@ let processCommand(ns:string, cmd:string) : unit =
 // Entry point of terminal.
 [<EntryPoint>]
 let main(argv:string[]) : int =
+  Console.Title <- "MochaDB Terminal"
   if argv.Length > 0 then
     let cmd = new System.Text.StringBuilder(String.Empty)
     for arg in argv do
