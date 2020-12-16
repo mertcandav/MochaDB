@@ -26,4 +26,4 @@ type make() =
           printfn "Created successfully!"
           Console.ResetColor()
         with
-        | :? Exception as except -> terminal.printError(except.Message)
+        | :? Exception as except -> terminal.printError(except.ToString())
