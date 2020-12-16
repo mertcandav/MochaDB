@@ -10,7 +10,7 @@ type cd() =
   // Process command in module
   static member proc(cmd:string) =
     if cmd = String.Empty then
-      Console.WriteLine(terminal.pwd)
+      printfn "%s" terminal.pwd
     else
       let parts = cmd.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
       let mutable path = terminal.pwd

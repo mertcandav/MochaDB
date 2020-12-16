@@ -49,16 +49,16 @@ let showHelp() =
     sb.ToString()
   let maxlen = _help_.Keys.Max(fun(x) -> x.Length) + 5
   for key in _help_.Keys do
-    Console.Write(key)
-    Console.Write(getWS(maxlen - key.Length))
-    Console.WriteLine(_help_.[key])
+    printf "%s" key
+    printf "%s" (getWS(maxlen - key.Length))
+    printfn "%s" _help_.[key]
 
 // Process command and do task.
 let processCommand(ns:string, cmd:string) =
   match ns with
   | "cd" -> cd.proc(cmd)
-  | "ver" -> Console.WriteLine("MochaDB Terminal --version " + terminal.version)
-  | "eng" -> Console.WriteLine("MochaDB Engine --version " + MochaDatabase.Version)
+  | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
+  | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
   | "help" -> showHelp()
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")

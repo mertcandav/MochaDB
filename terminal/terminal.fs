@@ -31,13 +31,13 @@ type terminal() =
   // Print error message
   static member printError(msg:string) =
     Console.ForegroundColor <- ConsoleColor.Red
-    Console.WriteLine(msg)
+    printfn "%s" msg
     Console.ResetColor()
 
   // Return input
   static member getInput() =
     Console.ForegroundColor <- ConsoleColor.White
-    Console.Write(terminal.pwd + " ")
+    printf "%s " terminal.pwd
     Console.ResetColor()
     let input = Console.ReadLine().TrimStart()
     input
