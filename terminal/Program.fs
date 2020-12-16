@@ -31,6 +31,7 @@ open modules
 // Help content.
 let _help_ = dict[
   "cd", "Change directory.";
+  "ver", "Show version.";
   "help", "Show help.";
   "exit", "Exit from terminal.";
 ]
@@ -53,6 +54,7 @@ let showHelp() =
 let processCommand(ns:string, cmd:string) =
   match ns with
   | "cd" -> cd.proc(cmd)
+  | "ver" -> Console.WriteLine("MochaDB Terminal --version " + terminal.version)
   | "help" -> showHelp()
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")

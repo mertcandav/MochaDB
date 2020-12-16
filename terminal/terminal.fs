@@ -25,6 +25,7 @@ namespace terminal
 
 open System
 
+
 // Terminal declare
 type terminal() =
   // Print error message
@@ -43,3 +44,6 @@ type terminal() =
 
   // Working directory.
   static member val pwd = Environment.CurrentDirectory with get, set
+
+  // Version of terminal.
+  static member val version = "0.0.1" with get
