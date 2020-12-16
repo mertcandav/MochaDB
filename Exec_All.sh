@@ -27,6 +27,7 @@ read -p 'Compile MochaDB(Y): ' MochaDB
 read -p 'Compile fsharptest(Y): ' fsharptest
 read -p 'Compile vbnetmhql(Y): ' vbnetmhql
 read -p 'Compile fsharpmhql(Y): ' fsharpmhql
+read -p 'Compile terminal(Y)': terminal
 
 # MochaDB
 if [[ $MochaDB != "" && $MochaDB == "Y" ]]
@@ -50,6 +51,12 @@ fi
 if [[ %fsharpmhql != "" && %fsharpmhql == "Y" ]]
 then
      Compile_fsharpmhql.sh
+fi
+
+# terminal
+if [[ %terminal != "" && %terminal == "Y" ]]
+then
+    Compile_terminal.sh
 fi
 
 exit
