@@ -22,6 +22,7 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
 open System
+open System.Linq
 
 open terminal
 open utils
@@ -36,7 +37,16 @@ let _help_ = dict[
 
 // Show help.
 let showHelp() =
-  Console.WriteLine("TEST")
+  let getWS(count:int) =
+    let sb = new System.Text.StringBuilder(String.Empty)
+    for _ in 1..count do
+      sb.Append(" ") |> ignore
+    sb.ToString()
+  let maxlen = _help_.Keys.Max(fun(x) -> x.Length) + 5
+  for key in _help_.Keys do
+    Console.Write(key)
+    Console.Write(getWS(maxlen - key.Length))
+    Console.WriteLine(_help_.[key])
 
 let processCommand(ns:string, cmd:string) =
   match ns with
