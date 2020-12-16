@@ -25,7 +25,6 @@ namespace terminal
 
 open System
 
-
 // Terminal declare.
 type terminal() =
   // Print error message.
