@@ -28,6 +28,7 @@ $MochaDB = Read-Host 'Compile MochaDB(Y):'
 $fsharptest = Read-Host 'Compile fsharptest(Y):'
 $vbnetmhql = Read-Host 'Compile vbnetmhql(Y):'
 $fsharpmhql = Read-Host 'Compile fsharpmhql(Y):'
+$terminal = Read-Host 'Compile terminal(Y):'
 
 # MochaDB
 if ($MochaDB -eq 'Y') { 
@@ -47,6 +48,11 @@ if ($vbnetmhql -eq 'Y') {
 # fsharpmhql
 if ($fsharpmhql -eq 'Y') {
     powershell -ExecutionPolicy Bypass -File "Compile_fsharpmhql.ps1"
+}
+
+# terminal
+if ($terminal -eq 'Y') {
+    powershell -ExecutionPolicy Bypass -File "Compile_terminal.ps1"
 }
 
 exit
