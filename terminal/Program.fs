@@ -24,6 +24,8 @@
 open System
 open System.Linq
 
+open MochaDB
+
 open terminal
 open utils
 open modules
@@ -32,6 +34,7 @@ open modules
 let _help_ = dict[
   "cd", "Change directory.";
   "ver", "Show version.";
+  "eng", "Show engine information.";
   "help", "Show help.";
   "exit", "Exit from terminal.";
 ]
@@ -55,6 +58,7 @@ let processCommand(ns:string, cmd:string) =
   match ns with
   | "cd" -> cd.proc(cmd)
   | "ver" -> Console.WriteLine("MochaDB Terminal --version " + terminal.version)
+  | "eng" -> Console.WriteLine("MochaDB Engine --version " + MochaDatabase.Version)
   | "help" -> showHelp()
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")

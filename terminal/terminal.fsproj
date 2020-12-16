@@ -18,4 +18,8 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MochaDB" Version="3.4.9.1" />
+  </ItemGroup>
+
 </Project>

@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v2.0": {
       "terminal/1.0.0": {
         "dependencies": {
-          "FSharp.Core": "4.7.2"
+          "FSharp.Core": "4.7.2",
+          "MochaDB": "3.4.9.1"
         },
         "runtime": {
           "terminal.dll": {}
@@ -62,6 +63,14 @@
             "locale": "zh-Hant"
           }
         }
+      },
+      "MochaDB/3.4.9.1": {
+        "runtime": {
+          "lib/netstandard1.3/MochaDB.dll": {
+            "assemblyVersion": "3.4.9.1",
+            "fileVersion": "3.4.9.1"
+          }
+        }
       }
     }
   },
@@ -77,6 +86,13 @@
       "sha512": "sha512-w3XFVTnyZUbC8e2QT6a85ern6y7eQPPk+MYemz1FP0iBfgZcembL+wmo5cIZ1kxB8jfoXC8Q9KVkOMsGpkBKbA==",
       "path": "fsharp.core/4.7.2",
       "hashPath": "fsharp.core.4.7.2.nupkg.sha512"
+    },
+    "MochaDB/3.4.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SuTXZrvzhbplNO2NcTjeqaxq18rLsTEt0C1RZJhl4tU7zlLgSGWnZHjGaDAKvlSiEJtrerghZTafPEXoAzrVbw==",
+      "path": "mochadb/3.4.9.1",
+      "hashPath": "mochadb.3.4.9.1.nupkg.sha512"
     }
   }
 }
