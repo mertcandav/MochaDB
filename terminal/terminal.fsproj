@@ -9,11 +9,14 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <OutputPath>..\out\terminal\</OutputPath>
     <DocumentationFile>..\out\xml\terminal.xml</DocumentationFile>
+    <WarningLevel>1</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="terminal.fs" />
     <Compile Include="utils\commandProcessor.fs" />
+    <Compile Include="modules\make.fs" />
     <Compile Include="modules\ls.fs" />
     <Compile Include="modules\cd.fs" />
     <Compile Include="Program.fs" />

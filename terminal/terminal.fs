@@ -34,13 +34,18 @@ type terminal() =
     printfn "%s" msg
     Console.ResetColor()
 
-  // Return input.
+  // Returns input with pwd.
   static member getInput() : string =
     Console.ForegroundColor <- ConsoleColor.White
     printf "%s " terminal.pwd
     Console.ResetColor()
     let input = Console.ReadLine().TrimStart()
     input
+
+  // Returns input with msg.
+  static member getInput(msg:string) : string =
+    printf "%s" msg
+    Console.ReadLine().TrimStart()
 
   // Working directory.
   static member val pwd = Environment.CurrentDirectory with get, set

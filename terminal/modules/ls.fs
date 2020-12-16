@@ -8,7 +8,7 @@ open utils
 
 // List directory.
 type ls() =
-  // Process command in module
+  // Process command in module.
   static member proc(cmd:string) : unit =
     let mutable directories = false
     let mutable files = false

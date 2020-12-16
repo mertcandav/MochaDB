@@ -36,6 +36,7 @@ let _help_ = dict[
   "ls", "List directory content.";
   "ver", "Show version.";
   "eng", "Show engine information.";
+  "make", "Create new MochaDB database.";
   "help", "Show help.";
   "exit", "Exit from terminal.";
 ]
@@ -61,6 +62,7 @@ let processCommand(ns:string, cmd:string) : unit =
   | "ls" -> ls.proc(cmd)
   | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
   | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
+  | "make" -> make.proc(cmd)
   | "help" -> showHelp()
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")
