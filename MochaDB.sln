@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\fsharptest.yml = .github\workflows\fsharptest.yml
 		.github\workflows\mochadb.yml = .github\workflows\mochadb.yml
+		.github\workflows\terminal.yml = .github\workflows\terminal.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{F47449D2-7577-4B2D-8482-232639DCE51D}"
@@ -109,6 +110,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 		Compile_Solution.bat = Compile_Solution.bat
 		Compile_Solution.ps1 = Compile_Solution.ps1
 		Compile_Solution.sh = Compile_Solution.sh
+		Compile_terminal.bat = Compile_terminal.bat
+		Compile_terminal.ps1 = Compile_terminal.ps1
 		Compile_vbnetmhql.bat = Compile_vbnetmhql.bat
 		Compile_vbnetmhql.ps1 = Compile_vbnetmhql.ps1
 		Compile_vbnetmhql.sh = Compile_vbnetmhql.sh
