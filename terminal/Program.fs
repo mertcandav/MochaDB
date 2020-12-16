@@ -41,9 +41,9 @@ let _help_ = dict[
 ]
 
 // Show help.
-let showHelp() =
+let showHelp() : unit =
   // Return whitespaced string by count.
-  let getWS(count:int) =
+  let getWS(count:int) : string =
     let sb = new System.Text.StringBuilder(String.Empty)
     for _ in 1..count do
       sb.Append(" ") |> ignore
@@ -55,7 +55,7 @@ let showHelp() =
     printfn "%s" _help_.[key]
 
 // Process command and do task.
-let processCommand(ns:string, cmd:string) =
+let processCommand(ns:string, cmd:string) : unit =
   match ns with
   | "cd" -> cd.proc(cmd)
   | "ls" -> ls.proc(cmd)
@@ -67,7 +67,7 @@ let processCommand(ns:string, cmd:string) =
 
 // Entry point of terminal.
 [<EntryPoint>]
-let main(argv:string[]) =
+let main(argv:string[]) : int =
   if argv.Length > 0 then
     let cmd = new System.Text.StringBuilder(String.Empty)
     for arg in argv do
@@ -81,4 +81,4 @@ let main(argv:string[]) =
       if input <> String.Empty then
         processCommand(commandProcessor.splitNamespace(input).ToLower(),
                        commandProcessor.removeNamespace(input))
-  0
+  0x0

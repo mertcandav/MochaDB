@@ -9,7 +9,7 @@ open utils
 // List directory.
 type ls() =
   // Process command in module
-  static member proc(cmd:string) =
+  static member proc(cmd:string) : unit =
     let mutable directories = false
     let mutable files = false
     if cmd = String.Empty then

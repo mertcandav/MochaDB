@@ -29,13 +29,13 @@ open System
 // Terminal declare.
 type terminal() =
   // Print error message.
-  static member printError(msg:string) =
+  static member printError(msg:string) : unit =
     Console.ForegroundColor <- ConsoleColor.Red
     printfn "%s" msg
     Console.ResetColor()
 
   // Return input.
-  static member getInput() =
+  static member getInput() : string =
     Console.ForegroundColor <- ConsoleColor.White
     printf "%s " terminal.pwd
     Console.ResetColor()

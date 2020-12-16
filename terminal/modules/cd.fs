@@ -8,7 +8,7 @@ open terminal
 // Change directory module.
 type cd() =
   // Process command in module.
-  static member proc(cmd:string) =
+  static member proc(cmd:string) : unit =
     if cmd = String.Empty then
       printfn "%s" terminal.pwd
     else
