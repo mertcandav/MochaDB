@@ -26,6 +26,7 @@
 @set /P fsharptest="Compile fsharptest(Y): "
 @set /P vbnetmhql="Compile vbnetmhql(Y): "
 @set /P fsharpmhql="Compile fsharpmhql(Y): "
+@set /P terminal="Compile terminal(Y): "
 
 :: MochaDB
 if %MochaDB% == Y (
@@ -45,6 +46,11 @@ if %vbnetmhql% == Y (
 :: fsharpmhql
 if %fsharpmhql% == Y (
     @start Compile_fsharpmhql.bat
+)
+
+:: terminal
+if %terminal% == Y (
+    @start Compile_terminal.bat
 )
 
 exit
