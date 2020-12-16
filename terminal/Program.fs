@@ -37,6 +37,7 @@ let _help_ = dict[
 
 // Show help.
 let showHelp() =
+  // Return whitespaced string by count.
   let getWS(count:int) =
     let sb = new System.Text.StringBuilder(String.Empty)
     for _ in 1..count do
@@ -48,6 +49,7 @@ let showHelp() =
     Console.Write(getWS(maxlen - key.Length))
     Console.WriteLine(_help_.[key])
 
+// Process command and do task.
 let processCommand(ns:string, cmd:string) =
   match ns with
   | "cd" -> cd.proc(cmd)
@@ -55,11 +57,20 @@ let processCommand(ns:string, cmd:string) =
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")
 
+// Entry point of terminal.
 [<EntryPoint>]
 let main(argv:string[]) =
-  while true do
-    let mutable input = terminal.getInput()
-    if input <> String.Empty then
-      processCommand(commandProcessor.splitNamespace(input).ToLower(),
-                     commandProcessor.removeNamespace(input))
+  if argv.Length > 0 then
+    let cmd = new System.Text.StringBuilder(String.Empty)
+    for arg in argv do
+      cmd.Append(arg + " ") |> ignore
+    let cmd = cmd.ToString().TrimEnd()
+    processCommand(commandProcessor.splitNamespace(cmd).ToLower(),
+                   commandProcessor.removeNamespace(cmd))
+  else
+    while true do
+      let mutable input = terminal.getInput()
+      if input <> String.Empty then
+        processCommand(commandProcessor.splitNamespace(input).ToLower(),
+                       commandProcessor.removeNamespace(input))
   0
