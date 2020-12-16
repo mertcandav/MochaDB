@@ -26,15 +26,15 @@ namespace terminal
 open System
 
 
-// Terminal declare
+// Terminal declare.
 type terminal() =
-  // Print error message
+  // Print error message.
   static member printError(msg:string) =
     Console.ForegroundColor <- ConsoleColor.Red
     printfn "%s" msg
     Console.ResetColor()
 
-  // Return input
+  // Return input.
   static member getInput() =
     Console.ForegroundColor <- ConsoleColor.White
     printf "%s " terminal.pwd

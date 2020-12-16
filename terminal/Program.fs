@@ -33,6 +33,7 @@ open modules
 // Help content.
 let _help_ = dict[
   "cd", "Change directory.";
+  "ls", "List directory content.";
   "ver", "Show version.";
   "eng", "Show engine information.";
   "help", "Show help.";
@@ -57,6 +58,7 @@ let showHelp() =
 let processCommand(ns:string, cmd:string) =
   match ns with
   | "cd" -> cd.proc(cmd)
+  | "ls" -> ls.proc(cmd)
   | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
   | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
   | "help" -> showHelp()
