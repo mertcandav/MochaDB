@@ -27,17 +27,25 @@ open System
 
 // Terminal declare.
 type terminal() =
+  // Print message to screen with color.
+  static member printc(msg:string, color:ConsoleColor) : unit =
+    let realColor = Console.ForegroundColor
+    Console.ForegroundColor <- color
+    printf "%s" msg
+    Console.ForegroundColor <- realColor
+
+  // Print message and new line to screen with color.
+  static member printnc(msg:string, color:ConsoleColor) : unit =
+    terminal.printc(msg, color)
+    printfn ""
+
   // Print error message.
   static member printError(msg:string) : unit =
-    Console.ForegroundColor <- ConsoleColor.Red
-    printfn "%s" msg
-    Console.ResetColor()
+    terminal.printnc(msg, ConsoleColor.Red)
 
   // Returns input with pwd.
   static member getInput() : string =
-    Console.ForegroundColor <- ConsoleColor.White
-    printf "%s " terminal.pwd
-    Console.ResetColor()
+    terminal.printc(terminal.pwd + " ", ConsoleColor.White)
     let input = Console.ReadLine().TrimStart()
     input
 

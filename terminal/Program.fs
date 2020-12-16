@@ -52,7 +52,7 @@ let showHelp() : unit =
     sb.ToString()
   let maxlen = _help_.Keys.Max(fun(x) -> x.Length) + 5
   for key in _help_.Keys do
-    printf "%s" key
+    terminal.printc(key, ConsoleColor.Yellow)
     printf "%s" (getWS(maxlen - key.Length))
     printfn "%s" _help_.[key]
 

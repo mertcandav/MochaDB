@@ -22,8 +22,6 @@ type make() =
         try
           MochaDatabase.CreateMochaDB(
             System.IO.Path.Combine(terminal.pwd, name),description,password)
-          Console.ForegroundColor <- ConsoleColor.Green
-          printfn "Created successfully!"
-          Console.ResetColor()
+          terminal.printnc("Created successfully!", ConsoleColor.Green)
         with
         | :? Exception as except -> terminal.printError(except.ToString())
