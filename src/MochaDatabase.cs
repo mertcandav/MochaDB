@@ -183,9 +183,13 @@ namespace MochaDB {
         content = content.Insert(dex,description);
       }
 
-      File.WriteAllText(path.EndsWith(Engine_LEXER.__EXTENSION__) ?
-          path :
-          path + Engine_LEXER.__EXTENSION__,aes.Encrypt(Iv,Key,content));
+      path += !path.EndsWith(Engine_LEXER.__EXTENSION__) ?
+              Engine_LEXER.__EXTENSION__ : string.Empty;
+
+      if(File.Exists(path))
+        throw new MochaException("Such a database already exists!");
+
+      File.WriteAllText(path,aes.Encrypt(Iv,Key,content));
     }
 
     /// <summary>

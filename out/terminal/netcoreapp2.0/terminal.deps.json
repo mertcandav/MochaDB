@@ -66,10 +66,7 @@
       },
       "MochaDB/3.4.9.1": {
         "runtime": {
-          "lib/netstandard1.3/MochaDB.dll": {
-            "assemblyVersion": "3.4.9.1",
-            "fileVersion": "3.4.9.1"
-          }
+          "MochaDB.dll": {}
         }
       }
     }
@@ -88,11 +85,9 @@
       "hashPath": "fsharp.core.4.7.2.nupkg.sha512"
     },
     "MochaDB/3.4.9.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SuTXZrvzhbplNO2NcTjeqaxq18rLsTEt0C1RZJhl4tU7zlLgSGWnZHjGaDAKvlSiEJtrerghZTafPEXoAzrVbw==",
-      "path": "mochadb/3.4.9.1",
-      "hashPath": "mochadb.3.4.9.1.nupkg.sha512"
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
