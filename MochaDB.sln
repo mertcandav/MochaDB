@@ -217,6 +217,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terminal", "terminal", "{55
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{DBD72ED2-F491-41CA-8241-902F847D3804}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{332B653E-1D54-497F-BDF3-4E483179425A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commands", "commands", "{6179CEB7-4996-4C4F-92ED-9DA4A31A336A}"
+	ProjectSection(SolutionItems) = preProject
+		docs\terminal\commands\parameters.md = docs\terminal\commands\parameters.md
+		docs\terminal\commands\tags.md = docs\terminal\commands\tags.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -264,6 +272,8 @@ Global
 		{F5844D25-BB23-45BE-BB32-0EC22321D43F} = {DBD72ED2-F491-41CA-8241-902F847D3804}
 		{5503263D-C07F-4030-A5E4-65EDBC3439D5} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 		{DBD72ED2-F491-41CA-8241-902F847D3804} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
+		{332B653E-1D54-497F-BDF3-4E483179425A} = {5503263D-C07F-4030-A5E4-65EDBC3439D5}
+		{6179CEB7-4996-4C4F-92ED-9DA4A31A336A} = {5503263D-C07F-4030-A5E4-65EDBC3439D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
