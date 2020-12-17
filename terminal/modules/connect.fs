@@ -5,7 +5,10 @@ open System.IO
 
 open MochaDB
 
+open utils
 open terminal
+open submodules.connection
+
 
 // Connection module.
 type connect() =
@@ -33,7 +36,11 @@ type connect() =
             let mutable break = false
             while break = false do
               let input = terminal.getInput(db.Name + " ")
-              printf ""
+              let cmd = commandProcessor.removeNamespace(input)
+              match commandProcessor.splitNamespace(input).ToLower() with
+              | "mochaq" -> mochaq.proc(db, cmd)
+              | "disconnect" -> break <- true
+              | _ -> terminal.printError("There is no such command!")
             db.Disconnect()
             db.Dispose()
           | _ -> terminal.printError("Logs value is not valid!")

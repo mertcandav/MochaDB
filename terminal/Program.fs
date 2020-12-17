@@ -45,17 +45,7 @@ let _help_ = dict[
 
 // Show help.
 let showHelp() : unit =
-  // Return whitespaced string by count.
-  let getWS(count:int) : string =
-    let sb = new System.Text.StringBuilder(String.Empty)
-    for _ in 1..count do
-      sb.Append(" ") |> ignore
-    sb.ToString()
-  let maxlen = _help_.Keys.Max(fun(x) -> x.Length) + 5
-  for key in _help_.Keys do
-    terminal.printc(key, ConsoleColor.Yellow)
-    printf "%s" (getWS(maxlen - key.Length))
-    printfn "%s" _help_.[key]
+  cli.printDictAsTable(_help_)
 
 // Process command and do task.
 let processCommand(ns:string, cmd:string) : unit =
