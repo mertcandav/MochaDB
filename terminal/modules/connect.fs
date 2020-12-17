@@ -23,7 +23,7 @@ type connect() =
           terminal.printError("Database file is not found in this name!")
         else
           let password = terminal.getInput("Password: ")
-          let mutable logs = terminal.getInput("Logs(Default: false): ").ToLower()
+          let mutable logs = terminal.getInput("Logs(default is false): ").ToLower()
           match logs with
           | "" | "true" | "false" -> 
             let db = new MochaDatabase(
