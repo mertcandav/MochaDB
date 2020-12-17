@@ -169,49 +169,53 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connection and management", "connection and management", "{75B5DD0B-6431-4BDA-BF24-DBFE614482C8}"
 	ProjectSection(SolutionItems) = preProject
-		docs\connection and management\connection strings.md = docs\connection and management\connection strings.md
-		docs\connection and management\MochaDatabase.md = docs\connection and management\MochaDatabase.md
-		docs\connection and management\MochaProvider.md = docs\connection and management\MochaProvider.md
-		docs\connection and management\MochaProviderAttribute.md = docs\connection and management\MochaProviderAttribute.md
+		docs\database\connection and management\connection strings.md = docs\database\connection and management\connection strings.md
+		docs\database\connection and management\MochaDatabase.md = docs\database\connection and management\MochaDatabase.md
+		docs\database\connection and management\MochaProvider.md = docs\database\connection and management\MochaProvider.md
+		docs\database\connection and management\MochaProviderAttribute.md = docs\database\connection and management\MochaProviderAttribute.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data modeling", "{3F20A6FD-BBF3-4CD3-BE5A-5242AC9AEF96}"
 	ProjectSection(SolutionItems) = preProject
-		docs\data modeling\data types.md = docs\data modeling\data types.md
-		docs\data modeling\MochaColumn.md = docs\data modeling\MochaColumn.md
-		docs\data modeling\MochaData.md = docs\data modeling\MochaData.md
-		docs\data modeling\MochaRow.md = docs\data modeling\MochaRow.md
-		docs\data modeling\MochaTable.md = docs\data modeling\MochaTable.md
+		docs\database\data modeling\data types.md = docs\database\data modeling\data types.md
+		docs\database\data modeling\MochaColumn.md = docs\database\data modeling\MochaColumn.md
+		docs\database\data modeling\MochaData.md = docs\database\data modeling\MochaData.md
+		docs\database\data modeling\MochaRow.md = docs\database\data modeling\MochaRow.md
+		docs\database\data modeling\MochaTable.md = docs\database\data modeling\MochaTable.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "getting started", "getting started", "{1AD4270B-5D8D-4256-81B0-F153C96E609E}"
 	ProjectSection(SolutionItems) = preProject
-		docs\getting started\add reference for your project.md = docs\getting started\add reference for your project.md
-		docs\getting started\nuget package installing.md = docs\getting started\nuget package installing.md
+		docs\database\getting started\add reference for your project.md = docs\database\getting started\add reference for your project.md
+		docs\database\getting started\nuget package installing.md = docs\database\getting started\nuget package installing.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{41485C9F-A5C3-40F6-B1C3-46393D601B69}"
 	ProjectSection(SolutionItems) = preProject
-		docs\logging\how to restore from logs.md = docs\logging\how to restore from logs.md
-		docs\logging\how to work log system.md = docs\logging\how to work log system.md
+		docs\database\logging\how to restore from logs.md = docs\database\logging\how to restore from logs.md
+		docs\database\logging\how to work log system.md = docs\database\logging\how to work log system.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "querying", "querying", "{3BCE460D-1430-47FF-AD97-4670C4289801}"
 	ProjectSection(SolutionItems) = preProject
-		docs\querying\linq.md = docs\querying\linq.md
-		docs\querying\mhql.md = docs\querying\mhql.md
-		docs\querying\MochaDbCommand.md = docs\querying\MochaDbCommand.md
-		docs\querying\MochaQ.md = docs\querying\MochaQ.md
-		docs\querying\MochaQuery.md = docs\querying\MochaQuery.md
+		docs\database\querying\linq.md = docs\database\querying\linq.md
+		docs\database\querying\mhql.md = docs\database\querying\mhql.md
+		docs\database\querying\MochaDbCommand.md = docs\database\querying\MochaDbCommand.md
+		docs\database\querying\MochaQ.md = docs\database\querying\MochaQ.md
+		docs\database\querying\MochaQuery.md = docs\database\querying\MochaQuery.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{F5844D25-BB23-45BE-BB32-0EC22321D43F}"
 	ProjectSection(SolutionItems) = preProject
-		docs\rules\naming conventions.md = docs\rules\naming conventions.md
-		docs\rules\value conventions.md = docs\rules\value conventions.md
+		docs\database\rules\naming conventions.md = docs\database\rules\naming conventions.md
+		docs\database\rules\value conventions.md = docs\database\rules\value conventions.md
 	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "terminal", "terminal\terminal.fsproj", "{E7421A8C-2965-4B8D-9275-7EF5ADB08353}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terminal", "terminal", "{5503263D-C07F-4030-A5E4-65EDBC3439D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{DBD72ED2-F491-41CA-8241-902F847D3804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -252,12 +256,14 @@ Global
 		{F79D4D0A-1D29-46C0-B469-673FF6AEFDE8} = {A74FA287-C416-43F8-A401-B3A598C27655}
 		{C6862802-12F4-446E-B026-BF8518B8D131} = {0974BB66-5011-48C3-8A56-AA67A8CD2127}
 		{1EE17690-39CD-4098-A017-126AD9BD7C2D} = {A5444339-5E9E-40D2-B6F7-C63A74E915CB}
-		{75B5DD0B-6431-4BDA-BF24-DBFE614482C8} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
-		{3F20A6FD-BBF3-4CD3-BE5A-5242AC9AEF96} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
-		{1AD4270B-5D8D-4256-81B0-F153C96E609E} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
-		{41485C9F-A5C3-40F6-B1C3-46393D601B69} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
-		{3BCE460D-1430-47FF-AD97-4670C4289801} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
-		{F5844D25-BB23-45BE-BB32-0EC22321D43F} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
+		{75B5DD0B-6431-4BDA-BF24-DBFE614482C8} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{3F20A6FD-BBF3-4CD3-BE5A-5242AC9AEF96} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{1AD4270B-5D8D-4256-81B0-F153C96E609E} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{41485C9F-A5C3-40F6-B1C3-46393D601B69} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{3BCE460D-1430-47FF-AD97-4670C4289801} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{F5844D25-BB23-45BE-BB32-0EC22321D43F} = {DBD72ED2-F491-41CA-8241-902F847D3804}
+		{5503263D-C07F-4030-A5E4-65EDBC3439D5} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
+		{DBD72ED2-F491-41CA-8241-902F847D3804} = {8409E719-6CB2-4F40-96D7-3C3E39F72E7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B5D8E7-6684-4991-815B-8D03C7CF2600}
