@@ -214,6 +214,9 @@ EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "terminal", "terminal\terminal.fsproj", "{E7421A8C-2965-4B8D-9275-7EF5ADB08353}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terminal", "terminal", "{5503263D-C07F-4030-A5E4-65EDBC3439D5}"
+	ProjectSection(SolutionItems) = preProject
+		docs\terminal\commands.md = docs\terminal\commands.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{DBD72ED2-F491-41CA-8241-902F847D3804}"
 EndProject
@@ -221,13 +224,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{332B
 	ProjectSection(SolutionItems) = preProject
 		docs\terminal\modules\cd.md = docs\terminal\modules\cd.md
 		docs\terminal\modules\ls.md = docs\terminal\modules\ls.md
+		docs\terminal\modules\make.md = docs\terminal\modules\make.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commands", "commands", "{6179CEB7-4996-4C4F-92ED-9DA4A31A336A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "struct", "struct", "{6179CEB7-4996-4C4F-92ED-9DA4A31A336A}"
 	ProjectSection(SolutionItems) = preProject
-		docs\terminal\commands\modules.md = docs\terminal\commands\modules.md
-		docs\terminal\commands\parameters.md = docs\terminal\commands\parameters.md
-		docs\terminal\commands\tags.md = docs\terminal\commands\tags.md
+		docs\terminal\struct\modules.md = docs\terminal\struct\modules.md
+		docs\terminal\struct\parameters.md = docs\terminal\struct\parameters.md
+		docs\terminal\struct\tags.md = docs\terminal\struct\tags.md
 	EndProjectSection
 EndProject
 Global
