@@ -43,16 +43,19 @@ type terminal() =
   static member printError(msg:string) : unit =
     terminal.printnc(msg, ConsoleColor.Red)
 
-  // Returns input with pwd.
-  static member getInput() : string =
-    terminal.printc(terminal.pwd + " ", ConsoleColor.White)
-    let input = Console.ReadLine().TrimStart()
-    input
-
   // Returns input with msg.
   static member getInput(msg:string) : string =
     printf "%s" msg
     Console.ReadLine().TrimStart()
+
+  // Returns input with msg and color.
+  static member getInput(msg:string, color:ConsoleColor) : string =
+    terminal.printc(msg, color)
+    Console.ReadLine().TrimStart()
+
+  // Returns input with pwd.
+  static member getInput() : string =
+    terminal.getInput(terminal.pwd + " ", ConsoleColor.White)
 
   // Working directory.
   static member val pwd = Environment.CurrentDirectory with get, set

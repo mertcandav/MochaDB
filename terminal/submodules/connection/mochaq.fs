@@ -25,7 +25,7 @@ type mochaq() =
     if cmd = String.Empty then
       let mutable break = false
       while break = false do
-        let input = terminal.getInput(db.Name + "\MochaQ ")
+        let input = terminal.getInput(db.Name + "\MochaQ", ConsoleColor.White)
         if input = String.Empty then
           break <- true
         else

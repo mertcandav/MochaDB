@@ -30,22 +30,19 @@ open terminal
 open utils
 open modules
 
-// Help content.
-let _help_ = dict[
-  "cd", "Change directory.";
-  "ls", "List directory content.";
-  "ver", "Show version.";
-  "eng", "Show engine information.";
-  "make", "Create new MochaDB database.";
-  "connect", "Connect to MochaDB database.";
-  "clear", "Clear terminal screen.";
-  "help", "Show help.";
-  "exit", "Exit from terminal.";
-]
-
 // Show help.
 let showHelp() : unit =
-  cli.printDictAsTable(_help_)
+  cli.printDictAsTable(dict[
+    "cd", "Change directory.";
+    "ls", "List directory content.";
+    "ver", "Show version.";
+    "eng", "Show engine information.";
+    "make", "Create new MochaDB database.";
+    "connect", "Connect to MochaDB database.";
+    "clear", "Clear terminal screen.";
+    "help", "Show help.";
+    "exit", "Exit from terminal.";
+  ])
 
 // Process command and do task.
 let processCommand(ns:string, cmd:string) : unit =
