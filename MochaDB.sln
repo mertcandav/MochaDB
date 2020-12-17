@@ -221,6 +221,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{332B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commands", "commands", "{6179CEB7-4996-4C4F-92ED-9DA4A31A336A}"
 	ProjectSection(SolutionItems) = preProject
+		docs\terminal\commands\modules.md = docs\terminal\commands\modules.md
 		docs\terminal\commands\parameters.md = docs\terminal\commands\parameters.md
 		docs\terminal\commands\tags.md = docs\terminal\commands\tags.md
 	EndProjectSection
