@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Include="terminal.fs" />
     <Compile Include="utils\commandProcessor.fs" />
+    <Compile Include="modules\connect.fs" />
     <Compile Include="modules\make.fs" />
     <Compile Include="modules\ls.fs" />
     <Compile Include="modules\cd.fs" />
