@@ -223,6 +223,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{332B653E-1D54-497F-BDF3-4E483179425A}"
 	ProjectSection(SolutionItems) = preProject
 		docs\terminal\modules\cd.md = docs\terminal\modules\cd.md
+		docs\terminal\modules\connect.md = docs\terminal\modules\connect.md
 		docs\terminal\modules\ls.md = docs\terminal\modules\ls.md
 		docs\terminal\modules\make.md = docs\terminal\modules\make.md
 	EndProjectSection

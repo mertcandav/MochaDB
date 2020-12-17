@@ -1,4 +1,4 @@
-Make new MochaDB database. Asnwer questcions. <br>
+Make new MochaDB database. Asnwer quescions. <br>
 Example: <br>
 
 ```
