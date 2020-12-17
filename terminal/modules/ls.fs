@@ -16,7 +16,12 @@ type ls() =
       directories <- true
       files <- true
     else
-      if commandProcessor.removeArguments(cmd) <> String.Empty then
+      if cmd.Equals("@databases", StringComparison.InvariantCultureIgnoreCase) then
+        for db in Directory.GetFiles(terminal.pwd) do
+          if db.EndsWith(".mhdb") then
+            terminal.printc("[DATABASE] ", ConsoleColor.DarkYellow)
+            printfn "%s" (db.Substring(db.LastIndexOf(Path.DirectorySeparatorChar) + 1))
+      else if commandProcessor.removeArguments(cmd) <> String.Empty then
         terminal.printError("This module can only be used with parameters.")
       else
         let args = commandProcessor.getArguments(cmd)
