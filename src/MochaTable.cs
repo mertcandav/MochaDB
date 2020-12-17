@@ -1,6 +1,5 @@
 ﻿namespace MochaDB {
   using System;
-  using System.Linq;
 
   using MochaDB.engine;
 

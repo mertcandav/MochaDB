@@ -4,6 +4,9 @@ root = true
 # C# files
 [*.cs]
 
+# F# files
+[*.fs]
+
 #### Core EditorConfig Options ####
 
 # Indentation and spacing

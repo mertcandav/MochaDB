@@ -36,7 +36,7 @@ let gridview = new DataGridView()
 
 //codebox keydown event.
 //e: Key arguments
-let codebox_keydown(e: KeyEventArgs) =
+let codebox_keydown(e: KeyEventArgs) : unit =
   if e.KeyData = Keys.F5 then
     let path = new MochaPath(__SOURCE_DIRECTORY__)
     path.ParentDirectory()
@@ -60,7 +60,7 @@ let codebox_keydown(e: KeyEventArgs) =
       database.Dispose()
 
 [<EntryPoint>]
-let main(argv:string[]) =
+let main(argv:string[]) : int =
   Console.Title <- "F# MHQL Test Console"
   form.Text <- "F# based mhql test application"
   form.ShowIcon <- false
