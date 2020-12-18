@@ -59,13 +59,6 @@
 
     #endregion Cosntructors
 
-    #region Operators
-
-    public static explicit operator string(MochaColumn value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Events
 
     /// <summary>
@@ -78,16 +71,6 @@
     }
 
     #endregion Events
-
-    #region Overrides
-
-    /// <summary>
-    /// Returns <see cref="Name"/>.
-    /// </summary>
-    public override string ToString() =>
-      Name;
-
-    #endregion Overrides
 
     #region Properties
 

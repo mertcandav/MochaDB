@@ -40,7 +40,7 @@
     /// </summary>
     /// <param name="type">DataType.</param>
     /// <param name="value">Value.</param>
-    public static void __CHK_FLOAT__(MochaDataType type,ref string value) {
+    public static void CheckFloat(MochaDataType type,ref string value) {
       if(
           type == MochaDataType.Decimal ||
           type == MochaDataType.Double ||

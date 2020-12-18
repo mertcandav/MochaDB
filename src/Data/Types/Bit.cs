@@ -28,34 +28,34 @@
         new Bit(value);
 
     public static implicit operator Bit(int value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(uint value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(double value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(float value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(long value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(ulong value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(byte value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(sbyte value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(short value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator Bit(ushort value) =>
-        Parse(value);
+        Parse(value.ToString());
 
     public static implicit operator bool(Bit value) =>
         value.value == '1';
@@ -98,60 +98,11 @@
     /// Returns bit from value.
     /// </summary>
     /// <param name="value">Value to parse.</param
-    public static Bit Parse(bool value) =>
-        new Bit(value);
-
-    /// <summary>
-    /// Returns bit from value.
-    /// </summary>
-    /// <param name="value">Value to parse.</param
-    public static Bit Parse(int value) {
-      if(value < 0 || value > 1)
+    public static Bit Parse(string value) {
+      int x = int.Parse(value);
+      if(x < 0 || x > 1)
         throw new OutOfMemoryException("A bit can only be 0 or 1!");
-      return new Bit(value == 1);
-    }
-
-    /// <summary>
-    /// Returns bit from value.
-    /// </summary>
-    /// <param name="value">Value to parse.</param
-    public static Bit Parse(double value) {
-      if(value < 0 || value > 1)
-        throw new OutOfMemoryException("A bit can only be 0 or 1!");
-      return new Bit(value == 1);
-    }
-
-    /// <summary>
-    /// Returns bit from value.
-    /// </summary>
-    /// <param name="value">Value to parse.</param
-    public static Bit Parse(string value) =>
-        Parse(int.Parse(value));
-
-    /// <summary>
-    /// Returns bit from value if parse is successfully.
-    /// </summary>
-    /// <param name="value">Value to parse.</param
-    public static bool TryParse(int value,out Bit bit) {
-      if(value < 0 || value > 1) {
-        bit = new Bit();
-        return false;
-      }
-      bit = new Bit(value == 1);
-      return true;
-    }
-
-    /// <summary>
-    /// Returns bit from value if parse is successfully.
-    /// </summary>
-    /// <param name="value">Value to parse.</param
-    public static bool TryParse(float value,out Bit bit) {
-      if(value < 0 || value > 1) {
-        bit = new Bit();
-        return false;
-      }
-      bit = new Bit(value == 1);
-      return true;
+      return new Bit(x == 1);
     }
 
     /// <summary>
@@ -160,7 +111,7 @@
     /// <param name="value">Value to parse.</param
     public static bool TryParse(string value,out Bit bit) {
       try {
-        bit = Parse(int.Parse(value));
+        bit = Parse(value);
         return true;
       } catch {
         bit = new Bit();

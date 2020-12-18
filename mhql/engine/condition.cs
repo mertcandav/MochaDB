@@ -13,37 +13,35 @@ namespace MochaDB.mhql.engine {
   /// Condition engine for MHQL.
   /// </summary>
   internal static class MhqlEng_CONDITION {
-    #region PRIVITE
-
     /// <summary>
     /// Value output for conditions.
     /// </summary>
-    public struct CONDITIONVAL {
+    public struct Expressional {
       /// <summary>
       /// Returns true if equals, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __EQUALS__(CONDITIONVAL v) =>
-        VALUE.ToString() == v.VALUE.ToString();
+      public bool Equal(Expressional v) =>
+        Value.ToString() == v.Value.ToString();
 
       /// <summary>
       /// Returns true if not equals, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __NEQUALS__(CONDITIONVAL v) =>
-        VALUE.ToString() != v.VALUE.ToString();
+      public bool NotEqual(Expressional v) =>
+        Value.ToString() != v.Value.ToString();
 
       /// <summary>
       /// Returns true if bigger, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __BIGGER__(CONDITIONVAL v) {
-        if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
-          return VALUE.ToString() == "True" && v.VALUE.ToString() == "False";
-        else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
-          return (int)VALUE > (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
-          return decimal.Parse(VALUE.ToString()) > decimal.Parse(v.VALUE.ToString());
+      public bool Bigger(Expressional v) {
+        if(Type == ExpressionType.Boolean)
+          return Value.ToString() == "True" && v.Value.ToString() == "False";
+        else if(Type == ExpressionType.Char)
+          return (int)Value > (int)v.Value;
+        else if(Type == ExpressionType.Arithmetic)
+          return decimal.Parse(Value.ToString()) > decimal.Parse(v.Value.ToString());
         throw new MochaException("BIGGER operator is cannot compatible this data type!");
       }
 
@@ -51,13 +49,13 @@ namespace MochaDB.mhql.engine {
       /// Returns true if lower, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __LOWER__(CONDITIONVAL v) {
-        if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
-          return VALUE.ToString() == "False" && v.VALUE.ToString() == "True";
-        else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
-          return (int)VALUE < (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
-          return decimal.Parse(VALUE.ToString()) < decimal.Parse(v.VALUE.ToString());
+      public bool Lower(Expressional v) {
+        if(Type == ExpressionType.Boolean)
+          return Value.ToString() == "False" && v.Value.ToString() == "True";
+        else if(Type == ExpressionType.Char)
+          return (int)Value < (int)v.Value;
+        else if(Type == ExpressionType.Arithmetic)
+          return decimal.Parse(Value.ToString()) < decimal.Parse(v.Value.ToString());
         throw new MochaException("LOWER operator is cannot compatible this data type!");
       }
 
@@ -65,15 +63,15 @@ namespace MochaDB.mhql.engine {
       /// Returns true if biggereq, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __BIGGEREQ__(CONDITIONVAL v) {
-        if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
+      public bool BiggerEqual(Expressional v) {
+        if(Type == ExpressionType.Boolean)
           return
-              (VALUE.ToString() == "True" && v.VALUE.ToString() == "False") ||
-              (VALUE.ToString() == v.VALUE.ToString());
-        else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
-          return (int)VALUE >= (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
-          return decimal.Parse(VALUE.ToString()) >= decimal.Parse(v.VALUE.ToString());
+              (Value.ToString() == "True" && v.Value.ToString() == "False") ||
+              (Value.ToString() == v.Value.ToString());
+        else if(Type == ExpressionType.Char)
+          return (int)Value >= (int)v.Value;
+        else if(Type == ExpressionType.Arithmetic)
+          return decimal.Parse(Value.ToString()) >= decimal.Parse(v.Value.ToString());
         throw new MochaException("BIGGEREQ operator is cannot compatible this data type!");
       }
 
@@ -81,52 +79,40 @@ namespace MochaDB.mhql.engine {
       /// Returns true if lowereq, returns false if not.
       /// </summary>
       /// <param name="v">Value to compare.</param>
-      public bool __LOWEREQ__(CONDITIONVAL v) {
-        if(TYPE == CONDITIONVAL_TYPE.__BOOLEAN__)
+      public bool LowerEqual(Expressional v) {
+        if(Type == ExpressionType.Boolean)
           return
-              (VALUE.ToString() == "False" && v.VALUE.ToString() == "True") ||
-              (VALUE.ToString() == v.VALUE.ToString());
-        else if(TYPE == CONDITIONVAL_TYPE.__CHAR__)
-          return (int)VALUE <= (int)v.VALUE;
-        else if(TYPE == CONDITIONVAL_TYPE.__ARITHMETIC__)
-          return decimal.Parse(VALUE.ToString()) <= decimal.Parse(v.VALUE.ToString());
+              (Value.ToString() == "False" && v.Value.ToString() == "True") ||
+              (Value.ToString() == v.Value.ToString());
+        else if(Type == ExpressionType.Char)
+          return (int)Value <= (int)v.Value;
+        else if(Type == ExpressionType.Arithmetic)
+          return decimal.Parse(Value.ToString()) <= decimal.Parse(v.Value.ToString());
         throw new MochaException("LOWEREQ operator is cannot compatible this data type!");
       }
 
       /// <summary>
       /// Value.
       /// </summary>
-      public object VALUE;
+      public object Value;
 
       /// <summary>
       /// Type of value.
       /// </summary>
-      public CONDITIONVAL_TYPE TYPE;
+      public ExpressionType Type;
     }
 
     /// <summary>
-    /// Types for values of <see cref="CONDITIONVAL"/>.
+    /// Types for values of <see cref="Expressional"/>.
     /// </summary>
-    public enum CONDITIONVAL_TYPE:short {
-      /// <summary>
-      /// String.
-      /// </summary>
-      __STRING__ = 0x1,
-      /// <summary>
-      /// Char.
-      /// </summary>
-      __CHAR__ = 0x2,
-      /// <summary>
-      /// Boolean.
-      /// </summary>
-      __BOOLEAN__ = 0x3,
-      /// <summary>
-      /// Integer.
-      /// </summary>
-      __ARITHMETIC__ = 0x4,
+    public enum ExpressionType {
+      String = 1,
+      Char = 2,
+      Boolean = 3,
+      Arithmetic = 4,
     }
 
-    #endregion PRIVITE
+    #region Members
 
     /// <summary>
     /// Process condition and returns condition result.
@@ -140,17 +126,17 @@ namespace MochaDB.mhql.engine {
       if(!IsCondition(command,out type))
         return false;
 
-      if(type == ConditionType.EQUAL)
+      if(type == ConditionType.Equal)
         return Process_EQUAL(command,table,row,from);
-      else if(type == ConditionType.NOTEQUAL)
+      else if(type == ConditionType.NotEqual)
         return Process_NOTEQUAL(command,table,row,from);
-      else if(type == ConditionType.BIGGER)
+      else if(type == ConditionType.Bigger)
         return Process_BIGGER(command,table,row,from);
-      else if(type == ConditionType.LOWER)
+      else if(type == ConditionType.Lower)
         return Process_LOWER(command,table,row,from);
-      else if(type == ConditionType.BIGGEREQ)
+      else if(type == ConditionType.BiggerEqual)
         return Process_BIGGEREQ(command,table,row,from);
-      else if(type == ConditionType.LOWEREQ)
+      else if(type == ConditionType.LowerEqual)
         return Process_LOWEREQ(command,table,row,from);
       return false;
     }
@@ -165,10 +151,10 @@ namespace MochaDB.mhql.engine {
       if(new Regex(".*\\(").IsMatch(command))
         return false;
 
-      for(int index = 0; index < MhqlEng_CONDITION_LEXER.__OPERATORS__.Count; ++index) {
-        if(!command.Contains(MhqlEng_CONDITION_LEXER.__OPERATORS__.Values.ElementAt(index)))
+      for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Count; ++index) {
+        if(!command.Contains(MhqlEng_CONDITION_LEXER.Operators.Values.ElementAt(index)))
           continue;
-        string key = MhqlEng_CONDITION_LEXER.__OPERATORS__.Keys.ElementAt(index);
+        string key = MhqlEng_CONDITION_LEXER.Operators.Keys.ElementAt(index);
         type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
         return true;
       }
@@ -183,11 +169,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_EQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("EQUAL"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("EQUAL"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__EQUALS__(value1);
+      return value0.Equal(value1);
     }
 
     /// <summary>
@@ -198,11 +184,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("NOTEQUAL"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("NOTEQUAL"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__NEQUALS__(value1);
+      return value0.NotEqual(value1);
     }
 
     /// <summary>
@@ -213,11 +199,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGER"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("BIGGER"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__BIGGER__(value1);
+      return value0.Bigger(value1);
     }
 
     /// <summary>
@@ -228,11 +214,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWER"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("LOWER"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__LOWER__(value1);
+      return value0.Lower(value1);
     }
 
     /// <summary>
@@ -243,11 +229,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("BIGGEREQ"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("BIGGEREQ"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__BIGGEREQ__(value1);
+      return value0.BiggerEqual(value1);
     }
 
     /// <summary>
@@ -258,11 +244,11 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.__OPERATORS__.GetValue("LOWEREQ"));
-      CONDITIONVAL value0 = GetValue(parts[0],table,row,from);
-      CONDITIONVAL value1 = GetValue(parts[1],table,row,from);
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("LOWEREQ"));
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
-      return value0.__LOWEREQ__(value1);
+      return value0.LowerEqual(value1);
     }
 
     /// <summary>
@@ -280,12 +266,12 @@ namespace MochaDB.mhql.engine {
     }
 
     /// <summary>
-    /// Check <see cref="CONDITIONVAL"/>.
+    /// Check <see cref="Expressional"/>.
     /// </summary>
     /// <param name="v1">Value 1.</param>
     /// <param name="v2">Value 2.</param>
-    public static void CHKVAL(CONDITIONVAL v1,CONDITIONVAL v2) {
-      if(v1.TYPE != v2.TYPE)
+    public static void CHKVAL(Expressional v1,Expressional v2) {
+      if(v1.Type != v2.Type)
         throw new MochaException("Value types is are not compatible!");
     }
 
@@ -296,36 +282,36 @@ namespace MochaDB.mhql.engine {
     /// <param name="table">Table.</param>
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
-    public static CONDITIONVAL GetValue(string value,MochaTableResult table,MochaRow row,bool from) {
+    public static Expressional GetValue(string value,MochaTableResult table,MochaRow row,bool from) {
       if(value.StartsWith("'")) {
         MhqlEngVal_CHAR.Process(ref value);
-        return new CONDITIONVAL {
-          TYPE = CONDITIONVAL_TYPE.__CHAR__,
-          VALUE = value
+        return new Expressional {
+          Type = ExpressionType.Char,
+          Value = value
         };
       } else if(value.StartsWith("\"")) {
         MhqlEngVal_STRING.Process(ref value);
-        return new CONDITIONVAL {
-          TYPE = CONDITIONVAL_TYPE.__STRING__,
-          VALUE = value
+        return new Expressional {
+          Type = ExpressionType.String,
+          Value = value
         };
       } else if(value.StartsWith("#")) {
         decimal val;
         if(!decimal.TryParse(value.Substring(1).Replace('.',','),out val))
           throw new MochaException("Value is not arithmetic value!");
-        return new CONDITIONVAL {
-          TYPE = CONDITIONVAL_TYPE.__ARITHMETIC__,
-          VALUE = val
+        return new Expressional {
+          Type = ExpressionType.Arithmetic,
+          Value = val
         };
       } else if(value == "TRUE")
-        return new CONDITIONVAL {
-          TYPE = CONDITIONVAL_TYPE.__BOOLEAN__,
-          VALUE = true
+        return new Expressional {
+          Type = ExpressionType.Boolean,
+          Value = true
         };
       else if(value == "FALSE")
-        return new CONDITIONVAL {
-          TYPE = CONDITIONVAL_TYPE.__BOOLEAN__,
-          VALUE = false
+        return new Expressional {
+          Type = ExpressionType.Boolean,
+          Value = false
         };
 
       if(from) {
@@ -335,18 +321,18 @@ namespace MochaDB.mhql.engine {
           goto index;
 
         MochaData data = row.Datas[Array.IndexOf(table.Columns,result.First())];
-        return new CONDITIONVAL {
-          TYPE =
+        return new Expressional {
+          Type =
                 data.dataType == MochaDataType.Unique ||
                 data.dataType == MochaDataType.String ||
                 data.dataType == MochaDataType.DateTime ?
-                    CONDITIONVAL_TYPE.__STRING__ :
+                    ExpressionType.String :
                         data.dataType == MochaDataType.Char ?
-                        CONDITIONVAL_TYPE.__CHAR__ :
+                        ExpressionType.Char :
                             data.dataType == MochaDataType.Boolean ?
-                            CONDITIONVAL_TYPE.__BOOLEAN__ :
-                                CONDITIONVAL_TYPE.__ARITHMETIC__,
-          VALUE = data.data
+                            ExpressionType.Boolean :
+                                ExpressionType.Arithmetic,
+          Value = data.data
         };
       }
 
@@ -360,19 +346,21 @@ namespace MochaDB.mhql.engine {
       else if(dex > row.Datas.MaxIndex())
         throw new MochaException("The specified index is more than the number of columns!");
       MochaData _data = row.Datas[dex];
-      return new CONDITIONVAL {
-        TYPE =
+      return new Expressional {
+        Type =
               _data.dataType == MochaDataType.Unique ||
               _data.dataType == MochaDataType.String ||
               _data.dataType == MochaDataType.DateTime ?
-              CONDITIONVAL_TYPE.__STRING__ :
+              ExpressionType.String :
                   _data.dataType == MochaDataType.Char ?
-                  CONDITIONVAL_TYPE.__CHAR__ :
+                  ExpressionType.Char :
                       _data.dataType == MochaDataType.Boolean ?
-                      CONDITIONVAL_TYPE.__BOOLEAN__ :
-                          CONDITIONVAL_TYPE.__ARITHMETIC__,
-        VALUE = _data.data
+                      ExpressionType.Boolean :
+                          ExpressionType.Arithmetic,
+        Value = _data.data
       };
     }
+
+    #endregion Members
   }
 }

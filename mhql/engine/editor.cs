@@ -13,14 +13,6 @@ namespace MochaDB.mhql.engine {
     /// <param name="command">Command.</param>
     public static void DecomposeBrackets(ref string command) {
       if(command.FirstChar() == '(') {
-        /*var dex = command.IndexOf('&');
-        dex =
-            dex == -1 ?
-            command.IndexOf('|') : command.Length;
-        if(command[dex] != ')')
-            throw new MochaException("Bracket is open but not closed!");
-
-        command = command.Substring(1,dex-1);*/
         if(command.LastChar() != '(')
           throw new MochaException("Bracket is open but not closed!");
         command = command.Substring(1,command.Length-1);

@@ -8,7 +8,7 @@ namespace MochaDB.mhql.engine {
     /// <summary>
     /// Operators.
     /// </summary>
-    public static Dictionary<string,string> __OPERATORS__ =>
+    public static Dictionary<string,string> Operators =>
       new Dictionary<string,string> {
         { "EQUAL", "==" },
         { "NOTEQUAL", "!=" },
@@ -23,33 +23,12 @@ namespace MochaDB.mhql.engine {
   /// Condition type.
   /// </summary>
   internal enum ConditionType {
-    /// <summary>
-    /// None.
-    /// </summary>
     None = 0,
-    /// <summary>
-    /// Euqal operator.
-    /// </summary>
-    EQUAL = 1,
-    /// <summary>
-    /// Not equal operator.
-    /// </summary>
-    NOTEQUAL = 2,
-    /// <summary>
-    /// Bigger operator.
-    /// </summary>
-    BIGGER = 3,
-    /// <summary>
-    /// Lower operator.
-    /// </summary>
-    LOWER = 4,
-    /// <summary>
-    /// Bigger or equal operator.
-    /// </summary>
-    BIGGEREQ = 5,
-    /// <summary>
-    /// Lower or equal operator.
-    /// </summary>
-    LOWEREQ = 6
+    Equal = 1,
+    NotEqual = 2,
+    Bigger = 3,
+    Lower = 4,
+    BiggerEqual = 5,
+    LowerEqual = 6
   }
 }

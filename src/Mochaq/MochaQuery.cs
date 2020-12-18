@@ -55,13 +55,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaQuery value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Members
 
     #region ExecuteCommand

@@ -39,13 +39,6 @@ AutoConnect|Readonly|AutoCreate",RegexOptions.CultureInvariant | RegexOptions.Ig
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaProviderAttribute value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Events
 
     /// <summary>

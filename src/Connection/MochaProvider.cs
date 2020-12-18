@@ -28,13 +28,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaProvider value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Static Members
 
     /// <summary>
@@ -147,10 +140,10 @@
             pathAttribute.Value :
             throw new MochaException("'Path' attribute is not defined!");
         Path =
-            !Path.EndsWith(Engine_LEXER.__EXTENSION__) ?
+            !Path.EndsWith(Engine_LEXER.Extension) ?
             Path.Last() != '.' ?
-            Path + Engine_LEXER.__EXTENSION__ :
-            Path + Engine_LEXER.__EXTENSION__ : Path;
+            Path + Engine_LEXER.Extension :
+            Path + Engine_LEXER.Extension : Path;
         int index;
         string keyword = ">SOURCEDIR<";
         string currentdir = Directory.GetCurrentDirectory();
@@ -205,13 +198,7 @@
   /// Connection states for MochaDB.
   /// </summary>
   public enum MochaConnectionState {
-    /// <summary>
-    /// Connected to database.
-    /// </summary>
     Connected = 0,
-    /// <summary>
-    /// Disconnected from database.
-    /// </summary>
     Disconnected = 1
   }
 }

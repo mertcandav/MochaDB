@@ -7,14 +7,6 @@ namespace MochaDB.mhql.engine {
   /// </summary>
   internal sealed class ORDERBYComparer:IComparer<string> {
     /// <summary>
-    /// Method to determine if a string is a number.
-    /// </summary>
-    /// <param name="value">String to test.</param>
-    /// <returns>True if numeric</returns>
-    public static bool IsNumeric(string value) =>
-        decimal.TryParse(value,out _);
-
-    /// <summary>
     /// Compare values.
     /// </summary>
     /// <param name="s1">Value 1.</param>
@@ -23,8 +15,8 @@ namespace MochaDB.mhql.engine {
       const int S1GreaterThanS2 = 1;
       const int S2GreaterThanS1 = -1;
 
-      bool IsNumeric1 = IsNumeric(s1);
-      bool IsNumeric2 = IsNumeric(s2);
+      bool IsNumeric1 = decimal.TryParse(s1,out _);
+      bool IsNumeric2 = decimal.TryParse(s2,out _);
 
       if(IsNumeric1 && IsNumeric2) {
         decimal i1 = Convert.ToDecimal(s1);

@@ -37,13 +37,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaReader<T> value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Members
 
     /// <summary>
@@ -78,16 +71,6 @@
         Position=Count-2 < -1 ? -1 : Count-2;
 
     #endregion Members
-
-    #region Overrides
-
-    /// <summary>
-    /// Returns converted to string result of <see cref="Value"/>.
-    /// </summary>
-    public override string ToString() =>
-      Value.ToString();
-
-    #endregion Overrides
 
     #region Properties
 

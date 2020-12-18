@@ -6,18 +6,18 @@ namespace MochaDB.engine {
     /// <summary>
     /// File extension of MochaDB.
     /// </summary>
-    public static string __EXTENSION__ => ".mhdb";
+    public static string Extension => ".mhdb";
 
     /// <summary>
     /// Version of MochaDB.
     /// </summary>
-    public static string __VERSION__ => "3.4.9.1";
+    public static string Version => "3.4.9.1";
 
     /// <summary>
     /// The most basic content of the database.
     /// </summary>
-    public static string __EMPTY__ =>
-$@"<?MochaDB Version=\""{__VERSION__}""?>
+    public static string Empty =>
+$@"<?MochaDB Version=\""{Version}""?>
 <MochaDB Description=""Root element of database."">>
     <Root Description=""Root of database."">>
         <Password DataType=""String"" Description=""Password of database.""></Password>

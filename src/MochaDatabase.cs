@@ -86,16 +86,6 @@ namespace MochaDB {
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaDatabase value) =>
-        value.ToString();
-
-    public static explicit operator XDocument(MochaDatabase value) =>
-        value.GetXDocument();
-
-    #endregion Operators
-
     #region Internal Events
 
     /// <summary>
@@ -159,7 +149,7 @@ namespace MochaDB {
       if(!File.Exists(path))
         return false;
       FileInfo fInfo = new FileInfo(path);
-      if(fInfo.Extension != Engine_LEXER.__EXTENSION__)
+      if(fInfo.Extension != Engine_LEXER.Extension)
         return false;
       return true;
     }
@@ -172,7 +162,7 @@ namespace MochaDB {
     /// <param name="password">Password of database.</param>
     public static void CreateMochaDB(string path,string description,string password) {
       Engine_VALUES.PasswordCheckThrow(password);
-      string content = Engine_LEXER.__EMPTY__;
+      string content = Engine_LEXER.Empty;
 
       if(!string.IsNullOrEmpty(password)) {
         int dex = content.IndexOf("</Password>");
@@ -183,8 +173,8 @@ namespace MochaDB {
         content = content.Insert(dex,description);
       }
 
-      path += !path.EndsWith(Engine_LEXER.__EXTENSION__) ?
-              Engine_LEXER.__EXTENSION__ : string.Empty;
+      path += !path.EndsWith(Engine_LEXER.Extension) ?
+              Engine_LEXER.Extension : string.Empty;
 
       if(File.Exists(path))
         throw new MochaException("Such a database already exists!");
@@ -329,7 +319,7 @@ namespace MochaDB {
             MochaData.TryGetData(GetColumnDataType(tableName,element.Name.LocalName),string.Empty)));
       }
       string val = xData.Value;
-      Engine_VALUES.__CHK_FLOAT__(dataType,ref val);
+      Engine_VALUES.CheckFloat(dataType,ref val);
       xData.Value = val;
       GetXElement(CDoc,$"Tables/{tableName}/{columnName}").Add(xData);
     }
@@ -357,7 +347,7 @@ namespace MochaDB {
 
       XElement dataElement = dataRange.ElementAt(index);
       string ddata = data.ToString();
-      Engine_VALUES.__CHK_FLOAT__(dataType,ref ddata);
+      Engine_VALUES.CheckFloat(dataType,ref ddata);
       if(dataElement.Value==ddata)
         return;
 
@@ -501,7 +491,7 @@ namespace MochaDB {
       OnConnectionCheckRequired(this,new EventArgs());
       OnChanging(this,new EventArgs());
 
-      Doc = XDocument.Parse(Engine_LEXER.__EMPTY__);
+      Doc = XDocument.Parse(Engine_LEXER.Empty);
       Save();
     }
 
@@ -1182,7 +1172,7 @@ namespace MochaDB {
       for(int index = 0; index < logs.Length; ++index) {
         XElement currentElement = elements.ElementAt(index);
         logs[index] = new MochaLog {
-          ID = currentElement.Attribute("ID").Value,
+          ID = new MochaID(currentElement.Attribute("ID").Value),
           Time = DateTime.Parse(currentElement.Attribute("Time").Value),
           Log= currentElement.Value
         };
@@ -1279,7 +1269,7 @@ namespace MochaDB {
     /// Version of MochaDB.
     /// </summary>
     public static string Version =>
-        Engine_LEXER.__VERSION__;
+        Engine_LEXER.Version;
 
     #endregion Static Properties
 

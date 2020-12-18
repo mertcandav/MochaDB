@@ -22,13 +22,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaException value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Members
 
     /// <summary>

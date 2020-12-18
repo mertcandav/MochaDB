@@ -27,13 +27,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static implicit operator string(MochaLog value) =>
-        value.Log;
-
-    #endregion Operators
-
     #region Members
 
     /// <summary>

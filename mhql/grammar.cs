@@ -81,7 +81,7 @@ namespace MochaDB.mhql {
     /// <summary>
     /// Functions of use.
     /// </summary>
-    public static Dictionary<string/* Pattern */,string/* Tag */> UseFunctions =>
+    public static Dictionary<string,string> UseFunctions =>
       new Dictionary<string,string>() {
         { "COUNT(\\s*)\\((\\s*)\\)", "COUNT" },
         { "SUM(\\s*)\\((\\s*).*(\\s*)\\)", "SUM" },

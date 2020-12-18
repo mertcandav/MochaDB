@@ -80,16 +80,6 @@
             Connection states for MochaDB.
             </summary>
         </member>
-        <member name="F:MochaDB.Connection.MochaConnectionState.Connected">
-            <summary>
-            Connected to database.
-            </summary>
-        </member>
-        <member name="F:MochaDB.Connection.MochaConnectionState.Disconnected">
-            <summary>
-            Disconnected from database.
-            </summary>
-        </member>
         <member name="T:MochaDB.Connection.MochaProviderAttribute">
             <summary>
             Attributes for MochaProviders.
@@ -153,12 +143,7 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Int32)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.Double)" -->
         <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Int32,MochaDB.Data.Types.Bit@)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.Single,MochaDB.Data.Types.Bit@)" -->
         <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" -->
         <member name="M:MochaDB.Data.Types.Bit.ToString">
             <summary>
@@ -532,11 +517,6 @@
             This happens after name changed;
             </summary>
         </member>
-        <member name="M:MochaDB.MochaColumn.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaColumn.Name"/>.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaColumn.Name">
             <summary>
             Name.
@@ -846,96 +826,6 @@
         <member name="T:MochaDB.MochaDataType">
             <summary>
             DataTypes for MochaDB.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.String">
-            <summary>
-            String.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Int16">
-            <summary>
-            16-bit signed integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Int32">
-            <summary>
-            32-bit signed integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Int64">
-            <summary>
-            64-bit signed integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.UInt16">
-            <summary>
-            16-bit unsigned integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.UInt32">
-            <summary>
-            32-bit unsigned integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.UInt64">
-            <summary>
-            64-bit unsigned integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Double">
-            <summary>
-            Double-precision floating-point number.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Float">
-            <summary>
-            Single-precision floating-point number.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Decimal">
-            <summary>
-            Decimal floating-point number.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Byte">
-            <summary>
-            8-bit unsigned integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.DateTime">
-            <summary>
-            Date, Time, Date + Time.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.SByte">
-            <summary>
-            8-bit signed integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Boolean">
-            <summary>
-            True or False
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Char">
-            <summary>
-            UTF16 Character.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.AutoInt">
-            <summary>
-            Auto-incrementing 32-bit integer.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Unique">
-            <summary>
-            Unique string.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaDataType.Bit">
-            <summary>
-            Binary digit.
             </summary>
         </member>
         <member name="T:MochaDB.MochaDatabase">
@@ -1585,51 +1475,6 @@
             Enum for MochaID types.
             </summary>
         </member>
-        <member name="F:MochaDB.MochaIDType.Flat">
-            <summary>
-            ID by chars.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Bit">
-            <summary>
-            ID by digits.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hexabit">
-            <summary>
-            ID by combining of char and digit.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hexabitx">
-            <summary>
-            Complex hexabit ID.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hash248">
-            <summary>
-            248Bit Hash ID.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hash128">
-            <summary>
-            128Bit Hash ID.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hash64">
-            <summary>
-            64Bit Hash ID.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hash32">
-            <summary>
-            32Bit Hash ID.
-            </summary>
-        </member>
-        <member name="F:MochaDB.MochaIDType.Hash16">
-            <summary>
-            16Bit Hash ID.
-            </summary>
-        </member>
         <member name="T:MochaDB.MochaPath">
             <summary>
             MochaDB path definer.
@@ -2066,11 +1911,6 @@
             Returns table empty state.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaTable.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaTable.Name"/>.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaTable.Name">
             <summary>
             Name.
@@ -2438,11 +2278,6 @@
             Go to last position.
             </summary>
         </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.ToString">
-            <summary>
-            Returns converted to string result of <see cref="P:MochaDB.Streams.MochaReader`1.Value"/>.
-            </summary>
-        </member>
         <member name="P:MochaDB.Streams.MochaReader`1.Value">
             <summary>
             Current value.
@@ -2742,80 +2577,60 @@
             Condition engine for MHQL.
             </summary>
         </member>
-        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL">
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional">
             <summary>
             Value output for conditions.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__EQUALS__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Equal(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if equals, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__NEQUALS__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.NotEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if not equals, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__BIGGER__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Bigger(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if bigger, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__LOWER__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Lower(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if lower, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__BIGGEREQ__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.BiggerEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if biggereq, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.__LOWEREQ__(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.LowerEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
             Returns true if lowereq, returns false if not.
             </summary>
             <param name="v">Value to compare.</param>
         </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.VALUE">
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Value">
             <summary>
             Value.
             </summary>
         </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL.TYPE">
+        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Type">
             <summary>
             Type of value.
             </summary>
         </member>
-        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE">
+        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.ExpressionType">
             <summary>
-            Types for values of <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL"/>.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__STRING__">
-            <summary>
-            String.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__CHAR__">
-            <summary>
-            Char.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__BOOLEAN__">
-            <summary>
-            Boolean.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL_TYPE.__ARITHMETIC__">
-            <summary>
-            Integer.
+            Types for values of <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional"/>.
             </summary>
         </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
@@ -2895,9 +2710,9 @@
             <param name="command">Condition.</param>
             <param name="operator">Operator.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CHKVAL(MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL,MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL)">
+        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CHKVAL(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional,MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
             <summary>
-            Check <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.CONDITIONVAL"/>.
+            Check <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional"/>.
             </summary>
             <param name="v1">Value 1.</param>
             <param name="v2">Value 2.</param>
@@ -2916,7 +2731,7 @@
             Lexer of MHQL conditions.
             </summary>
         </member>
-        <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.__OPERATORS__">
+        <member name="P:MochaDB.mhql.engine.MhqlEng_CONDITION_LEXER.Operators">
             <summary>
             Operators.
             </summary>
@@ -2926,52 +2741,10 @@
             Condition type.
             </summary>
         </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.None">
-            <summary>
-            None.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.EQUAL">
-            <summary>
-            Euqal operator.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.NOTEQUAL">
-            <summary>
-            Not equal operator.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.BIGGER">
-            <summary>
-            Bigger operator.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.LOWER">
-            <summary>
-            Lower operator.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.BIGGEREQ">
-            <summary>
-            Bigger or equal operator.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.ConditionType.LOWEREQ">
-            <summary>
-            Lower or equal operator.
-            </summary>
-        </member>
         <member name="T:MochaDB.mhql.engine.ORDERBYComparer">
             <summary>
             Comparer for mhql orderby.
             </summary>
-        </member>
-        <member name="M:MochaDB.mhql.engine.ORDERBYComparer.IsNumeric(System.String)">
-            <summary>
-            Method to determine if a string is a number.
-            </summary>
-            <param name="value">String to test.</param>
-            <returns>True if numeric</returns>
         </member>
         <member name="M:MochaDB.mhql.engine.ORDERBYComparer.Compare(System.String,System.String)">
             <summary>
@@ -3707,7 +3480,7 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <member name="M:MochaDB.engine.Engine_VALUES.__CHK_FLOAT__(MochaDB.MochaDataType,System.String@)">
+        <member name="M:MochaDB.engine.Engine_VALUES.CheckFloat(MochaDB.MochaDataType,System.String@)">
             <summary>
             Check and process float value.
             </summary>
@@ -3719,17 +3492,17 @@
             Lexer of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.__EXTENSION__">
+        <member name="P:MochaDB.engine.Engine_LEXER.Extension">
             <summary>
             File extension of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.__VERSION__">
+        <member name="P:MochaDB.engine.Engine_LEXER.Version">
             <summary>
             Version of MochaDB.
             </summary>
         </member>
-        <member name="P:MochaDB.engine.Engine_LEXER.__EMPTY__">
+        <member name="P:MochaDB.engine.Engine_LEXER.Empty">
             <summary>
             The most basic content of the database.
             </summary>

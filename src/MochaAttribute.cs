@@ -40,13 +40,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaAttribute value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Events
 
     /// <summary>

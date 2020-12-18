@@ -39,13 +39,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static explicit operator string(MochaTable value) =>
-        value.ToString();
-
-    #endregion Operators
-
     #region Events
 
     /// <summary>
@@ -153,16 +146,6 @@
       Rows.Count == 0;
 
     #endregion Members
-
-    #region Overrides
-
-    /// <summary>
-    /// Returns <see cref="Name"/>.
-    /// </summary>
-    public override string ToString() =>
-      Name;
-
-    #endregion Overrides
 
     #region Properties
 

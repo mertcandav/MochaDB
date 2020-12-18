@@ -23,16 +23,6 @@
 
     #endregion Constructors
 
-    #region Operators
-
-    public static implicit operator string(MochaID value) =>
-        value.Value;
-
-    public static implicit operator MochaID(string value) =>
-        new MochaID(value);
-
-    #endregion Operators
-
     #region Internal Static Members
 
     /// <summary>
@@ -154,41 +144,14 @@
   /// Enum for MochaID types.
   /// </summary>
   public enum MochaIDType {
-    /// <summary>
-    /// ID by chars.
-    /// </summary>
     Flat = 0,
-    /// <summary>
-    /// ID by digits.
-    /// </summary>
     Bit = 1,
-    /// <summary>
-    /// ID by combining of char and digit.
-    /// </summary>
     Hexabit = 2,
-    /// <summary>
-    /// Complex hexabit ID.
-    /// </summary>
     Hexabitx = 3,
-    /// <summary>
-    /// 248Bit Hash ID.
-    /// </summary>
     Hash248 = 4,
-    /// <summary>
-    /// 128Bit Hash ID.
-    /// </summary>
     Hash128 = 5,
-    /// <summary>
-    /// 64Bit Hash ID.
-    /// </summary>
     Hash64 = 6,
-    /// <summary>
-    /// 32Bit Hash ID.
-    /// </summary>
     Hash32 = 7,
-    /// <summary>
-    /// 16Bit Hash ID.
-    /// </summary>
     Hash16 = 8
   }
 }
