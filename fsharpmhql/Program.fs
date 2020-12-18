@@ -20,22 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//Libraries
+// Libraries
 open System
 open System.Drawing
 open System.Windows.Forms
 open MochaDB
 open MochaDB.Mhql
 
-//Fields
+// Fields
 let form = new Form()
 let codebox = new RichTextBox()
 let gridview = new DataGridView()
 
-//Functions
+// Functions
 
-//codebox keydown event.
-//e: Key arguments
+/// <summary>
+/// Keywdown event of codebox.
+/// </summary>
+/// <param name="e">Key arguments.</param>
 let codebox_keydown(e: KeyEventArgs) : unit =
   if e.KeyData = Keys.F5 then
     let path = new MochaPath(__SOURCE_DIRECTORY__)
@@ -59,6 +61,10 @@ let codebox_keydown(e: KeyEventArgs) : unit =
       printfn "ERROR: %s" excep.Message
       database.Dispose()
 
+/// <summary>
+/// Entry point.
+/// </summary>
+/// <param name="argv">Arguments.</param>
 [<EntryPoint>]
 let main(argv:string[]) : int =
   Console.Title <- "F# MHQL Test Console"
