@@ -2463,12 +2463,6 @@
             Dictionary framework of MochaDB.
             </summary>
         </member>
-        <member name="M:MochaDB.framework.Framework_DICTIONARY.FromArray(System.String[0:,0:])">
-            <summary>
-            Dictionary from array.
-            </summary>
-            <param name="array">Source array.</param>
-        </member>
         <member name="M:MochaDB.framework.Framework_DICTIONARY.MatchKey``2(System.Collections.Generic.Dictionary{``0,``1},System.String)">
             <summary>
             Return true if contains matched key, returns false if not.

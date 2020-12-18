@@ -8,17 +8,6 @@ namespace MochaDB.framework {
   /// </summary>
   internal static class Framework_DICTIONARY {
     /// <summary>
-    /// Dictionary from array.
-    /// </summary>
-    /// <param name="array">Source array.</param>
-    public static Dictionary<string,string> FromArray(string[,] array) {
-      Dictionary<string,string> dict = new Dictionary<string,string>();
-      for(int index = 0; index < array.Length; ++index)
-        dict.Add(array[index,0],array[index,1]);
-      return dict;
-    }
-
-    /// <summary>
     /// Return true if contains matched key, returns false if not.
     /// </summary>
     /// <typeparam name="T1">Type 1.</typeparam>
