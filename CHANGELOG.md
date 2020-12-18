@@ -3,6 +3,7 @@ CHANGELOGS of MochaDB.
 # Release 3.4.5 [ Current ]
 + Check exists state on database creation.
 + Remove trash methods from MochaConvert.
++ Remove castings from MochaData.
 
 # Release 3.4.9.1 [ 14 Dec 2020 ]
 + Fix ``MochaRowCollection.Add`` function.
