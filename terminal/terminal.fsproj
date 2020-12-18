@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Include="terminal.fs" />
     <Compile Include="submodules\connection\mochaq.fs" />
+    <Compile Include="utils\parser.fs" />
     <Compile Include="utils\cli.fs" />
     <Compile Include="utils\commandProcessor.fs" />
     <Compile Include="modules\connect.fs" />
