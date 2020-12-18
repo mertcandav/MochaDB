@@ -4,6 +4,7 @@ CHANGELOGS of MochaDB.
 + Check exists state on database creation.
 + Remove trash methods from MochaConvert.
 + Remove castings from MochaData.
++ Fix range debugging of subqueries.
 
 # Release 3.4.9.1 [ 14 Dec 2020 ]
 + Fix ``MochaRowCollection.Add`` function.
