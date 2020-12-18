@@ -1101,6 +1101,66 @@
             MochaDB checks the existence of the database file and if not creates a new file. ALL DATA IS LOST!
             </summary>
         </member>
+        <member name="M:MochaDB.MochaDatabase.ClearTables">
+            <summary>
+            Remove all tables.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.AddTable(MochaDB.MochaTable)">
+            <summary>
+            Add table.
+            </summary>
+            <param name="table">MochaTable object to add.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
+            <summary>
+            Create new table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RemoveTable(System.String)">
+            <summary>
+            Remove table by name. Returns true if table is exists and removed.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.RenameTable(System.String,System.String)">
+            <summary>
+            Rename table.
+            </summary>
+            <param name="name">Name of table to rename.</param>
+            <param name="newName">New name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTableDescription(System.String)">
+            <summary>
+            Returns description of table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.SetTableDescription(System.String,System.String)">
+            <summary>
+            Set description of table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="description">Description to set.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTable(System.String)">
+            <summary>
+            Returns table by name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.GetTables">
+            <summary>
+            Returns all tables in database.
+            </summary>
+        </member>
+        <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
+            <summary>
+            Returns whether there is a table with the specified name.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
         <member name="M:MochaDB.MochaDatabase.AddColumn(System.String,MochaDB.MochaColumn)">
             <summary>
             Add colum in table.
@@ -1186,66 +1246,6 @@
             </summary>
             <param name="tableName">Name of table.</param>
             <param name="name">Name of column.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ClearTables">
-            <summary>
-            Remove all tables.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.AddTable(MochaDB.MochaTable)">
-            <summary>
-            Add table.
-            </summary>
-            <param name="table">MochaTable object to add.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.CreateTable(System.String)">
-            <summary>
-            Create new table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RemoveTable(System.String)">
-            <summary>
-            Remove table by name. Returns true if table is exists and removed.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.RenameTable(System.String,System.String)">
-            <summary>
-            Rename table.
-            </summary>
-            <param name="name">Name of table to rename.</param>
-            <param name="newName">New name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTableDescription(System.String)">
-            <summary>
-            Returns description of table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.SetTableDescription(System.String,System.String)">
-            <summary>
-            Set description of table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-            <param name="description">Description to set.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTable(System.String)">
-            <summary>
-            Returns table by name.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetTables">
-            <summary>
-            Returns all tables in database.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsTable(System.String)">
-            <summary>
-            Returns whether there is a table with the specified name.
-            </summary>
-            <param name="name">Name of table.</param>
         </member>
         <member name="M:MochaDB.MochaDatabase.AddRow(System.String,MochaDB.MochaRow)">
             <summary>

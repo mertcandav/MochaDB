@@ -507,6 +507,156 @@ namespace MochaDB {
 
     #endregion Database
 
+    #region Table
+
+    /// <summary>
+    /// Remove all tables.
+    /// </summary>
+    public void ClearTables() {
+      OnConnectionCheckRequired(this,new EventArgs());
+      OnChanging(this,new EventArgs());
+
+      GetXElement(CDoc,"Tables").RemoveNodes();
+      Save();
+    }
+
+    /// <summary>
+    /// Add table.
+    /// </summary>
+    /// <param name="table">MochaTable object to add.</param>
+    public void AddTable(MochaTable table) {
+      if(ExistsTable(table.Name))
+        throw new MochaException("There is already a table with this name!");
+      OnChanging(this,new EventArgs());
+
+      XElement xTable = new XElement(table.Name);
+      xTable.Add(new XAttribute("Description",table.Description));
+      GetXElement(CDoc,"Tables").Add(xTable);
+
+      // Columns.
+      for(int index = 0; index < table.Columns.Count; ++index) {
+        MochaColumn column = table.Columns[index];
+        XElement Xcolumn = new XElement(column.Name);
+        Xcolumn.Add(new XAttribute("DataType",column.DataType));
+        Xcolumn.Add(new XAttribute("Description",column.Description));
+        for(int dindex = 0; dindex < column.Datas.Count; ++dindex)
+          Xcolumn.Add(new XElement("Data",column.Datas[dindex].Data));
+        xTable.Add(Xcolumn);
+      }
+      Save();
+    }
+
+    /// <summary>
+    /// Create new table.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    public void CreateTable(string name) {
+      MochaTable table = new MochaTable(name);
+      AddTable(table);
+    }
+
+    /// <summary>
+    /// Remove table by name. Returns true if table is exists and removed.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    public bool RemoveTable(string name) {
+      if(!ExistsTable(name))
+        return false;
+      OnChanging(this,new EventArgs());
+
+      GetXElement(CDoc,$"Tables/{name}").Remove();
+      Save();
+      return true;
+    }
+
+    /// <summary>
+    /// Rename table.
+    /// </summary>
+    /// <param name="name">Name of table to rename.</param>
+    /// <param name="newName">New name of table.</param>
+    public void RenameTable(string name,string newName) {
+      if(!ExistsTable(name))
+        throw new MochaException("Table not found in this name!");
+
+      if(name == newName)
+        return;
+
+      if(ExistsTable(newName))
+        throw new MochaException("There is already a table with this name!");
+
+      Engine_NAMES.CheckThrow(newName);
+
+      OnChanging(this,new EventArgs());
+
+      GetXElement(CDoc,$"Tables/{name}").Name=newName;
+      Save();
+    }
+
+    /// <summary>
+    /// Returns description of table by name.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    public string GetTableDescription(string name) =>
+      !ExistsTable(name) ?
+        throw new MochaException("Table not found in this name!") :
+        GetXElement(Doc,$"Tables/{name}").Attribute("Description").Value;
+
+    /// <summary>
+    /// Set description of table by name.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    /// <param name="description">Description to set.</param>
+    public void SetTableDescription(string name,string description) {
+      if(!ExistsTable(name))
+        throw new MochaException("Table not found in this name!");
+
+      XAttribute xDescription = GetXElement(CDoc = new XDocument(Doc),$"Tables/{name}").Attribute("Description");
+      if(xDescription.Value==description)
+        return;
+      OnChanging(this,new EventArgs(),false);
+
+      xDescription.Value=description;
+      Save();
+    }
+
+    /// <summary>
+    /// Returns table by name.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    public MochaTable GetTable(string name) {
+      if(!ExistsTable(name))
+        throw new MochaException("Table not found in this name!");
+
+      XElement xTable = GetXElement(Doc,$"Tables/{name}");
+      MochaTable table = new MochaTable(name);
+      table.Description=xTable.Attribute("Description").Value;
+      table.Columns.collection.AddRange(GetColumns(name));
+      table.SetRowsByDatas();
+      return table;
+    }
+
+    /// <summary>
+    /// Returns all tables in database.
+    /// </summary>
+    public MochaTable[] GetTables() {
+      OnConnectionCheckRequired(this,new EventArgs());
+
+      IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
+      MochaTable[] tables = new MochaTable[tableRange.Count()];
+      for(int index = 0; index < tables.Length; index++)
+        tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
+      return tables;
+    }
+
+    /// <summary>
+    /// Returns whether there is a table with the specified name.
+    /// </summary>
+    /// <param name="name">Name of table.</param>
+    public bool ExistsTable(string name) =>
+        ExistsElement(Doc,$"Tables/{name}");
+
+    #endregion Table
+
     #region Column
 
     /// <summary>
@@ -520,9 +670,8 @@ namespace MochaDB {
       OnChanging(this,new EventArgs());
 
       XElement xColumn = new XElement(column.Name);
-      xColumn.Add(new XAttribute("DataType",column.DataType));
       xColumn.Add(new XAttribute("Description",column.Description));
-      xColumn.Add(new XAttribute("Attributes",string.Empty));
+      xColumn.Add(new XAttribute("DataType",column.DataType));
       GetXElement(CDoc,$"Tables/{tableName}").Add(xColumn);
 
       // Datas.
@@ -721,157 +870,6 @@ namespace MochaDB {
     }
 
     #endregion Column
-
-    #region Table
-
-    /// <summary>
-    /// Remove all tables.
-    /// </summary>
-    public void ClearTables() {
-      OnConnectionCheckRequired(this,new EventArgs());
-      OnChanging(this,new EventArgs());
-
-      GetXElement(CDoc,"Tables").RemoveNodes();
-      Save();
-    }
-
-    /// <summary>
-    /// Add table.
-    /// </summary>
-    /// <param name="table">MochaTable object to add.</param>
-    public void AddTable(MochaTable table) {
-      if(ExistsTable(table.Name))
-        throw new MochaException("There is already a table with this name!");
-      OnChanging(this,new EventArgs());
-
-      XElement xTable = new XElement(table.Name);
-      xTable.Add(new XAttribute("Description",table.Description));
-      xTable.Add(new XAttribute("Attributes",string.Empty));
-      GetXElement(CDoc,"Tables").Add(xTable);
-
-      // Columns.
-      for(int index = 0; index < table.Columns.Count; ++index) {
-        MochaColumn column = table.Columns[index];
-        XElement Xcolumn = new XElement(column.Name);
-        Xcolumn.Add(new XAttribute("DataType",column.DataType));
-        Xcolumn.Add(new XAttribute("Description",column.Description));
-        for(int dindex = 0; dindex < column.Datas.Count; ++dindex)
-          Xcolumn.Add(new XElement("Data",column.Datas[dindex].Data));
-        xTable.Add(Xcolumn);
-      }
-      Save();
-    }
-
-    /// <summary>
-    /// Create new table.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    public void CreateTable(string name) {
-      MochaTable table = new MochaTable(name);
-      AddTable(table);
-    }
-
-    /// <summary>
-    /// Remove table by name. Returns true if table is exists and removed.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    public bool RemoveTable(string name) {
-      if(!ExistsTable(name))
-        return false;
-      OnChanging(this,new EventArgs());
-
-      GetXElement(CDoc,$"Tables/{name}").Remove();
-      Save();
-      return true;
-    }
-
-    /// <summary>
-    /// Rename table.
-    /// </summary>
-    /// <param name="name">Name of table to rename.</param>
-    /// <param name="newName">New name of table.</param>
-    public void RenameTable(string name,string newName) {
-      if(!ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
-
-      if(name == newName)
-        return;
-
-      if(ExistsTable(newName))
-        throw new MochaException("There is already a table with this name!");
-
-      Engine_NAMES.CheckThrow(newName);
-
-      OnChanging(this,new EventArgs());
-
-      GetXElement(CDoc,$"Tables/{name}").Name=newName;
-      Save();
-    }
-
-    /// <summary>
-    /// Returns description of table by name.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    public string GetTableDescription(string name) =>
-      !ExistsTable(name) ?
-        throw new MochaException("Table not found in this name!") :
-        GetXElement(Doc,$"Tables/{name}").Attribute("Description").Value;
-
-    /// <summary>
-    /// Set description of table by name.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    /// <param name="description">Description to set.</param>
-    public void SetTableDescription(string name,string description) {
-      if(!ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
-
-      XAttribute xDescription = GetXElement(CDoc = new XDocument(Doc),$"Tables/{name}").Attribute("Description");
-      if(xDescription.Value==description)
-        return;
-      OnChanging(this,new EventArgs(),false);
-
-      xDescription.Value=description;
-      Save();
-    }
-
-    /// <summary>
-    /// Returns table by name.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    public MochaTable GetTable(string name) {
-      if(!ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
-
-      XElement xTable = GetXElement(Doc,$"Tables/{name}");
-      MochaTable table = new MochaTable(name);
-      table.Description=xTable.Attribute("Description").Value;
-      table.Columns.collection.AddRange(GetColumns(name));
-      table.SetRowsByDatas();
-      return table;
-    }
-
-    /// <summary>
-    /// Returns all tables in database.
-    /// </summary>
-    public MochaTable[] GetTables() {
-      OnConnectionCheckRequired(this,new EventArgs());
-
-      IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
-      MochaTable[] tables = new MochaTable[tableRange.Count()];
-      for(int index = 0; index < tables.Length; index++)
-        tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
-      return tables;
-    }
-
-    /// <summary>
-    /// Returns whether there is a table with the specified name.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    public bool ExistsTable(string name) =>
-        ExistsElement(Doc,$"Tables/{name}");
-
-    #endregion Table
 
     #region Row
 
