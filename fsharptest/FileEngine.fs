@@ -1,12 +1,15 @@
 ﻿module FileEngine
 
-//Libraries
+// Libraries
 open System
 open System.IO
 open System.Text
 
-//Returns true if file is exists, returns false if not.
-//path: Path of file.
+/// <summary>
+/// Returns true if file is exists, returns false if not.
+/// </summary>
+/// <param name="path">Path of file.</param>
+/// <returns>Result.</returns>
 let ExistsFile(path:string) : bool =
   if File.Exists(path) = false then
     printfn "ERROR: File is not exists!"
@@ -14,17 +17,22 @@ let ExistsFile(path:string) : bool =
   else
     true
 
-//Returns file content with UTF8.
-//path: Path of file.
+/// <summary>
+/// Returns file content with UTF8.
+/// </summary>
+/// <param name="path">path of file.</param>
+/// <returns>Content of file.</returns>
 let GetFileContent(path:string) : string =
   if File.Exists path = false then
     String.Empty
   else
     File.ReadAllText(path, Encoding.UTF8)
 
-//Set file content with UTF8.
-//path: Path of file.
-//content: Content to set.
+/// <summary>
+/// Set file content with UTF8.
+/// </summary>
+/// <param name="path">Path of file.</param>
+/// <param name="content">Content to set.</param>
 let SetFileContent(path:string, content:string) : unit =
   if File.Exists(path) = false then
     printf ""

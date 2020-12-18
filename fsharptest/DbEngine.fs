@@ -1,31 +1,42 @@
 ﻿module DbEngine
 
-//Libraries
+// Libraries
 open System
 open MochaDB
 
-//Returns database by path.
-//path: Path of database.
+/// <summary>
+/// Returns database by path.
+/// </summary>
+/// <param name="path">Path of database.</param>
+/// <returns>Database.</returns>
 let GetDb(path:string) : MochaDatabase =
   let db = new MochaDatabase(path,String.Empty)
   db
 
-//Returns database by path.
-//path: Path of database.
-//connect: Auto connect to database.
+/// <summary>
+/// Returns database by path.
+/// </sumamry>
+/// <param name="path">Path of database.</param>
+/// <param name="connect">Auto connect to database.</param>
+/// <returns>Database.</returns>
 let GetDbWithConnection(path:string, connect:bool) : MochaDatabase =
   let db = GetDb(path)
   if connect then db.Connect()
   db
 
-//Returns database by provider.
-//provider: Database connection provider.
+/// <summary>
+/// Returns database by provider.
+/// </summary>
+/// <param name="provider">Database connection provider.</param>
+/// <returns>Database.</returns>
 let GetDbWithProvider(provider:string) : MochaDatabase =
   let db = new MochaDatabase(provider)
   db
 
-//Execute MochaQ command.
-//db: Database.
+/// <summary>
+/// Execıte MochaQ command.
+/// </summary>
+/// <param name="db">Target database.</param>
 let ExecuteCommand(db:MochaDatabase) : unit =
   try
     if db.Query.MochaQ.IsGetRunQuery() then

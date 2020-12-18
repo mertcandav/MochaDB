@@ -65,6 +65,7 @@ let codebox_keydown(e: KeyEventArgs) : unit =
 /// Entry point.
 /// </summary>
 /// <param name="argv">Arguments.</param>
+/// <returns>Exit code.</returns>
 [<EntryPoint>]
 let main(argv:string[]) : int =
   Console.Title <- "F# MHQL Test Console"

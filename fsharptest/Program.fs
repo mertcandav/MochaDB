@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 
-//Libraries
+// Libraries
 open System
 open DbEngine
 open MhqlEngine
@@ -30,10 +30,14 @@ open FileEngine
 open MochaDB
 open MochaDB.Connection
 
-//Entry function.
+/// <summary>
+/// Entry point.
+/// </summary>
+/// <param name="argv">Arguments.</param>
+/// <returns>Exit code.</returns>
 [<EntryPoint>]
 let main(argv:string[]) : int =
-  Console.WriteLine "MochaDB FSharp Test Console"
+  printfn "MochaDB FSharp Test Console"
   let path = new MochaPath __SOURCE_DIRECTORY__
   path.ParentDirectory()
   path.ParentDirectory()

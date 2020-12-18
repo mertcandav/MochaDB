@@ -7,6 +7,7 @@
  Entry point.
  </summary>
  <param name="argv">Arguments.</param>
+ <returns>Exit code.</returns>
 </member>
 <member name="M:Program.codebox_keydown(System.Windows.Forms.KeyEventArgs)">
  <summary>

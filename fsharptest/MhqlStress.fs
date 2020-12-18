@@ -7,8 +7,10 @@ open MochaDB
 open MochaDB.Connection
 open MochaDB.Mhql
 
-//Stress mhql commands.
-//db: Target database.
+/// <summary>
+/// Stress mhql commands.
+/// </summary>
+/// <param name="db">Target database.</param>
 let StartMhqlTableGetStress(db:MochaDatabase) : unit =
   let cncstate = db.State
   if cncstate = MochaConnectionState.Disconnected then
@@ -45,9 +47,11 @@ let StartMhqlTableGetStress(db:MochaDatabase) : unit =
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
 
-//Stress mhql commands with ticks.
-//db: Target database.
-//tick: Test count.
+/// <summary>
+/// Stress mhql commands with ticks.
+/// </summary>
+/// <param name="db">Target database.</param>
+/// <param name="tick">Count of test.</param>
 let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
   let cncstate = db.State
   if cncstate = MochaConnectionState.Disconnected then
@@ -84,9 +88,11 @@ let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
 
-//Stress mhql with command.
-//db: Target database.
-//cmd: Command.
+/// <summary>
+/// Stress mhql with command.
+/// </summary>
+/// <param name="db">Target database.</param>
+/// <param name="cmd">Command.</param>
 let StartMhqlTableGetStressCmd(db:MochaDatabase, cmd:string) : unit =
   let cncstate = db.State
   if cncstate = MochaConnectionState.Disconnected then
@@ -109,10 +115,12 @@ let StartMhqlTableGetStressCmd(db:MochaDatabase, cmd:string) : unit =
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
 
-//Stress mhql with command and ticks.
-//db: Target database.
-//tick: Test count.
-//cmd: Command.
+/// <summary>
+/// Stress mhql with command and ticks.
+/// </summary>
+/// <param name="db">Target database.</param>
+/// <param name="tick">Count of test.</param>
+/// <param name="cmd">Command.</param>
 let StartMhqlTableGetStressWithTickCmd(db:MochaDatabase, tick:int, cmd:string) : unit =
   let cncstate = db.State
   if cncstate = MochaConnectionState.Disconnected then

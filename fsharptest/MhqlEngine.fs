@@ -1,13 +1,15 @@
 ﻿module MhqlEngine
 
-//Libraries
+// Libraries
 open System
 open MochaDB
 open MochaDB.Mhql
 
-//Read by mhql command.
-//db: Target database.
-//mhql: MHQL command.
+/// <summary>
+/// Read by mhql command.
+/// </summary>
+/// <param name="db">Target database.</param>
+/// <param name="mhql">MHQL command.</param>
 let Reader(db:MochaDatabase, mhql:string) : unit =
   try
     let command = new MochaDbCommand(mhql, db)
@@ -20,10 +22,11 @@ let Reader(db:MochaDatabase, mhql:string) : unit =
   | :? MochaException -> 
     printfn "ERROR: Command error!"
 
-
-//Scalar by mhql command.
-//db: Target database.
-//mhql: MHQL command.
+/// <summary>
+/// Scalar by mhql command.
+/// </summary>
+/// <param name="db">Target database.</param>
+/// <param name="mhql">MHQL command.</param>
 let Scalar(db:MochaDatabase, mhql:string) : unit =
   try
     let command = new MochaDbCommand(mhql, db)
