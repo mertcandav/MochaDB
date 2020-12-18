@@ -9,10 +9,14 @@ open utils
 open terminal
 open submodules.connection
 
-
-// Connection module.
+/// <summary>
+/// Connection module.
+/// </summary>
 type connect() =
-  // Process command in module.
+  /// <summary>
+  /// Process command in module.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
   static member proc(cmd:string) : unit =
     if cmd <> String.Empty then
       terminal.printError("This module can only be started!")

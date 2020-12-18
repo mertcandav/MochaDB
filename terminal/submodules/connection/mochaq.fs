@@ -7,13 +7,22 @@ open MochaDB.Mochaq
 
 open terminal
 
-// MochaQ module.
+/// <summary>
+/// MochaQ module.
+/// </summary>
 type mochaq() =
-  // Process command in module.
+  /// <summary>
+  /// Process command in module.
+  /// </summary>
+  /// <param name="db">Database connection.</param>
+  /// <param name="cmd">Command.</param>
   static member proc(db:MochaDatabase, cmd:string) : unit =
-    // Execute MochaQ command.
-    let exec(q:string) : unit =
-      let mq = new MochaQCommand(q)
+    /// <summary>
+    /// Execute MochaQ command.
+    /// </summary>
+    /// <param name="query">Query.</param>
+    let exec(query:string) : unit =
+      let mq = new MochaQCommand(query)
       if mq.IsDynamicQuery()
       then printfn "Dynamic"
       else if mq.IsGetRunQuery()

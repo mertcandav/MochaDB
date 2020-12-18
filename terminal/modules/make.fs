@@ -6,9 +6,14 @@ open MochaDB
 
 open terminal
 
-// Create a new MochaDB database.
+/// <summary>
+/// Create a new MochaDB database.
+/// </summary>
 type make() =
-  // Process command in module.
+  /// <summary>
+  /// Process command in module.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
   static member proc(cmd:string) : unit =
     if cmd <> String.Empty then
       terminal.printError("This module can only be started!")

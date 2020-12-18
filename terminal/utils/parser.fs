@@ -6,9 +6,15 @@ open System.Xml.Linq
 open MochaDB
 open MochaDB.Mhql
 
-// Parser.
+/// <summary>
+/// Parser.
+/// </summary>
 type parser() =
-  // Parser MochaTable to XmlString
+  /// <summary>
+  /// Parse MochaTable to XmlString.
+  /// </summary>
+  /// <param name="table">Table to parse.</param>
+  /// <returns>Xml code.</returns>
   static member parseTableToXmlString(table:MochaTable) : string =
     let doc = XDocument.Parse("<" + table.Name + "></" + table.Name + ">")
     doc.Root.Add(new XAttribute(XName.Get("Description"), table.Description))
@@ -21,7 +27,11 @@ type parser() =
       doc.Root.Add(xcol)
     doc.ToString()
 
-  // Parser MochaTableResult to XmlString
+  /// <summary>
+  /// Parse MochaTableResult to XmlString.
+  /// </summary>
+  /// <param name="table">Table to parse.</param>
+  /// <returns>Xml code.</returns>
   static member parseTableToXmlString(table:MochaTableResult) : string =
     let doc = XDocument.Parse("<Table></Table>")
     for column in table.Columns do

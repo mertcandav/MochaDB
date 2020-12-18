@@ -6,17 +6,31 @@ open System.Text.RegularExpressions
 
 open terminal
 
-// Command processor for commands.
+/// <summary>
+/// Command processor for commands.
+/// </summary>
 type commandProcessor() =
-  // Get namespace of command if exists.
+  /// <summary>
+  /// Get namespace of command if exists.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
+  /// <returns>Module name(namespace).</returns>
   static member splitNamespace(cmd:string) : string =
     cmd.Split(' ').[0]
 
-  // Remove namespace from command.
+  /// <summary>
+  /// Remove namespace from command.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
+  /// <returns>Command without namespace.</returns>
   static member removeNamespace(cmd:string) : string =
     cmd.Substring(commandProcessor.splitNamespace(cmd).Length).TrimStart()
 
-  // Returns arguments of command.
+  /// <summary>
+  /// Returns arguments of command.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
+  /// <returns>Arguments.</returns>
   static member getArguments(cmd:string) : List<String> =
     let pattern = new Regex("(^|\s+)-\w+(?=($|\s+))",RegexOptions.Singleline)
     let mutable args = new List<String>()
@@ -31,6 +45,10 @@ type commandProcessor() =
           then args.Add(arg)
     args
 
-  // Remove arguments from command.
+  /// <summary>
+  /// Remove arguments from command.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
+  /// <returns>Command without arguments.</returns>
   static member removeArguments(cmd:string) : string =
     (new Regex("(^|\s+)-\w+(?=($|\s+))",RegexOptions.Singleline)).Replace(cmd, String.Empty).Trim()

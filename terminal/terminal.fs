@@ -25,40 +25,69 @@ namespace terminal
 
 open System
 
-// Terminal declare.
+/// <summary>
+/// Terminal declare.
+/// </summary>
 type terminal() =
-  // Print message to screen with color.
+  /// <summary>
+  /// Print message to screen with color.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <param name="color">Color of message.</param>
   static member printc(msg:string, color:ConsoleColor) : unit =
     let realColor = Console.ForegroundColor
     Console.ForegroundColor <- color
     printf "%s" msg
     Console.ForegroundColor <- realColor
 
-  // Print message and new line to screen with color.
+  /// <summary>
+  /// Print message and new line to screen with color.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <param name="color">Color of message.</param>
   static member printnc(msg:string, color:ConsoleColor) : unit =
     terminal.printc(msg, color)
     printfn ""
 
-  // Print error message.
+  /// <summary>
+  /// Print error message.
+  /// </summary>
+  /// <param name="msg">Message.</param>
   static member printError(msg:string) : unit =
     terminal.printnc(msg, ConsoleColor.Red)
 
-  // Returns input with msg.
+  /// <summary>
+  /// Returns input with msg.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <returns>Input.</returns>
   static member getInput(msg:string) : string =
     printf "%s" msg
     Console.ReadLine().TrimStart()
 
-  // Returns input with msg and color.
+  /// <summary>
+  /// Returns input with msg and color.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <param name="color">Color of message.</param>
+  /// <returns>Input.</returns>
   static member getInput(msg:string, color:ConsoleColor) : string =
     terminal.printc(msg, color)
     Console.ReadLine().TrimStart()
 
-  // Returns input with pwd.
+  /// <summary>
+  /// Returns input with pwd.
+  /// </summary>
+  /// <returns>Input.</returns>
   static member getInput() : string =
     terminal.getInput(terminal.pwd + " ", ConsoleColor.White)
 
-  // Working directory.
+  /// <summary>
+  /// Working directory.
+  /// </summary>
   static member val pwd = Environment.CurrentDirectory with get, set
 
-  // Version of terminal.
+  /// <summary>
+  /// Version of terminal.
+  /// </summary>
   static member val version = "0.0.1" with get

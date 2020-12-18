@@ -30,7 +30,9 @@ open terminal
 open utils
 open modules
 
-// Show help.
+/// <summary>
+/// Show help.
+/// </summary>
 let showHelp() : unit =
   cli.printDictAsTable(dict[
     "cd", "Change directory.";
@@ -44,7 +46,11 @@ let showHelp() : unit =
     "exit", "Exit from terminal.";
   ])
 
-// Process command and do task.
+/// <summary>
+/// Process command and do task.
+/// </summary>
+/// <param name="ns">Name of module(namespace).</param>
+/// <param name="cmd">Command(without module name).</param>
 let processCommand(ns:string, cmd:string) : unit =
   match ns with
   | "cd" -> cd.proc(cmd)
@@ -58,7 +64,11 @@ let processCommand(ns:string, cmd:string) : unit =
   | "exit" -> exit(0x0)
   | _ -> terminal.printError("There is no such command!")
 
-// Entry point of terminal.
+/// <summary>
+/// Entry point of terminal.
+/// </summary>
+/// <param name="argv">Arguments.</param>
+/// <returns>Exit code.</returns>
 [<EntryPoint>]
 let main(argv:string[]) : int =
   Console.Title <- "MochaDB Terminal"

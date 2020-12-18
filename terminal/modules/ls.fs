@@ -6,9 +6,14 @@ open System.IO
 open terminal
 open utils
 
-// List directory.
+/// <summary>
+/// List directory.
+/// </summary>
 type ls() =
-  // Process command in module.
+  /// <summary>
+  /// Process command in module.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
   static member proc(cmd:string) : unit =
     let mutable directories = false
     let mutable files = false

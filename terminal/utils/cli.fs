@@ -9,9 +9,14 @@ open MochaDB.Mhql
 
 open terminal
 
-// CLI module.
+/// <summary>
+/// CLI module.
+/// </summary>
 type cli() =
-  // Print dictionary as table.
+  /// <summary>
+  /// Print dictionary as table.
+  /// </summary>
+  /// <param name="dict">Dictionary to print.<param>
   static member printDictAsTable(dict:IDictionary<'a,'b>) : unit =
     let maxlen = dict.Keys.Max(fun(x:'a) -> x.ToString().Length) + 5
     for key in dict.Keys do
@@ -19,26 +24,37 @@ type cli() =
       printf "%s" (new String(' ', maxlen - key.Length))
       printfn "%s" dict.[key]
 
-  // Print MochaTable.
+  /// <summary>
+  /// Print MochaTable.
+  /// </summary>
+  /// <param name="table">MochaTable to print.</param>
   static member printTable(table:MochaTable) : unit =
     if table.IsEmpty() then
       printfn "Table is empty!"
     else
-      let mutable tx = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
+      let mutable tableWidth = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
       let ctx = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
-      tx <- if tx < ctx then ctx else tx
+      tableWidth <- if tableWidth < ctx then ctx else tableWidth
 
-      // Centre content.
-      let alignCentre(text:string, x:int) : string =
+      /// <summary>
+      /// Centre content.
+      /// </summary>
+      /// <param name="text">Text to centre.</param>
+      /// <param name="width">Width.</param>
+      /// <returns>Centred text.</returns>
+      let alignCentre(text:string, width:int) : string =
         if String.IsNullOrEmpty(text) then
-          new String(' ', x)
+          new String(' ', width)
         else
-          text.PadRight(x - (x - text.Length) / 2).PadLeft(x)
+          text.PadRight(width - (width - text.Length) / 2).PadLeft(width)
 
-      // Print row.
+      /// <summary>
+      /// Print row.
+      /// </summary>
+      /// <param name="values">Values of row.</param>
       let printRow(values:MochaCollection<'a>) : unit =
-        let x = (tx - values.Count) / values.Count
+        let x = (tableWidth - values.Count) / values.Count
         printf "|"
         let mutable finalLine = "|"
         for value in values do
@@ -52,7 +68,10 @@ type cli() =
       for row in table.Rows do
         printRow(row.Datas)
 
-  // Print table.
+  /// <summary>
+  /// Print MochaTableResult.
+  /// </summary>
+  /// <param name="table">MochaTableResult to print.</param>
   static member printTable(table:MochaTableResult) : unit =
     if table.IsEmpty() then
       printfn "Table is empty!"
@@ -62,14 +81,22 @@ type cli() =
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
       tx <- if tx < ctx then ctx else tx
 
-      // Centre content.
+      /// <summary>
+      /// Centre content.
+      /// </summary>
+      /// <param name="text">Text to centre.</param>
+      /// <param name="width">Width.</param>
+      /// <returns>Centred text.</returns>
       let alignCentre(text:string, x:int) : string =
         if String.IsNullOrEmpty(text) then
           new String(' ', x)
         else
           text.PadRight(x - (x - text.Length) / 2).PadLeft(x)
 
-      // Print row.
+      /// <summary>
+      /// Print row.
+      /// </summary>
+      /// <param name="values">Values of row.</param>
       let printRow(values:'a[]) : unit =
         let x = (tx - values.Length) / values.Length
         printf "|"

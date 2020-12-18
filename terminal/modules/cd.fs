@@ -5,9 +5,14 @@ open System.IO
 
 open terminal
 
-// Change directory module.
+/// <summary>
+/// Change directory module.
+/// </summary>
 type cd() =
-  // Process command in module.
+  /// <summary>
+  /// Process command in module.
+  /// </summary>
+  /// <param name="cmd">Command.</param>
   static member proc(cmd:string) : unit =
     if cmd = String.Empty then
       printfn "%s" terminal.pwd
