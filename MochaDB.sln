@@ -82,6 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{9C28C183-67A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{86DB3C19-063F-460A-B4D6-4165452F6429}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		nuget\documentation.md = nuget\documentation.md
 	EndProjectSection
 EndProject
@@ -98,6 +99,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 		.travis.yml = .travis.yml
 		azure-pipelines.yml = azure-pipelines.yml
 		CHANGELOG.md = CHANGELOG.md
+		commit.sh = commit.sh
 		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
 		Compile_fsharpmhql.ps1 = Compile_fsharpmhql.ps1
 		Compile_fsharpmhql.sh = Compile_fsharpmhql.sh
