@@ -44,9 +44,6 @@ let ExecuteCommand(db:MochaDatabase) : unit =
     if db.Query.MochaQ.IsGetRunQuery() then
       let result:obj = db.Query.GetRun()
       printfn "%s" (result.ToString())
-    elif db.Query.MochaQ.IsDynamicQuery() then
-      let result:obj = db.Query.Dynamic()
-      printfn "%s" (result.ToString())
     elif db.Query.MochaQ.IsRunQuery() then
       db.Query.Run()
     else

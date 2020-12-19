@@ -263,13 +263,3 @@ They are commands that return a value. They are returned as ``object``, Dynamic 
        <td width="100%">Remove attribute from column by name and returns result.</td>
     </tr>
 </table>
-
-#### Dynamic
-More functional commands without simplicity. <br>
-If the value is to be returned, it returns but if not, it returns ``null``. Either way, it returns.
-<table border="1">
-    <tr>
-       <td><strong>SELECT</strong> ColumnName,ColumnName0... <strong>FROM</strong> TableName</td>
-       <td width="55.7%">Get the table with specific columns.</td>
-    </tr>
-</table>

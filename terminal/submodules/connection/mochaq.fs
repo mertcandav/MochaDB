@@ -24,12 +24,7 @@ type mochaq() =
     /// <param name="query">Query.</param>
     let exec(query:string) : unit =
       let mq:MochaQCommand = new MochaQCommand(query)
-      if mq.IsDynamicQuery() then
-        let table:MochaTable = db.Query.Dynamic(mq.Command) :?> MochaTable
-        if table = null
-        then printfn "NULL"
-        else cli.printTable(table)
-      else if mq.IsGetRunQuery()
+      if mq.IsGetRunQuery()
       then printfn "GetRun"
       else if mq.IsRunQuery()
       then printfn "Run"

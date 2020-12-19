@@ -1554,11 +1554,6 @@
             </summary>
             <param name="command">Command to set.</param>
         </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.IsDynamicQuery">
-            <summary>
-            Return true if this MochaQ command ise Dynamic command but return false if not.
-            </summary>
-        </member>
         <member name="M:MochaDB.Mochaq.MochaQCommand.IsGetRunQuery">
             <summary>
             Return true if this MochaQ command ise GetRun command but return false if not.
@@ -1619,24 +1614,6 @@
         <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand">
             <summary>
             Detect command type and execute. Returns result if exists returned result.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic(System.String)">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Dynamic">
-            <summary>
-            If the value is returned, it returns the function and performs the function; if not, it just performs the function.
             </summary>
         </member>
         <member name="M:MochaDB.Mochaq.MochaQuery.Run(System.String)">

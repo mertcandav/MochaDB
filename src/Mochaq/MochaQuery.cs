@@ -84,69 +84,11 @@
         return null;
       } else if(MochaQ.IsGetRunQuery()) {
         return GetRun();
-      } else if(MochaQ.IsDynamicQuery()) {
-        return Dynamic();
       } else
         throw new MochaException("This command is a not valid MochaQ command!");
     }
 
     #endregion ExecuteCommands
-
-    #region Dynamic
-
-    /// <summary>
-    /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-    /// </summary>
-    /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual object Dynamic(string mochaQ) {
-      MochaQ=mochaQ;
-      return Dynamic();
-    }
-
-    /// <summary>
-    /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-    /// </summary>
-    /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-    /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual object Dynamic(MochaDatabase database,string mochaQ) {
-      Database = database;
-      MochaQ=mochaQ;
-      return Dynamic();
-    }
-
-    /// <summary>
-    /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
-    /// </summary>
-    public virtual object Dynamic() {
-      if(!MochaQ.IsDynamicQuery())
-        throw new MochaException(@"This MochaQ command is not ""Dynamic"" type command.");
-
-      Database.OnConnectionCheckRequired(this,new EventArgs());
-
-      //Check null.
-      if(string.IsNullOrEmpty(MochaQ))
-        throw new MochaException("This MochaQ query is empty, invalid!");
-
-      string[] parts = MochaQ.Command.Split(' ');
-      parts[0]=parts[0].ToUpperInvariant();
-      parts[2]=parts[2].ToUpperInvariant();
-
-      if(parts[0] != "SELECT")
-        throw new MochaException("The first syntax is wrong, there is no such function.");
-      if(parts[2] != "FROM")
-        throw new MochaException("Table not specified!");
-
-      string[] selectedColumns = parts[1].Split(',');
-      string tableName = parts[3];
-      MochaTable table = new MochaTable(tableName);
-      try {
-        for(int index = 0; index < selectedColumns.Length; ++index)
-          table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index].Trim()));
-      } catch { return null; }
-      return table;
-    }
-
-    #endregion Dynamic
 
     #region Run
 
