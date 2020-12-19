@@ -4,6 +4,7 @@
 open System
 open MochaDB
 open MochaDB.Mhql
+open MochaDB.Streams
 
 /// <summary>
 /// Read by mhql command.
@@ -12,8 +13,8 @@ open MochaDB.Mhql
 /// <param name="mhql">MHQL command.</param>
 let Reader(db:MochaDatabase, mhql:string) : unit =
   try
-    let command = new MochaDbCommand(mhql, db)
-    let reader = command.ExecuteReader()
+    let command:MochaDbCommand = new MochaDbCommand(mhql, db)
+    let reader:MochaReader<obj> = command.ExecuteReader()
     if reader.Read() then
       printfn "%A" reader.Value
     else
@@ -29,8 +30,8 @@ let Reader(db:MochaDatabase, mhql:string) : unit =
 /// <param name="mhql">MHQL command.</param>
 let Scalar(db:MochaDatabase, mhql:string) : unit =
   try
-    let command = new MochaDbCommand(mhql, db)
-    let value = command.ExecuteScalar()
+    let command:MochaDbCommand = new MochaDbCommand(mhql, db)
+    let value:obj = command.ExecuteScalar()
     if value = null then
       printfn "Null data"
     else

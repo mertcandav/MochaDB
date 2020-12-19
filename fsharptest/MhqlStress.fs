@@ -6,21 +6,22 @@ open System.Diagnostics
 open MochaDB
 open MochaDB.Connection
 open MochaDB.Mhql
+open MochaDB.Streams
 
 /// <summary>
 /// Stress mhql commands.
 /// </summary>
 /// <param name="db">Target database.</param>
 let StartMhqlTableGetStress(db:MochaDatabase) : unit =
-  let cncstate = db.State
+  let cncstate:MochaConnectionState = db.State
   if cncstate = MochaConnectionState.Disconnected then
     db.Connect()
 
   while true do
-    let timing = new Stopwatch()
+    let timing:Stopwatch = new Stopwatch()
     timing.Start()
-    let command = new MochaDbCommand(db)
-    let reader = command.ExecuteReader("
+    let command:MochaDbCommand = new MochaDbCommand(db)
+    let reader:MochaReader<obj> = command.ExecuteReader("
         USE
             Persons.ID
                 Persons.Name
@@ -35,7 +36,7 @@ let StartMhqlTableGetStress(db:MochaDatabase) : unit =
         GROUPBY
                                  0
     ")
-    let readed = reader.Read()
+    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
@@ -53,15 +54,15 @@ let StartMhqlTableGetStress(db:MochaDatabase) : unit =
 /// <param name="db">Target database.</param>
 /// <param name="tick">Count of test.</param>
 let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
-  let cncstate = db.State
+  let cncstate:MochaConnectionState = db.State
   if cncstate = MochaConnectionState.Disconnected then
     db.Connect()
 
   for _ in 1..tick do
-    let timing = new Stopwatch()
+    let timing:Stopwatch = new Stopwatch()
     timing.Start()
-    let command = new MochaDbCommand(db)
-    let reader = command.ExecuteReader("
+    let command:MochaDbCommand = new MochaDbCommand(db)
+    let reader:MochaReader<obj> = command.ExecuteReader("
         USE
             Persons.ID,
                 Persons.Name,
@@ -76,7 +77,7 @@ let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
         GROUPBY
                                 0
     ")
-    let readed = reader.Read()
+    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
@@ -94,16 +95,16 @@ let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
 /// <param name="db">Target database.</param>
 /// <param name="cmd">Command.</param>
 let StartMhqlTableGetStressCmd(db:MochaDatabase, cmd:string) : unit =
-  let cncstate = db.State
+  let cncstate:MochaConnectionState = db.State
   if cncstate = MochaConnectionState.Disconnected then
     db.Connect()
 
   while true do
-    let timing = new Stopwatch()
+    let timing:Stopwatch = new Stopwatch()
     timing.Start()
-    let command = new MochaDbCommand(db)
-    let reader = command.ExecuteReader(cmd)
-    let readed = reader.Read()
+    let command:MochaDbCommand = new MochaDbCommand(db)
+    let reader:MochaReader<obj> = command.ExecuteReader(cmd)
+    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
@@ -122,16 +123,16 @@ let StartMhqlTableGetStressCmd(db:MochaDatabase, cmd:string) : unit =
 /// <param name="tick">Count of test.</param>
 /// <param name="cmd">Command.</param>
 let StartMhqlTableGetStressWithTickCmd(db:MochaDatabase, tick:int, cmd:string) : unit =
-  let cncstate = db.State
+  let cncstate:MochaConnectionState = db.State
   if cncstate = MochaConnectionState.Disconnected then
     db.Connect()
 
   for _ in 1..tick do
-    let timing = new Stopwatch()
+    let timing:Stopwatch = new Stopwatch()
     timing.Start()
-    let command = new MochaDbCommand(db)
-    let reader = command.ExecuteReader(cmd)
-    let readed = reader.Read()
+    let command:MochaDbCommand = new MochaDbCommand(db)
+    let reader:MochaReader<obj> = command.ExecuteReader(cmd)
+    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks

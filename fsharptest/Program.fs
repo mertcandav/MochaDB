@@ -38,15 +38,15 @@ open MochaDB.Connection
 [<EntryPoint>]
 let main(argv:string[]) : int =
   printfn "MochaDB FSharp Test Console"
-  let path = new MochaPath __SOURCE_DIRECTORY__
+  let path:MochaPath = new MochaPath __SOURCE_DIRECTORY__
   path.ParentDirectory()
   path.ParentDirectory()
-  let path = path.Path + "/tests"
-  let dbprovider = "path=" + (path + "/testdb.mhdb") + "; password=; AutoConnect=true"
-  let db = GetDbWithProvider(dbprovider)
+  let path:string = path.Path + "/tests"
+  let dbprovider:string = "path=" + (path + "/testdb.mhdb") + "; password=; AutoConnect=true"
+  let db:MochaDatabase = GetDbWithProvider(dbprovider)
   while true do
     printf "Command: "
-    let input = Console.ReadLine()
+    let input:string = Console.ReadLine()
     if input.Length > 0 then
       if input.Equals("clear", StringComparison.InvariantCultureIgnoreCase) then
         Console.Clear()

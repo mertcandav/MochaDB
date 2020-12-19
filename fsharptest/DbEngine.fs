@@ -3,6 +3,7 @@
 // Libraries
 open System
 open MochaDB
+open MochaDB.Querying
 
 /// <summary>
 /// Returns database by path.
@@ -10,7 +11,7 @@ open MochaDB
 /// <param name="path">Path of database.</param>
 /// <returns>Database.</returns>
 let GetDb(path:string) : MochaDatabase =
-  let db = new MochaDatabase(path,String.Empty)
+  let db:MochaDatabase = new MochaDatabase(path, String.Empty)
   db
 
 /// <summary>
@@ -20,8 +21,9 @@ let GetDb(path:string) : MochaDatabase =
 /// <param name="connect">Auto connect to database.</param>
 /// <returns>Database.</returns>
 let GetDbWithConnection(path:string, connect:bool) : MochaDatabase =
-  let db = GetDb(path)
-  if connect then db.Connect()
+  let db:MochaDatabase = GetDb(path)
+  if connect
+  then db.Connect()
   db
 
 /// <summary>
@@ -30,7 +32,7 @@ let GetDbWithConnection(path:string, connect:bool) : MochaDatabase =
 /// <param name="provider">Database connection provider.</param>
 /// <returns>Database.</returns>
 let GetDbWithProvider(provider:string) : MochaDatabase =
-  let db = new MochaDatabase(provider)
+  let db:MochaDatabase = new MochaDatabase(provider)
   db
 
 /// <summary>
@@ -40,10 +42,10 @@ let GetDbWithProvider(provider:string) : MochaDatabase =
 let ExecuteCommand(db:MochaDatabase) : unit =
   try
     if db.Query.MochaQ.IsGetRunQuery() then
-      let result = db.Query.GetRun()
+      let result:IMochaResult = db.Query.GetRun()
       printfn "%s" (result.ToString())
     elif db.Query.MochaQ.IsDynamicQuery() then
-      let result = db.Query.Dynamic()
+      let result:IMochaResult = db.Query.Dynamic()
       printfn "%s" (result.ToString())
     elif db.Query.MochaQ.IsRunQuery() then
       db.Query.Run()
