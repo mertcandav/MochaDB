@@ -135,19 +135,17 @@
         parts[0]=parts[0].ToUpperInvariant();
         parts[2]=parts[2].ToUpperInvariant();
 
-        if(parts[0] == "SELECT") {
-          string[] selectedColumns = parts[1].Split(',');
-
-          if(parts[2] == "FROM") {
-            string tableName = parts[3];
-            MochaTable table = new MochaTable(tableName);
-            for(int index = 0; index < selectedColumns.Length; ++index)
-              table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
-            return table;
-          } else
-            throw new MochaException("Table not specified!");
-        } else
+        if(parts[0] != "SELECT")
           throw new MochaException("The first syntax is wrong, there is no such function.");
+        if(parts[2] != "FROM")
+          throw new MochaException("Table not specified!");
+
+        string[] selectedColumns = parts[1].Split(',');
+        string tableName = parts[3];
+        MochaTable table = new MochaTable(tableName);
+        for(int index = 0; index < selectedColumns.Length; ++index)
+          table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
+        return table;
       } catch { return null; }
     }
 
