@@ -76,8 +76,8 @@
         Add(item: new MochaRow(datas));
 
     public override void AddRange(IEnumerable<MochaRow> items) {
-      for(int index = 0; index < items.Count(); ++index)
-        Add(items.ElementAt(index));
+      foreach(MochaRow row in items)
+        Add(row);
     }
 
     public override void Remove(MochaRow item) {

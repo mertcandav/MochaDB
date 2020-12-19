@@ -2189,15 +2189,6 @@
             <param name="dict">Dictionary to find.</param>
             <param name="key">Key.</param>
         </member>
-        <member name="M:MochaDB.framework.Framework_DICTIONARY.GetValue``2(System.Collections.Generic.Dictionary{``0,``1},``0)">
-            <summary>
-            Returns value by key.
-            </summary>
-            <typeparam name="T1">Key type..</typeparam>
-            <typeparam name="T2">Value type.</typeparam>
-            <param name="dict">Dictionary.</param>
-            <param name="key">Key.</param>
-        </member>
         <member name="T:MochaDB.framework.Framework_XML">
             <summary>
             XML framework of MochaDB.

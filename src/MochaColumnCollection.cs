@@ -89,8 +89,8 @@
     /// </summary>
     /// <param name="items">Range to add items.</param>
     public override void AddRange(IEnumerable<MochaColumn> items) {
-      for(int index = 0; index < items.Count(); ++index)
-        Add(items.ElementAt(index));
+      foreach(MochaColumn column in items)
+        Add(column);
     }
 
     /// <summary>

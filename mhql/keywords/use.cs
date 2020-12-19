@@ -66,7 +66,7 @@ namespace MochaDB.mhql.keywords {
     /// </summary>
     /// <param name="usecommand">Use command.</param>
     public MochaTableResult GetTable(string usecommand,bool from) {
-      MochaColumn GetColumn(string cmd,MochaColumn[] cols) {
+      MochaColumn GetColumn(string cmd,IList<MochaColumn> cols) {
         string name = Mhql_AS.GetAS(ref cmd);
         if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
           MochaColumn column = new MochaColumn();
@@ -96,7 +96,7 @@ namespace MochaDB.mhql.keywords {
         int dex = Mhql_FROM.GetIndex(ref usecommand);
         string tablename = usecommand.Substring(dex + 5).Trim();
         List<string> parts = Mhql_LEXER.SplitUseParameters(usecommand.Substring(0,dex));
-        MochaColumn[] _columns = Tdb.GetColumns(tablename);
+        List<MochaColumn> _columns = Tdb.GetColumns(tablename);
         if(parts.Count == 1 && parts[0].Trim() == "*")
           columns.AddRange(_columns);
         else {
@@ -111,26 +111,26 @@ namespace MochaDB.mhql.keywords {
         for(int index = 0; index < parts.Count; ++index) {
           string callcmd = parts[index].Trim();
           if(callcmd == "*") {
-            MochaTable[] tables = Tdb.GetTables();
-            for(int tindex = 0; tindex < tables.Length; ++tindex)
+            List<MochaTable> tables = Tdb.GetTables();
+            for(int tindex = 0; tindex < tables.Count; ++tindex)
               columns.AddRange(tables[tindex].Columns);
             continue;
           }
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
-            MochaColumn[] _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeSubqueryBrace(
+            IList<MochaColumn> _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeSubqueryBrace(
               callcmd.Substring(obrace).Trim())).Columns;
             string mode =
               callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;
-            for(int cindex = 0; cindex < _cols.Length; ++cindex)
+            for(int cindex = 0; cindex < _cols.Count; ++cindex)
               columns.Add(GetColumn($"{mode}{_cols[cindex].Name}",_cols));
             continue;
           }
           if(callcmd.StartsWith("$")) {
             callcmd = callcmd.Substring(1).Trim();
-            MochaColumn[] _cols = Tdb.GetColumns(callcmd);
-            for(int cindex = 0; cindex < _cols.Length; ++cindex)
+            List<MochaColumn> _cols = Tdb.GetColumns(callcmd);
+            for(int cindex = 0; cindex < _cols.Count; ++cindex)
               columns.Add(GetColumn($"${_cols[cindex].Name}",_cols));
             continue;
           }
@@ -140,7 +140,7 @@ namespace MochaDB.mhql.keywords {
             throw new MochaException($"'{callcmd}' command is cannot processed!");
           for(byte partindex = 0; partindex < callparts.Length; ++partindex)
             callparts[partindex] = callparts[partindex].Trim();
-          MochaColumn[] _columns = Tdb.GetColumns(callparts[0]);
+          List<MochaColumn> _columns = Tdb.GetColumns(callparts[0]);
           if(callparts.Length == 1)
             columns.AddRange(_columns);
           else

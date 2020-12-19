@@ -83,8 +83,8 @@
     /// </summary>
     /// <param name="items">Range to add items.</param>
     internal protected virtual void AddRange(IEnumerable<MochaData> items) {
-      for(int index = 0; index < items.Count(); ++index)
-        Add(items.ElementAt(index));
+      foreach(MochaData data in items)
+        Add(data);
     }
 
     /// <summary>

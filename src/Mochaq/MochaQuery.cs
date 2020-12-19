@@ -200,9 +200,8 @@
               return;
             case "RESETTABLES":
               Database.OnChanging(this,new EventArgs());
-              IEnumerable<XElement> tableRange = Database.CDoc.Root.Element("Tables").Elements();
-              for(int index = 0; index < tableRange.Count(); ++index)
-                tableRange.ElementAt(index).Elements().Remove();
+              foreach(XElement element in Database.CDoc.Root.Element("Tables").Elements())
+                element.Elements().Remove();
               Database.Save();
               return;
             case "CLEARTABLES":
@@ -371,9 +370,8 @@
               return Database.GetLogs();
             case "GETDATAS":
               List<MochaData> datas = new List<MochaData>();
-              IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
-              for(int index = 0; index < tableRange.Count(); ++index)
-                datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName));
+              foreach(XElement element in Database.Doc.Root.Element("Tables").Elements())
+                datas.AddRange(GETDATAS(element.Name.LocalName));
               return datas;
             case "TABLECOUNT":
               return Database.Doc.Root.Elements().Count();
@@ -478,9 +476,8 @@
 
       List<MochaData> datas = new List<MochaData>();
 
-      IEnumerable<XElement> columnRange = Database.Doc.Root.Element("Tables").Elements(name).Elements();
-      for(int index = 0; index < columnRange.Count(); ++index)
-        datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
+      foreach(XElement element in Database.Doc.Root.Element("Tables").Elements(name).Elements())
+        datas.AddRange(Database.GetDatas(name,element.Name.LocalName));
 
       return datas;
     }

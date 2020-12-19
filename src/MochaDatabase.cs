@@ -299,10 +299,7 @@ namespace MochaDB {
         xData.Value = data.Data.ToString();
       }
 
-      IEnumerable<XElement> columnRange = CDoc.Root.Element("Tables").Element(tableName).Elements();
-      for(int columnIndex = 0; columnIndex < columnRange.Count(); ++columnIndex) {
-        XElement element = columnRange.ElementAt(columnIndex);
-
+      foreach(XElement element in CDoc.Root.Element("Tables").Element(tableName).Elements()) {
         if(element.Name.LocalName==columnName)
           continue;
 
@@ -628,13 +625,12 @@ namespace MochaDB {
     /// <summary>
     /// Returns all tables in database.
     /// </summary>
-    public MochaTable[] GetTables() {
+    public List<MochaTable> GetTables() {
       OnConnectionCheckRequired(this,new EventArgs());
 
-      IEnumerable<XElement> tableRange = GetXElement(Doc,"Tables").Elements();
-      MochaTable[] tables = new MochaTable[tableRange.Count()];
-      for(int index = 0; index < tables.Length; index++)
-        tables[index] = GetTable(tableRange.ElementAt(index).Name.LocalName);
+      List<MochaTable> tables = new List<MochaTable>();
+      foreach(XElement element in GetXElement(Doc,"Tables").Elements())
+        tables.Add(GetTable(element.Name.LocalName));
       return tables;
     }
 
@@ -773,14 +769,13 @@ namespace MochaDB {
     /// Returns all columns in table by name.
     /// </summary>
     /// <param name="tableName">Name of table.</param>
-    public MochaColumn[] GetColumns(string tableName) {
+    public List<MochaColumn> GetColumns(string tableName) {
       if(!ExistsTable(tableName))
         throw new MochaException("Table not found in this name!");
 
-      IEnumerable<XElement> columnsRange = GetXElement(Doc,$"Tables/{tableName}").Elements();
-      MochaColumn[] columns = new MochaColumn[columnsRange.Count()];
-      for(int index = 0; index < columns.Length; ++index)
-        columns[index] = GetColumn(tableName,columnsRange.ElementAt(index).Name.LocalName);
+      List<MochaColumn> columns = new List<MochaColumn>();
+      foreach(XElement element in GetXElement(Doc,$"Tables/{tableName}").Elements())
+        columns.Add(GetColumn(tableName,element.Name.LocalName));
       return columns;
     }
 
@@ -823,19 +818,20 @@ namespace MochaDB {
       xColumn.Attribute("DataType").Value = dataType.ToString();
       IEnumerable<XElement> dataRange = xColumn.Elements();
       if(dataType == MochaDataType.AutoInt) {
-        for(int index = 0; index < dataRange.Count(); ++index)
-          dataRange.ElementAt(index).Value = (index + 1).ToString();
+        int counter = 1;
+        foreach(XElement element in dataRange)
+          element.Value = counter++.ToString();
         Save();
         return;
       } else if(dataType == MochaDataType.Unique) {
-        for(int index = 0; index < dataRange.Count(); ++index)
-          dataRange.ElementAt(index).Value = string.Empty;
+        foreach(XElement element in dataRange)
+          element.Value = string.Empty;
         Save();
         return;
       }
-      for(int index = 0; index < dataRange.Count(); ++index)
-        if(!MochaData.IsType(dataType,dataRange.ElementAt(index).Value))
-          dataRange.ElementAt(index).Value = MochaData.TryGetData(dataType,dataRange.ElementAt(index).Value).ToString();
+      foreach(XElement element in dataRange)
+        if(!MochaData.IsType(dataType,element.Value))
+          element.Value = MochaData.TryGetData(dataType,element.Value).ToString();
       Save();
     }
 
@@ -880,13 +876,13 @@ namespace MochaDB {
 
       int dex = GetDataCount(tableName,columnRange.First().Name.LocalName);
       InternalAddData(tableName,columnRange.First().Name.LocalName,row.Datas[0]);
-      for(int index = 1; index < columnRange.Count(); ++index) {
-        XElement columnElement = columnRange.ElementAt(index);
+      int index = 0;
+      foreach(XElement columnElement in columnRange) {
         MochaDataType dataType =
             GetColumnDataType(tableName,columnElement.Name.LocalName);
         if(dataType == MochaDataType.AutoInt)
           continue;
-        InternalUpdateData(tableName,columnElement.Name.LocalName,dex,row.Datas[index].Data);
+        InternalUpdateData(tableName,columnElement.Name.LocalName,dex,row.Datas[index++].Data);
       }
       Save();
     }
@@ -912,9 +908,8 @@ namespace MochaDB {
         $"Tables/{tableName}").Elements();
       if(columnRange.First().Elements().Count()-1 >= index) {
         OnChanging(this,new EventArgs(),false);
-        for(int columnIndex = 0; columnIndex < columnRange.Count(); ++columnIndex)
-          columnRange.ElementAt(columnIndex).Elements().
-              ElementAt(index).Remove();
+        foreach(XElement element in columnRange)
+          element.Elements().ElementAt(index).Remove();
         Save();
         return true;
       }
@@ -932,9 +927,9 @@ namespace MochaDB {
       if(index < 0)
         throw new MochaException("Index can not lower than 0!");
 
-      MochaColumn[] columns = GetColumns(tableName);
+      List<MochaColumn> columns = GetColumns(tableName);
 
-      if(columns.Length == 0)
+      if(columns.Count == 0)
         return null;
 
       int rowCount = (int)Query.GetRun($"ROWCOUNT:{tableName}");
@@ -942,8 +937,8 @@ namespace MochaDB {
         throw new MochaException("Index cat not bigger than row count!");
 
       MochaRow row = new MochaRow();
-      MochaData[] datas = new MochaData[columns.Length];
-      for(int columnIndex = 0; columnIndex < columns.Length; ++columnIndex)
+      MochaData[] datas = new MochaData[columns.Count];
+      for(int columnIndex = 0; columnIndex < columns.Count; ++columnIndex)
         datas[columnIndex] = columns[columnIndex].Datas[index];
       row.Datas.collection.AddRange(datas);
       return row;
@@ -977,14 +972,15 @@ namespace MochaDB {
       if(!ExistsTable(tableName))
         throw new MochaException("Table not found in this name!");
 
-      OnChanging(this,new EventArgs());
-      IEnumerable<XElement> columnRange = GetXElement(CDoc,$"Tables/{tableName}").Elements();
-      int count = columnRange.First().Elements().Count();
-      if(count > 0) {
-        for(int columnIndex = 0; columnIndex < columnRange.Count(); ++columnIndex)
-          columnRange.ElementAt(columnIndex).RemoveNodes();
-        Save();
+      bool changed = false;
+      foreach(XElement element in GetXElement(CDoc = new XDocument(Doc),$"Tables/{tableName}").Elements()) {
+        if(!changed)
+          OnChanging(this,new EventArgs(),false);
+        changed = true;
+        element.RemoveNodes();
       }
+      if(changed)
+        Save();
     }
 
     #endregion Row
@@ -1069,9 +1065,8 @@ namespace MochaDB {
         throw new MochaException("Column not found in this name!");
 
       string stringData = data.Data.ToString();
-      IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-      for(int index = 0; index < dataRange.Count(); ++index)
-        if(dataRange.ElementAt(index).Value == stringData)
+      foreach(XElement element in GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements())
+        if(element.Value == stringData)
           return true;
       return false;
     }
@@ -1096,10 +1091,12 @@ namespace MochaDB {
         throw new MochaException("Column not found in this name!");
 
       string stringData = data.ToString();
-      IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-      for(int index = 0; index < dataRange.Count(); ++index)
-        if(dataRange.ElementAt(index).Value == stringData)
+      int index = 0;
+      foreach(XElement element in GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements()) {
+        if(element.Value == stringData)
           return index;
+        ++index;
+      }
       return -1;
     }
 
@@ -1166,17 +1163,14 @@ namespace MochaDB {
     /// <summary>
     /// Returns all logs.
     /// </summary>
-    public MochaLog[] GetLogs() {
-      IEnumerable<XElement> elements = GetXElement(Doc,"Logs").Elements();
-      MochaLog[] logs = new MochaLog[elements.Count()];
-      for(int index = 0; index < logs.Length; ++index) {
-        XElement currentElement = elements.ElementAt(index);
-        logs[index] = new MochaLog {
-          ID = new MochaID(currentElement.Attribute("ID").Value),
-          Time = DateTime.Parse(currentElement.Attribute("Time").Value),
-          Log= currentElement.Value
-        };
-      }
+    public List<MochaLog> GetLogs() {
+      List<MochaLog> logs = new List<MochaLog>();
+      foreach(XElement element in GetXElement(Doc,"Logs").Elements())
+        logs.Add(new MochaLog {
+          ID = new MochaID(element.Attribute("ID").Value),
+          Time = DateTime.Parse(element.Attribute("Time").Value),
+          Log= element.Value
+        });
       return logs;
     }
 

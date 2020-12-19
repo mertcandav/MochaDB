@@ -151,10 +151,9 @@ namespace MochaDB.mhql.engine {
       if(new Regex(".*\\(").IsMatch(command))
         return false;
 
-      for(int index = 0; index < MhqlEng_CONDITION_LEXER.Operators.Count; ++index) {
-        if(!command.Contains(MhqlEng_CONDITION_LEXER.Operators.Values.ElementAt(index)))
+      foreach(string key in MhqlEng_CONDITION_LEXER.Operators.Keys) {
+        if(!command.Contains(MhqlEng_CONDITION_LEXER.Operators[key]))
           continue;
-        string key = MhqlEng_CONDITION_LEXER.Operators.Keys.ElementAt(index);
         type = (ConditionType)Enum.Parse(typeof(ConditionType),key);
         return true;
       }
@@ -169,7 +168,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_EQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("EQUAL"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["EQUAL"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
@@ -184,7 +183,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("NOTEQUAL"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["NOTEQUAL"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
@@ -199,7 +198,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("BIGGER"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["BIGGER"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
@@ -214,7 +213,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("LOWER"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["LOWER"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
@@ -229,7 +228,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_BIGGEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("BIGGEREQ"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["BIGGEREQ"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);
@@ -244,7 +243,7 @@ namespace MochaDB.mhql.engine {
     /// <param name="row">Row.</param>
     /// <param name="from">Use state FROM keyword.</param>
     public static bool Process_LOWEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators.GetValue("LOWEREQ"));
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["LOWEREQ"]);
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       CHKVAL(value0,value1);

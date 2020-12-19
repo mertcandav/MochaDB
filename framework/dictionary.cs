@@ -15,9 +15,9 @@ namespace MochaDB.framework {
     /// <param name="dict">Dictionary to find.</param>
     /// <param name="key">Key.</param>
     public static bool MatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
-      for(int index = 0; index < dict.Keys.Count; ++index)
+      foreach(T1 k in dict.Keys)
         if(
-            new Regex(dict.Keys.ElementAt(index).ToString(),
+            new Regex(k.ToString(),
             RegexOptions.IgnoreCase |
             RegexOptions.CultureInvariant).IsMatch(key)
             )
@@ -33,27 +33,14 @@ namespace MochaDB.framework {
     /// <param name="dict">Dictionary to find.</param>
     /// <param name="key">Key.</param>
     public static object GetValueByMatchKey<T1, T2>(this Dictionary<T1,T2> dict,string key) {
-      for(int index = 0; index < dict.Keys.Count; ++index)
+      foreach(T1 k in dict.Keys)
         if(
-            new Regex(dict.Keys.ElementAt(index).ToString(),
+            new Regex(k.ToString(),
             RegexOptions.IgnoreCase |
             RegexOptions.CultureInvariant).IsMatch(key)
             )
-          return dict.Values.ElementAt(index);
+          return dict[k];
       return null;
-    }
-
-    /// <summary>
-    /// Returns value by key.
-    /// </summary>
-    /// <typeparam name="T1">Key type..</typeparam>
-    /// <typeparam name="T2">Value type.</typeparam>
-    /// <param name="dict">Dictionary.</param>
-    /// <param name="key">Key.</param>
-    public static T2 GetValue<T1, T2>(this Dictionary<T1,T2> dict,T1 key) {
-      T2 @out;
-      dict.TryGetValue(key,out @out);
-      return @out;
     }
   }
 }

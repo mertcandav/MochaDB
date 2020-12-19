@@ -74,8 +74,8 @@
     /// <param name="attributes">Attribtutes of connection string.</param>
     public static string GetConnectionString(IEnumerable<MochaProviderAttribute> attributes) {
       string cstring = string.Empty;
-      for(int index = 0; index < attributes.Count(); ++index)
-        cstring+=attributes.ElementAt(index).GetProviderString();
+      foreach(MochaProviderAttribute attribute in attributes)
+        cstring+=attribute.GetProviderString();
       return cstring;
     }
 

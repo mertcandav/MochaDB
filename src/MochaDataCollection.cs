@@ -33,8 +33,8 @@
     }
 
     public override void AddRange(IEnumerable<MochaData> items) {
-      for(int index = 0; index < items.Count(); ++index)
-        Add(items.ElementAt(index));
+      foreach(MochaData data in items)
+        Add(data);
     }
 
     public override void Remove(MochaData item) {

@@ -53,7 +53,13 @@ namespace MochaDB.mhql {
       IEnumerable<MochaColumn> result = cols.Where(x => x.Name == value);
       if(result.Count() == 0)
         return returndex();
-      return cols.Count(); // WARN!
+      int index = 0;
+      foreach(MochaColumn column in cols) {
+        if(column == result.First())
+          break;
+        ++index;
+      }
+      return index;
     }
 
     #endregion Members

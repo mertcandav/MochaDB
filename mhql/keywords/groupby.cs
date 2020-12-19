@@ -66,8 +66,7 @@ namespace MochaDB.mhql.keywords {
         if(rows.ContainsKey(data)) {
           MochaRow _row;
           rows.TryGetValue(data,out _row);
-          for(int dex = 0; dex < columns.Count(); ++dex) {
-            MochaColumn col = columns.ElementAt(dex);
+          foreach(MochaColumn col in columns) {
             MochaData _data = _row.Datas[Array.IndexOf(table.Columns,col)];
             if(col.Tag == "COUNT")
               _data.Data = int.Parse(_data.ToString())+1;
@@ -96,8 +95,7 @@ namespace MochaDB.mhql.keywords {
           continue;
         }
         MochaRow row = table.Rows[index];
-        for(int dex = 0; dex < columns.Count(); ++dex) {
-          MochaColumn col = columns.ElementAt(dex);
+        foreach(MochaColumn col in columns) {
           MochaData _data = row.Datas[Array.IndexOf(table.Columns,col)];
           if(col.Tag == "COUNT")
             _data.Data = 1;
@@ -110,17 +108,13 @@ namespace MochaDB.mhql.keywords {
         }
         rows.Add(data,row);
       }
-      IEnumerable<MochaColumn> avgcols = table.Columns.Where(x => x.Tag == "AVG");
-      for(int index = 0; index < avgcols.Count(); ++index) {
-        MochaColumn col = avgcols.ElementAt(index);
-        for(int rindex = 0; rindex < rows.Keys.Count; ++rindex) {
-          MochaData data = rows[rows.Keys.ElementAt(rindex)].Datas[Array.IndexOf(table.Columns,col)];
+      foreach(MochaColumn col in table.Columns.Where(x => x.Tag == "AVG"))
+        foreach(object key in rows.Keys) {
+          MochaData data = rows[key].Datas[Array.IndexOf(table.Columns,col)];
           string[] parts = data.ToString().Split(';');
           string colval = parts[0];
           data.Data = decimal.Parse(colval) / int.Parse(parts[1]);
         }
-
-      }
       table.Rows = rows.Values.ToArray();
       table.SetDatasByRows();
     }
