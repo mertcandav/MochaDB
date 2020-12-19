@@ -316,7 +316,7 @@ namespace MochaDB.mhql.engine {
       if(from) {
         IEnumerable<MochaColumn> result = table.Columns.Where(x => x.Name == value);
 
-        if(result.Count() == 0)
+        if(!result.Any())
           goto index;
 
         MochaData data = row.Datas[Array.IndexOf(table.Columns,result.First())];

@@ -1186,7 +1186,7 @@ namespace MochaDB {
     /// </summary>
     public bool RestoreToLastLog() {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
-      if(logs.Count() == 0)
+      if(!logs.Any())
         return false; //throw new MochaException("Not exists any log!");
       RestoreToLog(logs.Last().Attribute("ID").Value);
       return true;
@@ -1198,7 +1198,7 @@ namespace MochaDB {
     /// </summary>
     public bool RestoreToFirstLog() {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
-      if(logs.Count() == 0)
+      if(!logs.Any())
         return false; // throw new MochaException("Not exists any log!");
       RestoreToLog(logs.First().Attribute("ID").Value);
       return true;

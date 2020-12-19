@@ -29,7 +29,7 @@ namespace MochaDB.mhql {
       if(!from)
         return returndex();
       IEnumerable<MochaColumn> result = columns.Where(x => x.Name == value);
-      if(result.Count() == 0)
+      if(!result.Any())
         return returndex();
       return Array.IndexOf(columns,result.First());
     }
@@ -51,7 +51,7 @@ namespace MochaDB.mhql {
       if(!from)
         return returndex();
       IEnumerable<MochaColumn> result = cols.Where(x => x.Name == value);
-      if(result.Count() == 0)
+      if(!result.Any())
         return returndex();
       int index = 0;
       foreach(MochaColumn column in cols) {

@@ -34,7 +34,7 @@ namespace MochaDB.mhql.engine {
         return;
       string val = value.Substring(0,dex).Trim();
       IEnumerable<MochaColumn> result = table.Columns.Where(x => x.Name == val);
-      if(result.Count() == 0)
+      if(!result.Any())
         return;
       value = Array.IndexOf(table.Columns,result.First()) + value.Substring(dex);
     }

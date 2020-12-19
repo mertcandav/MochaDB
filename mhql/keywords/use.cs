@@ -80,7 +80,7 @@ namespace MochaDB.mhql.keywords {
         } else {
           string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim() : cmd;
           IEnumerable<MochaColumn> result = cols.Where(x => x.Name == colname);
-          if(result.Count() == 0)
+          if(!result.Any())
             throw new MochaException($"Could not find a column with the name '{cmd}'!");
           MochaColumn column = result.First();
           column.Tag = colname != cmd ? "$" : null;
