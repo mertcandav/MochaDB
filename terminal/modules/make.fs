@@ -18,12 +18,12 @@ type make() =
     if cmd <> String.Empty then
       terminal.printError("This module can only be started!")
     else
-      let name = terminal.getInput("Name: ")
+      let name:string = terminal.getInput("Name: ")
       if name = String.Empty then
         terminal.printError("Name is cannot empty!")
       else
-        let password = terminal.getInput("Password: ")
-        let description = terminal.getInput("Description: ")
+        let password:string = terminal.getInput("Password: ")
+        let description:string = terminal.getInput("Description: ")
         try
           MochaDatabase.CreateMochaDB(
             System.IO.Path.Combine(terminal.pwd, name),description,password)

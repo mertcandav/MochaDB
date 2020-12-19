@@ -1,6 +1,7 @@
 ﻿namespace modules
 
 open System
+open System.Collections.Generic
 open System.IO
 
 open terminal
@@ -15,8 +16,8 @@ type ls() =
   /// </summary>
   /// <param name="cmd">Command.</param>
   static member proc(cmd:string) : unit =
-    let mutable directories = false
-    let mutable files = false
+    let mutable directories:bool = false
+    let mutable files:bool = false
     if cmd = String.Empty then
       directories <- true
       files <- true
@@ -29,7 +30,7 @@ type ls() =
       else if commandProcessor.removeArguments(cmd) <> String.Empty then
         terminal.printError("This module can only be used with parameters.")
       else
-        let args = commandProcessor.getArguments(cmd)
+        let args:List<String> = commandProcessor.getArguments(cmd)
         if args <> null then
           for arg in args do
             match arg with

@@ -22,7 +22,7 @@ type mochaq() =
     /// </summary>
     /// <param name="query">Query.</param>
     let exec(query:string) : unit =
-      let mq = new MochaQCommand(query)
+      let mq:MochaQCommand = new MochaQCommand(query)
       if mq.IsDynamicQuery()
       then printfn "Dynamic"
       else if mq.IsGetRunQuery()
@@ -32,9 +32,9 @@ type mochaq() =
       else terminal.printError("MochaQ command is invalid!")
 
     if cmd = String.Empty then
-      let mutable break = false
+      let mutable break:bool = false
       while break = false do
-        let input = terminal.getInput(db.Name + "\MochaQ ", ConsoleColor.White)
+        let input:string = terminal.getInput(db.Name + "\MochaQ ", ConsoleColor.White)
         if input = String.Empty then
           break <- true
         else

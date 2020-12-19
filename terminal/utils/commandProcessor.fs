@@ -32,11 +32,11 @@ type commandProcessor() =
   /// <param name="cmd">Command.</param>
   /// <returns>Arguments.</returns>
   static member getArguments(cmd:string) : List<String> =
-    let pattern = new Regex("(^|\s+)-\w+(?=($|\s+))",RegexOptions.Singleline)
-    let mutable args = new List<String>()
+    let pattern:Regex = new Regex("(^|\s+)-\w+(?=($|\s+))",RegexOptions.Singleline)
+    let mutable args:List<String> = new List<String>()
     for mch in pattern.Matches(cmd) do
       if mch.Success then
-        let arg = mch.Value.ToLower().Trim()
+        let arg:string = mch.Value.ToLower().Trim()
         if args.Contains(arg) then
           terminal.printError("A parameter cannot be written more than once!")
           args <- null

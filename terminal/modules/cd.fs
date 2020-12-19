@@ -17,11 +17,11 @@ type cd() =
     if cmd = String.Empty then
       printfn "%s" terminal.pwd
     else
-      let parts = cmd.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
-      let mutable path = terminal.pwd
+      let parts:string[] = cmd.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+      let mutable path:string = terminal.pwd
       for part in parts do
         if part = ".." then
-          let index = path.LastIndexOf(Path.DirectorySeparatorChar)
+          let index:int = path.LastIndexOf(Path.DirectorySeparatorChar)
           if index <> -1 then
             path <- path.Substring(0, index)
         else

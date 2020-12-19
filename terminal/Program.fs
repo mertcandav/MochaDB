@@ -73,15 +73,15 @@ let processCommand(ns:string, cmd:string) : unit =
 let main(argv:string[]) : int =
   Console.Title <- "MochaDB Terminal"
   if argv.Length > 0 then
-    let cmd = new System.Text.StringBuilder(String.Empty)
+    let cmd:System.Text.StringBuilder = new System.Text.StringBuilder(String.Empty)
     for arg in argv do
       cmd.Append(arg + " ") |> ignore
-    let cmd = cmd.ToString().TrimEnd()
+    let cmd:string = cmd.ToString().TrimEnd()
     processCommand(commandProcessor.splitNamespace(cmd).ToLower(),
                    commandProcessor.removeNamespace(cmd))
   else
     while true do
-      let mutable input = terminal.getInput()
+      let mutable input:string = terminal.getInput()
       if input <> String.Empty then
         processCommand(commandProcessor.splitNamespace(input).ToLower(),
                        commandProcessor.removeNamespace(input))

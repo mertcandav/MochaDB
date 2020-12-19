@@ -35,7 +35,7 @@ type terminal() =
   /// <param name="msg">Message.</param>
   /// <param name="color">Color of message.</param>
   static member printc(msg:string, color:ConsoleColor) : unit =
-    let realColor = Console.ForegroundColor
+    let realColor:ConsoleColor = Console.ForegroundColor
     Console.ForegroundColor <- color
     printf "%s" msg
     Console.ForegroundColor <- realColor

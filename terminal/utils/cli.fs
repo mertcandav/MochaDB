@@ -18,7 +18,7 @@ type cli() =
   /// </summary>
   /// <param name="dict">Dictionary to print.<param>
   static member printDictAsTable(dict:IDictionary<'a,'b>) : unit =
-    let maxlen = dict.Keys.Max(fun(x:'a) -> x.ToString().Length) + 5
+    let maxlen:int = dict.Keys.Max(fun(x:'a) -> x.ToString().Length) + 5
     for key in dict.Keys do
       terminal.printc(key, ConsoleColor.Yellow)
       printf "%s" (new String(' ', maxlen - key.Length))
@@ -32,8 +32,8 @@ type cli() =
     if table.IsEmpty() then
       printfn "Table is empty!"
     else
-      let mutable tableWidth = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
-      let ctx = table.Columns.Max(
+      let mutable tableWidth:int = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
+      let ctx:int = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
       tableWidth <- if tableWidth < ctx then ctx else tableWidth
 
@@ -54,11 +54,11 @@ type cli() =
       /// </summary>
       /// <param name="values">Values of row.</param>
       let printRow(values:MochaCollection<'a>) : unit =
-        let x = (tableWidth - values.Count) / values.Count
+        let x:int = (tableWidth - values.Count) / values.Count
         printf "|"
-        let mutable finalLine = "|"
+        let mutable finalLine:string = "|"
         for value in values do
-          let mutable value = (alignCentre(value.ToString(), x))
+          let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
           finalLine <- finalLine + (new String('-', value.Length)) + "|"
@@ -76,8 +76,8 @@ type cli() =
     if table.IsEmpty() then
       printfn "Table is empty!"
     else
-      let mutable tx = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
-      let ctx = table.Columns.Max(
+      let mutable tx:int = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
+      let ctx:int = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
       tx <- if tx < ctx then ctx else tx
 
@@ -98,11 +98,11 @@ type cli() =
       /// </summary>
       /// <param name="values">Values of row.</param>
       let printRow(values:'a[]) : unit =
-        let x = (tx - values.Length) / values.Length
+        let x:int = (tx - values.Length) / values.Length
         printf "|"
-        let mutable finalLine = "|"
+        let mutable finalLine:string = "|"
         for value in values do
-          let mutable value = (alignCentre(value.ToString(), x))
+          let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
           finalLine <- finalLine + (new String('-', value.Length)) + "|"
