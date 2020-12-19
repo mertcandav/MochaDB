@@ -5,9 +5,6 @@
   using System.Linq;
   using System.Xml.Linq;
 
-  using MochaDB.Logging;
-  using MochaDB.Querying;
-
   /// <summary>
   /// It offers query usage and management with MochaQ.
   /// </summary>

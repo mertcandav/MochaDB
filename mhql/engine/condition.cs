@@ -4,7 +4,6 @@ namespace MochaDB.mhql.engine {
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using MochaDB.framework;
   using MochaDB.mhql.engine.value;
   using MochaDB.Mhql;
   using MochaDB.Querying;

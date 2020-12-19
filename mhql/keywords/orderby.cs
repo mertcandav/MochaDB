@@ -1,6 +1,5 @@
 namespace MochaDB.mhql.keywords {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
 
   using MochaDB.mhql.engine;
@@ -58,15 +57,15 @@ namespace MochaDB.mhql.keywords {
     /// <param name="from">Use state FROM keyword.</param>
     public void OrderBy(string command,ref MochaTableResult table,bool from) {
       MHQLOrderType DecomposeOrder(string cmd,ref MochaTableResult tbl,out int coldex) {
-        IEnumerable<string> orderparts = cmd.Trim().Split(' ').Where(x => x != string.Empty);
-        if(orderparts.Count() > 2)
+        string[] orderparts = cmd.Trim().Split(' ');
+        if(orderparts.Length > 2)
           throw new MochaException("A single ORDERBY parameter can consist of up to 2 parts!");
-        coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts.First().Trim(),tbl.Columns,from);
+        coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts[0].Trim(),tbl.Columns,from);
 
-        if(orderparts.Count() == 1)
+        if(orderparts.Length == 1)
           return 0;
 
-        string order = orderparts.Last().Trim();
+        string order = orderparts[orderparts.Length - 1].Trim();
         return order == string.Empty ||
             order.StartsWith("ASC",StringComparison.OrdinalIgnoreCase) ?
                 MHQLOrderType.ASC :
