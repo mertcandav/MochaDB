@@ -127,23 +127,23 @@
       if(string.IsNullOrEmpty(MochaQ))
         throw new MochaException("This MochaQ query is empty, invalid!");
 
+      string[] parts = MochaQ.Command.Split(' ');
+      parts[0]=parts[0].ToUpperInvariant();
+      parts[2]=parts[2].ToUpperInvariant();
+
+      if(parts[0] != "SELECT")
+        throw new MochaException("The first syntax is wrong, there is no such function.");
+      if(parts[2] != "FROM")
+        throw new MochaException("Table not specified!");
+
+      string[] selectedColumns = parts[1].Split(',');
+      string tableName = parts[3];
+      MochaTable table = new MochaTable(tableName);
       try {
-        string[] parts = MochaQ.Command.Split(' ');
-        parts[0]=parts[0].ToUpperInvariant();
-        parts[2]=parts[2].ToUpperInvariant();
-
-        if(parts[0] != "SELECT")
-          throw new MochaException("The first syntax is wrong, there is no such function.");
-        if(parts[2] != "FROM")
-          throw new MochaException("Table not specified!");
-
-        string[] selectedColumns = parts[1].Split(',');
-        string tableName = parts[3];
-        MochaTable table = new MochaTable(tableName);
         for(int index = 0; index < selectedColumns.Length; ++index)
-          table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
-        return table;
+          table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index].Trim()));
       } catch { return null; }
+      return table;
     }
 
     #endregion Dynamic
