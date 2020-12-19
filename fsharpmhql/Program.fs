@@ -28,9 +28,9 @@ open MochaDB
 open MochaDB.Mhql
 
 // Fields
-let form = new Form()
-let codebox = new RichTextBox()
-let gridview = new DataGridView()
+let form : Form = new Form()
+let codebox : RichTextBox = new RichTextBox()
+let gridview : DataGridView = new DataGridView()
 
 // Functions
 
@@ -40,15 +40,15 @@ let gridview = new DataGridView()
 /// <param name="e">Key arguments.</param>
 let codebox_keydown(e: KeyEventArgs) : unit =
   if e.KeyData = Keys.F5 then
-    let path = new MochaPath(__SOURCE_DIRECTORY__)
+    let path : MochaPath = new MochaPath(__SOURCE_DIRECTORY__)
     path.ParentDirectory()
     path.ParentDirectory()
-    let database = new MochaDatabase("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
+    let database : MochaDatabase = new MochaDatabase("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
     try
       gridview.Columns.Clear()
-      let command = new MochaDbCommand(database)
-      let result = command.ExecuteScalar(codebox.Text) :?> MochaTableResult
-      let table = System.Data.DataTable()
+      let command : MochaDbCommand = new MochaDbCommand(database)
+      let result : MochaTableResult = command.ExecuteScalar(codebox.Text) :?> MochaTableResult
+      let table : System.Data.DataTable = System.Data.DataTable()
       for column in result.Columns do
         table.Columns.Add(column.Name)
       for row in result.Rows do
