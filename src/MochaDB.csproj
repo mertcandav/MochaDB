@@ -68,9 +68,6 @@
   <!-- MHQL source code files links -->
   <!-- General -->
   <ItemGroup>
-    <Compile Include="..\mhql\@.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\grammar.cs">
       <Visible>False</Visible>
     </Compile>
