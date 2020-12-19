@@ -72,6 +72,16 @@
 
     #endregion Events
 
+    #region Overrides
+
+    /// <summary>
+    /// Returns <see cref="Name"/>.
+    /// </summary>
+    public override string ToString() =>
+      Name;
+
+    #endregion Overrides
+
     #region Properties
 
     /// <summary>

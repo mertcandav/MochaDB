@@ -517,6 +517,11 @@
             This happens after name changed;
             </summary>
         </member>
+        <member name="M:MochaDB.MochaColumn.ToString">
+            <summary>
+            Returns <see cref="P:MochaDB.MochaColumn.Name"/>.
+            </summary>
+        </member>
         <member name="P:MochaDB.MochaColumn.Name">
             <summary>
             Name.
