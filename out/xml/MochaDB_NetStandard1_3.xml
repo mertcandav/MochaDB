@@ -2513,73 +2513,12 @@
             <param name="command">Command to check.</param>
             <param name="type">Type of condition.</param>
         </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_EQUAL(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process equal condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_NOTEQUAL(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process not equal condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_BIGGER(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process bigger condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_LOWER(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process lower condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_BIGGEREQ(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process biggereq condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process_LOWEREQ(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process lowereq condition and returns result.
-            </summary>
-            <param name="command">Condition.</param>
-            <param name="table">Table.</param>
-            <param name="row">Row.</param>
-            <param name="from">Use state FROM keyword.</param>
-        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetConditionParts(System.String,System.String)">
             <summary>
             Returns condition parts.
             </summary>
             <param name="command">Condition.</param>
             <param name="operator">Operator.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.CHKVAL(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional,MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Check <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional"/>.
-            </summary>
-            <param name="v1">Value 1.</param>
-            <param name="v2">Value 2.</param>
         </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.GetValue(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>

@@ -24,11 +24,11 @@ namespace MochaDB.mhql.engine {
   /// </summary>
   internal enum ConditionType {
     None = 0,
-    Equal = 1,
-    NotEqual = 2,
-    Bigger = 3,
-    Lower = 4,
-    BiggerEqual = 5,
-    LowerEqual = 6
+    EQUAL = 1,
+    NOTEQUAL = 2,
+    BIGGER = 3,
+    LOWER = 4,
+    BIGGEREQ = 5,
+    LOWEREQ = 6
   }
 }

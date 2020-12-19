@@ -125,19 +125,21 @@ namespace MochaDB.mhql.engine {
       if(!IsCondition(command,out type))
         return false;
 
-      if(type == ConditionType.Equal)
-        return Process_EQUAL(command,table,row,from);
-      else if(type == ConditionType.NotEqual)
-        return Process_NOTEQUAL(command,table,row,from);
-      else if(type == ConditionType.Bigger)
-        return Process_BIGGER(command,table,row,from);
-      else if(type == ConditionType.Lower)
-        return Process_LOWER(command,table,row,from);
-      else if(type == ConditionType.BiggerEqual)
-        return Process_BIGGEREQ(command,table,row,from);
-      else if(type == ConditionType.LowerEqual)
-        return Process_LOWEREQ(command,table,row,from);
-      return false;
+      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators[type.ToString()]);
+      Expressional value0 = GetValue(parts[0],table,row,from);
+      Expressional value1 = GetValue(parts[1],table,row,from);
+      if(value0.Type != value1.Type)
+        throw new MochaException("Value types is are not compatible!");
+
+      switch(type) {
+        case ConditionType.EQUAL: return value0.Equal(value1);
+        case ConditionType.NOTEQUAL: return value0.NotEqual(value1);
+        case ConditionType.BIGGER: return value0.Bigger(value1);
+        case ConditionType.LOWER: return value0.Lower(value1);
+        case ConditionType.BIGGEREQ: return value0.BiggerEqual(value1);
+        case ConditionType.LOWEREQ: return value0.LowerEqual(value1);
+        default: return false;
+      }
     }
 
     /// <summary>
@@ -160,96 +162,6 @@ namespace MochaDB.mhql.engine {
     }
 
     /// <summary>
-    /// Process equal condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_EQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["EQUAL"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.Equal(value1);
-    }
-
-    /// <summary>
-    /// Process not equal condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_NOTEQUAL(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["NOTEQUAL"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.NotEqual(value1);
-    }
-
-    /// <summary>
-    /// Process bigger condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_BIGGER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["BIGGER"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.Bigger(value1);
-    }
-
-    /// <summary>
-    /// Process lower condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_LOWER(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["LOWER"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.Lower(value1);
-    }
-
-    /// <summary>
-    /// Process biggereq condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_BIGGEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["BIGGEREQ"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.BiggerEqual(value1);
-    }
-
-    /// <summary>
-    /// Process lowereq condition and returns result.
-    /// </summary>
-    /// <param name="command">Condition.</param>
-    /// <param name="table">Table.</param>
-    /// <param name="row">Row.</param>
-    /// <param name="from">Use state FROM keyword.</param>
-    public static bool Process_LOWEREQ(string command,MochaTableResult table,MochaRow row,bool from) {
-      string[] parts = GetConditionParts(command,MhqlEng_CONDITION_LEXER.Operators["LOWEREQ"]);
-      Expressional value0 = GetValue(parts[0],table,row,from);
-      Expressional value1 = GetValue(parts[1],table,row,from);
-      CHKVAL(value0,value1);
-      return value0.LowerEqual(value1);
-    }
-
-    /// <summary>
     /// Returns condition parts.
     /// </summary>
     /// <param name="command">Condition.</param>
@@ -261,16 +173,6 @@ namespace MochaDB.mhql.engine {
       parts[0] = parts[0].Trim();
       parts[1] = parts[1].Trim();
       return parts;
-    }
-
-    /// <summary>
-    /// Check <see cref="Expressional"/>.
-    /// </summary>
-    /// <param name="v1">Value 1.</param>
-    /// <param name="v2">Value 2.</param>
-    public static void CHKVAL(Expressional v1,Expressional v2) {
-      if(v1.Type != v2.Type)
-        throw new MochaException("Value types is are not compatible!");
     }
 
     /// <summary>

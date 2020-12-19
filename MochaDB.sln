@@ -82,7 +82,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{9C28C183-67A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{86DB3C19-063F-460A-B4D6-4165452F6429}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		nuget\documentation.md = nuget\documentation.md
 	EndProjectSection
 EndProject

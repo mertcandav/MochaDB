@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>fsharpmhql</name></assembly>
+<members>
+<member name="M:Program.main(System.String[])">
+ <summary>
+ Entry point.
+ </summary>
+ <param name="argv">Arguments.</param>
+ <returns>Exit code.</returns>
+</member>
+<member name="M:Program.codebox_keydown(System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ Keywdown event of codebox.
+ </summary>
+ <param name="e">Key arguments.</param>
+</member>
+</members>
+</doc>
