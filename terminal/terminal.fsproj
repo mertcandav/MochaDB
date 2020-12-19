@@ -15,10 +15,10 @@
 
   <ItemGroup>
     <Compile Include="terminal.fs" />
-    <Compile Include="submodules\connection\mochaq.fs" />
     <Compile Include="utils\parser.fs" />
     <Compile Include="utils\cli.fs" />
     <Compile Include="utils\commandProcessor.fs" />
+    <Compile Include="submodules\connection\mochaq.fs" />
     <Compile Include="modules\connect.fs" />
     <Compile Include="modules\make.fs" />
     <Compile Include="modules\ls.fs" />

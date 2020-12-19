@@ -73,18 +73,6 @@
  Terminal declare.
  </summary>
 </member>
-<member name="M:submodules.connection.mochaq.proc(MochaDB.MochaDatabase,System.String)">
- <summary>
- Process command in module.
- </summary>
- <param name="db">Database connection.</param>
- <param name="cmd">Command.</param>
-</member>
-<member name="T:submodules.connection.mochaq">
- <summary>
- MochaQ module.
- </summary>
-</member>
 <member name="M:utils.parser.parseTableToXmlString(MochaDB.Mhql.MochaTableResult)">
  <summary>
  Parse MochaTableResult to XmlString.
@@ -158,6 +146,18 @@
 <member name="T:utils.commandProcessor">
  <summary>
  Command processor for commands.
+ </summary>
+</member>
+<member name="M:submodules.connection.mochaq.proc(MochaDB.MochaDatabase,System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="db">Database connection.</param>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:submodules.connection.mochaq">
+ <summary>
+ MochaQ module.
  </summary>
 </member>
 <member name="M:modules.connect.proc(System.String)">

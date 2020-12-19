@@ -35,7 +35,7 @@ type connect() =
           match logs with
           | "" | "true" | "false" -> 
             let db = new MochaDatabase(
-              "path=" + name + "; password=" + password + "; logs=" +
+              "path=" + Path.Combine(terminal.pwd,name) + "; password=" + password + "; logs=" +
               if logs = String.Empty then "false" else logs)
             db.Connect()
             let mutable break:bool = false
