@@ -100,6 +100,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B5
 		azure-pipelines.yml = azure-pipelines.yml
 		CHANGELOG.md = CHANGELOG.md
 		commit.bat = commit.bat
+		commit.ps1 = commit.ps1
 		commit.sh = commit.sh
 		Compile_fsharpmhql.bat = Compile_fsharpmhql.bat
 		Compile_fsharpmhql.ps1 = Compile_fsharpmhql.ps1
