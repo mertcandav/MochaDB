@@ -23,6 +23,7 @@
 
 #!bin/bash
 
+$message = Read-Host 'Message'
 git add .
-git commit -m $args[0]
+git commit -m $message
 git push
