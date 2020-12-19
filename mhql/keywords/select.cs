@@ -1,5 +1,6 @@
 namespace MochaDB.mhql.keywords {
   using System;
+  using System.Collections.Generic;
   using System.Text.RegularExpressions;
 
   using MochaDB.Querying;
@@ -45,7 +46,7 @@ namespace MochaDB.mhql.keywords {
     /// Returns tables by select pattern.
     /// </summary>
     /// <param name="selectcommand">Select pattern.</param>
-    public MochaCollectionResult<MochaTable> GetTables(string selectcommand) {
+    public IEnumerable<MochaTable> GetTables(string selectcommand) {
       Regex regex = new Regex(selectcommand);
       return Tdb.GetTables(x => regex.IsMatch(x.Name));
     }

@@ -1,6 +1,7 @@
 ﻿namespace MochaDB.Querying {
   using System;
   using System.Linq;
+  using System.Collections.Generic;
 
   using MochaDB.Mhql;
   using MochaDB.Streams;
@@ -38,8 +39,8 @@
     /// </summary>
     /// <param name="db">Target database.</param>
     /// <param name="query">Query for filtering.</param>
-    public static MochaCollectionResult<MochaTable> GetTables(this MochaDatabase db,Func<MochaTable,bool> query) =>
-        new MochaCollectionResult<MochaTable>(db.GetTables().Where(query));
+    public static IEnumerable<MochaTable> GetTables(this MochaDatabase db,Func<MochaTable,bool> query) =>
+        db.GetTables().Where(query);
 
     /// <summary>
     /// Read all tables in database.
@@ -62,9 +63,9 @@
     /// <param name="db">Target database.</param>
     /// <param name="tableName">Name of table.</param>
     /// <param name="query">Query for filtering.</param>
-    public static MochaCollectionResult<MochaColumn> GetColumns(this MochaDatabase db,string tableName,
+    public static IEnumerable<MochaColumn> GetColumns(this MochaDatabase db,string tableName,
       Func<MochaColumn,bool> query) =>
-        new MochaCollectionResult<MochaColumn>(db.GetColumns(tableName).Where(query));
+        db.GetColumns(tableName).Where(query);
 
     /// <summary>
     /// Read all columns in table by name.
@@ -90,9 +91,9 @@
     /// <param name="db">Target database.</param>
     /// <param name="tableName">Name of table.</param>
     /// <param name="query">Query for filtering.</param>
-    public static MochaCollectionResult<MochaRow> GetRows(this MochaDatabase db,string tableName,
+    public static IEnumerable<MochaRow> GetRows(this MochaDatabase db,string tableName,
       Func<MochaRow,bool> query) =>
-        new MochaCollectionResult<MochaRow>(db.GetRows(tableName).Where(query));
+        db.GetRows(tableName).Where(query);
 
     /// <summary>
     /// Read all rows in table by name.
@@ -119,9 +120,9 @@
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
     /// <param name="query">Query for filtering.</param>
-    public static MochaCollectionResult<MochaData> GetDatas(this MochaDatabase db,string tableName,
+    public static IEnumerable<MochaData> GetDatas(this MochaDatabase db,string tableName,
       string columnName,Func<MochaData,bool> query) =>
-        new MochaCollectionResult<MochaData>(db.GetDatas(tableName,columnName).Where(query));
+        db.GetDatas(tableName,columnName).Where(query);
 
     /// <summary>
     /// Read all datas in column int table by name.

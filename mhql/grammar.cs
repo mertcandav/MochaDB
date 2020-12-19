@@ -40,7 +40,7 @@ namespace MochaDB.mhql {
     /// <param name="value">Value.</param>
     /// <param name="cols">Columns.</param>
     /// <param name="from">Use state FROM keyword.</param>
-    public static int GetIndexOfColumn(string value,MochaCollectionResult<MochaColumn> cols,bool from) {
+    public static int GetIndexOfColumn(string value,IEnumerable<MochaColumn> cols,bool from) {
       int returndex() {
         int columndex;
         if(!int.TryParse(value,out columndex))
@@ -53,7 +53,7 @@ namespace MochaDB.mhql {
       IEnumerable<MochaColumn> result = cols.Where(x => x.Name == value);
       if(result.Count() == 0)
         return returndex();
-      return cols.IndexOf(result.First());
+      return cols.Count(); // WARN!
     }
 
     #endregion Members

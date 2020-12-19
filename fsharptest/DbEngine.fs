@@ -42,10 +42,10 @@ let GetDbWithProvider(provider:string) : MochaDatabase =
 let ExecuteCommand(db:MochaDatabase) : unit =
   try
     if db.Query.MochaQ.IsGetRunQuery() then
-      let result:IMochaResult = db.Query.GetRun()
+      let result:obj = db.Query.GetRun()
       printfn "%s" (result.ToString())
     elif db.Query.MochaQ.IsDynamicQuery() then
-      let result:IMochaResult = db.Query.Dynamic()
+      let result:obj = db.Query.Dynamic()
       printfn "%s" (result.ToString())
     elif db.Query.MochaQ.IsRunQuery() then
       db.Query.Run()

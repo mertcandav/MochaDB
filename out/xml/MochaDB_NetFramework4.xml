@@ -1931,17 +1931,6 @@
             Rows of table.
             </summary>
         </member>
-        <member name="T:MochaDB.Querying.IMochaResult">
-            <summary>
-            Interface for MochaDB results.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Querying.IMochaResult`1">
-            <summary>
-            Iterface for MochaDB value results.
-            </summary>
-            <typeparam name="T">Value type.</typeparam>
-        </member>
         <member name="T:MochaDB.Querying.QueryingMochaCollection">
             <summary>
             Query extension for MochaCollections.
@@ -1988,80 +1977,6 @@
             Group items by query.
             </summary>
             <param name="query">Query to use in grouping.</param>
-        </member>
-        <member name="T:MochaDB.Querying.MochaCollectionResult`1">
-            <summary>
-            Base for MochaDB collection results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Create new MochaCollectionResult.
-            </summary>
-            <param name="collection">Items.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Select(System.Func{`0,System.Int32,`0})">
-            <summary>
-            Select items by query.
-            </summary>
-            <param name="query">Query to use in filtering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.Where(System.Func{`0,System.Int32,System.Boolean})">
-            <summary>
-            Select items by condition.
-            </summary>
-            <param name="query">Query to use in conditioning.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderByDescending(System.Func{`0,`0})">
-            <summary>
-            Order items descending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.OrderBy(System.Func{`0,`0})">
-            <summary>
-            Order items ascending by query.
-            </summary>
-            <param name="query">Query to use in ordering.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GroupBy(System.Func{`0,`0})">
-            <summary>
-            Group items by query.
-            </summary>
-            <param name="query">Query to use in grouping.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaCollectionResult`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaCollectionResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
-            </summary>
         </member>
         <member name="T:MochaDB.Querying.QueryingMochaDatabase">
             <summary>
@@ -2180,48 +2095,6 @@
             <param name="tableName">Name of table.</param>
             <param name="columnName">Name of column.</param>
             <param name="query">Query for filtering.</param>
-        </member>
-        <member name="T:MochaDB.Querying.MochaResult`1">
-            <summary>
-            Base for MochaDB value results.
-            </summary>
-            <typeparam name="T">Type of result value.</typeparam>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.#ctor(`0)">
-            <summary>
-            Create new MochaResult.
-            </summary>
-            <param name="value">Result value.</param>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetObject">
-            <summary>
-            Returns value as object.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetString">
-            <summary>
-            Return 
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.GetHash">
-            <summary>
-            Return hash code of value.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Querying.MochaResult`1.ToString">
-            <summary>
-            Returns result of <see cref="M:MochaDB.Querying.MochaResult`1.GetString"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaResult`1.Value">
-            <summary>
-            Result value.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Querying.MochaResult`1.IsCollectionResult">
-            <summary>
-            This is collection result.
-            </summary>
         </member>
         <member name="T:MochaDB.Querying.QueryingString">
             <summary>
@@ -2397,7 +2270,7 @@
             <param name="columns">Columns.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,MochaDB.Querying.MochaCollectionResult{MochaDB.MochaColumn},System.Boolean)">
+        <member name="M:MochaDB.mhql.Mhql_GRAMMAR.GetIndexOfColumn(System.String,System.Collections.Generic.IEnumerable{MochaDB.MochaColumn},System.Boolean)">
             <summary>
             Returns column index.
             </summary>

@@ -63,7 +63,7 @@
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult ExecuteCommand(string mochaQ) {
+    public virtual object ExecuteCommand(string mochaQ) {
       MochaQ=mochaQ;
       return ExecuteCommand();
     }
@@ -72,7 +72,7 @@
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult ExecuteCommand(MochaDatabase database,string mochaQ) {
+    public virtual object ExecuteCommand(MochaDatabase database,string mochaQ) {
       Database=database;
       MochaQ=mochaQ;
       return ExecuteCommand();
@@ -81,7 +81,7 @@
     /// <summary>
     /// Detect command type and execute. Returns result if exists returned result.
     /// </summary>
-    public virtual IMochaResult ExecuteCommand() {
+    public virtual object ExecuteCommand() {
       if(MochaQ.IsRunQuery()) {
         Run();
         return null;
@@ -101,7 +101,7 @@
     /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult Dynamic(string mochaQ) {
+    public virtual object Dynamic(string mochaQ) {
       MochaQ=mochaQ;
       return Dynamic();
     }
@@ -111,7 +111,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult Dynamic(MochaDatabase database,string mochaQ) {
+    public virtual object Dynamic(MochaDatabase database,string mochaQ) {
       Database = database;
       MochaQ=mochaQ;
       return Dynamic();
@@ -120,7 +120,7 @@
     /// <summary>
     /// If the value is returned, it returns the function and performs the function; if not, it just performs the function.
     /// </summary>
-    public virtual IMochaResult Dynamic() {
+    public virtual object Dynamic() {
       if(!MochaQ.IsDynamicQuery())
         throw new MochaException(@"This MochaQ command is not ""Dynamic"" type command.");
 
@@ -143,7 +143,7 @@
             MochaTable table = new MochaTable(tableName);
             for(int index = 0; index < selectedColumns.Length; ++index)
               table.Columns.Add(Database.GetColumn(tableName,selectedColumns[index]));
-            return new MochaResult<MochaTable>(table);
+            return table;
           } else
             throw new MochaException("Table not specified!");
         } else
@@ -328,7 +328,7 @@
     /// Runs the active MochaQ query. Returns the incoming value.
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult GetRun(string mochaQ) {
+    public virtual object GetRun(string mochaQ) {
       MochaQ=mochaQ;
       return GetRun();
     }
@@ -338,7 +338,7 @@
     /// </summary>
     /// <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual IMochaResult GetRun(MochaDatabase database,string mochaQ) {
+    public virtual object GetRun(MochaDatabase database,string mochaQ) {
       Database = database;
       MochaQ=mochaQ;
       return GetRun();
@@ -347,7 +347,7 @@
     /// <summary>
     /// Runs the active MochaQ query. Returns the incoming value.
     /// </summary>
-    public virtual IMochaResult GetRun() {
+    public virtual object GetRun() {
       if(!MochaQ.IsGetRunQuery())
         throw new MochaException(@"This MochaQ command is not ""GetRun"" type command.");
 
@@ -364,86 +364,86 @@
         case 1:
           switch(queryPaths[0]) {
             case "GETTABLES":
-              return new MochaCollectionResult<MochaTable>(Database.GetTables());
+              return Database.GetTables();
             case "GETPASSWORD":
-              return new MochaResult<string>(Database.GetPassword());
+              return Database.GetPassword();
             case "GETDESCRIPTION":
-              return new MochaResult<string>(Database.GetDescription());
+              return Database.GetDescription();
             case "GETLOGS":
-              return new MochaCollectionResult<MochaLog>(Database.GetLogs());
+              return Database.GetLogs();
             case "GETDATAS":
               List<MochaData> datas = new List<MochaData>();
               IEnumerable<XElement> tableRange = Database.Doc.Root.Element("Tables").Elements();
               for(int index = 0; index < tableRange.Count(); ++index)
-                datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName).collection);
-              return new MochaCollectionResult<MochaData>(datas);
+                datas.AddRange(GETDATAS(tableRange.ElementAt(index).Name.LocalName));
+              return datas;
             case "TABLECOUNT":
-              return new MochaResult<int>(Database.Doc.Root.Elements().Count());
+              return Database.Doc.Root.Elements().Count();
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 2:
           switch(queryPaths[0]) {
             case "GETTABLE":
-              return new MochaResult<MochaTable>(Database.GetTable(queryPaths[1]));
+              return Database.GetTable(queryPaths[1]);
             case "GETCOLUMNS":
-              return new MochaCollectionResult<MochaColumn>(Database.GetColumns(queryPaths[1]));
+              return Database.GetColumns(queryPaths[1]);
             case "GETFIRSTCOLUMN_NAME":
               return GETFIRSTCOLUMN_NAME(queryPaths[1]);
             case "EXISTSLOG":
-              return new MochaResult<bool>(Database.ExistsLog(queryPaths[1]));
+              return Database.ExistsLog(queryPaths[1]);
             case "GETROWS":
-              return new MochaCollectionResult<MochaRow>(Database.GetRows(queryPaths[1]));
+              return Database.GetRows(queryPaths[1]);
             case "GETDATAS":
               return GETDATAS(queryPaths[1]);
             case "GETTABLEDESCRIPTION":
-              return new MochaResult<string>(Database.GetTableDescription(queryPaths[1]));
+              return Database.GetTableDescription(queryPaths[1]);
             case "COLUMNCOUNT":
               return COLUMNCOUNT(queryPaths[1]);
             case "ROWCOUNT":
               try {
-                return new MochaResult<int>(Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements(
-                    GETFIRSTCOLUMN_NAME(queryPaths[1]).Value).Elements().Count());
+                return Database.Doc.Root.Element("Tables").Elements(queryPaths[1]).Elements(
+                    GETFIRSTCOLUMN_NAME(queryPaths[1])).Elements().Count();
               } catch(Exception excep) {
                 throw excep;
               }
             case "DATACOUNT":
-              return new MochaResult<int>(Database.GetDataCount(queryPaths[1],GETFIRSTCOLUMN_NAME(queryPaths[1]))
-                * COLUMNCOUNT(queryPaths[1]));
+              return Database.GetDataCount(queryPaths[1],GETFIRSTCOLUMN_NAME(queryPaths[1]))
+                * COLUMNCOUNT(queryPaths[1]);
             case "EXISTSTABLE":
-              return new MochaResult<bool>(Database.ExistsTable(queryPaths[1]));
+              return Database.ExistsTable(queryPaths[1]);
             case "#REMOVETABLE":
-              return new MochaResult<bool>(Database.RemoveTable(queryPaths[1]));
+              return Database.RemoveTable(queryPaths[1]);
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 3:
           switch(queryPaths[0]) {
             case "GETCOLUMN":
-              return new MochaResult<MochaColumn>(Database.GetColumn(queryPaths[1],queryPaths[2]));
+              return Database.GetColumn(queryPaths[1],queryPaths[2]);
             case "DATACOUNT":
-              return new MochaResult<int>(Database.GetDataCount(queryPaths[1],queryPaths[2]));
+              return Database.GetDataCount(queryPaths[1],queryPaths[2]);
             case "EXISTSCOLUMN":
-              return new MochaResult<bool>(Database.ExistsColumn(queryPaths[1],queryPaths[2]));
+              return Database.ExistsColumn(queryPaths[1],queryPaths[2]);
             case "GETDATAS":
-              return new MochaCollectionResult<MochaData>(Database.GetDatas(queryPaths[1],queryPaths[2]));
+              return Database.GetDatas(queryPaths[1],queryPaths[2]);
             case "GETCOLUMNDESCRIPTION":
-              return new MochaResult<string>(Database.GetColumnDescription(queryPaths[1],queryPaths[2]));
+              return Database.GetColumnDescription(queryPaths[1],queryPaths[2]);
             case "GETCOLUMNDATATYPE":
-              return new MochaResult<MochaDataType>(Database.GetColumnDataType(queryPaths[1],queryPaths[2]));
+              return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
             case "#REMOVECOLUMN":
-              return new MochaResult<bool>(Database.RemoveColumn(queryPaths[1],queryPaths[2]));
+              return Database.RemoveColumn(queryPaths[1],queryPaths[2]);
             case "#REMOVEROW":
-              return new MochaResult<bool>(Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2])));
+              return Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2]));
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 4:
           switch(queryPaths[0]) {
             case "EXISTSDATA":
-              return new MochaResult<bool>(Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]));
+              return Database.ExistsData(queryPaths[1],queryPaths[2],queryPaths[3]);
             case "GETDATA":
-              return new MochaResult<MochaData>(Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3])));
+              return Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]));
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
@@ -462,7 +462,7 @@
     /// Return column count of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    protected virtual MochaResult<int> COLUMNCOUNT(string name) {
+    protected virtual int COLUMNCOUNT(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
@@ -474,7 +474,7 @@
     /// Return all datas of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    protected virtual MochaCollectionResult<MochaData> GETDATAS(string name) {
+    protected virtual IEnumerable<MochaData> GETDATAS(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 
@@ -484,14 +484,14 @@
       for(int index = 0; index < columnRange.Count(); ++index)
         datas.AddRange(Database.GetDatas(name,columnRange.ElementAt(index).Name.LocalName));
 
-      return new MochaCollectionResult<MochaData>(datas);
+      return datas;
     }
 
     /// <summary>
     /// Return first column name of table.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    protected virtual MochaResult<string> GETFIRSTCOLUMN_NAME(string name) {
+    protected virtual string GETFIRSTCOLUMN_NAME(string name) {
       if(!Database.ExistsTable(name))
         throw new MochaException("Table not found in this name!");
 

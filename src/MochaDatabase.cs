@@ -665,7 +665,7 @@ namespace MochaDB {
       GetXElement(CDoc,$"Tables/{tableName}").Add(xColumn);
 
       // Datas.
-      int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
+      int rowCount = (int)Query.GetRun($"ROWCOUNT:{tableName}");
       if(column.DataType==MochaDataType.AutoInt)
         for(int index = 1; index <= rowCount; ++index)
           xColumn.Add(new XElement("Data",index));
@@ -937,7 +937,7 @@ namespace MochaDB {
       if(columns.Length == 0)
         return null;
 
-      int rowCount = (MochaResult<int>)Query.GetRun($"ROWCOUNT:{tableName}");
+      int rowCount = (int)Query.GetRun($"ROWCOUNT:{tableName}");
       if(rowCount-1 < index)
         throw new MochaException("Index cat not bigger than row count!");
 
