@@ -41,8 +41,8 @@ type mochaq() =
         then db.Query.Run(mq.Command)
         else terminal.printError("MochaQ command is invalid!")
       with
-      | failwith as a ->
-        terminal.printError(a.ToString())
+      | :? Exception as except ->
+        terminal.printError(except.ToString())
 
     if cmd = String.Empty then
       let mutable break:bool = false

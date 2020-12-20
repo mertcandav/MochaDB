@@ -39,8 +39,8 @@ type mhql() =
           else cli.printTable(table :?> MochaTableResult)
         | _ -> terminal.printError("MHQL query is invalid!")
       with
-      | failwith as a ->
-        terminal.printError(a.ToString())
+      | :? Exception as except ->
+        terminal.printError(except.ToString())
 
     if cmd = String.Empty then
       let mutable break:bool = false
