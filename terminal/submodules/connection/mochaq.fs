@@ -1,9 +1,12 @@
 ﻿namespace submodules.connection
 
 open System
+open System.Collections
 
 open MochaDB
+open MochaDB.Mhql
 open MochaDB.Mochaq
+open MochaDB.Streams
 
 open utils
 open terminal
@@ -23,12 +26,23 @@ type mochaq() =
     /// </summary>
     /// <param name="query">Query.</param>
     let exec(query:string) : unit =
-      let mq:MochaQCommand = new MochaQCommand(query)
-      if mq.IsGetRunQuery()
-      then printfn "GetRun"
-      else if mq.IsRunQuery()
-      then printfn "Run"
-      else terminal.printError("MochaQ command is invalid!")
+      try
+        let mq:MochaQCommand = new MochaQCommand(query)
+        if mq.IsGetRunQuery() then
+          let result:obj = db.Query.GetRun(mq.Command)
+          match result with
+          | null -> printfn "NULL"
+          | :? MochaTable -> cli.printTable(result :?> MochaTable)
+          | :? MochaTableResult -> cli.printTable(result :?> MochaTableResult)
+          | :? MochaReader<'a> -> cli.printReader(result :?> MochaReader<'a>)
+          | :? IEnumerable -> cli.printEnumerable(result :?> IEnumerable)
+          | _ -> printfn "%s" (result.ToString())
+        else if mq.IsRunQuery()
+        then db.Query.Run(mq.Command)
+        else terminal.printError("MochaQ command is invalid!")
+      with
+      | :? Exception as except ->
+        terminal.printError(except.Message)
 
     if cmd = String.Empty then
       let mutable break:bool = false

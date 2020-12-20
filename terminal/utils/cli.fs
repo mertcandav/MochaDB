@@ -2,10 +2,12 @@
 
 open System
 open System.Linq
+open System.Collections
 open System.Collections.Generic
 
 open MochaDB
 open MochaDB.Mhql
+open MochaDB.Streams
 
 open terminal
 
@@ -111,3 +113,19 @@ type cli() =
       printRow(table.Columns)
       for row in table.Rows do
         printRow(row.Datas.ToArray())
+
+  /// <summary>
+  /// Print elements of MochaReader<'a>.
+  /// </summary>
+  /// <param name="reader">Reader to print.</param>
+  static member printReader(reader:MochaReader<'a>) : unit =
+    while reader.Read() do
+      printfn "%s" (reader.Value.ToString())
+
+  /// <summary>
+  /// Print elements of IEnumerable.
+  /// </summary>
+  /// <param name="enumrable">IEnumerable to print.</param>
+  static member printEnumerable(enumerable:IEnumerable) : unit =
+    for element in enumerable do
+      printfn "%s" (element.ToString())
