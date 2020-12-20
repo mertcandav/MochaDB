@@ -45,6 +45,7 @@ type connect() =
               let cmd:string = commandProcessor.removeNamespace(input)
               match commandProcessor.splitNamespace(input).ToLower() with
               | "mochaq" -> mochaq.proc(db, cmd)
+              | "mhql" -> mhql.proc(db, cmd)
               | "disconnect" -> break <- true
               | "help" ->
                 cli.printDictAsTable(dict[

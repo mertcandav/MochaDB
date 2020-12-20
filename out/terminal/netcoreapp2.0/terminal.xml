@@ -160,6 +160,18 @@
  Command processor for commands.
  </summary>
 </member>
+<member name="M:submodules.connection.mhql.proc(MochaDB.MochaDatabase,System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="db">Database connection.</param>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:submodules.connection.mhql">
+ <summary>
+ MHQL module.
+ </summary>
+</member>
 <member name="M:submodules.connection.mochaq.proc(MochaDB.MochaDatabase,System.String)">
  <summary>
  Process command in module.
