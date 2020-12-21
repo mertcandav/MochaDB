@@ -1,14 +1,16 @@
 ﻿namespace MochaDB {
   using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
 
   /// <summary>
   /// MochaData collector for MochaColumns.
   /// </summary>
-  public class MochaColumnDataCollection:MochaReadonlyCollection<MochaData> {
+  public class MochaColumnDataCollection:IEnumerable<MochaData>, IEnumerable {
     #region Fields
 
+    internal List<MochaData> collection;
     private MochaDataType dataType;
 
     #endregion Fields
@@ -129,16 +131,16 @@
     }
 
     /// <summary>
-    /// Return first element in collection.
+    /// Returns enumerator.
     /// </summary>
-    public override MochaData GetFirst() =>
-        IsEmptyCollection() ? null : this[0];
+    public virtual IEnumerator<MochaData> GetEnumerator() =>
+        collection.GetEnumerator();
 
     /// <summary>
-    /// Return last element in collection.
+    /// Returns enumerator.
     /// </summary>
-    public override MochaData GetLast() =>
-        IsEmptyCollection() ? null : this[MaxIndex()];
+    IEnumerator IEnumerable.GetEnumerator() =>
+        collection.GetEnumerator();
 
     #endregion Members
 
@@ -162,6 +164,19 @@
           collection[index].DataType = dataType;
       }
     }
+
+    /// <summary>
+    /// Return item by index.
+    /// </summary>
+    /// <param name="index">Index of item.</param>
+    public virtual MochaData this[int index] =>
+        collection[index];
+
+    /// <summary>
+    /// Count of items.
+    /// </summary>
+    public virtual int Count =>
+        collection.Count;
 
     #endregion Properties
   }

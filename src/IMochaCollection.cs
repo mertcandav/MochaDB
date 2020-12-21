@@ -17,13 +17,8 @@
     #region Members
 
     void AddRange(IEnumerable<T> items);
-    int MaxIndex();
-    bool IsEmptyCollection();
     T ElementAt(int index);
     T[] ToArray();
-    List<T> ToList();
-    T GetFirst();
-    T GetLast();
 
     #endregion Members
 

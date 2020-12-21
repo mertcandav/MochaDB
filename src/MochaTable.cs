@@ -78,7 +78,7 @@
           else {
             MochaData data = new MochaData {
               data=currentColumn.Datas.Count > 0 ?
-                1 + (int)currentColumn.Datas[currentColumn.Datas.MaxIndex()].Data : 1,
+                1 + (int)currentColumn.Datas[currentColumn.Datas.Count - 1].Data : 1,
               dataType=MochaDataType.AutoInt
             };
             currentColumn.Datas.collection.Add(data);

@@ -55,7 +55,7 @@ namespace MochaDB.mhql.engine {
 
       if(dex < 0)
         throw new MochaException("Index is cannot lower than zero!");
-      else if(dex > row.Datas.MaxIndex())
+      else if(dex > row.Datas.Count - 1)
         throw new MochaException("The specified index is more than the number of columns!");
       return row.Datas[dex];
     }

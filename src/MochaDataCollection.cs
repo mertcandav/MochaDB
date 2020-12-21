@@ -62,12 +62,6 @@
       OnChanged(this,new EventArgs());
     }
 
-    public override MochaData GetFirst() =>
-        IsEmptyCollection() ? null : this[0];
-
-    public override MochaData GetLast() =>
-        IsEmptyCollection() ? null : this[MaxIndex()];
-
     #endregion Members
   }
 }

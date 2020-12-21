@@ -2,9 +2,6 @@
   using System;
   using System.Collections;
   using System.Collections.Generic;
-  using System.Linq;
-
-  using MochaDB.Streams;
 
   /// <summary>
   /// Base class for MochaDB collections.
@@ -61,16 +58,6 @@
     /// <param name="index">Index of item to remove.</param>
     public abstract void RemoveAt(int index);
 
-    /// <summary>
-    /// Return first element in collection.
-    /// </summary>
-    public abstract T GetFirst();
-
-    /// <summary>
-    /// Return last element in collection.
-    /// </summary>
-    public abstract T GetLast();
-
     #endregion Abstract Members
 
     #region Virtual Members
@@ -90,41 +77,17 @@
       collection.Contains(item);
 
     /// <summary>
-    /// Return max index of item count.
-    /// </summary>
-    public virtual int MaxIndex() =>
-        collection.Count-1;
-
-    /// <summary>
-    /// Return true if is empty collection but return false if not.
-    /// </summary>
-    public virtual bool IsEmptyCollection() =>
-        collection.Count == 0 ? true : false;
-
-    /// <summary>
     /// Return element by index.
     /// </summary>
     /// <param name="index">Index of element.</param>
     public virtual T ElementAt(int index) =>
-        collection.ElementAt(index);
+        collection[index];
 
     /// <summary>
     /// Create and return static array from collection.
     /// </summary>
     public virtual T[] ToArray() =>
         collection.ToArray();
-
-    /// <summary>
-    /// Create and return List<T> from collection.
-    /// </summary>
-    public virtual List<T> ToList() =>
-        collection.ToList();
-
-    /// <summary>
-    /// Returns values in MochaReader.
-    /// </summary>
-    public virtual MochaReader<T> ToReader() =>
-        new MochaReader<T>(collection);
 
     /// <summary>
     /// Returns enumerator.

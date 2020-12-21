@@ -139,18 +139,6 @@
     public virtual bool Contains(string name) =>
       IndexOf(name) != -1;
 
-    /// <summary>
-    /// Return first element in collection.
-    /// </summary>
-    public override MochaColumn GetFirst() =>
-        IsEmptyCollection() ? null : this[0];
-
-    /// <summary>
-    /// Return last element in collection.
-    /// </summary>
-    public override MochaColumn GetLast() =>
-        IsEmptyCollection() ? null : this[MaxIndex()];
-
     #endregion Members
 
     #region Properties

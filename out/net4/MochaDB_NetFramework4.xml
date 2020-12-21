@@ -28,12 +28,6 @@
             </summary>
             <typeparam name="T">Item type of collector.</typeparam>
         </member>
-        <member name="T:MochaDB.IMochaReadonlyCollection`1">
-            <summary>
-            Readonly collection interface for MochaDB.
-            </summary>
-            <typeparam name="T">Item type of collector.</typeparam>
-        </member>
         <member name="T:MochaDB.Logging.MochaLog">
             <summary>
             Log for MochaDB.
@@ -212,16 +206,6 @@
             </summary>
             <param name="index">Index of item to remove.</param>
         </member>
-        <member name="M:MochaDB.MochaCollection`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaCollection`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaCollection`1.IndexOf(`0)">
             <summary>
             Return index if index is find but return -1 if index is not find.
@@ -234,16 +218,6 @@
             </summary>
             <param name="item">Item to exists check.</param>
         </member>
-        <member name="M:MochaDB.MochaCollection`1.MaxIndex">
-            <summary>
-            Return max index of item count.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaCollection`1.IsEmptyCollection">
-            <summary>
-            Return true if is empty collection but return false if not.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaCollection`1.ElementAt(System.Int32)">
             <summary>
             Return element by index.
@@ -253,12 +227,6 @@
         <member name="M:MochaDB.MochaCollection`1.ToArray">
             <summary>
             Create and return static array from collection.
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaCollection`1.ToList" -->
-        <member name="M:MochaDB.MochaCollection`1.ToReader">
-            <summary>
-            Returns values in MochaReader.
             </summary>
         </member>
         <member name="M:MochaDB.MochaCollection`1.GetEnumerator">
@@ -434,16 +402,6 @@
             </summary>
             <param name="name">Name of item to exists check.</param>
         </member>
-        <member name="M:MochaDB.MochaColumnCollection.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaColumnCollection.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaColumnCollection.Item(System.String)">
             <summary>
             Return item by name.
@@ -513,19 +471,30 @@
             </summary>
             <param name="data">Data to check.</param>
         </member>
-        <member name="M:MochaDB.MochaColumnDataCollection.GetFirst">
+        <member name="M:MochaDB.MochaColumnDataCollection.GetEnumerator">
             <summary>
-            Return first element in collection.
+            Returns enumerator.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaColumnDataCollection.GetLast">
+        <member name="M:MochaDB.MochaColumnDataCollection.System#Collections#IEnumerable#GetEnumerator">
             <summary>
-            Return last element in collection.
+            Returns enumerator.
             </summary>
         </member>
         <member name="P:MochaDB.MochaColumnDataCollection.DataType">
             <summary>
             Data type of column.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaColumnDataCollection.Item(System.Int32)">
+            <summary>
+            Return item by index.
+            </summary>
+            <param name="index">Index of item.</param>
+        </member>
+        <member name="P:MochaDB.MochaColumnDataCollection.Count">
+            <summary>
+            Count of items.
             </summary>
         </member>
         <member name="T:MochaDB.MochaConvert">
@@ -1475,94 +1444,6 @@
         <member name="P:MochaDB.Mochaq.MochaQuery.MochaQ">
             <summary>
             Active MochaQ query.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaReadonlyCollection`1">
-            <summary>
-            Base class for MochaDB readonly collections.
-            </summary>    
-            <typeparam name="T">Item type.</typeparam>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.GetFirst">
-            <summary>
-            Return first element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.GetLast">
-            <summary>
-            Return last element in collection.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.IndexOf(`0)">
-            <summary>
-            Return index if index is find but return -1 if index is not find.
-            </summary>
-            <param name="item">Item to find index.</param>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.Contains(`0)">
-            <summary>
-            Return true if item is exists but return false if item not exists.
-            </summary>
-            <param name="item">Item to exists check.</param>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.MaxIndex">
-            <summary>
-            Return max index of item count.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.IsEmptyCollection">
-            <summary>
-            Return true if is empty collection but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.ElementAt(System.Int32)">
-            <summary>
-            Return element by index.
-            </summary>
-            <param name="index">Index of element.</param>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.ToArray">
-            <summary>
-            Create and return static array from collection.
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.MochaReadonlyCollection`1.ToList" -->
-        <member name="M:MochaDB.MochaReadonlyCollection`1.ToReader">
-            <summary>
-            Returns values in MochaReader.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.GetEnumerator">
-            <summary>
-            Returns enumerator.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.CopyTo(`0[],System.Int32)">
-            <summary>
-            Copy items to array by start index.
-            </summary>
-            <param name="array">Destination array.</param>
-            <param name="arrayIndex">Index to start copying.</param>
-        </member>
-        <member name="M:MochaDB.MochaReadonlyCollection`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>
-            Returns enumerator.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaReadonlyCollection`1.Item(System.Int32)">
-            <summary>
-            Return item by index.
-            </summary>
-            <param name="index">Index of item.</param>
-        </member>
-        <member name="P:MochaDB.MochaReadonlyCollection`1.Count">
-            <summary>
-            Count of items.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaReadonlyCollection`1.IsReadOnly">
-            <summary>
-            Is Readonly collection.
             </summary>
         </member>
         <member name="T:MochaDB.MochaRow">
