@@ -43,8 +43,8 @@ type ls() =
     if directories then
       for dir in Directory.GetDirectories(terminal.pwd) do
         terminal.printc("[DIR] ", ConsoleColor.Blue)
-        printfn "%s" dir
+        printfn "%s" (dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1))
     if files then
       for file in Directory.GetFiles(terminal.pwd) do
         terminal.printc("[FILE] ", ConsoleColor.Cyan)
-        printfn "%s" file
+        printfn "%s" (file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar) + 1))
