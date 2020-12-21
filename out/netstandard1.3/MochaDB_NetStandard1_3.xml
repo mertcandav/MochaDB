@@ -4,134 +4,6 @@
         <name>MochaDB</name>
     </assembly>
     <members>
-        <member name="T:MochaDB.Connection.MochaProvider">
-            <summary>
-            Provider for MochaDB connections.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.#ctor(System.String)">
-            <summary>
-            Create new MochaProvider.
-            </summary>
-            <param name="connectionString">Connection string for connect to MochaDb database.</param>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.GetAttribute(System.String,System.String)">
-            <summary>
-            Return attribute by name.
-            </summary>
-            <param name="name">Name of attribute.</param>
-            <param name="connectionString">Connection string for connect to MochaDb database.</param>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.GetConnectionString(System.Collections.Generic.IEnumerable{MochaDB.Connection.MochaProviderAttribute})">
-            <summary>
-            Return connection string by attributes.
-            </summary>
-            <param name="attributes">Attribtutes of connection string.</param>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.EnableConstant">
-            <summary>
-            Enable constant property of provider. It cannot be undone!
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.GetAttribute(System.String)">
-            <summary>
-            Returns attribute by name.
-            </summary>
-            <param name="name">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.GetBoolAttributeState(System.String)">
-            <summary>
-            Returns boolean provider attribute value by name.
-            </summary>
-            <param name="name">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProvider.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.Connection.MochaProvider.ConnectionString"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProvider.ConnectionString">
-            <summary>
-            Connection string of provider.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProvider.Path">
-            <summary>
-            Path of database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProvider.Password">
-            <summary>
-            Password of database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProvider.Readonly">
-            <summary>
-            Readonly state of connection.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProvider.Constant">
-            <summary>
-            Is readonly provider.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Connection.MochaConnectionState">
-            <summary>
-            Connection states for MochaDB.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Connection.MochaProviderAttribute">
-            <summary>
-            Attributes for MochaProviders.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProviderAttribute.#ctor">
-            <summary>
-            Create new MochaProviderAttribute.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProviderAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Create new MochaProviderAttribute.
-            </summary>
-            <param name="name">Name of attribute.</param>
-            <param name="value">Value of attribute.</param>
-        </member>
-        <member name="E:MochaDB.Connection.MochaProviderAttribute.NameChanged">
-            <summary>
-            This happens after name changed.
-            </summary>
-        </member>
-        <member name="E:MochaDB.Connection.MochaProviderAttribute.ValueChanged">
-            <summary>
-            This happens after value changed.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProviderAttribute.CheckValue">
-            <summary>
-            Check value by name.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProviderAttribute.GetProviderString">
-            <summary>
-            Returns string as in provider.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Connection.MochaProviderAttribute.ToString">
-            <summary>
-            Returns result of <see cref="M:MochaDB.Connection.MochaProviderAttribute.GetProviderString"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProviderAttribute.Name">
-            <summary>
-            Name.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Connection.MochaProviderAttribute.Value">
-            <summary>
-            Value.
-            </summary>
-        </member>
         <member name="T:MochaDB.Data.Types.Bit">
             <summary>
             Bit data type of MochaDB.
@@ -838,24 +710,16 @@
             MochaDatabase provides management of a MochaDB database.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.#ctor(System.String)">
+        <member name="M:MochaDB.MochaDatabase.#ctor(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            Create new MochaDatabase.
-            </summary>
-            <param name="connectionString">Connection string for connect to MochaDb database.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.#ctor(System.String,System.String)">
-            <summary>
-            Create new MochaDatabase.
+            Create new instance of <see cref="T:MochaDB.MochaDatabase"/>.
             </summary>
             <param name="path">Directory path of MochaDB database.</param>
             <param name="password">Password of MochaDB database.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.#ctor(MochaDB.Connection.MochaProvider)">
-            <summary>
-            Create new MochaDatabase.
-            </summary>
-            <param name="provider">Provider for connect database.</param>
+            <param name="logs">If true, a copy of the database is kept in database whenever the content changes.</param>
+            <param name="autoConnect">If true, it is automatically connected to the database.</param>
+            <param name="autoCreate">If True, a new database will be created if there is no database every time a connection is opened.</param>
+            <param name="readOnly">If true, cannot task of write in database.</param>
         </member>
         <member name="E:MochaDB.MochaDatabase.ConnectionCheckRequired">
             <summary>
@@ -1279,11 +1143,6 @@
             Returns all logs.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaDatabase.ReadLogs">
-            <summary>
-            Real all logs.
-            </summary>
-        </member>
         <member name="M:MochaDB.MochaDatabase.RestoreToLastLog">
             <summary>
             Restore database to last keeped log.
@@ -1307,11 +1166,6 @@
             Returns whether there is a log with the specified id.
             </summary>
             <param name="id">ID of log.</param>
-        </member>
-        <member name="M:MochaDB.MochaDatabase.GetXML">
-            <summary>
-            Return xml schema of database.
-            </summary>
         </member>
         <member name="M:MochaDB.MochaDatabase.GetXDocument">
             <summary>
@@ -1338,14 +1192,14 @@
             Suspend the changeds events.
             </summary>
         </member>
-        <member name="P:MochaDB.MochaDatabase.Provider">
-            <summary>
-            Connection provider.
-            </summary>
-        </member>
         <member name="P:MochaDB.MochaDatabase.Logs">
             <summary>
             Log keeping status.
+            </summary>
+        </member>
+        <member name="P:MochaDB.MochaDatabase.ReadOnly">
+            <summary>
+            Readonly state of connection.
             </summary>
         </member>
         <member name="P:MochaDB.MochaDatabase.Query">
@@ -1361,6 +1215,11 @@
         <member name="P:MochaDB.MochaDatabase.Name">
             <summary>
             Name of database.
+            </summary>
+        </member>
+        <member name="T:MochaDB.MochaConnectionState">
+            <summary>
+            Connection states of MochaDB.
             </summary>
         </member>
         <member name="T:MochaDB.MochaDataCollection">

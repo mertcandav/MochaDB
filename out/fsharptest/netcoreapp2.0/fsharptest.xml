@@ -71,13 +71,6 @@
  </summary>
  <param name="db">Target database.</param>
 </member>
-<member name="M:DbEngine.GetDbWithProvider(System.String)">
- <summary>
- Returns database by provider.
- </summary>
- <param name="provider">Database connection provider.</param>
- <returns>Database.</returns>
-</member>
 <member name="M:DbEngine.GetDbWithConnection(System.String,System.Boolean)">
  <summary>
  Returns database by path.

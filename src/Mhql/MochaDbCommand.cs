@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  using MochaDB.Connection;
   using MochaDB.mhql.keywords;
   using MochaDB.Streams;
 

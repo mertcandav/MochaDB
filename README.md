@@ -63,7 +63,7 @@ SUBROW 100
 
 ## Example use
 ```csharp
-MochaDatabase database = new MochaDatabase("path=.\\db; password=1231; logs= false");
+MochaDatabase database = new MochaDatabase(path: "db", password: "1231", logs: false);
 string username = Console.ReadLine();
 string password = Console.ReadLine();
 database.Connect();

@@ -3,7 +3,6 @@
 // Libraries
 open System
 open MochaDB
-open MochaDB.Querying
 
 /// <summary>
 /// Returns database by path.
@@ -24,15 +23,6 @@ let GetDbWithConnection(path:string, connect:bool) : MochaDatabase =
   let db:MochaDatabase = GetDb(path)
   if connect
   then db.Connect()
-  db
-
-/// <summary>
-/// Returns database by provider.
-/// </summary>
-/// <param name="provider">Database connection provider.</param>
-/// <returns>Database.</returns>
-let GetDbWithProvider(provider:string) : MochaDatabase =
-  let db:MochaDatabase = new MochaDatabase(provider)
   db
 
 /// <summary>

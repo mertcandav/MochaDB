@@ -4,7 +4,6 @@
 open System
 open System.Diagnostics
 open MochaDB
-open MochaDB.Connection
 open MochaDB.Mhql
 open MochaDB.Streams
 

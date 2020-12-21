@@ -29,13 +29,11 @@ namespace MochaDB {
   using System.Text;
   using System.Xml.Linq;
 
-  using MochaDB.Connection;
   using MochaDB.engine;
   using MochaDB.framework;
   using MochaDB.Logging;
   using MochaDB.Mochaq;
   using MochaDB.Querying;
-  using MochaDB.Streams;
 
   /// <summary>
   /// MochaDatabase provides management of a MochaDB database.
@@ -50,37 +48,33 @@ namespace MochaDB {
     internal volatile XDocument CDoc = null;
     private FileStream sourceStream = null;
 
+    private string path, password;
+    private bool autoCreate;
+
     #endregion Fields
 
     #region Constructors
 
     /// <summary>
-    /// Create new MochaDatabase.
-    /// </summary>
-    /// <param name="connectionString">Connection string for connect to MochaDb database.</param>
-    public MochaDatabase(string connectionString) :
-        this(new MochaProvider(connectionString)) { }
-
-    /// <summary>
-    /// Create new MochaDatabase.
+    /// Create new instance of <see cref="MochaDatabase"/>.
     /// </summary>
     /// <param name="path">Directory path of MochaDB database.</param>
     /// <param name="password">Password of MochaDB database.</param>
-    public MochaDatabase(string path,string password) :
-        this(new MochaProvider($"path={path}; password={password}")) { }
-
-    /// <summary>
-    /// Create new MochaDatabase.
-    /// </summary>
-    /// <param name="provider">Provider for connect database.</param>
-    public MochaDatabase(MochaProvider provider) {
-      provider.EnableConstant();
+    /// <param name="logs">If true, a copy of the database is kept in database whenever the content changes.</param>
+    /// <param name="autoConnect">If true, it is automatically connected to the database.</param>
+    /// <param name="autoCreate">If True, a new database will be created if there is no database every time a connection is opened.</param>
+    /// <param name="readOnly">If true, cannot task of write in database.</param>
+    public MochaDatabase(string path,string password = "",bool logs = false,bool autoConnect = false,
+      bool autoCreate = false,bool readOnly = false) {
       SuspendChangeEvents=false;
-      Provider=provider;
       State=MochaConnectionState.Disconnected;
-      Logs = Provider.GetBoolAttributeState("Logs");
+      this.path = path;
+      this.password = password;
+      Logs = logs;
+      this.autoCreate = autoCreate;
+      ReadOnly = readOnly;
 
-      if(Provider.GetBoolAttributeState("AutoConnect"))
+      if(autoConnect)
         Connect();
     }
 
@@ -234,15 +228,12 @@ namespace MochaDB {
     /// Save MochaDB database.
     /// </summary>
     internal void Save() {
-      if(Provider.Readonly)
+      if(ReadOnly)
         throw new MochaException("This connection is can read only, cannot task of write!");
 
-      string
-        content = aes.Encrypt(Iv,Key,CDoc.ToString()),
-        password = CDoc.Root.Element("Root").Element("Password").Value;
+      password = CDoc.Root.Element("Root").Element("Password").Value;
       Disconnect();
-      File.WriteAllText(Provider.Path,content);
-      Provider.Password = password;
+      File.WriteAllText(path,aes.Encrypt(Iv,Key,CDoc.ToString()));
       Connect();
 
       OnChanged(this,new EventArgs());
@@ -387,28 +378,28 @@ namespace MochaDB {
 
       State = MochaConnectionState.Connected;
 
-      if(!File.Exists(Provider.Path)) {
-        if(Provider.GetBoolAttributeState("AutoCreate"))
-          CreateMochaDB(Provider.Path.Substring(0,Provider.Path.Length-8),string.Empty,string.Empty);
+      if(!File.Exists(path)) {
+        if(autoCreate)
+          CreateMochaDB(path.Substring(0,path.Length-8),string.Empty,string.Empty);
         else
           throw new MochaException("There is no MochaDB database file in the specified path!");
       } else {
-        if(!IsMochaDB(Provider.Path))
+        if(!IsMochaDB(path))
           throw new MochaException("The file shown is not a MochaDB database file!");
       }
 
-      Doc = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(Provider.Path,Encoding.UTF8)));
+      Doc = XDocument.Parse(aes.Decrypt(Iv,Key,File.ReadAllText(path,Encoding.UTF8)));
 
       if(!CheckMochaDB())
         throw new MochaException("The MochaDB database is corrupt!");
-      if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(Provider.Password))
+      if(!string.IsNullOrEmpty(GetPassword()) && string.IsNullOrEmpty(password))
         throw new MochaException("The MochaDB database is password protected!");
-      else if(Provider.Password != GetPassword())
+      else if(password != GetPassword())
         throw new MochaException("MochaDB database password does not match the password specified!");
 
-      FileInfo fInfo = new FileInfo(Provider.Path);
+      FileInfo fInfo = new FileInfo(path);
       Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
-      sourceStream = File.Open(Provider.Path,FileMode.Open,FileAccess.ReadWrite);
+      sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
       Query = new MochaQuery(this,true);
     }
 
@@ -1175,12 +1166,6 @@ namespace MochaDB {
     }
 
     /// <summary>
-    /// Real all logs.
-    /// </summary>
-    public MochaReader<MochaLog> ReadLogs() =>
-        new MochaReader<MochaLog>(GetLogs());
-
-    /// <summary>
     /// Restore database to last keeped log.
     /// Returns false if not exists any log, true if not.
     /// </summary>
@@ -1230,12 +1215,6 @@ namespace MochaDB {
     #region XML
 
     /// <summary>
-    /// Return xml schema of database.
-    /// </summary>
-    public string GetXML() =>
-        GetXDocument().ToString();
-
-    /// <summary>
     /// Return XDocument of database.
     /// </summary>
     public XDocument GetXDocument() {
@@ -1252,7 +1231,7 @@ namespace MochaDB {
     /// </summary>
     public void Dispose() {
       Disconnect();
-      Provider=null;
+      path = password = null;
     }
 
     #endregion Members
@@ -1284,14 +1263,14 @@ namespace MochaDB {
     #region Properties
 
     /// <summary>
-    /// Connection provider.
-    /// </summary>
-    public MochaProvider Provider { get; private set; }
-
-    /// <summary>
     /// Log keeping status.
     /// </summary>
     public bool Logs { get; }
+
+    /// <summary>
+    /// Readonly state of connection.
+    /// </summary>
+    public bool ReadOnly { get; }
 
     /// <summary>
     /// Mapped MochaQuery.
@@ -1309,5 +1288,13 @@ namespace MochaDB {
     public string Name { get; private set; }
 
     #endregion Properties
+  }
+
+  /// <summary>
+  /// Connection states of MochaDB.
+  /// </summary>
+  public enum MochaConnectionState {
+    Disconnected = 0,
+    Connected = 1
   }
 }

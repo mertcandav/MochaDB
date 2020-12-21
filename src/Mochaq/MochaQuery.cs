@@ -121,7 +121,7 @@
 
       Database.OnConnectionCheckRequired(this,new EventArgs());
 
-      if(Database.Provider.Readonly)
+      if(Database.ReadOnly)
         throw new MochaException("This connection is can read only, cannot task of write!");
 
       //Check null.

@@ -28,7 +28,6 @@ open MhqlEngine
 open MhqlStress
 open FileEngine
 open MochaDB
-open MochaDB.Connection
 
 /// <summary>
 /// Entry point.
@@ -42,8 +41,7 @@ let main(argv:string[]) : int =
   path.ParentDirectory()
   path.ParentDirectory()
   let path:string = path.Path + "/tests"
-  let dbprovider:string = "path=" + (path + "/testdb.mhdb") + "; password=; AutoConnect=true"
-  let db:MochaDatabase = GetDbWithProvider(dbprovider)
+  let db:MochaDatabase = new MochaDatabase(path + "/testdb.mhdb",autoConnect=true)
   while true do
     printf "Command: "
     let input:string = Console.ReadLine()
