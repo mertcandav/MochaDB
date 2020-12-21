@@ -2399,32 +2399,16 @@
             MHQL Command.
             </summary>
         </member>
-        <member name="T:MochaDB.mhql.keywords.Mhql_IN">
+        <member name="T:MochaDB.mhql.keywords.Mhql_INEQ">
             <summary>
-            MHQL IN keyword.
+            MHQL IN and INEQ keyword.
             </summary>
         </member>
-        <member name="M:MochaDB.mhql.keywords.Mhql_IN.IsIN(System.String)">
+        <member name="M:MochaDB.mhql.keywords.Mhql_INEQ.IsIN(System.String)">
             <summary>
             Returns true if command is IN command, returns if not.
             </summary>
             <param name="command">Command to check.</param>
-        </member>
-        <member name="M:MochaDB.mhql.keywords.Mhql_IN.Process(MochaDB.MochaDatabase,System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
-            <summary>
-            Process in keyword.
-            </summary>
-            <param name="tdb">Target database.</param>
-            <param name="command">Command.</param>
-            <param name="table">Destination table.</param>
-            <param name="row">Destination row.</param>
-            <param name="from">Use state of FROM keyword.</param>
-            <returns>True if subquery is success, false if not.</returns>
-        </member>
-        <member name="T:MochaDB.mhql.keywords.Mhql_INEQ">
-            <summary>
-            MHQL INEQ keyword.
-            </summary>
         </member>
         <member name="M:MochaDB.mhql.keywords.Mhql_INEQ.IsINEQ(System.String)">
             <summary>
@@ -2432,7 +2416,7 @@
             </summary>
             <param name="command">Command to check.</param>
         </member>
-        <member name="M:MochaDB.mhql.keywords.Mhql_INEQ.Process(MochaDB.MochaDatabase,System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
+        <member name="M:MochaDB.mhql.keywords.Mhql_INEQ.Process(MochaDB.MochaDatabase,System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean,System.Boolean)">
             <summary>
             Process in keyword.
             </summary>
@@ -2441,6 +2425,7 @@
             <param name="table">Destination table.</param>
             <param name="row">Destination row.</param>
             <param name="from">Use state of FROM keyword.</param>
+            <param name="inmode">Set true if command is execute as in mode, set false if ineq mode.</param>
             <returns>True if subquery is success, false if not.</returns>
         </member>
         <member name="T:MochaDB.mhql.keywords.MhqlKeyword">

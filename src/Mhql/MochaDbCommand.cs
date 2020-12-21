@@ -123,7 +123,7 @@
 
       bool fromkw;
       string lastcommand;
-      if(command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
+      if(USE.Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
         string use = USE.GetUSE(out lastcommand);
         fromkw = Mhql_FROM.IsFROM(use);
         MochaTableResult table = USE.GetTable(use,fromkw);

@@ -134,12 +134,9 @@
     <Compile Include="..\mhql\keywords\IMhqlKeyword.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\keywords\in.cs">
+    <Compile Include="..\mhql\keywords\in_ineq.cs">
       <Visible>False</Visible>
-    </Compile>
-    <Compile Include="..\mhql\keywords\ineq.cs">
-      <Visible>False</Visible>
-    </Compile>    
+    </Compile>  
     <Compile Include="..\mhql\keywords\MhqlKeyword.cs">
       <Visible>False</Visible>
     </Compile>
