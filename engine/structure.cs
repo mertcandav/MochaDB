@@ -15,13 +15,13 @@ namespace MochaDB.engine {
       try {
         if(doc.Root.Name.LocalName != "MochaDB")
           return false;
-        else if(!Framework_XML.ExistsElement(doc,"Root/Password"))
+        else if(Framework_XML.GetXElement(doc,"Root/Password") == null)
           return false;
-        else if(!Framework_XML.ExistsElement(doc,"Root/Description"))
+        else if(Framework_XML.GetXElement(doc,"Root/Description") == null)
           return false;
-        else if(!Framework_XML.ExistsElement(doc,"Tables"))
+        else if(Framework_XML.GetXElement(doc,"Tables") == null)
           return false;
-        else if(!Framework_XML.ExistsElement(doc,"Logs"))
+        else if(Framework_XML.GetXElement(doc,"Logs") == null)
           return false;
         else
           return true;

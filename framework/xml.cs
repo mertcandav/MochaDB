@@ -24,13 +24,5 @@ namespace MochaDB.framework {
       }
       return element;
     }
-
-    /// <summary>
-    /// Checks for the presence of the element.
-    /// </summary>
-    /// <param name="doc">Base XDocument.</param>
-    /// <param name="path">Path of element.</param>
-    public static bool ExistsElement(XDocument doc,string path) =>
-        GetXElement(doc,path) != null;
   }
 }

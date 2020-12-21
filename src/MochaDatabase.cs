@@ -217,14 +217,6 @@ namespace MochaDB {
     }
 
     /// <summary>
-    /// Checks for the presence of the element.
-    /// </summary>
-    /// <param name="doc">XDocument.</param>
-    /// <param name="path">Path of element.</param>
-    internal bool ExistsElement(XDocument doc,string path) =>
-        GetXElement(doc,path) != null;
-
-    /// <summary>
     /// Save MochaDB database.
     /// </summary>
     internal void Save() {
@@ -630,7 +622,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="name">Name of table.</param>
     public bool ExistsTable(string name) =>
-        ExistsElement(Doc,$"Tables/{name}");
+        GetXElement(Doc,$"Tables/{name}") != null;
 
     #endregion Table
 

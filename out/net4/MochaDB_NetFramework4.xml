@@ -768,13 +768,6 @@
             <param name="doc">XDocument.</param>
             <param name="path">Path of element.</param>
         </member>
-        <member name="M:MochaDB.MochaDatabase.ExistsElement(System.Xml.Linq.XDocument,System.String)">
-            <summary>
-            Checks for the presence of the element.
-            </summary>
-            <param name="doc">XDocument.</param>
-            <param name="path">Path of element.</param>
-        </member>
         <member name="M:MochaDB.MochaDatabase.Save">
             <summary>
             Save MochaDB database.
@@ -2038,13 +2031,6 @@
         <member name="M:MochaDB.framework.Framework_XML.GetXElement(System.Xml.Linq.XDocument,System.String)">
             <summary>
             Return element by path.
-            </summary>
-            <param name="doc">Base XDocument.</param>
-            <param name="path">Path of element.</param>
-        </member>
-        <member name="M:MochaDB.framework.Framework_XML.ExistsElement(System.Xml.Linq.XDocument,System.String)">
-            <summary>
-            Checks for the presence of the element.
             </summary>
             <param name="doc">Base XDocument.</param>
             <param name="path">Path of element.</param>
