@@ -82,7 +82,7 @@
     /// <param name="name">Name of item.</param>
     /// <param name="datatype">Datatype of item.</param>
     public virtual void Add(string name,MochaDataType datatype) =>
-        Add(new MochaColumn(name,datatype));
+        Add(new MochaColumn(name,dataType: datatype));
 
     /// <summary>
     /// Add item from range.

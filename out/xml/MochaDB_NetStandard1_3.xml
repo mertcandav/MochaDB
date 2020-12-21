@@ -172,49 +172,6 @@
             Rows.
             </summary>
         </member>
-        <member name="T:MochaDB.MochaAttribute">
-            <summary>
-            Attribute for MochaDB.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttribute.#ctor(System.String)">
-            <summary>
-            Create new MochaAttribute.
-            </summary>
-            <param name="name">Name of attribute.</param>
-        </member>
-        <member name="M:MochaDB.MochaAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Create new MochaAttribute.
-            </summary>
-            <param name="name">Name of attribute.</param>
-            <param name="value">Value of attribute.</param>
-        </member>
-        <member name="E:MochaDB.MochaAttribute.NameChanged">
-            <summary>
-            This happens after name changed.
-            </summary>
-        </member>
-        <member name="E:MochaDB.MochaAttribute.ValueChanged">
-            <summary>
-            This happens after value changed.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaAttribute.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaAttribute.Value"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaAttribute.Name">
-            <summary>
-            Name.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaAttribute.Value">
-            <summary>
-            Value.
-            </summary>
-        </member>
         <member name="T:MochaDB.MochaCollection`1">
             <summary>
             Base class for MochaDB collections.
@@ -353,25 +310,14 @@
             Constructor.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaColumn.#ctor(System.String)">
-            <summary>
-            Create new MochaColumn.
-            </summary>
-            <param name="name">Name.</param>
-        </member>
-        <member name="M:MochaDB.MochaColumn.#ctor(System.String,MochaDB.MochaDataType)">
+        <member name="M:MochaDB.MochaColumn.#ctor(System.String,System.String,MochaDB.MochaDataType,System.Collections.Generic.IEnumerable{MochaDB.MochaData})">
             <summary>
             Create new MochaColumn.
             </summary>
             <param name="name">Name of column.</param>
+            <param name="description">Description of column.</param>
             <param name="dataType">Data type of column.</param>
-        </member>
-        <member name="M:MochaDB.MochaColumn.#ctor(System.String,MochaDB.MochaDataType,System.Collections.Generic.IEnumerable{MochaDB.MochaData})">
-            <summary>
-            Create new MochaColumn.
-            </summary>
-            <param name="name">Name of column.</param>
-            <param name="dataType">Data type of column.</param>
+            <param name="datas">Datas of column.</param>
         </member>
         <member name="E:MochaDB.MochaColumn.NameChanged">
             <summary>
@@ -1690,15 +1636,9 @@
             This is table object for MochaDB.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaTable.#ctor(System.String)">
-            <summary>
-            Create new MochaTable.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
         <member name="M:MochaDB.MochaTable.#ctor(System.String,System.String)">
             <summary>
-            Create new MochaTable.
+            Create new instance of <see cref="T:MochaDB.MochaTable"/>.
             </summary>
             <param name="name">Name of table.</param>
             <param name="description">Description of table.</param>

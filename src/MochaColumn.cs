@@ -30,32 +30,19 @@
     /// <summary>
     /// Create new MochaColumn.
     /// </summary>
-    /// <param name="name">Name.</param>
-    public MochaColumn(string name) :
+    /// <param name="name">Name of column.</param>
+    /// <param name="description">Description of column.</param>
+    /// <param name="dataType">Data type of column.</param>
+    /// <param name="datas">Datas of column.</param>
+    public MochaColumn(string name,string description = "",MochaDataType dataType = MochaDataType.String,
+      IEnumerable<MochaData> datas = null) :
         this() {
       Name = name;
-      DataType = MochaDataType.String;
-      Description = string.Empty;
-    }
-
-    /// <summary>
-    /// Create new MochaColumn.
-    /// </summary>
-    /// <param name="name">Name of column.</param>
-    /// <param name="dataType">Data type of column.</param>
-    public MochaColumn(string name,MochaDataType dataType) :
-        this(name) {
-      Name = name;
+      Description = description;
       DataType = dataType;
+      if(datas != null)
+        Datas.AddRange(datas);
     }
-
-    /// <summary>
-    /// Create new MochaColumn.
-    /// </summary>
-    /// <param name="name">Name of column.</param>
-    /// <param name="dataType">Data type of column.</param>
-    public MochaColumn(string name,MochaDataType dataType,IEnumerable<MochaData> datas) :
-        this(name,dataType) => Datas.AddRange(datas);
 
     #endregion Cosntructors
 

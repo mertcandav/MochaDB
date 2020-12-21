@@ -664,7 +664,7 @@ namespace MochaDB {
     /// <param name="tableName">Name of table.</param>
     /// <param name="name">Name of column.</param>
     public void CreateColumn(string tableName,string name) =>
-      AddColumn(tableName,new MochaColumn(name,MochaDataType.String));
+      AddColumn(tableName,new MochaColumn(name,dataType: MochaDataType.String));
 
     /// <summary>
     /// Remove column from table by name.
@@ -741,7 +741,7 @@ namespace MochaDB {
       if(!ExistsColumn(tableName,name))
         throw new MochaException("Column not found in this name!");
 
-      MochaColumn column = new MochaColumn(name,GetColumnDataType(tableName,name));
+      MochaColumn column = new MochaColumn(name,dataType: GetColumnDataType(tableName,name));
       column.MHQLAsText = name;
       column.Description = GetColumnDescription(tableName,name);
       column.Datas.collection.AddRange(GetDatas(tableName,name));

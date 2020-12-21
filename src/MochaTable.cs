@@ -16,26 +16,19 @@
     #region Constructors
 
     /// <summary>
-    /// Create new MochaTable.
+    /// Create new instance of <see cref="MochaTable"/>.
     /// </summary>
     /// <param name="name">Name of table.</param>
-    public MochaTable(string name) {
+    /// <param name="description">Description of table.</param>
+    public MochaTable(string name,string description = "") {
       Name = name;
-      Description = string.Empty;
+      Description = description;
       Columns = new MochaColumnCollection();
       Columns.Changed+=Column_Changed;
       Rows = new MochaRowCollection();
       Rows.Changed+=Row_Changed;
       Rows.RowChanged+=Row_Changed;
     }
-
-    /// <summary>
-    /// Create new MochaTable.
-    /// </summary>
-    /// <param name="name">Name of table.</param>
-    /// <param name="description">Description of table.</param>
-    public MochaTable(string name,string description) :
-        this(name) => Description=description;
 
     #endregion Constructors
 
