@@ -3,6 +3,7 @@ CHANGELOGS of MochaDB.
 # Release 3.4.5 [ Current ]
 + Optimizations.
 + Check exists state on database creation.
++ Remove connection strings.
 + Remove trash methods from MochaConvert.
 + Remove castings from MochaData.
 + Remove dynamic queries from MochaQ.
