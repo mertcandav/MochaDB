@@ -28,9 +28,22 @@ open MochaDB
 open MochaDB.Mhql
 
 // Fields
+
+/// <summary>
+/// Main form of application.
+/// </summary>
 let form:Form = new Form()
+
+/// <summary>
+/// Editor area for mhql command.
+/// </summary>
 let codebox:RichTextBox = new RichTextBox()
+
+/// <summary>
+/// DataGrid for show tables.
+/// </summary>
 let gridview:DataGridView = new DataGridView()
+
 
 // Functions
 

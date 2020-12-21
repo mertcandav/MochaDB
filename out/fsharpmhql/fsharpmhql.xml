@@ -15,5 +15,20 @@
  </summary>
  <param name="e">Key arguments.</param>
 </member>
+<member name="P:Program.gridview">
+ <summary>
+ DataGrid for show tables.
+ </summary>
+</member>
+<member name="P:Program.codebox">
+ <summary>
+ Editor area for mhql command.
+ </summary>
+</member>
+<member name="P:Program.form">
+ <summary>
+ Main form of application.
+ </summary>
+</member>
 </members>
 </doc>
