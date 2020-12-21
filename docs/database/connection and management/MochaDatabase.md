@@ -1,16 +1,11 @@
-MochaDatabase, MochaDB accesses database files and offers the ability to manage them.<br>
+﻿MochaDatabase, MochaDB accesses database files and offers the ability to manage them.<br>
 It provides easy management with the help of functions.<br>
 It is an object to use in code.
 
 ### Examples
-Use connection string to connect to the MochaDB database.
+When connecting, the parameters in the constructor are used. All have default values ​​except path.
 ```C#
-MochaDatabase db = new MochaDatabase("connection string");
-```
-
-Connect only by specifying the file path and password.
-```C#
-MochaDatabase db = new MochaDatabase("path","password");
+MochaDatabase db = new MochaDatabase("./employees", password: "1231", logs: true);
 ```
 
 Trying to take any action with the connection closed will result in an error. The connection must be open during the operations.
@@ -18,6 +13,49 @@ Trying to take any action with the connection closed will result in an error. Th
 db.Connect(); // For open connection.
 db.Disconnect(); // For close connection.
 ```
+
+### Constructor Parameters
+<table border="1">
+    <tr>
+        <td width="15%"><strong>Name</strong></td>
+        <td width="75%"><strong>Attribute</strong></td>
+        <td width="20%"><strong>Value Type</strong></td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>Specifies the path of the database.</td>
+        <td>String</td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>Specifies the password of the database.</td>
+        <td>String</td>
+    </tr>
+    <tr>
+        <td>autoConnect</td>
+        <td">If true, it is automatically connected to the database.</td>
+        <td>True/False</td>
+        <td>Boolean</td>
+    </tr>
+    <tr>
+        <td>readOnly</td>
+        <td">If true, cannot task of write in database.</td>
+        <td>True/False</td>
+        <td>Boolean</td>
+    </tr>
+    <tr>
+        <td>autoCreate</td>
+        <td">If True, a new database will be created if there is no database every time a connection is opened.</td>
+        <td>True/False</td>
+        <td>Boolean</td>
+    </tr>
+    <tr>
+        <td>logs</td>
+        <td">If true, a copy of the database is kept in database whenever the content changes.</td>
+        <td>True/False</td>
+        <td>Boolean</td>
+    </tr>
+</table>
 
 ### Favorite Functions
 #### General

@@ -171,10 +171,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "keywords", "keywords", "{1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connection and management", "connection and management", "{75B5DD0B-6431-4BDA-BF24-DBFE614482C8}"
 	ProjectSection(SolutionItems) = preProject
-		docs\database\connection and management\connection strings.md = docs\database\connection and management\connection strings.md
 		docs\database\connection and management\MochaDatabase.md = docs\database\connection and management\MochaDatabase.md
-		docs\database\connection and management\MochaProvider.md = docs\database\connection and management\MochaProvider.md
-		docs\database\connection and management\MochaProviderAttribute.md = docs\database\connection and management\MochaProviderAttribute.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data modeling", "data modeling", "{3F20A6FD-BBF3-4CD3-BE5A-5242AC9AEF96}"
