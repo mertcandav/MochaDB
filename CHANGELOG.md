@@ -9,6 +9,7 @@ CHANGELOGS of MochaDB.
 + Remove dynamic queries from MochaQ.
 + Fix comment lines support of mhql.
 + Fix range debugging of subqueries.
++ Fix AutoCreate system.
 
 # Release 3.4.9.1 [ 14 Dec 2020 ]
 + Fix ``MochaRowCollection.Add`` function.

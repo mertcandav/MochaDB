@@ -372,7 +372,7 @@ namespace MochaDB {
 
       if(!File.Exists(path)) {
         if(autoCreate)
-          CreateMochaDB(path.Substring(0,path.Length-8),string.Empty,string.Empty);
+          CreateMochaDB(path,string.Empty,string.Empty);
         else
           throw new MochaException("There is no MochaDB database file in the specified path!");
       } else {
