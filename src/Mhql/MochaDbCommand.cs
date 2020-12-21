@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
 
+  using MochaDB.mhql;
   using MochaDB.mhql.keywords;
   using MochaDB.Streams;
 
@@ -86,19 +87,6 @@
     #region Members
 
     /// <summary>
-    /// Returns first data as MochaTableResult.
-    /// </summary>
-    public virtual MochaTableResult ExecuteScalarTable() =>
-      ExecuteScalar() as MochaTableResult;
-
-    /// <summary>
-    /// Returns first data as MochaTableResult.
-    /// </summary>
-    /// <param name="command">MHQL Command to set.</param>
-    public virtual MochaTableResult ExecuteScalarTable(string command) =>
-      ExecuteScalar(command) as MochaTableResult;
-
-    /// <summary>
     /// Returns first result or null.
     /// </summary>
     /// <param name="command">MQL Command to set.</param>
@@ -135,7 +123,7 @@
 
       bool fromkw;
       string lastcommand;
-      if(Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
+      if(command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
         string use = USE.GetUSE(out lastcommand);
         fromkw = Mhql_FROM.IsFROM(use);
         MochaTableResult table = USE.GetTable(use,fromkw);
@@ -205,9 +193,10 @@
         if(value==command)
           return;
 
-        command = value.Trim();
+        command = Mhql_LEXER.RemoveComments(value).Trim();
         for(int index = 0; index < keywords.Length; ++index)
           keywords[index].Command = command;
+        command = value;
       }
     }
 

@@ -81,9 +81,6 @@
     <Compile Include="..\mhql\engine\must.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\engine\editor.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\engine\condition.cs">
       <Visible>False</Visible>
     </Compile>

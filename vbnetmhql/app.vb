@@ -33,7 +33,7 @@ Public Class app
         Dim path = New MochaPath(Directory.GetCurrentDirectory)
         path.ParentDirectory()
         path.ParentDirectory()
-        db = New MochaDatabase($"{path.Path}/tests/testdb;", autoConnect:=True)
+        db = New MochaDatabase($"{path.Path}/tests/testdb", autoConnect:=True)
         Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
         Dim result As MochaTableResult = command.ExecuteScalar
         datasource.Columns.Clear()

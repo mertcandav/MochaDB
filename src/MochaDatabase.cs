@@ -68,7 +68,7 @@ namespace MochaDB {
       bool autoCreate = false,bool readOnly = false) {
       SuspendChangeEvents=false;
       State=MochaConnectionState.Disconnected;
-      this.path = path;
+      this.path = path.EndsWith(".mhdb") ? path : path + ".mhdb";
       this.password = password;
       Logs = logs;
       this.autoCreate = autoCreate;

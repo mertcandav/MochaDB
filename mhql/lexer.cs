@@ -1,6 +1,7 @@
 namespace MochaDB.mhql {
   using System;
   using System.Collections.Generic;
+  using System.Text.RegularExpressions;
 
   /// <summary>
   /// Lexer of MHQL.
@@ -38,6 +39,18 @@ namespace MochaDB.mhql {
         return value.Substring(1,value.Length-2).Trim();
       else
         throw new MochaException("Brackets is opened but not close!");
+    }
+
+    /// <summary>
+    /// Remove all comments from code.
+    /// </summary>
+    /// <param name="command">Command.</param>
+    public static string RemoveComments(string command) {
+      Regex multiline = new Regex(@"/\*.*?\*/",RegexOptions.Singleline);
+      command = multiline.Replace(command,string.Empty);
+      Regex singleline = new Regex(@"//.*$",RegexOptions.Multiline);
+      command = singleline.Replace(command,string.Empty);
+      return command.Trim();
     }
 
     /// <summary>

@@ -34,7 +34,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA2
 	ProjectSection(SolutionItems) = preProject
 		mhql\engine\condition.cs = mhql\engine\condition.cs
 		mhql\engine\condition_lexer.cs = mhql\engine\condition_lexer.cs
-		mhql\engine\editor.cs = mhql\engine\editor.cs
 		mhql\engine\must.cs = mhql\engine\must.cs
 		mhql\engine\orderbycomparer.cs = mhql\engine\orderbycomparer.cs
 	EndProjectSection

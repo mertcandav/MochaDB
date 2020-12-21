@@ -100,17 +100,6 @@
             Check connection and database.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable">
-            <summary>
-            Returns first data as MochaTableResult.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable(System.String)">
-            <summary>
-            Returns first data as MochaTableResult.
-            </summary>
-            <param name="command">MHQL Command to set.</param>
-        </member>
         <member name="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalar(System.String)">
             <summary>
             Returns first result or null.
@@ -1831,13 +1820,6 @@
             <param name="db">Target database.</param>
             <param name="mhql">MHQL Command.</param>
         </member>
-        <member name="M:MochaDB.Querying.QueryingMochaDatabase.ExecuteScalarTable(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Execute <see cref="M:MochaDB.Mhql.MochaDbCommand.ExecuteScalarTable"/> function.
-            </summary>
-            <param name="db">Target database.</param>
-            <param name="mhql">MHQL Command.</param>
-        </member>
         <member name="M:MochaDB.Querying.QueryingMochaDatabase.GetTables(MochaDB.MochaDatabase,System.Func{MochaDB.MochaTable,System.Boolean})">
             <summary>
             Returns all tables in database.
@@ -2116,6 +2098,12 @@
             <param name="close">Close bracket.</param>
             <returns>Range of brackets.</returns>
         </member>
+        <member name="M:MochaDB.mhql.Mhql_LEXER.RemoveComments(System.String)">
+            <summary>
+            Remove all comments from code.
+            </summary>
+            <param name="command">Command.</param>
+        </member>
         <member name="M:MochaDB.mhql.Mhql_LEXER.RangeSubqueryBrace(System.String)">
             <summary>
             Get range by subquery standards.
@@ -2220,29 +2208,6 @@
             <param name="table">Table.</param>
             <param name="row">Row.</param>
             <param name="from">Use state FROM keyword.</param>
-        </member>
-        <member name="T:MochaDB.mhql.engine.MhqlEng_EDITOR">
-            <summary>
-            MHQL command editor.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.DecomposeBrackets(System.String@)">
-            <summary>
-            Decompose command ares by brackets.
-            </summary>
-            <param name="command">Command.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.DecomposeBrackets(System.String)">
-            <summary>
-            Returns decompose command ares by brackets.
-            </summary>
-            <param name="value">Value to decompose.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_EDITOR.RemoveComments(System.String@)">
-            <summary>
-            Remove all comments from code.
-            </summary>
-            <param name="command">Command.</param>
         </member>
         <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION">
             <summary>

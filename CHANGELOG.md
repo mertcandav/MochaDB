@@ -7,6 +7,7 @@ CHANGELOGS of MochaDB.
 + Remove trash methods from MochaConvert.
 + Remove castings from MochaData.
 + Remove dynamic queries from MochaQ.
++ Fix comment lines support of mhql.
 + Fix range debugging of subqueries.
 
 # Release 3.4.9.1 [ 14 Dec 2020 ]

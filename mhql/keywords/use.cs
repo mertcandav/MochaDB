@@ -5,7 +5,6 @@ namespace MochaDB.mhql.keywords {
   using System.Text.RegularExpressions;
 
   using MochaDB.framework;
-  using MochaDB.mhql.engine;
   using MochaDB.Mhql;
   using MochaDB.Querying;
 
@@ -75,7 +74,7 @@ namespace MochaDB.mhql.keywords {
               Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
           if(column.Tag != "COUNT")
             column.Description =
-                Mhql_GRAMMAR.GetIndexOfColumn(MhqlEng_EDITOR.DecomposeBrackets(cmd),cols,from).ToString();
+                Mhql_GRAMMAR.GetIndexOfColumn(cmd.Substring(0,cmd.Length - 2),cols,from).ToString();
           return column;
         } else {
           string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim() : cmd;
@@ -118,8 +117,8 @@ namespace MochaDB.mhql.keywords {
           }
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
-            IList<MochaColumn> _cols = Tdb.ExecuteScalarTable(Mhql_LEXER.RangeSubqueryBrace(
-              callcmd.Substring(obrace).Trim())).Columns;
+            IList<MochaColumn> _cols = (Tdb.ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
+              callcmd.Substring(obrace).Trim())) as MochaTableResult).Columns;
             string mode =
               callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;
