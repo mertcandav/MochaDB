@@ -63,16 +63,21 @@ SUBROW 100
 
 ## Example use
 ```csharp
-MochaDatabase database = new MochaDatabase(path: "db", password: "1231", logs: false);
-string username = Console.ReadLine();
-string password = Console.ReadLine();
-database.Connect();
-MochaTableResult result = database.ExecuteScalarTable(
+// Create your database connection.
+var database = new MochaDatabase(path: "db", password: "1231", logs: false);
+var username = Console.ReadLine(); // Get username from user.
+var password = Console.ReadLine(); // get password from user.
+database.Connect(); // Connect to database.
+
+// Get table filtered by username and password with using mhql query.
+var result = database.ExecuteScalar(
     $@"USE Username, Password
        FROM Persons
-       MUST Username == ""{username}"" AND Password == ""{password}""");
-database.Disconnect();
-if(result.IsEmpty())
+       MUST Username == ""{username}"" AND
+       Password == ""{password}""") as MochaTableResult;
+
+database.Disconnect(); // Disconnect from database.
+if(result.Any()) // If table is empty.
     Console.WriteLine("Username or password is wrong!");
 else
     Console.WriteLine("Success!");
