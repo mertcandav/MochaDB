@@ -7,7 +7,7 @@
   /// Base class for MochaDB collections.
   /// </summary>    
   /// <typeparam name="T">Item type.</typeparam>
-  public abstract class MochaCollection<T>:IMochaCollection<T> {
+  public abstract class MochaCollection<T>:IEnumerable<T>, IEnumerable, ICollection<T> {
     #region Fields
 
     internal protected List<T> collection;

@@ -68,7 +68,7 @@
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public virtual bool IsEmpty() =>
+    public virtual bool Any() =>
       Rows.Length == 0;
 
     #endregion Members

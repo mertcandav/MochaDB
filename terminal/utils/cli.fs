@@ -31,7 +31,7 @@ type cli() =
   /// </summary>
   /// <param name="table">MochaTable to print.</param>
   static member printTable(table:MochaTable) : unit =
-    if table.IsEmpty() then
+    if table.Any() then
       printfn "Table is empty!"
     else
       let mutable tableWidth:int = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
@@ -75,7 +75,7 @@ type cli() =
   /// </summary>
   /// <param name="table">MochaTableResult to print.</param>
   static member printTable(table:MochaTableResult) : unit =
-    if table.IsEmpty() then
+    if table.Any() then
       printfn "Table is empty!"
     else
       let mutable tx:int = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)

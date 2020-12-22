@@ -135,7 +135,7 @@
     /// <summary>
     /// Returns table empty state.
     /// </summary>
-    public virtual bool IsEmpty() =>
+    public virtual bool Any() =>
       Rows.Count == 0;
 
     #endregion Members

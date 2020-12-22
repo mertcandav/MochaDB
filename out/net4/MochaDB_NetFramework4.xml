@@ -22,12 +22,6 @@
             Returns value as string.
             </summary>
         </member>
-        <member name="T:MochaDB.IMochaCollection`1">
-            <summary>
-            Collection interface for MochaDB.
-            </summary>
-            <typeparam name="T">Item type of collector.</typeparam>
-        </member>
         <member name="T:MochaDB.Logging.MochaLog">
             <summary>
             Log for MochaDB.
@@ -151,7 +145,7 @@
             Set datas by row datas.
             </summary>
         </member>
-        <member name="M:MochaDB.Mhql.MochaTableResult.IsEmpty">
+        <member name="M:MochaDB.Mhql.MochaTableResult.Any">
             <summary>
             Returns table empty state.
             </summary>
@@ -1550,7 +1544,7 @@
             Sort columns by name.
             </summary>
         </member>
-        <member name="M:MochaDB.MochaTable.IsEmpty">
+        <member name="M:MochaDB.MochaTable.Any">
             <summary>
             Returns table empty state.
             </summary>
