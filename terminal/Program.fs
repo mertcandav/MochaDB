@@ -61,7 +61,7 @@ let processCommand(ns:string, cmd:string) : unit =
   | "connect" -> connect.proc(cmd)
   | "clear" -> Console.Clear()
   | "help" -> showHelp()
-  | "exit" -> exit(0x0)
+  | "exit" -> exit(0)
   | _ -> terminal.printError("There is no such command!")
 
 /// <summary>
@@ -85,4 +85,4 @@ let main(argv:string[]) : int =
       if input <> String.Empty then
         processCommand(commandProcessor.splitNamespace(input).ToLower(),
                        commandProcessor.removeNamespace(input))
-  0x0
+  0
