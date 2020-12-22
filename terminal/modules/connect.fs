@@ -39,31 +39,31 @@ type connect() =
               if logs <> String.Empty then
                 if bool.TryParse(logs,ref blogs) = false then
                   terminal.printError("Logs value is invalid!")
-                else
-                  let db = new MochaDatabase(
-                    path=Path.Combine(terminal.pwd,name),
-                    password=password,
-                    logs=blogs)
-                  db.Connect()
-                  let mutable break:bool = false
-                  while break = false do
-                    let input:string = terminal.getInput(db.Name + " ", ConsoleColor.White)
-                    if input <> String.Empty then
-                    let cmd:string = commandProcessor.removeNamespace(input)
-                    match commandProcessor.splitNamespace(input).ToLower() with
-                    | "mochaq" -> mochaq.proc(db, cmd)
-                    | "mhql" -> mhql.proc(db, cmd)
-                    | "disconnect" -> break <- true
-                    | "help" ->
-                      cli.printDictAsTable(dict[
-                        "mochaq", "Execute MochaQ queries.";
-                        "disconnect", "Disconnect.";
-                        "help", "Show help."
-                      ])
-                    | _ -> terminal.printError("There is no such command!")
-                  db.Disconnect()
-                  db.Dispose()
-                with
-                | :? Exception as except ->
-                  terminal.printError(except.ToString())
+                  ()
+              let db = new MochaDatabase(
+                path = Path.Combine(terminal.pwd,name),
+                password = password,
+                logs = blogs)
+              db.Connect()
+              let mutable break:bool = false
+              while break = false do
+                let input:string = terminal.getInput(db.Name + " ", ConsoleColor.White)
+                if input <> String.Empty then
+                let cmd:string = commandProcessor.removeNamespace(input)
+                match commandProcessor.splitNamespace(input).ToLower() with
+                | "mochaq" -> mochaq.proc(db, cmd)
+                | "mhql" -> mhql.proc(db, cmd)
+                | "disconnect" -> break <- true
+                | "help" ->
+                  cli.printDictAsTable(dict[
+                    "mochaq", "Execute MochaQ queries.";
+                    "disconnect", "Disconnect.";
+                    "help", "Show help."
+                  ])
+                | _ -> terminal.printError("There is no such command!")
+              db.Disconnect()
+              db.Dispose()
+            with
+            | :? Exception as except ->
+              terminal.printError(except.ToString())
           | _ -> terminal.printError("Logs value is not valid!")
