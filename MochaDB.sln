@@ -205,7 +205,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{F5844D25-BB23-45BE-BB32-0EC22321D43F}"
 	ProjectSection(SolutionItems) = preProject
 		docs\database\rules\naming conventions.md = docs\database\rules\naming conventions.md
-		docs\database\rules\value conventions.md = docs\database\rules\value conventions.md
 	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "terminal", "terminal\terminal.fsproj", "{E7421A8C-2965-4B8D-9275-7EF5ADB08353}"
