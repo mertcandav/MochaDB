@@ -66,6 +66,12 @@ namespace MochaDB.mhql.keywords {
     /// <param name="usecommand">Use command.</param>
     public MochaTableResult GetTable(string usecommand,bool from) {
       MochaColumn GetColumn(string cmd,IList<MochaColumn> cols) {
+        string decomposeBrackets(string value) {
+          int dex;
+          if((dex = value.IndexOf('(')) != -1)
+            return value.Substring(dex+1,value.Length-dex-2);
+          return value;
+        }
         string name = Mhql_AS.GetAS(ref cmd);
         if(Mhql_GRAMMAR.UseFunctions.MatchKey(cmd)) {
           MochaColumn column = new MochaColumn();
@@ -74,7 +80,7 @@ namespace MochaDB.mhql.keywords {
               Mhql_GRAMMAR.UseFunctions.GetValueByMatchKey(cmd);
           if(column.Tag != "COUNT")
             column.Description =
-                Mhql_GRAMMAR.GetIndexOfColumn(cmd.Substring(0,cmd.Length - 2),cols,from).ToString();
+                Mhql_GRAMMAR.GetIndexOfColumn(decomposeBrackets(cmd),cols,from).ToString();
           return column;
         } else {
           string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim() : cmd;
