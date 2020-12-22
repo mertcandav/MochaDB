@@ -16,7 +16,8 @@ type commandProcessor() =
   /// <param name="cmd">Command.</param>
   /// <returns>Module name(namespace).</returns>
   static member splitNamespace(cmd:string) : string =
-    cmd.Split(' ').[0]
+    let pos:int = cmd.IndexOf(" ")
+    if pos = -1 then cmd else cmd.Substring(0, pos).TrimStart()
 
   /// <summary>
   /// Remove namespace from command.
@@ -24,7 +25,8 @@ type commandProcessor() =
   /// <param name="cmd">Command.</param>
   /// <returns>Command without namespace.</returns>
   static member removeNamespace(cmd:string) : string =
-    cmd.Substring(commandProcessor.splitNamespace(cmd).Length).TrimStart()
+    let pos:int = cmd.IndexOf(" ")
+    if pos = -1 then String.Empty else cmd.Substring(pos + 1).TrimStart()
 
   /// <summary>
   /// Returns arguments of command.
