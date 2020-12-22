@@ -2378,21 +2378,6 @@
             <param name="table">Table to grouping.</param>
             <param name="from">Use state FROM keyword.</param>
         </member>
-        <member name="T:MochaDB.mhql.keywords.IMhqlKeyword">
-            <summary>
-            Interface for Mhql keywords.
-            </summary>
-        </member>
-        <member name="P:MochaDB.mhql.keywords.IMhqlKeyword.Tdb">
-            <summary>
-            Target database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.mhql.keywords.IMhqlKeyword.Command">
-            <summary>
-            MHQL Command.
-            </summary>
-        </member>
         <member name="T:MochaDB.mhql.keywords.Mhql_INEQ">
             <summary>
             MHQL IN and INEQ keyword.

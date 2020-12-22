@@ -131,9 +131,6 @@
     <Compile Include="..\mhql\keywords\groupby.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\keywords\IMhqlKeyword.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\keywords\in_ineq.cs">
       <Visible>False</Visible>
     </Compile>  
