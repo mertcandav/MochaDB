@@ -51,7 +51,6 @@ namespace MochaDB.mhql.keywords {
         if(count == 0) {
           Match match = pattern.Match(command.Substring(index));
           if(match.Success && match.Index == 0) {
-            Console.WriteLine(match.Value);
             final = command.Substring(index).Trim();
             return command.Substring(0,index).Trim();
           }
