@@ -79,7 +79,7 @@ IntLiteral : [0-9]+ ;
 NullLiteral : 'NULL';
 StringLiteral : '"' StringCharacters? '"' ;
 fragment StringCharacters : StringCharacter+ ;
-fragment StringCharacter : ~["\\] | EscapeSequence ;
+fragment StringCharacter : ~['\\'] | EscapeSequence ;
 fragment EscapeSequence : '\\' . ;
 
 // Symbols
