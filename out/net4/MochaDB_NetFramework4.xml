@@ -1349,23 +1349,6 @@
             <param name="database">MochaDatabase object to use querying.</param>
             <param name="mochaQ">MochaQuery to use.</param>
         </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand(System.String)">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.ExecuteCommand">
-            <summary>
-            Detect command type and execute. Returns result if exists returned result.
-            </summary>
-        </member>
         <member name="M:MochaDB.Mochaq.MochaQuery.Run(System.String)">
             <summary>
             Runs the active MochaQ query. Even if there is an incoming value, it will not return.

@@ -54,42 +54,6 @@
 
     #region Members
 
-    #region ExecuteCommand
-
-    /// <summary>
-    /// Detect command type and execute. Returns result if exists returned result.
-    /// </summary>
-    /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual object ExecuteCommand(string mochaQ) {
-      MochaQ=mochaQ;
-      return ExecuteCommand();
-    }
-
-    /// <summary>
-    /// Detect command type and execute. Returns result if exists returned result.
-    /// </summary>
-    /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-    public virtual object ExecuteCommand(MochaDatabase database,string mochaQ) {
-      Database=database;
-      MochaQ=mochaQ;
-      return ExecuteCommand();
-    }
-
-    /// <summary>
-    /// Detect command type and execute. Returns result if exists returned result.
-    /// </summary>
-    public virtual object ExecuteCommand() {
-      if(MochaQ.IsRunQuery()) {
-        Run();
-        return null;
-      } else if(MochaQ.IsGetRunQuery()) {
-        return GetRun();
-      } else
-        throw new MochaException("This command is a not valid MochaQ command!");
-    }
-
-    #endregion ExecuteCommands
-
     #region Run
 
     /// <summary>
@@ -120,9 +84,6 @@
         throw new MochaException(@"This MochaQ command is not ""Run"" type command.");
 
       Database.OnConnectionCheckRequired(this,new EventArgs());
-
-      if(Database.ReadOnly)
-        throw new MochaException("This connection is can read only, cannot task of write!");
 
       //Check null.
       if(string.IsNullOrEmpty(MochaQ))
@@ -347,8 +308,6 @@
                 * COLUMNCOUNT(queryPaths[1]);
             case "EXISTSTABLE":
               return Database.ExistsTable(queryPaths[1]);
-            case "#REMOVETABLE":
-              return Database.RemoveTable(queryPaths[1]);
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }
@@ -366,10 +325,6 @@
               return Database.GetColumnDescription(queryPaths[1],queryPaths[2]);
             case "GETCOLUMNDATATYPE":
               return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
-            case "#REMOVECOLUMN":
-              return Database.RemoveColumn(queryPaths[1],queryPaths[2]);
-            case "#REMOVEROW":
-              return Database.RemoveRow(queryPaths[1],int.Parse(queryPaths[2]));
             default:
               throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
           }

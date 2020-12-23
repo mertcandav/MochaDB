@@ -117,14 +117,6 @@ Commands that can be run only. they are not commands that return values.
        <td><strong>CLEARTABLES</strong></td>
        <td width="100%">Remove all tables.</td>
     </tr>
-    <tr>
-       <td><strong>REMOVETABLEATTRIBUTE</strong>:TableName:AttributeName</td>
-       <td width="100%">Remove attribute from table by name.</td>
-    </tr>
-    <tr>
-       <td><strong>REMOVECOLUMNATTRIBUTE</strong>:TableName:ColumnName:AttributeName</td>
-       <td width="100%">Remove attribute from column by name.</td>
-    </tr>
 </table>
 
 #### GetRun
@@ -223,43 +215,7 @@ They are commands that return a value. They are returned as ``object``, Dynamic 
        <td width="100%">Returns data by index.</td>
     </tr>
     <tr>
-       <td><strong>GETTABLEATTRIBUTES</strong>:TableName</td>
-       <td width="100%">Returns attributes from table.</td>
-    </tr>
-    <tr>
-       <td><strong>GETCOLUMNATTRIBUTES</strong>:TableName:ColumnName</td>
-       <td width="100%">Returns attributes from column.</td>
-    </tr>
-    <tr>
-       <td><strong>GETTABLEATTRIBUTE</strong>:TableName:AttributeName</td>
-       <td width="100%">Returns attribute from table by name.</td>
-    </tr>
-    <tr>
-       <td><strong>GETCOLUMNATTRIBUTE</strong>:TableName:ColumnName:AttributeName</td>
-       <td width="100%">Returns attribute from column by name.</td>
-    </tr>
-    <tr>
        <td><strong>GETCOLUMNDATATYPE</strong>:TableName:ColumnName</td>
        <td width="100%">Returns data type of column.</td>
-    </tr>
-    <tr>
-       <td><strong>#REMOVETABLE</strong>:TableName</td>
-       <td width="100%">Remove the table and returns result.</td>
-    </tr>
-    <tr>
-       <td><strong>#REMOVECOLUMN</strong>:TableName:ColumnName</td>
-       <td width="100%">Remove the column and returns result.</td>
-    </tr>
-    <tr>
-       <td><strong>#REMOVEROW</strong>:TableName:RowIndex</td>
-       <td width="100%">Remove the row and returns result.</td>
-    </tr>
-    <tr>
-       <td><strong>#REMOVETABLEATTRIBUTE</strong>:TableName:AttributeName</td>
-       <td width="100%">Remove attribute from table by name and returns result.</td>
-    </tr>
-    <tr>
-       <td><strong>#REMOVECOLUMNATTRIBUTE</strong>:TableName:ColumnName:AttributeName</td>
-       <td width="100%">Remove attribute from column by name and returns result.</td>
     </tr>
 </table>
