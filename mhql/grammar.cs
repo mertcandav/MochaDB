@@ -106,8 +106,8 @@ namespace MochaDB.mhql {
     /// All words.
     /// </summary>
     public static Regex FullRegex => new Regex(
-$@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|TRUE|FALSE|IN|INEQ|\$BETWEEN|\$BIGGER|\$LOWER|\$EQUAL|\$STARTW|\$ENDW|" +
-$@"\$NOTEQUAL|\$CONTAINS|\$NOTCONTAINS|\$NOTSTARTW|\$NOTENDW)\b",
+$@"\b({MainKeywords}|ASC|DESC|AND|FROM|AS|TRUE|FALSE|IN|INEQ|BETWEEN|BIGGER|LOWER|EQUAL|STARTW|ENDW|" +
+$@"NOTEQUAL|CONTAINS|NOTCONTAINS|NOTSTARTW|NOTENDW)\b",
 RegexOptions.IgnoreCase|RegexOptions.CultureInvariant);
 
     /// <summary>
