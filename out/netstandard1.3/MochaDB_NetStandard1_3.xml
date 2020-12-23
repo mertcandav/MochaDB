@@ -1536,59 +1536,6 @@
             Rows of table.
             </summary>
         </member>
-        <member name="T:MochaDB.Streams.MochaReader`1">
-            <summary>
-            Stream reader for MochaDB.
-            </summary>
-            <typeparam name="T">Value type of stream reader.</typeparam>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.#ctor(`0[])">
-            <summary>
-            Create a new MochaReader.
-            </summary>
-            <param name="values">Values of stream.</param>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Create a new MochaReader.
-            </summary>
-            <param name="values">Values of stream.</param>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.Read">
-            <summary>
-            Returns true if value is exists in next position but returns if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.GoBack">
-            <summary>
-            Go to previous position.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.GoFirst">
-            <summary>
-            Go to first position.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Streams.MochaReader`1.GoLast">
-            <summary>
-            Go to last position.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Streams.MochaReader`1.Value">
-            <summary>
-            Current value.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Streams.MochaReader`1.Position">
-            <summary>
-            Current value index of reader.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Streams.MochaReader`1.Count">
-            <summary>
-            Count of value.
-            </summary>
-        </member>
         <member name="T:MochaDB.framework.Framework_DICTIONARY">
             <summary>
             Dictionary framework of MochaDB.

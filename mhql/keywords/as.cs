@@ -14,7 +14,7 @@ namespace MochaDB.mhql.keywords {
       if(dex==-1)
         return command;
       string name = command.Substring(dex + 4);
-      command = command.Substring(0, dex);
+      command = command.Substring(0,dex);
       return name;
     }
   }

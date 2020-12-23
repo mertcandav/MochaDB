@@ -7,7 +7,6 @@ open System.Collections.Generic
 
 open MochaDB
 open MochaDB.Mhql
-open MochaDB.Streams
 
 open terminal
 
@@ -118,14 +117,6 @@ type cli() =
         table.Columns.Length)
       for row in table.Rows do
         printRow(row.Datas, row.Datas.Count)
-
-  /// <summary>
-  /// Print elements of MochaReader<'a>.
-  /// </summary>
-  /// <param name="reader">Reader to print.</param>
-  static member printReader(reader:MochaReader<'a>) : unit =
-    while reader.Read() do
-      printfn "%s" (reader.Value.ToString())
 
   /// <summary>
   /// Print elements of IEnumerable.

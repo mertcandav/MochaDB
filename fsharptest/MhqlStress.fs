@@ -5,7 +5,6 @@ open System
 open System.Diagnostics
 open MochaDB
 open MochaDB.Mhql
-open MochaDB.Streams
 
 /// <summary>
 /// Stress mhql commands.

@@ -6,7 +6,6 @@ open System.Collections
 open MochaDB
 open MochaDB.Mhql
 open MochaDB.Mochaq
-open MochaDB.Streams
 
 open utils
 open terminal
@@ -34,7 +33,6 @@ type mochaq() =
           | null -> printfn "NULL"
           | :? MochaTable -> cli.printTable(result :?> MochaTable)
           | :? MochaTableResult -> cli.printTable(result :?> MochaTableResult)
-          | :? MochaReader<'a> -> cli.printReader(result :?> MochaReader<'a>)
           | :? IEnumerable -> cli.printEnumerable(result :?> IEnumerable)
           | _ -> printfn "%s" (result.ToString())
         else if mq.IsRunQuery()

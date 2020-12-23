@@ -104,12 +104,6 @@
  </summary>
  <param name="table">MochaTable to print.</param>
 </member>
-<member name="M:utils.cli.printReader``1(MochaDB.Streams.MochaReader{``0})">
- <summary>
- Print elements of MochaReader<'a>.
- </summary>
- <param name="reader">Reader to print.</param>
-</member>
 <member name="M:utils.cli.printEnumerable(System.Collections.IEnumerable)">
  <summary>
  Print elements of IEnumerable.

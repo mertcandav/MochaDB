@@ -4,7 +4,6 @@
 open System
 open MochaDB
 open MochaDB.Mhql
-open MochaDB.Streams
 
 /// <summary>
 /// Scalar by mhql command.
