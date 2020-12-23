@@ -48,8 +48,11 @@ Manage with a powerful management system! Only Windows.
 [![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
 
 ## Work with MHQL
+Perform deep queries with MHQL and avoid complex tasks manually.
 ```java
-USE Id, Name, Password, CompanyId
+USE Name AS Username,
+    $CompanyId,
+    COUNT() AS Count of users
 FROM Persons MUST
 Name == "mertcandav" AND
   IN CompanyId {
@@ -58,6 +61,7 @@ Name == "mertcandav" AND
   }
 CORDERBY ASC
 ORDERBY Name
+GROUPBY Name
 SUBROW 100
 ```
 
