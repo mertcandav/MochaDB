@@ -32,7 +32,7 @@ type mhql() =
           let table = mhql.ExecuteScalar()
           if table = null
           then printfn "NULL"
-          else cli.printTable(table :?> MochaTableResult)
+          else cli.printTable(table)
         | _ -> terminal.printError("MHQL query is invalid!")
       with
       | :? Exception as except ->

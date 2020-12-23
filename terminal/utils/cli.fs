@@ -78,7 +78,7 @@ type cli() =
     if table.Any() then
       printfn "Table is empty!"
     else
-      let mutable tx:int = table.Columns.Sum(fun(x:MochaColumn) -> x.Name.Length)
+      let mutable tx:int = table.Columns.Sum(fun(x:MochaColumn) -> x.MHQLAsText.Length)
       let ctx:int = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
       tx <- if tx < ctx then ctx else tx
@@ -99,8 +99,9 @@ type cli() =
       /// Print row.
       /// </summary>
       /// <param name="values">Values of row.</param>
-      let printRow(values:'a[]) : unit =
-        let x:int = (tx - values.Length) / values.Length
+      /// <param name="count">Count of elements.</param>
+      let printRow(values:IEnumerable<'a>, count:int) : unit =
+        let x:int = (tx - count) / count
         printf "|"
         let mutable finalLine:string = "|"
         for value in values do
@@ -110,9 +111,11 @@ type cli() =
           finalLine <- finalLine + (new String('-', value.Length)) + "|"
         printfn "\n%s" finalLine
 
-      printRow(table.Columns)
+      printRow(table.Columns.Select(
+        fun(x:MochaColumn) -> new MochaData(MochaDataType.String, x.MHQLAsText)),
+        table.Columns.Length)
       for row in table.Rows do
-        printRow(row.Datas.ToArray())
+        printRow(row.Datas, row.Datas.Count)
 
   /// <summary>
   /// Print elements of MochaReader<'a>.
