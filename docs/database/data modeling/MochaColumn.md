@@ -5,5 +5,5 @@ It is an object to use in code.
 
 Creates an empty column named "Name" and set data type is "String".
 ```C#
-MochaColumn NameColumn = new MochaColumn("Name",MochaDataType.String);
+MochaColumn NameColumn = new MochaColumn("Name", dataType: MochaDataType.String);
 ```

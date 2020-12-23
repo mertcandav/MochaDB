@@ -4,7 +4,7 @@ The database must be set as the base and the ``MochaDatabase`` must be connected
 ### Examples
 Creates a new ``MochaQuery`` and creates a ``MochaDatabase`` and adds a reference.
 ```C#
-MochaQuery query = new MochaQuery(new MochaDatabase("path=.\\mydb.mhdb"));
+MochaQuery query = new MochaQuery(new MochaDatabase("mydb.mhdb"));
 ```
 
 <strong>WARNING</strong><br>

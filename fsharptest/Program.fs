@@ -68,8 +68,6 @@ let main(argv:string[]) : int =
         let content = GetFileContent(path + "/testscript.mochascript")
         printf "%s" content
         printfn "\n\n------ Script Content ------\n\n"
-      elif input.StartsWith("reader ", StringComparison.InvariantCultureIgnoreCase) then
-        Reader(db, input.[6..])
       elif input.StartsWith("scalar ", StringComparison.InvariantCultureIgnoreCase) then
         Scalar(db, input.[6..])
       elif input.Equals("cncstate", StringComparison.InvariantCultureIgnoreCase) then

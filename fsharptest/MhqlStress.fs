@@ -20,7 +20,7 @@ let StartMhqlTableGetStress(db:MochaDatabase) : unit =
     let timing:Stopwatch = new Stopwatch()
     timing.Start()
     let command:MochaDbCommand = new MochaDbCommand(db)
-    let reader:MochaReader<obj> = command.ExecuteReader("
+    let table:MochaTableResult = command.ExecuteScalar("
         USE
             Persons.ID
                 Persons.Name
@@ -35,14 +35,13 @@ let StartMhqlTableGetStress(db:MochaDatabase) : unit =
         GROUPBY
                                  0
     ")
-    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
-    if readed = false then
-      printfn "Reader is not read any data!"
+    if table.Any() then
+      printfn "Table is empty!"
     else
-      printfn "Reader data as ToString(): %s" (reader.Value.ToString())
+      printfn "Count of table readed columns: %d" table.Columns.Length
 
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
@@ -61,7 +60,7 @@ let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
     let timing:Stopwatch = new Stopwatch()
     timing.Start()
     let command:MochaDbCommand = new MochaDbCommand(db)
-    let reader:MochaReader<obj> = command.ExecuteReader("
+    let table:MochaTableResult = command.ExecuteScalar("
         USE
             Persons.ID,
                 Persons.Name,
@@ -76,14 +75,13 @@ let StartMhqlTableGetStressWithTick(db:MochaDatabase, tick:int) : unit =
         GROUPBY
                                 0
     ")
-    let readed:bool = reader.Read()
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
-    if readed = false then
-      printfn "Reader is not read any data!"
+    if table.Any() then
+      printfn "Table is empty!"
     else
-      printfn "Reader data as ToString(): %s" (reader.Value.ToString())
+      printfn "Count of table readed columns: %d" table.Columns.Length
 
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
@@ -102,15 +100,14 @@ let StartMhqlTableGetStressCmd(db:MochaDatabase, cmd:string) : unit =
     let timing:Stopwatch = new Stopwatch()
     timing.Start()
     let command:MochaDbCommand = new MochaDbCommand(db)
-    let reader:MochaReader<obj> = command.ExecuteReader(cmd)
-    let readed:bool = reader.Read()
+    let table:MochaTableResult = command.ExecuteScalar(cmd)
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
-    if readed = false then
-      printfn "Reader is not read any data!"
+    if table.Any() then
+      printfn "Table is empty!"
     else
-      printfn "Reader data as ToString(): %s" (reader.Value.ToString())
+      printfn "Count of table readed columns: %d" table.Columns.Length
 
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()
@@ -130,15 +127,14 @@ let StartMhqlTableGetStressWithTickCmd(db:MochaDatabase, tick:int, cmd:string) :
     let timing:Stopwatch = new Stopwatch()
     timing.Start()
     let command:MochaDbCommand = new MochaDbCommand(db)
-    let reader:MochaReader<obj> = command.ExecuteReader(cmd)
-    let readed:bool = reader.Read()
+    let table:MochaTableResult = command.ExecuteScalar(cmd)
     timing.Stop()
     printfn "Time(Ms): %d" timing.ElapsedMilliseconds
     printfn "Time(Tick): %d" timing.ElapsedTicks
-    if readed = false then
-      printfn "Reader is not read any data!"
+    if table.Any() = false then
+      printfn "Table is empty!"
     else
-      printfn "Reader data as ToString(): %s" (reader.Value.ToString())
+      printfn "Count of table readed columns: %d:" table.Columns.Length
 
   if cncstate = MochaConnectionState.Disconnected then
     db.Disconnect()

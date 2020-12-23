@@ -28,10 +28,6 @@ type mhql() =
       mhql.Command <- query
       try
         match mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
-        | "SELECT" ->
-          let reader = mhql.ExecuteReader()
-          while reader.Read() do
-            printfn "%s" (reader.Value :?> MochaTable).Name
         | "USE" ->
           let table = mhql.ExecuteScalar()
           if table = null

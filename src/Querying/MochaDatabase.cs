@@ -11,14 +11,6 @@
   /// </summary>
   public static class QueryingMochaDatabase {
     /// <summary>
-    /// Execute <see cref="MochaDbCommand.ExecuteReader()"/> function.
-    /// </summary>
-    /// <param name="db">Target database.</param>
-    /// <param name="mhql">MHQL Command.</param>
-    public static MochaReader<object> ExecuteReader(this MochaDatabase db,string mhql) =>
-         new MochaDbCommand(mhql,db).ExecuteReader();
-
-    /// <summary>
     /// Execute <see cref="MochaDbCommand.ExecuteScalar()"/> function.
     /// </summary>
     /// <param name="db">Target database.</param>

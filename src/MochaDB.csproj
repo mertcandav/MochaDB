@@ -146,9 +146,6 @@
     <Compile Include="..\mhql\keywords\remove.cs">
       <Visible>False</Visible>
     </Compile>
-    <Compile Include="..\mhql\keywords\select.cs">
-      <Visible>False</Visible>
-    </Compile>
     <Compile Include="..\mhql\keywords\subcol.cs">
       <Visible>False</Visible>
     </Compile>

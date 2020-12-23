@@ -9,13 +9,6 @@
  <param name="db">Target database.</param>
  <param name="mhql">MHQL command.</param>
 </member>
-<member name="M:MhqlEngine.Reader(MochaDB.MochaDatabase,System.String)">
- <summary>
- Read by mhql command.
- </summary>
- <param name="db">Target database.</param>
- <param name="mhql">MHQL command.</param>
-</member>
 <member name="M:MhqlStress.StartMhqlTableGetStressWithTickCmd(MochaDB.MochaDatabase,System.Int32,System.String)">
  <summary>
  Stress mhql with command and ticks.

@@ -5,7 +5,6 @@
 
   using MochaDB.mhql;
   using MochaDB.mhql.keywords;
-  using MochaDB.Streams;
 
   /// <summary>
   /// MHQL Command processor for MochaDB.
@@ -17,7 +16,6 @@
     private MochaDatabase db;
     internal MhqlKeyword[] keywords;
     internal Mhql_USE USE;
-    internal Mhql_SELECT SELECT;
     internal Mhql_REMOVE REMOVE;
     internal Mhql_ORDERBY ORDERBY;
     internal Mhql_MUST MUST;
@@ -40,7 +38,6 @@
     public MochaDbCommand(MochaDatabase db) {
       //Load mhql core.
       USE = new Mhql_USE(Database);
-      SELECT = new Mhql_SELECT(Database);
       ORDERBY = new Mhql_ORDERBY(Database);
       GROUPBY = new Mhql_GROUPBY(Database);
       MUST = new Mhql_MUST(Database);
@@ -52,9 +49,8 @@
       ADDROW = new Mhql_ADDROW(Database);
       CORDERBY = new Mhql_CORDERBY(Database);
       keywords = new MhqlKeyword[] {
-                USE, SELECT, REMOVE, ORDERBY, GROUPBY,
-                MUST, SUBROW, SUBCOL, DELROW, DELCOL,
-                ADDROW, CORDERBY
+                USE, REMOVE, ORDERBY, GROUPBY, MUST, SUBROW,
+                SUBCOL, DELROW, DELCOL, ADDROW, CORDERBY
             };
       Database=db;
       Command=string.Empty;
@@ -90,7 +86,7 @@
     /// Returns first result or null.
     /// </summary>
     /// <param name="command">MQL Command to set.</param>
-    public virtual object ExecuteScalar(string command) {
+    public virtual MochaTableResult ExecuteScalar(string command) {
       Command=command;
       return ExecuteScalar();
     }
@@ -98,89 +94,50 @@
     /// <summary>
     /// Returns first result or null.
     /// </summary>
-    public virtual object ExecuteScalar() {
-      MochaReader<object> reader = ExecuteReader();
-      if(reader.Read())
-        return reader.Value;
-      return null;
-    }
-
-    /// <summary>
-    /// Read returned results.
-    /// </summary>
-    /// <param name="command">MQL Command to set.</param>
-    public virtual MochaReader<object> ExecuteReader(string command) {
-      Command=command;
-      return ExecuteReader();
-    }
-
-    /// <summary>
-    /// Read returned results.
-    /// </summary>
-    public virtual MochaReader<object> ExecuteReader() {
+    public virtual MochaTableResult ExecuteScalar() {
       CheckConnection();
-      MochaReader<object> reader = new MochaReader<object>();
 
       bool fromkw;
       string lastcommand;
-      if(USE.Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase)) {
-        string use = USE.GetUSE(out lastcommand);
-        fromkw = Mhql_FROM.IsFROM(use);
-        MochaTableResult table = USE.GetTable(use,fromkw);
-
-        do {
-          if(ORDERBY.IsORDERBY(lastcommand)) //Orderby
-            ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table,fromkw);
-          else if(GROUPBY.IsGROUPBY(lastcommand)) //Groupby
-            GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table,fromkw);
-          else if(MUST.IsMUST(lastcommand)) //Must
-            MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
-          else if(SUBROW.IsSUBROW(lastcommand)) //Subrow
-            SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
-          else if(SUBCOL.IsSUBCOL(lastcommand)) //Subcol.
-            SUBCOL.Subcol(SUBCOL.GetSUBCOL(lastcommand,out lastcommand),ref table);
-          else if(DELROW.IsDELROW(lastcommand)) //Delrow
-            DELROW.Delrow(DELROW.GetDELROW(lastcommand,out lastcommand),ref table);
-          else if(DELCOL.IsDELCOL(lastcommand)) //Delcol
-            DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
-          else if(ADDROW.IsADDROW(lastcommand)) //Addrow
-            ADDROW.Addrow(ADDROW.GetADDROW(lastcommand,out lastcommand),ref table);
-          else if(CORDERBY.IsCORDERBY(lastcommand)) // Corderby
-            CORDERBY.COrderBy(CORDERBY.GetCORDERBY(lastcommand,out lastcommand),ref table);
-          else if(lastcommand == string.Empty) { //Return.
-            IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
-            if(cols.Count() != table.Columns.Length) {
-              table.Columns = cols.ToArray();
-              table.SetRowsByDatas();
-            }
-            break;
-          } else
-            throw new MochaException($"'{lastcommand}' command is cannot processed!");
-        } while(true);
-        reader.array = new[] { table };
-      } else if(Command.StartsWith("SELECT",StringComparison.OrdinalIgnoreCase)) {
-        fromkw = Mhql_FROM.IsFROM(command);
-        if(fromkw)
-          throw new MochaException("FROM keyword is cannot use with SELECT keyword!");
-        string select = SELECT.GetSELECT(out lastcommand);
-        if(!string.IsNullOrWhiteSpace(lastcommand))
-          throw new MochaException($"'{lastcommand}' command is cannot processed!");
-        reader.array = SELECT.GetTables(select);
-      } else
+      if(!USE.Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase))
         throw new MochaException("MHQL is cannot processed!");
-      return reader;
+      string use = USE.GetUSE(out lastcommand);
+      fromkw = Mhql_FROM.IsFROM(use);
+      MochaTableResult table = USE.GetTable(use,fromkw);
+
+      do {
+        if(ORDERBY.IsORDERBY(lastcommand)) //Orderby
+          ORDERBY.OrderBy(ORDERBY.GetORDERBY(lastcommand,out lastcommand),ref table,fromkw);
+        else if(GROUPBY.IsGROUPBY(lastcommand)) //Groupby
+          GROUPBY.GroupBy(GROUPBY.GetGROUPBY(lastcommand,out lastcommand),ref table,fromkw);
+        else if(MUST.IsMUST(lastcommand)) //Must
+          MUST.MustTable(MUST.GetMUST(lastcommand,out lastcommand),ref table,fromkw);
+        else if(SUBROW.IsSUBROW(lastcommand)) //Subrow
+          SUBROW.Subrow(SUBROW.GetSUBROW(lastcommand,out lastcommand),ref table);
+        else if(SUBCOL.IsSUBCOL(lastcommand)) //Subcol.
+          SUBCOL.Subcol(SUBCOL.GetSUBCOL(lastcommand,out lastcommand),ref table);
+        else if(DELROW.IsDELROW(lastcommand)) //Delrow
+          DELROW.Delrow(DELROW.GetDELROW(lastcommand,out lastcommand),ref table);
+        else if(DELCOL.IsDELCOL(lastcommand)) //Delcol
+          DELCOL.Delcol(DELCOL.GetDELCOL(lastcommand,out lastcommand),ref table);
+        else if(ADDROW.IsADDROW(lastcommand)) //Addrow
+          ADDROW.Addrow(ADDROW.GetADDROW(lastcommand,out lastcommand),ref table);
+        else if(CORDERBY.IsCORDERBY(lastcommand)) // Corderby
+          CORDERBY.COrderBy(CORDERBY.GetCORDERBY(lastcommand,out lastcommand),ref table);
+        else if(lastcommand == string.Empty) { //Return.
+          IEnumerable<MochaColumn> cols = table.Columns.Where(x => x.Tag != "$");
+          if(cols.Count() != table.Columns.Length) {
+            table.Columns = cols.ToArray();
+            table.SetRowsByDatas();
+          }
+          break;
+        } else
+          throw new MochaException($"'{lastcommand}' command is cannot processed!");
+      } while(true);
+      return table;
     }
 
     #endregion Members
-
-    #region Overrides
-
-    /// <summary>
-    /// Returns command.
-    /// </summary>
-    public override string ToString() => Command;
-
-    #endregion Overrides
 
     #region Properties
 

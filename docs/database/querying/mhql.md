@@ -97,12 +97,6 @@ Rename column.<br>
     ```USE * FROM Persons``` <br>
     ```USE Name,Age FROM Persons```
 
-- ```SELECT``` <br>
-Unlike the ``USE`` keyword, it is used to get content carriers, not content. It realizes the selection not with direct names but with Regex queries. Regex queries are written in parentheses.<br>
-<b>Examples</b><br>
-```SELECT ()```: Returns all tables. <br>
-```SELECT (P.*)```: Returns only tables if name of starts with 'P'. <br>
-
 - ```ORDERBY``` <br>
 Reports that there will be data sorting.<br>
 First the column index or name is given, then the order type. If the order type is not given, ``ASC`` is set by default.<br>
@@ -426,15 +420,4 @@ USE *
 USE *
 MUST 0(NumberKey.*)
 ORDERBY 0
-```
-```java
-SELECT (A.*)
-```
-```java
-SELECT ()
-REMOVE
-```
-```java
-SELECT ([A-Z])
-REMOVE
 ```
