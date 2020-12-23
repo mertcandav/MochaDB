@@ -23,7 +23,7 @@
 
 lexer grammar terminal_lexer;
 
-// MODULES
+// Modules
 CHANGE_DIRECTORY : 'cd' ;
 LIST_DIRECTORY : 'ls' ;
 VERSION : 'ver' ;
@@ -33,3 +33,87 @@ CONNECT_TO_DATABASE : 'connect' ;
 CLEAR_SCREEN : 'clear' ;
 HELP : 'help' ;
 EXIT_TERMINAL : 'exit' ;
+
+// -------------------------------------------------------
+
+// Symbols
+ALL    : '*' ;
+PARAM_DELIMITER : ',' ;
+FUNCPARAM_DELIMITER : ',' ;
+SUBCALL_DELIMITER : '.' ;
+CACHE_OBJECT : '$' ;
+HASTAG : '#' ;
+LPAR : '(' ;
+RPAR : ')' ;
+COLON : ':' ;
+COMMA : ',' ;
+SEMICOLON : ';' ;
+PLUS : '+' ;
+MINUS : '-' ;
+STAR : '*' ;
+SLASH : '/' ;
+VBAR : '|' ;
+AMPER : '&' ;
+LESS : '<' ;
+GREATER : '>' ;
+EQUAL : '=' ;
+DOT : '.' ;
+PERCENT : '%' ;
+LBRACE : '{' ;
+RBRACE : '}' ;
+EQEQUAL : '==' ;
+NOTEQUAL : '!=' ;
+LESSEQUAL : '<=' ;
+GREATEREQUAL : '>=' ;
+TILDE : '~' ;
+CIRCUMFLEX : '^' ;
+LEFTSHIFT : '<<' ;
+RIGHTSHIFT : '>>' ;
+DOUBLESTAR : '**' ;
+PLUSEQUAL : '+=' ;
+MINEQUAL : '-=' ;
+SLASHEQUAL : '/=' ;
+PERCENTEQUAL : '%=' ;
+AMPEREQUAL : '&=' ;
+VBAREQUAL : '|=' ;
+CIRCUMFLEXEQUAL : '^=' ;
+LEFTSHIFTEQUAL : '<<=' ;
+RIGHTSHIFTEQUAL : '>>=' ;
+DOUBLESTAREQUAL : '**=' ;
+DOUBLESLASHEQUAL : '//=' ;
+AT : '@' ;
+ATEQUAL : '@=' ;
+LARROW : '<-' ;
+RARROW : '->' ;
+ELLIPSIS : '...' ;
+COLONEQUAL : ':=' ;
+DOLLAR : '$' ;
+DOLLAREQUAL : '$=' ;
+
+// Condition Operators
+OP_EQUALS_TO : '=' ;
+OP_NOT_EQUALS_TO : '<>' ;
+OP_BIGGER_THAN_OR_EQUALS : '>=' ;
+OP_BIGGER_THAN : '>' ;
+OP_LOWER_THAN_OR_EQUALS : '<=' ;
+OP_LOWER_THAN : '<' ;
+
+// Conditions Types
+NONE : '' ;
+EQUALS_TO : 'EQUAL' ;
+NOT_EQUALS_TO : 'NOTEQUAL' ;
+BIGGER_THAN : 'BIGGER' ;
+LOWER_THAN : 'LOWER' ;
+BIGGER_THAN_OR_EQUALS : 'BIGGEREQ' ;
+LOWER_THAN_OR_EQUALS : 'LOWEREQ' ;
+
+// Char Escape Sequences
+SEQ_DOUBLE_QUOTE : '\\\\\"' ;
+SEQ_QUOTE : '\\\\\'' ;
+SEQ_NEW_LINE : '\\\\n' ;
+SEQ_CARRIAGE_RETURN : '\\\\r' ;
+SEQ_HORIZONTAL_TAB : '\\\\t' ;
+SEQ_BACKSPACE : '\\\\b' ;
+SEQ_FORM_FEED : '\\\\f' ;
+SEQ_BELL_ALERT : '\\\\a' ;
+SEQ_VERTICAL_TAB : '\\\\v' ;
