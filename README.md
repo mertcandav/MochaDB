@@ -78,7 +78,7 @@ var result = database.ExecuteScalar(
     $@"USE Username, Password
        FROM Persons
        MUST Username == ""{username}"" AND
-       Password == ""{password}""") as MochaTableResult;
+       Password == ""{password}""");
 
 database.Disconnect(); // Disconnect from database.
 if(result.Any()) // If table is empty.
