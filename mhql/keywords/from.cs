@@ -21,8 +21,8 @@ namespace MochaDB.mhql.keywords {
     public static int GetIndex(ref string command) {
       Regex pattern = new Regex($@"(\*| |\n)FROM(\s+.*|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-      int count = command.StartsWith($"{Mhql_LEXER.LBRACE}") ? 1 : 0;
-      for(int index = count; index < command.Length; ++index) {
+      int count = 0;
+      for(int index = command.Length - 1; index >= 0; --index) {
         char currentChar = command[index];
         if(currentChar == Mhql_LEXER.LPARANT || currentChar == Mhql_LEXER.LBRACE)
           ++count;

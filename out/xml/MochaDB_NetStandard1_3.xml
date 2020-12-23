@@ -2216,7 +2216,6 @@
             Returns as name.
             </summary>
             <param name="command">Command</param>
-            <param name="final">As removed command.</param>
         </member>
         <member name="T:MochaDB.mhql.keywords.Mhql_CORDERBY">
             <summary>

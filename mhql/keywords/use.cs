@@ -38,23 +38,24 @@ namespace MochaDB.mhql.keywords {
         if(usedex == -1)
           throw new MochaException("USE command is cannot processed!");
       }
-      Regex pattern = new Regex($@"\s+{Mhql_GRAMMAR.MainKeywords}(\s+.*|$)",
+      Regex pattern = new Regex($@"^({Mhql_GRAMMAR.MainKeywords})(\s+|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-      string command = Command.Substring(3).TrimStart();
+      string command = Command.Substring(3);
       int count = 0;
       for(int index = 0; index < command.Length; ++index) {
         char currentChar = command[index];
-        if(count == 0) {
-          Match match = pattern.Match(command.Substring(index));
-          if(match.Success && match.Index == 0) {
-            final = command.Substring(index).Trim();
-            return command.Substring(0,index).Trim();
-          }
-        }
         if(currentChar == Mhql_LEXER.LBRACE)
           ++count;
         else if(currentChar == Mhql_LEXER.RBRACE)
           --count;
+        if(count == 0) {
+          Match match = pattern.Match(command.Substring(index));
+          if(match.Success && match.Index == 0) {
+            Console.WriteLine(match.Value);
+            final = command.Substring(index).Trim();
+            return command.Substring(0,index).Trim();
+          }
+        }
       }
       final = string.Empty;
       return command;

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>terminal</name></assembly>
+<members>
+<member name="F:terminal.terminal.version@">
+ <summary>
+ Version of terminal.
+ </summary>
+</member>
+<member name="F:terminal.terminal.pwd@">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="P:terminal.terminal.pwd(System.String)">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="M:terminal.terminal.printnc(System.String,System.ConsoleColor)">
+ <summary>
+ Print message and new line to screen with color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+</member>
+<member name="M:terminal.terminal.printc(System.String,System.ConsoleColor)">
+ <summary>
+ Print message to screen with color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+</member>
+<member name="M:terminal.terminal.printError(System.String)">
+ <summary>
+ Print error message.
+ </summary>
+ <param name="msg">Message.</param>
+</member>
+<member name="P:terminal.terminal.version">
+ <summary>
+ Version of terminal.
+ </summary>
+</member>
+<member name="P:terminal.terminal.pwd">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="M:terminal.terminal.getInput">
+ <summary>
+ Returns input with pwd.
+ </summary>
+ <returns>Input.</returns>
+</member>
+<member name="M:terminal.terminal.getInput(System.String,System.ConsoleColor)">
+ <summary>
+ Returns input with msg and color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+ <returns>Input.</returns>
+</member>
+<member name="M:terminal.terminal.getInput(System.String)">
+ <summary>
+ Returns input with msg.
+ </summary>
+ <param name="msg">Message.</param>
+ <returns>Input.</returns>
+</member>
+<member name="T:terminal.terminal">
+ <summary>
+ Terminal declare.
+ </summary>
+</member>
+<member name="M:utils.parser.parseTableToXmlString(MochaDB.Mhql.MochaTableResult)">
+ <summary>
+ Parse MochaTableResult to XmlString.
+ </summary>
+ <param name="table">Table to parse.</param>
+ <returns>Xml code.</returns>
+</member>
+<member name="M:utils.parser.parseTableToXmlString(MochaDB.MochaTable)">
+ <summary>
+ Parse MochaTable to XmlString.
+ </summary>
+ <param name="table">Table to parse.</param>
+ <returns>Xml code.</returns>
+</member>
+<member name="T:utils.parser">
+ <summary>
+ Parser.
+ </summary>
+</member>
+<member name="M:utils.cli.printTable(MochaDB.Mhql.MochaTableResult)">
+ <summary>
+ Print MochaTableResult.
+ </summary>
+ <param name="table">MochaTableResult to print.</param>
+</member>
+<member name="M:utils.cli.printTable(MochaDB.MochaTable)">
+ <summary>
+ Print MochaTable.
+ </summary>
+ <param name="table">MochaTable to print.</param>
+</member>
+<member name="M:utils.cli.printReader``1(MochaDB.Streams.MochaReader{``0})">
+ <summary>
+ Print elements of MochaReader<'a>.
+ </summary>
+ <param name="reader">Reader to print.</param>
+</member>
+<member name="M:utils.cli.printEnumerable(System.Collections.IEnumerable)">
+ <summary>
+ Print elements of IEnumerable.
+ </summary>
+ <param name="enumrable">IEnumerable to print.</param>
+</member>
+<member name="M:utils.cli.printDictAsTable(System.Collections.Generic.IDictionary{System.String,System.String})">
+ <summary>
+ Print dictionary as table.
+ </summary>
+ <param name="dict">Dictionary to print.<param>
+</member>
+<member name="T:utils.cli">
+ <summary>
+ CLI module.
+ </summary>
+</member>
+<member name="M:utils.commandProcessor.splitNamespace(System.String)">
+ <summary>
+ Get namespace of command if exists.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Module name(namespace).</returns>
+</member>
+<member name="M:utils.commandProcessor.removeNamespace(System.String)">
+ <summary>
+ Remove namespace from command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Command without namespace.</returns>
+</member>
+<member name="M:utils.commandProcessor.removeArguments(System.String)">
+ <summary>
+ Remove arguments from command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Command without arguments.</returns>
+</member>
+<member name="M:utils.commandProcessor.getArguments(System.String)">
+ <summary>
+ Returns arguments of command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Arguments.</returns>
+</member>
+<member name="T:utils.commandProcessor">
+ <summary>
+ Command processor for commands.
+ </summary>
+</member>
+<member name="M:submodules.connection.mhql.proc(MochaDB.MochaDatabase,System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="db">Database connection.</param>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:submodules.connection.mhql">
+ <summary>
+ MHQL module.
+ </summary>
+</member>
+<member name="M:submodules.connection.mochaq.proc(MochaDB.MochaDatabase,System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="db">Database connection.</param>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:submodules.connection.mochaq">
+ <summary>
+ MochaQ module.
+ </summary>
+</member>
+<member name="M:modules.connect.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.connect">
+ <summary>
+ Connection module.
+ </summary>
+</member>
+<member name="M:modules.make.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.make">
+ <summary>
+ Create a new MochaDB database.
+ </summary>
+</member>
+<member name="M:modules.ls.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.ls">
+ <summary>
+ List directory.
+ </summary>
+</member>
+<member name="M:modules.cd.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.cd">
+ <summary>
+ Change directory module.
+ </summary>
+</member>
+<member name="M:Program.main(System.String[])">
+ <summary>
+ Entry point of terminal.
+ </summary>
+ <param name="argv">Arguments.</param>
+ <returns>Exit code.</returns>
+</member>
+<member name="M:Program.processCommand(System.String,System.String)">
+ <summary>
+ Process command and do task.
+ </summary>
+ <param name="ns">Name of module(namespace).</param>
+ <param name="cmd">Command(without module name).</param>
+</member>
+<member name="M:Program.showHelp">
+ <summary>
+ Show help.
+ </summary>
+</member>
+</members>
+</doc>

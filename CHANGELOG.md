@@ -7,6 +7,8 @@ CHANGELOGS of MochaDB.
 + Remove trash methods from MochaConvert.
 + Remove castings from MochaData.
 + Remove dynamic queries from MochaQ.
++ Fix AS keyword of mhql.
++ Fix FROM keyword of mhql.
 + Fix comment lines support of mhql.
 + Fix range debugging of subqueries.
 + Fix AutoCreate system.
