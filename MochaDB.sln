@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mhql", "mhql", "{A5444339-5
 	ProjectSection(SolutionItems) = preProject
 		mhql\grammar.cs = mhql\grammar.cs
 		mhql\lexer.cs = mhql\lexer.cs
+		mhql\mhql_lexer.g4 = mhql\mhql_lexer.g4
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA287-C416-43F8-A401-B3A598C27655}"
@@ -49,6 +50,7 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpmhql", "fsharpmhql\fs
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{AC2E4792-5216-44C2-AB5B-E15DFD534A88}"
 	ProjectSection(SolutionItems) = preProject
+		engine\engine_lexer.g4 = engine\engine_lexer.g4
 		engine\lexer.cs = engine\lexer.cs
 		engine\names.cs = engine\names.cs
 		engine\structure.cs = engine\structure.cs
