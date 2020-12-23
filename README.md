@@ -74,7 +74,7 @@ var password = Console.ReadLine(); // get password from user.
 database.Connect(); // Connect to database.
 
 // Get table filtered by username and password with using mhql query.
-var result = database.ExecuteScalar(
+var result = new MochaDbCommand(database).ExecuteScalar(
     $@"USE Username, Password
        FROM Persons
        MUST Username == ""{username}"" AND
