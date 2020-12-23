@@ -6,7 +6,6 @@ namespace MochaDB.mhql.engine {
 
   using MochaDB.mhql.engine.value;
   using MochaDB.Mhql;
-  using MochaDB.Querying;
 
   /// <summary>
   /// Condition engine for MHQL.
@@ -238,7 +237,7 @@ namespace MochaDB.mhql.engine {
 
     index:
 
-      if(!char.IsNumber(value.FirstChar()))
+      if(!char.IsNumber(value[0]))
         throw new MochaException("Column is not defined!");
       int dex = int.Parse(value);
       if(dex < 0)

@@ -6,7 +6,6 @@ namespace MochaDB.mhql.keywords {
 
   using MochaDB.framework;
   using MochaDB.Mhql;
-  using MochaDB.Querying;
 
   /// <summary>
   /// MHQL USE keyword.
@@ -123,8 +122,8 @@ namespace MochaDB.mhql.keywords {
           }
           int obrace = callcmd.IndexOf(Mhql_LEXER.LBRACE);
           if(obrace != -1) {
-            IList<MochaColumn> _cols = (Tdb.ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
-              callcmd.Substring(obrace).Trim())) as MochaTableResult).Columns;
+            IList<MochaColumn> _cols = (new MochaDbCommand(Tdb).ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
+              callcmd.Substring(obrace).Trim()))).Columns;
             string mode =
               callcmd.Substring(0,obrace).TrimStart().StartsWith("$") ?
                 "$" : string.Empty;

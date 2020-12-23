@@ -4,8 +4,6 @@ namespace MochaDB.mhql {
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using MochaDB.Querying;
-
   /// <summary>
   /// Grammar of MHQL.
   /// </summary>

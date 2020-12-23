@@ -9,7 +9,7 @@ Objects are located in the ```MochaDB.Mhql``` namespace. They are run in the cod
 
 ```C#
 var command = new MochaDbCommand("USE Persons",db);
-var table = command.ExecuteScalar() as MochaTableResult;
+var table = command.ExecuteScalar();
 ```
 For detail: <a href="https://github.com/mertcandav/MochaDB/wiki/MochaDbCommand">MochaDbCommand</a>
 > With the ``Querying`` namespace, you can add ``MochaDbCommand`` functions directly to ``MochaDatabase``.

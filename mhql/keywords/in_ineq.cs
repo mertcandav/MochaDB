@@ -2,7 +2,6 @@ namespace MochaDB.mhql.keywords {
   using System;
 
   using MochaDB.Mhql;
-  using MochaDB.Querying;
 
   /// <summary>
   /// MHQL IN and INEQ keyword.
@@ -42,10 +41,8 @@ namespace MochaDB.mhql.keywords {
         throw new MochaException($"{Mhql_LEXER.LBRACE} is not found!");
       MochaColumn column = table.Columns[Mhql_GRAMMAR.GetIndexOfColumn(
           command.Substring(0,obrace).Trim(),table.Columns,from)];
-      Console.WriteLine(Mhql_LEXER.RangeSubqueryBrace(
+      MochaTableResult result = new MochaDbCommand(tdb).ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
           command.Substring(obrace)));
-      MochaTableResult result = tdb.ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
-          command.Substring(obrace))) as MochaTableResult;
       if(result.Columns.Length != 1)
         throw new MochaException("Subqueries should only return one column!");
       else if(MochaData.IsNumericType(column.DataType) != MochaData.IsNumericType(result.Columns[0].DataType)

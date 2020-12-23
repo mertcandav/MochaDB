@@ -1,5 +1,4 @@
 ﻿namespace MochaDB.Mochaq {
-  using MochaDB.Querying;
 
   /// <summary>
   /// MochaQ query for MochaDB.
@@ -54,7 +53,7 @@
           command.StartsWith("ROWCOUNT") ||
           command.StartsWith("DATACOUNT") ||
           command.StartsWith("EXISTS") ||
-          command.FirstChar() == '#'))
+          command[0] == '#'))
         return true;
       else
         return false;

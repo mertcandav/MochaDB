@@ -33,7 +33,6 @@ namespace MochaDB {
   using MochaDB.framework;
   using MochaDB.Logging;
   using MochaDB.Mochaq;
-  using MochaDB.Querying;
 
   /// <summary>
   /// MochaDatabase provides management of a MochaDB database.
