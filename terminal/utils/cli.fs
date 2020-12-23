@@ -38,6 +38,7 @@ type cli() =
       let ctx:int = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
       tableWidth <- if tableWidth < ctx then ctx else tableWidth
+      tableWidth <- tableWidth + 10
 
       /// <summary>
       /// Centre content.
@@ -63,7 +64,7 @@ type cli() =
           let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
-          finalLine <- finalLine + (new String('-', value.Length)) + "|"
+          finalLine <- finalLine + (new String('-', x)) + "|"
         printfn "\n%s" finalLine
 
       printRow(table.Columns)
@@ -78,10 +79,11 @@ type cli() =
     if table.Any() then
       printfn "Table is empty!"
     else
-      let mutable tx:int = table.Columns.Sum(fun(x:MochaColumn) -> x.MHQLAsText.Length)
+      let mutable tableWidth:int = table.Columns.Sum(fun(x:MochaColumn) -> x.MHQLAsText.Length)
       let ctx:int = table.Columns.Max(
         fun(x:MochaColumn) -> x.Datas.Sum(fun(y:MochaData) -> y.Data.ToString().Length))
-      tx <- if tx < ctx then ctx else tx
+      tableWidth <- if tableWidth < ctx then ctx else tableWidth
+      tableWidth <- tableWidth + 10
 
       /// <summary>
       /// Centre content.
@@ -101,14 +103,14 @@ type cli() =
       /// <param name="values">Values of row.</param>
       /// <param name="count">Count of elements.</param>
       let printRow(values:IEnumerable<'a>, count:int) : unit =
-        let x:int = (tx - count) / count
+        let x:int = (tableWidth - count) / count
         printf "|"
         let mutable finalLine:string = "|"
         for value in values do
           let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
-          finalLine <- finalLine + (new String('-', value.Length)) + "|"
+          finalLine <- finalLine + (new String('-', x)) + "|"
         printfn "\n%s" finalLine
 
       printRow(table.Columns.Select(
