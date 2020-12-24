@@ -1,6 +1,7 @@
 ﻿namespace submodules.connection
 
 open System
+open System.Xml.Linq
 open System.Collections
 
 open MochaDB
@@ -26,15 +27,30 @@ type mochaq() =
     /// <param name="query">Query.</param>
     let exec(query:string) : unit =
       try
-        let mq:MochaQCommand = new MochaQCommand(query)
+        let xml:bool = query.[0] = '$'
+        let mq:MochaQCommand = new MochaQCommand(
+          if xml then query.Substring(1) else query)
         if mq.IsGetRunQuery() then
           let result:obj = db.Query.GetRun(mq.Command)
           match result with
           | null -> printfn "NULL"
-          | :? MochaTable -> cli.printTable(result :?> MochaTable)
-          | :? MochaTableResult -> cli.printTable(result :?> MochaTableResult)
-          | :? IEnumerable -> cli.printEnumerable(result :?> IEnumerable)
-          | _ -> printfn "%s" (result.ToString())
+          | :? MochaTable ->
+            if xml then printfn "%s" (parser.parseTableToXmlString(result :?> MochaTable))
+            else cli.printTable(result :?> MochaTable)
+          | :? MochaTableResult ->
+            if xml then printfn "%s" (parser.parseTableToXmlString(result :?> MochaTableResult))
+            else cli.printTable(result :?> MochaTableResult)
+          | :? IEnumerable ->
+            if xml then
+              let xdoc:XDocument = XDocument.Parse("<?Collection?></Collection>")
+              for element in result :?> IEnumerable do
+                xdoc.Root.Add(new XElement(XName.Get("Element"),
+                  if element = null then "" else element.ToString()))
+              printfn "%s" (xdoc.ToString())
+            else cli.printEnumerable(result :?> IEnumerable)
+          | _ ->
+            if xml then printfn "<Result>%s</Result>" (result.ToString())
+            else printfn "%s" (result.ToString())
         else if mq.IsRunQuery()
         then db.Query.Run(mq.Command)
         else terminal.printError("MochaQ command is invalid!")
