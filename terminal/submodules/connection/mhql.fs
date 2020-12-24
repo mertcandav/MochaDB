@@ -25,14 +25,17 @@ type mhql() =
     /// </summary>
     /// <param name="query">Query.</param>
     let exec(query:string) : unit =
-      mhql.Command <- query
+      let xml:bool = query.[0] = '$'
+      mhql.Command <- if xml then query.Substring(1) else query
       try
         match mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
         | "USE" ->
           let table = mhql.ExecuteScalar()
           if table = null
           then printfn "NULL"
-          else cli.printTable(table)
+          else
+            if xml then printfn "%s" (parser.parseTableToXmlString(table))
+            else cli.printTable(table)
         | _ -> terminal.printError("MHQL query is invalid!")
       with
       | :? Exception as except ->
