@@ -147,13 +147,10 @@
     public virtual string Command {
       get => command;
       set {
-        if(value==command)
-          return;
-
         command = Mhql_LEXER.RemoveComments(value).Trim();
         for(int index = 0; index < keywords.Length; ++index)
           keywords[index].Command = command;
-        command = value;
+        command = value.Trim();
       }
     }
 
