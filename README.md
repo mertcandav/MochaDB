@@ -67,6 +67,9 @@ SUBROW 100
 
 ## Example use
 ```csharp
+using MochaDB;
+using MochaDB.Mhql;
+
 // Create your database connection.
 var database = new MochaDatabase(path: "db", password: "1231", logs: false);
 var username = Console.ReadLine(); // Get username from user.
