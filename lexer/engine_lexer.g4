@@ -44,6 +44,7 @@ DT_CHAR : 'Char' ;
 DT_AUTO_INTEGER : 'AutoInt' ;
 DT_UNIQUE : 'Unique' ;
 DT_BINARY_DIGIT : 'Bit' ;
+DT_BIG_INTEGER : 'BigInteger' ;
 
 // Types
 file_type : '1000' ;

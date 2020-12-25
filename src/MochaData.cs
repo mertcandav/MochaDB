@@ -1,5 +1,6 @@
 ﻿namespace MochaDB {
   using System;
+  using System.Numerics;
 
   using MochaDB.Data.Types;
 
@@ -128,6 +129,8 @@
         return typeof(ulong);
       if(dataType == MochaDataType.DateTime)
         return typeof(DateTime);
+      if(dataType == MochaDataType.BigInteger)
+        return typeof(BigInteger);
       return typeof(Bit);
     }
 
@@ -168,6 +171,8 @@
         return MochaDataType.DateTime;
       if(type == typeof(Bit))
         return MochaDataType.Bit;
+      if(type == typeof(BigInteger))
+        return MochaDataType.BigInteger;
 
       throw new MochaException("There is no MochaDB data type of this type!");
     }
@@ -213,6 +218,8 @@
         return ulong.Parse(data);
       if(dataType == MochaDataType.DateTime)
         return DateTime.Parse(data);
+      if(dataType == MochaDataType.BigInteger)
+        return BigInteger.Parse(data);
       return Bit.Parse(data);
     }
 
@@ -253,7 +260,8 @@
         type == MochaDataType.Int64 ||
         type == MochaDataType.SByte ||
         type == MochaDataType.UInt16 ||
-        type == MochaDataType.UInt64;
+        type == MochaDataType.UInt64 ||
+        type == MochaDataType.BigInteger;
 
     #endregion Static Members
 
@@ -323,6 +331,7 @@
     Char = 14,
     AutoInt = 15,
     Unique = 16,
-    Bit = 17
+    Bit = 17,
+    BigInteger = 18
   }
 }

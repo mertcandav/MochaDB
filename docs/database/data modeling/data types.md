@@ -94,4 +94,9 @@
         <td>Represents a binary digit (0 or 1) value.</td>
         <td>MochaDB.Data.Types.Bit</td>
     </tr>
+    <tr>
+        <td>BigInteger</td>
+        <td>Represents an arbitrarily large signed integer.</td>
+        <td>System.Numerics.BigInteger</td>
+    </tr>
 </table>
