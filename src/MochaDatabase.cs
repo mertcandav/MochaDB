@@ -1100,7 +1100,8 @@ namespace MochaDB {
       if(dataRange.Count() - 1 < index)
         throw new MochaException("This index is larger than the maximum number of data in the table!");
 
-      return new MochaData { dataType = dataType,data = dataRange.ElementAt(index).Value };
+      return new MochaData { dataType = dataType,
+                             data = MochaData.GetDataFromString(dataType,dataRange.ElementAt(index).Value) };
     }
 
     /// <summary>
@@ -1108,13 +1109,14 @@ namespace MochaDB {
     /// </summary>
     /// <param name="tableName">Name of table.</param>
     /// <param name="columnName">Name of column.</param>
-    public MochaData[] GetDatas(string tableName,string columnName) {
+    public List<MochaData> GetDatas(string tableName,string columnName) {
       if(!ExistsColumn(tableName,columnName))
         throw new MochaException("Column not found in this name!");
-      IEnumerable<XElement> dataRange = GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements();
-      MochaData[] datas = new MochaData[dataRange.Count()];
-      for(int index = 0; index < datas.Length; ++index)
-        datas[index] = GetData(tableName,columnName,index);
+      MochaDataType dataType = GetColumnDataType(tableName,columnName);
+      List<MochaData> datas = new List<MochaData>();
+      foreach(XElement element in GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements())
+        datas.Add(new MochaData { dataType = dataType,
+                                  data = MochaData.GetDataFromString(dataType, element.Value) });
       return datas;
     }
 

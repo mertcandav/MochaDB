@@ -8,6 +8,7 @@ CHANGELOGS of MochaDB.
 + Remove castings from MochaData.
 + Remove dynamic queries from MochaQ.
 + Remove select keyword from mhql.
++ Fix MochaData get system.
 + Fix AS keyword of mhql.
 + Fix FROM keyword of mhql.
 + Fix comment lines support of mhql.
