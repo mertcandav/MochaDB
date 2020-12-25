@@ -73,6 +73,25 @@
  Terminal declare.
  </summary>
 </member>
+<member name="M:utils.mhq.CommandIsRunType(System.String)">
+ <summary>
+ Command is run type or not?
+ </summary>
+ <param name="command">Command to check.</param>
+ <returns>true if command is run type, false if not.</returns>
+</member>
+<member name="M:utils.mhq.CommandIsGetRunType(System.String)">
+ <summary>
+ Command is getrun type or not?
+ </summary>
+ <param name="command">Command to check.</param>
+ <returns>true if command is getrun type, false if not.</returns>
+</member>
+<member name="T:utils.mhq">
+ <summary>
+ MochaQ utilities.
+ </summary>
+</member>
 <member name="M:utils.parser.parseTableToXmlString(MochaDB.Mhql.MochaTableResult)">
  <summary>
  Parse MochaTableResult to XmlString.
@@ -166,14 +185,14 @@
  MHQL module.
  </summary>
 </member>
-<member name="M:submodules.connection.mochaq.proc(MochaDB.MochaDatabase,System.String)">
+<member name="M:submodules.connection.mhq.proc(MochaDB.MochaDatabase,System.String)">
  <summary>
  Process command in module.
  </summary>
  <param name="db">Database connection.</param>
  <param name="cmd">Command.</param>
 </member>
-<member name="T:submodules.connection.mochaq">
+<member name="T:submodules.connection.mhq">
  <summary>
  MochaQ module.
  </summary>

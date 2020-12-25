@@ -194,9 +194,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "querying", "querying", "{3BCE460D-1430-47FF-AD97-4670C4289801}"
 	ProjectSection(SolutionItems) = preProject
 		docs\database\querying\linq.md = docs\database\querying\linq.md
+		docs\database\querying\mhq.md = docs\database\querying\mhq.md
 		docs\database\querying\mhql.md = docs\database\querying\mhql.md
 		docs\database\querying\MochaDbCommand.md = docs\database\querying\MochaDbCommand.md
-		docs\database\querying\MochaQ.md = docs\database\querying\MochaQ.md
 		docs\database\querying\MochaQuery.md = docs\database\querying\MochaQuery.md
 	EndProjectSection
 EndProject

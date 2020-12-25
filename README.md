@@ -26,7 +26,7 @@
 + ACID support
 + RDBMS(Relational Database Management System) features
 + Supports LINQ queries
-+ MochaQ for simple and fast queries
++ MHQ(MochaDB Query) for simple and fast queries
 + MHQL(MochaDB Query Language) for advanced queries
 
 ## Compatibility

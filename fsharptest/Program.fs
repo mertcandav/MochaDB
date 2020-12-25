@@ -88,7 +88,7 @@ let main(argv:string[]) : int =
         StartMhqlTableGetStressWithTick(db, Int32.Parse(input.Split(' ').[1]))
         printfn "\n\n------ MHQL Stress Test -----\n\n"
       else
-        db.Query.MochaQ.SetCommand(input)
+        db.Query.Command <- input
         ExecuteCommand(db)
     else
       printfn "ERROR: Empty command!"

@@ -1,4 +1,4 @@
-﻿namespace MochaDB.Mochaq {
+﻿namespace MochaDB.Mhq {
   using System;
   using System.Collections.Generic;
   using System.IO;
@@ -15,40 +15,18 @@
 
     #endregion Fields
 
-    #region Internal Constructors
-
-    /// <summary>
-    /// Create new MochaQuery.
-    /// </summary>
-    /// <param name="database">MochaDatabase object to use querying.</param>
-    /// <param name="embedded">Is embedded query in database.</param>
-    internal protected MochaQuery(MochaDatabase database,bool embedded) {
-      this.database = database;
-      MochaQ = string.Empty;
-      IsDatabaseEmbedded=embedded;
-    }
-
-    #endregion Internal Constructors
-
     #region Constructors
 
     /// <summary>
-    /// Create new MochaQuery.
+    /// Create new instance of <see cref="MochaQuery"/>.
     /// </summary>
     /// <param name="database">MochaDatabase object to use querying.</param>
-    public MochaQuery(MochaDatabase database) {
-      IsDatabaseEmbedded=false;
+    /// <param name="cmd">Command.</param>
+    public MochaQuery(MochaDatabase database,string cmd = "") {
+      IsDatabaseEmbedded = false;
       Database = database;
-      MochaQ = string.Empty;
+      Command = cmd;
     }
-
-    /// <summary>
-    /// Create new MochaQuery.
-    /// </summary>
-    /// <param name="database">MochaDatabase object to use querying.</param>
-    /// <param name="mochaQ">MochaQuery to use.</param>
-    public MochaQuery(MochaDatabase database,string mochaQ)
-      : this(database) => MochaQ = mochaQ;
 
     #endregion Constructors
 
@@ -61,7 +39,7 @@
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
     public virtual void Run(string mochaQ) {
-      MochaQ=mochaQ;
+      Command=mochaQ;
       Run();
     }
 
@@ -72,7 +50,7 @@
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
     public virtual void Run(MochaDatabase database,string mochaQ) {
       Database = database;
-      MochaQ=mochaQ;
+      Command=mochaQ;
       Run();
     }
 
@@ -80,16 +58,13 @@
     /// Runs the active MochaQ query. Even if there is an incoming value, it will not return.
     /// </summary>
     public virtual void Run() {
-      if(!MochaQ.IsRunQuery())
-        throw new MochaException(@"This MochaQ command is not ""Run"" type command.");
-
       Database.OnConnectionCheckRequired(this,new EventArgs());
 
       //Check null.
-      if(string.IsNullOrEmpty(MochaQ))
+      if(string.IsNullOrEmpty(Command))
         throw new MochaException("This MochaQ query is empty, invalid!");
 
-      string[] queryPaths = MochaQ.Command.Split(':');
+      string[] queryPaths = Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
 
       switch(queryPaths.Length) {
@@ -226,7 +201,7 @@
     /// </summary>
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
     public virtual object GetRun(string mochaQ) {
-      MochaQ=mochaQ;
+      Command=mochaQ;
       return GetRun();
     }
 
@@ -237,7 +212,7 @@
     /// <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
     public virtual object GetRun(MochaDatabase database,string mochaQ) {
       Database = database;
-      MochaQ=mochaQ;
+      Command=mochaQ;
       return GetRun();
     }
 
@@ -245,16 +220,13 @@
     /// Runs the active MochaQ query. Returns the incoming value.
     /// </summary>
     public virtual object GetRun() {
-      if(!MochaQ.IsGetRunQuery())
-        throw new MochaException(@"This MochaQ command is not ""GetRun"" type command.");
-
       Database.OnConnectionCheckRequired(this,new EventArgs());
 
       //Check null.
-      if(string.IsNullOrEmpty(MochaQ))
+      if(string.IsNullOrEmpty(Command))
         throw new MochaException("This MochaQ query is empty, invalid!");
 
-      string[] queryPaths = MochaQ.Command.Split(':');
+      string[] queryPaths = Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
 
       switch(queryPaths.Length) {
@@ -390,22 +362,12 @@
 
     #endregion Private Members
 
-    #region Overrides
-
-    /// <summary>
-    /// Returns command property value of <see cref="MochaQ"/>.
-    /// </summary>
-    public override string ToString() =>
-      MochaQ.Command;
-
-    #endregion Overrides
-
     #region Properties
 
     /// <summary>
     /// Is embedded query in database.
     /// </summary>
-    public virtual bool IsDatabaseEmbedded { get; protected set; }
+    public virtual bool IsDatabaseEmbedded { get; internal protected set; }
 
     /// <summary>
     /// MochaDatabase object to use querying.
@@ -429,7 +391,7 @@
     /// <summary>
     /// Active MochaQ query.
     /// </summary>
-    public virtual MochaQCommand MochaQ { get; set; }
+    public virtual string Command { get; set; }
 
     #endregion Properties
   }

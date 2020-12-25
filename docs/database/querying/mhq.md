@@ -1,4 +1,4 @@
-MochaQ can be called an inquiry language that you can use for simple and basic operations.
+MHQ(<b>M</b>oc<b>h</b>adb <b>Q</b>uery) can be called an inquiry language that you can use for simple and basic operations.
 
 ### Commands
 

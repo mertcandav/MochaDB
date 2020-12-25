@@ -133,6 +133,87 @@
             Rows.
             </summary>
         </member>
+        <member name="T:MochaDB.Mhq.MochaQuery">
+            <summary>
+            It offers query usage and management with MochaQ.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.#ctor(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Create new instance of <see cref="T:MochaDB.Mhq.MochaQuery"/>.
+            </summary>
+            <param name="database">MochaDatabase object to use querying.</param>
+            <param name="cmd">Command.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.Run(System.String)">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.Run(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.Run">
+            <summary>
+            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.GetRun(System.String)">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.GetRun(MochaDB.MochaDatabase,System.String)">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
+            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.GetRun">
+            <summary>
+            Runs the active MochaQ query. Returns the incoming value.
+            </summary>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.COLUMNCOUNT(System.String)">
+            <summary>
+            Return column count of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.GETDATAS(System.String)">
+            <summary>
+            Return all datas of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="M:MochaDB.Mhq.MochaQuery.GETFIRSTCOLUMN_NAME(System.String)">
+            <summary>
+            Return first column name of table.
+            </summary>
+            <param name="name">Name of table.</param>
+        </member>
+        <member name="P:MochaDB.Mhq.MochaQuery.IsDatabaseEmbedded">
+            <summary>
+            Is embedded query in database.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhq.MochaQuery.Database">
+            <summary>
+            MochaDatabase object to use querying.
+            </summary>
+        </member>
+        <member name="P:MochaDB.Mhq.MochaQuery.Command">
+            <summary>
+            Active MochaQ query.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaCollection`1">
             <summary>
             Base class for MochaDB collections.
@@ -1189,142 +1270,6 @@
         <member name="P:MochaDB.MochaPath.Path">
             <summary>
             Path.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.MochaQCommand">
-            <summary>
-            MochaQ query for MochaDB.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.#ctor(System.String)">
-            <summary>
-            Create new MochaQCommand.
-            </summary>
-            <param name="command">MochaQ command.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.SetCommand(System.String)">
-            <summary>
-            Set command.
-            </summary>
-            <param name="command">Command to set.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.IsGetRunQuery">
-            <summary>
-            Return true if this MochaQ command ise GetRun command but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.IsRunQuery">
-            <summary>
-            Return true if this MochaQ command ise Run command but return false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQCommand.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.Mochaq.MochaQCommand.Command"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaQCommand.Command">
-            <summary>
-            MochaQ command.
-            </summary>
-        </member>
-        <member name="T:MochaDB.Mochaq.MochaQuery">
-            <summary>
-            It offers query usage and management with MochaQ.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase,System.Boolean)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-            <param name="embedded">Is embedded query in database.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.#ctor(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Create new MochaQuery.
-            </summary>
-            <param name="database">MochaDatabase object to use querying.</param>
-            <param name="mochaQ">MochaQuery to use.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Run(System.String)">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Run(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.Run">
-            <summary>
-            Runs the active MochaQ query. Even if there is an incoming value, it will not return.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun(System.String)">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun(MochaDB.MochaDatabase,System.String)">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-            <param name="database">MochaDatabase object that provides management of the targeted MochaDB database.</param>
-            <param name="mochaQ">MochaQ to be set as the active MochaQ Query.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.GetRun">
-            <summary>
-            Runs the active MochaQ query. Returns the incoming value.
-            </summary>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.COLUMNCOUNT(System.String)">
-            <summary>
-            Return column count of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.GETDATAS(System.String)">
-            <summary>
-            Return all datas of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.GETFIRSTCOLUMN_NAME(System.String)">
-            <summary>
-            Return first column name of table.
-            </summary>
-            <param name="name">Name of table.</param>
-        </member>
-        <member name="M:MochaDB.Mochaq.MochaQuery.ToString">
-            <summary>
-            Returns command property value of <see cref="P:MochaDB.Mochaq.MochaQuery.MochaQ"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaQuery.IsDatabaseEmbedded">
-            <summary>
-            Is embedded query in database.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaQuery.Database">
-            <summary>
-            MochaDatabase object to use querying.
-            </summary>
-        </member>
-        <member name="P:MochaDB.Mochaq.MochaQuery.MochaQ">
-            <summary>
-            Active MochaQ query.
             </summary>
         </member>
         <member name="T:MochaDB.MochaRow">

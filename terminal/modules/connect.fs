@@ -51,12 +51,13 @@ type connect() =
                 if input <> String.Empty then
                 let cmd:string = commandProcessor.removeNamespace(input)
                 match commandProcessor.splitNamespace(input).ToLower() with
-                | "mochaq" -> mochaq.proc(db, cmd)
+                | "mhq" -> mhq.proc(db, cmd)
                 | "mhql" -> mhql.proc(db, cmd)
                 | "disconnect" -> break <- true
                 | "help" ->
                   cli.printDictAsTable(dict[
-                    "mochaq", "Execute MochaQ queries.";
+                    "mhq", "Execute MochaQ commands.";
+                    "mhql", "Execute MHQL queries."
                     "disconnect", "Disconnect.";
                     "help", "Show help."
                   ])

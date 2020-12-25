@@ -6,7 +6,7 @@ open System.Collections
 
 open MochaDB
 open MochaDB.Mhql
-open MochaDB.Mochaq
+open MochaDB.Mhq
 
 open utils
 open terminal
@@ -14,7 +14,7 @@ open terminal
 /// <summary>
 /// MochaQ module.
 /// </summary>
-type mochaq() =
+type mhq() =
   /// <summary>
   /// Process command in module.
   /// </summary>
@@ -28,10 +28,9 @@ type mochaq() =
     let exec(query:string) : unit =
       try
         let xml:bool = query.[0] = '$'
-        let mq:MochaQCommand = new MochaQCommand(
-          if xml then query.Substring(1) else query)
-        if mq.IsGetRunQuery() then
-          let result:obj = db.Query.GetRun(mq.Command)
+        let query = if xml then query.Substring(1) else query
+        if utils.mhq.CommandIsGetRunType(query) then
+          let result:obj = db.Query.GetRun(query)
           match result with
           | null -> printfn "NULL"
           | :? MochaTable ->
@@ -51,8 +50,8 @@ type mochaq() =
           | _ ->
             if xml then printfn "<Result>%s</Result>" (result.ToString())
             else printfn "%s" (result.ToString())
-        else if mq.IsRunQuery()
-        then db.Query.Run(mq.Command)
+        else if utils.mhq.CommandIsRunType(query)
+        then db.Query.Run(query)
         else terminal.printError("MochaQ command is invalid!")
       with
       | :? Exception as except ->
@@ -61,7 +60,7 @@ type mochaq() =
     if cmd = String.Empty then
       let mutable break:bool = false
       while break = false do
-        let input:string = terminal.getInput(db.Name + "\MochaQ ", ConsoleColor.White)
+        let input:string = terminal.getInput(db.Name + "\MHQ ", ConsoleColor.White)
         if input = String.Empty then
           break <- true
         else

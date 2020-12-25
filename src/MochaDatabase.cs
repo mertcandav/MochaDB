@@ -32,7 +32,7 @@ namespace MochaDB {
   using MochaDB.engine;
   using MochaDB.framework;
   using MochaDB.Logging;
-  using MochaDB.Mochaq;
+  using MochaDB.Mhq;
 
   /// <summary>
   /// MochaDatabase provides management of a MochaDB database.
@@ -396,7 +396,7 @@ namespace MochaDB {
       FileInfo fInfo = new FileInfo(path);
       Name = fInfo.Name.Substring(0,fInfo.Name.Length - fInfo.Extension.Length);
       sourceStream = File.Open(path,FileMode.Open,FileAccess.ReadWrite);
-      Query = new MochaQuery(this,true);
+      Query = new MochaQuery(this) { IsDatabaseEmbedded = true };
     }
 
     /// <summary>

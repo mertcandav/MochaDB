@@ -4,6 +4,7 @@ CHANGELOGS of MochaDB.
 + Optimizations.
 + Check exists state on database creation.
 + Remove MochaID.
++ Remove MochaQCommand.
 + Remove connection strings.
 + Remove trash methods from MochaConvert.
 + Remove castings from MochaData.
