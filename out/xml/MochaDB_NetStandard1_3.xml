@@ -27,30 +27,19 @@
             Log for MochaDB.
             </summary>
         </member>
-        <member name="M:MochaDB.Logging.MochaLog.#ctor(System.String)">
+        <member name="M:MochaDB.Logging.MochaLog.#ctor(System.String,System.String,System.DateTime)">
             <summary>
-            Create a new MochaLog.
-            </summary>
-            <param name="log">Log content.</param>
-        </member>
-        <member name="M:MochaDB.Logging.MochaLog.#ctor(System.String,System.DateTime)">
-            <summary>
-            Create a new MochaLog.
+            Create a new instance of <see cref="T:MochaDB.Logging.MochaLog"/>.
             </summary>
             <param name="log">Log content.</param>
             <param name="time">Log time.</param>
-        </member>
-        <member name="M:MochaDB.Logging.MochaLog.TakeID">
-            <summary>
-            Take a new MochaID by default algorithm.
-            </summary>
         </member>
         <member name="M:MochaDB.Logging.MochaLog.ToString">
             <summary>
             Returns <see cref="P:MochaDB.Logging.MochaLog.Log"/>.
             </summary>
         </member>
-        <member name="P:MochaDB.Logging.MochaLog.ID">
+        <member name="P:MochaDB.Logging.MochaLog.Id">
             <summary>
             ID of log.
             </summary>
@@ -1143,75 +1132,6 @@
         <member name="P:MochaDB.MochaException.Message">
             <summary>
             Message of exception.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaID">
-            <summary>
-            ID for MochaID.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.#ctor(System.String)">
-            <summary>
-            Create a new MochaID.
-            </summary>
-            <param name="id">ID Value.</param>
-        </member>
-        <member name="M:MochaDB.MochaID.#ctor(MochaDB.MochaIDType)">
-            <summary>
-            Create a new MochaID.
-            </summary>
-            <param name="type">ID type.</param>
-        </member>
-        <member name="M:MochaDB.MochaID.Flat">
-            <summary>
-            Flat ID algorithm.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.Bit">
-            <summary>
-            Bit ID algorithm.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.Hexabit">
-            <summary>
-            Hexabit ID algorithm.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.Hexabitx">
-            <summary>
-            Hexabitx ID algorithm.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.Hash(System.Int32)">
-            <summary>
-            Hash ID algorithms.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaID.GetID(MochaDB.MochaIDType)">
-            <summary>
-            Get ID by ID Type.
-            </summary>
-            <param name="type">ID type.</param>
-        </member>
-        <member name="M:MochaDB.MochaID.SetValue(MochaDB.MochaIDType)">
-            <summary>
-            Set id value by ID type.
-            </summary>
-            <param name="type">Type of ID.</param>
-        </member>
-        <member name="M:MochaDB.MochaID.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaID.Value"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaID.Value">
-            <summary>
-            ID.
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaIDType">
-            <summary>
-            Enum for MochaID types.
             </summary>
         </member>
         <member name="T:MochaDB.MochaPath">

@@ -234,12 +234,17 @@ namespace MochaDB {
     /// Keep log of database.
     /// </summary>
     internal void KeepLog() {
+      string generateId() {
+        Random rnd = new Random();
+        string value = string.Empty;
+        for(int counter = 1; counter <= 16; ++counter)
+          value += $"{rnd.Next(0,9).GetHashCode()}";
+        return value;
+      }
       string id;
-      do {
-        id = MochaID.GetID(MochaIDType.Hash16);
-      } while(ExistsLog(id));
+      do { id = generateId(); } while(ExistsLog(id));
       XElement xLog = new XElement("Log");
-      xLog.Add(new XAttribute("ID",id));
+      xLog.Add(new XAttribute("Id",id));
       xLog.Add(new XAttribute("Time",DateTime.Now));
       string content = aes.Encrypt(Iv,Key,Doc.ToString());
       xLog.Value=content;
@@ -1150,11 +1155,9 @@ namespace MochaDB {
     public List<MochaLog> GetLogs() {
       List<MochaLog> logs = new List<MochaLog>();
       foreach(XElement element in GetXElement(Doc,"Logs").Elements())
-        logs.Add(new MochaLog {
-          ID = new MochaID(element.Attribute("ID").Value),
-          Time = DateTime.Parse(element.Attribute("Time").Value),
-          Log= element.Value
-        });
+        logs.Add(new MochaLog(element.Attribute("Id").Value,
+                              element.Value,
+                              DateTime.Parse(element.Attribute("Time").Value)));
       return logs;
     }
 
@@ -1166,7 +1169,7 @@ namespace MochaDB {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
       if(!logs.Any())
         return false; //throw new MochaException("Not exists any log!");
-      RestoreToLog(logs.Last().Attribute("ID").Value);
+      RestoreToLog(logs.Last().Attribute("Id").Value);
       return true;
     }
 
@@ -1178,7 +1181,7 @@ namespace MochaDB {
       IEnumerable<XElement> logs = GetXElement(Doc,"Logs").Elements();
       if(!logs.Any())
         return false; // throw new MochaException("Not exists any log!");
-      RestoreToLog(logs.First().Attribute("ID").Value);
+      RestoreToLog(logs.First().Attribute("Id").Value);
       return true;
     }
 
@@ -1191,7 +1194,7 @@ namespace MochaDB {
         throw new MochaException("Log not found in this id!");
       Changing?.Invoke(this,new EventArgs());
 
-      XElement log = GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value==id).First();
+      XElement log = GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("Id").Value==id).First();
       CDoc = XDocument.Parse(aes.Decrypt(Iv,Key,log.Value));
       Save();
     }
@@ -1201,7 +1204,7 @@ namespace MochaDB {
     /// </summary>
     /// <param name="id">ID of log.</param>
     public bool ExistsLog(string id) =>
-      GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("ID").Value == id).Count() != 0;
+      GetXElement(Doc,"Logs").Elements().Where(x => x.Attribute("Id").Value == id).Count() != 0;
 
     #endregion Log
 

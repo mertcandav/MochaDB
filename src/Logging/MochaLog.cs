@@ -8,34 +8,17 @@
     #region Constructors
 
     /// <summary>
-    /// Create a new MochaLog.
-    /// </summary>
-    /// <param name="log">Log content.</param>
-    public MochaLog(string log) {
-      ID = new MochaID(MochaIDType.Hash16);
-      Log=log;
-      Time =DateTime.Now;
-    }
-
-    /// <summary>
-    /// Create a new MochaLog.
+    /// Create a new instance of <see cref="MochaLog"/>.
     /// </summary>
     /// <param name="log">Log content.</param>
     /// <param name="time">Log time.</param>
-    public MochaLog(string log,DateTime time) :
-        this(log) => Time=time;
+    public MochaLog(string id,string log,DateTime time) {
+      Id = id;
+      Log = log;
+      Time = time;
+    }
 
     #endregion Constructors
-
-    #region Members
-
-    /// <summary>
-    /// Take a new MochaID by default algorithm.
-    /// </summary>
-    public void TakeID() =>
-      ID.SetValue(MochaIDType.Hash16);
-
-    #endregion Members
 
     #region Overrides
 
@@ -52,7 +35,7 @@
     /// <summary>
     /// ID of log.
     /// </summary>
-    public MochaID ID { get; set; }
+    public string Id { get; set; }
 
     /// <summary>
     /// Log content.
