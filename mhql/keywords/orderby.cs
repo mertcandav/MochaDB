@@ -39,11 +39,11 @@ namespace MochaDB.mhql.keywords {
     public string GetORDERBY(string command,out string final) {
       int orderbydex = command.IndexOf("ORDERBY",StringComparison.OrdinalIgnoreCase);
       if(orderbydex==-1)
-        throw new MochaException("ORDERBY command is cannot processed!");
+        throw new InvalidOperationException("ORDERBY command is cannot processed!");
       System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
-        throw new MochaException("ORDERBY command is cannot processed!");
+        throw new InvalidOperationException("ORDERBY command is cannot processed!");
       string orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
       final = command.Substring(finaldex);
       return orderbycommand;
@@ -59,7 +59,7 @@ namespace MochaDB.mhql.keywords {
       MHQLOrderType DecomposeOrder(string cmd,ref MochaTableResult tbl,out int coldex) {
         string[] orderparts = cmd.Trim().Split(' ');
         if(orderparts.Length > 2)
-          throw new MochaException("A single ORDERBY parameter can consist of up to 2 parts!");
+          throw new ArgumentOutOfRangeException("A single ORDERBY parameter can consist of up to 2 parts!");
         coldex = Mhql_GRAMMAR.GetIndexOfColumn(orderparts[0].Trim(),tbl.Columns,from);
 
         if(orderparts.Length == 1)
@@ -71,7 +71,7 @@ namespace MochaDB.mhql.keywords {
                 MHQLOrderType.ASC :
                 order.StartsWith("DESC",StringComparison.OrdinalIgnoreCase) ?
                     MHQLOrderType.DESC :
-                    throw new MochaException("ORDERBY could not understand this '" + order + "' sort type!");
+                    throw new Exception("ORDERBY could not understand this '" + order + "' sort type!");
       }
       command = command.Trim();
       string[] parts = Mhql_LEXER.SplitParameters(command);

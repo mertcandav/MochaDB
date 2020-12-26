@@ -68,8 +68,6 @@ let codebox_keydown(e: KeyEventArgs) : unit =
         table.Rows.Add([| for data in row.Datas -> data.Data |])
         gridview.DataSource <- table
     with
-    | :? MochaException as excep ->
-      printfn "ERROR: %s" excep.Message
     | :? Exception as excep ->
       printfn "ERROR: %s" excep.Message
       database.Dispose()

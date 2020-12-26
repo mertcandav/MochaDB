@@ -38,7 +38,7 @@ namespace MochaDB.mhql {
       if(openCount == 0)
         return value.Substring(1,value.Length-2).Trim();
       else
-        throw new MochaException("Brackets is opened but not close!");
+        throw new Exception("Brackets is opened but not close!");
     }
 
     /// <summary>
@@ -60,9 +60,9 @@ namespace MochaDB.mhql {
     /// <returns>Subquery.</returns>
     public static string RangeSubqueryBrace(string value) {
       if(value[0] != LBRACE)
-        throw new MochaException("Brackets is opened!");
+        throw new Exception("Brackets is opened!");
       if(value[value.Length - 1] != RBRACE)
-        throw new MochaException("Brackets is opened but not close!");
+        throw new Exception("Brackets is opened but not close!");
       return value.Substring(1,value.Length - 2);
     }
 

@@ -1,4 +1,5 @@
 ﻿namespace MochaDB.engine {
+  using System;
   using System.Text.RegularExpressions;
 
   using MochaDB.mhql;
@@ -21,7 +22,7 @@
     /// <param name="value">Value.</param>
     public static void CheckThrow(string value) {
       if(!Check(value))
-        throw new MochaException("The name did not meet the naming conventions!");
+        throw new InvalidOperationException("The name did not meet the naming conventions!");
     }
 
     /// <summary>
@@ -38,7 +39,7 @@
     /// <param name="value">Value.</param>
     public static void AttributeCheckThrow(string value) {
       if(!AttributeCheck(value))
-        throw new MochaException("The name did not meet the naming conventions!");
+        throw new InvalidOperationException("The name did not meet the naming conventions!");
     }
   }
 }

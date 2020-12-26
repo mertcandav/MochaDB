@@ -37,11 +37,11 @@ namespace MochaDB.mhql.keywords {
     public string GetGROUPBY(string command,out string final) {
       int groupbydex = command.IndexOf("GROUPBY",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
-        throw new MochaException("GROUPBY command is cannot processed!");
+        throw new InvalidOperationException("GROUPBY command is cannot processed!");
       System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
-        throw new MochaException("GROUPBY command is cannot processed!");
+        throw new InvalidOperationException("GROUPBY command is cannot processed!");
       string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;

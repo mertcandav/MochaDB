@@ -2,6 +2,7 @@
   using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.IO;
   using System.Linq;
 
   /// <summary>
@@ -58,15 +59,15 @@
     /// <param name="item">Item to add.</param>
     internal protected virtual void Add(MochaData item) {
       if(DataType==MochaDataType.AutoInt)
-        throw new MochaException("Data cannot be added directly to a column with AutoInt!");
+        throw new Exception("Data cannot be added directly to a column with AutoInt!");
       if(item.DataType == MochaDataType.Unique && !string.IsNullOrEmpty(item.Data.ToString()))
         if(ContainsData(item.Data))
-          throw new MochaException("Any value can be added to a unique column only once!");
+          throw new InvalidOperationException("Any value can be added to a unique column only once!");
 
       if(item.DataType == DataType)
         collection.Add(item);
       else
-        throw new MochaException("This data's datatype not compatible column datatype.");
+        throw new InvalidDataException("This data's datatype not compatible column datatype.");
     }
 
     /// <summary>
@@ -77,7 +78,7 @@
       if(MochaData.IsType(DataType,data))
         Add(new MochaData(DataType,data));
       else
-        throw new MochaException("This data's datatype not compatible column datatype.");
+        throw new InvalidDataException("This data's datatype not compatible column datatype.");
     }
 
     /// <summary>

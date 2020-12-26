@@ -1,4 +1,5 @@
 namespace MochaDB.mhql.engine.value {
+  using System;
   using System.Text.RegularExpressions;
 
   /// <summary>
@@ -13,11 +14,11 @@ namespace MochaDB.mhql.engine.value {
       val = val.Trim();
 
       if(val == string.Empty)
-        throw new MochaException("Char is not defined!");
+        throw new ArgumentException("Char is not defined!");
       if(!val.StartsWith("'"))
-        throw new MochaException("Char is not declare!");
+        throw new ArgumentException("Char is not declare!");
       if(!val.EndsWith("'"))
-        throw new MochaException("Char end is not declared!");
+        throw new ArgumentException("Char end is not declared!");
 
       val = val.Substring(1,val.Length-2);
       for(int dex = 0; dex < MhqlEngVal_LEXER.Escapes.Length/2; ++dex) {
@@ -26,7 +27,7 @@ namespace MochaDB.mhql.engine.value {
         val = pattern.Replace(val,MhqlEngVal_LEXER.Escapes[dex,0]);
       }
       if(val.Length > 1)
-        throw new MochaException("Char can be at most one character!");
+        throw new ArgumentOutOfRangeException("Char can be at most one character!");
     }
   }
 }

@@ -1,7 +1,7 @@
 ﻿namespace MochaDB {
   using System;
   using System.Numerics;
-
+  using System.IO;
   using MochaDB.Data.Types;
 
   /// <summary>
@@ -91,7 +91,7 @@
       if(Enum.TryParse(name,true,out dataType))
         return dataType;
 
-      throw new MochaException("There is no MochaDB data type by this name!");
+      throw new Exception("There is no MochaDB data type by this name!");
     }
 
     /// <summary>
@@ -174,7 +174,7 @@
       if(type == typeof(BigInteger))
         return MochaDataType.BigInteger;
 
-      throw new MochaException("There is no MochaDB data type of this type!");
+      throw new Exception("There is no MochaDB data type of this type!");
     }
 
     /// <summary>
@@ -184,7 +184,7 @@
     /// <param name="data">String data.</param>
     public static object GetDataFromString(MochaDataType dataType,string data) {
       if(data == null)
-        throw new MochaException("Data is cannot null!");
+        throw new NullReferenceException("Data is cannot null!");
 
       if(dataType == MochaDataType.String || dataType == MochaDataType.Unique)
         return data;
@@ -283,11 +283,11 @@
     public virtual object Data {
       get => data;
       set {
-        if(DataType==MochaDataType.AutoInt)
-          throw new MochaException("Value data cannot be edited because it is AutoInt!");
+        if(DataType == MochaDataType.AutoInt)
+          throw new InvalidOperationException("Value data cannot be edited because it is AutoInt!");
 
         if(!IsType(DataType,value))
-          throw new MochaException("The submitted data is not compatible with the targeted data!");
+          throw new InvalidDataException("The submitted data is not compatible with the targeted data!");
 
         data = GetDataFromString(DataType,value.ToString());
       }

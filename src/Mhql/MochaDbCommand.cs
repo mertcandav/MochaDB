@@ -72,10 +72,10 @@
     /// Check connection and database.
     /// </summary>
     internal virtual void CheckConnection() {
-      if(Database==null)
-        throw new MochaException("Target database is cannot null!");
+      if(Database == null)
+        throw new NullReferenceException("Target database is cannot null!");
       if(Database.State!=MochaConnectionState.Connected)
-        throw new MochaException("Connection is not open!");
+        throw new Exception("Connection is not open!");
     }
 
     #endregion Internal Members
@@ -100,7 +100,7 @@
       bool fromkw;
       string lastcommand;
       if(!USE.Command.StartsWith("USE",StringComparison.OrdinalIgnoreCase))
-        throw new MochaException("MHQL is cannot processed!");
+        throw new InvalidOperationException("MHQL is cannot processed!");
       string use = USE.GetUSE(out lastcommand);
       fromkw = Mhql_FROM.IsFROM(use);
       MochaTableResult table = USE.GetTable(use,fromkw);
@@ -132,7 +132,7 @@
           }
           break;
         } else
-          throw new MochaException($"'{lastcommand}' command is cannot processed!");
+          throw new InvalidOperationException($"'{lastcommand}' command is cannot processed!");
       } while(true);
       return table;
     }
@@ -161,7 +161,7 @@
       get => db;
       set {
         if(value==null)
-          throw new MochaException("This MochaDatabase is not affiliated with a database!");
+          throw new NullReferenceException("This MochaDatabase is not affiliated with a database!");
         if(value==db)
           return;
 

@@ -67,8 +67,8 @@
       for(int rowIndex = 0; rowIndex < Rows.Count; ++rowIndex) {
         MochaRow currentRow = Rows[rowIndex];
 
-        if(currentRow.Datas.Count!=Columns.Count)
-          throw new MochaException("The number of data must be equal to the number of columns!");
+        if(currentRow.Datas.Count != Columns.Count)
+          throw new ArgumentException("The number of data must be equal to the number of columns!");
 
         for(int columnIndex = 0; columnIndex < Columns.Count; ++columnIndex) {
           MochaColumn currentColumn = Columns[columnIndex];
@@ -150,7 +150,7 @@
       set {
         value=value.Trim();
         if(string.IsNullOrWhiteSpace(value))
-          throw new MochaException("Name is cannot null or whitespace!");
+          throw new NullReferenceException("Name is cannot null or whitespace!");
 
         Engine_NAMES.CheckThrow(value);
 

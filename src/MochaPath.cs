@@ -1,4 +1,5 @@
 ﻿namespace MochaDB {
+  using System;
   using System.Linq;
 
   using IOPath = System.IO.Path;
@@ -114,7 +115,7 @@
       set {
         value=value.Trim();
         if(string.IsNullOrEmpty(value))
-          throw new MochaException("Path is cannot null or whitespace!");
+          throw new NullReferenceException("Path is cannot null or whitespace!");
 
         value=value.Replace('\\',IOPath.DirectorySeparatorChar);
         value = value.Last() == IOPath.DirectorySeparatorChar ? value.Remove(value.Length-1,1) : value;

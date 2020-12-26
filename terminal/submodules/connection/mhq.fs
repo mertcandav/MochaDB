@@ -55,7 +55,7 @@ type mhq() =
         else terminal.printError("MochaQ command is invalid!")
       with
       | :? Exception as except ->
-        terminal.printError(except.ToString())
+        terminal.printError(except.Message)
 
     if cmd = String.Empty then
       let mutable break:bool = false

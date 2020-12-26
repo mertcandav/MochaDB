@@ -38,16 +38,16 @@ namespace MochaDB.mhql.keywords {
       command = command.Substring(inmode ? 2 : 4).TrimStart();
       int obrace = command.IndexOf(Mhql_LEXER.LBRACE);
       if(obrace == -1)
-        throw new MochaException($"{Mhql_LEXER.LBRACE} is not found!");
+        throw new Exception($"{Mhql_LEXER.LBRACE} is not found!");
       MochaColumn column = table.Columns[Mhql_GRAMMAR.GetIndexOfColumn(
           command.Substring(0,obrace).Trim(),table.Columns,from)];
       MochaTableResult result = new MochaDbCommand(tdb).ExecuteScalar(Mhql_LEXER.RangeSubqueryBrace(
           command.Substring(obrace)));
       if(result.Columns.Length != 1)
-        throw new MochaException("Subqueries should only return one column!");
+        throw new Exception("Subqueries should only return one column!");
       else if(MochaData.IsNumericType(column.DataType) != MochaData.IsNumericType(result.Columns[0].DataType)
         && column.DataType != result.Columns[0].DataType)
-        throw new MochaException("Column data type is not same of subquery result!");
+        throw new Exception("Column data type is not same of subquery result!");
       if(inmode) {
         for(int index = 0; index < row.Datas.Count; ++index)
           for(int rindex = 0; rindex < result.Columns[0].Datas.Count; ++rindex)

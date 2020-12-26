@@ -1,4 +1,5 @@
 namespace MochaDB.mhql.must.functions {
+  using System;
   using MochaDB.Mhql;
 
   /// <summary>
@@ -15,7 +16,7 @@ namespace MochaDB.mhql.must.functions {
     public static bool Pass(string command,MochaTableResult table,MochaRow row,bool from) {
       string[] parts = Mhql_LEXER.SplitFunctionParameters(command);
       if(parts.Length != 2)
-        throw new MochaException("The BIGGER function can only take 2 parameters!");
+        throw new ArgumentOutOfRangeException("The BIGGER function can only take 2 parameters!");
 
       int dex = Mhql_GRAMMAR.GetIndexOfColumn(parts[0],table.Columns,from);
       decimal
@@ -24,7 +25,7 @@ namespace MochaDB.mhql.must.functions {
 
       if(!decimal.TryParse(parts[1].Trim(),out range) ||
           !decimal.TryParse(row.Datas[dex].Data.ToString(),out value))
-        throw new MochaException("The parameter of the BIGGER command was not a number!");
+        throw new ArithmeticException("The parameter of the BIGGER command was not a number!");
 
       return value >= range;
     }

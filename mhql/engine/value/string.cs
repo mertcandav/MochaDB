@@ -1,4 +1,5 @@
 namespace MochaDB.mhql.engine.value {
+  using System;
   using System.Text.RegularExpressions;
 
   /// <summary>
@@ -13,11 +14,11 @@ namespace MochaDB.mhql.engine.value {
       val = val.Trim();
 
       if(val == string.Empty)
-        throw new MochaException("String is not defined!");
+        throw new ArgumentException("String is not defined!");
       if(!val.StartsWith("\""))
-        throw new MochaException("String is not declare!");
+        throw new ArgumentException("String is not declare!");
       if(!val.EndsWith("\""))
-        throw new MochaException("String end is not declared!");
+        throw new ArgumentException("String end is not declared!");
 
       val = val.Substring(1,val.Length-2);
       for(int index = 0; index < MhqlEngVal_LEXER.Escapes.Length/2; ++index) {

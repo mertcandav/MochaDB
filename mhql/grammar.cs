@@ -20,7 +20,7 @@ namespace MochaDB.mhql {
       int returndex() {
         int columndex;
         if(!int.TryParse(value,out columndex))
-          throw new MochaException("Column index or name is cannot processed!");
+          throw new Exception("Column index or name is cannot processed!");
         return columndex;
       }
       value = value.Trim();
@@ -42,7 +42,7 @@ namespace MochaDB.mhql {
       int returndex() {
         int columndex;
         if(!int.TryParse(value,out columndex))
-          throw new MochaException("Column index or name is cannot processed!");
+          throw new Exception("Column index or name is cannot processed!");
         return columndex;
       }
       value = value.Trim();

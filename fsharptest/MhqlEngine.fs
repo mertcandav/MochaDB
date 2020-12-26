@@ -19,5 +19,5 @@ let Scalar(db:MochaDatabase, mhql:string) : unit =
     else
       printfn "%A" value
   with
-  | :? MochaException ->
+  | :? Exception ->
     printfn "ERROR: Command error!"

@@ -46,16 +46,16 @@ namespace MochaDB.mhql.engine {
     public static MochaData GetDataFromCommand(string command,MochaRow row) {
       command = command.Trim();
       if(!char.IsNumber(command[0]))
-        throw new MochaException("Column is not defined!");
+        throw new ArgumentException("Column is not defined!");
       int bracketdex = command.IndexOf('(');
       if(bracketdex == -1)
-        throw new MochaException("Pattern is not defined!");
+        throw new ArgumentException("Pattern is not defined!");
       int dex = int.Parse(command.Substring(0,bracketdex));
 
       if(dex < 0)
-        throw new MochaException("Index is cannot lower than zero!");
+        throw new ArgumentOutOfRangeException("Index is cannot lower than zero!");
       else if(dex > row.Datas.Count - 1)
-        throw new MochaException("The specified index is more than the number of columns!");
+        throw new ArgumentOutOfRangeException("The specified index is more than the number of columns!");
       return row.Datas[dex];
     }
 
@@ -102,7 +102,7 @@ namespace MochaDB.mhql.engine {
       } else if(command.StartsWith("NOTENDW(",StringComparison.OrdinalIgnoreCase) && command[command.Length - 1] == ')') {
         return MhqlMustFunc_NOTENDW.Pass(command.Substring(8,command.Length-9),table,row,from);
       } else
-        throw new MochaException($"'{command}' is cannot processed!");
+        throw new InvalidOperationException($"'{command}' is cannot processed!");
     }
   }
 }

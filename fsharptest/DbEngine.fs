@@ -72,5 +72,5 @@ let ExecuteCommand(db:MochaDatabase) : unit =
     else
       printfn "ERROR: Command is cannot defined!"
     with
-    | :? MochaException as excep ->
+    | :? Exception as excep ->
       printfn "ERROR: %s" excep.Message

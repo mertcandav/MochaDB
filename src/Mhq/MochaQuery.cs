@@ -62,7 +62,7 @@
 
       //Check null.
       if(string.IsNullOrEmpty(Command))
-        throw new MochaException("This MochaQ query is empty, invalid!");
+        return;
 
       string[] queryPaths = Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
@@ -95,7 +95,7 @@
               Database.RestoreToLastLog();
               return;
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 2:
           switch(queryPaths[0]) {
@@ -119,7 +119,7 @@
               return;
             case "RESETTABLE":
               if(!Database.ExistsTable(queryPaths[1]))
-                throw new MochaException("Table not found in this name!");
+                throw new Exception("Table not found in this name!");
               Database.OnChanging(this,new EventArgs());
               Database.CDoc.Root.Element("Tables").Elements(queryPaths[1]).Elements().Remove();
               Database.Save();
@@ -128,7 +128,7 @@
               MochaDatabase.CreateMochaDB(queryPaths[1],string.Empty,string.Empty);
               return;
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 3:
           switch(queryPaths[0]) {
@@ -151,7 +151,7 @@
               MochaDatabase.CreateMochaDB(Path.Combine(queryPaths[1] + queryPaths[2]),string.Empty,string.Empty);
               return;
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 4:
           switch(queryPaths[0]) {
@@ -177,7 +177,7 @@
               Database.UpdateLastData(queryPaths[1],queryPaths[2],queryPaths[3]);
               return;
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 5:
           switch(queryPaths[0]) {
@@ -185,10 +185,10 @@
               Database.UpdateData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]),queryPaths[4]);
               return;
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         default:
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
       }
     }
 
@@ -224,7 +224,7 @@
 
       //Check null.
       if(string.IsNullOrEmpty(Command))
-        throw new MochaException("This MochaQ query is empty, invalid!");
+        return null;
 
       string[] queryPaths = Command.Split(':');
       queryPaths[0]=queryPaths[0].ToUpperInvariant();
@@ -248,7 +248,7 @@
             case "TABLECOUNT":
               return Database.Doc.Root.Elements().Count();
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 2:
           switch(queryPaths[0]) {
@@ -281,7 +281,7 @@
             case "EXISTSTABLE":
               return Database.ExistsTable(queryPaths[1]);
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 3:
           switch(queryPaths[0]) {
@@ -298,7 +298,7 @@
             case "GETCOLUMNDATATYPE":
               return Database.GetColumnDataType(queryPaths[1],queryPaths[2]);
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         case 4:
           switch(queryPaths[0]) {
@@ -307,10 +307,10 @@
             case "GETDATA":
               return Database.GetData(queryPaths[1],queryPaths[2],int.Parse(queryPaths[3]));
             default:
-              throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+              throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
           }
         default:
-          throw new MochaException("Invalid query. The content of the query could not be processed, wrong!");
+          throw new InvalidOperationException("Invalid query. The content of the query could not be processed, wrong!");
       }
     }
 
@@ -326,7 +326,7 @@
     /// <param name="name">Name of table.</param>
     protected virtual int COLUMNCOUNT(string name) {
       if(!Database.ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
+        throw new Exception("Table not found in this name!");
 
       IEnumerable<XElement> columnElements = Database.Doc.Root.Element("Tables").Elements(name).Elements();
       return columnElements.Count();
@@ -338,7 +338,7 @@
     /// <param name="name">Name of table.</param>
     protected virtual IEnumerable<MochaData> GETDATAS(string name) {
       if(!Database.ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
+        throw new Exception("Table not found in this name!");
 
       List<MochaData> datas = new List<MochaData>();
 
@@ -354,7 +354,7 @@
     /// <param name="name">Name of table.</param>
     protected virtual string GETFIRSTCOLUMN_NAME(string name) {
       if(!Database.ExistsTable(name))
-        throw new MochaException("Table not found in this name!");
+        throw new Exception("Table not found in this name!");
 
       XElement firstColumn = (XElement)Database.Doc.Root.Element("Tables").Element(name).FirstNode;
       return firstColumn == null ? null : firstColumn.Name.LocalName;
@@ -376,10 +376,10 @@
       get => database;
       set {
         if(IsDatabaseEmbedded)
-          throw new MochaException("This is embedded in database, can not set database!");
+          throw new Exception("This is embedded in database, can not set database!");
 
         if(value == null)
-          throw new MochaException("This MochaDatabase is not affiliated with a database!");
+          throw new NullReferenceException("This MochaDatabase is not affiliated with a database!");
 
         if(value == database)
           return;

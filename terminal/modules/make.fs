@@ -29,4 +29,4 @@ type make() =
             System.IO.Path.Combine(terminal.pwd, name),description,password)
           terminal.printnc("Created successfully!", ConsoleColor.Green)
         with
-        | :? Exception as except -> terminal.printError(except.ToString())
+        | :? Exception as except -> terminal.printError(except.Message)

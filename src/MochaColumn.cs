@@ -79,7 +79,7 @@
       set {
         value=value.Trim();
         if(string.IsNullOrWhiteSpace(value))
-          throw new MochaException("Name is cannot null or whitespace!");
+          throw new NullReferenceException("Name is cannot null or whitespace!");
 
         Engine_NAMES.CheckThrow(value);
 

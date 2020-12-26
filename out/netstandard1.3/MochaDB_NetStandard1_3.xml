@@ -1166,38 +1166,6 @@
             </summary>
             <param name="data">Sample data.</param>
         </member>
-        <member name="T:MochaDB.MochaException">
-            <summary>
-            Exception for MochaDB.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaException.#ctor">
-            <summary>
-            Create a new MochaException.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaException.#ctor(System.String)">
-            <summary>
-            Create a new MochaException.
-            </summary>
-            <param name="msg">Message of exception.</param>
-        </member>
-        <member name="M:MochaDB.MochaException.SetMessage(System.String)">
-            <summary>
-            Set exception message.
-            </summary>
-            <param name="msg">Message to set.</param>
-        </member>
-        <member name="M:MochaDB.MochaException.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaException.Message"/>
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaException.Message">
-            <summary>
-            Message of exception.
-            </summary>
-        </member>
         <member name="T:MochaDB.MochaPath">
             <summary>
             MochaDB path definer.
@@ -2381,28 +2349,6 @@
             <summary>
             Value engine of MochaDB.
             </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_VALUES.PasswordCheck(System.String)">
-            <summary>
-            Returns true if pass but returns false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_VALUES.PasswordCheckThrow(System.String)">
-            <summary>
-            Check name and give exception if not pass.
-            </summary>
-            <param name="value">Value.</param>
-        </member>
-        <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheck(System.String)">
-            <summary>
-            Returns true if pass but returns false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.engine.Engine_VALUES.AttributeCheckThrow(System.String)">
-            <summary>
-            Check name and give exception if not pass.
-            </summary>
-            <param name="value">Value.</param>
         </member>
         <member name="M:MochaDB.engine.Engine_VALUES.CheckFloat(MochaDB.MochaDataType,System.String@)">
             <summary>

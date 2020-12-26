@@ -35,7 +35,7 @@ namespace MochaDB.mhql.keywords {
       if(usedex == -1) {
         usedex = Command.IndexOf("USE ",StringComparison.OrdinalIgnoreCase);
         if(usedex == -1)
-          throw new MochaException("USE command is cannot processed!");
+          throw new InvalidOperationException("USE command is cannot processed!");
       }
       Regex pattern = new Regex($@"^({Mhql_GRAMMAR.MainKeywords})(\s+|$)",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
@@ -85,7 +85,7 @@ namespace MochaDB.mhql.keywords {
           string colname = cmd.StartsWith("$") ? cmd.Substring(1).Trim() : cmd;
           IEnumerable<MochaColumn> result = cols.Where(x => x.Name == colname);
           if(!result.Any())
-            throw new MochaException($"Could not find a column with the name '{cmd}'!");
+            throw new Exception($"Could not find a column with the name '{cmd}'!");
           MochaColumn column = result.First();
           column.Tag = colname != cmd ? "$" : null;
           column.MHQLAsText = name;
@@ -106,7 +106,7 @@ namespace MochaDB.mhql.keywords {
         else {
           if(parts[0].TrimStart().StartsWith("$") &&
              parts[0].TrimStart().Substring(1).TrimStart().StartsWith($"{Mhql_LEXER.LBRACE}"))
-            throw new MochaException("Cannot be used with subquery FROM keyword!");
+            throw new InvalidOperationException("Cannot be used with subquery FROM keyword!");
           for(int index = 0; index < parts.Count; ++index)
             columns.Add(GetColumn(parts[index].Trim(),_columns));
         }
@@ -141,7 +141,7 @@ namespace MochaDB.mhql.keywords {
 
           string[] callparts = Mhql_LEXER.SplitSubCalls(callcmd);
           if(callparts.Length>2)
-            throw new MochaException($"'{callcmd}' command is cannot processed!");
+            throw new InvalidOperationException($"'{callcmd}' command is cannot processed!");
           for(byte partindex = 0; partindex < callparts.Length; ++partindex)
             callparts[partindex] = callparts[partindex].Trim();
           List<MochaColumn> _columns = Tdb.GetColumns(callparts[0]);

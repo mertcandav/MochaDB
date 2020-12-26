@@ -37,11 +37,11 @@ namespace MochaDB.mhql.keywords {
     public string GetADDROW(string command,out string final) {
       int groupbydex = command.IndexOf("ADDROW",StringComparison.OrdinalIgnoreCase);
       if(groupbydex==-1)
-        throw new MochaException("ADDROW command is cannot processed!");
+        throw new InvalidOperationException("ADDROW command is cannot processed!");
       System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,groupbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
-        throw new MochaException("ADDROW command is cannot processed!");
+        throw new InvalidOperationException("ADDROW command is cannot processed!");
       string groupbycommand = command.Substring(groupbydex+7,finaldex-(groupbydex+7));
       final = command.Substring(finaldex);
       return groupbycommand;
@@ -56,9 +56,9 @@ namespace MochaDB.mhql.keywords {
       command = command.Trim();
       int count;
       if(!int.TryParse(command,out count))
-        throw new MochaException("The parameter of the ADDROW command was not a number!");
+        throw new ArgumentException("The parameter of the ADDROW command was not a number!");
       if(count < 1)
-        throw new MochaException("The parameters of the ADDROW command cannot be less than 1!");
+        throw new ArgumentOutOfRangeException("The parameters of the ADDROW command cannot be less than 1!");
       IList<MochaRow> rows = new List<MochaRow>(table.Rows);
       for(int counter = 0; counter < count; ++counter) {
         MochaRow row = new MochaRow();

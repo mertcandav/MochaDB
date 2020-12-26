@@ -39,11 +39,11 @@ namespace MochaDB.mhql.keywords {
     public string GetCORDERBY(string command,out string final) {
       int orderbydex = command.IndexOf("CORDERBY",StringComparison.OrdinalIgnoreCase);
       if(orderbydex==-1)
-        throw new MochaException("CORDERBY command is cannot processed!");
+        throw new InvalidOperationException("CORDERBY command is cannot processed!");
       System.Text.RegularExpressions.Match match = Mhql_GRAMMAR.MainRegex.Match(command,orderbydex+7);
       int finaldex = match.Index;
       if(finaldex==0)
-        throw new MochaException("CORDERBY command is cannot processed!");
+        throw new InvalidOperationException("CORDERBY command is cannot processed!");
       string orderbycommand = command.Substring(orderbydex+7,finaldex-(orderbydex+7));
       final = command.Substring(finaldex);
       return orderbycommand;
@@ -57,17 +57,17 @@ namespace MochaDB.mhql.keywords {
     /// <param name="from">Use state FROM keyword.</param>
     public void COrderBy(string command,ref MochaTableResult table) {
       if(Mhql_LEXER.SplitParameters(command).Length > 1)
-        throw new MochaException("CODERBY keyword are can take only one parameter!");
+        throw new ArgumentOutOfRangeException("CODERBY keyword are can take only one parameter!");
       command = command.Trim();
       string[] parts = command.Split(new[] { ' ' },2,StringSplitOptions.RemoveEmptyEntries);
       if(parts.Length == 1)
-        throw new MochaException("CORDERBY order type is not defined!");
+        throw new ArgumentException("CORDERBY order type is not defined!");
       IOrderedEnumerable<MochaColumn> columns =
         parts[1].Equals("ASC",StringComparison.OrdinalIgnoreCase) ?
           table.Columns.OrderBy(x => x.Name,new ORDERBYComparer()) :
           parts[1].Equals("DESC",StringComparison.OrdinalIgnoreCase) ?
             table.Columns.OrderByDescending(x => x.Name,new ORDERBYComparer()) :
-            throw new MochaException("CORDERBY could not understand this sort type!");
+            throw new Exception("CORDERBY could not understand this sort type!");
       table.Columns = columns.ToArray();
       table.SetRowsByDatas();
     }

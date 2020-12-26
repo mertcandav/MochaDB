@@ -40,7 +40,7 @@ namespace MochaDB.mhql.engine {
           return (int)Value > (int)v.Value;
         else if(Type == ExpressionType.Arithmetic)
           return decimal.Parse(Value.ToString()) > decimal.Parse(v.Value.ToString());
-        throw new MochaException("BIGGER operator is cannot compatible this data type!");
+        throw new InvalidCastException("BIGGER operator is cannot compatible this data type!");
       }
 
       /// <summary>
@@ -54,7 +54,7 @@ namespace MochaDB.mhql.engine {
           return (int)Value < (int)v.Value;
         else if(Type == ExpressionType.Arithmetic)
           return decimal.Parse(Value.ToString()) < decimal.Parse(v.Value.ToString());
-        throw new MochaException("LOWER operator is cannot compatible this data type!");
+        throw new InvalidCastException("LOWER operator is cannot compatible this data type!");
       }
 
       /// <summary>
@@ -70,7 +70,7 @@ namespace MochaDB.mhql.engine {
           return (int)Value >= (int)v.Value;
         else if(Type == ExpressionType.Arithmetic)
           return decimal.Parse(Value.ToString()) >= decimal.Parse(v.Value.ToString());
-        throw new MochaException("BIGGEREQ operator is cannot compatible this data type!");
+        throw new InvalidCastException("BIGGEREQ operator is cannot compatible this data type!");
       }
 
       /// <summary>
@@ -86,7 +86,7 @@ namespace MochaDB.mhql.engine {
           return (int)Value <= (int)v.Value;
         else if(Type == ExpressionType.Arithmetic)
           return decimal.Parse(Value.ToString()) <= decimal.Parse(v.Value.ToString());
-        throw new MochaException("LOWEREQ operator is cannot compatible this data type!");
+        throw new InvalidCastException("LOWEREQ operator is cannot compatible this data type!");
       }
 
       /// <summary>
@@ -128,7 +128,7 @@ namespace MochaDB.mhql.engine {
       Expressional value0 = GetValue(parts[0],table,row,from);
       Expressional value1 = GetValue(parts[1],table,row,from);
       if(value0.Type != value1.Type)
-        throw new MochaException("Value types is are not compatible!");
+        throw new InvalidCastException("Value types is are not compatible!");
 
       switch(type) {
         case ConditionType.EQUAL: return value0.Equal(value1);
@@ -168,7 +168,7 @@ namespace MochaDB.mhql.engine {
     public static string[] GetConditionParts(string command,string @operator) {
       string[] parts = command.Split(new[] { @operator },2,0);
       if(parts.Length < 2)
-        throw new MochaException("Condition is cannot processed!");
+        throw new InvalidOperationException("Condition is cannot processed!");
       parts[0] = parts[0].Trim();
       parts[1] = parts[1].Trim();
       return parts;
@@ -197,7 +197,7 @@ namespace MochaDB.mhql.engine {
       } else if(value.StartsWith("#")) {
         decimal val;
         if(!decimal.TryParse(value.Substring(1).Replace('.',','),out val))
-          throw new MochaException("Value is not arithmetic value!");
+          throw new ArithmeticException("Value is not arithmetic value!");
         return new Expressional {
           Type = ExpressionType.Arithmetic,
           Value = val
@@ -238,12 +238,12 @@ namespace MochaDB.mhql.engine {
     index:
 
       if(!char.IsNumber(value[0]))
-        throw new MochaException("Column is not defined!");
+        throw new ArgumentException("Column is not defined!");
       int dex = int.Parse(value);
       if(dex < 0)
-        throw new MochaException("Index is cannot lower than zero!");
+        throw new ArgumentOutOfRangeException("Index is cannot lower than zero!");
       else if(dex > row.Datas.Count - 1)
-        throw new MochaException("The specified index is more than the number of columns!");
+        throw new ArgumentOutOfRangeException("The specified index is more than the number of columns!");
       MochaData _data = row.Datas[dex];
       return new Expressional {
         Type =

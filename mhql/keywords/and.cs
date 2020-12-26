@@ -1,4 +1,5 @@
 namespace MochaDB.mhql.keywords {
+  using System;
   using System.Collections.Generic;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -43,7 +44,7 @@ namespace MochaDB.mhql.keywords {
             }
           }
           if(currentChar != null)
-            throw new MochaException("Error in char/string declaration!");
+            throw new Exception("Error in char/string declaration!");
           continue;
         }
         value.Append(currentChar);

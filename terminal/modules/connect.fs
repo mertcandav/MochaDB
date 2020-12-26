@@ -66,5 +66,5 @@ type connect() =
               db.Dispose()
             with
             | :? Exception as except ->
-              terminal.printError(except.ToString())
+              terminal.printError(except.Message)
           | _ -> terminal.printError("Logs value is not valid!")
