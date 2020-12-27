@@ -40,6 +40,11 @@ Public Class app
     End If
   End Function
 
+  ''' <summary>
+  ''' Key down event of codebox.
+  ''' </summary>
+  ''' <param name="sender">Object of event.</param>
+  ''' <param name="e">Event arguments.</param>
   Private Sub codebox_KeyDown(sender As Object, e As KeyEventArgs) Handles codebox.KeyDown
     If e.KeyCode = Keys.F5 Then
       Dim db As MochaDatabase = Nothing
