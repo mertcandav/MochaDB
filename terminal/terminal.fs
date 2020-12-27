@@ -91,3 +91,18 @@ type terminal() =
   /// Version of terminal.
   /// </summary>
   static member val version = "0.0.1" with get
+
+  /// <summary>
+  /// Start arguments of terminal.
+  /// </summary>
+  static member val startArgs = [| "" |] with get, set
+
+  /// <summary>
+  /// Terminal execute in start arguments only mode.
+  /// </summary>
+  static member val argMode = false with get, set
+
+  /// <summary>
+  /// Last index of start arguments.
+  /// </summary>
+  static member val argsIndex = 0 with get, set

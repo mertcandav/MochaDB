@@ -49,8 +49,8 @@ let showHelp() : unit =
 /// <summary>
 /// Process command and do task.
 /// </summary>
-/// <param name="ns">Name of module(namespace).</param>
-/// <param name="cmd">Command(without module name).</param>
+/// <param name="ns">Name of modules(namespace).</param>
+/// <param name="cmd">Commands(without module name).</param>
 let processCommand(ns:string, cmd:string) : unit =
   match ns with
   | "cd" -> cd.proc(cmd)
@@ -73,12 +73,13 @@ let processCommand(ns:string, cmd:string) : unit =
 let main(argv:string[]) : int =
   Console.Title <- "MochaDB Terminal"
   if argv.Length > 0 then
-    let cmd:System.Text.StringBuilder = new System.Text.StringBuilder(String.Empty)
-    for arg in argv do
-      cmd.Append(arg + " ") |> ignore
-    let cmd:string = cmd.ToString().TrimEnd()
-    processCommand(commandProcessor.splitNamespace(cmd).ToLower(),
-                   commandProcessor.removeNamespace(cmd))
+    terminal.argMode <- true
+    terminal.startArgs <- argv
+    while terminal.argsIndex <= terminal.startArgs.Length - 1 do
+      let arg = terminal.startArgs.[terminal.argsIndex]
+      terminal.argsIndex <- terminal.argsIndex + 1
+      processCommand(commandProcessor.splitNamespace(arg).ToLower(),
+        commandProcessor.removeNamespace(arg))
   else
     while true do
       let mutable input:string = terminal.getInput()

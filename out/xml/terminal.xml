@@ -2,6 +2,21 @@
 <doc>
 <assembly><name>terminal</name></assembly>
 <members>
+<member name="F:terminal.terminal.argsIndex@">
+ <summary>
+ Last index of start arguments.
+ </summary>
+</member>
+<member name="F:terminal.terminal.argMode@">
+ <summary>
+ Terminal execute in start arguments only mode.
+ </summary>
+</member>
+<member name="F:terminal.terminal.startArgs@">
+ <summary>
+ Start arguments of terminal.
+ </summary>
+</member>
 <member name="F:terminal.terminal.version@">
  <summary>
  Version of terminal.
@@ -12,9 +27,24 @@
  Working directory.
  </summary>
 </member>
+<member name="P:terminal.terminal.startArgs(System.String[])">
+ <summary>
+ Start arguments of terminal.
+ </summary>
+</member>
 <member name="P:terminal.terminal.pwd(System.String)">
  <summary>
  Working directory.
+ </summary>
+</member>
+<member name="P:terminal.terminal.argsIndex(System.Int32)">
+ <summary>
+ Last index of start arguments.
+ </summary>
+</member>
+<member name="P:terminal.terminal.argMode(System.Boolean)">
+ <summary>
+ Terminal execute in start arguments only mode.
  </summary>
 </member>
 <member name="M:terminal.terminal.printnc(System.String,System.ConsoleColor)">
@@ -42,9 +72,24 @@
  Version of terminal.
  </summary>
 </member>
+<member name="P:terminal.terminal.startArgs">
+ <summary>
+ Start arguments of terminal.
+ </summary>
+</member>
 <member name="P:terminal.terminal.pwd">
  <summary>
  Working directory.
+ </summary>
+</member>
+<member name="P:terminal.terminal.argsIndex">
+ <summary>
+ Last index of start arguments.
+ </summary>
+</member>
+<member name="P:terminal.terminal.argMode">
+ <summary>
+ Terminal execute in start arguments only mode.
  </summary>
 </member>
 <member name="M:terminal.terminal.getInput">
@@ -214,6 +259,12 @@
  </summary>
  <param name="cmd">Command.</param>
 </member>
+<member name="M:modules.make.proc(System.String[])">
+ <summary>
+ Process commands in module.
+ </summary>
+ <param name="name">Arguments.</param>
+</member>
 <member name="T:modules.make">
  <summary>
  Create a new MochaDB database.
@@ -252,8 +303,8 @@
  <summary>
  Process command and do task.
  </summary>
- <param name="ns">Name of module(namespace).</param>
- <param name="cmd">Command(without module name).</param>
+ <param name="ns">Name of modules(namespace).</param>
+ <param name="cmd">Commands(without module name).</param>
 </member>
 <member name="M:Program.showHelp">
  <summary>
