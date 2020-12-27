@@ -20,16 +20,6 @@
 
     #endregion Constructors
 
-    #region Overrides
-
-    /// <summary>
-    /// Returns <see cref="Log"/>.
-    /// </summary>
-    public override string ToString() =>
-      Log;
-
-    #endregion Overrides
-
     #region Properties
 
     /// <summary>

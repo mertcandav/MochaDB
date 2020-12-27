@@ -23,11 +23,21 @@
 
 // Libraries
 open System
+open System.IO
 open DbEngine
 open MhqlEngine
 open MhqlStress
 open FileEngine
 open MochaDB
+
+/// <summary>
+/// Go previous directory.
+/// </summary>
+/// <param name="path">Path.</param>
+/// <returns>Previous path.</returns>
+let parentPath(path:string) : string =
+  let dex:int = path.LastIndexOf(Path.DirectorySeparatorChar)
+  if dex <> -1 then path.Substring(0, dex) else path
 
 /// <summary>
 /// Entry point.
@@ -37,10 +47,10 @@ open MochaDB
 [<EntryPoint>]
 let main(argv:string[]) : int =
   printfn "MochaDB FSharp Test Console"
-  let path:MochaPath = new MochaPath __SOURCE_DIRECTORY__
-  path.ParentDirectory()
-  path.ParentDirectory()
-  let path:string = path.Path + "/tests"
+  let mutable path:string = __SOURCE_DIRECTORY__
+  path <- parentPath(path)
+  path <- parentPath(path)
+  path <- path + "/tests"
   let db:MochaDatabase = new MochaDatabase(path + "/testdb.mhdb",autoConnect=true)
   while true do
     printf "Command: "

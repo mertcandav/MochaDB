@@ -1,11 +1,12 @@
 CHANGELOGS of MochaDB.
 
-# Release 3.4.5 [ Current ]
+# Release 3.5.0 [ Current ]
 + Optimizations.
 + Check exists state on database creation.
 + Remove MochaID.
 + Remove MochaQCommand.
 + Remove MochaConvert.
++ Remove MochaPath.
 + Remove MochaException.
 + Remove connection strings.
 + Remove trash methods from MochaConvert.

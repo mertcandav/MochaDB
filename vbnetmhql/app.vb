@@ -26,14 +26,28 @@ Imports MochaDB
 Imports MochaDB.Mhql
 
 Public Class app
+  ''' <summary>
+  ''' Go previous directory.
+  ''' </summary>
+  ''' <param name="path">Path.</param>
+  ''' <returns>Previous path.</returns>
+  Private Function parentPath(path As String) As String
+    Dim index As Integer = path.LastIndexOf(IO.Path.DirectorySeparatorChar)
+    If index <> -1 Then
+      Return path.Substring(0, index)
+    Else
+      Return path
+    End If
+  End Function
+
   Private Sub codebox_KeyDown(sender As Object, e As KeyEventArgs) Handles codebox.KeyDown
     If e.KeyCode = Keys.F5 Then
       Dim db As MochaDatabase = Nothing
       Try
-        Dim path = New MochaPath(Directory.GetCurrentDirectory)
-        path.ParentDirectory()
-        path.ParentDirectory()
-        db = New MochaDatabase($"{path.Path}/tests/testdb", autoConnect:=True)
+        Dim path As String = Directory.GetCurrentDirectory
+        path = parentPath(path)
+        path = parentPath(path)
+        db = New MochaDatabase($"{path}/tests/testdb", autoConnect:=True)
         Dim command As MochaDbCommand = New MochaDbCommand(codebox.Text, db)
         Dim result As MochaTableResult = command.ExecuteScalar
         datasource.Columns.Clear()

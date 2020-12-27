@@ -15,6 +15,13 @@
  </summary>
  <param name="e">Key arguments.</param>
 </member>
+<member name="M:Program.parentPath(System.String)">
+ <summary>
+ Go previous directory.
+ </summary>
+ <param name="path">Path.</param>
+ <returns>Previous path.</returns>
+</member>
 <member name="P:Program.gridview">
  <summary>
  DataGrid for show tables.

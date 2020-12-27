@@ -15,8 +15,18 @@
             </summary>
             <param name="value">Value.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.Parse(System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)" -->
+        <member name="M:MochaDB.Data.Types.Bit.Parse(System.String)">
+            <summary>
+            Returns bit from value.
+            </summary>
+            <param name="value">Value to parse.</param>
+        </member>
+        <member name="M:MochaDB.Data.Types.Bit.TryParse(System.String,MochaDB.Data.Types.Bit@)">
+            <summary>
+            Returns bit from value if parse is successfully.
+            </summary>
+            <param name="value">Value to parse.</param>
+        </member>
         <member name="M:MochaDB.Data.Types.Bit.ToString">
             <summary>
             Returns value as string.
@@ -33,11 +43,6 @@
             </summary>
             <param name="log">Log content.</param>
             <param name="time">Log time.</param>
-        </member>
-        <member name="M:MochaDB.Logging.MochaLog.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.Logging.MochaLog.Log"/>.
-            </summary>
         </member>
         <member name="P:MochaDB.Logging.MochaLog.Id">
             <summary>
@@ -1165,63 +1170,6 @@
             Removes all data equal to sample data.
             </summary>
             <param name="data">Sample data.</param>
-        </member>
-        <member name="T:MochaDB.MochaPath">
-            <summary>
-            MochaDB path definer.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaPath.#ctor(System.String)">
-            <summary>
-            Create a new MochaPath.
-            </summary>
-            <param name="path">Path.</param>
-        </member>
-        <member name="M:MochaDB.MochaPath.ParentDirectory">
-            <summary>
-            Go to the parent directory.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaPath.ParentPath">
-            <summary>
-            Return parent directory's MochaPath object.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaPath.Name">
-            <summary>
-            Returns name of current directory or file.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MochaDB.MochaPath.IsDatabasePath">
-            <summary>
-            Returns true if the path is compatible with database paths, false if not.
-            </summary>
-        </member>
-        <member name="M:MochaDB.MochaPath.ToString">
-            <summary>
-            Returns <see cref="P:MochaDB.MochaPath.Path"/>.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Root">
-            <summary>
-            Root path.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Tables">
-            <summary>
-            Tables path.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Logs">
-            <summary>
-            Logs path.
-            </summary>
-        </member>
-        <member name="P:MochaDB.MochaPath.Path">
-            <summary>
-            Path.
-            </summary>
         </member>
         <member name="T:MochaDB.MochaRow">
             <summary>

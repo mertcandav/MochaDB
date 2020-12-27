@@ -86,5 +86,12 @@
  <param name="argv">Arguments.</param>
  <returns>Exit code.</returns>
 </member>
+<member name="M:Program.parentPath(System.String)">
+ <summary>
+ Go previous directory.
+ </summary>
+ <param name="path">Path.</param>
+ <returns>Previous path.</returns>
+</member>
 </members>
 </doc>

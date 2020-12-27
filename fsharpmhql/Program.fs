@@ -22,6 +22,7 @@
 
 // Libraries
 open System
+open System.IO
 open System.Drawing
 open System.Windows.Forms
 open MochaDB
@@ -48,14 +49,23 @@ let gridview:DataGridView = new DataGridView()
 // Functions
 
 /// <summary>
+/// Go previous directory.
+/// </summary>
+/// <param name="path">Path.</param>
+/// <returns>Previous path.</returns>
+let parentPath(path:string) : string =
+  let dex:int = path.LastIndexOf(Path.DirectorySeparatorChar)
+  if dex <> -1 then path.Substring(0, dex) else path
+
+/// <summary>
 /// Keywdown event of codebox.
 /// </summary>
 /// <param name="e">Key arguments.</param>
 let codebox_keydown(e: KeyEventArgs) : unit =
   if e.KeyData = Keys.F5 then
-    let path:MochaPath = new MochaPath(__SOURCE_DIRECTORY__)
-    path.ParentDirectory()
-    path.ParentDirectory()
+    let mutable path:string = __SOURCE_DIRECTORY__
+    path <- parentPath(path)
+    path <- parentPath(path)
     let database : MochaDatabase = new MochaDatabase("path=" + path.ToString() + "/tests/testdb; autoconnect=true")
     try
       gridview.Columns.Clear()

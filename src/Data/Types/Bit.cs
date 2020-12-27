@@ -97,7 +97,7 @@
     /// <summary>
     /// Returns bit from value.
     /// </summary>
-    /// <param name="value">Value to parse.</param
+    /// <param name="value">Value to parse.</param>
     public static Bit Parse(string value) {
       int x = int.Parse(value);
       if(x < 0 || x > 1)
@@ -108,7 +108,7 @@
     /// <summary>
     /// Returns bit from value if parse is successfully.
     /// </summary>
-    /// <param name="value">Value to parse.</param
+    /// <param name="value">Value to parse.</param>
     public static bool TryParse(string value,out Bit bit) {
       try {
         bit = Parse(value);
