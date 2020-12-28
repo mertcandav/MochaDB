@@ -25,7 +25,7 @@ type mhq() =
     /// Execute MochaQ command.
     /// </summary>
     /// <param name="query">Query.</param>
-    let exec(query:string) : unit =
+    let execute(query:string) : unit =
       try
         let xml:bool = query.[0] = '$'
         let query = if xml then query.Substring(1) else query
@@ -57,13 +57,23 @@ type mhq() =
       | :? Exception as except ->
         terminal.printError(except.Message)
 
-    if cmd = String.Empty then
-      let mutable break:bool = false
-      while break = false do
-        let input:string = terminal.getInput(db.Name + "\MHQ ", ConsoleColor.White)
-        if input = String.Empty then
-          break <- true
+    if terminal.argMode then
+      terminal.argsIndex <- terminal.argsIndex + 1
+      while terminal.argsIndex < terminal.startArgs.Length do
+        let command = terminal.startArgs.[terminal.argsIndex]
+        terminal.argsIndex <- terminal.argsIndex + 1
+        if command = String.Empty then
+          ()
         else
-          exec(input)
+          execute(command)
     else
-      exec(cmd)
+      if cmd = String.Empty then
+        let mutable break:bool = false
+        while break = false do
+          let input:string = terminal.getInput(db.Name + "\MHQ ", ConsoleColor.White)
+          if input = String.Empty then
+            break <- true
+          else
+            execute(input)
+      else
+        execute(cmd)

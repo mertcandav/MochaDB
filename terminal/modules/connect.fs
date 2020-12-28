@@ -45,7 +45,7 @@ type connect() =
         logs = bool.Parse(args.[2]))
       db.Connect()
       if terminal.argMode then
-        while terminal.argsIndex <= terminal.startArgs.Length - 1 &&
+        while terminal.argsIndex < terminal.startArgs.Length &&
           processCommand(db, terminal.startArgs.[terminal.argsIndex]) = false do
           terminal.argsIndex <- terminal.argsIndex + 1
       else
@@ -72,13 +72,12 @@ type connect() =
         let mutable name:string = String.Empty
         let mutable password:string = String.Empty
         let mutable logs:string = "False"
-        while terminal.argsIndex <= terminal.startArgs.Length - 1 do
+        while counter < 2 && terminal.argsIndex < terminal.startArgs.Length do
           let arg = terminal.startArgs.[terminal.argsIndex]
           terminal.argsIndex <- terminal.argsIndex + 1
           match counter with
           | 0 -> name <- arg
           | 1 -> logs <- arg
-          | _ -> ()
           counter <- counter + 1
         if name = String.Empty then
           terminal.printError("Name is cannot empty!")

@@ -41,13 +41,23 @@ type mhql() =
       | :? Exception as except ->
         terminal.printError(except.Message)
 
-    if cmd = String.Empty then
-      let mutable break:bool = false
-      while break = false do
-        let input:string = terminal.getInput(db.Name + "\MHQL ", ConsoleColor.White)
-        if input = String.Empty then
-          break <- true
+    if terminal.argMode then
+      terminal.argsIndex <- terminal.argsIndex + 1
+      while terminal.argsIndex < terminal.startArgs.Length do
+        let command = terminal.startArgs.[terminal.argsIndex]
+        terminal.argsIndex <- terminal.argsIndex + 1
+        if command = String.Empty then
+          ()
         else
-          exec(input)
+          exec(command)
     else
-      exec(cmd)
+      if cmd = String.Empty then
+        let mutable break:bool = false
+        while break = false do
+          let input:string = terminal.getInput(db.Name + "\MHQL ", ConsoleColor.White)
+          if input = String.Empty then
+            break <- true
+          else
+            exec(input)
+      else
+        exec(cmd)
