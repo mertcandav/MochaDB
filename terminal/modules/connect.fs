@@ -70,7 +70,6 @@ type connect() =
       if terminal.argMode & terminal.argsIndex < terminal.startArgs.Length then
         let mutable counter:int = 0
         let mutable name:string = String.Empty
-        let mutable password:string = String.Empty
         let mutable logs:string = "False"
         while counter < 2 && terminal.argsIndex < terminal.startArgs.Length do
           let arg = terminal.startArgs.[terminal.argsIndex]
@@ -82,6 +81,9 @@ type connect() =
         if name = String.Empty then
           terminal.printError("Name is cannot empty!")
         else
+          let index:int = name.IndexOf('/')
+          let password = if index <> -1 then name.Substring(index + 1) else String.Empty
+          name <- if index <> -1 then name.Substring(0, index).TrimEnd() else name
           name <- if name.EndsWith(".mhdb") then name else name + ".mhdb"
           connect.proc([| name; password; logs |])
       else
