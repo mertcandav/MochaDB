@@ -51,7 +51,7 @@ let main(argv:string[]) : int =
   path <- parentPath(path)
   path <- parentPath(path)
   path <- path + "/tests"
-  let db:MochaDatabase = new MochaDatabase(path + "/testdb.mhdb",autoConnect=true)
+  let db:MochaDatabase = new MochaDatabase(path = path + "/testdb.mhdb", autoConnect = true)
   while true do
     printf "Command: "
     let input:string = Console.ReadLine()
