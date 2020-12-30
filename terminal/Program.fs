@@ -42,6 +42,7 @@ let showHelp() : unit =
     "make", "Create new MochaDB database.";
     "connect", "Connect to MochaDB database.";
     "clear", "Clear terminal screen.";
+    "sh", "Run mhsh(MochaDB Shell Script) file.";
     "help", "Show help.";
     "exit", "Exit from terminal.";
   ])
@@ -58,6 +59,7 @@ let processCommand(ns:string, cmd:string) : unit =
   | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
   | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
   | "make" -> make.proc(cmd)
+  | "sh" -> sh.proc(cmd)
   | "connect" -> connect.proc(cmd)
   | "clear" -> Console.Clear()
   | "help" -> showHelp()
