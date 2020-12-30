@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+vbnetmhql
+</name>
+</assembly>
+<members>
+<member name="T:vbnetmhql.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:vbnetmhql.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:vbnetmhql.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:vbnetmhql.app.parentPath(System.String)">
+ <summary>
+ Go previous directory.
+ </summary>
+ <param name="path">Path.</param>
+ <returns>Previous path.</returns>
+</member>
+<member name="M:vbnetmhql.app.codebox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ Key down event of codebox.
+ </summary>
+ <param name="sender">Object of event.</param>
+ <param name="e">Event arguments.</param>
+</member>
+</members>
+</doc>
