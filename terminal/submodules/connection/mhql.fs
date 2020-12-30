@@ -28,7 +28,9 @@ type mhql() =
       let xml:bool = query.[0] = '$'
       mhql.Command <- if xml then query.Substring(1) else query
       try
-        match mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
+        match
+          if mhql.Command.StartsWith("USE*",StringComparison.InvariantCultureIgnoreCase) then
+          "USE" else mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
         | "USE" ->
           let table = mhql.ExecuteScalar()
           if table = null
