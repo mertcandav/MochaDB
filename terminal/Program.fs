@@ -22,49 +22,10 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
 open System
-open System.Linq
 
-open MochaDB
-
-open terminal
+open mhsh
 open utils
-open modules
-
-/// <summary>
-/// Show help.
-/// </summary>
-let showHelp() : unit =
-  cli.printDictAsTable(dict[
-    "cd", "Change directory.";
-    "ls", "List directory content.";
-    "ver", "Show version.";
-    "eng", "Show engine information.";
-    "make", "Create new MochaDB database.";
-    "connect", "Connect to MochaDB database.";
-    "clear", "Clear terminal screen.";
-    "sh", "Run mhsh(MochaDB Shell Script) file.";
-    "help", "Show help.";
-    "exit", "Exit from terminal.";
-  ])
-
-/// <summary>
-/// Process command and do task.
-/// </summary>
-/// <param name="ns">Name of modules(namespace).</param>
-/// <param name="cmd">Commands(without module name).</param>
-let processCommand(ns:string, cmd:string) : unit =
-  match ns with
-  | "cd" -> cd.proc(cmd)
-  | "ls" -> ls.proc(cmd)
-  | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
-  | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
-  | "make" -> make.proc(cmd)
-  | "sh" -> sh.proc(cmd)
-  | "connect" -> connect.proc(cmd)
-  | "clear" -> Console.Clear()
-  | "help" -> showHelp()
-  | "exit" -> exit(0)
-  | _ -> terminal.printError("There is no such command!")
+open terminal
 
 /// <summary>
 /// Entry point of terminal.
@@ -80,12 +41,12 @@ let main(argv:string[]) : int =
     while terminal.argsIndex <= terminal.startArgs.Length - 1 do
       let arg = terminal.startArgs.[terminal.argsIndex]
       terminal.argsIndex <- terminal.argsIndex + 1
-      processCommand(commandProcessor.splitNamespace(arg).ToLower(),
+      interpreter.processCommand(commandProcessor.splitNamespace(arg).ToLower(),
         commandProcessor.removeNamespace(arg))
   else
     while true do
       let mutable input:string = terminal.getInput()
       if input <> String.Empty then
-        processCommand(commandProcessor.splitNamespace(input).ToLower(),
+        interpreter.processCommand(commandProcessor.splitNamespace(input).ToLower(),
                        commandProcessor.removeNamespace(input))
   0

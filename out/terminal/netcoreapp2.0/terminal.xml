@@ -242,31 +242,6 @@
  MochaQ module.
  </summary>
 </member>
-<member name="F:mhsh.interpreter._path">
- <summary>
- path declare for path property.
- </summary>
-</member>
-<member name="P:mhsh.interpreter.path(System.String)">
- <summary>
- Path of MochaDB Shell Script file.
- </summary>
-</member>
-<member name="M:mhsh.interpreter.interpret">
- <summary>
- Interpret script codes.
- </summary>
-</member>
-<member name="P:mhsh.interpreter.path">
- <summary>
- Path of MochaDB Shell Script file.
- </summary>
-</member>
-<member name="T:mhsh.interpreter">
- <summary>
- Interpreter for mhsh(MochaDB Shell Script).
- </summary>
-</member>
 <member name="M:modules.connect.proc(System.String)">
  <summary>
  Process command in module.
@@ -317,15 +292,41 @@
  Change directory module.
  </summary>
 </member>
-<member name="M:modules.sh.proc(System.String)">
+<member name="F:mhsh.interpreter.path@">
  <summary>
- Process command in module.
+ Path of MochaDB Shell Script file.
  </summary>
- <param name="cmd">Command.</param>
 </member>
-<member name="T:modules.sh">
+<member name="M:mhsh.interpreter.showHelp">
  <summary>
- Execute MochaDB Shell Script.
+ Show help.
+ </summary>
+</member>
+<member name="P:mhsh.interpreter.path(System.String)">
+ <summary>
+ Path of MochaDB Shell Script file.
+ </summary>
+</member>
+<member name="M:mhsh.interpreter.processCommand(System.String,System.String)">
+ <summary>
+ Process command and do task.
+ </summary>
+ <param name="ns">Name of modules(namespace).</param>
+ <param name="cmd">Commands(without module name).</param>
+</member>
+<member name="M:mhsh.interpreter.interpret">
+ <summary>
+ Interpret script codes.
+ </summary>
+</member>
+<member name="P:mhsh.interpreter.path">
+ <summary>
+ Path of MochaDB Shell Script file.
+ </summary>
+</member>
+<member name="T:mhsh.interpreter">
+ <summary>
+ Interpreter for mhsh(MochaDB Shell Script).
  </summary>
 </member>
 <member name="M:Program.main(System.String[])">
@@ -334,18 +335,6 @@
  </summary>
  <param name="argv">Arguments.</param>
  <returns>Exit code.</returns>
-</member>
-<member name="M:Program.processCommand(System.String,System.String)">
- <summary>
- Process command and do task.
- </summary>
- <param name="ns">Name of modules(namespace).</param>
- <param name="cmd">Commands(without module name).</param>
-</member>
-<member name="M:Program.showHelp">
- <summary>
- Show help.
- </summary>
 </member>
 </members>
 </doc>

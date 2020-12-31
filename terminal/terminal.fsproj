@@ -26,7 +26,6 @@
     <Compile Include="modules\ls.fs" />
     <Compile Include="modules\cd.fs" />
     <Compile Include="mhsh\interpreter.fs" />
-    <Compile Include="sh.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

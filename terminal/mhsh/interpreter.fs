@@ -3,24 +3,73 @@
 open System
 open System.IO
 
+open MochaDB
+
+open modules
+open utils
+open terminal
+
 /// <summary>
 /// Interpreter for mhsh(MochaDB Shell Script).
 /// </summary>
 type interpreter() =
   /// <summary>
-  /// path declare for path property.
+  /// Show help.
   /// </summary>
-  let mutable _path:string = String.Empty
+  static member showHelp() : unit =
+    cli.printDictAsTable(dict[
+      "cd", "Change directory.";
+      "ls", "List directory content.";
+      "ver", "Show version.";
+      "eng", "Show engine information.";
+      "make", "Create new MochaDB database.";
+      "connect", "Connect to MochaDB database.";
+      "clear", "Clear terminal screen.";
+      "sh", "Run mhsh(MochaDB Shell Script) file.";
+      "help", "Show help.";
+      "exit", "Exit from terminal.";
+    ])
+
+  /// <summary>
+  /// Process command and do task.
+  /// </summary>
+  /// <param name="ns">Name of modules(namespace).</param>
+  /// <param name="cmd">Commands(without module name).</param>
+  static member processCommand(ns:string, cmd:string) : unit =
+    match ns with
+    | "cd" -> cd.proc(cmd)
+    | "ls" -> ls.proc(cmd)
+    | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
+    | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
+    | "make" -> make.proc(cmd)
+    | "sh" ->
+      if cmd = String.Empty then
+        terminal.printError("Script file path is not defined!")
+      else
+        let mutable path = Path.Combine(terminal.pwd, cmd)
+        path <- if path.EndsWith(".mhsh") then path else path + ".mhsh"
+        match File.Exists(path) with
+        | true ->
+          let sh = new interpreter()
+          sh.path <- path
+          sh.interpret()
+        | false -> terminal.printError("Shell script file is not found in this path!")
+    | "connect" -> connect.proc(cmd)
+    | "clear" -> Console.Clear()
+    | "help" -> interpreter.showHelp()
+    | "exit" -> exit(0)
+    | _ -> terminal.printError("There is no such command!")
 
   /// <summary>
   /// Interpret script codes.
   /// </summary>
   member this.interpret() : unit =
-    printfn "Interpret called!"
+    let lines = File.ReadAllLines(this.path)
+    for line in lines do
+      interpreter.processCommand(commandProcessor.splitNamespace(line),
+        commandProcessor.removeNamespace(line))
 
   /// <summary>
   /// Path of MochaDB Shell Script file.
   /// </summary>
-  member this.path
-    with get() = _path
-    and set(value:string) = _path <- value
+  member val path = String.Empty with get, set
