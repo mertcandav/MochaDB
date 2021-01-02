@@ -5,6 +5,11 @@
 /// </summary>
 type _TOKENS_() =
   /// <summary>
+  /// Fail state of interpretting.
+  /// </summary>
+  static member val FAILED:bool = false with get, set
+
+  /// <summary>
   /// Inline comment.
   /// </summary>
   static member val INLINECOMMENT:string = "#" with get
@@ -243,3 +248,13 @@ type _TOKENS_() =
   /// Dollar equal.
   /// </summary>
   static member val DOLLAREQUAL:string = "$=" with get
+
+  /// <summary>
+  /// Workflow define keyword.
+  /// </summary>
+  static member val workflowDefine = "workflow" with get
+
+  /// <summary>
+  /// Work define keyword.
+  /// </summary>
+  static member val workDefine = "work" with get

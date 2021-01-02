@@ -23,6 +23,10 @@
 
 lexer grammar terminal_lexer;
 
+// Script Keywords
+WORK : 'work' ;
+WORKFLOW : 'workflow' ;
+
 // Modules
 CHANGE_DIRECTORY : 'cd' ;
 LIST_DIRECTORY : 'ls' ;
