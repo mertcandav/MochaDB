@@ -337,6 +337,491 @@
  Interpreter for mhsh(MochaDB Shell Script).
  </summary>
 </member>
+<member name="F:mhsh.parser._TOKENS_.DOLLAREQUAL@">
+ <summary>
+ Dollar equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.DOLLAR@">
+ <summary>
+ Dollar mark.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.COLONEQUAL@">
+ <summary>
+ Colon equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.ELLIPSIS@">
+ <summary>
+ Ellipsis.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.RARROW@">
+ <summary>
+ Right arrow.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LARROW@">
+ <summary>
+ Left arrow.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.ATEQUAL@">
+ <summary>
+ At equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.AT@">
+ <summary>
+ At.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.DOUBLESLASHEQUAL@">
+ <summary>
+ Double slahs equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.DOUBLESTAREQUAL@">
+ <summary>
+ Double start equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.RIGHTSHIFTEQUAL@">
+ <summary>
+ Right shift equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LEFTSHIFTEQUAL@">
+ <summary>
+ Left shift equal
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.CIRCUMFLEXEQUAL@">
+ <summary>
+ Circumflex equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.VBAREQUAL@">
+ <summary>
+ Vertical Bar equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.AMPEREQUAL@">
+ <summary>
+ Amper equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.PERCENTEQUAL@">
+ <summary>
+ Percent equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.SLASHEQUAL@">
+ <summary>
+ Slash equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.MINEQUAL@">
+ <summary>
+ Minus equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.PLUSEQUAL@">
+ <summary>
+ Plus equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.DOUBLESTAR@">
+ <summary>
+ Double star.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.RIGHTSHIFT@">
+ <summary>
+ Right shift.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LEFTSHIFT@">
+ <summary>
+ Left shift.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.CIRCUMFLEX@">
+ <summary>
+ Circumflex.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.TILDE@">
+ <summary>
+ Tilde.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.GREATEREQUAL@">
+ <summary>
+ Greater or equals.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LESSEQUAL@">
+ <summary>
+ Less or equals.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.NOTEQUAL@">
+ <summary>
+ Not equals to.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.EQEQUAL@">
+ <summary>
+ Equals to.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.RBRACE@">
+ <summary>
+ Right bracket.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LBRACE@">
+ <summary>
+ Left bracket.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.PERCENT@">
+ <summary>
+ Percent.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.DOT@">
+ <summary>
+ Dot.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.EQUAL@">
+ <summary>
+ Equal.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.GREATER@">
+ <summary>
+ Greater than.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LESS@">
+ <summary>
+ Less than.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.AMPER@">
+ <summary>
+ Amper.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.VBAR@">
+ <summary>
+ Vertical Bar.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.SLASH@">
+ <summary>
+ Slash.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.STAR@">
+ <summary>
+ Start.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.MINUS@">
+ <summary>
+ Minus.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.PLUS@">
+ <summary>
+ Plus.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.SEMICOLON@">
+ <summary>
+ Semicolon.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.COMMA@">
+ <summary>
+ Comma.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.COLON@">
+ <summary>
+ Colon.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.RPAR@">
+ <summary>
+ Right parantheses.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.LPAR@">
+ <summary>
+ Left parentheses.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.ESCAPESEQUENCE@">
+ <summary>
+ Escape sequence character of values.
+ </summary>
+</member>
+<member name="F:mhsh.parser._TOKENS_.INLINECOMMENT@">
+ <summary>
+ Inline comment.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.VBAREQUAL">
+ <summary>
+ Vertical Bar equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.VBAR">
+ <summary>
+ Vertical Bar.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.TILDE">
+ <summary>
+ Tilde.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.STAR">
+ <summary>
+ Start.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.SLASHEQUAL">
+ <summary>
+ Slash equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.SLASH">
+ <summary>
+ Slash.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.SEMICOLON">
+ <summary>
+ Semicolon.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.RPAR">
+ <summary>
+ Right parantheses.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.RIGHTSHIFTEQUAL">
+ <summary>
+ Right shift equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.RIGHTSHIFT">
+ <summary>
+ Right shift.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.RBRACE">
+ <summary>
+ Right bracket.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.RARROW">
+ <summary>
+ Right arrow.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.PLUSEQUAL">
+ <summary>
+ Plus equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.PLUS">
+ <summary>
+ Plus.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.PERCENTEQUAL">
+ <summary>
+ Percent equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.PERCENT">
+ <summary>
+ Percent.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.NOTEQUAL">
+ <summary>
+ Not equals to.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.MINUS">
+ <summary>
+ Minus.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.MINEQUAL">
+ <summary>
+ Minus equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LPAR">
+ <summary>
+ Left parentheses.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LESSEQUAL">
+ <summary>
+ Less or equals.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LESS">
+ <summary>
+ Less than.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LEFTSHIFTEQUAL">
+ <summary>
+ Left shift equal
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LEFTSHIFT">
+ <summary>
+ Left shift.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LBRACE">
+ <summary>
+ Left bracket.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.LARROW">
+ <summary>
+ Left arrow.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.INLINECOMMENT">
+ <summary>
+ Inline comment.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.GREATEREQUAL">
+ <summary>
+ Greater or equals.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.GREATER">
+ <summary>
+ Greater than.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.ESCAPESEQUENCE">
+ <summary>
+ Escape sequence character of values.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.EQUAL">
+ <summary>
+ Equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.EQEQUAL">
+ <summary>
+ Equals to.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.ELLIPSIS">
+ <summary>
+ Ellipsis.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOUBLESTAREQUAL">
+ <summary>
+ Double start equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOUBLESTAR">
+ <summary>
+ Double star.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOUBLESLASHEQUAL">
+ <summary>
+ Double slahs equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOT">
+ <summary>
+ Dot.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOLLAREQUAL">
+ <summary>
+ Dollar equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.DOLLAR">
+ <summary>
+ Dollar mark.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.COMMA">
+ <summary>
+ Comma.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.COLONEQUAL">
+ <summary>
+ Colon equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.COLON">
+ <summary>
+ Colon.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.CIRCUMFLEXEQUAL">
+ <summary>
+ Circumflex equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.CIRCUMFLEX">
+ <summary>
+ Circumflex.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.ATEQUAL">
+ <summary>
+ At equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.AT">
+ <summary>
+ At.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.AMPEREQUAL">
+ <summary>
+ Amper equal.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.AMPER">
+ <summary>
+ Amper.
+ </summary>
+</member>
+<member name="T:mhsh.parser._TOKENS_">
+ <summary>
+ Tokens.
+ </summary>
+</member>
 <member name="F:mhsh.objects._VARIABLE_.value">
  <summary>
  Value of variable.
