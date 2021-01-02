@@ -21,7 +21,7 @@ type connect() =
     /// <param name="command">Command.</param>
     /// <returns>true if disconnected, false if not.</returns>
     let processCommand(db:MochaDatabase, command:string) : bool =
-      let mutable break = false
+      let mutable break:bool = false
       if command <> String.Empty then
         let cmd:string = commandProcessor.removeNamespace(command)
         match commandProcessor.splitNamespace(command).ToLower() with
@@ -82,7 +82,7 @@ type connect() =
           terminal.printError("Name is cannot empty!")
         else
           let index:int = name.IndexOf('/')
-          let password = if index <> -1 then name.Substring(index + 1) else String.Empty
+          let password:string = if index <> -1 then name.Substring(index + 1) else String.Empty
           name <- if index <> -1 then name.Substring(0, index).TrimEnd() else name
           name <- if name.EndsWith(".mhdb") then name else name + ".mhdb"
           connect.proc([| name; password; logs |])

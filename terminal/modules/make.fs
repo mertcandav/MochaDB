@@ -36,7 +36,7 @@ type make() =
         let mutable description:string = String.Empty
         let mutable password:string = String.Empty
         while terminal.argsIndex <= terminal.startArgs.Length - 1 do
-          let arg = terminal.startArgs.[terminal.argsIndex]
+          let arg:string = terminal.startArgs.[terminal.argsIndex]
           terminal.argsIndex <- terminal.argsIndex + 1
           match counter with
           | 0 -> name <- arg

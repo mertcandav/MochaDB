@@ -12,7 +12,7 @@ type mhq() =
   /// <param name="command">Command to check.</param>
   /// <returns>true if command is run type, false if not.</returns>
   static member CommandIsRunType(command:string) : bool =
-    let command = command.ToUpperInvariant()
+    let command:string = command.ToUpperInvariant()
     String.IsNullOrEmpty(command) = false && (
       command.StartsWith("RESET") ||
       command.StartsWith("SET") ||
@@ -30,7 +30,7 @@ type mhq() =
   /// <param name="command">Command to check.</param>
   /// <returns>true if command is getrun type, false if not.</returns>
   static member CommandIsGetRunType(command:string) : bool =
-    let command = command.ToUpperInvariant()
+    let command:string = command.ToUpperInvariant()
     String.IsNullOrEmpty(command) = false && (
       command.StartsWith("GET") ||
       command.StartsWith("TABLECOUNT") ||

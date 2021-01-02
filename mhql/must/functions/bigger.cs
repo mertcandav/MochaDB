@@ -1,5 +1,6 @@
 namespace MochaDB.mhql.must.functions {
   using System;
+
   using MochaDB.Mhql;
 
   /// <summary>

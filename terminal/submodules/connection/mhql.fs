@@ -32,7 +32,7 @@ type mhql() =
           if mhql.Command.StartsWith("USE*",StringComparison.InvariantCultureIgnoreCase) then
           "USE" else mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
         | "USE" ->
-          let table = mhql.ExecuteScalar()
+          let table:MochaTableResult = mhql.ExecuteScalar()
           if table = null
           then printfn "NULL"
           else
@@ -46,7 +46,7 @@ type mhql() =
     if terminal.argMode then
       terminal.argsIndex <- terminal.argsIndex + 1
       while terminal.argsIndex < terminal.startArgs.Length do
-        let command = terminal.startArgs.[terminal.argsIndex]
+        let command:string = terminal.startArgs.[terminal.argsIndex]
         terminal.argsIndex <- terminal.argsIndex + 1
         if command = String.Empty then
           ()

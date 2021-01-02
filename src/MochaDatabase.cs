@@ -317,7 +317,7 @@ namespace MochaDB {
     internal void InternalUpdateData(string tableName,string columnName,int index,object data) {
       if(!ExistsColumn(tableName,columnName))
         throw new Exception("Column not found in this name!");
-      
+
       data = data ?? string.Empty;
       MochaDataType dataType = GetColumnDataType(tableName,columnName);
       if(!MochaData.IsType(dataType,data))
@@ -1103,8 +1103,10 @@ namespace MochaDB {
       if(dataRange.Count() - 1 < index)
         throw new ArgumentOutOfRangeException("This index is larger than the maximum number of data in the table!");
 
-      return new MochaData { dataType = dataType,
-                             data = MochaData.GetDataFromString(dataType,dataRange.ElementAt(index).Value) };
+      return new MochaData {
+        dataType = dataType,
+        data = MochaData.GetDataFromString(dataType,dataRange.ElementAt(index).Value)
+      };
     }
 
     /// <summary>
@@ -1118,8 +1120,10 @@ namespace MochaDB {
       MochaDataType dataType = GetColumnDataType(tableName,columnName);
       List<MochaData> datas = new List<MochaData>();
       foreach(XElement element in GetXElement(Doc,$"Tables/{tableName}/{columnName}").Elements())
-        datas.Add(new MochaData { dataType = dataType,
-                                  data = MochaData.GetDataFromString(dataType, element.Value) });
+        datas.Add(new MochaData {
+          dataType = dataType,
+          data = MochaData.GetDataFromString(dataType,element.Value)
+        });
       return datas;
     }
 

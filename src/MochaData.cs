@@ -1,7 +1,8 @@
 ﻿namespace MochaDB {
   using System;
-  using System.Numerics;
   using System.IO;
+  using System.Numerics;
+
   using MochaDB.Data.Types;
 
   /// <summary>

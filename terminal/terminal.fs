@@ -95,7 +95,7 @@ type terminal() =
   /// <summary>
   /// Start arguments of terminal.
   /// </summary>
-  static member val startArgs = [| "" |] with get, set
+  static member val startArgs = [| String.Empty |] with get, set
 
   /// <summary>
   /// Terminal execute in start arguments only mode.
