@@ -85,24 +85,24 @@ type terminal() =
   /// <summary>
   /// Working directory.
   /// </summary>
-  static member val pwd = Environment.CurrentDirectory with get, set
+  static member val pwd:string = Environment.CurrentDirectory with get, set
 
   /// <summary>
   /// Version of terminal.
   /// </summary>
-  static member val version = "0.0.1" with get
+  static member val version:string = "0.0.1" with get
 
   /// <summary>
   /// Start arguments of terminal.
   /// </summary>
-  static member val startArgs = [| String.Empty |] with get, set
+  static member val startArgs:string[] = [| String.Empty |] with get, set
 
   /// <summary>
   /// Terminal execute in start arguments only mode.
   /// </summary>
-  static member val argMode = false with get, set
+  static member val argMode:bool = false with get, set
 
   /// <summary>
   /// Last index of start arguments.
   /// </summary>
-  static member val argsIndex = 0 with get, set
+  static member val argsIndex:int = 0 with get, set

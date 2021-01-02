@@ -337,6 +337,34 @@
  Interpreter for mhsh(MochaDB Shell Script).
  </summary>
 </member>
+<member name="F:mhsh.objects._VARIABLE_.value">
+ <summary>
+ Value of variable.
+ </summary>
+</member>
+<member name="F:mhsh.objects._VARIABLE_.name">
+ <summary>
+ Name of variable.
+ </summary>
+</member>
+<member name="M:mhsh.objects._VARIABLE_.#ctor(System.String,System.String)">
+ <summary>
+ Create new instance of <see cref="_VARIABLE_"/>
+ </summary>
+ <param name="name">Name of variable.</param>
+ <param name="value">Value of variable.</param>
+</member>
+<member name="M:mhsh.objects._VARIABLE_.#ctor(System.String)">
+ <summary>
+ Create new instance of <see cref="_VARIABLE_"/>
+ </summary>
+ <param name="name">Name of variable.</param>
+</member>
+<member name="T:mhsh.objects._VARIABLE_">
+ <summary>
+ A variable instance.
+ </summary>
+</member>
 <member name="M:Program.main(System.String[])">
  <summary>
  Entry point of terminal.
