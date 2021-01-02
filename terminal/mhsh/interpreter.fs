@@ -31,6 +31,24 @@ type interpreter() =
     ])
 
   /// <summary>
+  /// Process command in special interpreter commands.
+  /// </summary>
+  /// <param name="ns">Name of modules(namespace).</param>
+  /// <param name="cmd">Commands(without module name).</param>
+  /// <returns>true if namespace is internal command, false if not.</returns>
+  member this.internalProcessCommand(ns:string, cmd:string) : bool =
+    match ns with
+    | "pause" ->
+      printf "%s" (if String.IsNullOrWhiteSpace(cmd) then "Press any key to continue..." else cmd)
+      Console.ReadKey() |> ignore
+      printfn ""
+      true
+    | "echo" ->
+      printfn "%s" cmd
+      true
+    | _ -> false
+
+  /// <summary>
   /// Process command and do task.
   /// </summary>
   /// <param name="ns">Name of modules(namespace).</param>
@@ -46,11 +64,11 @@ type interpreter() =
       if cmd = String.Empty then
         terminal.printError("Script file path is not defined!")
       else
-        let mutable path = Path.Combine(terminal.pwd, cmd)
+        let mutable path:string = Path.Combine(terminal.pwd, cmd)
         path <- if path.EndsWith(".mhsh") then path else path + ".mhsh"
         match File.Exists(path) with
         | true ->
-          let sh = new interpreter()
+          let sh:interpreter = new interpreter()
           sh.path <- path
           sh.interpret()
         | false -> terminal.printError("Shell script file is not found in this path!")
@@ -66,8 +84,11 @@ type interpreter() =
   member this.interpret() : unit =
     let lines = File.ReadAllLines(this.path)
     for line in lines do
-      interpreter.processCommand(commandProcessor.splitNamespace(line),
-        commandProcessor.removeNamespace(line))
+      let nspace:string = commandProcessor.splitNamespace(line)
+      let command:string = commandProcessor.removeNamespace(line)
+      if this.internalProcessCommand(nspace, command) = false
+      then interpreter.processCommand(commandProcessor.splitNamespace(line),
+            commandProcessor.removeNamespace(line))
 
   /// <summary>
   /// Path of MochaDB Shell Script file.

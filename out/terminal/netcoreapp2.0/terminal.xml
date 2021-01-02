@@ -319,6 +319,14 @@
  Interpret script codes.
  </summary>
 </member>
+<member name="M:mhsh.interpreter.internalProcessCommand(System.String,System.String)">
+ <summary>
+ Process command in special interpreter commands.
+ </summary>
+ <param name="ns">Name of modules(namespace).</param>
+ <param name="cmd">Commands(without module name).</param>
+ <returns>true if namespace is internal command, false if not.</returns>
+</member>
 <member name="P:mhsh.interpreter.path">
  <summary>
  Path of MochaDB Shell Script file.
