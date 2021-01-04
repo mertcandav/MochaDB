@@ -23,7 +23,7 @@ type ls() =
       files <- true
     else
       if cmd.Equals("@databases", StringComparison.InvariantCultureIgnoreCase) then
-        for db in Directory.GetFiles(terminal.pwd) do
+        for db:string in Directory.GetFiles(terminal.pwd) do
           if db.EndsWith(".mhdb") then
             terminal.printc("[DATABASE] ", ConsoleColor.DarkYellow)
             printfn "%s" (db.Substring(db.LastIndexOf(Path.DirectorySeparatorChar) + 1))
@@ -32,7 +32,7 @@ type ls() =
       else
         let args:List<String> = commandProcessor.getArguments(cmd)
         if args <> null then
-          for arg in args do
+          for arg:string in args do
             match arg with
             | "-f" -> files <- true
             | "-d" -> directories <- true
@@ -41,10 +41,10 @@ type ls() =
               directories <- false
               terminal.printError("Argument is not recognized!")
     if directories then
-      for dir in Directory.GetDirectories(terminal.pwd) do
+      for dir:string in Directory.GetDirectories(terminal.pwd) do
         terminal.printc("[DIR] ", ConsoleColor.Blue)
         printfn "%s" (dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1))
     if files then
-      for file in Directory.GetFiles(terminal.pwd) do
+      for file:string in Directory.GetFiles(terminal.pwd) do
         terminal.printc("[FILE] ", ConsoleColor.Cyan)
         printfn "%s" (file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar) + 1))

@@ -25,10 +25,12 @@
     <Compile Include="modules\make.fs" />
     <Compile Include="modules\ls.fs" />
     <Compile Include="modules\cd.fs" />
+    <Compile Include="mhsh\objects\_WORKLFOW_.fs" />
+    <Compile Include="mhsh\objects\_WORK_.fs" />
+    <Compile Include="mhsh\objects\_LITERAL_.fs" />
+    <Compile Include="mhsh\objects\_VARIABLE_.fs" />
     <Compile Include="mhsh\parser\_TOKENS_.fs" />
     <Compile Include="mhsh\parser\_LEXER_.fs" />
-    <Compile Include="mhsh\parser\_GRAMMAR_.fs" />
-    <Compile Include="mhsh\objects\_VARIABLE_.fs" />
     <Compile Include="mhsh\interpreter.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

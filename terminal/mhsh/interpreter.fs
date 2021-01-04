@@ -107,7 +107,7 @@ type interpreter() =
   /// </summary>
   member this.interpret() : unit =
     let lines = File.ReadAllLines(this.path)
-    for line in lines do
+    for line:string in lines do
       let nspace:string = commandProcessor.splitNamespace(line)
       let command:string = commandProcessor.removeNamespace(line)
       if this.internalProcessCommand(nspace, command) = false

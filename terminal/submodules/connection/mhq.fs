@@ -42,7 +42,7 @@ type mhq() =
           | :? IEnumerable ->
             if xml then
               let xdoc:XDocument = XDocument.Parse("<?Collection?></Collection>")
-              for element in result :?> IEnumerable do
+              for element:Object in result :?> IEnumerable do
                 xdoc.Root.Add(new XElement(XName.Get("Element"),
                   if element = null then "" else element.ToString()))
               printfn "%s" (xdoc.ToString())

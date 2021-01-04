@@ -19,7 +19,7 @@ type cd() =
     else
       let parts:string[] = cmd.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
       let mutable path:string = terminal.pwd
-      for part in parts do
+      for part:string in parts do
         if part = ".." then
           let index:int = path.LastIndexOf(Path.DirectorySeparatorChar)
           if index <> -1 then

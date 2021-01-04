@@ -20,7 +20,7 @@ type cli() =
   /// <param name="dict">Dictionary to print.<param>
   static member printDictAsTable(dict:IDictionary<'a,'b>) : unit =
     let maxlen:int = dict.Keys.Max(fun(x:'a) -> x.ToString().Length) + 5
-    for key in dict.Keys do
+    for key:'a in dict.Keys do
       terminal.printc(key, ConsoleColor.Yellow)
       printf "%s" (new String(' ', maxlen - key.Length))
       printfn "%s" dict.[key]
@@ -59,7 +59,7 @@ type cli() =
         let x:int = (tableWidth - values.Count) / values.Count
         printf "|"
         let mutable finalLine:string = "|"
-        for value in values do
+        for value:'a in values do
           let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
@@ -67,7 +67,7 @@ type cli() =
         printfn "\n%s" finalLine
 
       printRow(table.Columns)
-      for row in table.Rows do
+      for row:MochaRow in table.Rows do
         printRow(row.Datas)
 
   /// <summary>
@@ -105,7 +105,7 @@ type cli() =
         let x:int = (tableWidth - count) / count
         printf "|"
         let mutable finalLine:string = "|"
-        for value in values do
+        for value:'a in values do
           let mutable value:string = (alignCentre(value.ToString(), x))
           value <- value.Replace("\n", " ")
           printf "%s|" value
@@ -115,7 +115,7 @@ type cli() =
       printRow(table.Columns.Select(
         fun(x:MochaColumn) -> new MochaData(MochaDataType.String, x.MHQLAsText)),
         table.Columns.Length)
-      for row in table.Rows do
+      for row:MochaRow in table.Rows do
         printRow(row.Datas, row.Datas.Count)
 
   /// <summary>
@@ -123,5 +123,5 @@ type cli() =
   /// </summary>
   /// <param name="enumrable">IEnumerable to print.</param>
   static member printEnumerable(enumerable:IEnumerable) : unit =
-    for element in enumerable do
+    for element:Object in enumerable do
       printfn "%s" (element.ToString())
