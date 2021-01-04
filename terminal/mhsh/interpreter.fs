@@ -24,12 +24,14 @@
 namespace mhsh
 
 open System
+open System.Collections.Generic
 open System.IO
 
 open MochaDB
 
-open mhsh.objects
 open modules
+open mhsh.parser
+open mhsh.objects
 open utils
 open terminal
 
@@ -108,13 +110,21 @@ type interpreter() =
   member this.interpret() : unit =
     let lines = File.ReadAllLines(this.path)
     for line:string in lines do
-      let nspace:string = commandProcessor.splitNamespace(line)
-      let command:string = commandProcessor.removeNamespace(line)
-      if this.internalProcessCommand(nspace, command) = false
-      then interpreter.processCommand(commandProcessor.splitNamespace(line),
-            commandProcessor.removeNamespace(line))
+      let mutable line:string = _LEXER_.removeComments(line)
+      if _LEXER_.isSkippableStatement(line) = false then
+        line <- _LEXER_.processValue(this.variables |> ref, line)
+        let nspace:string = commandProcessor.splitNamespace(line)
+        let command:string = commandProcessor.removeNamespace(line)
+        if this.internalProcessCommand(nspace, command) = false
+        then interpreter.processCommand(commandProcessor.splitNamespace(line),
+                                        commandProcessor.removeNamespace(line))
 
   /// <summary>
   /// Path of MochaDB Shell Script file.
   /// </summary>
   member val path:string = String.Empty with get, set
+
+  /// <summary>
+  /// Variables.
+  /// </summary>
+  member val variables:List<_VARIABLE_> = new List<_VARIABLE_>() with get, set

@@ -1,0 +1,6 @@
+cd ..
+cd ..
+cd ..
+cd tests
+connect testdb/ false
+mhq GetTable:Persons

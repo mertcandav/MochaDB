@@ -292,6 +292,11 @@
  Change directory module.
  </summary>
 </member>
+<member name="F:mhsh.interpreter.variables@">
+ <summary>
+ Variables.
+ </summary>
+</member>
 <member name="F:mhsh.interpreter.path@">
  <summary>
  Path of MochaDB Shell Script file.
@@ -300,6 +305,11 @@
 <member name="M:mhsh.interpreter.showHelp">
  <summary>
  Show help.
+ </summary>
+</member>
+<member name="P:mhsh.interpreter.variables(System.Collections.Generic.List{mhsh.objects._VARIABLE_})">
+ <summary>
+ Variables.
  </summary>
 </member>
 <member name="P:mhsh.interpreter.path(System.String)">
@@ -327,6 +337,11 @@
  <param name="cmd">Commands(without module name).</param>
  <returns>true if namespace is internal command, false if not.</returns>
 </member>
+<member name="P:mhsh.interpreter.variables">
+ <summary>
+ Variables.
+ </summary>
+</member>
 <member name="P:mhsh.interpreter.path">
  <summary>
  Path of MochaDB Shell Script file.
@@ -335,111 +350,6 @@
 <member name="T:mhsh.interpreter">
  <summary>
  Interpreter for mhsh(MochaDB Shell Script).
- </summary>
-</member>
-<member name="F:mhsh.objects._WORKFLOW_.works@">
- <summary>
- Works of workflow.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORKFLOW_.works(System.Collections.Generic.List{System.String})">
- <summary>
- Works of workflow.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORKFLOW_.works">
- <summary>
- Works of workflow.
- </summary>
-</member>
-<member name="T:mhsh.objects._WORKFLOW_">
- <summary>
- Workflow instance.
- </summary>
-</member>
-<member name="F:mhsh.objects._WORK_.literals@">
- <summary>
- Commands of work.
- </summary>
-</member>
-<member name="F:mhsh.objects._WORK_.parameters@">
- <summary>
- Parameters of work.
- </summary>
-</member>
-<member name="F:mhsh.objects._WORK_.name@">
- <summary>
- Name of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.parameters(System.Collections.Generic.List{System.String})">
- <summary>
- Parameters of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.name(System.String)">
- <summary>
- Name of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.literals(System.Collections.Generic.List{System.String})">
- <summary>
- Commands of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.parameters">
- <summary>
- Parameters of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.name">
- <summary>
- Name of work.
- </summary>
-</member>
-<member name="P:mhsh.objects._WORK_.literals">
- <summary>
- Commands of work.
- </summary>
-</member>
-<member name="T:mhsh.objects._WORK_">
- <summary>
- Work instance.
- </summary>
-</member>
-<member name="F:mhsh.objects._LITERAL_.line@">
- <summary>
- Lines count of literal.
- </summary>
-</member>
-<member name="F:mhsh.objects._LITERAL_.value@">
- <summary>
- Value of literal.
- </summary>
-</member>
-<member name="P:mhsh.objects._LITERAL_.value(System.String)">
- <summary>
- Value of literal.
- </summary>
-</member>
-<member name="P:mhsh.objects._LITERAL_.line(System.Int32)">
- <summary>
- Lines count of literal.
- </summary>
-</member>
-<member name="P:mhsh.objects._LITERAL_.value">
- <summary>
- Value of literal.
- </summary>
-</member>
-<member name="P:mhsh.objects._LITERAL_.line">
- <summary>
- Lines count of literal.
- </summary>
-</member>
-<member name="T:mhsh.objects._LITERAL_">
- <summary>
- A literal instance.
  </summary>
 </member>
 <member name="F:mhsh.objects._VARIABLE_.value@">
@@ -1002,49 +912,12 @@
  Failed process state.
  </summary>
 </member>
-<member name="M:mhsh.parser._LEXER_.skipWork(Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]},Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}})">
- <summary>
- Skip work with processing.
- </summary>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <param name="variables">Variables.</param>
- <returns>Work instance of skipped work.</returns>
-</member>
 <member name="M:mhsh.parser._LEXER_.removeComments(System.String)">
  <summary>
  Remove comments from statement.
  </summary>
  <param name="statement">Statement.</param>
  <returns>Statement without comments.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.processWorkflow(Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]},Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}})">
- <summary>
- Process workflow.
- </summary>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <param name="variables">Variables.</param>
- <returns>true if success, false if not.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.processWork(System.String,Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]},Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}})">
- <summary>
- Process work.
- </summary>
- <param name="name">Name of work.</param>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <param name="variables">Variables.</param>
- <returns>true if success, false if not.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.processVariable(Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]},Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}})">
- <summary>
- Process variable.
- </summary>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <param name="variables">Variables.</param>
- <returns>true if success, false if not.</returns>
 </member>
 <member name="M:mhsh.parser._LEXER_.processValue(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}},System.String)">
  <summary>
@@ -1061,21 +934,6 @@
  <param name="value">Statement.</param>
  <returns>Value of escape sequence.</returns>
 </member>
-<member name="M:mhsh.parser._LEXER_.lexVariable(Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]})">
- <summary>
- Lex variable.
- </summary>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <returns>Parts of variable.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.lexParameters(System.String)">
- <summary>
- Lex parameters.
- </summary>
- <param name="statement">Statement.</param>
- <returns>Parameters.</returns>
-</member>
 <member name="M:mhsh.parser._LEXER_.lexBraceRange(System.Char,System.Char,System.String)">
  <summary>
  Decompose range.
@@ -1084,34 +942,6 @@
  <param name="closec">Close char.</param>
  <param name="statement">Statement.</param>
  <returns>Statement without range.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.isWorkflowStatement(System.String)">
- <summary>
- Check statement is workflow statement.
- </summary>
- <param name="statement">Statement.</param>
- <returns>true if statement is workflow, false if not.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.isWorkStatement(System.String)">
- <summary>
- Check statement is work statement.
- </summary>
- <param name="statement">Statement.</param>
- <returns>true if statement is work, false if not.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.isVariableStatement(System.String)">
- <summary>
- Check statement is variable statement.
- </summary>
- <param name="statement">Statement.</param>
- <returns>true if statement is variable, false if not.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.isValidVariableName(System.String)">
- <summary>
- Check name is valid or not.
- </summary>
- <param name="name">Name to check.</param>
- <returns>true is valid, false if not.</returns>
 </member>
 <member name="M:mhsh.parser._LEXER_.isSkippableStatement(System.String)">
  <summary>
@@ -1131,39 +961,6 @@
  <summary>
  Failed process state.
  </summary>
-</member>
-<member name="M:mhsh.parser._LEXER_.getWorkName(System.String,System.Boolean)">
- <summary>
- Decompose work name.
- </summary>
- <param name="statement">Statement.</param>
- <param name="removeParameters">Remove parameters.</param>
- <returns>Name of work.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.getVariableNameFromStatement(System.String)">
- <summary>
- Decompose variable name.
- </summary>
- <param name="statement">Statement.</param>
- <returns>Name of variable.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.getLiteral(Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]},Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{mhsh.objects._VARIABLE_}})">
- <summary>
- Decompose literal.
- </summary>
- <param name="index">Index.</param>
- <param name="lines">Lines.</param>
- <param name="variables">Variables.</param>
- <returns>Literal.</returns>
-</member>
-<member name="M:mhsh.parser._LEXER_.findWork(System.String,Microsoft.FSharp.Core.FSharpRef{System.Int32},Microsoft.FSharp.Core.FSharpRef{System.String[]})">
- <summary>
- Find work index.
- </summary>
- <param name="name">Name of work.</param>
- <param name="index">Last index of lines.</param>
- <param name="lines">Lines.</param>
- <returns>Index of line.</returns>
 </member>
 <member name="M:mhsh.parser._LEXER_.findVariableLimit(System.String)">
  <summary>
