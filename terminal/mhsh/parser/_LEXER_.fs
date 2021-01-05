@@ -68,18 +68,15 @@ type _LEXER_() =
   static member removeComments(statement:string) : string =
     let mutable index:int = -1
     let mutable rstatement:string = statement
-    while index < statement.Length do
-      index <- index + 1
-      let ch:string = statement.Substring(0, 1)
-      if _LEXER_.processSequence(statement.Substring(index)) <> _LEXER_.failProcess then
-        index <- index + 1
-      else
-        if ch = _TOKENS_.INLINECOMMENT then
-          if index = 0 then
-            rstatement <- String.Empty
-          else
-            rstatement <- statement.Substring(0, index)
-          index <- statement.Length
+    let mutable break:bool = false
+    while break <> true
+      && (index <- statement.IndexOf(_TOKENS_.INLINECOMMENT, index + 1); index) <> -1
+      do
+      if _LEXER_.processSequence(statement.Substring(index)) = _LEXER_.failProcess then
+        let ch:char = statement.[index]
+        if ch = _TOKENS_.INLINECOMMENT.[0] then
+          rstatement <- statement.Substring(0, index).Trim()
+          break <- true
     rstatement
 
   /// <summary>

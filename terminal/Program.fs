@@ -43,6 +43,7 @@ let main(argv:string[]) : int =
       terminal.argsIndex <- terminal.argsIndex + 1
       interpreter.processCommand(commandProcessor.splitNamespace(arg).ToLower(),
         commandProcessor.removeNamespace(arg))
+    terminal.argMode <- false
   else
     while true do
       let mutable input:string = terminal.getInput()
