@@ -2,5 +2,12 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
+<member name="M:Program.main(System.String[])">
+ <summary>
+ Entry point of terminal.
+ </summary>
+ <param name="argv">Arguments.</param>
+ <returns>Exit code.</returns>
+</member>
 </members>
 </doc>
