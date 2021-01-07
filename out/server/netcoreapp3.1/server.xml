@@ -2,6 +2,34 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
+<member name="F:config.key.value">
+ <summary>
+ Value of key.
+ <summary>
+</member>
+<member name="F:config.key.name">
+ <summary>
+ Name of key.
+ </summary>
+</member>
+<member name="M:config.key.#ctor(System.String,System.String)">
+ <summary>
+ Create a new instance of <see cref="key"/>.
+ </summary>
+ <param name="name">Name of key.</param>
+ <param name="value">Value of key.</param>
+</member>
+<member name="M:config.key.#ctor(System.String)">
+ <summary>
+ Create a new instance of <see cref="key"/>.
+ </summary>
+ <param name="name">Name of key.</param>
+</member>
+<member name="T:config.key">
+ <summary>
+ A key instance.
+ </summary>
+</member>
 <member name="F:Server.configs.listen@">
  <summary>
  The maximum length of the pending connections queue.
