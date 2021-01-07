@@ -236,6 +236,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lexer", "lexer", "{17248AE3
 		lexer\terminal_lexer.g4 = lexer\terminal_lexer.g4
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "server", "server\server.fsproj", "{EDD181F0-010F-4580-8D8D-7A44B400D590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -262,6 +264,10 @@ Global
 		{E7421A8C-2965-4B8D-9275-7EF5ADB08353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7421A8C-2965-4B8D-9275-7EF5ADB08353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7421A8C-2965-4B8D-9275-7EF5ADB08353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD181F0-010F-4580-8D8D-7A44B400D590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD181F0-010F-4580-8D8D-7A44B400D590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD181F0-010F-4580-8D8D-7A44B400D590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD181F0-010F-4580-8D8D-7A44B400D590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,18 +1,17 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v2.0",
+    "name": ".NETCoreApp,Version=v3.1",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v2.0": {
-      "terminal/1.0.0": {
+    ".NETCoreApp,Version=v3.1": {
+      "server/1.0.0": {
         "dependencies": {
-          "FSharp.Core": "4.7.2",
-          "MochaDB": "3.4.9.1"
+          "FSharp.Core": "4.7.2"
         },
         "runtime": {
-          "terminal.dll": {}
+          "server.dll": {}
         }
       },
       "FSharp.Core/4.7.2": {
@@ -63,16 +62,11 @@
             "locale": "zh-Hant"
           }
         }
-      },
-      "MochaDB/3.4.9.1": {
-        "runtime": {
-          "MochaDB.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "terminal/1.0.0": {
+    "server/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -83,11 +77,6 @@
       "sha512": "sha512-w3XFVTnyZUbC8e2QT6a85ern6y7eQPPk+MYemz1FP0iBfgZcembL+wmo5cIZ1kxB8jfoXC8Q9KVkOMsGpkBKbA==",
       "path": "fsharp.core/4.7.2",
       "hashPath": "fsharp.core.4.7.2.nupkg.sha512"
-    },
-    "MochaDB/3.4.9.1": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
