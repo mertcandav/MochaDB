@@ -30,6 +30,7 @@
 + MHQL(MochaDB Query Language) for advanced queries
 
 ## Compatibility
+### MochaDB
 <table>
   <tr>
     <td>.NET Standard</td>
@@ -40,6 +41,20 @@
     <td>1.3 or higher</td>
     <td>1.1 or higher</td>
     <td>4 or higher</td>
+  </tr>
+</table>
+
+### MochaDB Server
+<table>
+  <tr>
+    <td>.NET Core 3.1</td>
+  </tr>
+</table>
+
+### MochaDB Terminal
+<table>
+  <tr>
+    <td>.NET Core 3.1</td>
   </tr>
 </table>
 
