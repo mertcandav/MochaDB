@@ -13,8 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="config\key.fs" />
+    <Compile Include="utilities\cli.fs" />
     <Compile Include="configs.fs" />
+    <Compile Include="config\key.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

@@ -2,32 +2,29 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
-<member name="F:config.key.value">
+<member name="M:utilities.cli.printnc(System.String,System.ConsoleColor)">
  <summary>
- Value of key.
- <summary>
-</member>
-<member name="F:config.key.name">
- <summary>
- Name of key.
+ Print message and new line to screen with color.
  </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
 </member>
-<member name="M:config.key.#ctor(System.String,System.String)">
+<member name="M:utilities.cli.printc(System.String,System.ConsoleColor)">
  <summary>
- Create a new instance of <see cref="key"/>.
+ Print message to screen with color.
  </summary>
- <param name="name">Name of key.</param>
- <param name="value">Value of key.</param>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
 </member>
-<member name="M:config.key.#ctor(System.String)">
+<member name="M:utilities.cli.printError(System.String)">
  <summary>
- Create a new instance of <see cref="key"/>.
+ Print error message.
  </summary>
- <param name="name">Name of key.</param>
+ <param name="msg">Message.</param>
 </member>
-<member name="T:config.key">
+<member name="T:utilities.cli">
  <summary>
- A key instance.
+ CLI(Command Line Interface) utilities.
  </summary>
 </member>
 <member name="F:Server.configs.listen@">
@@ -95,12 +92,45 @@
  Config settings.
  </summary>
 </member>
+<member name="F:config.key.value">
+ <summary>
+ Value of key.
+ <summary>
+</member>
+<member name="F:config.key.name">
+ <summary>
+ Name of key.
+ </summary>
+</member>
+<member name="M:config.key.#ctor(System.String,System.String)">
+ <summary>
+ Create a new instance of <see cref="key"/>.
+ </summary>
+ <param name="name">Name of key.</param>
+ <param name="value">Value of key.</param>
+</member>
+<member name="M:config.key.#ctor(System.String)">
+ <summary>
+ Create a new instance of <see cref="key"/>.
+ </summary>
+ <param name="name">Name of key.</param>
+</member>
+<member name="T:config.key">
+ <summary>
+ A key instance.
+ </summary>
+</member>
 <member name="M:Program.main(System.String[])">
  <summary>
  Entry point of terminal.
  </summary>
  <param name="argv">Arguments.</param>
  <returns>Exit code.</returns>
+</member>
+<member name="M:Program.check">
+ <summary>
+ Check dependicies.
+ </summary>
 </member>
 </members>
 </doc>

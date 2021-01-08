@@ -22,6 +22,17 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
 open System
+open System.IO
+
+open utilities
+
+/// <summary>
+/// Check dependicies.
+/// </summary>
+let check() : unit =
+  if File.Exists("config.mhcfg") <> true then
+    cli.printError("Config file is not found!")
+    exit(0)
 
 /// <summary>
 /// Entry point of terminal.
@@ -30,4 +41,5 @@ open System
 /// <returns>Exit code.</returns>
 [<EntryPoint>]
 let main (argv:string[]) : int =
+  check()
   0
