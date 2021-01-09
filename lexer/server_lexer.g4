@@ -23,8 +23,62 @@
 
 lexer grammar server_lexer;
 
-// KEYS
+// Keys
 SERVER_NAME : 'NAME' ;
 IP_ADDRESS : 'ADDRESS' ;
 CONNECTION_PORT : 'PORT' ;
 PENDING_CONNECTIONS_QUEUE_LIMIT : 'LISTEN' ;
+
+// Symbols
+ALL    : '*' ;
+PARAM_DELIMITER : ',' ;
+FUNCPARAM_DELIMITER : ',' ;
+SUBCALL_DELIMITER : '.' ;
+CACHE_OBJECT : '$' ;
+HASTAG : '#' ;
+LPAR : '(' ;
+RPAR : ')' ;
+COLON : ':' ;
+COMMA : ',' ;
+SEMICOLON : ';' ;
+PLUS : '+' ;
+MINUS : '-' ;
+STAR : '*' ;
+SLASH : '/' ;
+VBAR : '|' ;
+AMPER : '&' ;
+LESS : '<' ;
+GREATER : '>' ;
+EQUAL : '=' ;
+DOT : '.' ;
+PERCENT : '%' ;
+LBRACE : '{' ;
+RBRACE : '}' ;
+EQEQUAL : '==' ;
+NOTEQUAL : '!=' ;
+LESSEQUAL : '<=' ;
+GREATEREQUAL : '>=' ;
+TILDE : '~' ;
+CIRCUMFLEX : '^' ;
+LEFTSHIFT : '<<' ;
+RIGHTSHIFT : '>>' ;
+DOUBLESTAR : '**' ;
+PLUSEQUAL : '+=' ;
+MINEQUAL : '-=' ;
+SLASHEQUAL : '/=' ;
+PERCENTEQUAL : '%=' ;
+AMPEREQUAL : '&=' ;
+VBAREQUAL : '|=' ;
+CIRCUMFLEXEQUAL : '^=' ;
+LEFTSHIFTEQUAL : '<<=' ;
+RIGHTSHIFTEQUAL : '>>=' ;
+DOUBLESTAREQUAL : '**=' ;
+DOUBLESLASHEQUAL : '//=' ;
+AT : '@' ;
+ATEQUAL : '@=' ;
+LARROW : '<-' ;
+RARROW : '->' ;
+ELLIPSIS : '...' ;
+COLONEQUAL : ':=' ;
+DOLLAR : '$' ;
+DOLLAREQUAL : '$=' ;
