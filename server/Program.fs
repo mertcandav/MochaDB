@@ -34,8 +34,7 @@ open config
 /// </summary>
 let check() : unit =
   if File.Exists("config.mhcfg") <> true then
-    cli.printError("Config file is not found!")
-    exit(0)
+    cli.exitError("Config file is not found!")
 
 /// <summary>
 /// Ready to use.

@@ -34,4 +34,14 @@ type cli() =
   /// <param name="msg">Message.</param>
   static member printError(msg:string) : unit =
     cli.printnc(msg, ConsoleColor.Red)
+
+  /// <summary>
+  /// Exit with error message.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  static member exitError(msg:string) : unit =
+    cli.printError(msg)
+    printf "Press any key for exit..."
+    Console.ReadKey() |> ignore
+    exit(1)
   end

@@ -22,6 +22,12 @@
  </summary>
  <param name="msg">Message.</param>
 </member>
+<member name="M:utilities.cli.exitError(System.String)">
+ <summary>
+ Exit with error message.
+ </summary>
+ <param name="msg">Message.</param>
+</member>
 <member name="T:utilities.cli">
  <summary>
  CLI(Command Line Interface) utilities.
