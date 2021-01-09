@@ -27,67 +27,67 @@
  CLI(Command Line Interface) utilities.
  </summary>
 </member>
-<member name="F:Server.configs.listen@">
+<member name="F:server.configs.listen@">
  <summary>
  The maximum length of the pending connections queue.
  </summary>
 </member>
-<member name="F:Server.configs.port@">
+<member name="F:server.configs.port@">
  <summary>
  Port.
  </summary>
 </member>
-<member name="F:Server.configs.address@">
+<member name="F:server.configs.address@">
  <summary>
  IP address.
  </summary>
 </member>
-<member name="F:Server.configs.name@">
+<member name="F:server.configs.name@">
  <summary>
  Name of server.
  </summary>
 </member>
-<member name="P:Server.configs.port(System.Int32)">
+<member name="P:server.configs.port(System.Int32)">
  <summary>
  Port.
  </summary>
 </member>
-<member name="P:Server.configs.name(System.String)">
+<member name="P:server.configs.name(System.String)">
  <summary>
  Name of server.
  </summary>
 </member>
-<member name="P:Server.configs.listen(System.Int32)">
+<member name="P:server.configs.listen(System.Int32)">
  <summary>
  The maximum length of the pending connections queue.
  </summary>
 </member>
-<member name="P:Server.configs.address(System.String)">
+<member name="P:server.configs.address(System.String)">
  <summary>
  IP address.
  </summary>
 </member>
-<member name="P:Server.configs.port">
+<member name="P:server.configs.port">
  <summary>
  Port.
  </summary>
 </member>
-<member name="P:Server.configs.name">
+<member name="P:server.configs.name">
  <summary>
  Name of server.
  </summary>
 </member>
-<member name="P:Server.configs.listen">
+<member name="P:server.configs.listen">
  <summary>
  The maximum length of the pending connections queue.
  </summary>
 </member>
-<member name="P:Server.configs.address">
+<member name="P:server.configs.address">
  <summary>
  IP address.
  </summary>
 </member>
-<member name="T:Server.configs">
+<member name="T:server.configs">
  <summary>
  Config settings.
  </summary>
@@ -701,6 +701,13 @@
  </summary>
  <returns>Keys of config.</returns>
 </member>
+<member name="M:config.parser.getKey(System.String)">
+ <summary>
+ Get key by name.
+ </summary>
+ <param name="name">Name of key.</param>
+ <returns>key if found, empty key if not.</returns>
+</member>
 <member name="T:config.parser">
  <summary>
  Config parser.
@@ -712,6 +719,11 @@
  </summary>
  <param name="argv">Arguments.</param>
  <returns>Exit code.</returns>
+</member>
+<member name="M:Program.ready">
+ <summary>
+ Ready to use.
+ </summary>
 </member>
 <member name="M:Program.check">
  <summary>

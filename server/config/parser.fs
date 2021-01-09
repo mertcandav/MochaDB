@@ -73,6 +73,18 @@ type parser() =
       keys
 
   /// <summary>
+  /// Get key by name.
+  /// </summary>
+  /// <param name="name">Name of key.</param>
+  /// <returns>key if found, empty key if not.</returns>
+  member this.getKey(name:string) : key =
+    let mutable result:IEnumerable<key> = this.getKeys().Where(fun(x:key) -> x.name = name)
+    if result.Any() then
+      result.First()
+    else
+      new key(String.Empty, String.Empty)
+
+  /// <summary>
   /// Config text.
   /// </summary>
   member val context:string[] = [| String.Empty |] with get, set

@@ -23,8 +23,11 @@
 
 open System
 open System.IO
+open System.Collections.Generic
 
+open server
 open utilities
+open config
 
 /// <summary>
 /// Check dependicies.
@@ -35,6 +38,22 @@ let check() : unit =
     exit(0)
 
 /// <summary>
+/// Ready to use.
+/// </summary>
+let ready() : unit =
+  let mutable _parser:parser = new parser()
+  _parser.context <- File.ReadAllLines("config.mhcfg")
+  let mutable keys:List<key> = _parser.getKeys()
+  for _key:key in keys do
+    match _key.name with
+    | "name" -> configs.name <- _key.value
+    | "address" -> configs.address <- _key.value
+    | "port" -> configs.port <- Int32.Parse(_key.value)
+    | "listen" -> configs.listen <- if String.IsNullOrEmpty(_key.value)
+                                    then -1
+                                    else Int32.Parse(_key.value)
+
+/// <summary>
 /// Entry point of terminal.
 /// </summary>
 /// <param name="argv">Arguments.</param>
@@ -42,4 +61,5 @@ let check() : unit =
 [<EntryPoint>]
 let main (argv:string[]) : int =
   check()
+  ready()
   0

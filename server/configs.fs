@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace server
 
 /// <summary>
 /// Config settings.
