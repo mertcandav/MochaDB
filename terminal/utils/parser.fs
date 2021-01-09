@@ -9,7 +9,9 @@ open MochaDB.Mhql
 /// <summary>
 /// Parser.
 /// </summary>
+[<Class>]
 type parser() =
+  class
   /// <summary>
   /// Parse MochaTable to XmlString.
   /// </summary>
@@ -42,4 +44,4 @@ type parser() =
         xcol.Add(new XElement(XName.Get("Data"), data.Data))
       doc.Root.Add(xcol)
     doc.ToString()
-
+  end

@@ -11,7 +11,9 @@ open terminal
 /// <summary>
 /// MHQL module.
 /// </summary>
+[<Class>]
 type mhql() =
+  class
   /// <summary>
   /// Process command in module.
   /// </summary>
@@ -63,3 +65,4 @@ type mhql() =
             exec(input)
       else
         exec(cmd)
+  end

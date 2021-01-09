@@ -10,7 +10,9 @@ open utils
 /// <summary>
 /// List directory.
 /// </summary>
+[<Class>]
 type ls() =
+  class
   /// <summary>
   /// Process command in module.
   /// </summary>
@@ -48,3 +50,4 @@ type ls() =
       for file:string in Directory.GetFiles(terminal.pwd) do
         terminal.printc("[FILE] ", ConsoleColor.Cyan)
         printfn "%s" (file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar) + 1))
+  end

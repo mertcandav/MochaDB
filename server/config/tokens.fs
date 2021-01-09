@@ -1,16 +1,11 @@
-﻿namespace mhsh.parser
+﻿namespace config
 
 /// <summary>
 /// Tokens.
 /// </summary>
 [<Class>]
-type _TOKENS_() =
+type tokens() =
   class
-  /// <summary>
-  /// Fail state of interpretting.
-  /// </summary>
-  static member val FAILED:bool = false with get, set
-
   /// <summary>
   /// Inline comment.
   /// </summary>
@@ -250,14 +245,4 @@ type _TOKENS_() =
   /// Dollar equal.
   /// </summary>
   static member val DOLLAREQUAL:string = "$=" with get
-
-  /// <summary>
-  /// Workflow define keyword.
-  /// </summary>
-  static member val workflowDefine = "workflow" with get
-
-  /// <summary>
-  /// Work define keyword.
-  /// </summary>
-  static member val workDefine = "work" with get
   end

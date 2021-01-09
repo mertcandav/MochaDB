@@ -8,7 +8,6 @@ open System
 [<Struct>]
 type key =
   struct
-  
   /// <summary>
   /// Name of key.
   /// </summary>
@@ -37,5 +36,4 @@ type key =
     name = name
     value = value
   }
-
   end

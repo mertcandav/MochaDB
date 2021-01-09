@@ -8,7 +8,9 @@ open terminal
 /// <summary>
 /// Change directory module.
 /// </summary>
+[<Class>]
 type cd() =
+  class
   /// <summary>
   /// Process command in module.
   /// </summary>
@@ -29,3 +31,4 @@ type cd() =
       match Directory.Exists(path) with
       | true -> terminal.pwd <- path
       | false -> terminal.printError("Directory is not found in this path!")
+  end

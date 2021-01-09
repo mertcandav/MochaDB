@@ -12,7 +12,9 @@ open submodules.connection
 /// <summary>
 /// Connection module.
 /// </summary>
+[<Class>]
 type connect() =
+  class
   static member proc(args:string[]) : unit =
     /// <summary>
     /// Process command.
@@ -102,3 +104,4 @@ type connect() =
             | "" | "true" | "false" -> 
               connect.proc([| name; password; if logs = String.Empty then "False" else logs |])
             | _ -> terminal.printError("Logs value is not valid!")
+  end

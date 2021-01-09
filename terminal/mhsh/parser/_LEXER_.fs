@@ -9,7 +9,9 @@ open terminal
 /// <summary>
 /// Lexer.
 /// </summary>
+[<Class>]
 type _LEXER_() =
+  class
   /// <summary>
   /// Failed process state.
   /// </summary>
@@ -140,3 +142,4 @@ type _LEXER_() =
   /// <returns>Value.</returns>
   static member processValue(variables:List<_VARIABLE_> ref, value:string) : string =
     value
+  end

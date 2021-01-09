@@ -39,7 +39,9 @@ open terminal
 /// <summary>
 /// Interpreter for mhsh(MochaDB Shell Script).
 /// </summary>
+[<Class>]
 type interpreter() =
+  class
   /// <summary>
   /// Show help.
   /// </summary>
@@ -135,3 +137,4 @@ type interpreter() =
   /// Variables.
   /// </summary>
   member val variables:List<_VARIABLE_> = new List<_VARIABLE_>() with get, set
+  end

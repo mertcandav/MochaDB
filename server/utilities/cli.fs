@@ -5,7 +5,9 @@ open System
 /// <summary>
 /// CLI(Command Line Interface) utilities.
 /// </summary>
+[<Class>]
 type cli() =
+  class
   /// <summary>
   /// Print message to screen with color.
   /// </summary>
@@ -32,3 +34,4 @@ type cli() =
   /// <param name="msg">Message.</param>
   static member printError(msg:string) : unit =
     cli.printnc(msg, ConsoleColor.Red)
+  end

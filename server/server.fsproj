@@ -15,8 +15,10 @@
   <ItemGroup>
     <Compile Include="utilities\cli.fs" />
     <Compile Include="configs.fs" />
+    <Compile Include="config\tokens.fs" />
     <Compile Include="config\lexer.fs" />
     <Compile Include="config\key.fs" />
+    <Compile Include="config\parser.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

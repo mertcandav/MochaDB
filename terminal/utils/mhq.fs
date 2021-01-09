@@ -5,7 +5,9 @@ open System
 /// <summary>
 /// MochaQ utilities.
 /// </summary>
+[<Class>]
 type mhq() =
+  class
   /// <summary>
   /// Command is run type or not?
   /// </summary>
@@ -38,3 +40,4 @@ type mhq() =
       command.StartsWith("ROWCOUNT") ||
       command.StartsWith("DATACOUNT") ||
       command.StartsWith("EXISTS"))
+  end

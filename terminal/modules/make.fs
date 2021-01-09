@@ -9,7 +9,9 @@ open terminal
 /// <summary>
 /// Create a new MochaDB database.
 /// </summary>
+[<Class>]
 type make() =
+  class
   /// <summary>
   /// Process commands in module.
   /// </summary>
@@ -53,3 +55,4 @@ type make() =
           let password:string = terminal.getInput("Password: ")
           let description:string = terminal.getInput("Description: ")
           make.proc([| name; description; password |])
+  end

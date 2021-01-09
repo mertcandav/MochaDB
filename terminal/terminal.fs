@@ -28,7 +28,9 @@ open System
 /// <summary>
 /// Terminal declare.
 /// </summary>
+[<Class>]
 type terminal() =
+  class
   /// <summary>
   /// Print message to screen with color.
   /// </summary>
@@ -106,3 +108,4 @@ type terminal() =
   /// Last index of start arguments.
   /// </summary>
   static member val argsIndex:int = 0 with get, set
+  end

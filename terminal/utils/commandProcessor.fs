@@ -9,7 +9,9 @@ open terminal
 /// <summary>
 /// Command processor for commands.
 /// </summary>
+[<Class>]
 type commandProcessor() =
+  class
   /// <summary>
   /// Get namespace of command if exists.
   /// </summary>
@@ -54,3 +56,4 @@ type commandProcessor() =
   /// <returns>Command without arguments.</returns>
   static member removeArguments(cmd:string) : string =
     (new Regex("(^|\s+)-\w+(?=($|\s+))",RegexOptions.Singleline)).Replace(cmd, String.Empty).Trim()
+  end

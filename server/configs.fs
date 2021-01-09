@@ -3,7 +3,9 @@
 /// <summary>
 /// Config settings.
 /// </summary>
+[<Class>]
 type configs() =
+  class
   /// <summary>
   /// Name of server.
   /// </summary>
@@ -23,3 +25,4 @@ type configs() =
   /// The maximum length of the pending connections queue.
   /// </summary>
   static member val listen:int = 10 with get, set
+  end

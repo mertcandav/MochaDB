@@ -92,6 +92,552 @@
  Config settings.
  </summary>
 </member>
+<member name="F:config.tokens.DOLLAREQUAL@">
+ <summary>
+ Dollar equal.
+ </summary>
+</member>
+<member name="F:config.tokens.DOLLAR@">
+ <summary>
+ Dollar mark.
+ </summary>
+</member>
+<member name="F:config.tokens.COLONEQUAL@">
+ <summary>
+ Colon equal.
+ </summary>
+</member>
+<member name="F:config.tokens.ELLIPSIS@">
+ <summary>
+ Ellipsis.
+ </summary>
+</member>
+<member name="F:config.tokens.RARROW@">
+ <summary>
+ Right arrow.
+ </summary>
+</member>
+<member name="F:config.tokens.LARROW@">
+ <summary>
+ Left arrow.
+ </summary>
+</member>
+<member name="F:config.tokens.ATEQUAL@">
+ <summary>
+ At equal.
+ </summary>
+</member>
+<member name="F:config.tokens.AT@">
+ <summary>
+ At.
+ </summary>
+</member>
+<member name="F:config.tokens.DOUBLESLASHEQUAL@">
+ <summary>
+ Double slahs equal.
+ </summary>
+</member>
+<member name="F:config.tokens.DOUBLESTAREQUAL@">
+ <summary>
+ Double start equal.
+ </summary>
+</member>
+<member name="F:config.tokens.RIGHTSHIFTEQUAL@">
+ <summary>
+ Right shift equal.
+ </summary>
+</member>
+<member name="F:config.tokens.LEFTSHIFTEQUAL@">
+ <summary>
+ Left shift equal
+ </summary>
+</member>
+<member name="F:config.tokens.CIRCUMFLEXEQUAL@">
+ <summary>
+ Circumflex equal.
+ </summary>
+</member>
+<member name="F:config.tokens.VBAREQUAL@">
+ <summary>
+ Vertical Bar equal.
+ </summary>
+</member>
+<member name="F:config.tokens.AMPEREQUAL@">
+ <summary>
+ Amper equal.
+ </summary>
+</member>
+<member name="F:config.tokens.PERCENTEQUAL@">
+ <summary>
+ Percent equal.
+ </summary>
+</member>
+<member name="F:config.tokens.SLASHEQUAL@">
+ <summary>
+ Slash equal.
+ </summary>
+</member>
+<member name="F:config.tokens.MINEQUAL@">
+ <summary>
+ Minus equal.
+ </summary>
+</member>
+<member name="F:config.tokens.PLUSEQUAL@">
+ <summary>
+ Plus equal.
+ </summary>
+</member>
+<member name="F:config.tokens.DOUBLESTAR@">
+ <summary>
+ Double star.
+ </summary>
+</member>
+<member name="F:config.tokens.RIGHTSHIFT@">
+ <summary>
+ Right shift.
+ </summary>
+</member>
+<member name="F:config.tokens.LEFTSHIFT@">
+ <summary>
+ Left shift.
+ </summary>
+</member>
+<member name="F:config.tokens.CIRCUMFLEX@">
+ <summary>
+ Circumflex.
+ </summary>
+</member>
+<member name="F:config.tokens.TILDE@">
+ <summary>
+ Tilde.
+ </summary>
+</member>
+<member name="F:config.tokens.GREATEREQUAL@">
+ <summary>
+ Greater or equals.
+ </summary>
+</member>
+<member name="F:config.tokens.LESSEQUAL@">
+ <summary>
+ Less or equals.
+ </summary>
+</member>
+<member name="F:config.tokens.NOTEQUAL@">
+ <summary>
+ Not equals to.
+ </summary>
+</member>
+<member name="F:config.tokens.EQEQUAL@">
+ <summary>
+ Equals to.
+ </summary>
+</member>
+<member name="F:config.tokens.RBRACE@">
+ <summary>
+ Right bracket.
+ </summary>
+</member>
+<member name="F:config.tokens.LBRACE@">
+ <summary>
+ Left bracket.
+ </summary>
+</member>
+<member name="F:config.tokens.PERCENT@">
+ <summary>
+ Percent.
+ </summary>
+</member>
+<member name="F:config.tokens.DOT@">
+ <summary>
+ Dot.
+ </summary>
+</member>
+<member name="F:config.tokens.EQUAL@">
+ <summary>
+ Equal.
+ </summary>
+</member>
+<member name="F:config.tokens.GREATER@">
+ <summary>
+ Greater than.
+ </summary>
+</member>
+<member name="F:config.tokens.LESS@">
+ <summary>
+ Less than.
+ </summary>
+</member>
+<member name="F:config.tokens.AMPER@">
+ <summary>
+ Amper.
+ </summary>
+</member>
+<member name="F:config.tokens.VBAR@">
+ <summary>
+ Vertical Bar.
+ </summary>
+</member>
+<member name="F:config.tokens.SLASH@">
+ <summary>
+ Slash.
+ </summary>
+</member>
+<member name="F:config.tokens.STAR@">
+ <summary>
+ Start.
+ </summary>
+</member>
+<member name="F:config.tokens.MINUS@">
+ <summary>
+ Minus.
+ </summary>
+</member>
+<member name="F:config.tokens.PLUS@">
+ <summary>
+ Plus.
+ </summary>
+</member>
+<member name="F:config.tokens.SEMICOLON@">
+ <summary>
+ Semicolon.
+ </summary>
+</member>
+<member name="F:config.tokens.COMMA@">
+ <summary>
+ Comma.
+ </summary>
+</member>
+<member name="F:config.tokens.COLON@">
+ <summary>
+ Colon.
+ </summary>
+</member>
+<member name="F:config.tokens.RPAR@">
+ <summary>
+ Right parantheses.
+ </summary>
+</member>
+<member name="F:config.tokens.LPAR@">
+ <summary>
+ Left parentheses.
+ </summary>
+</member>
+<member name="F:config.tokens.ESCAPESEQUENCE@">
+ <summary>
+ Escape sequence character of values.
+ </summary>
+</member>
+<member name="F:config.tokens.INLINECOMMENT@">
+ <summary>
+ Inline comment.
+ </summary>
+</member>
+<member name="P:config.tokens.VBAREQUAL">
+ <summary>
+ Vertical Bar equal.
+ </summary>
+</member>
+<member name="P:config.tokens.VBAR">
+ <summary>
+ Vertical Bar.
+ </summary>
+</member>
+<member name="P:config.tokens.TILDE">
+ <summary>
+ Tilde.
+ </summary>
+</member>
+<member name="P:config.tokens.STAR">
+ <summary>
+ Start.
+ </summary>
+</member>
+<member name="P:config.tokens.SLASHEQUAL">
+ <summary>
+ Slash equal.
+ </summary>
+</member>
+<member name="P:config.tokens.SLASH">
+ <summary>
+ Slash.
+ </summary>
+</member>
+<member name="P:config.tokens.SEMICOLON">
+ <summary>
+ Semicolon.
+ </summary>
+</member>
+<member name="P:config.tokens.RPAR">
+ <summary>
+ Right parantheses.
+ </summary>
+</member>
+<member name="P:config.tokens.RIGHTSHIFTEQUAL">
+ <summary>
+ Right shift equal.
+ </summary>
+</member>
+<member name="P:config.tokens.RIGHTSHIFT">
+ <summary>
+ Right shift.
+ </summary>
+</member>
+<member name="P:config.tokens.RBRACE">
+ <summary>
+ Right bracket.
+ </summary>
+</member>
+<member name="P:config.tokens.RARROW">
+ <summary>
+ Right arrow.
+ </summary>
+</member>
+<member name="P:config.tokens.PLUSEQUAL">
+ <summary>
+ Plus equal.
+ </summary>
+</member>
+<member name="P:config.tokens.PLUS">
+ <summary>
+ Plus.
+ </summary>
+</member>
+<member name="P:config.tokens.PERCENTEQUAL">
+ <summary>
+ Percent equal.
+ </summary>
+</member>
+<member name="P:config.tokens.PERCENT">
+ <summary>
+ Percent.
+ </summary>
+</member>
+<member name="P:config.tokens.NOTEQUAL">
+ <summary>
+ Not equals to.
+ </summary>
+</member>
+<member name="P:config.tokens.MINUS">
+ <summary>
+ Minus.
+ </summary>
+</member>
+<member name="P:config.tokens.MINEQUAL">
+ <summary>
+ Minus equal.
+ </summary>
+</member>
+<member name="P:config.tokens.LPAR">
+ <summary>
+ Left parentheses.
+ </summary>
+</member>
+<member name="P:config.tokens.LESSEQUAL">
+ <summary>
+ Less or equals.
+ </summary>
+</member>
+<member name="P:config.tokens.LESS">
+ <summary>
+ Less than.
+ </summary>
+</member>
+<member name="P:config.tokens.LEFTSHIFTEQUAL">
+ <summary>
+ Left shift equal
+ </summary>
+</member>
+<member name="P:config.tokens.LEFTSHIFT">
+ <summary>
+ Left shift.
+ </summary>
+</member>
+<member name="P:config.tokens.LBRACE">
+ <summary>
+ Left bracket.
+ </summary>
+</member>
+<member name="P:config.tokens.LARROW">
+ <summary>
+ Left arrow.
+ </summary>
+</member>
+<member name="P:config.tokens.INLINECOMMENT">
+ <summary>
+ Inline comment.
+ </summary>
+</member>
+<member name="P:config.tokens.GREATEREQUAL">
+ <summary>
+ Greater or equals.
+ </summary>
+</member>
+<member name="P:config.tokens.GREATER">
+ <summary>
+ Greater than.
+ </summary>
+</member>
+<member name="P:config.tokens.ESCAPESEQUENCE">
+ <summary>
+ Escape sequence character of values.
+ </summary>
+</member>
+<member name="P:config.tokens.EQUAL">
+ <summary>
+ Equal.
+ </summary>
+</member>
+<member name="P:config.tokens.EQEQUAL">
+ <summary>
+ Equals to.
+ </summary>
+</member>
+<member name="P:config.tokens.ELLIPSIS">
+ <summary>
+ Ellipsis.
+ </summary>
+</member>
+<member name="P:config.tokens.DOUBLESTAREQUAL">
+ <summary>
+ Double start equal.
+ </summary>
+</member>
+<member name="P:config.tokens.DOUBLESTAR">
+ <summary>
+ Double star.
+ </summary>
+</member>
+<member name="P:config.tokens.DOUBLESLASHEQUAL">
+ <summary>
+ Double slahs equal.
+ </summary>
+</member>
+<member name="P:config.tokens.DOT">
+ <summary>
+ Dot.
+ </summary>
+</member>
+<member name="P:config.tokens.DOLLAREQUAL">
+ <summary>
+ Dollar equal.
+ </summary>
+</member>
+<member name="P:config.tokens.DOLLAR">
+ <summary>
+ Dollar mark.
+ </summary>
+</member>
+<member name="P:config.tokens.COMMA">
+ <summary>
+ Comma.
+ </summary>
+</member>
+<member name="P:config.tokens.COLONEQUAL">
+ <summary>
+ Colon equal.
+ </summary>
+</member>
+<member name="P:config.tokens.COLON">
+ <summary>
+ Colon.
+ </summary>
+</member>
+<member name="P:config.tokens.CIRCUMFLEXEQUAL">
+ <summary>
+ Circumflex equal.
+ </summary>
+</member>
+<member name="P:config.tokens.CIRCUMFLEX">
+ <summary>
+ Circumflex.
+ </summary>
+</member>
+<member name="P:config.tokens.ATEQUAL">
+ <summary>
+ At equal.
+ </summary>
+</member>
+<member name="P:config.tokens.AT">
+ <summary>
+ At.
+ </summary>
+</member>
+<member name="P:config.tokens.AMPEREQUAL">
+ <summary>
+ Amper equal.
+ </summary>
+</member>
+<member name="P:config.tokens.AMPER">
+ <summary>
+ Amper.
+ </summary>
+</member>
+<member name="T:config.tokens">
+ <summary>
+ Tokens.
+ </summary>
+</member>
+<member name="M:config.lexer.split(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Split statement to key-value format.
+ </summary>
+ <param name="statement">Statement to split.</param>
+ <returns>Splitted parts if success, null if not.</returns>
+</member>
+<member name="M:config.lexer.removeComments(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Remove comments from statement.
+ </summary>
+ <param name="statement">Statement.</param>
+</member>
+<member name="M:config.lexer.isStringKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Key type is string?
+ </summary>
+ <param name="name">Name of key.</param>
+ <returns>true is type of key is string, false if not.</returns>
+</member>
+<member name="M:config.lexer.isSkipableLine(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ This statement is skipable statement?
+ </summary>
+ <param name="statement">Statement to check.</param>
+ <returns>true if statement is skipable statement, false if not.</returns>
+</member>
+<member name="M:config.lexer.isKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ This key a valid key?
+ </summary>
+ <param name="name">Name of key.</param>
+ <returns>true if key is valid, false if not.</returns>
+</member>
+<member name="M:config.lexer.isIntegerKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Key type is integer?
+ </summary>
+ <param name="name">Name of key.</param>
+ <returns>true is type of key is integer, false if not.</returns>
+</member>
+<member name="M:config.lexer.isCommentLine(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ This statement is comment line?
+ </summary>
+ <param name="statement">Statement to check.</param>
+ <returns>true if statement is comment line, false if not.</returns>
+</member>
+<member name="M:config.lexer.checkKeyValue(Microsoft.FSharp.Core.FSharpRef{System.String},Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Check key is valid value.
+ </summary>
+ <param name="name">Name of key.</param>
+ <param name="value">Value of key.</param>
+ <returns>true is valid, false if not.</returns>
+</member>
+<member name="T:config.lexer">
+ <summary>
+ Lexer of config system.
+ </summary>
+</member>
 <member name="F:config.key.value">
  <summary>
  Value of key.
@@ -118,6 +664,46 @@
 <member name="T:config.key">
  <summary>
  A key instance.
+ </summary>
+</member>
+<member name="F:config.parser.context@">
+ <summary>
+ Config text.
+ </summary>
+</member>
+<member name="P:config.parser.context(System.String[])">
+ <summary>
+ Config text.
+ </summary>
+</member>
+<member name="M:config.parser.processValue(Microsoft.FSharp.Core.FSharpRef{System.String},Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Process valeu with tags.
+ </summary>
+ <param name="name">Name of key.</param>
+ <param name="value">Value of key.</param>
+</member>
+<member name="M:config.parser.processKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Process key.
+ </summary>
+ <param name="statement">Statement to process.</param>
+ <returns>key if success, empty key if not.</returns>
+</member>
+<member name="P:config.parser.context">
+ <summary>
+ Config text.
+ </summary>
+</member>
+<member name="M:config.parser.getKeys">
+ <summary>
+ Decompose and returns keys of config.
+ </summary>
+ <returns>Keys of config.</returns>
+</member>
+<member name="T:config.parser">
+ <summary>
+ Config parser.
  </summary>
 </member>
 <member name="M:Program.main(System.String[])">

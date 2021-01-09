@@ -13,7 +13,9 @@ open terminal
 /// <summary>
 /// CLI module.
 /// </summary>
+[<Class>]
 type cli() =
+  class
   /// <summary>
   /// Print dictionary as table.
   /// </summary>
@@ -125,3 +127,4 @@ type cli() =
   static member printEnumerable(enumerable:IEnumerable) : unit =
     for element:Object in enumerable do
       printfn "%s" (element.ToString())
+  end

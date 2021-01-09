@@ -14,7 +14,9 @@ open terminal
 /// <summary>
 /// MochaQ module.
 /// </summary>
+[<Class>]
 type mhq() =
+  class
   /// <summary>
   /// Process command in module.
   /// </summary>
@@ -77,3 +79,4 @@ type mhq() =
             execute(input)
       else
         execute(cmd)
+  end
