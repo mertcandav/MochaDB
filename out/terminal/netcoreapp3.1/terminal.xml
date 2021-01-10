@@ -242,6 +242,50 @@
  MochaQ module.
  </summary>
 </member>
+<member name="M:modules.exit.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.exit">
+ <summary>
+ Exit from terminal.
+ </summary>
+</member>
+<member name="M:modules.clear.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.clear">
+ <summary>
+ Clear terminal screen.
+ </summary>
+</member>
+<member name="M:modules.eng.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.eng">
+ <summary>
+ Show version of engine.
+ </summary>
+</member>
+<member name="M:modules.ver.proc(System.String)">
+ <summary>
+ Process command in module.
+ </summary>
+ <param name="cmd">Command.</param>
+</member>
+<member name="T:modules.ver">
+ <summary>
+ Show version.
+ </summary>
+</member>
 <member name="M:modules.connect.proc(System.String)">
  <summary>
  Process command in module.

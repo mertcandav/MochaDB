@@ -86,8 +86,8 @@ type interpreter() =
     match ns:string with
     | "cd" -> cd.proc(cmd)
     | "ls" -> ls.proc(cmd)
-    | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
-    | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
+    | "ver" -> ver.proc(cmd)
+    | "eng" -> eng.proc(cmd)
     | "make" -> make.proc(cmd)
     //| "sh" ->
     //  if cmd = String.Empty then
@@ -102,9 +102,9 @@ type interpreter() =
     //      sh.interpret()
     //    | false -> terminal.printError("Shell script file is not found in this path!")
     | "connect" -> connect.proc(cmd)
-    | "clear" -> Console.Clear()
+    | "clear" -> clear.proc(cmd)
     | "help" -> interpreter.showHelp()
-    | "exit" -> exit(0)
+    | "exit" -> exit.proc(cmd)
     | _ -> terminal.printError("There is no such command!")
 
   /// <summary>
