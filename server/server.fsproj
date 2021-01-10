@@ -17,6 +17,10 @@
     <Compile Include="utilities\commandProcessor.fs" />
     <Compile Include="server\server.fs" />
     <Compile Include="server\configs.fs" />
+    <Compile Include="modules\clear.fs" />
+    <Compile Include="modules\eng.fs" />
+    <Compile Include="modules\exit.fs" />
+    <Compile Include="modules\ver.fs" />
     <Compile Include="config\tokens.fs" />
     <Compile Include="config\lexer.fs" />
     <Compile Include="config\key.fs" />

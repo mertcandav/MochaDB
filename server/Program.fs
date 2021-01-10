@@ -28,6 +28,7 @@ open System.Collections.Generic
 open MochaDB
 
 open server
+open modules
 open utilities
 open config
 
@@ -76,11 +77,11 @@ let showHelp() : unit =
 /// <param name="cmd">Commands(without module name).</param>
 let processCommand(ns:string, cmd:string) : unit =
   match ns:string with
-  | "ver" -> printfn "%s %s" "MochaDB Server --version " server.version
-  | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
-  | "clear" -> Console.Clear()
+  | "ver" -> ver.proc(cmd)
+  | "eng" -> eng.proc(cmd)
+  | "clear" -> clear.proc(cmd)
   | "help" -> showHelp()
-  | "exit" -> exit(0)
+  | "exit" -> exit.proc(cmd)
   | _ -> cli.printError("There is no such command!")
 
 /// <summary>
