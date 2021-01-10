@@ -185,28 +185,28 @@
  CLI module.
  </summary>
 </member>
-<member name="M:utils.commandProcessor.splitNamespace(System.String)">
+<member name="M:utils.commandProcessor.splitNamespace(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  Get namespace of command if exists.
  </summary>
  <param name="cmd">Command.</param>
  <returns>Module name(namespace).</returns>
 </member>
-<member name="M:utils.commandProcessor.removeNamespace(System.String)">
+<member name="M:utils.commandProcessor.removeNamespace(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  Remove namespace from command.
  </summary>
  <param name="cmd">Command.</param>
  <returns>Command without namespace.</returns>
 </member>
-<member name="M:utils.commandProcessor.removeArguments(System.String)">
+<member name="M:utils.commandProcessor.removeArguments(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  Remove arguments from command.
  </summary>
  <param name="cmd">Command.</param>
  <returns>Command without arguments.</returns>
 </member>
-<member name="M:utils.commandProcessor.getArguments(System.String)">
+<member name="M:utils.commandProcessor.getArguments(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  Returns arguments of command.
  </summary>

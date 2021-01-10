@@ -28,6 +28,7 @@ open System.Collections.Generic
 open server
 open utilities
 open config
+open terminal
 
 /// <summary>
 /// Check dependicies.
@@ -44,8 +45,10 @@ let ready() : unit =
   _parser.context <- File.ReadAllLines("config.mhcfg")
   let mutable keys:List<key> = _parser.getKeys()
   for _key:key in keys do
-    match _key.name with
-    | "name" -> configs.name <- _key.value
+    match _key.name:string with
+    | "name" ->
+      configs.name <- _key.value
+      terminal.pwd <- _key.value
     | "address" -> configs.address <- _key.value
     | "port" -> configs.port <- Int32.Parse(_key.value)
     | "listen" -> configs.listen <- if String.IsNullOrEmpty(_key.value)
@@ -59,6 +62,11 @@ let ready() : unit =
 /// <returns>Exit code.</returns>
 [<EntryPoint>]
 let main (argv:string[]) : int =
+  Console.Title <- "MochaDB Server"
   check()
   ready()
+  while true do
+    let mutable input:string = terminal.getInput()
+    if input <> String.Empty then
+      printfn "%s" input
   0

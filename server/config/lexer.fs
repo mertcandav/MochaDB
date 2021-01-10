@@ -78,7 +78,7 @@ type lexer() =
   /// <param name="name">Name of key.</param>
   /// <returns>true is type of key is string, false if not.</returns>
   static member isStringKey(name:string ref) : bool =
-    match !name with
+    match !name:string with
     | "name"
     | "address" -> true
     | _ -> false
@@ -89,7 +89,7 @@ type lexer() =
   /// <param name="name">Name of key.</param>
   /// <returns>true is type of key is integer, false if not.</returns>
   static member isIntegerKey(name:string ref) : bool =
-    match !name with
+    match !name:string with
     | "port"
     | "listen" -> true
     | _ -> false

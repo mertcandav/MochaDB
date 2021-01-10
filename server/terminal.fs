@@ -21,33 +21,54 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
+namespace terminal
+
 open System
 
-open mhsh
-open utils
-open terminal
+open server
+open utilities
 
 /// <summary>
-/// Entry point of terminal.
+/// Terminal declare.
 /// </summary>
-/// <param name="argv">Arguments.</param>
-/// <returns>Exit code.</returns>
-[<EntryPoint>]
-let main(argv:string[]) : int =
-  Console.Title <- "MochaDB Terminal"
-  if argv.Length > 0 then
-    terminal.argMode <- true
-    terminal.startArgs <- argv
-    while terminal.argsIndex <= terminal.startArgs.Length - 1 do
-      let mutable arg = terminal.startArgs.[terminal.argsIndex]
-      terminal.argsIndex <- terminal.argsIndex + 1
-      interpreter.processCommand(commandProcessor.splitNamespace(arg |> ref).ToLower(),
-        commandProcessor.removeNamespace(arg |> ref))
-    terminal.argMode <- false
-  else
-    while true do
-      let mutable input:string = terminal.getInput()
-      if input <> String.Empty then
-        interpreter.processCommand(commandProcessor.splitNamespace(input |> ref).ToLower(),
-                       commandProcessor.removeNamespace(input |> ref))
-  0
+[<Class>]
+type terminal() =
+  class
+  /// <summary>
+  /// Returns input with msg.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <returns>Input.</returns>
+  static member getInput(msg:string) : string =
+    printf "%s" msg
+    Console.ReadLine().TrimStart()
+
+  /// <summary>
+  /// Returns input with msg and color.
+  /// </summary>
+  /// <param name="msg">Message.</param>
+  /// <param name="color">Color of message.</param>
+  /// <returns>Input.</returns>
+  static member getInput(msg:string, color:ConsoleColor) : string =
+    cli.printc(msg, color)
+    Console.ReadLine().TrimStart()
+
+  /// <summary>
+  /// Returns input with pwd.
+  /// </summary>
+  /// <returns>Input.</returns>
+  static member getInput() : string =
+    terminal.getInput(terminal.pwd + " ", ConsoleColor.White)
+
+  /// <summary>
+  /// Working directory.
+  /// </summary>
+  static member val pwd:string = String.Empty with get, set
+
+  /// <summary>
+  /// Version of terminal.
+  /// </summary>
+  static member val version:string = "0.0.1" with get
+  end
+
+

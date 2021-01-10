@@ -25,8 +25,8 @@ type connect() =
     let processCommand(db:MochaDatabase, command:string) : bool =
       let mutable break:bool = false
       if command <> String.Empty then
-        let cmd:string = commandProcessor.removeNamespace(command)
-        match commandProcessor.splitNamespace(command).ToLower() with
+        let cmd:string = commandProcessor.removeNamespace(command |> ref)
+        match commandProcessor.splitNamespace(command |> ref).ToLower():string with
         | "mhq" -> mhq.proc(db, cmd)
         | "mhql" -> mhql.proc(db, cmd)
         | "disconnect" -> break <- true
@@ -76,7 +76,7 @@ type connect() =
         while counter < 2 && terminal.argsIndex < terminal.startArgs.Length do
           let arg = terminal.startArgs.[terminal.argsIndex]
           terminal.argsIndex <- terminal.argsIndex + 1
-          match counter with
+          match counter:int with
           | 0 -> name <- arg
           | 1 -> logs <- arg
           counter <- counter + 1
@@ -100,7 +100,7 @@ type connect() =
             let password:string = terminal.getInput("Password: ", ConsoleColor.White)
             let mutable logs:string = (terminal.getInput("Logs(default is false): ",
               ConsoleColor.White).ToLower())
-            match logs with
+            match logs:string with
             | "" | "true" | "false" -> 
               connect.proc([| name; password; if logs = String.Empty then "False" else logs |])
             | _ -> terminal.printError("Logs value is not valid!")

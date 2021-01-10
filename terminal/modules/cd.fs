@@ -28,7 +28,7 @@ type cd() =
             path <- path.Substring(0, index)
         else
           path <- Path.Combine(path, part)
-      match Directory.Exists(path) with
+      match Directory.Exists(path):bool with
       | true -> terminal.pwd <- path
       | false -> terminal.printError("Directory is not found in this path!")
   end

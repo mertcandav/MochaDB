@@ -29,6 +29,10 @@ type parser() =
       match !value with
       | "@default"
       | "@localhost" -> value := "127.0.0.1"
+    | "listen" ->
+      match !value with
+      | "@default" -> value := "10"
+      | "@max" -> value := Int32.MaxValue.ToString()
 
   /// <summary>
   /// Process key.

@@ -40,7 +40,7 @@ type make() =
         while terminal.argsIndex <= terminal.startArgs.Length - 1 do
           let arg:string = terminal.startArgs.[terminal.argsIndex]
           terminal.argsIndex <- terminal.argsIndex + 1
-          match counter with
+          match counter:int with
           | 0 -> name <- arg
           | 1 -> description <- arg
           | 2 -> password <- arg

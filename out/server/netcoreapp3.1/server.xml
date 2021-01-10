@@ -2,37 +2,6 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
-<member name="M:utilities.cli.printnc(System.String,System.ConsoleColor)">
- <summary>
- Print message and new line to screen with color.
- </summary>
- <param name="msg">Message.</param>
- <param name="color">Color of message.</param>
-</member>
-<member name="M:utilities.cli.printc(System.String,System.ConsoleColor)">
- <summary>
- Print message to screen with color.
- </summary>
- <param name="msg">Message.</param>
- <param name="color">Color of message.</param>
-</member>
-<member name="M:utilities.cli.printError(System.String)">
- <summary>
- Print error message.
- </summary>
- <param name="msg">Message.</param>
-</member>
-<member name="M:utilities.cli.exitError(System.String)">
- <summary>
- Exit with error message.
- </summary>
- <param name="msg">Message.</param>
-</member>
-<member name="T:utilities.cli">
- <summary>
- CLI(Command Line Interface) utilities.
- </summary>
-</member>
 <member name="F:server.configs.listen@">
  <summary>
  The maximum length of the pending connections queue.
@@ -96,6 +65,145 @@
 <member name="T:server.configs">
  <summary>
  Config settings.
+ </summary>
+</member>
+<member name="M:utilities.cli.printnc(System.String,System.ConsoleColor)">
+ <summary>
+ Print message and new line to screen with color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+</member>
+<member name="M:utilities.cli.printc(System.String,System.ConsoleColor)">
+ <summary>
+ Print message to screen with color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+</member>
+<member name="M:utilities.cli.printTable(MochaDB.Mhql.MochaTableResult)">
+ <summary>
+ Print MochaTableResult.
+ </summary>
+ <param name="table">MochaTableResult to print.</param>
+</member>
+<member name="M:utilities.cli.printTable(MochaDB.MochaTable)">
+ <summary>
+ Print MochaTable.
+ </summary>
+ <param name="table">MochaTable to print.</param>
+</member>
+<member name="M:utilities.cli.printError(System.String)">
+ <summary>
+ Print error message.
+ </summary>
+ <param name="msg">Message.</param>
+</member>
+<member name="M:utilities.cli.printEnumerable(System.Collections.IEnumerable)">
+ <summary>
+ Print elements of IEnumerable.
+ </summary>
+ <param name="enumrable">IEnumerable to print.</param>
+</member>
+<member name="M:utilities.cli.printDictAsTable(System.Collections.Generic.IDictionary{System.String,System.String})">
+ <summary>
+ Print dictionary as table.
+ </summary>
+ <param name="dict">Dictionary to print.<param>
+</member>
+<member name="M:utilities.cli.exitError(System.String)">
+ <summary>
+ Exit with error message.
+ </summary>
+ <param name="msg">Message.</param>
+</member>
+<member name="T:utilities.cli">
+ <summary>
+ CLI(Command Line Interface) utilities.
+ </summary>
+</member>
+<member name="M:utilities.commandProcessor.splitNamespace(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Get namespace of command if exists.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Module name(namespace).</returns>
+</member>
+<member name="M:utilities.commandProcessor.removeNamespace(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Remove namespace from command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Command without namespace.</returns>
+</member>
+<member name="M:utilities.commandProcessor.removeArguments(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Remove arguments from command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Command without arguments.</returns>
+</member>
+<member name="M:utilities.commandProcessor.getArguments(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Returns arguments of command.
+ </summary>
+ <param name="cmd">Command.</param>
+ <returns>Arguments.</returns>
+</member>
+<member name="T:utilities.commandProcessor">
+ <summary>
+ Command processor for commands.
+ </summary>
+</member>
+<member name="F:terminal.terminal.version@">
+ <summary>
+ Version of terminal.
+ </summary>
+</member>
+<member name="F:terminal.terminal.pwd@">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="P:terminal.terminal.pwd(System.String)">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="P:terminal.terminal.version">
+ <summary>
+ Version of terminal.
+ </summary>
+</member>
+<member name="P:terminal.terminal.pwd">
+ <summary>
+ Working directory.
+ </summary>
+</member>
+<member name="M:terminal.terminal.getInput">
+ <summary>
+ Returns input with pwd.
+ </summary>
+ <returns>Input.</returns>
+</member>
+<member name="M:terminal.terminal.getInput(System.String,System.ConsoleColor)">
+ <summary>
+ Returns input with msg and color.
+ </summary>
+ <param name="msg">Message.</param>
+ <param name="color">Color of message.</param>
+ <returns>Input.</returns>
+</member>
+<member name="M:terminal.terminal.getInput(System.String)">
+ <summary>
+ Returns input with msg.
+ </summary>
+ <param name="msg">Message.</param>
+ <returns>Input.</returns>
+</member>
+<member name="T:terminal.terminal">
+ <summary>
+ Terminal declare.
  </summary>
 </member>
 <member name="F:config.tokens.DOLLAREQUAL@">

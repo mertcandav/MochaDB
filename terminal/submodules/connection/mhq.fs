@@ -33,7 +33,7 @@ type mhq() =
         let query:string = if xml then query.Substring(1) else query
         if utils.mhq.CommandIsGetRunType(query) then
           let result:obj = db.Query.GetRun(query)
-          match result with
+          match result:obj with
           | null -> printfn "NULL"
           | :? MochaTable ->
             if xml then printfn "%s" (parser.parseTableToXmlString(result :?> MochaTable))

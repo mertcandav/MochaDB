@@ -31,8 +31,8 @@ type mhql() =
       mhql.Command <- if xml then query.Substring(1) else query
       try
         match
-          if mhql.Command.StartsWith("USE*",StringComparison.InvariantCultureIgnoreCase) then
-          "USE" else mhql.Command.Split(" ", 2).[0].ToUpperInvariant() with
+          (if mhql.Command.StartsWith("USE*",StringComparison.InvariantCultureIgnoreCase) then
+          "USE" else mhql.Command.Split(" ", 2).[0].ToUpperInvariant()):string with
         | "USE" ->
           let table:MochaTableResult = mhql.ExecuteScalar()
           if table = null

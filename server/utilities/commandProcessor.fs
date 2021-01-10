@@ -1,10 +1,8 @@
-﻿namespace utils
+﻿namespace utilities
 
 open System
 open System.Collections.Generic
 open System.Text.RegularExpressions
-
-open terminal
 
 /// <summary>
 /// Command processor for commands.
@@ -42,7 +40,7 @@ type commandProcessor() =
       if mch.Success then
         let arg:string = mch.Value.ToLower().Trim()
         if args.Contains(arg) then
-          terminal.printError("A parameter cannot be written more than once!")
+          cli.printError("A parameter cannot be written more than once!")
           args <- null
         else
           if args <> null

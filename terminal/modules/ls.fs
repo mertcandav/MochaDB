@@ -29,13 +29,13 @@ type ls() =
           if db.EndsWith(".mhdb") then
             terminal.printc("[DATABASE] ", ConsoleColor.DarkYellow)
             printfn "%s" (db.Substring(db.LastIndexOf(Path.DirectorySeparatorChar) + 1))
-      else if commandProcessor.removeArguments(cmd) <> String.Empty then
+      else if commandProcessor.removeArguments(cmd |> ref) <> String.Empty then
         terminal.printError("This module can only be used with parameters.")
       else
-        let args:List<String> = commandProcessor.getArguments(cmd)
+        let args:List<String> = commandProcessor.getArguments(cmd |> ref)
         if args <> null then
           for arg:string in args do
-            match arg with
+            match arg:string with
             | "-f" -> files <- true
             | "-d" -> directories <- true
             | _ ->

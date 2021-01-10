@@ -66,7 +66,7 @@ type interpreter() =
   /// <param name="cmd">Commands(without module name).</param>
   /// <returns>true if namespace is internal command, false if not.</returns>
   member this.internalProcessCommand(ns:string, cmd:string) : bool =
-    match ns with
+    match ns:string with
     | "pause" ->
       printf "%s" (if String.IsNullOrWhiteSpace(cmd) then "Press any key to continue..." else cmd)
       Console.ReadKey() |> ignore
@@ -83,7 +83,7 @@ type interpreter() =
   /// <param name="ns">Name of modules(namespace).</param>
   /// <param name="cmd">Commands(without module name).</param>
   static member processCommand(ns:string, cmd:string) : unit =
-    match ns with
+    match ns:string with
     | "cd" -> cd.proc(cmd)
     | "ls" -> ls.proc(cmd)
     | "ver" -> printfn "%s %s" "MochaDB Terminal --version " terminal.version
@@ -121,8 +121,8 @@ type interpreter() =
     while _TOKENS_.FAILED <> true && terminal.argsIndex < terminal.startArgs.Length do
       let line:string = terminal.startArgs.[terminal.argsIndex]
       terminal.argsIndex <- terminal.argsIndex + 1
-      let nspace:string = commandProcessor.splitNamespace(line).ToLower()
-      let command:string = commandProcessor.removeNamespace(line)
+      let nspace:string = commandProcessor.splitNamespace(line |> ref).ToLower()
+      let command:string = commandProcessor.removeNamespace(line |> ref)
       if this.internalProcessCommand(nspace, command) = false
       then interpreter.processCommand(nspace, command)
     terminal.argMode <- false

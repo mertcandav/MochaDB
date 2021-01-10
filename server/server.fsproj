@@ -13,13 +13,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="server\configs.fs" />
     <Compile Include="utilities\cli.fs" />
-    <Compile Include="configs.fs" />
+    <Compile Include="utilities\commandProcessor.fs" />
+    <Compile Include="terminal.fs" />
     <Compile Include="config\tokens.fs" />
     <Compile Include="config\lexer.fs" />
     <Compile Include="config\key.fs" />
     <Compile Include="config\parser.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MochaDB" Version="3.4.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\MochaDB.csproj" />
   </ItemGroup>
 
 </Project>
