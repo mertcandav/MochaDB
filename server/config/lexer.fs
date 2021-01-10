@@ -22,9 +22,9 @@ type lexer() =
   /// Remove comments from statement.
   /// </summary>
   /// <param name="statement">Statement.</param>
-  static member removeComments(statement:string ref) : unit =
+  static member removeComments(statement:string ref) : string =
     let position:int = (!statement).IndexOf(tokens.INLINECOMMENT)
-    statement := if position <> -1 then (!statement).Substring(0, position) else !statement
+    if position <> -1 then (!statement).Substring(0, position) else !statement
 
   /// <summary>
   /// This statement is skipable statement?
@@ -53,8 +53,8 @@ type lexer() =
       cli.printError("Key is defien but value is not define!")
       null
     else
-      parts.[0] <- parts.[0].Trim().ToLower()
-      parts.[1] <- parts.[1].Trim().ToLower()
+      parts.[0] <- parts.[0].Trim()
+      parts.[1] <- parts.[1].Trim()
       parts
 
   /// <summary>
@@ -80,6 +80,7 @@ type lexer() =
   static member isStringKey(name:string ref) : bool =
     match !name:string with
     | "name"
+    | "title"
     | "address" -> true
     | _ -> false
 

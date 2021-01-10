@@ -13,10 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="server\configs.fs" />
     <Compile Include="utilities\cli.fs" />
     <Compile Include="utilities\commandProcessor.fs" />
-    <Compile Include="terminal.fs" />
+    <Compile Include="server\server.fs" />
+    <Compile Include="server\configs.fs" />
     <Compile Include="config\tokens.fs" />
     <Compile Include="config\lexer.fs" />
     <Compile Include="config\key.fs" />

@@ -1,0 +1,14 @@
+# Title of server console
+title: @default
+
+# Server pwd
+name: @default
+
+# IP Address of server
+address: @localhost
+
+# Maximum limit of connection queue
+listen: @max
+
+# Connection port
+port: @default

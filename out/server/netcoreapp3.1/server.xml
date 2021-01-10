@@ -2,71 +2,6 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
-<member name="F:server.configs.listen@">
- <summary>
- The maximum length of the pending connections queue.
- </summary>
-</member>
-<member name="F:server.configs.port@">
- <summary>
- Port.
- </summary>
-</member>
-<member name="F:server.configs.address@">
- <summary>
- IP address.
- </summary>
-</member>
-<member name="F:server.configs.name@">
- <summary>
- Name of server.
- </summary>
-</member>
-<member name="P:server.configs.port(System.Int32)">
- <summary>
- Port.
- </summary>
-</member>
-<member name="P:server.configs.name(System.String)">
- <summary>
- Name of server.
- </summary>
-</member>
-<member name="P:server.configs.listen(System.Int32)">
- <summary>
- The maximum length of the pending connections queue.
- </summary>
-</member>
-<member name="P:server.configs.address(System.String)">
- <summary>
- IP address.
- </summary>
-</member>
-<member name="P:server.configs.port">
- <summary>
- Port.
- </summary>
-</member>
-<member name="P:server.configs.name">
- <summary>
- Name of server.
- </summary>
-</member>
-<member name="P:server.configs.listen">
- <summary>
- The maximum length of the pending connections queue.
- </summary>
-</member>
-<member name="P:server.configs.address">
- <summary>
- IP address.
- </summary>
-</member>
-<member name="T:server.configs">
- <summary>
- Config settings.
- </summary>
-</member>
 <member name="M:utilities.cli.printnc(System.String,System.ConsoleColor)">
  <summary>
  Print message and new line to screen with color.
@@ -155,38 +90,38 @@
  Command processor for commands.
  </summary>
 </member>
-<member name="F:terminal.terminal.version@">
+<member name="F:server.server.version@">
  <summary>
  Version of terminal.
  </summary>
 </member>
-<member name="F:terminal.terminal.pwd@">
+<member name="F:server.server.pwd@">
  <summary>
  Working directory.
  </summary>
 </member>
-<member name="P:terminal.terminal.pwd(System.String)">
+<member name="P:server.server.pwd(System.String)">
  <summary>
  Working directory.
  </summary>
 </member>
-<member name="P:terminal.terminal.version">
+<member name="P:server.server.version">
  <summary>
  Version of terminal.
  </summary>
 </member>
-<member name="P:terminal.terminal.pwd">
+<member name="P:server.server.pwd">
  <summary>
  Working directory.
  </summary>
 </member>
-<member name="M:terminal.terminal.getInput">
+<member name="M:server.server.getInput">
  <summary>
  Returns input with pwd.
  </summary>
  <returns>Input.</returns>
 </member>
-<member name="M:terminal.terminal.getInput(System.String,System.ConsoleColor)">
+<member name="M:server.server.getInput(System.String,System.ConsoleColor)">
  <summary>
  Returns input with msg and color.
  </summary>
@@ -194,16 +129,81 @@
  <param name="color">Color of message.</param>
  <returns>Input.</returns>
 </member>
-<member name="M:terminal.terminal.getInput(System.String)">
+<member name="M:server.server.getInput(System.String)">
  <summary>
  Returns input with msg.
  </summary>
  <param name="msg">Message.</param>
  <returns>Input.</returns>
 </member>
-<member name="T:terminal.terminal">
+<member name="T:server.server">
  <summary>
- Terminal declare.
+ Server declare.
+ </summary>
+</member>
+<member name="F:server.configs.listen@">
+ <summary>
+ The maximum length of the pending connections queue.
+ </summary>
+</member>
+<member name="F:server.configs.port@">
+ <summary>
+ Port.
+ </summary>
+</member>
+<member name="F:server.configs.address@">
+ <summary>
+ IP address.
+ </summary>
+</member>
+<member name="F:server.configs.name@">
+ <summary>
+ Name of server.
+ </summary>
+</member>
+<member name="P:server.configs.port(System.Int32)">
+ <summary>
+ Port.
+ </summary>
+</member>
+<member name="P:server.configs.name(System.String)">
+ <summary>
+ Name of server.
+ </summary>
+</member>
+<member name="P:server.configs.listen(System.Int32)">
+ <summary>
+ The maximum length of the pending connections queue.
+ </summary>
+</member>
+<member name="P:server.configs.address(System.String)">
+ <summary>
+ IP address.
+ </summary>
+</member>
+<member name="P:server.configs.port">
+ <summary>
+ Port.
+ </summary>
+</member>
+<member name="P:server.configs.name">
+ <summary>
+ Name of server.
+ </summary>
+</member>
+<member name="P:server.configs.listen">
+ <summary>
+ The maximum length of the pending connections queue.
+ </summary>
+</member>
+<member name="P:server.configs.address">
+ <summary>
+ IP address.
+ </summary>
+</member>
+<member name="T:server.configs">
+ <summary>
+ Config settings.
  </summary>
 </member>
 <member name="F:config.tokens.DOLLAREQUAL@">
@@ -796,6 +796,7 @@
  </summary>
  <param name="name">Name of key.</param>
  <param name="value">Value of key.</param>
+ <returns>Value.</returns>
 </member>
 <member name="M:config.parser.processKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
@@ -833,6 +834,18 @@
  </summary>
  <param name="argv">Arguments.</param>
  <returns>Exit code.</returns>
+</member>
+<member name="M:Program.processCommand(System.String,System.String)">
+ <summary>
+ Process command and do task.
+ </summary>
+ <param name="ns">Name of modules(namespace).</param>
+ <param name="cmd">Commands(without module name).</param>
+</member>
+<member name="M:Program.showHelp">
+ <summary>
+ Show help.
+ </summary>
 </member>
 <member name="M:Program.ready">
  <summary>

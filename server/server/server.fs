@@ -21,18 +21,17 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace terminal
+namespace server
 
 open System
 
-open server
 open utilities
 
 /// <summary>
-/// Terminal declare.
+/// Server declare.
 /// </summary>
 [<Class>]
-type terminal() =
+type server() =
   class
   /// <summary>
   /// Returns input with msg.
@@ -58,7 +57,7 @@ type terminal() =
   /// </summary>
   /// <returns>Input.</returns>
   static member getInput() : string =
-    terminal.getInput(terminal.pwd + " ", ConsoleColor.White)
+    server.getInput(server.pwd + " ", ConsoleColor.White)
 
   /// <summary>
   /// Working directory.

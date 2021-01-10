@@ -17,22 +17,32 @@ type parser() =
   /// </summary>
   /// <param name="name">Name of key.</param>
   /// <param name="value">Value of key.</param>
-  member this.processValue(name:string ref, value:string ref) : unit =
-    match !name with
+  /// <returns>Value.</returns>
+  member this.processValue(name:string ref, value:string ref) : string =
+    match !name:string with
     | "name" ->
-      match !value with
-      | "" -> name := "MochaDB Server"
+      match !value:string with
+      | ""
+      | "@default" -> "MHServer"
+      | _ -> !value
     | "port" ->
-      match !value with
-      | "@default" -> value := "8085"
+      match !value:string with
+      | "@default" -> "8085"
+      | _ -> !value
     | "address" ->
-      match !value with
+      match !value:string with
       | "@default"
-      | "@localhost" -> value := "127.0.0.1"
+      | "@localhost" -> "127.0.0.1"
+      | _ -> !value
     | "listen" ->
-      match !value with
-      | "@default" -> value := "10"
-      | "@max" -> value := Int32.MaxValue.ToString()
+      match !value:string with
+      | "@default" -> "10"
+      | "@max" -> Int32.MaxValue.ToString()
+      | _ -> !value
+    | "title" ->
+      match !value:string with
+      | "@default" -> Console.Title
+      | _ -> !value
 
   /// <summary>
   /// Process key.
@@ -49,7 +59,7 @@ type parser() =
       else
         let mutable value:string = parts.[1]
         if lexer.checkKeyValue(name |> ref, value |> ref) then
-          this.processValue(name |> ref, value |> ref)
+          value <- this.processValue(name |> ref, value |> ref)
           new key(name, value)
         else
           new key(String.Empty, String.Empty)
@@ -64,7 +74,7 @@ type parser() =
     let keys:List<key> = new List<key>()
     for line:string in this.context do
       let mutable line:string = line
-      lexer.removeComments(line |> ref)
+      line <- lexer.removeComments(line |> ref)
       if lexer.isSkipableLine(line |> ref) <> true then
         let mutable _key:key = this.processKey(line |> ref)
         if String.IsNullOrEmpty(_key.name) <> true then

@@ -25,10 +25,11 @@ open System
 open System.IO
 open System.Collections.Generic
 
+open MochaDB
+
 open server
 open utilities
 open config
-open terminal
 
 /// <summary>
 /// Check dependicies.
@@ -48,12 +49,39 @@ let ready() : unit =
     match _key.name:string with
     | "name" ->
       configs.name <- _key.value
-      terminal.pwd <- _key.value
+      server.pwd <- _key.value + ">"
     | "address" -> configs.address <- _key.value
     | "port" -> configs.port <- Int32.Parse(_key.value)
+    | "title" -> Console.Title <- _key.value
     | "listen" -> configs.listen <- if String.IsNullOrEmpty(_key.value)
                                     then -1
                                     else Int32.Parse(_key.value)
+
+/// <summary>
+/// Show help.
+/// </summary>
+let showHelp() : unit =
+  cli.printDictAsTable(dict[
+    "ver", "Show version.";
+    "eng", "Show engine information.";
+    "clear", "Clear terminal screen.";
+    "help", "Show help.";
+    "exit", "Exit from terminal.";
+  ])
+
+/// <summary>
+/// Process command and do task.
+/// </summary>
+/// <param name="ns">Name of modules(namespace).</param>
+/// <param name="cmd">Commands(without module name).</param>
+let processCommand(ns:string, cmd:string) : unit =
+  match ns:string with
+  | "ver" -> printfn "%s %s" "MochaDB Server --version " server.version
+  | "eng" -> printfn "%s %s" "MochaDB Engine --version " MochaDatabase.Version
+  | "clear" -> Console.Clear()
+  | "help" -> showHelp()
+  | "exit" -> exit(0)
+  | _ -> cli.printError("There is no such command!")
 
 /// <summary>
 /// Entry point of terminal.
@@ -66,7 +94,9 @@ let main (argv:string[]) : int =
   check()
   ready()
   while true do
-    let mutable input:string = terminal.getInput()
+    let mutable input:string = server.getInput()
     if input <> String.Empty then
-      printfn "%s" input
+      let nspace:string = commandProcessor.splitNamespace(input |> ref).ToLower()
+      let command:string = commandProcessor.removeNamespace(input |> ref)
+      processCommand(nspace, command)
   0
