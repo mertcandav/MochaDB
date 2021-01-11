@@ -79,6 +79,7 @@ ATEQUAL : '@=' ;
 LARROW : '<-' ;
 RARROW : '->' ;
 ELLIPSIS : '...' ;
+EXCLAMATION : '!' ;
 COLONEQUAL : ':=' ;
 DOLLAR : '$' ;
 DOLLAREQUAL : '$=' ;
