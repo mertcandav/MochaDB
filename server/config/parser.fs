@@ -45,6 +45,18 @@ type parser() =
       | _ -> !value
 
   /// <summary>
+  /// Process value as boolean.
+  /// </summary>
+  /// <param name="value">Value to process.</param>
+  /// <returns>Boolean value.</returns>
+  member this.processBooleanValue(value:string ref) : string =
+    match !value with
+    | "@default"
+    | "@disable" -> "False"
+    | "@enable" -> "True"
+    | _ -> !value
+
+  /// <summary>
   /// Process key.
   /// </summary>
   /// <param name="statement">Statement to process.</param>

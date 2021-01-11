@@ -783,6 +783,15 @@
  <param name="statement">Statement to check.</param>
  <returns>true if statement is comment line, false if not.</returns>
 </member>
+<member name="M:config.lexer.getBraceRange(Microsoft.FSharp.Core.FSharpRef{System.String},Microsoft.FSharp.Core.FSharpRef{System.Char},Microsoft.FSharp.Core.FSharpRef{System.Char})">
+ <summary>
+ Decompose bracket range.
+ </summary>
+ <param name="statement">Statement.</param>
+ <param name="openBrace">Open bracket.</param>
+ <param name="closeBrace">Close bracket.</param>
+ <returns>Range of brackets.</returns>
+</member>
 <member name="M:config.lexer.checkKeyValue(Microsoft.FSharp.Core.FSharpRef{System.String},Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  Check key is valid value.
@@ -848,6 +857,13 @@
  </summary>
  <param name="statement">Statement to process.</param>
  <returns>key if success, empty key if not.</returns>
+</member>
+<member name="M:config.parser.processBooleanValue(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Process value as boolean.
+ </summary>
+ <param name="value">Value to process.</param>
+ <returns>Boolean value.</returns>
 </member>
 <member name="P:config.parser.context">
  <summary>

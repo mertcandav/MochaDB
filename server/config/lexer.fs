@@ -35,6 +35,22 @@ type lexer() =
     String.IsNullOrWhiteSpace(!statement)
 
   /// <summary>
+  /// Decompose bracket range.
+  /// </summary>
+  /// <param name="statement">Statement.</param>
+  /// <param name="openBrace">Open bracket.</param>
+  /// <param name="closeBrace">Close bracket.</param>
+  /// <returns>Range of brackets.</returns>
+  static member getBraceRange(statement:string ref, openBrace:char ref, closeBrace:char ref) : string =
+    let mutable position:int = (!statement).IndexOf(!openBrace)
+    if position = -1 then !statement
+    else
+      let mutable endPosition:int = (!statement).IndexOf(!closeBrace, position)
+      if endPosition = -1 then cli.exitError("Bracket is opened but not closed!")
+      if (position + 1) = endPosition then String.Empty
+      else (!statement).Substring(position + 1, endPosition)
+
+  /// <summary>
   /// This key a valid key?
   /// </summary>
   /// <param name="name">Name of key.</param>
