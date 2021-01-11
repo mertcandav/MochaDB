@@ -51,20 +51,15 @@ type parser() =
   /// <returns>key if success, empty key if not.</returns>
   member this.processKey(statement:string ref) : key =
     let mutable parts:string[] = lexer.split(statement)
-    if parts <> null then
-      let mutable name:string = parts.[0]
-      if lexer.isKey(name |> ref) <> true then
-        cli.printError("There is no such a key! : '" + name + "'")
-        new key(String.Empty, String.Empty)
-      else
-        let mutable value:string = parts.[1]
-        if lexer.checkKeyValue(name |> ref, value |> ref) then
-          value <- this.processValue(name |> ref, value |> ref)
-          new key(name, value)
-        else
-          new key(String.Empty, String.Empty)
-    else
-      new key(String.Empty, String.Empty)
+    if parts |> isNull then
+      cli.exitError("Key define is invalid! : '" + !statement + "'")
+    let mutable name:string = parts.[0]
+    if lexer.isKey(name |> ref) = false then
+      cli.exitError("There is no such a key! : '" + name + "'")
+    let mutable value:string = this.processValue(name |> ref, parts.[1] |> ref)
+    if lexer.checkKeyValue(name |> ref, value |> ref) = false then
+      cli.exitError("Value is invalid of key! : '" + name + "'")
+    new key(name, value)
 
   /// <summary>
   /// Decompose and returns keys of config.
@@ -75,16 +70,24 @@ type parser() =
     for line:string in this.context do
       let mutable line:string = line
       line <- lexer.removeComments(line |> ref)
-      if lexer.isSkipableLine(line |> ref) <> true then
-        let mutable _key:key = this.processKey(line |> ref)
-        if String.IsNullOrEmpty(_key.name) <> true then
-          keys.Add(_key)
+      if lexer.isSkipableLine(line |> ref) = false
+      then keys.Add(this.processKey(line |> ref))
     if keys.Where(fun(xkey:key) ->
        keys.Where(fun(ykey:key) -> xkey.name = ykey.name).Count() > 1).Any() then
-      cli.printError("A key is cannot declare more one times!")
-      null
-    else
-      keys
+      cli.exitError("A key is cannot declare more one times!")
+    keys
+
+  /// <summary>
+  /// Check keys.
+  /// </summary>
+  /// <param name="keys">Keys to check.</param>
+  /// <returns>true is success, false if not.</returns>
+  member this.checkKeys(keys:List<key> ref) : bool =
+    (!keys).Where(fun(_key:key) -> _key.name = "title").Any() &&
+    (!keys).Where(fun(_key:key) -> _key.name = "name").Any() &&
+    (!keys).Where(fun(_key:key) -> _key.name = "address").Any() &&
+    (!keys).Where(fun(_key:key) -> _key.name = "port").Any() &&
+    (!keys).Where(fun(_key:key) -> _key.name = "listen").Any()
 
   /// <summary>
   /// Get key by name.

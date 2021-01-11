@@ -53,7 +53,7 @@ type lexer() =
       cli.printError("Key is defien but value is not define!")
       null
     else
-      parts.[0] <- parts.[0].Trim()
+      parts.[0] <- parts.[0].Trim().ToLower()
       parts.[1] <- parts.[1].Trim()
       parts
 

@@ -36,7 +36,7 @@ open config
 /// Check dependicies.
 /// </summary>
 let check() : unit =
-  if File.Exists("config.mhcfg") <> true then
+  if File.Exists("config.mhcfg") = false then
     cli.exitError("Config file is not found!")
 
 /// <summary>
@@ -46,6 +46,8 @@ let ready() : unit =
   let mutable _parser:parser = new parser()
   _parser.context <- File.ReadAllLines("config.mhcfg")
   let mutable keys:List<key> = _parser.getKeys()
+  if _parser.checkKeys(keys |> ref) = false then
+    cli.exitError("Config file is not contains all keys!")
   for _key:key in keys do
     match _key.name:string with
     | "name" ->

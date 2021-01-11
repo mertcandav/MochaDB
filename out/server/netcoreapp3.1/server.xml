@@ -867,6 +867,13 @@
  <param name="name">Name of key.</param>
  <returns>key if found, empty key if not.</returns>
 </member>
+<member name="M:config.parser.checkKeys(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{config.key}})">
+ <summary>
+ Check keys.
+ </summary>
+ <param name="keys">Keys to check.</param>
+ <returns>true is success, false if not.</returns>
+</member>
 <member name="T:config.parser">
  <summary>
  Config parser.
