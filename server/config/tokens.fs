@@ -230,6 +230,11 @@ type tokens() =
   /// Ellipsis.
   /// </summary>
   static member val ELLIPSIS:string = "..." with get
+
+  /// <summary>
+  /// Exclamation.
+  /// </summary>
+  static member val EXCLAMATION:string = "!" with get
   
   /// <summary>
   /// Colon equal.

@@ -60,7 +60,7 @@ type parser() =
   /// Process key.
   /// </summary>
   /// <param name="statement">Statement to process.</param>
-  /// <returns>key if success, empty key if not.</returns>
+  /// <returns>key instance.</returns>
   member this.processKey(statement:string ref) : key =
     let mutable parts:string[] = lexer.split(statement)
     if parts |> isNull then
@@ -79,15 +79,43 @@ type parser() =
   /// <returns>Keys of config.</returns>
   member this.getKeys() : List<key> =
     let keys:List<key> = new List<key>()
-    for line:string in this.context do
-      let mutable line:string = line
-      line <- lexer.removeComments(line |> ref)
+    for line:string in
+      this.context.Where(
+      fun(element:string) -> lexer.isKeyStatement(element |> ref)) do
+      let mutable line:string = lexer.removeComments(line |> ref)
       if lexer.isSkipableLine(line |> ref) = false
       then keys.Add(this.processKey(line |> ref))
     if keys.Where(fun(xkey:key) ->
-       keys.Where(fun(ykey:key) -> xkey.name = ykey.name).Count() > 1).Any() then
-      cli.exitError("A key is cannot declare more one times!")
+       keys.Where(fun(ykey:key) -> xkey.name = ykey.name).Count() > 1).Any()
+    then cli.exitError("A key is cannot declare more one times!")
     keys
+
+  /// <summary>
+  /// Process database.
+  /// </summary>
+  /// <param name="statement">Statement to process.</param>
+  /// <returns>database instance.</returns>
+  member this.processDatabase(statement:string ref) : database =
+    new database()
+
+  /// <summary>
+  /// Decompose and returns database connections of config.
+  /// </summary>
+  /// <returns>Database connections of config.</returns>
+  member this.getDatabases() : List<database> =
+    let mutable connections:List<database> = new List<database>()
+    for line:string in
+      this.context.Where(
+      fun(element:string) -> lexer.isDatabaseStatement(element |> ref)) do
+      let mutable line:string = lexer.removeComments(line |> ref)
+      if lexer.isSkipableLine(line |> ref) = false
+      then connections.Add(this.processDatabase(line |> ref))
+    if connections.Where(fun(xconnection:database) ->
+       connections.Where(
+        fun(yconnection:database) -> xconnection.name = yconnection.name)
+        .Count() > 1).Any()
+    then cli.exitError("A database connection is already exists this name!")
+    connections
 
   /// <summary>
   /// Check keys.
@@ -105,13 +133,25 @@ type parser() =
   /// Get key by name.
   /// </summary>
   /// <param name="name">Name of key.</param>
-  /// <returns>key if found, empty key if not.</returns>
+  /// <returns>key instance if found, empty key instance if not.</returns>
   member this.getKey(name:string) : key =
-    let mutable result:IEnumerable<key> = this.getKeys().Where(fun(x:key) -> x.name = name)
-    if result.Any() then
-      result.First()
-    else
-      new key(String.Empty, String.Empty)
+    let mutable result:IEnumerable<key> = this.getKeys().Where(
+      fun(xkey:key) -> xkey.name = name)
+    if result.Any()
+    then result.First()
+    else new key(String.Empty, String.Empty)
+
+  /// <summary>
+  /// Get database by name.
+  /// </summary>
+  /// <param name="name">Name of database.</param>
+  /// <returns>database instance if found, empty database instance if not.</returns>
+  member this.getDatabase(name:string) : database =
+    let mutable result:IEnumerable<database> = this.getDatabases().Where(
+      fun(connection:database) -> connection.name = name)
+    if result.Any()
+    then result.First()
+    else new database()
 
   /// <summary>
   /// Config text.

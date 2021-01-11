@@ -27,6 +27,22 @@ type lexer() =
     if position <> -1 then (!statement).Substring(0, position) else !statement
 
   /// <summary>
+  /// This statement is database statement?
+  /// </summary>
+  /// <param name="statement">Statement to check.</param>
+  /// <returns>true if statement is database statement, false if not.</returns>
+  static member isDatabaseStatement(statement:string ref) : bool =
+    (!statement).StartsWith(tokens.EXCLAMATION)
+
+  /// <summary>
+  /// This statement is key statement?
+  /// </summary>
+  /// <param name="statement">Statement to check.</param>
+  /// <returns>true if statement is key statement, false if not.</returns>
+  static member isKeyStatement(statement:string ref) : bool =
+    lexer.isDatabaseStatement(statement) = false
+
+  /// <summary>
   /// This statement is skipable statement?
   /// </summary>
   /// <param name="statement">Statement to check.</param>

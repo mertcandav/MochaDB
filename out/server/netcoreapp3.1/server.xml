@@ -265,6 +265,11 @@
  Colon equal.
  </summary>
 </member>
+<member name="F:config.tokens.EXCLAMATION@">
+ <summary>
+ Exclamation.
+ </summary>
+</member>
 <member name="F:config.tokens.ELLIPSIS@">
  <summary>
  Ellipsis.
@@ -635,6 +640,11 @@
  Greater than.
  </summary>
 </member>
+<member name="P:config.tokens.EXCLAMATION">
+ <summary>
+ Exclamation.
+ </summary>
+</member>
 <member name="P:config.tokens.ESCAPESEQUENCE">
  <summary>
  Escape sequence character of values.
@@ -762,6 +772,13 @@
  <param name="statement">Statement to check.</param>
  <returns>true if statement is skipable statement, false if not.</returns>
 </member>
+<member name="M:config.lexer.isKeyStatement(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ This statement is key statement?
+ </summary>
+ <param name="statement">Statement to check.</param>
+ <returns>true if statement is key statement, false if not.</returns>
+</member>
 <member name="M:config.lexer.isKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
  This key a valid key?
@@ -775,6 +792,13 @@
  </summary>
  <param name="name">Name of key.</param>
  <returns>true is type of key is integer, false if not.</returns>
+</member>
+<member name="M:config.lexer.isDatabaseStatement(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ This statement is database statement?
+ </summary>
+ <param name="statement">Statement to check.</param>
+ <returns>true if statement is database statement, false if not.</returns>
 </member>
 <member name="M:config.lexer.isCommentLine(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
@@ -833,6 +857,28 @@
  A key instance.
  </summary>
 </member>
+<member name="F:config.database.connection">
+ <summary>
+ Connection of connection.
+ <summary>
+</member>
+<member name="F:config.database.name">
+ <summary>
+ Name of database.
+ </summary>
+</member>
+<member name="M:config.database.#ctor(System.String,MochaDB.MochaDatabase)">
+ <summary>
+ Create a new instance of <see cref="database"/>.
+ </summary>
+ <param name="name">Name of database.</param>
+ <param name="value">Connection of database.</param>
+</member>
+<member name="T:config.database">
+ <summary>
+ A database instance.
+ </summary>
+</member>
 <member name="F:config.parser.context@">
  <summary>
  Config text.
@@ -856,7 +902,14 @@
  Process key.
  </summary>
  <param name="statement">Statement to process.</param>
- <returns>key if success, empty key if not.</returns>
+ <returns>key instance.</returns>
+</member>
+<member name="M:config.parser.processDatabase(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Process database.
+ </summary>
+ <param name="statement">Statement to process.</param>
+ <returns>database instance.</returns>
 </member>
 <member name="M:config.parser.processBooleanValue(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
@@ -881,7 +934,20 @@
  Get key by name.
  </summary>
  <param name="name">Name of key.</param>
- <returns>key if found, empty key if not.</returns>
+ <returns>key instance if found, empty key instance if not.</returns>
+</member>
+<member name="M:config.parser.getDatabases">
+ <summary>
+ Decompose and returns database connections of config.
+ </summary>
+ <returns>Database connections of config.</returns>
+</member>
+<member name="M:config.parser.getDatabase(System.String)">
+ <summary>
+ Get database by name.
+ </summary>
+ <param name="name">Name of database.</param>
+ <returns>database instance if found, empty database instance if not.</returns>
 </member>
 <member name="M:config.parser.checkKeys(Microsoft.FSharp.Core.FSharpRef{System.Collections.Generic.List{config.key}})">
  <summary>

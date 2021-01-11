@@ -237,6 +237,11 @@ type _TOKENS_() =
   static member val ELLIPSIS:string = "..." with get
   
   /// <summary>
+  /// Exclamation.
+  /// </summary>
+  static member val EXCLAMATION:string = "!" with get
+
+  /// <summary>
   /// Colon equal.
   /// </summary>
   static member val COLONEQUAL:string = ":=" with get

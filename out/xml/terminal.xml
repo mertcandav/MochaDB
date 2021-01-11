@@ -456,6 +456,11 @@
  Colon equal.
  </summary>
 </member>
+<member name="F:mhsh.parser._TOKENS_.EXCLAMATION@">
+ <summary>
+ Exclamation.
+ </summary>
+</member>
 <member name="F:mhsh.parser._TOKENS_.ELLIPSIS@">
  <summary>
  Ellipsis.
@@ -849,6 +854,11 @@
 <member name="P:mhsh.parser._TOKENS_.FAILED">
  <summary>
  Fail state of interpretting.
+ </summary>
+</member>
+<member name="P:mhsh.parser._TOKENS_.EXCLAMATION">
+ <summary>
+ Exclamation.
  </summary>
 </member>
 <member name="P:mhsh.parser._TOKENS_.ESCAPESEQUENCE">
