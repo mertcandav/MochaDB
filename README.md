@@ -13,19 +13,16 @@
 [![Documentation](https://img.shields.io/badge/Documentation-YELLOW.svg?style=flat-square)](https://github.com/mertcandav/MochaDB/tree/master/docs)
 [![NuGet Page](https://img.shields.io/badge/NuGet-BLUE.svg?style=flat-square)](https://www.nuget.org/packages/MochaDB/)
 <br><br>
-<b>MochaDB is a user-friendly, loving database system that loves to help.<br>Your best choice local database in .NET platform.</b>
+<b>MochaDB is a user-friendly, loving database system that loves to help.</b>
 </div>
 
-## Featured features
+## Featured Features
 
 + Open source and free for everyone
 + High performance
 + Lightweight
-+ Single DLL and database file
-+ OOM(Object Oriented Management)
 + ACID support
 + RDBMS(Relational Database Management System) features
-+ Supports LINQ queries
 + MHQ(MochaDB Query) for simple and fast queries
 + MHQL(MochaDB Query Language) for advanced queries
 
@@ -40,27 +37,28 @@
   <tr>
     <td>1.3 or higher</td>
     <td>1.1 or higher</td>
-    <td>4 or higher</td>
+    <td>4.0 or higher</td>
   </tr>
 </table>
 
 ### MochaDB Server
 <table>
   <tr>
-    <td>.NET Core 3.1</td>
+    <td>.NET Core 3.1 or higher</td>
   </tr>
 </table>
 
 ### MochaDB Terminal
 <table>
   <tr>
-    <td>.NET Core 3.1</td>
+    <td>.NET Core 3.1 or higher</td>
   </tr>
 </table>
 
-## MochaDB Studio
-Manage with a powerful management system! Only Windows.
-[![preview](https://github.com/mertcandav/MochaDBStudio/blob/master/docs/example-gifs/preview.gif)](https://github.com/mertcandav/MochaDBStudio)
+## Components
++ [MochaDB Studio](https://github.com/mertcandav/MochaDBStudio)
++ [MochaDB Terminal](https://github.com/mertcandav/MochaDB/tree/master/terminal)
++ [MochaDB Server](https://github.com/mertcandav/MochaDB/tree/master/server)
 
 ## Work with MHQL
 Perform deep queries with MHQL and avoid complex tasks manually.
@@ -80,7 +78,7 @@ GROUPBY Name
 SUBROW 100
 ```
 
-## Example use
+## Example Use
 ```csharp
 using MochaDB;
 using MochaDB.Mhql;
@@ -105,5 +103,5 @@ else
     Console.WriteLine("Success!");
 ```
 
-## Thanks for supports
+## Thanks for Supports
 + [Koray Akpınar](https://github.com/korayakpinar)
