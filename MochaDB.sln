@@ -34,14 +34,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{A74FA2
 	ProjectSection(SolutionItems) = preProject
 		mhql\engine\condition.cs = mhql\engine\condition.cs
 		mhql\engine\condition_lexer.cs = mhql\engine\condition_lexer.cs
+		mhql\engine\ConditionType.cs = mhql\engine\ConditionType.cs
+		mhql\engine\Expressional.cs = mhql\engine\Expressional.cs
+		mhql\engine\ExpressionType.cs = mhql\engine\ExpressionType.cs
 		mhql\engine\must.cs = mhql\engine\must.cs
 		mhql\engine\orderbycomparer.cs = mhql\engine\orderbycomparer.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "must", "must", "{0974BB66-5011-48C3-8A56-AA67A8CD2127}"
-	ProjectSection(SolutionItems) = preProject
-		mhql\must\regex.cs = mhql\must\regex.cs
-	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbnetmhql", "vbnetmhql\vbnetmhql.vbproj", "{118E0215-C298-4E8C-AAF7-4AA9452E8FA3}"
 EndProject
@@ -234,10 +234,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lexer", "lexer", "{17248AE3
 	ProjectSection(SolutionItems) = preProject
 		lexer\engine_lexer.g4 = lexer\engine_lexer.g4
 		lexer\mhql_lexer.g4 = lexer\mhql_lexer.g4
+		lexer\server_lexer.g4 = lexer\server_lexer.g4
 		lexer\terminal_lexer.g4 = lexer\terminal_lexer.g4
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "server", "server\server.fsproj", "{EDD181F0-010F-4580-8D8D-7A44B400D590}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "server", "server\server.fsproj", "{EDD181F0-010F-4580-8D8D-7A44B400D590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -550,6 +550,11 @@
             Count of items.
             </summary>
         </member>
+        <member name="T:MochaDB.MochaConnectionState">
+            <summary>
+            Connection states of MochaDB.
+            </summary>
+        </member>
         <member name="T:MochaDB.MochaData">
             <summary>
             This is data object for MochaDB.
@@ -638,11 +643,6 @@
         <member name="P:MochaDB.MochaData.DataType">
             <summary>
             Data type of this data
-            </summary>
-        </member>
-        <member name="T:MochaDB.MochaDataType">
-            <summary>
-            DataTypes for MochaDB.
             </summary>
         </member>
         <member name="T:MochaDB.MochaDatabase">
@@ -1150,11 +1150,6 @@
             Name of database.
             </summary>
         </member>
-        <member name="T:MochaDB.MochaConnectionState">
-            <summary>
-            Connection states of MochaDB.
-            </summary>
-        </member>
         <member name="T:MochaDB.MochaDataCollection">
             <summary>
             MochaData collector.
@@ -1170,6 +1165,11 @@
             Removes all data equal to sample data.
             </summary>
             <param name="data">Sample data.</param>
+        </member>
+        <member name="T:MochaDB.MochaDataType">
+            <summary>
+            DataTypes for MochaDB.
+            </summary>
         </member>
         <member name="T:MochaDB.MochaRow">
             <summary>
@@ -1532,62 +1532,6 @@
             Condition engine for MHQL.
             </summary>
         </member>
-        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional">
-            <summary>
-            Value output for conditions.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Equal(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if equals, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.NotEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if not equals, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Bigger(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if bigger, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Lower(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if lower, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.BiggerEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if biggereq, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.LowerEqual(MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional)">
-            <summary>
-            Returns true if lowereq, returns false if not.
-            </summary>
-            <param name="v">Value to compare.</param>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Value">
-            <summary>
-            Value.
-            </summary>
-        </member>
-        <member name="F:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional.Type">
-            <summary>
-            Type of value.
-            </summary>
-        </member>
-        <member name="T:MochaDB.mhql.engine.MhqlEng_CONDITION.ExpressionType">
-            <summary>
-            Types for values of <see cref="T:MochaDB.mhql.engine.MhqlEng_CONDITION.Expressional"/>.
-            </summary>
-        </member>
         <member name="M:MochaDB.mhql.engine.MhqlEng_CONDITION.Process(System.String,MochaDB.Mhql.MochaTableResult,MochaDB.MochaRow,System.Boolean)">
             <summary>
             Process condition and returns condition result.
@@ -1633,6 +1577,62 @@
         <member name="T:MochaDB.mhql.engine.ConditionType">
             <summary>
             Condition type.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.Expressional">
+            <summary>
+            Value output for conditions.
+            </summary>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.Equal(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if equals, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.NotEqual(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if not equals, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.Bigger(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if bigger, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.Lower(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if lower, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.BiggerEqual(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if biggereq, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="M:MochaDB.mhql.engine.Expressional.LowerEqual(MochaDB.mhql.engine.Expressional)">
+            <summary>
+            Returns true if lowereq, returns false if not.
+            </summary>
+            <param name="v">Value to compare.</param>
+        </member>
+        <member name="F:MochaDB.mhql.engine.Expressional.Value">
+            <summary>
+            Value.
+            </summary>
+        </member>
+        <member name="F:MochaDB.mhql.engine.Expressional.Type">
+            <summary>
+            Type of value.
+            </summary>
+        </member>
+        <member name="T:MochaDB.mhql.engine.ExpressionType">
+            <summary>
+            Types for values of <see cref="T:MochaDB.mhql.engine.Expressional"/>.
             </summary>
         </member>
         <member name="T:MochaDB.mhql.engine.ORDERBYComparer">
@@ -2093,24 +2093,6 @@
             Returns table by use command.
             </summary>
             <param name="usecommand">Use command.</param>
-        </member>
-        <member name="T:MochaDB.mhql.must.MhqlMust_REGEX">
-            <summary>
-            REGEX functions of MUST.
-            </summary>
-        </member>
-        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.GetCommand(System.String)">
-            <summary>
-            Returns Regex command by row.
-            </summary>
-            <param name="command">Command.</param>
-        </member>
-        <member name="M:MochaDB.mhql.must.MhqlMust_REGEX.Match(System.String,System.String)">
-            <summary>
-            Execute regex and returns result.
-            </summary>
-            <param name="pattern">Regex pattern.</param>
-            <param name="value">Value.</param>
         </member>
         <member name="T:MochaDB.mhql.must.functions.MhqlMustFunc_BETWEEN">
             <summary>

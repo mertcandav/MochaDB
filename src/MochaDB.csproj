@@ -87,6 +87,15 @@
     <Compile Include="..\mhql\engine\condition_lexer.cs">
       <Visible>False</Visible>
     </Compile>
+    <Compile Include="..\mhql\engine\ConditionType.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\Expressional.cs">
+      <Visible>False</Visible>
+    </Compile>
+    <Compile Include="..\mhql\engine\ExpressionType.cs">
+      <Visible>False</Visible>
+    </Compile>
     <Compile Include="..\mhql\engine\orderbycomparer.cs">
       <Visible>False</Visible>
     </Compile>
@@ -153,13 +162,6 @@
       <Visible>False</Visible>
     </Compile>
     <Compile Include="..\mhql\keywords\use.cs">
-      <Visible>False</Visible>
-    </Compile>
-  </ItemGroup>
-
-  <!-- .\must -->
-  <ItemGroup>
-    <Compile Include="..\mhql\must\regex.cs">
       <Visible>False</Visible>
     </Compile>
   </ItemGroup>

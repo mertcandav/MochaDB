@@ -2,9 +2,9 @@ namespace MochaDB.mhql.engine {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text.RegularExpressions;
 
   using MochaDB.mhql.keywords;
-  using MochaDB.mhql.must;
   using MochaDB.mhql.must.functions;
   using MochaDB.Mhql;
 
@@ -76,9 +76,8 @@ namespace MochaDB.mhql.engine {
       } else if(MhqlEng_CONDITION.IsCondition(command,out _)) {
         return MhqlEng_CONDITION.Process(command,table,row,from);
       } else if(char.IsNumber(command[0])) {
-        return MhqlMust_REGEX.Match(
-                    MhqlMust_REGEX.GetCommand(command),
-                    GetDataFromCommand(command,row).ToString());
+        return new Regex(command.Substring(2).Remove(command.Length - 3,1))
+          .IsMatch(GetDataFromCommand(command,row).ToString());
       } else if(command.StartsWith("BETWEEN(",StringComparison.OrdinalIgnoreCase) && command[command.Length - 1] == ')') {
         return MhqlMustFunc_BETWEEN.Pass(command.Substring(8,command.Length-9),table,row,from);
       } else if(command.StartsWith("BIGGER(",StringComparison.OrdinalIgnoreCase) && command[command.Length - 1] == ')') {
