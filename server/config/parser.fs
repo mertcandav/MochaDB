@@ -123,11 +123,19 @@ type parser() =
   /// <param name="keys">Keys to check.</param>
   /// <returns>true is success, false if not.</returns>
   member this.checkKeys(keys:List<key> ref) : bool =
-    (!keys).Where(fun(_key:key) -> _key.name = "title").Any() &&
-    (!keys).Where(fun(_key:key) -> _key.name = "name").Any() &&
-    (!keys).Where(fun(_key:key) -> _key.name = "address").Any() &&
-    (!keys).Where(fun(_key:key) -> _key.name = "port").Any() &&
-    (!keys).Where(fun(_key:key) -> _key.name = "listen").Any()
+    let mutable title:bool = false
+    let mutable name:bool = false
+    let mutable address:bool = false
+    let mutable port:bool = false
+    let mutable listen:bool = false
+    for _key:key in !keys do
+      match _key.name with
+      | "title" -> title <- true
+      | "name" -> name <- true
+      | "address" -> address <- true
+      | "port" -> port <- true
+      | "listen" -> listen <- true
+    title && name && address && port && listen
 
   /// <summary>
   /// Get key by name.

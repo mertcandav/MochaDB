@@ -36,6 +36,7 @@ open config
 /// Check dependicies.
 /// </summary>
 let check() : unit =
+  cli.printnc("Checking...", ConsoleColor.Yellow)
   if File.Exists("config.mhcfg") = false then
     cli.exitError("Config file is not found!")
 
@@ -43,6 +44,7 @@ let check() : unit =
 /// Ready to use.
 /// </summary>
 let ready() : unit =
+  cli.printnc("Reading configurations...", ConsoleColor.Yellow)
   let mutable _parser:parser = new parser()
   _parser.context <- File.ReadAllLines("config.mhcfg")
   let mutable keys:List<key> = _parser.getKeys()
