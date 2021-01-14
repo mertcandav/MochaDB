@@ -61,6 +61,8 @@ let ready() : unit =
     | "listen" -> configs.listen <- if String.IsNullOrEmpty(_key.value)
                                     then -1
                                     else Int32.Parse(_key.value)
+    | "lock" -> configs.lock <- Boolean.Parse(_key.value)
+    | "key" -> configs.key <- _key.value
 
 /// <summary>
 /// Show help.

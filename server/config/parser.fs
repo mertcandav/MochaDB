@@ -43,6 +43,8 @@ type parser() =
       match !value:string with
       | "@default" -> Console.Title
       | _ -> !value
+    | "lock" -> this.processBooleanValue(!value |> ref)
+    | "key" -> !value
 
   /// <summary>
   /// Process value as boolean.
@@ -128,6 +130,8 @@ type parser() =
     let mutable address:bool = false
     let mutable port:bool = false
     let mutable listen:bool = false
+    let mutable lock:bool = false
+    let mutable key:bool = false
     for _key:key in !keys do
       match _key.name with
       | "title" -> title <- true
@@ -135,7 +139,9 @@ type parser() =
       | "address" -> address <- true
       | "port" -> port <- true
       | "listen" -> listen <- true
-    title && name && address && port && listen
+      | "lock" -> lock <- true
+      | "key" -> key <- true
+    title && name && address && port && listen && lock && key
 
   /// <summary>
   /// Get key by name.

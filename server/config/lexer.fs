@@ -117,6 +117,18 @@ type lexer() =
     | _ -> false
 
   /// <summary>
+  /// Key type is boolean?
+  /// </summary>
+  /// <param name="name">Name of key.</param>
+  /// <returns>true is type of boolean is string, false if not.</returns>
+  static member isBooleanKey(name:string ref) : bool =
+    match !name:string with
+    | "@enable"
+    | "@default"
+    | "@disable" -> true
+    | _ -> false
+
+  /// <summary>
   /// Key type is integer?
   /// </summary>
   /// <param name="name">Name of key.</param>

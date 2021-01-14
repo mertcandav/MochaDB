@@ -12,3 +12,9 @@ listen: @max
 
 # Connection port
 port: @default
+
+# Enable password protection of server
+lock: @default
+
+# Password of server connection
+key:

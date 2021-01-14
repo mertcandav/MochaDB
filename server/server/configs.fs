@@ -23,6 +23,8 @@
 
 namespace server
 
+open System
+
 /// <summary>
 /// Config settings.
 /// </summary>
@@ -48,4 +50,14 @@ type configs() =
   /// The maximum length of the pending connections queue.
   /// </summary>
   static member val listen:int = 10 with get, set
+
+  /// <summary>
+  /// Lock server connection with password.
+  /// </summary>
+  static member val lock:bool = false with get, set
+
+  /// <summary>
+  /// Protection password of server connection.
+  /// </summary>
+  static member val key:string = String.Empty with get, set
   end
