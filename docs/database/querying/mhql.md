@@ -122,7 +122,7 @@ Can only be used next to the keyword ``ORDERBY``. It means the descending order 
 Notifies the condition.<br>
 <br>The column is specified and a regex query is written in parentheses.<br>
 <b>Examples</b><br>
-```USE Persons MUST 0 == "Mike"``` <br>
+```USE Persons MUST 0 = "Mike"``` <br>
 ```USE Persons.Name, Persons.Age MUST 1(18|19|20) ORDERBY 1```
 
 - ```AND``` <br>
@@ -134,12 +134,12 @@ It can only be used alongside ``MUST``. Indicates that there is another conditio
 - ```IN``` <br>
 It can only be used alongside ``MUST``. Subquery declare.<br>
 <b>Examples</b><br>
-```USE Name, $Country FROM Persons MUST IN Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
+```USE Name, $Country FROM Persons MUST IN Country { USE Name FROM Countries MUST Name = "Turkey" }``` <br>
 
 - ```INEQ``` <br>
 It can only be used alongside ``MUST``. Subquery declare. It is exactly the same as ``IN`` but with one extra requirement, the returned table must have only one row.<br>
 <b>Examples</b><br>
-```USE Name, $Country FROM Persons MUST INEQ Country { USE Name FROM Countries MUST Name == "Turkey" }``` <br>
+```USE Name, $Country FROM Persons MUST INEQ Country { USE Name FROM Countries MUST Name = "Turkey" }``` <br>
 
 - ```GROUPBY``` <br>
 Groups the data.<br>
@@ -291,22 +291,22 @@ It is written as ``NOTCONTAINS(column,value0,value1,...)``.<br>
 > Column names or indexes, and columns can also be compared.
 
 > The first pattern cannot contain the same operator, but the second pattern can contain.<br>
-  True: ``0 == "=="``<br>
-  False: ``"==" == "Hello"``
+  True: ``0 = "="``<br>
+  False: ``"=" = "Hello"``
 
-#### Equal</b> ( ``==`` )<br>
+#### Equal</b> ( ``=`` )<br>
 It controls equality. It is written between two values.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST 1 == "18"```<br>
-```USE ID, Name FROM Persons MUST ID == '1'```<br>
-```USE ID, Name FROM Persons MUST ID == Name```
+```USE Persons.Name,Persons.Age MUST 1 = "18"```<br>
+```USE ID, Name FROM Persons MUST ID = '1'```<br>
+```USE ID, Name FROM Persons MUST ID = Name```
 
-#### NotEqual</b> ( ``!=`` )<br>
+#### NotEqual</b> ( ``<>`` )<br>
 Checks for inequality. It is written between two values.<br>
 <b>Examples</b><br>
-```USE Persons.Name,Persons.Age MUST 1 != "18"```<br>
-```USE ID, Name FROM Persons MUST ID != '1'```<br>
-```USE ID, Name FROM Persons MUST ID != Name```
+```USE Persons.Name,Persons.Age MUST 1 <> "18"```<br>
+```USE ID, Name FROM Persons MUST ID <> '1'```<br>
+```USE ID, Name FROM Persons MUST ID <> Name```
 
 #### Bigger</b> ( ``>`` )<br>
 Check bigger then "x". Cannot be used on string values. It is written between two values.<br>
@@ -348,7 +348,7 @@ MUST IN Name {
     USE Name
     FROM Companies
     MUST
-        Name == "Microsoft"
+        Name = "Microsoft"
   }
 }
 ```
@@ -380,24 +380,24 @@ FROM Persons
 USE *
 FROM Persons
 MUST
-    IsAdmin == TRUE
+    IsAdmin = TRUE
 ```
 ```java
 USE Name,$Gender,Age
 FROM Persons
 MUST
     2 > #18 AND
-    Gender == "Female"
+    Gender = "Female"
 ```
 ```java
 USE {
   USE Name, Password
   FROM Persons MUST
-    Name == "mertcandav"
+    Name <> "mertcandav"
 }, ${
   USE Id, $Name
   FROM Idenditities MUST
-    Name == "mertcandav"
+    Name <> "mertcandav"
 } MUST 2 > #20
 ```
 ```java

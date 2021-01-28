@@ -67,10 +67,10 @@ USE Name AS Username,
     $CompanyId,
     COUNT() AS Count of users
 FROM Persons MUST
-Name == "mertcandav" AND
+Name = "mertcandav" AND
   IN CompanyId {
     USE Id, $Name FROM Companies MUST
-    Name == "Microsoft"
+    Name = "Microsoft"
   }
 CORDERBY ASC
 ORDERBY Name
@@ -93,11 +93,11 @@ database.Connect(); // Connect to database.
 var result = new MochaDbCommand(database).ExecuteScalar(
     $@"USE Username, Password
        FROM Persons
-       MUST Username == ""{username}"" AND
-       Password == ""{password}""");
+       MUST Username = ""{username}"" AND
+       Password = ""{password}""");
 
 database.Disconnect(); // Disconnect from database.
-if(result.Any()) // If table is empty.
+if(!result.Any()) // If table is empty.
     Console.WriteLine("Username or password is wrong!");
 else
     Console.WriteLine("Success!");
