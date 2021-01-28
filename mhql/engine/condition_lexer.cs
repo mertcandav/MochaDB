@@ -10,8 +10,8 @@ namespace MochaDB.mhql.engine {
     /// </summary>
     public static Dictionary<string,string> Operators =>
       new Dictionary<string,string> {
-        { "EQUAL", "==" },
-        { "NOTEQUAL", "!=" },
+        { "EQUAL", "=" },
+        { "NOTEQUAL", "<>" },
         { "BIGGEREQ", ">=" },
         { "BIGGER", ">" },
         { "LOWEREQ", "<=" },
