@@ -24,6 +24,9 @@
 namespace server
 
 open System
+open System.Collections.Generic
+
+open MochaDB
 
 /// <summary>
 /// Config settings.
@@ -60,4 +63,10 @@ type configs() =
   /// Protection password of server connection.
   /// </summary>
   static member val key:string = String.Empty with get, set
+
+  /// <summary>
+  /// Connected databases of server connection.
+  /// </summary>
+  static member val connections:System.Collections.Generic.List<MochaDatabase> =
+    new System.Collections.Generic.List<MochaDatabase>() with get, set
   end

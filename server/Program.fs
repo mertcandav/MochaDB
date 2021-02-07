@@ -24,6 +24,7 @@
 open System
 open System.IO
 open System.Collections.Generic
+open System.Linq
 
 open MochaDB
 
@@ -63,6 +64,8 @@ let ready() : unit =
                                     else Int32.Parse(_key.value)
     | "lock" -> configs.lock <- Boolean.Parse(_key.value)
     | "key" -> configs.key <- _key.value
+  // Add connections.
+  configs.connections.AddRange(_parser.getDatabases().Select(fun(x) -> x.connection))
 
 /// <summary>
 /// Show help.

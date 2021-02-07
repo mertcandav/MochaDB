@@ -141,6 +141,11 @@
  Server declare.
  </summary>
 </member>
+<member name="F:server.configs.connections@">
+ <summary>
+ Connected databases of server connection.
+ </summary>
+</member>
 <member name="F:server.configs.key@">
  <summary>
  Protection password of server connection.
@@ -196,6 +201,11 @@
  Protection password of server connection.
  </summary>
 </member>
+<member name="P:server.configs.connections(System.Collections.Generic.List{MochaDB.MochaDatabase})">
+ <summary>
+ Connected databases of server connection.
+ </summary>
+</member>
 <member name="P:server.configs.address(System.String)">
  <summary>
  IP address.
@@ -224,6 +234,11 @@
 <member name="P:server.configs.key">
  <summary>
  Protection password of server connection.
+ </summary>
+</member>
+<member name="P:server.configs.connections">
+ <summary>
+ Connected databases of server connection.
  </summary>
 </member>
 <member name="P:server.configs.address">
@@ -837,9 +852,16 @@
  <param name="statement">Statement to check.</param>
  <returns>true if statement is comment line, false if not.</returns>
 </member>
+<member name="M:config.lexer.isBooleanValue(Microsoft.FSharp.Core.FSharpRef{System.String})">
+ <summary>
+ Type is boolean value?
+ </summary>
+ <param name="value">Value to check.</param>
+ <returns>true if value is boolean value, false if not.</returns>
+</member>
 <member name="M:config.lexer.isBooleanKey(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>
- Key type is boolean?
+ Type is boolean key?
  </summary>
  <param name="name">Name of key.</param>
  <returns>true is type of boolean is string, false if not.</returns>

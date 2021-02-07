@@ -72,7 +72,9 @@ type lexer() =
   /// <param name="name">Name of key.</param>
   /// <returns>true if key is valid, false if not.</returns>
   static member isKey(name:string ref) : bool =
-    lexer.isStringKey(name) || lexer.isIntegerKey(name)
+    lexer.isStringKey(name)    ||
+    lexer.isIntegerKey(name)   ||
+    lexer.isBooleanKey(name)
 
   /// <summary>
   /// Split statement to key-value format.
@@ -101,6 +103,9 @@ type lexer() =
     else if lexer.isIntegerKey(name) then
       let mutable _value:int = 0
       Int32.TryParse(!value, _value |> ref)
+    else if lexer.isBooleanKey(name) then
+      let mutable _value:bool = false
+      Boolean.TryParse(!value, _value |> ref)
     else
       false
 
@@ -113,16 +118,27 @@ type lexer() =
     match !name:string with
     | "name"
     | "title"
-    | "address" -> true
+    | "address"
+    | "key" -> true
     | _ -> false
 
   /// <summary>
-  /// Key type is boolean?
+  /// Type is boolean key?
   /// </summary>
   /// <param name="name">Name of key.</param>
   /// <returns>true is type of boolean is string, false if not.</returns>
   static member isBooleanKey(name:string ref) : bool =
     match !name:string with
+    | "lock" -> true
+    | _ -> false
+
+  /// <summary>
+  /// Type is boolean value?
+  /// </summary>
+  /// <param name="value">Value to check.</param>
+  /// <returns>true if value is boolean value, false if not.</returns>
+  static member isBooleanValue(value:string ref) : bool =
+    match !value:string with
     | "@enable"
     | "@default"
     | "@disable" -> true
