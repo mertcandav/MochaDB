@@ -97,10 +97,11 @@ var result = new MochaDbCommand(database).ExecuteScalar(
        Password = ""{password}""");
 
 database.Disconnect(); // Disconnect from database.
-if(!result.Any()) // If table is empty.
+if (!result.Any()) { // If table is empty.
     Console.WriteLine("Username or password is wrong!");
-else
+} else {
     Console.WriteLine("Success!");
+}
 ```
 
 ## Thanks for Supports
