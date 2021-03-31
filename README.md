@@ -86,7 +86,7 @@ using MochaDB.Mhql;
 // Create your database connection.
 var database = new MochaDatabase(path: "db", password: "1231", logs: false);
 var username = Console.ReadLine(); // Get username from user.
-var password = Console.ReadLine(); // get password from user.
+var password = Console.ReadLine(); // Get password from user.
 database.Connect(); // Connect to database.
 
 // Get table filtered by username and password with using mhql query.
