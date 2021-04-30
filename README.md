@@ -103,6 +103,3 @@ if (!result.Any()) { // If table is empty.
     Console.WriteLine("Success!");
 }
 ```
-
-## Thanks for Supports
-+ [Koray Akpınar](https://github.com/korayakpinar)
