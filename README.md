@@ -97,7 +97,8 @@ database.Disconnect(); // Disconnect from database.
 if (!result.Any()) // If table is empty.
 {
     Console.WriteLine("Username or password is wrong!");
-} else
+}
+else
 {
     Console.WriteLine("Success!");
 }
