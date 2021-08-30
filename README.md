@@ -84,7 +84,7 @@ using MochaDB.Mhql;
 // Create your database connection.
 var database = new MochaDatabase(path: "db", password: "1231", logs: false);
 var username = Console.ReadLine(); // Get username from user.
-var password = Console.ReadLine(); // get password from user.
+var password = Console.ReadLine(); // Get password from user.
 database.Connect(); // Connect to database.
 
 // Get table filtered by username and password with using mhql query.
@@ -95,11 +95,9 @@ var result = new MochaDbCommand(database).ExecuteScalar(
        Password = ""{password}""");
 
 database.Disconnect(); // Disconnect from database.
-if(!result.Any()) // If table is empty.
+if (!result.Any()) { // If table is empty.
     Console.WriteLine("Username or password is wrong!");
-else
+} else {
     Console.WriteLine("Success!");
+}
 ```
-
-## Thanks for Supports
-+ [Koray Akpınar](https://github.com/korayakpinar)
