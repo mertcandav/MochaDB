@@ -2,7 +2,6 @@
 
 ![alt text](https://github.com/mertcandav/MochaDB/blob/master/res/MochaDB_Texted.ico)
 
-[![Gitter](https://badges.gitter.im/mertcandv/MochaDB.svg)](https://gitter.im/mertcandv/MochaDB?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![license](https://img.shields.io/badge/License-MIT-BLUE.svg)](https://opensource.org/licenses/MIT)
 [![CodeFactor](https://www.codefactor.io/repository/github/mertcandav/mochadb/badge)](https://www.codefactor.io/repository/github/mertcandav/mochadb)
 [![.NET Core](https://github.com/mertcandav/MochaDB/workflows/.NET%20Core/badge.svg)](https://github.com/mertcandav/MochaDB/actions?query=workflow%3A%22.NET+Core%22)
@@ -105,5 +104,5 @@ else
 ```
 
 ## License
-MochaDB is distributed under the terms of the MIT license.
+MochaDB is distributed under the terms of the MIT license. <br>
 [See license details.](https://github.com/mertcandav/MochaDB/blob/master/LICENSE)
