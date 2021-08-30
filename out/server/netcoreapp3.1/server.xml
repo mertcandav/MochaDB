@@ -2,6 +2,27 @@
 <doc>
 <assembly><name>server</name></assembly>
 <members>
+<member name="M:utilities.aes.Encrypt(System.String,System.String,System.String)">
+ <summary>
+ Encrypt content.
+ </summary>
+ <param name="iv">IV.</param>
+ <param name="key">Key.</param>
+ <param name="content">Content.</param>
+</member>
+<member name="M:utilities.aes.Decrypt(System.String,System.String,System.String)">
+ <summary>
+ Decrypt.
+ </summary>
+ <param name="iv">IV.</param>
+ <param name="key">Key.</param>
+ <param name="content">Content.</param>
+</member>
+<member name="T:utilities.aes">
+ <summary>
+ AES encryptor of MochaDB.
+ </summary>
+</member>
 <member name="M:utilities.cli.printnc(System.String,System.ConsoleColor)">
  <summary>
  Print message and new line to screen with color.
@@ -962,13 +983,6 @@
  </summary>
  <param name="statement">Statement to process.</param>
  <returns>key instance.</returns>
-</member>
-<member name="M:config.parser.processDatabase(Microsoft.FSharp.Core.FSharpRef{System.String})">
- <summary>
- Process database.
- </summary>
- <param name="statement">Statement to process.</param>
- <returns>database instance.</returns>
 </member>
 <member name="M:config.parser.processBooleanValue(Microsoft.FSharp.Core.FSharpRef{System.String})">
  <summary>

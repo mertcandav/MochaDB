@@ -1,5 +1,5 @@
 <div align="center">
-  
+
 ![alt text](https://github.com/mertcandav/MochaDB/blob/master/res/MochaDB_Texted.ico)
 
 [![Gitter](https://badges.gitter.im/mertcandv/MochaDB.svg)](https://gitter.im/mertcandv/MochaDB?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
@@ -57,8 +57,6 @@
 
 ## Components
 + [MochaDB Studio](https://github.com/mertcandav/MochaDBStudio)
-+ [MochaDB Terminal](https://github.com/mertcandav/MochaDB/tree/master/terminal)
-+ [MochaDB Server](https://github.com/mertcandav/MochaDB/tree/master/server)
 
 ## Work with MHQL
 Perform deep queries with MHQL and avoid complex tasks manually.
