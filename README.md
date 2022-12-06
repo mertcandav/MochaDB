@@ -16,7 +16,7 @@
 ## NOTICE
 
 This project was the first serious project that I decided to do on my own when I first got into programming. \
-This system promises many things, but does not provide some. For example; ACID support and thread safety. \
+This system promises many things, but does not provide some. For example: ACID support or RDBMS features. \
 Moreover, this is an abandoned project.
 
 Please do not take this project seriously. \
