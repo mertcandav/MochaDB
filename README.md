@@ -13,6 +13,16 @@
 <b>MochaDB is a user-friendly, loving database system that loves to help.</b>
 </div>
 
+## NOTICE
+
+This project was the first serious project that I decided to do on my own when I first got into programming. \
+This system promises many things, but does not provide some. For example; ACID support and thread safety. \
+Moreover, this is an abandoned project.
+
+Please do not take this project seriously. \
+It was written with the keyboard of someone who just wanted to develop something that was difficult for him. \
+These strange codes that don't do what they promise, they're just here to remember the past.
+
 ## Featured Features
 
 + Open source and free for everyone
